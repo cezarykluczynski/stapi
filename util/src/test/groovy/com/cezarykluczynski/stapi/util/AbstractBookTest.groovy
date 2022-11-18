@@ -34,6 +34,7 @@ abstract class AbstractBookTest extends AbstractTest {
 	protected static final boolean E_BOOK = RandomUtil.nextBoolean()
 	protected static final boolean ANTHOLOGY = RandomUtil.nextBoolean()
 	protected static final boolean NOVELIZATION = RandomUtil.nextBoolean()
+	protected static final boolean UNAUTHORIZED_PUBLICATION = RandomUtil.nextBoolean()
 	protected static final boolean AUDIOBOOK = RandomUtil.nextBoolean()
 	protected static final boolean AUDIOBOOK_ABRIDGED = RandomUtil.nextBoolean()
 

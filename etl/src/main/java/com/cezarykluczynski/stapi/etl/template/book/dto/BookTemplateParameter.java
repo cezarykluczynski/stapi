@@ -12,13 +12,12 @@ public class BookTemplateParameter {
 	public static final String YEAR = "year";
 	public static final String STARDATE = "stardate";
 	public static final String ISBN = "isbn";
-	public static final String AUDIOBOOK = "ab";
-	public static final String AUDIOBOOK_ABRIDGED = "ababridged";
-	public static final String AUDIOBOOK_READ_BY = "abreadby";
-	public static final String AUDIOBOOK_RUN_TIME = "abruntime";
-	public static final String AUDIOBOOK_PUBLISHER = "abpublisher";
-	public static final String AUDIOBOOK_PUBLISHED = "abpublished";
-	public static final String AUDIOBOOK_ISBN = "abisbn";
+	public static final String AUDIOBOOK_ABRIDGED = "ab abridged";
+	public static final String AUDIOBOOK_READ_BY = "ab read by";
+	public static final String AUDIOBOOK_RUN_TIME = "ab runtime";
+	public static final String AUDIOBOOK_PUBLISHER = "ab publisher";
+	public static final String AUDIOBOOK_PUBLISHED = "ab published";
+	public static final String AUDIOBOOK_ISBN = "ab isbn";
 	public static final String PRODUCTION = "production";
 
 }

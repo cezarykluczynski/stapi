@@ -18,6 +18,7 @@ paths:
     $ref: ./astronomical_object/path/astronomicalObject.path.yaml
   /v1/rest/astronomicalObject/search:
     $ref: ./astronomical_object/path/astronomicalObjectSearch.path.yaml
+  # TODO: Add V2
   /v1/rest/book:
     $ref: ./book/path/book.path.yaml
   /v1/rest/book/search:

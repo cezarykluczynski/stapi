@@ -81,6 +81,8 @@ public class Book extends PageAwareEntity implements PageAware {
 
 	private Boolean novelization;
 
+	private Boolean unauthorizedPublication;
+
 	private Boolean audiobook;
 
 	private Boolean audiobookAbridged;

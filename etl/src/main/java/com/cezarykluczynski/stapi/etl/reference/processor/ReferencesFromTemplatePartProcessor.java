@@ -49,7 +49,9 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 	@Override
 	@SuppressWarnings({"NPathComplexity"})
 	public Set<Reference> process(Template.Part item) throws Exception {
-		if (!TemplateTitle.REFERENCE.equals(item.getKey())) {
+		if (!TemplateTitle.REFERENCE.equals(item.getKey())
+				&& !TemplateTitle.ISBN.equals(item.getKey())
+				&& !TemplateTitle.AB_ISBN.equals(item.getKey())) {
 			return Sets.newHashSet();
 		}
 
@@ -124,7 +126,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 			return Pair.of(ReferenceType.ISBN, firstTemplatePart.getValue());
 		}
 
-		log.warn("Unrecognized template title {}", templateTitle);
+		log.warn("Unrecognized reference template title: {}", templateTitle);
 		return null;
 	}
 

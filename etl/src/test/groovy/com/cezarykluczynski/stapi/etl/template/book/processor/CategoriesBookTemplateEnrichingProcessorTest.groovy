@@ -36,16 +36,19 @@ class CategoriesBookTemplateEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(bookTemplate) == trueBooleans
 
 		where:
-		categoryHeaderList                           | flagName          | flag  | trueBooleans
-		Lists.newArrayList()                         | 'novel'           | false | 0
-		createList(CategoryTitle.NOVELS)             | 'novel'           | true  | 1
-		createList(CategoryTitle.REFERENCE_BOOKS)    | 'referenceBook'   | true  | 1
-		createList(CategoryTitle.BIOGRAPHY_BOOKS)    | 'biographyBook'   | true  | 1
-		createList(CategoryTitle.ROLE_PLAYING_GAMES) | 'rolePlayingBook' | true  | 1
-		createList(CategoryTitle.E_BOOKS)            | 'eBook'           | true  | 1
-		createList(CategoryTitle.ANTHOLOGIES)        | 'anthology'       | true  | 1
-		createList(CategoryTitle.NOVELIZATIONS)      | 'novelization'    | true  | 1
-		createList(CategoryTitle.AUDIOBOOKS)         | 'audiobook'       | true  | 1
+		categoryHeaderList                                  | flagName                  | flag  | trueBooleans
+		Lists.newArrayList()                                | 'novel'                   | false | 0
+		createList(CategoryTitle.NOVELS)                    | 'novel'                   | true  | 1
+		createList(CategoryTitle.REFERENCE_BOOKS)           | 'referenceBook'           | true  | 1
+		createList(CategoryTitle.PRODUCTION_USE_DOCUMENTS)  | 'referenceBook'           | true  | 1
+		createList(CategoryTitle.BIOGRAPHY_BOOKS)           | 'biographyBook'           | true  | 1
+		createList(CategoryTitle.ROLE_PLAYING_GAMES)        | 'rolePlayingBook'         | true  | 1
+		createList(CategoryTitle.E_BOOKS)                   | 'eBook'                   | true  | 1
+		createList(CategoryTitle.AUDIO_DRAMAS)              | 'audiobook'               | true  | 1
+		createList(CategoryTitle.ANTHOLOGIES)               | 'anthology'               | true  | 1
+		createList(CategoryTitle.NOVELIZATIONS)             | 'novelization'            | true  | 1
+		createList(CategoryTitle.UNAUTHORIZED_PUBLICATIONS) | 'unauthorizedPublication' | true  | 1
+		createList(CategoryTitle.AUDIOBOOKS)                | 'audiobook'               | true  | 1
 	}
 
 	void "sets audiobook abridged flag to false"() {

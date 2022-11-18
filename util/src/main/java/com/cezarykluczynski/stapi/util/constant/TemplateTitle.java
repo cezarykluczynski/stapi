@@ -55,6 +55,7 @@ public class TemplateTitle {
 
 	public static final String ASIN = "asin";
 	public static final String ISBN = "isbn";
+	public static final String AB_ISBN = "ab isbn";
 	public static final String REFERENCE = "reference";
 
 	public static final String RELIGIOUS_TEXTS = "religioustexts";

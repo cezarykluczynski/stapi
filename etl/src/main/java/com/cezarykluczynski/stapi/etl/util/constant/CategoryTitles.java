@@ -165,7 +165,12 @@ public class CategoryTitles {
 			CategoryTitle.ANTHOLOGIES,
 			CategoryTitle.REFERENCE_BOOKS,
 			CategoryTitle.BIOGRAPHY_BOOKS,
-			CategoryTitle.ROLE_PLAYING_GAMES
+			CategoryTitle.ACTIVITY_BOOKS,
+			CategoryTitle.ROLE_PLAYING_GAMES,
+			CategoryTitle.STAR_TREK_LITERATURE,
+			CategoryTitle.PRODUCTION_USE_DOCUMENTS,
+			CategoryTitle.AUDIO_DRAMAS,
+			CategoryTitle.UNAUTHORIZED_PUBLICATIONS
 	);
 
 	public static final List<String> BOOK_SERIES = ImmutableList.of(

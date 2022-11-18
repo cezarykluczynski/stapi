@@ -286,7 +286,12 @@ public class CategoryTitle {
 	public static final String ANTHOLOGIES = "Anthologies";
 	public static final String REFERENCE_BOOKS = "Reference_books";
 	public static final String BIOGRAPHY_BOOKS = "Biography_books";
+	public static final String ACTIVITY_BOOKS = "Activity_books";
 	public static final String ROLE_PLAYING_GAMES = "Role-playing_games";
+	public static final String STAR_TREK_LITERATURE = "Star_Trek_literature";
+	public static final String PRODUCTION_USE_DOCUMENTS = "Production_use_documents";
+	public static final String AUDIO_DRAMAS = "Audio_dramas";
+	public static final String UNAUTHORIZED_PUBLICATIONS = "Unauthorized_publications";
 
 	public static final String NOVEL_SERIES = "Novel_series";
 	public static final String E_BOOK_SERIES = "EBook_series";

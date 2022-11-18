@@ -27,13 +27,16 @@ public class CategoriesBookTemplateEnrichingProcessor implements ItemEnrichingPr
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(categoryHeaderList);
 
 		bookTemplate.setNovel(categoryTitleList.contains(CategoryTitle.NOVELS));
-		bookTemplate.setReferenceBook(categoryTitleList.contains(CategoryTitle.REFERENCE_BOOKS));
+		bookTemplate.setReferenceBook(categoryTitleList.contains(CategoryTitle.REFERENCE_BOOKS)
+				|| categoryTitleList.contains(CategoryTitle.PRODUCTION_USE_DOCUMENTS));
 		bookTemplate.setBiographyBook(categoryTitleList.contains(CategoryTitle.BIOGRAPHY_BOOKS));
 		bookTemplate.setRolePlayingBook(categoryTitleList.contains(CategoryTitle.ROLE_PLAYING_GAMES));
 		bookTemplate.setEBook(categoryTitleList.contains(CategoryTitle.E_BOOKS));
 		bookTemplate.setAnthology(categoryTitleList.contains(CategoryTitle.ANTHOLOGIES));
 		bookTemplate.setNovelization(categoryTitleList.contains(CategoryTitle.NOVELIZATIONS));
-		bookTemplate.setAudiobook(categoryTitleList.contains(CategoryTitle.AUDIOBOOKS));
+		bookTemplate.setUnauthorizedPublication(categoryTitleList.contains(CategoryTitle.UNAUTHORIZED_PUBLICATIONS));
+		bookTemplate.setAudiobook(categoryTitleList.contains(CategoryTitle.AUDIOBOOKS)
+				|| categoryTitleList.contains(CategoryTitle.AUDIO_DRAMAS));
 		bookTemplate.setAudiobookAbridged(false);
 	}
 

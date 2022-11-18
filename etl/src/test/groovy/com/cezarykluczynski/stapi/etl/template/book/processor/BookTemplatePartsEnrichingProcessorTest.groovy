@@ -41,6 +41,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String REFERENCE = 'REFERENCE'
 	private static final String AUDIOBOOK_REFERENCE = 'AUDIOBOOK_REFERENCE'
 	private static final String YES = 'YES'
+	private static final String PRODUCTION_NUMBER_STRING = 'PRODUCTION_NUMBER_STRING'
 	private static final String PRODUCTION_NUMBER = 'PRODUCTION_NUMBER'
 	private static final String AUDIOBOOK_RUN_TIME_STRING = 'AUDIOBOOK_RUN_TIME_STRING'
 	private static final Integer AUDIOBOOK_RUN_TIME_INTEGER = 78
@@ -59,6 +60,10 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
+	private BookProductionNumberProcessor bookProductionNumberProcessorMock
+
+	private BookNumberOfPagesProcessor bookNumberOfPagesProcessorMock
+
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -69,9 +74,12 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		referencesFromTemplatePartProcessorMock = Mock()
 		runTimeProcessorMock = Mock()
 		wikitextToEntitiesProcessorMock = Mock()
+		bookProductionNumberProcessorMock = Mock()
+		bookNumberOfPagesProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessor = new BookTemplatePartsEnrichingProcessor(bookTemplatePartStaffEnrichingProcessorMock,
 				bookTemplatePublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock,
-				referencesFromTemplatePartProcessorMock, runTimeProcessorMock, wikitextToEntitiesProcessorMock)
+				referencesFromTemplatePartProcessorMock, runTimeProcessorMock, wikitextToEntitiesProcessorMock, bookProductionNumberProcessorMock,
+				bookNumberOfPagesProcessorMock)
 	}
 
 	void "passes BookTemplate to BookTemplatePartStaffEnrichingProcessor when author part is found"() {
@@ -226,7 +234,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "sets number of pages"() {
+	void "sets number of pages from BookNumberOfPagesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.PAGES, value: PAGES_STRING)
 		BookTemplate bookTemplate = new BookTemplate()
@@ -235,6 +243,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
 
 		then:
+		1 * bookNumberOfPagesProcessorMock.process(PAGES_STRING) >> PAGES_INTEGER
 		0 * _
 		bookTemplate.numberOfPages == PAGES_INTEGER
 	}
@@ -307,19 +316,6 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplate.audiobookReferences.contains reference2
 	}
 
-	void "sets audiobook flag"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK, value: YES)
-		BookTemplate bookTemplate = new BookTemplate()
-
-		when:
-		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
-
-		then:
-		0 * _
-		bookTemplate.audiobook
-	}
-
 	void "sets audiobook abridged flag"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_ABRIDGED, value: YES)
@@ -347,15 +343,16 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplate.audiobookRunTime == AUDIOBOOK_RUN_TIME_INTEGER
 	}
 
-	void "sets production number"() {
+	void "sets production number from BookProductionNumberProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.PRODUCTION, value: PRODUCTION_NUMBER)
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.PRODUCTION, value: PRODUCTION_NUMBER_STRING)
 		BookTemplate bookTemplate = new BookTemplate()
 
 		when:
 		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
 
 		then:
+		1 * bookProductionNumberProcessorMock.process(PRODUCTION_NUMBER_STRING) >> PRODUCTION_NUMBER
 		0 * _
 		bookTemplate.productionNumber == PRODUCTION_NUMBER
 	}

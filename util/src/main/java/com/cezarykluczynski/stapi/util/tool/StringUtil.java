@@ -74,11 +74,11 @@ public class StringUtil {
 		return suffixList.stream().anyMatch(suffix -> StringUtils.isNotEmpty(suffix) && subject.endsWith(suffix));
 	}
 
-	public static String substringBeforeAny(String subject, List<String> suffixList) {
+	public static String substringBeforeAll(String subject, List<String> delimiterList) {
 		String result = subject;
 
-		for (String suffix : suffixList) {
-			result = StringUtils.substringBefore(result, suffix);
+		for (String delimiter : delimiterList) {
+			result = StringUtils.substringBefore(result, delimiter);
 		}
 
 		return result;

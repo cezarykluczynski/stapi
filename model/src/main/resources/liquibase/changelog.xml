@@ -63,4 +63,7 @@
 	<include file="occupation/0060_extend_occupation.xml" relativeToChangelogFile="true"/>
 	<include file="episode/0061_change_title_constraint.xml" relativeToChangelogFile="true"/>
 	<include file="location/0062_extend_location.xml" relativeToChangelogFile="true"/>
+	<include file="book/0063_change_title_length.xml" relativeToChangelogFile="true"/>
+	<include file="page/0064_change_title_length.xml" relativeToChangelogFile="true"/>
+	<include file="book/0065_extend_book.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

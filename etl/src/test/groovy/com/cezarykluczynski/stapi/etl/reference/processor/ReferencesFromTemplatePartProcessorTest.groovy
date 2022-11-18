@@ -44,7 +44,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 				referenceFactoryMock)
 	}
 
-	void "returns empty set when template key is not 'reference'"() {
+	void "returns empty set when template key is unknown"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: 'UNKNOWN')
 

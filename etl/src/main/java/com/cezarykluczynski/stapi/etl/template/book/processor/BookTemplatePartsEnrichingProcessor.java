@@ -13,13 +13,16 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.google.common.primitives.Ints;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class BookTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<BookTemplate> {
 
 	private static final String YES = "yes";
@@ -38,20 +41,9 @@ public class BookTemplatePartsEnrichingProcessor implements ItemWithTemplatePart
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
-	@SuppressWarnings("ParameterNumber")
-	public BookTemplatePartsEnrichingProcessor(BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor,
-			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor,
-			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
-			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, RunTimeProcessor runTimeProcessor,
-			WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
-		this.bookTemplatePartStaffEnrichingProcessor = bookTemplatePartStaffEnrichingProcessor;
-		this.bookTemplatePublishedDatesEnrichingProcessor = bookTemplatePublishedDatesEnrichingProcessor;
-		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
-		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
-		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
-		this.runTimeProcessor = runTimeProcessor;
-		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
-	}
+	private final BookProductionNumberProcessor bookProductionNumberProcessor;
+
+	private final BookNumberOfPagesProcessor bookNumberOfPagesProcessor;
 
 	@Override
 	@SuppressWarnings("CyclomaticComplexity")
@@ -80,7 +72,7 @@ public class BookTemplatePartsEnrichingProcessor implements ItemWithTemplatePart
 					bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(part, bookTemplate));
 					break;
 				case BookTemplateParameter.PAGES:
-					bookTemplate.setNumberOfPages(Ints.tryParse(value));
+					bookTemplate.setNumberOfPages(bookNumberOfPagesProcessor.process(value));
 					break;
 				case BookTemplateParameter.YEAR:
 					YearRange yearRange = wikitextToYearRangeProcessor.process(value);
@@ -109,14 +101,11 @@ public class BookTemplatePartsEnrichingProcessor implements ItemWithTemplatePart
 				case AudioTemplateParameter.TIME:
 					bookTemplate.setAudiobookRunTime(runTimeProcessor.process(value));
 					break;
-				case BookTemplateParameter.AUDIOBOOK:
-					bookTemplate.setAudiobook(Boolean.TRUE.equals(bookTemplate.getAudiobook()) || StringUtils.equalsIgnoreCase(YES, value));
-					break;
 				case BookTemplateParameter.AUDIOBOOK_ABRIDGED:
 					bookTemplate.setAudiobookAbridged(StringUtils.equalsIgnoreCase(YES, value));
 					break;
 				case BookTemplateParameter.PRODUCTION:
-					bookTemplate.setProductionNumber(value);
+					bookTemplate.setProductionNumber(bookProductionNumberProcessor.process(value));
 					break;
 				default:
 					break;

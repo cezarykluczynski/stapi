@@ -66,6 +66,7 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 				eBook: E_BOOK,
 				anthology: ANTHOLOGY,
 				novelization: NOVELIZATION,
+				unauthorizedPublication: UNAUTHORIZED_PUBLICATION,
 				audiobook: AUDIOBOOK,
 				audiobookAbridged: AUDIOBOOK_ABRIDGED,
 				audiobookPublishedYear: AUDIOBOOK_PUBLISHED_YEAR,
@@ -108,6 +109,7 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 		book.EBook == E_BOOK
 		book.anthology == ANTHOLOGY
 		book.novelization == NOVELIZATION
+		book.unauthorizedPublication == UNAUTHORIZED_PUBLICATION
 		book.audiobook == AUDIOBOOK
 		book.audiobookPublishedYear == AUDIOBOOK_PUBLISHED_YEAR
 		book.audiobookPublishedMonth == AUDIOBOOK_PUBLISHED_MONTH

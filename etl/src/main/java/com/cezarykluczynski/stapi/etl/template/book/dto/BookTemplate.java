@@ -49,6 +49,8 @@ public class BookTemplate {
 
 	private Boolean novelization;
 
+	private Boolean unauthorizedPublication;
+
 	private Boolean audiobook;
 
 	private Boolean audiobookAbridged;

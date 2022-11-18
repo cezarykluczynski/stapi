@@ -120,13 +120,14 @@ class StringUtilTest extends Specification {
 	@Unroll('returns #result when #subject is passed with #suffixed')
 	void "returns string cut before any of the given suffixes"() {
 		expect:
-		StringUtil.substringBeforeAny(subject, suffixList) == result
+		StringUtil.substringBeforeAll(subject, suffixList) == result
 
 		where:
 		subject                          | suffixList                                         | result
 		'AstronomicalObjectBaseResponse' | Lists.newArrayList('BaseResponse', 'FullResponse') | 'AstronomicalObject'
 		'BookBase'                       | Lists.newArrayList('Full', 'Base')                 | 'Book'
 		'ComicsFullRequest'              | Lists.newArrayList('FullRequest', 'BaseRequest')   | 'Comics'
+		'test (yup)\n<br/>'              | Lists.newArrayList('<br', '\n', '(')               | 'test '
 	}
 
 	@Unroll('returns #result when #stringCollection and #lookup is passed')

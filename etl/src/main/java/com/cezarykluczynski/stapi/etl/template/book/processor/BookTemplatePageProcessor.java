@@ -24,7 +24,7 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 
 	private static final List<String> TITLE_PART_LIST_TO_CLEAR = Lists.newArrayList("(songbook)", "(novel)", "(New Frontier novel)", "(game)",
 			"(VOY novel)", "(program)", "(eBook)", "(TNG novel)", "(book)", "(young adult novelization)", "(reference book)", "(TOS novel)",
-			"(Decipher)", "(Last Unicorn)", "(FASA)", "(Harlan Ellison Collection)", "(omnibus)");
+			"(Decipher)", "(Last Unicorn)", "(FASA)", "(Harlan Ellison Collection)", "(omnibus)", "(biography)");
 
 	private final BookPageFilter bookPageFilter;
 
