@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.magazine_series.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.MagazineSeriesReader;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -29,13 +30,13 @@ public class MagazineSeriesCreationConfiguration {
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	public MagazineSeriesReader magazineSeriesReader() {
-		List<PageHeader> comicsList = Lists.newArrayList();
+		List<PageHeader> magazinesList = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINE_SERIES)) {
-			comicsList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
+			magazinesList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new MagazineSeriesReader(Lists.newArrayList(Sets.newHashSet(comicsList)));
+		return new MagazineSeriesReader(SortingUtil.sortedUnique(magazinesList));
 	}
 
 }

@@ -1,10 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.magazine_series.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYear
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.magazine_series.dto.MagazineSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.magazine_series.dto.MagazineSeriesTemplateParameter
@@ -21,11 +18,6 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String EDITOR = 'EDITOR'
 	private static final Integer ISSUES_INTEGER = 12
 	private static final Integer ISSUES_INTEGER_2 = 22
-	private static final String TITLE = 'TITLE'
-	private static final Integer MONTH_FROM = 6
-	private static final Integer YEAR_FROM = 1979
-	private static final Integer MONTH_TO = 11
-	private static final Integer YEAR_TO = 1981
 
 	private PublishableSeriesTemplatePartsEnrichingProcessor publishableSeriesTemplatePartsEnrichingProcessorMock
 
@@ -33,21 +25,14 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
-	private MagazineSeriesPublicationDatesFixedValueProvider magazineSeriesPublicationDatesFixedValueProviderMock
-
-	private MagazineSeriesNumberOfIssuesFixedValueProvider magazineSeriesNumberOfIssuesFixedValueProviderMock
-
 	private MagazineSeriesTemplatePartsEnrichingProcessor magazineSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
 		publishableSeriesTemplatePartsEnrichingProcessorMock = Mock()
 		numberOfPartsProcessorMock = Mock()
 		wikitextToEntitiesProcessorMock = Mock()
-		magazineSeriesPublicationDatesFixedValueProviderMock = Mock()
-		magazineSeriesNumberOfIssuesFixedValueProviderMock = Mock()
 		magazineSeriesTemplatePartsEnrichingProcessor = new MagazineSeriesTemplatePartsEnrichingProcessor(
-				publishableSeriesTemplatePartsEnrichingProcessorMock, numberOfPartsProcessorMock, wikitextToEntitiesProcessorMock,
-				magazineSeriesPublicationDatesFixedValueProviderMock, magazineSeriesNumberOfIssuesFixedValueProviderMock)
+				publishableSeriesTemplatePartsEnrichingProcessorMock, numberOfPartsProcessorMock, wikitextToEntitiesProcessorMock)
 	}
 
 	void "passes enrichable pair to PublishableSeriesTemplatePartsEnrichingProcessor"() {
@@ -65,8 +50,6 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 				assert enrichablePair.input == templatePartList
 				assert enrichablePair.output == magazineSeriesTemplate
 		}
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		0 * _
 	}
 
@@ -81,8 +64,6 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
 		1 * numberOfPartsProcessorMock.process(ISSUES_STRING) >> ISSUES_INTEGER
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		0 * _
 		magazineSeriesTemplate.numberOfIssues == ISSUES_INTEGER
 	}
@@ -97,8 +78,6 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		0 * _
 		magazineSeriesTemplate.numberOfIssues == ISSUES_INTEGER_2
 	}
@@ -116,46 +95,10 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
 		1 * wikitextToEntitiesProcessorMock.findStaff(EDITOR) >> Lists.newArrayList(editor1, editor2)
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		0 * _
 		magazineSeriesTemplate.editors.size() == 2
 		magazineSeriesTemplate.editors.contains editor1
 		magazineSeriesTemplate.editors.contains editor2
-	}
-
-	void "adds publication dates from MagazineSeriesPublicationDatesFixedValueProvider"() {
-		given:
-		MagazineSeriesTemplate magazineSeriesTemplate = new MagazineSeriesTemplate(title: TITLE)
-		MonthYearRange monthYearRange = MonthYearRange.of(MonthYear.of(MONTH_FROM, YEAR_FROM), MonthYear.of(MONTH_TO, YEAR_TO))
-
-		when:
-		magazineSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(), magazineSeriesTemplate))
-
-		then:
-		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(monthYearRange)
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		0 * _
-		magazineSeriesTemplate.publishedMonthFrom == MONTH_FROM
-		magazineSeriesTemplate.publishedYearFrom == YEAR_FROM
-		magazineSeriesTemplate.publishedMonthTo == MONTH_TO
-		magazineSeriesTemplate.publishedYearTo == YEAR_TO
-	}
-
-	void "adds number of issues from MagazineSeriesNumberOfIssuesFixedValueProvider"() {
-		given:
-		MagazineSeriesTemplate magazineSeriesTemplate = new MagazineSeriesTemplate(title: TITLE)
-
-		when:
-		magazineSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(), magazineSeriesTemplate))
-
-		then:
-		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(ISSUES_INTEGER)
-		0 * _
-		magazineSeriesTemplate.numberOfIssues == ISSUES_INTEGER
 	}
 
 }

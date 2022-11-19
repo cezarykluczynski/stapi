@@ -20,7 +20,8 @@ public class MagazineSeriesDetector {
 			"Star Trek Explorer",
 			"The Official Star Trek The Next Generation: Build the USS Enterprise NCC-1701-D",
 			"Starburst",
-			"Wired"
+			"Wired",
+			"Files Magazine"
 	);
 
 	public boolean isMagazineSeries(Page page) {

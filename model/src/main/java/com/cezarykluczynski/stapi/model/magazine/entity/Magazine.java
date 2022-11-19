@@ -39,8 +39,8 @@ public class Magazine extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comics_sequence_generator")
-	@SequenceGenerator(name = "comics_sequence_generator", sequenceName = "comics_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "magazine_sequence_generator")
+	@SequenceGenerator(name = "magazine_sequence_generator", sequenceName = "magazine_sequence", allocationSize = 1)
 	private Long id;
 
 	@Column(nullable = false)

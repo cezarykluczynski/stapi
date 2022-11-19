@@ -15,6 +15,7 @@ import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplatePara
 import com.cezarykluczynski.stapi.etl.template.publishable.processor.PublishableTemplatePublishedDatesEnrichingProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,7 +59,9 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemWithTemplate
 					magazineTemplate.getMagazineSeries().addAll(wikitextToEntitiesProcessor.findMagazineSeries(value));
 					break;
 				case MagazineTemplateParameter.ISSUE:
-					magazineTemplate.setIssueNumber(value);
+					if (StringUtils.isNotBlank(value)) {
+						magazineTemplate.setIssueNumber(value);
+					}
 					break;
 				case MagazineTemplateParameter.PUBLISHER:
 					magazineTemplate.getPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
