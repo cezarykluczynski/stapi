@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.model.literature.entity.Literature
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
@@ -69,7 +68,7 @@ class LiteraturePageProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.empty()
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> false
 		literature.title == NAME_THEORETICAL
 	}
 
@@ -82,7 +81,7 @@ class LiteraturePageProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.empty()
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> false
 		literature.title == NAME_OMEGA_IV
 	}
 
@@ -95,7 +94,7 @@ class LiteraturePageProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.empty()
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> false
 		literature.title == NAME
 	}
 
@@ -110,7 +109,7 @@ class LiteraturePageProcessorTest extends Specification {
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.empty()
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> false
 		literature.page == modelPage
 	}
 
@@ -126,7 +125,7 @@ class LiteraturePageProcessorTest extends Specification {
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Literature) >> UID
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.empty()
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> false
 		literature.uid == UID
 	}
 
@@ -137,7 +136,7 @@ class LiteraturePageProcessorTest extends Specification {
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
 		}
-		templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.empty()
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> false
 
 		expect:
 		Literature literature = literaturePageProcessor.process(page)
@@ -159,14 +158,13 @@ class LiteraturePageProcessorTest extends Specification {
 	void "sets religiousLiterature flag when ReligiousTexts template is found"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
-		Template religiousTextsTemplate = Mock()
 
 		when:
 		Literature literature = literaturePageProcessor.process(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> Optional.of(religiousTextsTemplate)
+		1 * templateFinderMock.hasTemplate(page, TemplateTitle.RELIGIOUS_TEXTS) >> true
 		literature.religiousLiterature
 	}
 

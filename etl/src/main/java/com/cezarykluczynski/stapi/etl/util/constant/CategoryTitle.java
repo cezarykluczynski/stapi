@@ -307,6 +307,7 @@ public class CategoryTitle {
 	public static final String SCIENTIFIC_LITERATURE = "Scientific_literature";
 	public static final String SCIENTIFIC_LITERATURE_RETCONNED = "Scientific_literature_(retconned)";
 	public static final String TECHNICAL_MANUALS = "Technical_manuals";
+	public static final String VULCAN_LITERATURE = "Vulcan_literature";
 
 	public static final String VIDEO_RELEASES = "Video_releases";
 	@SuppressWarnings("ConstantName")

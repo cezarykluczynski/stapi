@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.literature.creation.service
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -43,7 +44,20 @@ class LiteraturePageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns false when redirect path is empty and page is not sorted on top of any category"() {
+	void "returns true when title is among invalid titles"() {
+		given:
+		Page page = new Page(title: RandomUtil.randomItem(LiteraturePageFilter.INVALID_TITLES))
+
+		when:
+		boolean shouldBeFilteredOut = literaturePageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		0 * _
+		shouldBeFilteredOut
+	}
+
+	void "returns false when redirect path is empty and page is not sorted on top of any category, and title is valid"() {
 		given:
 		Page page = new Page()
 

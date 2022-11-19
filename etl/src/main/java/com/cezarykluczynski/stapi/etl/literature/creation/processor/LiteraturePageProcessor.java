@@ -19,8 +19,7 @@ import java.util.List;
 @Service
 public class LiteraturePageProcessor implements ItemProcessor<Page, Literature> {
 
-	private static final String THEORETICAL = "(Theoretical)";
-	private static final String OMEGA_IV = "(Omega IV)";
+	private static final String[] VALID_BRACKET_ENDINGS = new String[]{"(Theoretical)", "(Omega IV)"};
 
 	private final LiteraturePageFilter literaturePageFilter;
 
@@ -49,7 +48,7 @@ public class LiteraturePageProcessor implements ItemProcessor<Page, Literature> 
 
 		Literature literature = new Literature();
 		String pageTitle = item.getTitle();
-		literature.setTitle(StringUtils.endsWithAny(pageTitle, THEORETICAL, OMEGA_IV) ? pageTitle : TitleUtil.getNameFromTitle(pageTitle));
+		literature.setTitle(StringUtils.endsWithAny(pageTitle, VALID_BRACKET_ENDINGS) ? pageTitle : TitleUtil.getNameFromTitle(pageTitle));
 
 		literature.setPage(pageBindingService.fromPageToPageEntity(item));
 		literature.setUid(uidGenerator.generateFromPage(literature.getPage(), Literature.class));
@@ -62,7 +61,7 @@ public class LiteraturePageProcessor implements ItemProcessor<Page, Literature> 
 		literature.setScientificLiterature(categoryTitleList.contains(CategoryTitle.SCIENTIFIC_LITERATURE)
 				|| categoryTitleList.contains(CategoryTitle.SCIENTIFIC_LITERATURE_RETCONNED));
 		literature.setTechnicalManual(categoryTitleList.contains(CategoryTitle.TECHNICAL_MANUALS));
-		literature.setReligiousLiterature(templateFinder.findTemplate(item, TemplateTitle.RELIGIOUS_TEXTS).isPresent());
+		literature.setReligiousLiterature(templateFinder.hasTemplate(item, TemplateTitle.RELIGIOUS_TEXTS));
 
 		return literature;
 	}

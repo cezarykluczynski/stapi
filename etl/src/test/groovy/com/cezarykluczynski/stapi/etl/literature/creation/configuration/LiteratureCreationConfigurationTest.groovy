@@ -18,6 +18,7 @@ class LiteratureCreationConfigurationTest extends AbstractCreationConfigurationT
 	private static final String TITLE_SCIENTIFIC_LITERATURE = 'TITLE_SCIENTIFIC_LITERATURE'
 	private static final String TITLE_SCIENTIFIC_LITERATURE_RETCONNED = 'TITLE_SCIENTIFIC_LITERATURE_RETCONNED'
 	private static final String TITLE_TECHNICAL_MANUALS = 'TITLE_TECHNICAL_MANUALS'
+	private static final String TITLE_VULCAN_LITERATURE = 'TITLE_VULCAN_LITERATURE'
 
 	private CategoryApi categoryApiMock
 
@@ -48,6 +49,7 @@ class LiteratureCreationConfigurationTest extends AbstractCreationConfigurationT
 		1 * categoryApiMock.getPages(CategoryTitle.SCIENTIFIC_LITERATURE, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_SCIENTIFIC_LITERATURE)
 		1 * categoryApiMock.getPages(CategoryTitle.SCIENTIFIC_LITERATURE_RETCONNED, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_SCIENTIFIC_LITERATURE_RETCONNED)
 		1 * categoryApiMock.getPages(CategoryTitle.TECHNICAL_MANUALS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TECHNICAL_MANUALS)
+		1 * categoryApiMock.getPages(CategoryTitle.VULCAN_LITERATURE, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VULCAN_LITERATURE)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_LITERATURE
 		categoryHeaderTitleList.contains TITLE_EARTH_LITERATURE
@@ -56,6 +58,7 @@ class LiteratureCreationConfigurationTest extends AbstractCreationConfigurationT
 		categoryHeaderTitleList.contains TITLE_SCIENTIFIC_LITERATURE
 		categoryHeaderTitleList.contains TITLE_SCIENTIFIC_LITERATURE_RETCONNED
 		categoryHeaderTitleList.contains TITLE_TECHNICAL_MANUALS
+		categoryHeaderTitleList.contains TITLE_VULCAN_LITERATURE
 	}
 
 	void "LiteratureReader is created with no pages when step is completed"() {
