@@ -48,7 +48,7 @@ public class SoundtrackTemplatePageProcessor implements ItemProcessor<Page, Soun
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_SOUNDTRACK);
 
 		if (!templateOptional.isPresent()) {
-			log.warn("Could not find template {} on page \"{}\"", TemplateTitle.SIDEBAR_SOUNDTRACK, item.getTitle());
+			log.warn("Could not find soundtrack template {} on page \"{}\".", TemplateTitle.SIDEBAR_SOUNDTRACK, item.getTitle());
 			return soundtrackTemplate;
 		}
 

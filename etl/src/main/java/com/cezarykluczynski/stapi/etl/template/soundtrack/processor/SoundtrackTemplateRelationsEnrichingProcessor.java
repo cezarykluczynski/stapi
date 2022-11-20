@@ -37,7 +37,7 @@ public class SoundtrackTemplateRelationsEnrichingProcessor implements ItemWithTe
 				case SoundtrackTemplateParameter.COMPOSER:
 					soundtrackTemplate.getComposers().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
-				case SoundtrackTemplateParameter.ADD_MUSIC:
+				case SoundtrackTemplateParameter.ADDITIONAL:
 					soundtrackTemplate.getContributors().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
 				case SoundtrackTemplateParameter.ORCHESTRATOR:

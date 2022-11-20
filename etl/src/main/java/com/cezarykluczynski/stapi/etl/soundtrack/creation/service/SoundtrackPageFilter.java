@@ -18,7 +18,8 @@ public class SoundtrackPageFilter implements MediaWikiPageFilter {
 
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
-		return categorySortingService.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList(CategoryTitle.SOUNDTRACKS));
+		return categorySortingService.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList(CategoryTitle.SOUNDTRACKS))
+				|| page.getTitle().endsWith(" (soundtracks)");
 	}
 
 }

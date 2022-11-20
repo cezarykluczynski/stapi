@@ -29,9 +29,21 @@ class SoundtrackPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns false when page is not sorted on top of 'Soundtracks' category"() {
+	void "returns true when page is list of soundtracks"() {
 		given:
-		Page page = Mock()
+		Page page = new Page(title: 'Star Trek: Picard (soundtracks)')
+
+		when:
+		boolean shouldBeFilteredOut = soundtrackFilter.shouldBeFilteredOut(page)
+
+		then:
+		categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList(CategoryTitle.SOUNDTRACKS)) >> false
+		shouldBeFilteredOut
+	}
+
+	void "returns false when page is not sorted on top of 'Soundtracks' category and is not a list of soundtracks"() {
+		given:
+		Page page = new Page(title: 'Star Trek - Newly Recorded Music, Volume One')
 
 		when:
 		boolean shouldBeFilteredOut = soundtrackFilter.shouldBeFilteredOut(page)

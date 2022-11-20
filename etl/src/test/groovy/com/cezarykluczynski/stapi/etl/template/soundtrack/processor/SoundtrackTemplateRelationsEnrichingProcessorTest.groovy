@@ -56,7 +56,7 @@ class SoundtrackTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when add music part is found, WikitextToEntitiesProcessor is used to process it"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: SoundtrackTemplateParameter.ADD_MUSIC,
+				key: SoundtrackTemplateParameter.ADDITIONAL,
 				value: ADD_MUSIC)
 		Template sidebarSoundtrackTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		Staff staff1 = Mock()
