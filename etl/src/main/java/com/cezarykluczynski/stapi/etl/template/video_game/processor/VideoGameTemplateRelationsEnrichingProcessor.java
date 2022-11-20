@@ -53,7 +53,7 @@ class VideoGameTemplateRelationsEnrichingProcessor implements ItemWithTemplateEn
 				case VideoGameTemplateParameter.PLATFORM:
 					videoGameTemplate.getPlatforms().addAll(videoGameTemplatePlatformsProcessor.process(part));
 					break;
-				case VideoGameTemplateParameter.GENRES:
+				case VideoGameTemplateParameter.GENRE:
 					videoGameTemplate.getGenres().addAll(videoGameTemplateGenresProcessor.process(value));
 					break;
 				case VideoGameTemplateParameter.RATING:

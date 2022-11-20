@@ -20,7 +20,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 
 	private static final String PUBLISHER = 'PUBLISHER'
 	private static final String DEVELOPER = 'DEVELOPER'
-	private static final String GENRES = 'GENRES'
+	private static final String GENRE = 'GENRE'
 
 	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
@@ -106,8 +106,8 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when genres part is found, VideoGameTemplateGenresProcessor is used to process it"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: VideoGameTemplateParameter.GENRES,
-				value: GENRES)
+				key: VideoGameTemplateParameter.GENRE,
+				value: GENRE)
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		Genre genre1 = Mock()
 		Genre genre2 = Mock()
@@ -117,7 +117,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 		videoGameTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, videoGameTemplate))
 
 		then:
-		1 * videoGameTemplateGenresProcessorMock.process(GENRES) >> Sets.newHashSet(genre1, genre2)
+		1 * videoGameTemplateGenresProcessorMock.process(GENRE) >> Sets.newHashSet(genre1, genre2)
 		0 * _
 		videoGameTemplate.genres.contains genre1
 		videoGameTemplate.genres.contains genre2

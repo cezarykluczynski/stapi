@@ -47,10 +47,14 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemWithTemplateEnr
 
 			switch (key) {
 				case VideoGameTemplateParameter.TITLE:
-					String originalTitle = videoGameTemplate.getTitle();
-					if (StringUtils.isNotEmpty(value) && !StringUtils.equals(originalTitle, value)) {
-						log.info("Changing video game title \"{}\" (taken from page title) to \"{}\" (taken from template)", originalTitle, value);
-						videoGameTemplate.setTitle(wikitextApi.getWikitextWithoutLinks(value));
+					if (StringUtils.isNotBlank(value)) {
+						final String titleFromWikitext = wikitextApi.getWikitextWithoutLinks(value);
+						String originalTitle = videoGameTemplate.getTitle();
+						if (!StringUtils.equals(originalTitle, titleFromWikitext)) {
+							log.info("Changing video game title \"{}\" (taken from page title) to \"{}\" (taken from template)",
+									originalTitle, titleFromWikitext);
+							videoGameTemplate.setTitle(titleFromWikitext);
+						}
 					}
 					break;
 				case VideoGameTemplateParameter.RELEASED:
@@ -71,7 +75,7 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemWithTemplateEnr
 					}
 					break;
 				case VideoGameTemplateParameter.REQUIREMENTS:
-					videoGameTemplate.setSystemRequirements(value);
+					if (StringUtils.isNotBlank(value)) videoGameTemplate.setSystemRequirements(value);
 					break;
 				default:
 					break;

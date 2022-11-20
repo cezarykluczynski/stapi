@@ -10,7 +10,7 @@ public class VideoGameTemplateParameter {
 	public static final String STARDATE = "stardate";
 	public static final String PLATFORM = "platform";
 	public static final String REQUIREMENTS = "requirements";
-	public static final String GENRES = "genres";
+	public static final String GENRE = "genre";
 	public static final String RATING = "rating";
 	public static final String REFERENCE = "reference";
 

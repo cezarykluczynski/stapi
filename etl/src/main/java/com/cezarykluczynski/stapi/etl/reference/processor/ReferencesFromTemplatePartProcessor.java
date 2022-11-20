@@ -91,7 +91,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 			if (found == 0) {
 				if (!loggedInvalidReferenceNumbers.contains(value)) {
-					log.info("Could not parse reference number \"{}\".", value);
+					// log.info("Could not parse reference number \"{}\".", value); // a lot of garbage, skip for now
 					loggedInvalidReferenceNumbers.add(value);
 				}
 			}

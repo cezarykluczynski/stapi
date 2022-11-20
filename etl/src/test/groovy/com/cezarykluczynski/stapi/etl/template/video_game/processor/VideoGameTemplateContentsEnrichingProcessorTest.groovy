@@ -58,7 +58,7 @@ class VideoGameTemplateContentsEnrichingProcessorTest extends AbstractVideoGameT
 
 	void "does not sets title from template, when it is equal to title already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: VideoGameTemplateParameter.TITLE, value: OLD_TITLE)
+		Template.Part templatePart = new Template.Part(key: VideoGameTemplateParameter.TITLE, value: NEW_TITLE)
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 		VideoGameTemplate videoGameTemplate = Mock()
 		EnrichablePair<Template, VideoGameTemplate> enrichablePair = EnrichablePair.of(template, videoGameTemplate)
@@ -67,6 +67,7 @@ class VideoGameTemplateContentsEnrichingProcessorTest extends AbstractVideoGameT
 		videoGameTemplateContentsEnrichingProcessor.enrich(enrichablePair)
 
 		then:
+		1 * wikitextApiMock.getWikitextWithoutLinks(NEW_TITLE) >> OLD_TITLE
 		1 * videoGameTemplate.title >> OLD_TITLE
 		0 * _
 	}

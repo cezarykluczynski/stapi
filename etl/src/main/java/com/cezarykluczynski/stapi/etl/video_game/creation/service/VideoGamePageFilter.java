@@ -10,7 +10,7 @@ import java.util.Set;
 @Service
 public class VideoGamePageFilter implements MediaWikiPageFilter {
 
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Star Trek: Starfleet Command series");
+	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Star Trek: Starfleet Command series", "Star Trek: Captain's Chair");
 
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {

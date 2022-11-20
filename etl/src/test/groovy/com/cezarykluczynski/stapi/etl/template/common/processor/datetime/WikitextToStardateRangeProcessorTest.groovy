@@ -26,6 +26,7 @@ class WikitextToStardateRangeProcessorTest extends Specification {
 		'ends on 53181.9'         | StardateRange.of(null, 53181.9F)
 		'48987.3'                 | StardateRange.of(48987.3F, 48987.3F)
 		'8812.1-8854.3 / 48015.1' | StardateRange.of(8812.1F, 48015.1F)
+		'2259.32 &ndash; 2259.33' | StardateRange.of(2259.32F, 2259.33F)
 		'around 48501.9'          | null
 	}
 }

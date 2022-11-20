@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.video_game.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -35,7 +36,7 @@ public class VideoGameCreationConfiguration {
 			videoGameList.addAll(categoryApi.getPages(CategoryTitle.VIDEO_GAMES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new VideoGameReader(Lists.newArrayList(Sets.newHashSet(videoGameList)));
+		return new VideoGameReader(SortingUtil.sortedUnique(videoGameList));
 	}
 
 }

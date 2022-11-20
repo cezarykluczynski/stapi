@@ -73,7 +73,7 @@ public class WikitextToStardateRangeProcessor implements ItemProcessor<String, S
 	}
 
 	private StardateRange extractStardateRangeFromRangeStardate(String item) {
-		List<String> possibleStardateList = Lists.newArrayList(item.split("-|\\sto\\s|/"))
+		List<String> possibleStardateList = Lists.newArrayList(item.split("-|\\sto\\s|&ndash;|/"))
 				.stream()
 				.map(StringUtils::trim)
 				.collect(Collectors.toList());
