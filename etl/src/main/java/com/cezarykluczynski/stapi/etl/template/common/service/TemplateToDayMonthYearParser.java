@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Datelin
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.MonthlinkTemplateToMonthYearProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.YearlinkToYearProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,15 +25,18 @@ public class TemplateToDayMonthYearParser {
 		this.yearlinkToYearProcessor = yearlinkToYearProcessor;
 	}
 
-	public DayMonthYear parseDayMonthYearCandidate(Template template) throws Exception {
+	@SneakyThrows
+	public DayMonthYear parseDayMonthYearCandidate(Template template) {
 		return datelinkTemplateToDayMonthYearProcessor.process(template);
 	}
 
-	public DayMonthYear parseMonthYearCandidate(Template template) throws Exception {
+	@SneakyThrows
+	public DayMonthYear parseMonthYearCandidate(Template template) {
 		return monthlinkTemplateToMonthYearProcessor.process(template);
 	}
 
-	public DayMonthYear parseYearCandidate(Template template) throws Exception {
+	@SneakyThrows
+	public DayMonthYear parseYearCandidate(Template template) {
 		Integer year = yearlinkToYearProcessor.process(template);
 
 		if (year == null) {

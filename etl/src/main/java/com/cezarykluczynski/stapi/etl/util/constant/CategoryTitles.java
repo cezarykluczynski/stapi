@@ -246,4 +246,22 @@ public class CategoryTitles {
 			CategoryTitle.TEA
 	);
 
+	public static final List<String> VIDEO_RELEASES = ImmutableList.of(
+			CategoryTitle.VIDEO_RELEASES,
+			CategoryTitle._4K_ULTRA_HD_BLU_RAYS,
+			CategoryTitle.BETAMAX_RELEASES,
+			CategoryTitle.BLU_RAY_DISCS,
+			CategoryTitle.CEDS,
+			CategoryTitle.DIGITAL_RELEASES,
+			CategoryTitle.DVDS,
+			CategoryTitle.LASER_DISCS,
+			CategoryTitle.SUPER_8S,
+			CategoryTitle.VCDS,
+			CategoryTitle.VHDS,
+			CategoryTitle.VHS_RELEASES,
+			CategoryTitle.UK_VHS_RELEASES,
+			CategoryTitle.US_VHS_RELEASES,
+			CategoryTitle.VIDEO_8S
+	);
+
 }

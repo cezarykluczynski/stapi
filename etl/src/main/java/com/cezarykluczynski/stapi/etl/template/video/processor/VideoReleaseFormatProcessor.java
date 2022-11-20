@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class VideoReleaseFormatProcessor implements ItemProcessor<String, VideoReleaseFormat> {
 
 	@Override
-	@SuppressWarnings("returnCount")
+	@SuppressWarnings({"returnCount", "CyclomaticComplexity"})
 	public VideoReleaseFormat process(String item) throws Exception {
 		if (item == null) {
 			log.info("null value passed to VideoReleaseFormatProcessor");
@@ -39,17 +39,21 @@ public class VideoReleaseFormatProcessor implements ItemProcessor<String, VideoR
 			case "v8":
 				return VideoReleaseFormat.VIDEO_8;
 			case "dvd":
+			case "dvdsf":
 				return VideoReleaseFormat.DVD;
 			case "umd":
 				return VideoReleaseFormat.UMD;
 			case "hddvd":
 				return VideoReleaseFormat.HD_DVD;
 			case "bd":
+			case "bdsf":
 				return VideoReleaseFormat.BLU_RAY;
 			case "4kuhd":
 				return VideoReleaseFormat.BLU_RAY_4K_UHD;
 			case "df":
 				return VideoReleaseFormat.DIGITAL_FORMAT;
+			case "none":
+				return null; // to not log unnecessarily
 			default:
 				break;
 		}

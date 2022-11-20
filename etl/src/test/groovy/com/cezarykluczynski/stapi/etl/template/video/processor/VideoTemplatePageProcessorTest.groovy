@@ -18,6 +18,8 @@ class VideoTemplatePageProcessorTest extends Specification {
 
 	private VideoReleasePageFilter videoReleasePageFilterMock
 
+	private VideoTemplateSeriesSeasonFromTitleEnrichingProcessor videoTemplateSeriesSeasonFromTitleEnrichingProcessorMock
+
 	private PageBindingService pageBindingServiceMock
 
 	private TemplateFinder templateFinderMock
@@ -30,12 +32,13 @@ class VideoTemplatePageProcessorTest extends Specification {
 
 	void setup() {
 		videoReleasePageFilterMock = Mock()
+		videoTemplateSeriesSeasonFromTitleEnrichingProcessorMock = Mock()
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		videoTemplateCompositeEnrichingProcessorMock = Mock()
 		videoTemplateFormatEnrichingProcessorMock = Mock()
-		videoTemplatePageProcessor = new VideoTemplatePageProcessor(videoReleasePageFilterMock, pageBindingServiceMock, templateFinderMock,
-				videoTemplateCompositeEnrichingProcessorMock, videoTemplateFormatEnrichingProcessorMock)
+		videoTemplatePageProcessor = new VideoTemplatePageProcessor(videoReleasePageFilterMock, videoTemplateSeriesSeasonFromTitleEnrichingProcessorMock,
+				pageBindingServiceMock, templateFinderMock, videoTemplateCompositeEnrichingProcessorMock, videoTemplateFormatEnrichingProcessorMock)
 	}
 
 	void "returns null when VideoReleasePageFilter returns true"() {
@@ -61,6 +64,10 @@ class VideoTemplatePageProcessorTest extends Specification {
 		then:
 		1 * videoReleasePageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * videoTemplateSeriesSeasonFromTitleEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Page, VideoTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output != null
+		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_VIDEO) >> Optional.empty()
 		1 * videoTemplateFormatEnrichingProcessorMock.enrich(_)
 		0 * _
@@ -80,6 +87,10 @@ class VideoTemplatePageProcessorTest extends Specification {
 		then:
 		1 * videoReleasePageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * videoTemplateSeriesSeasonFromTitleEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Page, VideoTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output != null
+		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_VIDEO) >> Optional.of(sidebarVideoTemplate)
 		1 * videoTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, VideoTemplate> enrichablePair ->
 			assert enrichablePair.input == sidebarVideoTemplate

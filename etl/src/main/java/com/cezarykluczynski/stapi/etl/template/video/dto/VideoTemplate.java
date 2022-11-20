@@ -54,7 +54,7 @@ public class VideoTemplate {
 
 	private Boolean amazonDigitalRelease;
 
-	private Boolean dailymotionDigitalRelease;
+	private Boolean dailymotionDigitalRelease; // TODO: remove? Not a single "yes" latety
 
 	private Boolean googlePlayDigitalRelease;
 

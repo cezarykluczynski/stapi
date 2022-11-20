@@ -3,3 +3,5 @@ description: Reference type
 enum:
   - ASIN
   - ISBN
+  - EAN
+  - ISRC

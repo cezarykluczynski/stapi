@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.video_release.creation.configuration
 
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseReader
@@ -34,7 +34,7 @@ class VideoReleaseCreationConfigurationTest extends AbstractCreationConfiguratio
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_VIDEO_RELEASES) >> false
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.VIDEO_RELEASES, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitles.VIDEO_RELEASES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_VIDEO_RELEASE)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_VIDEO_RELEASE

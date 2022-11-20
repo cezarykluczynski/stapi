@@ -34,6 +34,9 @@ public class VideoTemplateDigitalFormatsEnrichingProcessor implements ItemWithTe
 				case VideoTemplateParameter.DFGP:
 					videoTemplate.setGooglePlayDigitalRelease(isYes(value));
 					break;
+				case VideoTemplateParameter.DFNF:
+					videoTemplate.setNetflixDigitalRelease(isYes(value));
+					break;
 				case VideoTemplateParameter.DFIT:
 					videoTemplate.setITunesDigitalRelease(isYes(value));
 					break;
@@ -51,9 +54,6 @@ public class VideoTemplateDigitalFormatsEnrichingProcessor implements ItemWithTe
 					break;
 				case VideoTemplateParameter.DFYT:
 					videoTemplate.setYouTubeDigitalRelease(isYes(value));
-					break;
-				case VideoTemplateParameter.DFNF:
-					videoTemplate.setNetflixDigitalRelease(isYes(value));
 					break;
 				default:
 					break;

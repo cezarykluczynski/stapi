@@ -13,7 +13,7 @@ class ContentLanguagesProcessorTest extends Specification {
 	private static final String JAVANESE = 'Javanese'
 	private static final String LINGALA = 'Lingala'
 
-	private static final String LANGUAGES  = "${WESTERN_FRISIAN}, ${KLINGON}, ${VOLAPUK}<br>${CORNISH}<br />${JAVANESE}<br/>${LINGALA}"
+	private static final String LANGUAGES  = "${WESTERN_FRISIAN}; ${KLINGON}, ${VOLAPUK}<br>${CORNISH}<br />${JAVANESE}<br/>${LINGALA}"
 
 	private ContentLanguageFactory contentLanguageFactoryMock
 

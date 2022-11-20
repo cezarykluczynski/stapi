@@ -246,6 +246,8 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(null) == null
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ASIN) == RestReferenceType.ASIN
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ISBN) == RestReferenceType.ISBN
+		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.EAN) == RestReferenceType.EAN
+		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ISRC) == RestReferenceType.ISRC
 	}
 
 	void "maps video release format soap enum to entity enum"() {

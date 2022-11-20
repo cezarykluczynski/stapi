@@ -44,6 +44,7 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 	void "when more than one datelink template is found in template part, the first one is used"() {
 		given:
 		DayMonthYear dayMonthYear = Mock()
+		DayMonthYear dayMonthYear2 = Mock()
 		Template datelinkTemplate1 = Mock()
 		Template datelinkTemplate2 = Mock()
 		List<Template> templateList = Mock()
@@ -58,6 +59,7 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
 		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplate1) >> dayMonthYear
+		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplate2) >> dayMonthYear2
 		0 * _
 		dayMonthYearOutput == dayMonthYear
 	}
@@ -84,6 +86,7 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 	void "when more than one monthlink template is found in template part, the first one is used"() {
 		given:
 		DayMonthYear dayMonthYear = Mock()
+		DayMonthYear dayMonthYear2 = Mock()
 		Template monthlinkTemplate1 = Mock()
 		Template monthlinkTemplate2 = Mock()
 		List<Template> templateList = Mock()
@@ -98,6 +101,7 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 				.newArrayList(monthlinkTemplate1, monthlinkTemplate2)
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
 		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplate1) >> dayMonthYear
+		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplate2) >> dayMonthYear2
 		0 * _
 		dayMonthYearOutput == dayMonthYear
 	}
@@ -124,6 +128,7 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 	void "when more than one yearlink template is found in template part, the first one is used"() {
 		given:
 		DayMonthYear dayMonthYear = Mock()
+		DayMonthYear dayMonthYear2 = Mock()
 		Template yearlinkTemplate1 = Mock()
 		Template yearlinkTemplate2 = Mock()
 		List<Template> templateList = Mock()
@@ -138,6 +143,7 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists
 				.newArrayList(yearlinkTemplate1, yearlinkTemplate2)
 		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate1) >> dayMonthYear
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate2) >> dayMonthYear2
 		0 * _
 		dayMonthYearOutput == dayMonthYear
 	}

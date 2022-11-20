@@ -83,6 +83,7 @@ public class ContentLanguageDTOProvider {
 		LANGUAGES.add(ContentLanguageDTO.of("Galician", "gl"));
 		LANGUAGES.add(ContentLanguageDTO.of("Georgian", "ka"));
 		LANGUAGES.add(ContentLanguageDTO.of("German", "de"));
+		LANGUAGES.add(ContentLanguageDTO.of("Germane", "de"));
 		LANGUAGES.add(ContentLanguageDTO.of("Greek", "el"));
 		LANGUAGES.add(ContentLanguageDTO.of("Guaraní", "gn"));
 		LANGUAGES.add(ContentLanguageDTO.of("Gujarati", "gu"));
@@ -103,6 +104,7 @@ public class ContentLanguageDTOProvider {
 		LANGUAGES.add(ContentLanguageDTO.of("Ido", "io"));
 		LANGUAGES.add(ContentLanguageDTO.of("Icelandic", "is"));
 		LANGUAGES.add(ContentLanguageDTO.of("Italian", "it"));
+		LANGUAGES.add(ContentLanguageDTO.of("Italians", "it"));
 		LANGUAGES.add(ContentLanguageDTO.of("Inuktitut", "iu"));
 		LANGUAGES.add(ContentLanguageDTO.of("Japanese", "ja"));
 		LANGUAGES.add(ContentLanguageDTO.of("Javanese", "jv"));
@@ -245,6 +247,8 @@ public class ContentLanguageDTOProvider {
 
 		NAME_INDEX.put("Castillian", NAME_INDEX.get(SPANISH));
 		NAME_INDEX.put("Castilian", NAME_INDEX.get(SPANISH));
+		NAME_INDEX.put("Spanish/Castilian", NAME_INDEX.get(SPANISH));
+		NAME_INDEX.put("Spanish/Latin", NAME_INDEX.get(SPANISH));
 		NAME_INDEX.put("Slovenian", NAME_INDEX.get(SLOVENE));
 	}
 

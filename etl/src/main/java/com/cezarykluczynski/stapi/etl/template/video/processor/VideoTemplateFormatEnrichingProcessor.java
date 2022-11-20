@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoRele
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, VideoTemplate>> {
-
-	private static final String UMD = " (UMD)";
 
 	private final VideoReleaseFormatFixedValueProvider videoReleaseFormatFixedValueProvider;
 
@@ -47,10 +44,6 @@ public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProce
 		} else if (videoReleaseFormatFromCategories != null && videoReleaseFormatFromSidebarVideoTemplate != videoReleaseFormatFromCategories) {
 			log.warn("VideoReleaseFormat {} concluded from page categories differs from format {} found in sidebar video template for page \"{}\"",
 					videoReleaseFormatFromCategories, videoReleaseFormatFromSidebarVideoTemplate, page.getTitle());
-		}
-
-		if (StringUtils.contains(page.getTitle(), UMD)) {
-			videoTemplate.setFormat(VideoReleaseFormat.UMD);
 		}
 	}
 

@@ -29,7 +29,7 @@ public class ContentLanguagesProcessor implements ItemProcessor<String, Set<Cont
 			return contentLanguageSet;
 		}
 
-		List<String> languageNames = Lists.newArrayList(item.split("(,|<br\\s?/?>)"));
+		List<String> languageNames = Lists.newArrayList(item.split("(,|;|<br\\s?/?>|\\))"));
 
 		languageNames.forEach(languageName -> {
 			Optional<ContentLanguage> contentLanguageOptional = contentLanguageFactory.createForName(StringUtils.trim(languageName));

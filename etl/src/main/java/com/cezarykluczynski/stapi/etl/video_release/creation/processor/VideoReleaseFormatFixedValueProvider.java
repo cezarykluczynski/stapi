@@ -18,6 +18,11 @@ public class VideoReleaseFormatFixedValueProvider implements FixedValueProvider<
 		TITLES_TO_FORMATS.put("To Be Takei", VideoReleaseFormat.DVD);
 		TITLES_TO_FORMATS.put("William Shatner's Get A Life!", VideoReleaseFormat.DVD);
 		TITLES_TO_FORMATS.put("The Captains", VideoReleaseFormat.DVD);
+		TITLES_TO_FORMATS.put("Star Trek: Deep Space Nine - The Full Journey (DVD)", VideoReleaseFormat.DVD);
+		TITLES_TO_FORMATS.put("Star Trek: The Captains' Summit", VideoReleaseFormat.BLU_RAY);
+		TITLES_TO_FORMATS.put("Star Wars vs. Star Trek: The Rivalry Continues (DVD)", VideoReleaseFormat.DVD);
+		TITLES_TO_FORMATS.put("Trek Nation", VideoReleaseFormat.DIGITAL_FORMAT);
+		TITLES_TO_FORMATS.put("Star Wars vs. Star Trek: The Rivalry Continues", VideoReleaseFormat.DVD);
 	}
 
 	@Override

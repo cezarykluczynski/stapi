@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -35,6 +36,10 @@ public class VideoTemplateYearsProcessor implements ItemProcessor<Template.Part,
 
 	@Override
 	public YearRange process(Template.Part item) throws Exception {
+		if (StringUtils.isBlank(item.getValue()) && StringUtils.isBlank(item.getContent()) && CollectionUtils.isEmpty(item.getTemplates())) {
+			return null;
+		}
+
 		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(item.getValue());
 
 		if (!pageLinkList.isEmpty()) {
@@ -52,7 +57,9 @@ public class VideoTemplateYearsProcessor implements ItemProcessor<Template.Part,
 			}
 		}
 
-		log.info("Could not parse template part {} into YearRange", item);
+		if (!pageLinkList.isEmpty() || !templateList.isEmpty()) {
+			log.info("Could not parse template part {} into YearRange", item);
+		}
 		return null;
 	}
 

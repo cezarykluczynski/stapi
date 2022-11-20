@@ -14,7 +14,7 @@ class RunTimeProcessorTest extends Specification {
 	@Unroll('when #text is passed, #runTime minutes is returned')
 	void "parses various text values into run time in minutes"() {
 		expect:
-		runTime == runTimeProcessor.process(text)
+		runTimeProcessor.process(text) == runTime
 
 		where:
 		text                                                                            | runTime
@@ -39,6 +39,11 @@ class RunTimeProcessorTest extends Specification {
 		'129 hours and 42 minutes'                                                      | 7782
 		'1,181 minutes'                                                                 | 1181
 		'15:07'                                                                         | 907
+		'660 min.'                                                                      | 660
+		'4 hrs, 11 min.'                                                                | 251
+		'251 min (NTSC)<br />241 min (PAL)'                                             | 251
+		'488 min. ([[:Category:Video releases|NTSC]])<br>455 min. (PAL)'                | 488
+		'4296'                                                                          | 4296
 	}
 
 }

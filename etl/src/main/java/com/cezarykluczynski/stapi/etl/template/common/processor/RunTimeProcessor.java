@@ -18,13 +18,20 @@ public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 
 	private static final Integer MINUTES_IN_HOUR = 60;
 	private static final Pattern HOURS = Pattern.compile(".*?(\\d{1,3})(\\shour).*", Pattern.CASE_INSENSITIVE);
-	private static final Pattern MINUTES = Pattern.compile(".*?([\\d,]{1,5})(\\sminute).*", Pattern.CASE_INSENSITIVE);
+	private static final Pattern MINUTES = Pattern.compile(".*?([\\d,]{1,5})(\\sminute|\\smin\\.?).*", Pattern.CASE_INSENSITIVE);
 	private static final Pattern MINUTES_AND_HOURS = Pattern.compile(".*?(\\d{1,3}):(\\d{1,2}).*", Pattern.CASE_INSENSITIVE);
+	private static final Pattern MINUTES_AND_HOURS_2 = Pattern
+			.compile(".*?(\\d{1,3})\\shrs\\.?,?\\s(\\d{1,2})\\smin\\.?.*", Pattern.CASE_INSENSITIVE);
 
 	@Override
 	public Integer process(String item) throws Exception {
 		if (StringUtils.isEmpty(item)) {
 			return null;
+		}
+
+		Integer tryParseResult = Ints.tryParse(item);
+		if (tryParseResult != null && String.format("%d", tryParseResult).equals(item)) {
+			return tryParseResult;
 		}
 
 		List<String> parts = toParts(item);
@@ -69,6 +76,23 @@ public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 				minutes += hours * 60;
 			}
 		}
+
+		if (minutes != null) {
+			return minutes;
+		}
+
+		minutesMatcher = MINUTES_AND_HOURS_2.matcher(runTimeCandidate);
+		if (minutesMatcher.matches()) {
+			minutes = Ints.tryParse(minutesMatcher.group(2));
+			hours = Ints.tryParse(minutesMatcher.group(1));
+
+			if (minutes == null || hours == null) {
+				minutes = null;
+			} else {
+				minutes += hours * 60;
+			}
+		}
+
 
 		return minutes;
 	}

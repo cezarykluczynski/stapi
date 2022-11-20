@@ -9,17 +9,21 @@ import com.cezarykluczynski.stapi.etl.video_release.creation.service.VideoReleas
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class VideoTemplatePageProcessor implements ItemProcessor<Page, VideoTemplate> {
 
 	private final VideoReleasePageFilter videoReleasePageFilter;
+
+	private final VideoTemplateSeriesSeasonFromTitleEnrichingProcessor videoTemplateSeriesSeasonFromTitleEnrichingProcessor;
 
 	private final PageBindingService pageBindingService;
 
@@ -28,16 +32,6 @@ public class VideoTemplatePageProcessor implements ItemProcessor<Page, VideoTemp
 	private final VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessor;
 
 	private final VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessor;
-
-	public VideoTemplatePageProcessor(VideoReleasePageFilter videoReleasePageFilter, PageBindingService pageBindingService,
-			TemplateFinder templateFinder, VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessor,
-			VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessor) {
-		this.videoReleasePageFilter = videoReleasePageFilter;
-		this.pageBindingService = pageBindingService;
-		this.templateFinder = templateFinder;
-		this.videoTemplateCompositeEnrichingProcessor = videoTemplateCompositeEnrichingProcessor;
-		this.videoTemplateFormatEnrichingProcessor = videoTemplateFormatEnrichingProcessor;
-	}
 
 	@Override
 	public VideoTemplate process(Page item) throws Exception {
@@ -48,13 +42,13 @@ public class VideoTemplatePageProcessor implements ItemProcessor<Page, VideoTemp
 		VideoTemplate videoTemplate = new VideoTemplate();
 		videoTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		videoTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
+		videoTemplateSeriesSeasonFromTitleEnrichingProcessor.enrich(EnrichablePair.of(item, videoTemplate));
 
 		Optional<Template> sidebarVideoTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_VIDEO);
-
 		if (sidebarVideoTemplateOptional.isPresent()) {
 			videoTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplateOptional.get(), videoTemplate));
 		} else {
-			log.info("No sidebar video template found on page: \"{}\"", item.getTitle());
+			log.info("No sidebar video template found on page: \"{}\".", item.getTitle());
 		}
 
 		videoTemplateFormatEnrichingProcessor.enrich(EnrichablePair.of(item, videoTemplate));

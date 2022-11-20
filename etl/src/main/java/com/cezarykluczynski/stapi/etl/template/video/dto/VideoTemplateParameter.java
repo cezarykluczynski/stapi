@@ -22,8 +22,10 @@ public class VideoTemplateParameter {
 	public static final String REFERENCE = "reference";
 	public static final String YEAR = "year";
 	public static final String DFAZ = "dfaz";
-	public static final String DFDM = "dfdm";
+	public static final String DFAT = "dfat"; // not used
+	public static final String DFDM = "dfdm"; // not used
 	public static final String DFGP = "dfgp";
+	public static final String DFMA = "dfma"; // not used
 	public static final String DFIT = "dfit";
 	public static final String DFUV = "dfuv";
 	public static final String DFVO = "dfvo";

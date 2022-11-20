@@ -15,7 +15,6 @@ class VideoTemplateFormatEnrichingProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final VideoReleaseFormat FORMAT_VHS = VideoReleaseFormat.VHS
 	private static final VideoReleaseFormat FORMAT_DVD = VideoReleaseFormat.DVD
-	private static final VideoReleaseFormat FORMAT_UMD = VideoReleaseFormat.UMD
 
 	private VideoReleaseFormatFixedValueProvider videoReleaseFormatFixedValueProviderMock
 
@@ -87,24 +86,6 @@ class VideoTemplateFormatEnrichingProcessorTest extends Specification {
 		1 * videoReleaseFormatFromCategoryLinkProcessorMock.process(Lists.newArrayList()) >> FORMAT_VHS
 		0 * _
 		videoTemplate.format == FORMAT_DVD
-	}
-
-	void "when title contains ' (UMD)', UMD format is setrr, regardless of current format"() {
-		given:
-		String title = 'Star Trek Nemesis (UMD)'
-		Page page = new Page(
-				title: title,
-				categories: Lists.newArrayList())
-		VideoTemplate videoTemplate = new VideoTemplate(format: FORMAT_DVD)
-
-		when:
-		videoTemplateFormatEnrichingProcessor.enrich(EnrichablePair.of(page, videoTemplate))
-
-		then:
-		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(title) >> FixedValueHolder.empty()
-		1 * videoReleaseFormatFromCategoryLinkProcessorMock.process(Lists.newArrayList()) >> null
-		0 * _
-		videoTemplate.format == FORMAT_UMD
 	}
 
 }

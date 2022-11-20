@@ -21,6 +21,7 @@ class VideoReleaseFormatProcessorTest extends Specification {
 		stringFormat | videoReleaseFormat
 		null         | null
 		''           | null
+		'none'       | null
 		's8'         | VideoReleaseFormat.SUPER_8
 		'bm'         | VideoReleaseFormat.BETAMAX
 		'vhs'        | VideoReleaseFormat.VHS
@@ -32,9 +33,11 @@ class VideoReleaseFormatProcessorTest extends Specification {
 		'vcd'        | VideoReleaseFormat.VCD
 		'v8'         | VideoReleaseFormat.VIDEO_8
 		'dvd'        | VideoReleaseFormat.DVD
+		'dvdsf'      | VideoReleaseFormat.DVD
 		'umd'        | VideoReleaseFormat.UMD
 		'hddvd'      | VideoReleaseFormat.HD_DVD
 		'bd'         | VideoReleaseFormat.BLU_RAY
+		'bdsf'       | VideoReleaseFormat.BLU_RAY
 		'4kuhd'      | VideoReleaseFormat.BLU_RAY_4K_UHD
 		'df'         | VideoReleaseFormat.DIGITAL_FORMAT
 	}

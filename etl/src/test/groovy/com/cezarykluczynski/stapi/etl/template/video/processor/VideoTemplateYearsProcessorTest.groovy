@@ -126,6 +126,18 @@ class VideoTemplateYearsProcessorTest extends Specification {
 		yearRange.yearTo == 2259
 	}
 
+	void "returns null without processing when part is empty"() {
+		given:
+		Template.Part templatePart = new Template.Part()
+
+		when:
+		YearRange yearRange = videoTemplateYearsProcessor.process(templatePart)
+
+		then:
+		0 * _
+		yearRange == null
+	}
+
 	void "returns null when nothing can be found"() {
 		given:
 		Template.Part templatePart = new Template.Part(value: WIKITEXT)
