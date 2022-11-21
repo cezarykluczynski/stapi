@@ -331,7 +331,11 @@ public class CategoryTitle {
 	public static final String SOUNDTRACKS = "Soundtracks";
 
 	public static final String WEAPONS = "Weapons";
+	public static final String DIRECTED_ENERGY_WEAPONS = "Directed_energy_weapons";
+	public static final String EXPLOSIVE_WEAPONS = "Explosive_weapons";
+	public static final String FICTIONAL_WEAPONS = "Fictional_weapons";
 	public static final String HAND_HELD_WEAPONS = "Hand-held_weapons";
+	public static final String PROJECTILE_WEAPONS = "Projectile_weapons";
 
 	public static final String SPACECRAFT_CLASSIFICATIONS = "Spacecraft_classifications";
 	public static final String SPACECRAFT_CLASSES = "Spacecraft_classes";

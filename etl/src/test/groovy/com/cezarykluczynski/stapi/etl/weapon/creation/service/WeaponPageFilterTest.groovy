@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.weapon.creation.service
 
+import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
@@ -7,10 +9,13 @@ import spock.lang.Specification
 
 class WeaponPageFilterTest extends Specification {
 
+	private CategorySortingService categorySortingServiceMock
+
 	private WeaponPageFilter weaponPageFilter
 
 	void setup() {
-		weaponPageFilter = new WeaponPageFilter()
+		categorySortingServiceMock = Mock()
+		weaponPageFilter = new WeaponPageFilter(categorySortingServiceMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
@@ -27,12 +32,24 @@ class WeaponPageFilterTest extends Specification {
 
 	void "returns true when page title is on list of title to filter out"() {
 		given:
-		Page page = new Page(title: WeaponPageFilter.NOT_WEAPONS[0])
+		Page page = new Page(title: WeaponPageFilter.INVALID_TITLES[0])
 
 		when:
 		boolean shouldBeFilteredOut = weaponPageFilter.shouldBeFilteredOut(page)
 
 		then:
+		shouldBeFilteredOut
+	}
+
+	void "returns true when page is filtered on top of 'Weapons' category"() {
+		given:
+		Page page = new Page(title: 'Torpedo')
+
+		when:
+		boolean shouldBeFilteredOut = weaponPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, [CategoryTitle.WEAPONS]) >> true
 		shouldBeFilteredOut
 	}
 
@@ -44,6 +61,7 @@ class WeaponPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = weaponPageFilter.shouldBeFilteredOut(page)
 
 		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, [CategoryTitle.WEAPONS]) >> false
 		!shouldBeFilteredOut
 	}
 

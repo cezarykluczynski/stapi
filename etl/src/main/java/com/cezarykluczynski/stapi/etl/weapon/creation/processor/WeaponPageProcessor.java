@@ -64,6 +64,10 @@ public class WeaponPageProcessor implements ItemProcessor<Page, Weapon> {
 		weapon.setPhotonicTechnology(StringUtils.containsIgnoreCase(name, PHOTONIC));
 		weapon.setPhaserTechnology(hasPhaserTechnologyTemplate || StringUtils.containsIgnoreCase(name, PHASE));
 		weapon.setHandHeldWeapon(categoryTitleList.contains(CategoryTitle.HAND_HELD_WEAPONS));
+		weapon.setDirectedEnergyWeapon(categoryTitleList.contains(CategoryTitle.DIRECTED_ENERGY_WEAPONS));
+		weapon.setExplosiveWeapon(categoryTitleList.contains(CategoryTitle.EXPLOSIVE_WEAPONS));
+		weapon.setProjectileWeapon(categoryTitleList.contains(CategoryTitle.PROJECTILE_WEAPONS));
+		weapon.setFictionalWeapon(categoryTitleList.contains(CategoryTitle.FICTIONAL_WEAPONS));
 		weapon.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));
 		weapon.setAlternateReality(categoryTitleList.contains(CategoryTitle.ALTERNATE_REALITY));
 

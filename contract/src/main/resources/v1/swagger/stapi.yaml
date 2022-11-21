@@ -178,6 +178,7 @@ paths:
     $ref: ./video_release/path/videoRelease.path.yaml
   /v1/rest/videoRelease/search:
     $ref: ./video_release/path/videoReleaseSearch.path.yaml
+  # TODO: Add V2
   /v1/rest/weapon:
     $ref: ./weapon/path/weapon.path.yaml
   /v1/rest/weapon/search:

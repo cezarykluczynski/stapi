@@ -99,11 +99,15 @@ class WeaponPageProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(weapon) == trueBooleans
 
 		where:
-		page                                                                     | flagName           | flag  | trueBooleans
-		new SourcesPage(categories: Lists.newArrayList())                        | 'handHeldWeapon'   | false | 0
-		new SourcesPage(categories: createList(CategoryTitle.HAND_HELD_WEAPONS)) | 'handHeldWeapon'   | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))   | 'mirror'           | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.ALTERNATE_REALITY)) | 'alternateReality' | true  | 1
+		page                                                                           | flagName               | flag  | trueBooleans
+		new SourcesPage(categories: Lists.newArrayList())                              | 'handHeldWeapon'       | false | 0
+		new SourcesPage(categories: createList(CategoryTitle.HAND_HELD_WEAPONS))       | 'handHeldWeapon'       | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.DIRECTED_ENERGY_WEAPONS)) | 'directedEnergyWeapon' | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.EXPLOSIVE_WEAPONS))       | 'explosiveWeapon'      | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.PROJECTILE_WEAPONS))      | 'projectileWeapon'     | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.FICTIONAL_WEAPONS))       | 'fictionalWeapon'      | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))         | 'mirror'               | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ALTERNATE_REALITY))       | 'alternateReality'     | true  | 1
 	}
 
 	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')

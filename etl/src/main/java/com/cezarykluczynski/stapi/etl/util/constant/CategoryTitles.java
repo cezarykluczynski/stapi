@@ -264,4 +264,13 @@ public class CategoryTitles {
 			CategoryTitle.VIDEO_8S
 	);
 
+	public static final List<String> WEAPONS = ImmutableList.of(
+			CategoryTitle.WEAPONS,
+			CategoryTitle.DIRECTED_ENERGY_WEAPONS,
+			CategoryTitle.EXPLOSIVE_WEAPONS,
+			CategoryTitle.FICTIONAL_WEAPONS,
+			CategoryTitle.HAND_HELD_WEAPONS,
+			CategoryTitle.PROJECTILE_WEAPONS
+	);
+
 }
