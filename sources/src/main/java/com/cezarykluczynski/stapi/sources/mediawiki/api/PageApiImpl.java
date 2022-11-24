@@ -124,7 +124,7 @@ public class PageApiImpl implements PageApi {
 			String redirectTarget = redirects.get(0);
 			final Pair<String, String> pair = Pair.of(title, redirectTarget);
 			if (!loggedRedirects.contains(pair)) {
-				log.debug("Following redirect from {} to {}", title, redirectTarget);
+				// log.debug("Following redirect from {} to {}", title, redirectTarget);
 				loggedRedirects.add(pair);
 			}
 			Page redirectPage = getPageRedirectAware(redirectTarget, redirectCount + 1, mediaWikiSource);

@@ -18,7 +18,10 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 	private static final String ACTIVE = 'ACTIVE'
 	private static final String ACTIVE_FROM = 'ACTIVE_FROM'
 	private static final String ACTIVE_TO = 'ACTIVE_TO'
+	private static final String UNUSED_STRING = 'UNUSED_STRING'
 	private static final Boolean WARP_CAPABLE = RandomUtil.nextBoolean()
+	private static final Integer JUST_FOR_LOGGING_INTEGER = 11
+	private static final String JUST_FOR_LOGGING_BOOLEAN = !WARP_CAPABLE
 
 	private NumberOfPartsProcessor numberOfPartsProcessorMock
 
@@ -52,6 +55,24 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 		starshipClassTemplate.numberOfDecks == DECKS_INTEGER
 	}
 
+	void "number of decks if only set once"() {
+		given:
+		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(
+				new Template.Part(key: StarshipClassTemplateParameter.DECKS, value: DECKS_STRING),
+				new Template.Part(key: StarshipClassTemplateParameter.T1DECKS, value: UNUSED_STRING)
+		))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+
+		when:
+		starshipClassTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
+
+		then:
+		1 * numberOfPartsProcessorMock.process(DECKS_STRING) >> DECKS_INTEGER
+		1 * numberOfPartsProcessorMock.process(UNUSED_STRING) >> JUST_FOR_LOGGING_INTEGER
+		0 * _
+		starshipClassTemplate.numberOfDecks == DECKS_INTEGER
+	}
+
 	void "when speed part is found, StarshipClassWarpCapableProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
@@ -64,6 +85,24 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * starshipClassWarpCapableProcessorMock.process(SPEED) >> WARP_CAPABLE
+		0 * _
+		starshipClassTemplate.warpCapable == WARP_CAPABLE
+	}
+
+	void "warp-capable flag if only set once"() {
+		given:
+		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(
+				new Template.Part(key: StarshipClassTemplateParameter.SPEED, value: SPEED),
+				new Template.Part(key: StarshipClassTemplateParameter.T3SPEED, value: UNUSED_STRING)
+		))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+
+		when:
+		starshipClassTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
+
+		then:
+		1 * starshipClassWarpCapableProcessorMock.process(SPEED) >> WARP_CAPABLE
+		1 * starshipClassWarpCapableProcessorMock.process(UNUSED_STRING) >> JUST_FOR_LOGGING_BOOLEAN
 		0 * _
 		starshipClassTemplate.warpCapable == WARP_CAPABLE
 	}
@@ -100,6 +139,25 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 		0 * _
 		starshipClassTemplate.activeFrom == null
 		starshipClassTemplate.activeTo == null
+	}
+
+	void "active value if only set once"() {
+		given:
+		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(
+				new Template.Part(key: StarshipClassTemplateParameter.ACTIVE, value: ACTIVE),
+				new Template.Part(key: StarshipClassTemplateParameter.T5ACTIVE, value: UNUSED_STRING)
+		))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+
+		when:
+		starshipClassTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
+
+		then:
+		1 * starshipClassActivityPeriodProcessorMock.process(ACTIVE) >> ActivityPeriodDTO.of(ACTIVE_FROM, ACTIVE_TO)
+		1 * starshipClassActivityPeriodProcessorMock.process(UNUSED_STRING) >> ActivityPeriodDTO.of(ACTIVE_TO, ACTIVE_FROM)
+		0 * _
+		starshipClassTemplate.activeFrom == ACTIVE_FROM
+		starshipClassTemplate.activeTo == ACTIVE_TO
 	}
 
 }

@@ -108,7 +108,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 	}
 
 	private Optional<ComicSeries> findComicSeriesByPageTitleAndPageMediaWikiSource(String pageTitle, MediaWikiSource mediaWikiSource) {
-		return comicSeriesRepository.findByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
+		return comicSeriesRepository.findByPageTitleWithPageMediaWikiSource(pageTitle, mediaWikiSource);
 	}
 
 }

@@ -33,6 +33,7 @@ public class WikitextApiImpl implements WikitextApi {
 	private static final Pattern DIS_LINK = Pattern.compile("\\{\\{dis\\|(.+?)}}");
 	private static final Pattern MU_LINK = Pattern.compile("\\{\\{mu\\|(.+?)}}");
 	private static final Pattern ALT_LINK = Pattern.compile("\\{\\{alt\\|(.+?)}}");
+	private static final Pattern FEDERATION_LINK = Pattern.compile("\\{\\{federation}}");
 
 	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
 	private static final Pattern NO_INCLUDE_PATTERN = Pattern.compile("<noinclude>(.+?)</noinclude>", Pattern.DOTALL);
@@ -83,9 +84,16 @@ public class WikitextApiImpl implements WikitextApi {
 		List<PageLink> allMatches = Lists.newArrayList();
 
 		allMatches.addAll(extractLinkMatches(wikitext));
-		allMatches.addAll(extractMatches(wikitext, DIS_LINK, 2, templateParts -> templateParts.get(1)));
-		allMatches.addAll(extractMatches(wikitext, MU_LINK, 1, strings -> "mirror"));
-		allMatches.addAll(extractMatches(wikitext, ALT_LINK, 1, strings -> "alternate reality"));
+		allMatches.addAll(extractMatches(wikitext, DIS_LINK, 2, templateParts -> {
+			return templateParts.get(0) + SPACE + LEFT_BRACKET + templateParts.get(1) + RIGHT_BRACKET;
+		}));
+		allMatches.addAll(extractMatches(wikitext, MU_LINK, 1, templateParts -> {
+			return templateParts.get(0) + SPACE + LEFT_BRACKET + "mirror" + RIGHT_BRACKET;
+		}));
+		allMatches.addAll(extractMatches(wikitext, ALT_LINK, 1, templateParts -> {
+			return templateParts.get(0) + SPACE + LEFT_BRACKET + "alternate reality" + RIGHT_BRACKET;
+		}));
+		allMatches.addAll(extractMatches(wikitext, FEDERATION_LINK, 0, templateParts -> "United Federation of Planets"));
 
 		return allMatches
 				.stream()
@@ -199,24 +207,28 @@ public class WikitextApiImpl implements WikitextApi {
 		Matcher matcher = pattern.matcher(wikitext);
 
 		while (matcher.find()) {
-			String group = matcher.group(LINK_CONTENTS_GROUP);
-			List<String> templateParts = Lists.newArrayList(group.split("\\" + PIPE));
 			PageLink pageLink = new PageLink();
+			List<String> templateParts = Lists.newArrayList();
+			boolean hasExpectedGroup = matcher.groupCount() > 0 && minParts > 0;
+			if (hasExpectedGroup) {
+				String group = matcher.group(LINK_CONTENTS_GROUP);
+				templateParts = Lists.newArrayList(group.split("\\" + PIPE));
 
-			if (templateParts.size() < minParts) {
-				continue;
+				if (templateParts.size() < minParts) {
+					continue;
+				}
 			}
 
-			String title = templateParts.get(0) + SPACE + LEFT_BRACKET + linkConstructor.apply(templateParts) + RIGHT_BRACKET;
+			String title = linkConstructor.apply(templateParts);
 			pageLink.setTitle(title);
-			pageLink.setDescription(templateParts.get(0));
+			pageLink.setDescription(templateParts.isEmpty() ? title : templateParts.get(0));
 
 			if (templateParts.size() == minParts + 1) {
 				pageLink.setDescription(templateParts.get(minParts));
 			}
 
-			pageLink.setStartPosition(matcher.start(LINK_CONTENTS_GROUP) - PADDING);
-			pageLink.setEndPosition(matcher.end(LINK_CONTENTS_GROUP) + PADDING);
+			pageLink.setStartPosition(!hasExpectedGroup ? matcher.toMatchResult().start() : matcher.start(LINK_CONTENTS_GROUP) - PADDING);
+			pageLink.setEndPosition(!hasExpectedGroup ? matcher.toMatchResult().end() : matcher.end(LINK_CONTENTS_GROUP) + PADDING);
 			matches.add(pageLink);
 		}
 

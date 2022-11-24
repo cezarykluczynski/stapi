@@ -26,7 +26,7 @@ class AstronomicalObjectLocationFixedValueProviderTest extends Specification {
 		FixedValueHolder<AstronomicalObject> fixedValueHolder = astronomicalObjectLocationFixedValueProvider.getSearchedValue(quadrant)
 
 		then:
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource('Milky Way Galaxy',
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource('Milky Way Galaxy',
 				MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(galaxy)
 		0 * _
 		fixedValueHolder.found
@@ -54,7 +54,7 @@ class AstronomicalObjectLocationFixedValueProviderTest extends Specification {
 		FixedValueHolder<AstronomicalObject> fixedValueHolder = astronomicalObjectLocationFixedValueProvider.getSearchedValue(quadrant)
 
 		then:
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource('Milky Way Galaxy',
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource('Milky Way Galaxy',
 				MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		0 * _
 		!fixedValueHolder.found

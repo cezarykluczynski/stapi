@@ -9,6 +9,7 @@
 	<suppress files=".+RestBeanParams\.java" checks="FileLength|MethodCount"/>
 	<suppress files=".+query[\\/]QueryBuilder\.java" checks="FileLength"/>
 	<suppress files=".+CategoryTitle\.java" checks="FileLength"/>
+	<suppress files=".+CategoryTitles\.java" checks="FileLength"/>
 	<suppress files=".+CountryDTOProvider\.java" checks="FileLength"/>
 	<suppress files=".+EtlJobConfiguration\.java" checks="FileLength"/>
 	<suppress files=".+StapiRestClient\.java" checks="FileLength"/>

@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor;
-import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
+import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,13 +37,13 @@ public class SpacecraftTemplateContentsEnrichingProcessor implements ItemWithTem
 			String value = part.getValue();
 
 			switch (key) {
-				case SpacecraftTemplateParameter.REGISTRY:
+				case StarshipTemplateParameter.REGISTRY:
 					starshipTemplate.setRegistry(spacecraftRegistryProcessor.process(value));
 					break;
-				case SpacecraftTemplateParameter.STATUS:
+				case StarshipTemplateParameter.STATUS:
 					starshipTemplate.setStatus(statusProcessor.process(value));
 					break;
-				case SpacecraftTemplateParameter.DATE_STATUS:
+				case StarshipTemplateParameter.DATE_STATUS:
 					starshipTemplate.setDateStatus(dateStatusProcessor.process(value));
 					break;
 				default:

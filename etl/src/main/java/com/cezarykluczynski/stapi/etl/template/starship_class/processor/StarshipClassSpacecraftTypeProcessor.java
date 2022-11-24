@@ -34,6 +34,8 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 
 	private final SpacecraftTypeRepository spacecraftTypeRepository;
 
+	private final Set<String> loggedMissingTypes = Sets.newHashSet();
+
 	public StarshipClassSpacecraftTypeProcessor(WikitextApi wikitextApi,
 			StarshipClassTemplateNameCorrectionFixedValueProvider starshipClassTemplateNameCorrectionFixedValueProvider, PageApi pageApi,
 			SpacecraftTypeRepository spacecraftTypeRepository) {
@@ -64,7 +66,7 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 
 	private void tryExtractUsingCanonicalPageTitle(String pageTitle, Set<SpacecraftType> spacecraftTypeSet) {
 		final Optional<SpacecraftType> spacecraftTypeOptional;
-		spacecraftTypeOptional = spacecraftTypeRepository.findByPageTitleAndPageMediaWikiSource(pageTitle, MODEL_MEDIA_WIKI_SOURCE);
+		spacecraftTypeOptional = spacecraftTypeRepository.findByPageTitleWithPageMediaWikiSource(pageTitle, MODEL_MEDIA_WIKI_SOURCE);
 
 		if (spacecraftTypeOptional.isPresent()) {
 			spacecraftTypeSet.add(spacecraftTypeOptional.get());
@@ -107,7 +109,10 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 	}
 
 	private void doLogMissingEntityByTitle(String pageTitle) {
-		log.info("Could not find spacecraft type \"{}\" in local database", pageTitle);
+		if (!loggedMissingTypes.contains(pageTitle)) {
+			log.info("Could not find spacecraft type \"{}\" in local database.", pageTitle);
+			loggedMissingTypes.add(pageTitle);
+		}
 	}
 
 }

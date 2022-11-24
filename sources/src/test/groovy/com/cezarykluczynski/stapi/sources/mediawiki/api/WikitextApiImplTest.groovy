@@ -12,7 +12,7 @@ import spock.lang.Unroll
 class WikitextApiImplTest extends Specification {
 
 	private static final String WIKITEXT = 'blah blah [[Some page| description]] and [[another page]] blah blah {{dis|Mark|technician}} ' +
-			'blah {{mu|Picard}} blah {{alt|Riker}} blah'
+			'blah {{mu|Picard}} blah {{alt|Riker}} blah {{federation}} blah'
 	private static final String HTML = 'blah blah <span class="new" title="Some page"> description</span> and ' +
 			'<span class="new" title="another page (page does not exist)">another page</span> blah blah ' +
 			'<a href="/wiki/Mark (technican)" title="Mark (technican)">Mark (technican)</a> blah ' +
@@ -42,12 +42,13 @@ class WikitextApiImplTest extends Specification {
 		List<String> pageList = wikitextApiImpl.getPageTitlesFromWikitext(WIKITEXT)
 
 		then:
-		pageList.size() == 5
+		pageList.size() == 6
 		pageList[0] == 'Some page'
 		pageList[1] == 'another page'
 		pageList[2] == 'Mark (technician)'
 		pageList[3] == 'Picard (mirror)'
 		pageList[4] == 'Riker (alternate reality)'
+		pageList[5] == 'United Federation of Planets'
 	}
 
 	void "gets titles from wikitext, excluding not found"() {
@@ -59,9 +60,10 @@ class WikitextApiImplTest extends Specification {
 		List<String> pageList = wikitextApiImpl.getPageTitlesFromWikitextExcludingNotFound(WIKITEXT, page)
 
 		then:
-		pageList.size() == 2
+		pageList.size() == 3
 		pageList[0] == 'Mark (technician)'
 		pageList[1] == 'Riker (alternate reality)'
+		pageList[2] == 'United Federation of Planets'
 	}
 
 	void "gets page links from wikitext"() {
@@ -69,7 +71,7 @@ class WikitextApiImplTest extends Specification {
 		List<PageLink> pageLinkList = wikitextApiImpl.getPageLinksFromWikitext(WIKITEXT)
 
 		then:
-		pageLinkList.size() == 5
+		pageLinkList.size() == 6
 		pageLinkList[0].title == 'Some page'
 		pageLinkList[0].untrimmedDescription == ' description'
 		pageLinkList[0].description == 'description'
@@ -91,6 +93,10 @@ class WikitextApiImplTest extends Specification {
 		pageLinkList[4].description == 'Riker'
 		pageLinkList[4].startPosition == 120
 		pageLinkList[4].endPosition == 129
+		pageLinkList[5].title == 'United Federation of Planets'
+		pageLinkList[5].description == 'United Federation of Planets'
+		pageLinkList[5].startPosition == 135
+		pageLinkList[5].endPosition == 149
 	}
 
 	void "gets page links from wikitext, including those from 'dis' template"() {

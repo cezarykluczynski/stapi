@@ -66,6 +66,9 @@ public class PageTitle {
 	public static final String STARBASE = "Starbase";
 	public static final String TRANSURANIC = "Transuranic";
 
+	public static final String STARFLEET = "Starfleet";
+	public static final String STARFLEET_MIRROR = "Starfleet (mirror)";
+
 	public static final String MODULE_EPISODE_DATA_A = "Module:EpisodeData/A";
 	public static final String MODULE_EPISODE_DATA_D = "Module:EpisodeData/D";
 	public static final String MODULE_EPISODE_DATA_M = "Module:EpisodeData/M";

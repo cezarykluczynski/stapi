@@ -70,14 +70,14 @@ class WikitextToEntitiesGenericProcessorTest extends Specification {
 		then:
 		1 * repositoryProviderMock.provide() >> classCrudRepositoryMap
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1, PAGE_TITLE_2, PAGE_TITLE_3, PAGE_TITLE_4)
-		1 * titleRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_1, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(title1)
-		1 * titleRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_2, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(title1)
+		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_2, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_2, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> null
-		1 * titleRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_3, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_3, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_3, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page1
-		1 * titleRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_3_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_3_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(title2)
-		1 * titleRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_4, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_4, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_4, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page2
 		0 * _
 		titleList.size() == 2

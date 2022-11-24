@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.title.entity.Title
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import spock.lang.Specification
 
 class WikitextToEntitiesProcessorTest extends Specification {
@@ -21,11 +22,15 @@ class WikitextToEntitiesProcessorTest extends Specification {
 
 	private WikitextToEntitiesGenericProcessor wikitextToEntitiesGenericProcessorMock
 
+	private LinkingTemplatesToEntitiesProcessor linkingTemplatesToEntitiesProcessorMock
+
 	private WikitextToEntitiesProcessor wikitextToEntitiesProcessor
 
 	void setup() {
 		wikitextToEntitiesGenericProcessorMock = Mock()
-		wikitextToEntitiesProcessor = new WikitextToEntitiesProcessor(wikitextToEntitiesGenericProcessorMock)
+		linkingTemplatesToEntitiesProcessorMock = Mock()
+		wikitextToEntitiesProcessor = new WikitextToEntitiesProcessor(wikitextToEntitiesGenericProcessorMock,
+				linkingTemplatesToEntitiesProcessorMock)
 	}
 
 	void "finds book series"() {
@@ -33,7 +38,7 @@ class WikitextToEntitiesProcessorTest extends Specification {
 		List<BookSeries> bookSeriesList = Mock()
 
 		when:
-		List<BookSeries> bookSeriesListOutput = wikitextToEntitiesProcessor.findBookSeries(WIKITEXT,)
+		List<BookSeries> bookSeriesListOutput = wikitextToEntitiesProcessor.findBookSeries(WIKITEXT)
 
 		then:
 		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, BookSeries) >> bookSeriesList
@@ -106,7 +111,7 @@ class WikitextToEntitiesProcessorTest extends Specification {
 		magazineSeriesListOutput == magazineSeriesList
 	}
 
-	void "finds organizations"() {
+	void "(wikitext) finds organizations"() {
 		given:
 		List<Organization> organizationList = Mock()
 
@@ -115,6 +120,20 @@ class WikitextToEntitiesProcessorTest extends Specification {
 
 		then:
 		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Organization) >> organizationList
+		0 * _
+		organizationListOutput == organizationList
+	}
+
+	void "(part) finds organizations"() {
+		given:
+		Template.Part part = new Template.Part()
+		List<Organization> organizationList = Mock()
+
+		when:
+		List<Organization> organizationListOutput = wikitextToEntitiesProcessor.findOrganizations(part)
+
+		then:
+		1 * linkingTemplatesToEntitiesProcessorMock.process(part, Organization) >> organizationList
 		0 * _
 		organizationListOutput == organizationList
 	}

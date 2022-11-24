@@ -38,7 +38,7 @@ class GenericEntityLookupByNameService {
 		Optional<T> genericOptional;
 
 		try {
-			genericOptional = pageAwareRepository.findByPageTitleAndPageMediaWikiSource(pageName,
+			genericOptional = pageAwareRepository.findByPageTitleWithPageMediaWikiSource(pageName,
 					mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource));
 		} catch (NonUniqueResultException e) {
 			genericOptional = Optional.empty();

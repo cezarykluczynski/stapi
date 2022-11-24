@@ -49,7 +49,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		then:
 		1 * repositoriesMock.getRepositoryFor(Character) >> characterRepositoryMock
 		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
 		0 * _
 		characterOptional.get() == character
 	}
@@ -69,7 +69,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		then:
 		1 * repositoriesMock.getRepositoryFor(Character) >> characterRepositoryMock
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
 		0 * _
@@ -91,7 +91,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		then:
 		1 * repositoriesMock.getRepositoryFor(Character) >> characterRepositoryMock
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
@@ -107,7 +107,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		then:
 		1 * repositoriesMock.getRepositoryFor(Character) >> characterRepositoryMock
 		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
 		0 * _
 		!characterOptional.present
@@ -127,7 +127,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		then:
 		1 * repositoriesMock.getRepositoryFor(Character) >> characterRepositoryMock
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		0 * _

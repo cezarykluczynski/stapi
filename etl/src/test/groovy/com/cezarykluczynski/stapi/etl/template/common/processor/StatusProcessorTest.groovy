@@ -1,14 +1,19 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
 import spock.lang.Specification
 import spock.lang.Unroll
 
 class StatusProcessorTest extends Specification {
 
+	private WikitextApi wikitextApiMock
+
 	private StatusProcessor statusProcessor
 
 	void setup() {
-		statusProcessor = new StatusProcessor()
+		wikitextApiMock = Mock()
+		statusProcessor = new StatusProcessor(new WikitextApiImpl())
 	}
 
 	@Unroll('when #input is passed, #output is returned')
@@ -53,6 +58,7 @@ class StatusProcessorTest extends Specification {
 		''''Active ([[prime reality]])  <small>''([[2233]])''</small><br />Destroyed ([[alternate reality]])''' | 'Active'
 		'''Missing ([[prime reality]]) <small>''([[2387]])''</small><br />Destroyed ([[alternate reality]])'''  | 'Missing'
 		'''Missing ([[prime universe]]) <small>''([[2268]])''</small><br />Active ([[mirror universe]])'''      | 'Missing'
+		'[[Crash]]ed'                                                                                           | 'Crashed'
 		// hologram
 		'Dematerialized'                                                                                        | 'Dematerialized'
 		'Detained in external memory module'                                                                    | 'Detained'

@@ -47,6 +47,7 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 			if (StringUtils.contains(title, ALTERNATE_REALITY)) {
 				starshipClassTemplate.setAlternateReality(true);
 			}
+			// TODO: add mirror perhaps?
 		});
 
 		if (speciesCandidatesList.size() == 1) {

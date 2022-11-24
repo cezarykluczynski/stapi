@@ -1,10 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter
-import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -15,121 +13,68 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 
 	private static final String OWNER = 'OWNER'
 	private static final String OPERATOR = 'OPERATOR'
+	private static final String AFFILIATION = 'AFFILIATION'
 	private static final String TYPE = 'TYPE'
 
 	private StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessorMock
 
-	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
+	private StarshipClassTemplatePartOrganizationsEnrichingProcessor starshipClassTemplatePartOrganizationsEnrichingProcessorMock
 
 	private StarshipClassTemplateRelationsEnrichingProcessor starshipClassTemplateRelationsEnrichingProcessor
 
 	void setup() {
 		starshipClassSpacecraftTypeProcessorMock = Mock()
-		wikitextToEntitiesProcessorMock = Mock()
+		starshipClassTemplatePartOrganizationsEnrichingProcessorMock = Mock()
 		starshipClassTemplateRelationsEnrichingProcessor = new StarshipClassTemplateRelationsEnrichingProcessor(
-				starshipClassSpacecraftTypeProcessorMock, wikitextToEntitiesProcessorMock)
+				starshipClassSpacecraftTypeProcessorMock, starshipClassTemplatePartOrganizationsEnrichingProcessorMock)
 	}
 
-	void "when owner part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
+	void "when owner part is found, StarshipClassTemplatePartOrganizationsEnrichingProcessor is used"() {
 		given:
-		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part part = new Template.Part(
 				key: StarshipClassTemplateParameter.OWNER,
-				value: OWNER)))
+				value: OWNER)
+		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(part))
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
 
 		when:
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList()
+		1 * starshipClassTemplatePartOrganizationsEnrichingProcessorMock.enrich(EnrichablePair.of(part, starshipClassTemplate))
 		0 * _
-		starshipClassTemplate.owner == null
 	}
 
-	void "when owner part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
+	void "when operator part is found, StarshipClassTemplatePartOrganizationsEnrichingProcessor is used"() {
 		given:
-		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipClassTemplateParameter.OWNER,
-				value: OWNER)))
-		Organization organization = Mock()
-		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
-
-		when:
-		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
-
-		then:
-		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList(organization)
-		0 * _
-		starshipClassTemplate.owner == organization
-	}
-
-	void "when owner part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
-		given:
-		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipClassTemplateParameter.OWNER,
-				value: OWNER)))
-		Organization organization1 = Mock()
-		Organization organization2 = Mock()
-		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
-
-		when:
-		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
-
-		then:
-		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList(organization1, organization2)
-		0 * _
-		starshipClassTemplate.owner == organization1
-	}
-
-	void "when operator part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
-		given:
-		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part part = new Template.Part(
 				key: StarshipClassTemplateParameter.OPERATOR,
-				value: OPERATOR)))
+				value: OPERATOR)
+		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(part))
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
 
 		when:
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList()
+		1 * starshipClassTemplatePartOrganizationsEnrichingProcessorMock.enrich(EnrichablePair.of(part, starshipClassTemplate))
 		0 * _
-		starshipClassTemplate.operator == null
 	}
 
-	void "when operator part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
+	void "when affiliation part is found, StarshipClassTemplatePartOrganizationsEnrichingProcessor is used"() {
 		given:
-		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipClassTemplateParameter.OPERATOR,
-				value: OPERATOR)))
-		Organization organization = Mock()
+		Template.Part part = new Template.Part(
+				key: StarshipClassTemplateParameter.AFFILIATION,
+				value: AFFILIATION)
+		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(part))
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
 
 		when:
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList(organization)
+		1 * starshipClassTemplatePartOrganizationsEnrichingProcessorMock.enrich(EnrichablePair.of(part, starshipClassTemplate))
 		0 * _
-		starshipClassTemplate.operator == organization
-	}
-
-	void "when operator part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
-		given:
-		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipClassTemplateParameter.OPERATOR,
-				value: OPERATOR)))
-		Organization organization1 = Mock()
-		Organization organization2 = Mock()
-		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
-
-		when:
-		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
-
-		then:
-		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList(organization1, organization2)
-		0 * _
-		starshipClassTemplate.operator == organization1
 	}
 
 	void "when type part is found, StarshipClassActivityPeriodProcessor is used to process it"() {

@@ -109,7 +109,7 @@ public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSe
 	}
 
 	private Optional<BookSeries> findBookSeriesByPageTitleAndPageMediaWikiSource(String pageTitle, MediaWikiSource mediaWikiSource) {
-		return bookSeriesRepository.findByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
+		return bookSeriesRepository.findByPageTitleWithPageMediaWikiSource(pageTitle, mediaWikiSource);
 	}
 
 }

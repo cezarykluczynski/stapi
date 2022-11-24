@@ -38,12 +38,12 @@ public class CharacterRelationFactory {
 			CharacterRelationCacheKey characterRelationCacheKey) {
 		PageLink pageLink = characterPageLinkWithRelationName.getPageLink();
 		Optional<Character> sourceOptional = characterRepository
-				.findByPageTitleAndPageMediaWikiSource(pageLink.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+				.findByPageTitleWithPageMediaWikiSource(pageLink.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 
 		if (!sourceOptional.isPresent()) {
 			Page page = pageApi.getPage(pageLink.getTitle(), com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
 			if (page != null && !page.getRedirectPath().isEmpty()) {
-				sourceOptional = characterRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+				sourceOptional = characterRepository.findByPageTitleWithPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 			}
 		}
 

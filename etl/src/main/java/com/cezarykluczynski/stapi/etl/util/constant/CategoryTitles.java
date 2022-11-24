@@ -273,4 +273,68 @@ public class CategoryTitles {
 			CategoryTitle.PROJECTILE_WEAPONS
 	);
 
+	public static final List<String> SPACECRAFT_TYPES = ImmutableList.of(
+			CategoryTitle.SPACECRAFT_CLASSIFICATIONS,
+			CategoryTitle.SPACECRAFT_CLASSIFICATIONS_ALTERNATE_REALITY,
+			CategoryTitle.STATION_TYPES
+	);
+
+	public static final List<String> SPACECRAFT_CLASSES = ImmutableList.of(
+			CategoryTitle.SPACECRAFT_CLASSES,
+			CategoryTitle.SPACECRAFT_CLASSES_ALTERNATE_REALITY,
+			CategoryTitle.STARSHIP_CLASSES_ALTERNATE_REALITY,
+			CategoryTitle.SPACECRAFT_CLASSES_MIRROR,
+			CategoryTitle.STARSHIP_CLASSES_MIRROR,
+			CategoryTitle.EARTH_SPACECRAFT_CLASSES,
+			CategoryTitle.EARTH_SPACECRAFT_CLASSES_RETCONNED,
+			CategoryTitle.EARTH_STARSHIP_CLASSES,
+			CategoryTitle.CONFEDERATION_STARSHIP_CLASSES,
+			CategoryTitle.ESCAPE_POD_CLASSES,
+			CategoryTitle.SHUTTLE_CLASSES,
+			CategoryTitle.FEDERATION_SHUTTLE_CLASSES,
+			CategoryTitle.STARSHIP_CLASSES,
+			CategoryTitle.FEDERATION_STARSHIP_CLASSES,
+			CategoryTitle.FEDERATION_STARSHIP_CLASSES_ALTERNATE_REALITY,
+			CategoryTitle.FEDERATION_STARSHIP_CLASSES_RETCONNED
+	);
+
+
+	public static final List<String> SPACECRAFTS = ImmutableList.of(
+			CategoryTitle.SPACECRAFT,
+			CategoryTitle.SPACECRAFT_ALTERNATE_REALITY,
+			CategoryTitle.SHUTTLES_ALTERNATE_REALITY,
+			CategoryTitle.STARSHIPS_ALTERNATE_REALITY,
+			CategoryTitle.SPACECRAFT_MIRROR,
+			CategoryTitle.STARSHIPS_MIRROR,
+			CategoryTitle.EARTH_SPACECRAFT,
+			CategoryTitle.EARTH_STARSHIPS,
+			CategoryTitle.CONFEDERATION_STARSHIPS,
+			CategoryTitle.EARTH_PROBES,
+			CategoryTitle.EARTH_PROBES_RETCONNED,
+			CategoryTitle.EARTH_SHUTTLES,
+			CategoryTitle.ESCAPE_PODS,
+			CategoryTitle.FERENGI_SPACECRAFT,
+			CategoryTitle.FERENGI_STARSHIPS,
+			CategoryTitle.PROBES,
+			CategoryTitle.SHUTTLES,
+			CategoryTitle.EARTH_SHUTTLES,
+			CategoryTitle.FEDERATION_SHUTTLES,
+			CategoryTitle.STARSHIPS,
+			CategoryTitle.STARSHIPS_ALTERNATE_REALITY,
+			CategoryTitle.ANDORIAN_STARSHIPS,
+			CategoryTitle.BORG_STARSHIPS,
+			CategoryTitle.CARDASSIAN_STARSHIPS,
+			CategoryTitle.DOMINION_STARSHIPS,
+			CategoryTitle.FEDERATION_STARSHIPS,
+			CategoryTitle.FEDERATION_STARSHIPS_ALTERNATE_REALITY,
+			CategoryTitle.FEDERATION_STARSHIPS_RETCONNED,
+			CategoryTitle.FICTIONAL_STARSHIPS,
+			CategoryTitle.ROMULAN_STARSHIPS,
+			CategoryTitle.VULCAN_STARSHIPS,
+			CategoryTitle.SPACE_STATIONS,
+			CategoryTitle.OUTPOSTS,
+			CategoryTitle.STARBASES,
+			CategoryTitle.STARBASES_RETCONNED
+	);
+
 }

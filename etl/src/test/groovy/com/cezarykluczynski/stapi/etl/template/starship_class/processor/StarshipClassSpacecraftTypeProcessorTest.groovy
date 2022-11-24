@@ -87,7 +87,7 @@ class StarshipClassSpacecraftTypeProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1)
 		1 * starshipClassTemplateNameCorrectionFixedValueProviderMock.getSearchedValue(PAGE_TITLE_1) >> FixedValueHolder.empty()
 		1 * spacecraftTypeRepositoryMock.findByNameIgnoreCase(PAGE_TITLE_1) >> Optional.empty()
-		1 * spacecraftTypeRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(spacecraftType)
+		1 * spacecraftTypeRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(spacecraftType)
 		0 * _
 		spacecraftTypeSet.size() == 1
 		spacecraftTypeSet.contains spacecraftType
@@ -106,7 +106,7 @@ class StarshipClassSpacecraftTypeProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1)
 		1 * starshipClassTemplateNameCorrectionFixedValueProviderMock.getSearchedValue(PAGE_TITLE_1) >> FixedValueHolder.empty()
 		1 * spacecraftTypeRepositoryMock.findByNameIgnoreCase(PAGE_TITLE_1) >> Optional.empty()
-		1 * spacecraftTypeRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * spacecraftTypeRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_1, SOURCES_MEDIA_WIKI_SOURCE) >> page
 		1 * pageApiMock.getPageInfo(PAGE_TITLE_2, SOURCES_MEDIA_WIKI_SOURCE) >> pageInfo
 		1 * spacecraftTypeRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID_LONG, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(spacecraftType)
@@ -123,7 +123,7 @@ class StarshipClassSpacecraftTypeProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1)
 		1 * starshipClassTemplateNameCorrectionFixedValueProviderMock.getSearchedValue(PAGE_TITLE_1) >> FixedValueHolder.empty()
 		1 * spacecraftTypeRepositoryMock.findByNameIgnoreCase(PAGE_TITLE_1) >> Optional.empty()
-		1 * spacecraftTypeRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * spacecraftTypeRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_1, SOURCES_MEDIA_WIKI_SOURCE) >> null
 		0 * _
 		spacecraftTypeSet.empty
@@ -140,7 +140,7 @@ class StarshipClassSpacecraftTypeProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1)
 		1 * starshipClassTemplateNameCorrectionFixedValueProviderMock.getSearchedValue(PAGE_TITLE_1) >> FixedValueHolder.empty()
 		1 * spacecraftTypeRepositoryMock.findByNameIgnoreCase(PAGE_TITLE_1) >> Optional.empty()
-		1 * spacecraftTypeRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * spacecraftTypeRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_1, SOURCES_MEDIA_WIKI_SOURCE) >> page
 		1 * pageApiMock.getPageInfo(PAGE_TITLE_2, SOURCES_MEDIA_WIKI_SOURCE) >> null
 		0 * _
@@ -159,7 +159,7 @@ class StarshipClassSpacecraftTypeProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1)
 		1 * starshipClassTemplateNameCorrectionFixedValueProviderMock.getSearchedValue(PAGE_TITLE_1) >> FixedValueHolder.empty()
 		1 * spacecraftTypeRepositoryMock.findByNameIgnoreCase(PAGE_TITLE_1) >> Optional.empty()
-		1 * spacecraftTypeRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * spacecraftTypeRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(PAGE_TITLE_1, SOURCES_MEDIA_WIKI_SOURCE) >> page
 		1 * pageApiMock.getPageInfo(PAGE_TITLE_2, SOURCES_MEDIA_WIKI_SOURCE) >> pageInfo
 		1 * spacecraftTypeRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID_LONG, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()

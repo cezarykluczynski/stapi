@@ -103,7 +103,7 @@ class BookSeriesLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, SOURCES_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_NOVEL_SERIES) >> Optional.of(sidebarBookSeriesTemplate)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(PARENT_SERIES_WIKITEXT) >> Lists.newArrayList(PARENT_SERIES_TITLE)
-		1 * bookSeriesRepositoryMock.findByPageTitleAndPageMediaWikiSource(PARENT_SERIES_TITLE, MODEL_MEDIA_WIKI_SOURCE) >> Optional
+		1 * bookSeriesRepositoryMock.findByPageTitleWithPageMediaWikiSource(PARENT_SERIES_TITLE, MODEL_MEDIA_WIKI_SOURCE) >> Optional
 				.of(parentBookSeries)
 		0 * _
 		bookSeries.parentSeries.size() == 1
@@ -132,10 +132,10 @@ class BookSeriesLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, SOURCES_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_NOVEL_SERIES) >> Optional.of(sidebarBookSeriesTemplate)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(PARENT_SERIES_WIKITEXT) >> Lists.newArrayList(PARENT_SERIES_TITLE)
-		1 * bookSeriesRepositoryMock.findByPageTitleAndPageMediaWikiSource(PARENT_SERIES_TITLE, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * bookSeriesRepositoryMock.findByPageTitleWithPageMediaWikiSource(PARENT_SERIES_TITLE, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(PARENT_SERIES_TITLE, SOURCES_MEDIA_WIKI_SOURCE) >> parentSourcesPage
-		1 * bookSeriesRepositoryMock.findByPageTitleAndPageMediaWikiSource(PARENT_SERIES_TITLE_AFTER_REDIRECT, MODEL_MEDIA_WIKI_SOURCE) >>
+		1 * bookSeriesRepositoryMock.findByPageTitleWithPageMediaWikiSource(PARENT_SERIES_TITLE_AFTER_REDIRECT, MODEL_MEDIA_WIKI_SOURCE) >>
 				Optional.of(parentBookSeries)
 		0 * _
 		bookSeries.parentSeries.size() == 1

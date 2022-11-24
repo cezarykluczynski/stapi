@@ -49,7 +49,7 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 			Optional<AstronomicalObject> astronomicalObjectOptional;
 			try {
 				astronomicalObjectOptional = astronomicalObjectRepository
-						.findByPageTitleAndPageMediaWikiSource(pageLink.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+						.findByPageTitleWithPageMediaWikiSource(pageLink.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 			} catch (NonUniqueResultException e) {
 				log.info("Could not find unique page by title \"{}\".", pageLink.getTitle());
 				continue;

@@ -63,4 +63,17 @@ class PageHeaderConverterTest extends Specification {
 		pageHeaderList[1].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
+	void "converts Page to PageHeader"() {
+		given:
+		Page page = new Page(title: TITLE_1, pageId: PAGE_ID_1_LONG, mediaWikiSource: MEDIA_WIKI_SOURCE)
+
+		when:
+		PageHeader pageHeader = pageHeaderConverter.fromPage(page)
+
+		then:
+		pageHeader.pageId == PAGE_ID_1_LONG
+		pageHeader.title == TITLE_1
+		pageHeader.mediaWikiSource == MEDIA_WIKI_SOURCE
+	}
+
 }

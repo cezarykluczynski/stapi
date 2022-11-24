@@ -50,7 +50,7 @@ public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemEnri
 
 			Optional<Performer> performerOptional;
 			try {
-				performerOptional = performerRepository.findByPageTitleAndPageMediaWikiSource(title, MediaWikiSource.MEMORY_ALPHA_EN);
+				performerOptional = performerRepository.findByPageTitleWithPageMediaWikiSource(title, MediaWikiSource.MEMORY_ALPHA_EN);
 				performerOptional.ifPresent(performerSet::add);
 
 				if (!performerOptional.isPresent()) {

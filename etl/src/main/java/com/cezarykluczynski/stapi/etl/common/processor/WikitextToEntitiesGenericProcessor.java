@@ -57,7 +57,7 @@ class WikitextToEntitiesGenericProcessor {
 	private <T> Optional<T> tryFindEntity(String pageLinkTitle, PageAwareRepository<T> pageAwareRepository) {
 		Optional<T> entityOptional;
 		try {
-			entityOptional = pageAwareRepository.findByPageTitleAndPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
+			entityOptional = pageAwareRepository.findByPageTitleWithPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
 		} catch (NonUniqueResultException e) {
 			entityOptional = Optional.empty();
 		} catch (Exception e) {
@@ -70,7 +70,7 @@ class WikitextToEntitiesGenericProcessor {
 			Page page = pageApi.getPage(pageLinkTitle, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
 			if (page != null && !page.getRedirectPath().isEmpty()) {
 				try {
-					entityOptional = pageAwareRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+					entityOptional = pageAwareRepository.findByPageTitleWithPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 				} catch (NonUniqueResultException e) {
 					log.error("When searching using page title {} and MediaWiki source {}, non unique result was found.", page.getTitle(),
 							MediaWikiSource.MEMORY_ALPHA_EN);

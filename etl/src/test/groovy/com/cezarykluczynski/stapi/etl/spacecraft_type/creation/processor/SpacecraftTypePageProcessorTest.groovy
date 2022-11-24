@@ -1,13 +1,11 @@
 package com.cezarykluczynski.stapi.etl.spacecraft_type.creation.processor
 
-import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.etl.spacecraft_type.creation.service.SpacecraftTypePageFilter
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class SpacecraftTypePageProcessorTest extends Specification {
@@ -16,7 +14,7 @@ class SpacecraftTypePageProcessorTest extends Specification {
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (with brackets)'
 	private static final String UID = 'UID'
 
-	private CategorySortingService categorySortingServiceMock
+	private SpacecraftTypePageFilter spacecraftTypePageFilterMock
 
 	private PageBindingService pageBindingServiceMock
 
@@ -25,13 +23,13 @@ class SpacecraftTypePageProcessorTest extends Specification {
 	private SpacecraftTypePageProcessor spacecraftTypePageProcessor
 
 	void setup() {
-		categorySortingServiceMock = Mock()
+		spacecraftTypePageFilterMock = Mock()
 		pageBindingServiceMock = Mock()
 		uidGeneratorMock = Mock()
-		spacecraftTypePageProcessor = new SpacecraftTypePageProcessor(categorySortingServiceMock, pageBindingServiceMock, uidGeneratorMock)
+		spacecraftTypePageProcessor = new SpacecraftTypePageProcessor(spacecraftTypePageFilterMock, pageBindingServiceMock, uidGeneratorMock)
 	}
 
-	void "returns null when page is sorted on top of 'Spacecraft classifications' category"() {
+	void "returns null when page should filtered out"() {
 		given:
 		Page page = new Page()
 
@@ -39,7 +37,7 @@ class SpacecraftTypePageProcessorTest extends Specification {
 		SpacecraftType spacecraftType = spacecraftTypePageProcessor.process(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList(CategoryTitle.SPACECRAFT_CLASSIFICATIONS)) >> true
+		1 * spacecraftTypePageFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		spacecraftType == null
 	}
@@ -53,7 +51,7 @@ class SpacecraftTypePageProcessorTest extends Specification {
 		SpacecraftType spacecraftType = spacecraftTypePageProcessor.process(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList(CategoryTitle.SPACECRAFT_CLASSIFICATIONS)) >> false
+		1 * spacecraftTypePageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, SpacecraftType) >> UID
 		0 * _

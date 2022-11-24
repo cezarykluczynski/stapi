@@ -59,7 +59,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList(WIKITEXT)
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
 		astronomicalObjects[0] == astronomicalObjectFoundByTitle
@@ -77,7 +77,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * paragraphExtractorMock.extractParagraphs(WITH_LINE_BREAK_WIKITEXT) >> Lists.newArrayList(WIKITEXT)
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
 		astronomicalObjects[0] == astronomicalObjectFoundByTitle
@@ -94,7 +94,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList(WIKITEXT)
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.empty()
 		0 * _
 		astronomicalObjects == []
@@ -111,7 +111,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList(WIKITEXT)
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >> { args ->
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >> { args ->
 			throw new NonUniqueResultException()
 		}
 		0 * _
@@ -130,7 +130,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * paragraphExtractorMock.extractParagraphs(LIGTH_YEAR_WIKITEXT) >> Lists.newArrayList(LIGTH_YEAR_WIKITEXT)
 		1 * wikitextApiMock.getWikitextWithoutTemplates(LIGTH_YEAR_WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
 		astronomicalObjects == []
@@ -148,7 +148,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * paragraphExtractorMock.extractParagraphs(VISILBE_FROM_WIKITEXT) >> Lists.newArrayList(VISILBE_FROM_WIKITEXT)
 		1 * wikitextApiMock.getWikitextWithoutTemplates(VISILBE_FROM_WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
+		1 * astronomicalObjectRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
 		astronomicalObjects == []

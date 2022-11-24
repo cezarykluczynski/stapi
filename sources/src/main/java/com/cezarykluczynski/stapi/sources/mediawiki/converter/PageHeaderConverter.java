@@ -20,14 +20,13 @@ public class PageHeaderConverter {
 				.collect(Collectors.toList());
 	}
 
-
 	public List<PageHeader> fromPageList(List<Page> pageList) {
 		return pageList.stream()
 				.map(this::fromPage)
 				.collect(Collectors.toList());
 	}
 
-	private PageHeader fromPage(Page page) {
+	public PageHeader fromPage(Page page) {
 		PageHeader pageHeader = new PageHeader();
 		pageHeader.setTitle(page.getTitle());
 		pageHeader.setPageId(page.getPageId());

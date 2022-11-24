@@ -57,7 +57,7 @@ public class ClassTemplateSpacecraftClassesProcessor implements ItemProcessor<Te
 			return spacecraftClassList;
 		}
 
-		spacecraftClassRepository.findByPageTitleAndPageMediaWikiSource(pageTitleCandidate, MediaWikiSource.MEMORY_ALPHA_EN)
+		spacecraftClassRepository.findByPageTitleWithPageMediaWikiSource(pageTitleCandidate, MediaWikiSource.MEMORY_ALPHA_EN)
 				.ifPresent(spacecraftClassList::add);
 
 		return spacecraftClassList;

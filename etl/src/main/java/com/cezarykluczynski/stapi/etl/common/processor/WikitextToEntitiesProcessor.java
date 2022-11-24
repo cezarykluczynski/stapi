@@ -13,18 +13,19 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class WikitextToEntitiesProcessor {
 
 	private final WikitextToEntitiesGenericProcessor wikitextToEntitiesGenericProcessor;
 
-	public WikitextToEntitiesProcessor(WikitextToEntitiesGenericProcessor wikitextToEntitiesGenericProcessor) {
-		this.wikitextToEntitiesGenericProcessor = wikitextToEntitiesGenericProcessor;
-	}
+	private final LinkingTemplatesToEntitiesProcessor linkingTemplatesToEntitiesProcessor;
 
 	public List<BookSeries> findBookSeries(String item) {
 		return wikitextToEntitiesGenericProcessor.process(item, BookSeries.class);
@@ -52,6 +53,10 @@ public class WikitextToEntitiesProcessor {
 
 	public List<Organization> findOrganizations(String item) {
 		return wikitextToEntitiesGenericProcessor.process(item, Organization.class);
+	}
+
+	public List<Organization> findOrganizations(Template.Part part) {
+		return linkingTemplatesToEntitiesProcessor.process(part, Organization.class);
 	}
 
 	public List<Title> findTitles(String item) {

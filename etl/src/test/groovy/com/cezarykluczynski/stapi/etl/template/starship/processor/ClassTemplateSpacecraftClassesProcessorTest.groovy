@@ -56,7 +56,7 @@ class ClassTemplateSpacecraftClassesProcessorTest extends Specification {
 		List<SpacecraftClass> spacecraftClassList = classTemplateSpacecraftClassesProcessor.process(templatePart)
 
 		then:
-		1 * spacecraftClassRepositoryMock.findByPageTitleAndPageMediaWikiSource(CONSTITUTION_CLASS, MEDIA_WIKI_SOURCE) >> Optional.of(spacecraftClass)
+		1 * spacecraftClassRepositoryMock.findByPageTitleWithPageMediaWikiSource(CONSTITUTION_CLASS, MEDIA_WIKI_SOURCE) >> Optional.of(spacecraftClass)
 		0 * _
 		spacecraftClassList.size() == 1
 		spacecraftClassList.contains spacecraftClass
@@ -82,7 +82,7 @@ class ClassTemplateSpacecraftClassesProcessorTest extends Specification {
 		List<SpacecraftClass> spacecraftClassList = classTemplateSpacecraftClassesProcessor.process(templatePart)
 
 		then:
-		1 * spacecraftClassRepositoryMock.findByPageTitleAndPageMediaWikiSource(CONSTITUTION_CLASS_ALTERNATE_REALITY, MEDIA_WIKI_SOURCE) >>
+		1 * spacecraftClassRepositoryMock.findByPageTitleWithPageMediaWikiSource(CONSTITUTION_CLASS_ALTERNATE_REALITY, MEDIA_WIKI_SOURCE) >>
 				Optional.of(spacecraftClass)
 		0 * _
 		spacecraftClassList.size() == 1
@@ -109,7 +109,7 @@ class ClassTemplateSpacecraftClassesProcessorTest extends Specification {
 		List<SpacecraftClass> spacecraftClassList = classTemplateSpacecraftClassesProcessor.process(templatePart)
 
 		then:
-		1 * spacecraftClassRepositoryMock.findByPageTitleAndPageMediaWikiSource(CONSTITUTION_CLASS_FEDERATION, MEDIA_WIKI_SOURCE) >>
+		1 * spacecraftClassRepositoryMock.findByPageTitleWithPageMediaWikiSource(CONSTITUTION_CLASS_FEDERATION, MEDIA_WIKI_SOURCE) >>
 				Optional.of(spacecraftClass)
 		0 * _
 		spacecraftClassList.size() == 1

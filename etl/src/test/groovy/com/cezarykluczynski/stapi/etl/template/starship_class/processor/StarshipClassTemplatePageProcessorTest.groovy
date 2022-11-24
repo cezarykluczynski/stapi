@@ -25,6 +25,8 @@ class StarshipClassTemplatePageProcessorTest extends Specification {
 
 	private StarshipClassTemplateCategoriesEnrichingProcessor starshipClassTemplateCategoriesEnrichingProcessorMock
 
+	private StarshipClassTitleEnrichingProcessor starshipClassTitleEnrichingProcessorMock
+
 	private StarshipClassTemplateCompositeEnrichingProcessor starshipClassTemplateCompositeEnrichingProcessorMock
 
 	private StarshipClassTemplatePageProcessor starshipClassTemplatePageProcessor
@@ -34,9 +36,11 @@ class StarshipClassTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		pageBindingServiceMock = Mock()
 		starshipClassTemplateCategoriesEnrichingProcessorMock = Mock()
+		starshipClassTitleEnrichingProcessorMock = Mock()
 		starshipClassTemplateCompositeEnrichingProcessorMock = Mock()
 		starshipClassTemplatePageProcessor = new StarshipClassTemplatePageProcessor(starshipClassFilterMock, templateFinderMock,
-				pageBindingServiceMock, starshipClassTemplateCategoriesEnrichingProcessorMock, starshipClassTemplateCompositeEnrichingProcessorMock)
+				pageBindingServiceMock, starshipClassTemplateCategoriesEnrichingProcessorMock, starshipClassTitleEnrichingProcessorMock,
+				starshipClassTemplateCompositeEnrichingProcessorMock)
 	}
 
 	void "when StarshipClassFilter returns true, null is returned"() {
@@ -72,6 +76,11 @@ class StarshipClassTemplatePageProcessorTest extends Specification {
 				assert enrichablePair.input == categoryHeaderList
 				assert enrichablePair.output != null
 		}
+		1 * starshipClassTitleEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<String, StarshipClassTemplate> enrichablePair ->
+				assert enrichablePair.input == TITLE_WITH_BRACKETS
+				assert enrichablePair.output != null
+		}
 		0 * _
 		starshipClassTemplate.name == TITLE
 		starshipClassTemplate.page == modelPage
@@ -97,6 +106,11 @@ class StarshipClassTemplatePageProcessorTest extends Specification {
 				EnrichablePair<Template, StarshipClassTemplate> enrichablePair ->
 			assert enrichablePair.input == categoryHeaderList
 			assert enrichablePair.output != null
+		}
+		1 * starshipClassTitleEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<String, StarshipClassTemplate> enrichablePair ->
+				assert enrichablePair.input == TITLE_WITH_BRACKETS
+				assert enrichablePair.output != null
 		}
 		1 * starshipClassTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Template, StarshipClassTemplate> enrichablePair ->

@@ -28,7 +28,7 @@ class SpeciesStarshipClassesToSpeciesMappingProviderTest extends Specification {
 		!speciesOptional.isPresent()
 	}
 
-	void "when mappings is found, result of repository query is returned"() {
+	void "when dynamic mappings is found, result of repository query is returned"() {
 		given:
 		Species species = Mock()
 		Optional<Species> speciesOptional = Optional.of(species)
@@ -38,6 +38,20 @@ class SpeciesStarshipClassesToSpeciesMappingProviderTest extends Specification {
 
 		then:
 		1 * speciesRepositoryMock.findByName(VALID_NAME) >> speciesOptional
+		0 * _
+		speciesOptionalOutput == speciesOptional
+	}
+
+	void "when static mappings is found, result of repository query is returned"() {
+		given:
+		Species species = Mock()
+		Optional<Species> speciesOptional = Optional.of(species)
+
+		when:
+		Optional<Species> speciesOptionalOutput = speciesStarshipClassesToSpeciesMappingProvider.provide('Earth_starship_classes')
+
+		then:
+		1 * speciesRepositoryMock.findByName('Human') >> speciesOptional
 		0 * _
 		speciesOptionalOutput == speciesOptional
 	}

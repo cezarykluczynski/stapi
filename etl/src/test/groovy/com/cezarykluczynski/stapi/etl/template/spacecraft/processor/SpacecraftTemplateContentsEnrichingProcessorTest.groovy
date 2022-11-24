@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.spacecraft.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor
-import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
+import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -37,7 +37,7 @@ class SpacecraftTemplateContentsEnrichingProcessorTest extends Specification {
 	void "when registry part is found, StarshipRegistryProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.REGISTRY,
+				key: StarshipTemplateParameter.REGISTRY,
 				value: REGISTRY)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
@@ -53,7 +53,7 @@ class SpacecraftTemplateContentsEnrichingProcessorTest extends Specification {
 	void "when status part is found, StatusProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.STATUS,
+				key: StarshipTemplateParameter.STATUS,
 				value: STATUS)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
@@ -69,7 +69,7 @@ class SpacecraftTemplateContentsEnrichingProcessorTest extends Specification {
 	void "when date status part is found, DateStatusProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.DATE_STATUS,
+				key: StarshipTemplateParameter.DATE_STATUS,
 				value: DATE_STATUS)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 

@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.template.spacecraft.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
-import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.starship.processor.ClassTemplateSpacecraftClassesProcessor
@@ -34,7 +33,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when owner part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.OWNER,
+				key: StarshipTemplateParameter.OWNER,
 				value: OWNER)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
@@ -50,7 +49,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when owner part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.OWNER,
+				key: StarshipTemplateParameter.OWNER,
 				value: OWNER)))
 		Organization organization = Mock()
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
@@ -67,7 +66,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when owner part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.OWNER,
+				key: StarshipTemplateParameter.OWNER,
 				value: OWNER)))
 		Organization organization1 = Mock()
 		Organization organization2 = Mock()
@@ -85,7 +84,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when operator part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.OPERATOR,
+				key: StarshipTemplateParameter.OPERATOR,
 				value: OPERATOR)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
@@ -101,7 +100,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when operator part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.OPERATOR,
+				key: StarshipTemplateParameter.OPERATOR,
 				value: OPERATOR)))
 		Organization organization = Mock()
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
@@ -118,7 +117,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	void "when operator part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: SpacecraftTemplateParameter.OPERATOR,
+				key: StarshipTemplateParameter.OPERATOR,
 				value: OPERATOR)))
 		Organization organization1 = Mock()
 		Organization organization2 = Mock()

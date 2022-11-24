@@ -53,7 +53,7 @@ class CharacterRelationFactoryTest extends Specification {
 		CharacterRelation characterRelation = characterRelationFactory.create(target, characterPageLinkWithRelationName, characterRelationCacheKey)
 
 		then:
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(source)
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(source)
 		1 * characterRelationsSidebarTemplateMappingsProviderMock.provideFor(characterRelationCacheKey) >> RELATION_NAME
 		0 * _
 		characterRelation.source == source
@@ -74,7 +74,7 @@ class CharacterRelationFactoryTest extends Specification {
 		CharacterRelation characterRelation = characterRelationFactory.create(target, characterPageLinkWithRelationName, characterRelationCacheKey)
 
 		then:
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(source)
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(source)
 		1 * characterRelationNormalizationServiceMock.normalize(characterRelationCacheKey, RELATION_NAME_RAW) >> RELATION_NAME
 		0 * _
 		characterRelation.source == source
@@ -97,9 +97,9 @@ class CharacterRelationFactoryTest extends Specification {
 		CharacterRelation characterRelation = characterRelationFactory.create(target, characterPageLinkWithRelationName, characterRelationCacheKey)
 
 		then:
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(source)
 		1 * characterRelationsSidebarTemplateMappingsProviderMock.provideFor(characterRelationCacheKey) >> RELATION_NAME
 		0 * _
@@ -123,9 +123,9 @@ class CharacterRelationFactoryTest extends Specification {
 		CharacterRelation characterRelation = characterRelationFactory.create(target, characterPageLinkWithRelationName, characterRelationCacheKey)
 
 		then:
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(source)
 		1 * characterRelationNormalizationServiceMock.normalize(characterRelationCacheKey, RELATION_NAME_RAW) >> RELATION_NAME
 		0 * _
@@ -146,7 +146,7 @@ class CharacterRelationFactoryTest extends Specification {
 		CharacterRelation characterRelation = characterRelationFactory.create(target, characterPageLinkWithRelationName, characterRelationCacheKey)
 
 		then:
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> null
 		0 * _
 		characterRelation == null
@@ -165,7 +165,7 @@ class CharacterRelationFactoryTest extends Specification {
 		CharacterRelation characterRelation = characterRelationFactory.create(target, characterPageLinkWithRelationName, characterRelationCacheKey)
 
 		then:
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
 		0 * _
 		characterRelation == null

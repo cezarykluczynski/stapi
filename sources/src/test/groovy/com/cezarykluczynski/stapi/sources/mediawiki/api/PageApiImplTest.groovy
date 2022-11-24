@@ -102,6 +102,16 @@ class PageApiImplTest extends Specification {
 		page.title == TITLE_1
 	}
 
+	void "gets category from title"() {
+		when:
+		Page page = pageApiImpl.getCategory(TITLE_1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.getPage("Category:$TITLE_1", MEDIA_WIKI_SOURCE) >> XML_1
+		page.pageId == PAGE_ID_1
+		page.title == TITLE_1
+	}
+
 	void "gets page from PageCacheStorage when it was found there"() {
 		given:
 		Page page = Mock()

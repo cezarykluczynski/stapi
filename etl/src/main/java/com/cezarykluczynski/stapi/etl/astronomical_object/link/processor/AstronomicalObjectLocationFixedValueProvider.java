@@ -63,7 +63,7 @@ public class AstronomicalObjectLocationFixedValueProvider implements FixedValueP
 		String key = astronomicalObject.getName();
 		if (LOCATIONS.containsKey(key)) {
 			final Optional<AstronomicalObject> locationOptional = astronomicalObjectRepository
-					.findByPageTitleAndPageMediaWikiSource(LOCATIONS.get(key), MediaWikiSource.MEMORY_ALPHA_EN);
+					.findByPageTitleWithPageMediaWikiSource(LOCATIONS.get(key), MediaWikiSource.MEMORY_ALPHA_EN);
 			if (locationOptional.isPresent()) {
 				return FixedValueHolder.found(locationOptional.get());
 			}

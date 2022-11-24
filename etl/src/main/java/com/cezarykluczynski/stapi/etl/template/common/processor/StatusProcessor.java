@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -10,21 +12,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class StatusProcessor implements ItemProcessor<String, String> {
 
 	private static final String PRESUM = "Presum";
 	private static final String UNKNOWN = "Unknown";
 	private static final String ED = "ed";
 
+	private final WikitextApi wikitextApi;
+
 	@Override
 	public String process(String item) throws Exception {
 		if (StringUtils.isEmpty(item) || StringUtils.containsIgnoreCase(item, PRESUM) || StringUtils.startsWithIgnoreCase(item, UNKNOWN)) {
 			return null;
 		}
+		final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(item);
 
-		String itemToProcess = Lists.newArrayList(item.split(PatternDictionary.BR)).get(0);
+		String itemToProcess = Lists.newArrayList(wikitextWithoutLinks.split(PatternDictionary.BR)).get(0);
 		List<String> words = Lists.newArrayList(StringUtils.splitByWholeSeparator(itemToProcess, StringUtils.SPACE));
 
 		if (words.size() == 1) {

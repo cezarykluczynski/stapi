@@ -72,17 +72,17 @@ class CharacterTemplateActorLinkingEnrichingProcessorTest extends Specification 
 				pageLink1, pageLink2, pageLink3, pageLink4, pageLink5)
 
 		then: 'performers are found by page titles'
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_1, SOURCE) >> Optional.of(performer1)
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_2, SOURCE) >> Optional.of(performer2)
+		1 * performerRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_1, SOURCE) >> Optional.of(performer1)
+		1 * performerRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_2, SOURCE) >> Optional.of(performer2)
 		1 * pageLink3.title >> TITLE_3
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_3, SOURCE) >> Optional.empty()
+		1 * performerRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_3, SOURCE) >> Optional.empty()
 
 		then: 'missing page title and individual name is used for logging'
 		1 * pageLink3.title >> TITLE_3
 		1 * characterTemplate.name
 
 		then: 'remaining page is found'
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_4, SOURCE) >> Optional.of(performer4)
+		1 * performerRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_4, SOURCE) >> Optional.of(performer4)
 
 		then: 'list of performers consist of two unique performers'
 		1 * characterTemplate.performers >> performerList

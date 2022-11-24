@@ -55,11 +55,11 @@ public class SeriesTemplateCompanyProcessor implements ItemProcessor<Template.Pa
 			}
 		}
 
-		Optional<Company> companyOptional = companyRepository.findByPageTitleAndPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
+		Optional<Company> companyOptional = companyRepository.findByPageTitleWithPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
 		if (!companyOptional.isPresent()) {
 			final Page page = pageApi.getPage(pageLinkTitle, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
 			if (page != null && !page.getTitle().equals(pageLinkTitle)) {
-				companyOptional = companyRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+				companyOptional = companyRepository.findByPageTitleWithPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 				if (!companyOptional.isPresent()) {
 					log.info("No company found for page link title {} nor redirected page {}.", pageLinkTitle, page.getTitle());
 					return null;

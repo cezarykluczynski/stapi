@@ -67,4 +67,5 @@
 	<include file="page/0064_change_title_length.xml" relativeToChangelogFile="true"/>
 	<include file="book/0065_extend_book.xml" relativeToChangelogFile="true"/>
 	<include file="weapon/0066_extend_weapon.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft_type/0067_change_name_length.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
