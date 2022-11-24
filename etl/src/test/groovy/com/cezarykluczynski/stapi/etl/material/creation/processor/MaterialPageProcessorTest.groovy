@@ -179,6 +179,8 @@ class MaterialPageProcessorTest extends Specification {
 		new SourcesPage(categories: createList(CategoryTitle.BIOCHEMICAL_COMPOUNDS))           | 'chemicalCompound'    | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.DRUGS))                           | 'drug'                | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.DRUGS))                           | 'chemicalCompound'    | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SEDATIVES))                       | 'drug'                | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SEDATIVES))                       | 'chemicalCompound'    | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.POISONOUS_SUBSTANCES))            | 'poisonousSubstance'  | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.POISONOUS_SUBSTANCES))            | 'chemicalCompound'    | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.EXPLOSIVES), title: HUTZELITE_27) | 'explosive'           | true  | 1

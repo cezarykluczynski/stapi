@@ -337,4 +337,17 @@ public class CategoryTitles {
 			CategoryTitle.STARBASES_RETCONNED
 	);
 
+	public static final List<String> MATERIALS = ImmutableList.of(
+			CategoryTitle.MATERIALS,
+			CategoryTitle.EXPLOSIVES,
+			CategoryTitle.GEMSTONES,
+			CategoryTitle.CHEMICAL_COMPOUNDS,
+			CategoryTitle.BIOCHEMICAL_COMPOUNDS,
+			CategoryTitle.DRUGS,
+			CategoryTitle.SEDATIVES,
+			CategoryTitle.EXPLOSIVE_WEAPONS,
+			CategoryTitle.POISONOUS_SUBSTANCES,
+			CategoryTitle.FABRICS
+	);
+
 }

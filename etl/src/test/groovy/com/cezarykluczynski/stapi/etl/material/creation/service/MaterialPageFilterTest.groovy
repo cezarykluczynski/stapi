@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.material.creation.service
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -39,6 +40,19 @@ class MaterialPageFilterTest extends Specification {
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> true
+		0 * _
+		shouldBeFilteredOut
+	}
+
+	void "returns true when page title is among invalid titles"() {
+		given:
+		Page page = new Page(title: RandomUtil.randomItem(MaterialPageFilter.INVALID_TITLES))
+
+		when:
+		boolean shouldBeFilteredOut = materialPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}

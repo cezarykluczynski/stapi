@@ -401,9 +401,11 @@ public class CategoryTitle {
 	public static final String CHEMICAL_COMPOUNDS = "Chemical_compounds";
 	public static final String BIOCHEMICAL_COMPOUNDS = "Biochemical_compounds";
 	public static final String DRUGS = "Drugs";
+	public static final String SEDATIVES = "Sedatives";
 	public static final String POISONOUS_SUBSTANCES = "Poisonous_substances";
 	public static final String EXPLOSIVES = "Explosives";
 	public static final String GEMSTONES = "Gemstones";
+	public static final String FABRICS = "Fabrics";
 
 	public static final String CONFLICTS = "Conflicts";
 	public static final String EARTH_CONFLICTS = "Earth_conflicts";

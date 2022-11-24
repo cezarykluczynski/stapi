@@ -11,14 +11,16 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.material.entity.Material;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class MaterialPageProcessor implements ItemProcessor<Page, Material> {
 
 	private final MaterialPageFilter materialPageFilter;
@@ -32,17 +34,6 @@ public class MaterialPageProcessor implements ItemProcessor<Page, Material> {
 	private final MaterialsAndSubstancesDetectorService materialsAndSubstancesDetectorService;
 
 	private final TemplateFinder templateFinder;
-
-	public MaterialPageProcessor(MaterialPageFilter materialPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
-			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
-			MaterialsAndSubstancesDetectorService materialsAndSubstancesDetectorService, TemplateFinder templateFinder) {
-		this.materialPageFilter = materialPageFilter;
-		this.pageBindingService = pageBindingService;
-		this.uidGenerator = uidGenerator;
-		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-		this.materialsAndSubstancesDetectorService = materialsAndSubstancesDetectorService;
-		this.templateFinder = templateFinder;
-	}
 
 	@Override
 	public Material process(Page item) throws Exception {
@@ -69,7 +60,7 @@ public class MaterialPageProcessor implements ItemProcessor<Page, Material> {
 		}
 
 		material.setBiochemicalCompound(categoryTitleList.contains(CategoryTitle.BIOCHEMICAL_COMPOUNDS));
-		material.setDrug(categoryTitleList.contains(CategoryTitle.DRUGS));
+		material.setDrug(categoryTitleList.contains(CategoryTitle.DRUGS) || categoryTitleList.contains(CategoryTitle.SEDATIVES));
 		material.setPoisonousSubstance(categoryTitleList.contains(CategoryTitle.POISONOUS_SUBSTANCES));
 		material.setChemicalCompound(hasChemicalCompoundsCategory || material.getBiochemicalCompound() || material.getDrug()
 				|| material.getPoisonousSubstance());
