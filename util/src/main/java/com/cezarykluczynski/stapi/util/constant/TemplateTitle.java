@@ -74,10 +74,11 @@ public class TemplateTitle {
 
 	public static final String MINERALS = "minerals";
 
-	public static final String EARTHWARS = "earthwars";
+	public static final String EARTHWARS = "earth wars";
 	public static final String FEDERATION_WARS = "federation wars";
 	public static final String DOMINION_WAR_BATTLES = "dominion war battles";
 	public static final String KLINGON_WARS = "klingon wars";
+	public static final String FEDERATION_KLINGON_WAR_2256_57 = "federation-klingon war (2256-57)";
 
 	public static final String GAMMASERIES = "gammaseries";
 	public static final String HYPERSONICSERIES = "hypersonicseries";

@@ -1,0 +1,44 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0068_extend_conflict" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="conflicts_1side_locations">
+			<column name="conflict_id" type="bigint"/>
+			<column name="location_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="conflict_id"
+				baseTableName="conflicts_1side_locations"
+				baseTableSchemaName="stapi"
+				constraintName="cc1sl_conflict_fkey"
+				referencedColumnNames="id"
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="location_id"
+				baseTableName="conflicts_1side_locations"
+				baseTableSchemaName="stapi"
+				constraintName="cc1sl_location_fkey"
+				referencedColumnNames="id"
+				referencedTableName="location"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="conflicts_2side_locations">
+			<column name="conflict_id" type="bigint"/>
+			<column name="location_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="conflict_id"
+				baseTableName="conflicts_2side_locations"
+				baseTableSchemaName="stapi"
+				constraintName="cc2sl_conflict_fkey"
+				referencedColumnNames="id"
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="location_id"
+				baseTableName="conflicts_2side_locations"
+				baseTableSchemaName="stapi"
+				constraintName="cc2sl_location_fkey"
+				referencedColumnNames="id"
+				referencedTableName="location"
+				referencedTableSchemaName="stapi"/>
+	</changeSet>
+</databaseChangeLog>

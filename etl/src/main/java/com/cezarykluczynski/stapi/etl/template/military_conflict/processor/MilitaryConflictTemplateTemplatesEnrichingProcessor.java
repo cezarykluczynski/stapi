@@ -18,13 +18,15 @@ public class MilitaryConflictTemplateTemplatesEnrichingProcessor
 		MilitaryConflictTemplate militaryConflictTemplate = enrichablePair.getOutput();
 
 		militaryConflictTemplate.setEarthConflict(Boolean.TRUE.equals(militaryConflictTemplate.getEarthConflict())
-				|| templateTitleList.contains(TemplateTitle.EARTHWARS));
+				|| templateTitleList.contains(TemplateTitle.EARTHWARS)
+				|| templateTitleList.contains(TemplateTitle.FEDERATION_KLINGON_WAR_2256_57));
 		militaryConflictTemplate.setFederationWar(Boolean.TRUE.equals(militaryConflictTemplate.getFederationWar())
 				|| templateTitleList.contains(TemplateTitle.FEDERATION_WARS));
 		militaryConflictTemplate.setDominionWarBattle(Boolean.TRUE.equals(militaryConflictTemplate.getDominionWarBattle())
 				|| templateTitleList.contains(TemplateTitle.DOMINION_WAR_BATTLES));
 		militaryConflictTemplate.setKlingonWar(Boolean.TRUE.equals(militaryConflictTemplate.getKlingonWar())
-				|| templateTitleList.contains(TemplateTitle.KLINGON_WARS));
+				|| templateTitleList.contains(TemplateTitle.KLINGON_WARS)
+				|| templateTitleList.contains(TemplateTitle.FEDERATION_KLINGON_WAR_2256_57));
 	}
 
 }

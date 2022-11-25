@@ -32,6 +32,8 @@ public class MilitaryConflictTemplateProcessor implements ItemProcessor<Military
 		conflict.getLocations().addAll(item.getLocations());
 		conflict.getFirstSideBelligerents().addAll(item.getFirstSideBelligerents());
 		conflict.getSecondSideBelligerents().addAll(item.getSecondSideBelligerents());
+		conflict.getFirstSideLocations().addAll(item.getFirstSideLocations());
+		conflict.getSecondSideLocations().addAll(item.getSecondSideLocations());
 		conflict.getFirstSideCommanders().addAll(item.getFirstSideCommanders());
 		conflict.getSecondSideCommanders().addAll(item.getSecondSideCommanders());
 

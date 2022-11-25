@@ -25,16 +25,18 @@ class MilitaryConflictTemplateTemplatesEnrichingProcessorTest extends Specificat
 		numberOfTrueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(militaryConflictTemplate)
 
 		where:
-		categoryTitleList                                      | militaryConflictTemplate                              | flagName            | flag  | numberOfTrueBooleans
-		Lists.newArrayList()                                   | new MilitaryConflictTemplate()                        | 'earthConflict'     | false | 0
-		Lists.newArrayList(TemplateTitle.EARTHWARS)            | new MilitaryConflictTemplate()                        | 'earthConflict'     | true  | 1
-		Lists.newArrayList()                                   | new MilitaryConflictTemplate(earthConflict: true)     | 'earthConflict'     | true  | 1
-		Lists.newArrayList(TemplateTitle.FEDERATION_WARS)      | new MilitaryConflictTemplate()                        | 'federationWar'     | true  | 1
-		Lists.newArrayList()                                   | new MilitaryConflictTemplate(federationWar: true)     | 'federationWar'     | true  | 1
-		Lists.newArrayList(TemplateTitle.DOMINION_WAR_BATTLES) | new MilitaryConflictTemplate()                        | 'dominionWarBattle' | true  | 1
-		Lists.newArrayList()                                   | new MilitaryConflictTemplate(dominionWarBattle: true) | 'dominionWarBattle' | true  | 1
-		Lists.newArrayList(TemplateTitle.KLINGON_WARS)         | new MilitaryConflictTemplate()                        | 'klingonWar'        | true  | 1
-		Lists.newArrayList()                                   | new MilitaryConflictTemplate(klingonWar: true)        | 'klingonWar'        | true  | 1
+		categoryTitleList                                                | militaryConflictTemplate                              | flagName            | flag  | numberOfTrueBooleans
+		Lists.newArrayList()                                             | new MilitaryConflictTemplate()                        | 'earthConflict'     | false | 0
+		Lists.newArrayList(TemplateTitle.EARTHWARS)                      | new MilitaryConflictTemplate()                        | 'earthConflict'     | true  | 1
+		Lists.newArrayList(TemplateTitle.FEDERATION_KLINGON_WAR_2256_57) | new MilitaryConflictTemplate()                        | 'earthConflict'     | true  | 2
+		Lists.newArrayList()                                             | new MilitaryConflictTemplate(earthConflict: true)     | 'earthConflict'     | true  | 1
+		Lists.newArrayList(TemplateTitle.FEDERATION_WARS)                | new MilitaryConflictTemplate()                        | 'federationWar'     | true  | 1
+		Lists.newArrayList()                                             | new MilitaryConflictTemplate(federationWar: true)     | 'federationWar'     | true  | 1
+		Lists.newArrayList(TemplateTitle.DOMINION_WAR_BATTLES)           | new MilitaryConflictTemplate()                        | 'dominionWarBattle' | true  | 1
+		Lists.newArrayList()                                             | new MilitaryConflictTemplate(dominionWarBattle: true) | 'dominionWarBattle' | true  | 1
+		Lists.newArrayList(TemplateTitle.KLINGON_WARS)                   | new MilitaryConflictTemplate()                        | 'klingonWar'        | true  | 1
+		Lists.newArrayList()                                             | new MilitaryConflictTemplate(klingonWar: true)        | 'klingonWar'        | true  | 1
+		Lists.newArrayList(TemplateTitle.FEDERATION_KLINGON_WAR_2256_57) | new MilitaryConflictTemplate()                        | 'klingonWar'        | true  | 2
 	}
 
 }

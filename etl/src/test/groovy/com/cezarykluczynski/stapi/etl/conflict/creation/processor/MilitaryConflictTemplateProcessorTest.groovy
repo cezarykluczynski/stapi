@@ -31,6 +31,10 @@ class MilitaryConflictTemplateProcessorTest extends AbstractConflictTest {
 		Organization firstSideBelligerent2 = Mock()
 		Organization secondSideBelligerent1 = Mock()
 		Organization secondSideBelligerent2 = Mock()
+		Location firstSideLocation1 = Mock()
+		Location firstSideLocation2 = Mock()
+		Location secondSideLocation1 = Mock()
+		Location secondSideLocation2 = Mock()
 		Character firstSideCommander1 = Mock()
 		Character firstSideCommander2 = Mock()
 		Character secondSideCommander1 = Mock()
@@ -48,6 +52,8 @@ class MilitaryConflictTemplateProcessorTest extends AbstractConflictTest {
 				locations: Sets.newHashSet(location1, location2),
 				firstSideBelligerents: Sets.newHashSet(firstSideBelligerent1, firstSideBelligerent2),
 				secondSideBelligerents: Sets.newHashSet(secondSideBelligerent1, secondSideBelligerent2),
+				firstSideLocations: Sets.newHashSet(firstSideLocation1, firstSideLocation2),
+				secondSideLocations: Sets.newHashSet(secondSideLocation1, secondSideLocation2),
 				firstSideCommanders: Sets.newHashSet(firstSideCommander1, firstSideCommander2),
 				secondSideCommanders: Sets.newHashSet(secondSideCommander1, secondSideCommander2))
 
@@ -73,6 +79,10 @@ class MilitaryConflictTemplateProcessorTest extends AbstractConflictTest {
 		conflict.firstSideBelligerents.contains firstSideBelligerent2
 		conflict.secondSideBelligerents.contains secondSideBelligerent1
 		conflict.secondSideBelligerents.contains secondSideBelligerent2
+		conflict.firstSideLocations.contains firstSideLocation1
+		conflict.firstSideLocations.contains firstSideLocation2
+		conflict.secondSideLocations.contains secondSideLocation1
+		conflict.secondSideLocations.contains secondSideLocation2
 		conflict.firstSideCommanders.contains firstSideCommander1
 		conflict.firstSideCommanders.contains firstSideCommander2
 		conflict.secondSideCommanders.contains secondSideCommander1

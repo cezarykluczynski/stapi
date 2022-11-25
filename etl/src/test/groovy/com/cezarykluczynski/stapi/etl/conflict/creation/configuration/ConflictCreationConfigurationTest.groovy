@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.conflict.creation.configuration
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictReader
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -34,7 +34,7 @@ class ConflictCreationConfigurationTest extends AbstractCreationConfigurationTes
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CONFLICTS) >> false
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.CONFLICTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitles.CONFLICTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_CONFLICTS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_CONFLICTS

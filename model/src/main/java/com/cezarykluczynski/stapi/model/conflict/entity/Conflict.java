@@ -31,9 +31,10 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"locations", "firstSideBelligerents", "secondSideBelligerents", "firstSideCommanders", "secondSideCommanders"})
-@EqualsAndHashCode(callSuper = true, exclude = {"locations", "firstSideBelligerents", "secondSideBelligerents", "firstSideCommanders",
-		"secondSideCommanders"})
+@ToString(callSuper = true, exclude = {"locations", "firstSideBelligerents", "secondSideBelligerents", "firstSideLocations", "secondSideLocations",
+		"firstSideCommanders", "secondSideCommanders"})
+@EqualsAndHashCode(callSuper = true, exclude = {"locations", "firstSideBelligerents", "secondSideBelligerents", "firstSideLocations",
+		"secondSideLocations", "firstSideCommanders", "secondSideCommanders"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = ConflictRepository.class, singularName = "conflict", pluralName = "conflicts")
 public class Conflict extends PageAwareEntity implements PageAware {
@@ -81,6 +82,20 @@ public class Conflict extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Organization> secondSideBelligerents = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "conflicts_1side_locations",
+			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "location_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Location> firstSideLocations = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "conflicts_2side_locations",
+			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "location_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Location> secondSideLocations = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "conflicts_1side_commanders",

@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.conflict.creation.service.ConflictPageFilter;
 import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryConflictTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
@@ -44,7 +43,7 @@ public class MilitaryConflictTemplatePageProcessor implements ItemProcessor<Page
 		}
 
 		MilitaryConflictTemplate militaryConflictTemplate = new MilitaryConflictTemplate();
-		militaryConflictTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
+		militaryConflictTemplate.setName(item.getTitle());
 		militaryConflictTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		Optional<Template> militaryConflictTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MILITARY_CONFLICT);

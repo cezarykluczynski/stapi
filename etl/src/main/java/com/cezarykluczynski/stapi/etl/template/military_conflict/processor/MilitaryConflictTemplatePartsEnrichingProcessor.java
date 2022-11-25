@@ -54,12 +54,14 @@ public class MilitaryConflictTemplatePartsEnrichingProcessor implements ItemWith
 					break;
 				case MilitaryConflictTemplateParameter.COMBATANT_1:
 					militaryConflictTemplate.getFirstSideBelligerents().addAll(wikitextToEntitiesProcessor.findOrganizations(value));
+					militaryConflictTemplate.getFirstSideLocations().addAll(wikitextToEntitiesProcessor.findLocations(value));
 					break;
 				case MilitaryConflictTemplateParameter.COMMANDER_1:
 					militaryConflictTemplate.getFirstSideCommanders().addAll(wikitextToEntitiesProcessor.findCharacters(value));
 					break;
 				case MilitaryConflictTemplateParameter.COMBATANT_2:
 					militaryConflictTemplate.getSecondSideBelligerents().addAll(wikitextToEntitiesProcessor.findOrganizations(value));
+					militaryConflictTemplate.getSecondSideLocations().addAll(wikitextToEntitiesProcessor.findLocations(value));
 					break;
 				case MilitaryConflictTemplateParameter.COMMANDER_2:
 					militaryConflictTemplate.getSecondSideCommanders().addAll(wikitextToEntitiesProcessor.findCharacters(value));

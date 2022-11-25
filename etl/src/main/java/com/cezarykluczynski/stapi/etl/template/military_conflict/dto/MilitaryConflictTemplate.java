@@ -36,6 +36,10 @@ public class MilitaryConflictTemplate {
 
 	private Set<Organization> secondSideBelligerents = Sets.newHashSet();
 
+	private Set<Location> firstSideLocations = Sets.newHashSet();
+
+	private Set<Location> secondSideLocations = Sets.newHashSet();
+
 	private Set<Character> firstSideCommanders = Sets.newHashSet();
 
 	private Set<Character> secondSideCommanders = Sets.newHashSet();

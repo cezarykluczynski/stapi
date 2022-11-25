@@ -350,4 +350,11 @@ public class CategoryTitles {
 			CategoryTitle.FABRICS
 	);
 
+	public static final List<String> CONFLICTS = ImmutableList.of(
+			CategoryTitle.CONFLICTS,
+			CategoryTitle.EARTH_CONFLICTS,
+			CategoryTitle.EARTH_CONFLICTS_RETCONNED,
+			CategoryTitle.CONFLICTS_ALTERNATE_REALITY
+	);
+
 }

@@ -91,21 +91,26 @@ class MilitaryConflictTemplatePartsEnrichingProcessorTest extends Specification 
 		militaryConflictTemplate.locations.contains location2
 	}
 
-	void "adds first side belligerents from WikitextToEntitiesProcessor"() {
+	void "adds first side belligerents and locations from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: MilitaryConflictTemplateParameter.COMBATANT_1, value: COMBATANT_1)
 		MilitaryConflictTemplate militaryConflictTemplate = new MilitaryConflictTemplate()
 		Organization organization1 = Mock()
 		Organization organization2 = Mock()
+		Location location1 = Mock()
+		Location location2 = Mock()
 
 		when:
 		militaryConflictTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), militaryConflictTemplate))
 
 		then:
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(COMBATANT_1) >> Lists.newArrayList(organization1, organization2)
+		1 * wikitextToEntitiesProcessorMock.findLocations(COMBATANT_1) >> Lists.newArrayList(location1, location2)
 		0 * _
 		militaryConflictTemplate.firstSideBelligerents.contains organization1
 		militaryConflictTemplate.firstSideBelligerents.contains organization2
+		militaryConflictTemplate.firstSideLocations.contains location1
+		militaryConflictTemplate.firstSideLocations.contains location2
 	}
 
 	void "adds first side commanders from WikitextToEntitiesProcessor"() {
@@ -125,21 +130,26 @@ class MilitaryConflictTemplatePartsEnrichingProcessorTest extends Specification 
 		militaryConflictTemplate.firstSideCommanders.contains character2
 	}
 
-	void "adds second side belligerents from WikitextToEntitiesProcessor"() {
+	void "adds second side belligerents and locations from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: MilitaryConflictTemplateParameter.COMBATANT_2, value: COMBATANT_2)
 		MilitaryConflictTemplate militaryConflictTemplate = new MilitaryConflictTemplate()
 		Organization organization1 = Mock()
 		Organization organization2 = Mock()
+		Location location1 = Mock()
+		Location location2 = Mock()
 
 		when:
 		militaryConflictTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), militaryConflictTemplate))
 
 		then:
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(COMBATANT_2) >> Lists.newArrayList(organization1, organization2)
+		1 * wikitextToEntitiesProcessorMock.findLocations(COMBATANT_2) >> Lists.newArrayList(location1, location2)
 		0 * _
 		militaryConflictTemplate.secondSideBelligerents.contains organization1
 		militaryConflictTemplate.secondSideBelligerents.contains organization2
+		militaryConflictTemplate.secondSideLocations.contains location1
+		militaryConflictTemplate.secondSideLocations.contains location2
 	}
 
 	void "adds second side commanders from WikitextToEntitiesProcessor"() {

@@ -15,7 +15,6 @@ import spock.lang.Specification
 class MilitaryConflictTemplatePageProcessorTest extends Specification {
 
 	private static final String NAME = 'NAME'
-	private static final String TITLE_WITH_BRACKETS = 'NAME (with brackets)'
 
 	private ConflictPageFilter conflictPageFilterMock
 
@@ -53,7 +52,7 @@ class MilitaryConflictTemplatePageProcessorTest extends Specification {
 
 	void "parses page without sidebar military conflict template"() {
 		given:
-		Page page = new Page(title: TITLE_WITH_BRACKETS)
+		Page page = new Page(title: NAME)
 		ModelPage modelPage = Mock()
 
 		when:

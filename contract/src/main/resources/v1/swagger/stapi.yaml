@@ -55,6 +55,7 @@ paths:
     $ref: ./company/path/company.path.yaml
   /v1/rest/company/search:
     $ref: ./company/path/companySearch.path.yaml
+  # TODO: Add V2
   /v1/rest/conflict:
     $ref: ./conflict/path/conflict.path.yaml
   /v1/rest/conflict/search:
