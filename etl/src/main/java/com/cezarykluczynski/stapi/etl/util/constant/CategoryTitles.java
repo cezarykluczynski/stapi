@@ -357,4 +357,14 @@ public class CategoryTitles {
 			CategoryTitle.CONFLICTS_ALTERNATE_REALITY
 	);
 
+	public static final List<String> ANIMALS = ImmutableList.of(
+			CategoryTitle.ANIMALS,
+			CategoryTitle.EARTH_ANIMALS,
+			CategoryTitle.EARTH_ANIMALS_RETCONNED,
+			CategoryTitle.EARTH_INSECTS,
+			CategoryTitle.AVIANS,
+			CategoryTitle.CANINES,
+			CategoryTitle.FELINES
+	);
+
 }
