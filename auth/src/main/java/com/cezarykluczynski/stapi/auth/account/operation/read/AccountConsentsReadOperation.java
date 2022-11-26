@@ -3,11 +3,14 @@ package com.cezarykluczynski.stapi.auth.account.operation.read;
 import com.cezarykluczynski.stapi.auth.account.api.AccountApi;
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountConsentTypesExtractor;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class AccountConsentsReadOperation {
 
 	private final AccountApi accountApi;

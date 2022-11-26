@@ -4,10 +4,12 @@ import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
 
 @Service
+@Profile(SpringProfile.HITS)
 @DependsOn("liquibase")
 public class EndpointHitsReader {
 

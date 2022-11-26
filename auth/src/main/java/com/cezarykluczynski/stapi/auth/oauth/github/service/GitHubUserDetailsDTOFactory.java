@@ -1,11 +1,14 @@
 package com.cezarykluczynski.stapi.auth.oauth.github.service;
 
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
 import org.json.JSONObject;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class GitHubUserDetailsDTOFactory {
 
 	private static final String KEY_LOGIN = "login";

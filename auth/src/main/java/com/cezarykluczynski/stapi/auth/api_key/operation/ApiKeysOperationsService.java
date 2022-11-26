@@ -14,9 +14,12 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadPageOpe
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeysOperationsService {
 
 	private final ApiKeysReadOperation apiKeysReadOperation;

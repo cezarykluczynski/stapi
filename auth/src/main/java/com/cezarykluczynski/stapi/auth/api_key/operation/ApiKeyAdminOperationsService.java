@@ -3,9 +3,12 @@ package com.cezarykluczynski.stapi.auth.api_key.operation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ApiKeyAdminOperationsService {
 
 	private final ApiKeysOperationsService apiKeysOperationsService;

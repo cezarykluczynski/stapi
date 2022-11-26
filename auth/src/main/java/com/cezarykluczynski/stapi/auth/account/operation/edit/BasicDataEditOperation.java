@@ -3,13 +3,16 @@ package com.cezarykluczynski.stapi.auth.account.operation.edit;
 import com.cezarykluczynski.stapi.auth.account.api.AccountApi;
 import com.cezarykluczynski.stapi.auth.account.dto.BasicDataDTO;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class BasicDataEditOperation {
 
 	private final AccountApi accountApi;

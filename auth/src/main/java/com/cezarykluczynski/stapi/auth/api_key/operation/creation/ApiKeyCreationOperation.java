@@ -1,9 +1,12 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.creation;
 
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ApiKeyCreationOperation {
 
 	private final ApiKeyCreationValidator apiKeyCreationValidator;

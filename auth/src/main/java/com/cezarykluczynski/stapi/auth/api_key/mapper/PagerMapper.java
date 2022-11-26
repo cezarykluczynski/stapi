@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.auth.api_key.mapper;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.wrapper.Pager;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class PagerMapper {
 
 	public <T> Pager map(Page<T> page) {

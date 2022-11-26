@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.common.metrics.service;
 
 import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 
 @Service
+@Profile(SpringProfile.HITS)
 public class EndpointHitsCountingService {
 
 	private final ConcurrentMap<MetricsEndpointKeyDTO, LongAdder> endpointsHits = new ConcurrentHashMap<>();

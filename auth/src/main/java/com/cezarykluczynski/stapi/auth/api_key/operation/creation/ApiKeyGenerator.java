@@ -1,13 +1,16 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.creation;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.text.RandomStringGenerator;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeyGenerator {
 
 	private static final Set<String> INVALID_CHARACTERS = new ImmutableSet.Builder<String>().add(":", ";", "<", "=", ">", "?", "@").build();

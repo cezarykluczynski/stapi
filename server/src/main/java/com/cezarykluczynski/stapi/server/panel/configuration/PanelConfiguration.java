@@ -5,10 +5,12 @@ import com.cezarykluczynski.stapi.server.panel.endpoint.PanelAccountSettingsEndp
 import com.cezarykluczynski.stapi.server.panel.endpoint.PanelAdminEndpoint;
 import com.cezarykluczynski.stapi.server.panel.endpoint.PanelApiKeysEndpoint;
 import com.cezarykluczynski.stapi.server.panel.endpoint.PanelCommonEndpoint;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.apache.cxf.endpoint.Server;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.inject.Inject;
 
@@ -19,17 +21,20 @@ public class PanelConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
+	@Profile(SpringProfile.AUTH)
 	@ConditionalOnProperty("featureSwitch.adminPanel")
 	public Server panelAccountSettingsRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelAccountSettingsEndpoint.class, PanelAccountSettingsEndpoint.ADDRESS);
 	}
 
 	@Bean
+	@Profile(SpringProfile.AUTH)
 	public Server panelAdminRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelAdminEndpoint.class, PanelAdminEndpoint.ADDRESS);
 	}
 
 	@Bean
+	@Profile(SpringProfile.AUTH)
 	@ConditionalOnProperty("featureSwitch.adminPanel")
 	public Server panelApiKeysRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelApiKeysEndpoint.class, PanelApiKeysEndpoint.ADDRESS);

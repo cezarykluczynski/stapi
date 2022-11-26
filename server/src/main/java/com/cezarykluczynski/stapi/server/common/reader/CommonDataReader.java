@@ -15,15 +15,15 @@ public class CommonDataReader {
 
 	private final CommonEntitiesDetailsReader commonEntitiesDetailsReader;
 
-	private final CommonHitsStatisticsReader commonHitsStatisticsReader;
+	private final StatisticsReader statisticsReader;
 
 	private final DocumentationProvider documentationProvider;
 
 	public CommonDataReader(CommonEntitiesStatisticsReader commonEntitiesStatisticsReader, CommonEntitiesDetailsReader commonEntitiesDetailsReader,
-			CommonHitsStatisticsReader commonHitsStatisticsReader, DocumentationProvider documentationProvider) {
+			StatisticsReader statisticsReader, DocumentationProvider documentationProvider) {
 		this.commonEntitiesStatisticsReader = commonEntitiesStatisticsReader;
 		this.commonEntitiesDetailsReader = commonEntitiesDetailsReader;
-		this.commonHitsStatisticsReader = commonHitsStatisticsReader;
+		this.statisticsReader = statisticsReader;
 		this.documentationProvider = documentationProvider;
 	}
 
@@ -32,7 +32,7 @@ public class CommonDataReader {
 	}
 
 	public RestEndpointStatisticsDTO hitsStatistics() {
-		return commonHitsStatisticsReader.hitsStatistics();
+		return statisticsReader.hitsStatistics();
 	}
 
 	public RestEndpointDetailsDTO details() {

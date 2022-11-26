@@ -5,12 +5,15 @@ import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubRedirectUrlDTO;
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.GitHubOAuthSessionCreator;
 import com.cezarykluczynski.stapi.sources.common.service.UrlContentRetriever;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi;
 import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchType;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class GitHubOAuthAuthenticationService {
 
 	private final GitHubOAuthUrlFactory gitHubOAuthUrlFactory;

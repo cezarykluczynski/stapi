@@ -4,12 +4,15 @@ import com.cezarykluczynski.stapi.auth.account.api.AccountApi;
 import com.cezarykluczynski.stapi.auth.account.dto.UserDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class UserDTOMapper {
 
 	private final AccountApi accountApi;

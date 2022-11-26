@@ -4,7 +4,9 @@ import com.cezarykluczynski.stapi.auth.account.dto.AccountDTO;
 import com.cezarykluczynski.stapi.auth.account.mapper.AccountMapper;
 import com.cezarykluczynski.stapi.auth.api_key.mapper.PagerMapper;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.wrapper.Pager;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class AccountsReadPageOperation {
 
 	private final AccountsReadCriteriaMapper accountsReadCriteriaMapper;

@@ -3,13 +3,16 @@ package com.cezarykluczynski.stapi.server.common.reader;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.metrics.service.EndpointHitsReader;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CommonHitsStatisticsReader {
+@Profile(SpringProfile.HITS)
+public class CommonHitsStatisticsReader implements StatisticsReader {
 
 	private final EndpointHitsReader endpointHitsReader;
 

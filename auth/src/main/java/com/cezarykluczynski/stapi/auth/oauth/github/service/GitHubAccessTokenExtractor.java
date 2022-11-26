@@ -1,9 +1,12 @@
 package com.cezarykluczynski.stapi.auth.oauth.github.service;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class GitHubAccessTokenExtractor {
 
 	String extract(String accessTokenResponseBody) {

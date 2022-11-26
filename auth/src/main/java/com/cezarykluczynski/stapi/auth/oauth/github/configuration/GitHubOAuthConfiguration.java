@@ -2,14 +2,17 @@ package com.cezarykluczynski.stapi.auth.oauth.github.configuration;
 
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionFilter;
 import com.cezarykluczynski.stapi.util.constant.FilterOrder;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.inject.Inject;
 
+@Profile(SpringProfile.AUTH)
 @Configuration("sourcesGitHubOAuthConfiguration")
 @EnableConfigurationProperties({GitHubOAuthProperties.class})
 public class GitHubOAuthConfiguration {

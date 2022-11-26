@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.auth.oauth.session;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Lists;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class OAuthSessionFilter implements Filter {
 
 	private final OAuthSessionHolder oauthSessionHolder;

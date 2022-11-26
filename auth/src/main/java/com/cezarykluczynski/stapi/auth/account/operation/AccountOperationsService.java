@@ -12,11 +12,14 @@ import com.cezarykluczynski.stapi.auth.account.operation.read.AccountsSearchCrit
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalOperation;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO;
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class AccountOperationsService {
 
 	private final AccountRemovalOperation accountRemovalOperation;

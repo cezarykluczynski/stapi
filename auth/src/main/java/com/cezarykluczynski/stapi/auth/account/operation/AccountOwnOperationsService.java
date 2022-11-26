@@ -6,9 +6,12 @@ import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditRespons
 import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 @SuppressWarnings({"MemberName", "ParameterName"})
 public class AccountOwnOperationsService {
 

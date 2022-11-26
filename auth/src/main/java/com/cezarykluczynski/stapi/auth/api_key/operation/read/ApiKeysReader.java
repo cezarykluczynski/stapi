@@ -7,13 +7,16 @@ import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_;
 import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeysReader {
 
 	private final ApiKeyQueryBuilderFactory apiKeyQueryBuilderFactory;

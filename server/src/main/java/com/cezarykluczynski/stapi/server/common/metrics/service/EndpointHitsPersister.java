@@ -4,8 +4,10 @@ import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
 import com.cezarykluczynski.stapi.server.common.metrics.factory.EndpointHitFactory;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @DependsOn("liquibase")
+@Profile(SpringProfile.HITS)
 @Slf4j
 public class EndpointHitsPersister {
 

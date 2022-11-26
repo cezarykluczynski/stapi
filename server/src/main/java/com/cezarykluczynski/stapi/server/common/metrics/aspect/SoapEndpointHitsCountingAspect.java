@@ -1,15 +1,18 @@
 package com.cezarykluczynski.stapi.server.common.metrics.aspect;
 
 import com.cezarykluczynski.stapi.server.common.metrics.service.EndpointHitsCountingService;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Aspect
 @Service
+@Profile(SpringProfile.HITS)
 @Slf4j
 public class SoapEndpointHitsCountingAspect {
 

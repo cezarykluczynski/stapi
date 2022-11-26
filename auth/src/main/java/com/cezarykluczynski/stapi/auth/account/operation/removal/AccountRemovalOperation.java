@@ -1,9 +1,12 @@
 package com.cezarykluczynski.stapi.auth.account.operation.removal;
 
 import com.cezarykluczynski.stapi.auth.account.api.AccountApi;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class AccountRemovalOperation {
 
 	private final AccountApi accountApi;

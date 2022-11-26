@@ -7,13 +7,16 @@ import com.cezarykluczynski.stapi.model.account.entity.Account;
 import com.cezarykluczynski.stapi.model.account.entity.Account_;
 import com.cezarykluczynski.stapi.model.account.query.AccountQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class AccountsReader {
 
 	private final AccountQueryBuilderFactory accountQueryBuilderFactory;

@@ -4,7 +4,9 @@ import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubRedirectUrlDTO;
 import com.cezarykluczynski.stapi.auth.oauth.github.service.GitHubOAuthFacade;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Service
+@Profile(SpringProfile.AUTH)
 @Produces(ContentType.APPLICATION_JSON_CHARSET_UTF8)
 @CrossOriginResourceSharing(allowAllOrigins = true, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class GitHubOAuthEndpoint {

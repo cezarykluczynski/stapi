@@ -8,8 +8,10 @@ import com.cezarykluczynski.stapi.model.account.repository.AccountRepository;
 import com.cezarykluczynski.stapi.model.consent.entity.Consent;
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType;
 import com.cezarykluczynski.stapi.model.consent.repository.ConsentRepository;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Profile(SpringProfile.AUTH)
 @Slf4j
 @SuppressWarnings({"MemberName", "ParameterName", "OverloadMethodsDeclarationOrder"})
 public class AccountApi {

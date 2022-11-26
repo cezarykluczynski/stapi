@@ -1,16 +1,12 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint
 
-import com.cezarykluczynski.stapi.auth.account.dto.UserDTO
 import com.cezarykluczynski.stapi.server.github.model.GitHubDTO
 import com.cezarykluczynski.stapi.server.github.service.GitHubApi
-import com.cezarykluczynski.stapi.server.panel.service.PanelCurrentUserProvider
 import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi
 import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchesDTO
 import spock.lang.Specification
 
 class PanelCommonEndpointTest extends Specification {
-
-	private PanelCurrentUserProvider panelCurrentUserProviderMock
 
 	private FeatureSwitchApi featureSwitchApiMock
 
@@ -19,23 +15,9 @@ class PanelCommonEndpointTest extends Specification {
 	private PanelCommonEndpoint panelCommonEndpoint
 
 	void setup() {
-		panelCurrentUserProviderMock = Mock()
 		featureSwitchApiMock = Mock()
 		gitHubApiMock = Mock()
-		panelCommonEndpoint = new PanelCommonEndpoint(panelCurrentUserProviderMock, featureSwitchApiMock, gitHubApiMock)
-	}
-
-	void "provides user details from PanelCurrentUserProvider"() {
-		given:
-		UserDTO userDTO = Mock()
-
-		when:
-		UserDTO me = panelCommonEndpoint.me()
-
-		then:
-		1 * panelCurrentUserProviderMock.provide() >> userDTO
-		0 * _
-		me == userDTO
+		panelCommonEndpoint = new PanelCommonEndpoint(featureSwitchApiMock, gitHubApiMock)
 	}
 
 	void "gets feature switches"() {

@@ -6,9 +6,12 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponse
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ApiKeysOwnOperationsService {
 
 	private final OAuthSessionHolder oAuthSessionHolder;

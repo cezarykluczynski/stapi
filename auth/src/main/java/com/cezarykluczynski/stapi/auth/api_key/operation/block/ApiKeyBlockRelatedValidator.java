@@ -4,9 +4,12 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyDoesNotExistE
 import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyNotOwnedByAccountException;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeyBlockRelatedValidator {
 
 	private final ApiKeyRepository apiKeyRepository;

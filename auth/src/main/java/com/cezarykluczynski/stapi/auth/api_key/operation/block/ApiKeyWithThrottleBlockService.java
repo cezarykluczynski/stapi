@@ -4,10 +4,13 @@ import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import com.cezarykluczynski.stapi.model.throttle.entity.Throttle;
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ApiKeyWithThrottleBlockService {
 
 	private final ApiKeyRepository apiKeyRepository;

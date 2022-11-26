@@ -4,11 +4,14 @@ import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.enums.EndpointType;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.HITS)
 public class EndpointHitFactory {
 
 	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(EndpointHitFactory.class);

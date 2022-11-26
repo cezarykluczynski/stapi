@@ -4,10 +4,13 @@ import com.cezarykluczynski.stapi.model.account.repository.AccountRepository;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.throttle.entity.Throttle;
 import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeyWithThrottleFactory {
 
 	private final AccountRepository accountRepository;

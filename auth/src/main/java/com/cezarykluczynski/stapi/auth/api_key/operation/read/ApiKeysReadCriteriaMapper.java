@@ -1,8 +1,11 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.read;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeysReadCriteriaMapper {
 
 	ApiKeysReadCriteria fromAccountId(Long accountId) {

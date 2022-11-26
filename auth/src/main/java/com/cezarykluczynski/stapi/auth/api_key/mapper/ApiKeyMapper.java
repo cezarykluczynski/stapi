@@ -2,10 +2,13 @@ package com.cezarykluczynski.stapi.auth.api_key.mapper;
 
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ApiKeyMapper {
 
 	public ApiKeyDTO map(ApiKey apiKey) {

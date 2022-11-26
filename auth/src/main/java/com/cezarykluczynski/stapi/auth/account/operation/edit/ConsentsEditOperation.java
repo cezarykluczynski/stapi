@@ -3,13 +3,16 @@ package com.cezarykluczynski.stapi.auth.account.operation.edit;
 import com.cezarykluczynski.stapi.auth.account.api.AccountApi;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ConsentsEditOperation {
 
 	private final AccountApi accountApi;

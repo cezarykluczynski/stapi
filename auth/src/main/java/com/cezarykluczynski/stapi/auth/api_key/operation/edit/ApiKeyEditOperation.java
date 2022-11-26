@@ -2,13 +2,16 @@ package com.cezarykluczynski.stapi.auth.api_key.operation.edit;
 
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Profile(SpringProfile.AUTH)
 public class ApiKeyEditOperation {
 
 	private final ApiKeyRepository apiKeyRepository;

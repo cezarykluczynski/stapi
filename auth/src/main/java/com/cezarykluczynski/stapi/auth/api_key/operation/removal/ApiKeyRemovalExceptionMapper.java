@@ -3,10 +3,13 @@ package com.cezarykluczynski.stapi.auth.api_key.operation.removal;
 import com.cezarykluczynski.stapi.auth.api_key.operation.common.ApiKeyException;
 import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyDoesNotExistException;
 import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyNotOwnedByAccountException;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(SpringProfile.AUTH)
 class ApiKeyRemovalExceptionMapper {
 
 	private final ApiKeyRemovalResponseDTOFactory apiKeyRemovalResponseDTOFactory;
