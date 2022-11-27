@@ -41,7 +41,7 @@ public class Element extends PageAwareEntity implements PageAware {
 
 	private Integer atomicWeight;
 
-	private Boolean transuranium;
+	private Boolean transuranic;
 
 	private Boolean gammaSeries;
 

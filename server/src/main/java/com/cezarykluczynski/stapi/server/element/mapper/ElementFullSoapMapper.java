@@ -24,6 +24,7 @@ public interface ElementFullSoapMapper {
 	@Mapping(target = "sort", ignore = true)
 	ElementRequestDTO mapFull(ElementFullRequest elementFullRequest);
 
+	@Mapping(source = "transuranic", target = "transuranium")
 	ElementFull mapFull(Element element);
 
 }

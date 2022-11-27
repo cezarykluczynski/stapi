@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.element.dto.ElementRestBeanParams;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public interface ElementBaseRestMapper {
 
 	ElementRequestDTO mapBase(ElementRestBeanParams elementRestBeanParams);
 
+	@Mapping(source = "transuranic", target = "transuranium")
 	ElementBase mapBase(Element element);
 
 	List<ElementBase> mapBase(List<Element> elementList);

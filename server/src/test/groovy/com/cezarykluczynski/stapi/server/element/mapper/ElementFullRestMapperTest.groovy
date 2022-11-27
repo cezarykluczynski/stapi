@@ -25,7 +25,7 @@ class ElementFullRestMapperTest extends AbstractElementMapperTest {
 		elementFull.symbol == SYMBOL
 		elementFull.atomicNumber == ATOMIC_NUMBER
 		elementFull.atomicWeight == ATOMIC_WEIGHT
-		elementFull.transuranium == TRANSURANIUM
+		elementFull.transuranium == TRANSURANIC
 		elementFull.gammaSeries == GAMMA_SERIES
 		elementFull.hypersonicSeries == HYPERSONIC_SERIES
 		elementFull.megaSeries == MEGA_SERIES

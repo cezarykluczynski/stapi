@@ -56,8 +56,8 @@ class ElementRepositoryImplTest extends AbstractElementTest {
 		1 * elementQueryBuilder.like(Element_.symbol, SYMBOL)
 
 		then: 'boolean criteria are set'
-		1 * elementRequestDTO.transuranium >> TRANSURANIUM
-		1 * elementQueryBuilder.equal(Element_.transuranium, TRANSURANIUM)
+		1 * elementRequestDTO.transuranium >> TRANSURANIC
+		1 * elementQueryBuilder.equal(Element_.transuranic, TRANSURANIC)
 		1 * elementRequestDTO.gammaSeries >> GAMMA_SERIES
 		1 * elementQueryBuilder.equal(Element_.gammaSeries, GAMMA_SERIES)
 		1 * elementRequestDTO.hypersonicSeries >> HYPERSONIC_SERIES

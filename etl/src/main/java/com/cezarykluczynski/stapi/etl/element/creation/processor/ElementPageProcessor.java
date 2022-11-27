@@ -13,12 +13,14 @@ import com.cezarykluczynski.stapi.model.element.entity.Element;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ElementPageProcessor implements ItemProcessor<Page, Element> {
 
 	private final ElementPageFilter elementPageFilter;
@@ -35,26 +37,9 @@ public class ElementPageProcessor implements ItemProcessor<Page, Element> {
 
 	private final ElementTemplateTitlesEnrichingProcessor elementTemplateTitlesEnrichingProcessor;
 
-	private final ElementTransuraniumProcessor elementTransuraniumProcessor;
+	private final ElementTransuranicProcessor elementTransuranicProcessor;
 
 	private final ElementSymbolFixedValueProvider elementSymbolFixedValueProvider;
-
-	@SuppressWarnings("ParameterNumber")
-	public ElementPageProcessor(ElementPageFilter elementPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
-			TemplateFinder templateFinder, ElementTemplateEnrichingProcessor elementTemplateEnrichingProcessor,
-			TemplateTitlesExtractingProcessor templateTitlesExtractingProcessor,
-			ElementTemplateTitlesEnrichingProcessor elementTemplateTitlesEnrichingProcessor,
-			ElementTransuraniumProcessor elementTransuraniumProcessor, ElementSymbolFixedValueProvider elementSymbolFixedValueProvider) {
-		this.elementPageFilter = elementPageFilter;
-		this.pageBindingService = pageBindingService;
-		this.uidGenerator = uidGenerator;
-		this.templateFinder = templateFinder;
-		this.elementTemplateEnrichingProcessor = elementTemplateEnrichingProcessor;
-		this.templateTitlesExtractingProcessor = templateTitlesExtractingProcessor;
-		this.elementTemplateTitlesEnrichingProcessor = elementTemplateTitlesEnrichingProcessor;
-		this.elementTransuraniumProcessor = elementTransuraniumProcessor;
-		this.elementSymbolFixedValueProvider = elementSymbolFixedValueProvider;
-	}
 
 	@Override
 	public Element process(Page item) throws Exception {
@@ -75,7 +60,7 @@ public class ElementPageProcessor implements ItemProcessor<Page, Element> {
 
 		elementTemplateTitlesEnrichingProcessor.enrich(EnrichablePair.of(templateTitlesExtractingProcessor.process(item.getTemplates()), element));
 
-		element.setTransuranium(elementTransuraniumProcessor.isTransuranium(item.getTitle()));
+		element.setTransuranic(elementTransuranicProcessor.isTransuranic(item.getTitle()));
 
 		FixedValueHolder<String> elementSymbolFixedValueHolder = elementSymbolFixedValueProvider.getSearchedValue(item.getTitle());
 		if (elementSymbolFixedValueHolder.isFound()) {

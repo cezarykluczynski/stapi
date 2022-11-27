@@ -27,14 +27,14 @@ class ElementTemplateTitlesEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(element) == trueBooleans
 
 		where:
-		templateTitleList                                  | flagName           | flag  | trueBooleans
-		Lists.newArrayList()                               | 'gammaSeries'      | false | 0
-		Lists.newArrayList(TemplateTitle.GAMMASERIES)      | 'gammaSeries'      | true  | 1
-		Lists.newArrayList(TemplateTitle.HYPERSONICSERIES) | 'hypersonicSeries' | true  | 1
-		Lists.newArrayList(TemplateTitle.MEGASERIES)       | 'megaSeries'       | true  | 1
-		Lists.newArrayList(TemplateTitle.OMEGASERIES)      | 'omegaSeries'      | true  | 1
-		Lists.newArrayList(TemplateTitle.TRANSONICSERIES)  | 'transonicSeries'  | true  | 1
-		Lists.newArrayList(TemplateTitle.WORLD_SERIES)     | 'worldSeries'      | true  | 1
+		templateTitleList                                   | flagName           | flag  | trueBooleans
+		Lists.newArrayList()                                | 'gammaSeries'      | false | 0
+		Lists.newArrayList(TemplateTitle.GAMMA_SERIES)      | 'gammaSeries'      | true  | 1
+		Lists.newArrayList(TemplateTitle.HYPERSONIC_SERIES) | 'hypersonicSeries' | true  | 1
+		Lists.newArrayList(TemplateTitle.MEGA_SERIES)       | 'megaSeries'       | true  | 1
+		Lists.newArrayList(TemplateTitle.OMEGA_SERIES)      | 'omegaSeries'      | true  | 1
+		Lists.newArrayList(TemplateTitle.TRANSONIC_SERIES)  | 'transonicSeries'  | true  | 1
+		Lists.newArrayList(TemplateTitle.WORLD_SERIES)      | 'worldSeries'      | true  | 1
 	}
 
 }

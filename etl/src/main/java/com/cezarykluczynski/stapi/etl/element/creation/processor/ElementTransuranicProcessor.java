@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ElementTransuraniumProcessor {
+public class ElementTransuranicProcessor {
 
 	private static final String LIST_OF_TRANSURANIC_ELEMENTS = "List of transuranic elements";
 
@@ -26,13 +26,13 @@ public class ElementTransuraniumProcessor {
 
 	private List<String> pageTitleList;
 
-	public ElementTransuraniumProcessor(PageApi pageApi, WikitextApi wikitextApi, PageSectionExtractor pageSectionExtractor) {
+	public ElementTransuranicProcessor(PageApi pageApi, WikitextApi wikitextApi, PageSectionExtractor pageSectionExtractor) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 		this.pageSectionExtractor = pageSectionExtractor;
 	}
 
-	public boolean isTransuranium(String title) {
+	public boolean isTransuranic(String title) {
 		loadTransuranicPageTitleList();
 		return StringUtil.containsIgnoreCase(pageTitleList, title);
 	}

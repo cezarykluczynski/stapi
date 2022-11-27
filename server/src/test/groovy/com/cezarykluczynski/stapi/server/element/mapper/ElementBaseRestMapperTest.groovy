@@ -20,7 +20,7 @@ class ElementBaseRestMapperTest extends AbstractElementMapperTest {
 		ElementRestBeanParams elementRestBeanParams = new ElementRestBeanParams(
 				name: NAME,
 				symbol: SYMBOL,
-				transuranium: TRANSURANIUM,
+				transuranium: TRANSURANIC,
 				gammaSeries: GAMMA_SERIES,
 				hypersonicSeries: HYPERSONIC_SERIES,
 				megaSeries: MEGA_SERIES,
@@ -34,7 +34,7 @@ class ElementBaseRestMapperTest extends AbstractElementMapperTest {
 		then:
 		elementRequestDTO.name == NAME
 		elementRequestDTO.symbol == SYMBOL
-		elementRequestDTO.transuranium == TRANSURANIUM
+		elementRequestDTO.transuranium == TRANSURANIC
 		elementRequestDTO.gammaSeries == GAMMA_SERIES
 		elementRequestDTO.hypersonicSeries == HYPERSONIC_SERIES
 		elementRequestDTO.megaSeries == MEGA_SERIES
@@ -56,7 +56,7 @@ class ElementBaseRestMapperTest extends AbstractElementMapperTest {
 		elementBase.symbol == SYMBOL
 		elementBase.atomicNumber == ATOMIC_NUMBER
 		elementBase.atomicWeight == ATOMIC_WEIGHT
-		elementBase.transuranium == TRANSURANIUM
+		elementBase.transuranium == TRANSURANIC
 		elementBase.gammaSeries == GAMMA_SERIES
 		elementBase.hypersonicSeries == HYPERSONIC_SERIES
 		elementBase.megaSeries == MEGA_SERIES

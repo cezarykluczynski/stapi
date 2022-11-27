@@ -38,7 +38,7 @@ class ElementPageProcessorTest extends Specification {
 
 	private ElementTemplateTitlesEnrichingProcessor elementTemplateTitlesEnrichingProcessorMock
 
-	private ElementTransuraniumProcessor elementTransuraniumProcessorMock
+	private ElementTransuranicProcessor elementTransuranicProcessorMock
 
 	private ElementSymbolFixedValueProvider elementSymbolFixedValueProviderMock
 
@@ -52,11 +52,11 @@ class ElementPageProcessorTest extends Specification {
 		elementTemplateEnrichingProcessorMock = Mock()
 		templateTitlesExtractingProcessorMock = Mock()
 		elementTemplateTitlesEnrichingProcessorMock = Mock()
-		elementTransuraniumProcessorMock = Mock()
+		elementTransuranicProcessorMock = Mock()
 		elementSymbolFixedValueProviderMock = Mock()
 		elementPageProcessor = new ElementPageProcessor(elementPageFilterMock, pageBindingServiceMock, uidGeneratorMock, templateFinderMock,
 				elementTemplateEnrichingProcessorMock, templateTitlesExtractingProcessorMock, elementTemplateTitlesEnrichingProcessorMock,
-				elementTransuraniumProcessorMock, elementSymbolFixedValueProviderMock)
+				elementTransuranicProcessorMock, elementSymbolFixedValueProviderMock)
 	}
 
 	void "should return null when page should be filtered out"() {
@@ -93,13 +93,13 @@ class ElementPageProcessorTest extends Specification {
 			assert enrichablePair.input[0] == TEMPLATE_TITLE
 			assert enrichablePair.output != null
 		}
-		1 * elementTransuraniumProcessorMock.isTransuranium(TITLE_WITH_BRACKETS) >> true
+		1 * elementTransuranicProcessorMock.isTransuranic(TITLE_WITH_BRACKETS) >> true
 		1 * elementSymbolFixedValueProviderMock.getSearchedValue(TITLE_WITH_BRACKETS) >> FixedValueHolder.empty()
 		0 * _
 		element.name == TITLE
 		element.uid == UID
 		element.symbol == null
-		element.transuranium
+		element.transuranic
 	}
 
 	void "parses page without title in brackets, and with sidebar element template, and with symbol fixed value holder"() {
@@ -126,13 +126,13 @@ class ElementPageProcessorTest extends Specification {
 		}
 		1 * templateTitlesExtractingProcessorMock.process(Lists.newArrayList(template)) >> Lists.newArrayList(TEMPLATE_TITLE)
 		1 * elementTemplateTitlesEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * elementTransuraniumProcessorMock.isTransuranium(TITLE) >> false
+		1 * elementTransuranicProcessorMock.isTransuranic(TITLE) >> false
 		1 * elementSymbolFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(SYMBOL)
 		0 * _
 		element.name == TITLE
 		element.uid == UID
 		element.symbol == SYMBOL
-		!element.transuranium
+		!element.transuranic
 	}
 
 }

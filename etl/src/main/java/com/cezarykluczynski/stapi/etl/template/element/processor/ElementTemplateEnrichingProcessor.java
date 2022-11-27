@@ -26,10 +26,10 @@ public class ElementTemplateEnrichingProcessor implements ItemEnrichingProcessor
 				case ElementTemplateParameter.SYMBOL:
 					element.setSymbol(value);
 					break;
-				case ElementTemplateParameter.A_NUM:
+				case ElementTemplateParameter.NUMBER:
 					element.setAtomicNumber(Ints.tryParse(value));
 					break;
-				case ElementTemplateParameter.A_WGT:
+				case ElementTemplateParameter.WEIGHT:
 					element.setAtomicWeight(Ints.tryParse(value));
 					break;
 				default:

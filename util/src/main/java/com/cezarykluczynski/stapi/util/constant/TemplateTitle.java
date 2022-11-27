@@ -80,11 +80,11 @@ public class TemplateTitle {
 	public static final String KLINGON_WARS = "klingon wars";
 	public static final String FEDERATION_KLINGON_WAR_2256_57 = "federation-klingon war (2256-57)";
 
-	public static final String GAMMASERIES = "gammaseries";
-	public static final String HYPERSONICSERIES = "hypersonicseries";
-	public static final String MEGASERIES = "megaseries";
-	public static final String OMEGASERIES = "omegaseries";
-	public static final String TRANSONICSERIES = "transonicseries";
+	public static final String GAMMA_SERIES = "gamma series";
+	public static final String HYPERSONIC_SERIES = "hypersonic series";
+	public static final String MEGA_SERIES = "mega series";
+	public static final String OMEGA_SERIES = "omega series";
+	public static final String TRANSONIC_SERIES = "transonic series";
 	public static final String WORLD_SERIES = "world series";
 
 	public static final String BGINFO = "bginfo";

@@ -12,7 +12,7 @@ abstract class AbstractElementMapperTest extends AbstractElementTest {
 				symbol: SYMBOL,
 				atomicNumber: ATOMIC_NUMBER,
 				atomicWeight: ATOMIC_WEIGHT,
-				transuranium: TRANSURANIUM,
+				transuranic: TRANSURANIC,
 				gammaSeries: GAMMA_SERIES,
 				hypersonicSeries: HYPERSONIC_SERIES,
 				megaSeries: MEGA_SERIES,

@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class ElementTransuraniumProcessorTest extends Specification {
+class ElementTransuranicProcessorTest extends Specification {
 
 	private static final String TITLE_1 = 'TITLE_1'
 	private static final String TITLE_2 = 'TITLE_2'
@@ -23,18 +23,18 @@ class ElementTransuraniumProcessorTest extends Specification {
 
 	private PageSectionExtractor pageSectionExtractorMock
 
-	private ElementTransuraniumProcessor elementTransuraniumProcessor
+	private ElementTransuranicProcessor elementTransuranicProcessor
 
 	void setup() {
 		pageApiMock = Mock()
 		wikitextApiMock = Mock()
 		pageSectionExtractorMock = Mock()
-		elementTransuraniumProcessor = new ElementTransuraniumProcessor(pageApiMock, wikitextApiMock, pageSectionExtractorMock)
+		elementTransuranicProcessor = new ElementTransuranicProcessor(pageApiMock, wikitextApiMock, pageSectionExtractorMock)
 	}
 
 	void "when page is not found, exception is thrown"() {
 		when:
-		elementTransuraniumProcessor.isTransuranium(TITLE_1)
+		elementTransuranicProcessor.isTransuranic(TITLE_1)
 
 		then:
 		1 * pageApiMock.getPage(PageTitle.TRANSURANIC, MediaWikiSource.MEMORY_ALPHA_EN) >> null
@@ -47,37 +47,37 @@ class ElementTransuraniumProcessorTest extends Specification {
 		Page page = Mock()
 
 		when:
-		elementTransuraniumProcessor.isTransuranium(TITLE_1)
+		elementTransuranicProcessor.isTransuranic(TITLE_1)
 
 		then:
 		1 * pageApiMock.getPage(PageTitle.TRANSURANIC, MediaWikiSource.MEMORY_ALPHA_EN) >> page
-		1 * pageSectionExtractorMock.findByTitles(page, ElementTransuraniumProcessor.LIST_OF_TRANSURANIC_ELEMENTS) >> Lists.newArrayList()
+		1 * pageSectionExtractorMock.findByTitles(page, ElementTransuranicProcessor.LIST_OF_TRANSURANIC_ELEMENTS) >> Lists.newArrayList()
 		0 * _
 		StapiRuntimeException stapiRuntimeException = thrown()
-		stapiRuntimeException.message == "Cannot get page section ${ElementTransuraniumProcessor.LIST_OF_TRANSURANIC_ELEMENTS}"
+		stapiRuntimeException.message == "Cannot get page section ${ElementTransuranicProcessor.LIST_OF_TRANSURANIC_ELEMENTS}"
 	}
 
-	void "when page and page section are found first time, they are used from now on to decide whether page title is transuranium"() {
+	void "when page and page section are found first time, they are used from now on to decide whether page title is transuranic"() {
 		given:
 		Page page = Mock()
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
 
 		when:
-		boolean isTitle1Transuranium = elementTransuraniumProcessor.isTransuranium(TITLE_1)
+		boolean isTitle1Transuranic = elementTransuranicProcessor.isTransuranic(TITLE_1)
 
 		then:
 		1 * pageApiMock.getPage(PageTitle.TRANSURANIC, MediaWikiSource.MEMORY_ALPHA_EN) >> page
-		1 * pageSectionExtractorMock.findByTitles(page, ElementTransuraniumProcessor.LIST_OF_TRANSURANIC_ELEMENTS) >> Lists.newArrayList(pageSection)
+		1 * pageSectionExtractorMock.findByTitles(page, ElementTransuranicProcessor.LIST_OF_TRANSURANIC_ELEMENTS) >> Lists.newArrayList(pageSection)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(TITLE_2)
 		0 * _
-		!isTitle1Transuranium
+		!isTitle1Transuranic
 
 		when:
-		boolean isTitle2Transuranium = elementTransuraniumProcessor.isTransuranium(TITLE_2)
+		boolean isTitle2Transuranic = elementTransuranicProcessor.isTransuranic(TITLE_2)
 
 		then:
 		0 * _
-		isTitle2Transuranium
+		isTitle2Transuranic
 	}
 
 }

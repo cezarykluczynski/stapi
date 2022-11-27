@@ -17,6 +17,7 @@ public interface ElementBaseSoapMapper {
 	@Mapping(target = "uid", ignore = true)
 	ElementRequestDTO mapBase(ElementBaseRequest elementBaseRequest);
 
+	@Mapping(source = "transuranic", target = "transuranium")
 	ElementBase mapBase(Element element);
 
 	List<ElementBase> mapBase(List<Element> elementList);

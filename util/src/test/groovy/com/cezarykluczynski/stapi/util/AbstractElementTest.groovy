@@ -10,7 +10,7 @@ class AbstractElementTest extends AbstractTest {
 	protected static final Integer ATOMIC_NUMBER = 44
 	protected static final Integer ATOMIC_WEIGHT = 66
 
-	protected static final boolean TRANSURANIUM = RandomUtil.nextBoolean()
+	protected static final boolean TRANSURANIC = RandomUtil.nextBoolean()
 	protected static final boolean GAMMA_SERIES = RandomUtil.nextBoolean()
 	protected static final boolean HYPERSONIC_SERIES = RandomUtil.nextBoolean()
 	protected static final boolean MEGA_SERIES = RandomUtil.nextBoolean()

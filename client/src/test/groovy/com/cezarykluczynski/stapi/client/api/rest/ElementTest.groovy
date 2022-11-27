@@ -34,11 +34,11 @@ class ElementTest extends AbstractElementTest {
 		ElementBaseResponse elementBaseResponse = Mock()
 
 		when:
-		ElementBaseResponse elementBaseResponseOutput = element.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, SYMBOL, TRANSURANIUM, GAMMA_SERIES,
+		ElementBaseResponse elementBaseResponseOutput = element.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES)
 
 		then:
-		1 * elementApiMock.v1RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, SYMBOL, TRANSURANIUM, GAMMA_SERIES,
+		1 * elementApiMock.v1RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES) >> elementBaseResponse
 		0 * _
 		elementBaseResponse == elementBaseResponseOutput

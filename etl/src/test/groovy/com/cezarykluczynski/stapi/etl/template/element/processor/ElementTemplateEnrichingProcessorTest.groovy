@@ -38,7 +38,7 @@ class ElementTemplateEnrichingProcessorTest extends Specification {
 
 	void "sets atomic number"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.A_NUM, value: ATOMIC_NUMBER_VALID)
+		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.NUMBER, value: ATOMIC_NUMBER_VALID)
 		Element element = new Element()
 
 		when:
@@ -51,7 +51,7 @@ class ElementTemplateEnrichingProcessorTest extends Specification {
 
 	void "tolerates invalid atomic number"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.A_NUM, value: ATOMIC_NUMBER_INVALID)
+		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.NUMBER, value: ATOMIC_NUMBER_INVALID)
 		Element element = new Element()
 
 		when:
@@ -64,7 +64,7 @@ class ElementTemplateEnrichingProcessorTest extends Specification {
 
 	void "sets atomic weight"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.A_WGT, value: ATOMIC_WEIGHT_VALID)
+		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.WEIGHT, value: ATOMIC_WEIGHT_VALID)
 		Element element = new Element()
 
 		when:
@@ -77,7 +77,7 @@ class ElementTemplateEnrichingProcessorTest extends Specification {
 
 	void "tolerates invalid atomic weight"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.A_WGT, value: ATOMIC_WEIGHT_INVALID)
+		Template.Part templatePart = new Template.Part(key: ElementTemplateParameter.WEIGHT, value: ATOMIC_WEIGHT_INVALID)
 		Element element = new Element()
 
 		when:

@@ -16,11 +16,11 @@ public class ElementTemplateTitlesEnrichingProcessor implements ItemEnrichingPro
 		List<String> templateTitleList = enrichablePair.getInput();
 		Element element = enrichablePair.getOutput();
 
-		element.setGammaSeries(templateTitleList.contains(TemplateTitle.GAMMASERIES));
-		element.setHypersonicSeries(templateTitleList.contains(TemplateTitle.HYPERSONICSERIES));
-		element.setMegaSeries(templateTitleList.contains(TemplateTitle.MEGASERIES));
-		element.setOmegaSeries(templateTitleList.contains(TemplateTitle.OMEGASERIES));
-		element.setTransonicSeries(templateTitleList.contains(TemplateTitle.TRANSONICSERIES));
+		element.setGammaSeries(templateTitleList.contains(TemplateTitle.GAMMA_SERIES));
+		element.setHypersonicSeries(templateTitleList.contains(TemplateTitle.HYPERSONIC_SERIES));
+		element.setMegaSeries(templateTitleList.contains(TemplateTitle.MEGA_SERIES));
+		element.setOmegaSeries(templateTitleList.contains(TemplateTitle.OMEGA_SERIES));
+		element.setTransonicSeries(templateTitleList.contains(TemplateTitle.TRANSONIC_SERIES));
 		element.setWorldSeries(templateTitleList.contains(TemplateTitle.WORLD_SERIES));
 	}
 

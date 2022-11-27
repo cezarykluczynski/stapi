@@ -69,4 +69,5 @@
 	<include file="weapon/0066_extend_weapon.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft_type/0067_change_name_length.xml" relativeToChangelogFile="true"/>
 	<include file="conflict/0068_extend_conflict.xml" relativeToChangelogFile="true"/>
+	<include file="element/0069_rename_column.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
