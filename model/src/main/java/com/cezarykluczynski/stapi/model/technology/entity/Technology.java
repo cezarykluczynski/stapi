@@ -64,6 +64,22 @@ public class Technology extends PageAwareEntity implements PageAware {
 
 	private Boolean shieldTechnology;
 
+	private Boolean securityTechnology;
+
+	private Boolean propulsionTechnology;
+
+	private Boolean spacecraftComponent;
+
+	private Boolean warpTechnology;
+
+	private Boolean transwarpTechnology;
+
+	private Boolean timeTravelTechnology;
+
+	private Boolean militaryTechnology;
+
+	private Boolean victualTechnology;
+
 	private Boolean tool;
 
 	private Boolean culinaryTool;
@@ -75,5 +91,11 @@ public class Technology extends PageAwareEntity implements PageAware {
 	private Boolean medicalEquipment;
 
 	private Boolean transporterTechnology;
+
+	private Boolean transportationTechnology;
+
+	private Boolean weaponComponent;
+
+	private Boolean artificialLifeformComponent;
 
 }

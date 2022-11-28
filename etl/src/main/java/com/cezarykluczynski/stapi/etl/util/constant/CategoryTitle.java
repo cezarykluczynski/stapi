@@ -451,6 +451,19 @@ public class CategoryTitle {
 	public static final String HOUSEHOLD_TOOLS = "Household_tools";
 	public static final String MEDICAL_EQUIPMENT = "Medical_equipment";
 	public static final String TRANSPORTER_TECHNOLOGY = "Transporter_technology";
+	public static final String TRANSPORTATION_TECHNOLOGY = "Transportation_technology";
+	public static final String SECURITY_TECHNOLOGY = "Security_technology";
+	public static final String SPACECRAFT_COMPONENTS = "Spacecraft_components";
+	public static final String SPACECRAFT_COMPONENTS_RETCONNED = "Spacecraft_components_(retconned)";
+	public static final String PROPULSION_TECHNOLOGY = "Propulsion_technology";
+	public static final String PROPULSION_TECHNOLOGY_RETCONNED = "Propulsion_technology_(retconned)";
+	public static final String WARP = "Warp";
+	public static final String TRANSWARP = "Transwarp";
+	public static final String TIME_TRAVEL_TECHNOLOGY = "Time_travel_technology";
+	public static final String MILITARY_TECHNOLOGY = "Military_technology";
+	public static final String VICTUAL_TECHNOLOGY = "Victual_technology";
+	public static final String WEAPON_COMPONENTS = "Weapon_components";
+	public static final String ARTIFICIAL_LIFEFORM_COMPONENTS = "Artificial_lifeform_components";
 
 	public static final String OCCUPATIONS = "Occupations";
 	public static final String ARTS_OCCUPATIONS = "Arts_occupations";

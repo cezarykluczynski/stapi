@@ -151,6 +151,7 @@ paths:
     $ref: ./staff/path/staffV2.path.yaml
   /v2/rest/staff/search:
     $ref: ./staff/path/staffV2Search.path.yaml
+  # TODO: Add V2
   /v1/rest/technology:
     $ref: ./technology/path/technology.path.yaml
   /v1/rest/technology/search:

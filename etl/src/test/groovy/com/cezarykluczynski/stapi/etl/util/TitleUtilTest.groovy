@@ -17,6 +17,23 @@ class TitleUtilTest extends Specification {
 		TitleUtil.getNameFromTitle(' Title （エピソード） ') == 'Title'
 	}
 
+	void "clears title only if it doesn't end with right bracket"() {
+		expect:
+		TitleUtil.getNameFromTitleIfBracketsEndsString('Title') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString('Title ') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString('Title (civilian)') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title (civilian)') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title (civilian) ') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString('Title （エピソード）') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title （エピソード）') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title （エピソード） ') == 'Title'
+		TitleUtil.getNameFromTitleIfBracketsEndsString('Title (civilian) starship') == 'Title (civilian) starship'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title (civilian) starship ') == 'Title (civilian) starship'
+		TitleUtil.getNameFromTitleIfBracketsEndsString('Title （エピソード） starship') == 'Title （エピソード） starship'
+		TitleUtil.getNameFromTitleIfBracketsEndsString(' Title （エピソード） starship ') == 'Title （エピソード） starship'
+	}
+
 	void "converts title to title that can be put into MediaWiki API query"() {
 		expect:
 		TitleUtil.toMediaWikiTitle('Title') == 'Title'

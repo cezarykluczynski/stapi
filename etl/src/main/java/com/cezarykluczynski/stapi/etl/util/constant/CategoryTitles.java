@@ -367,4 +367,45 @@ public class CategoryTitles {
 			CategoryTitle.FELINES
 	);
 
+	public static final List<String> TECHNOLOGY = ImmutableList.of(
+			CategoryTitle.TECHNOLOGY,
+			CategoryTitle.BORG_TECHNOLOGY,
+			CategoryTitle.BORG_COMPONENTS,
+			CategoryTitle.COMMUNICATIONS_TECHNOLOGY,
+			CategoryTitle.COMMUNICATIONS_TECHNOLOGY_RETCONNED,
+			CategoryTitle.COMPUTER_TECHNOLOGY,
+			CategoryTitle.COMPUTER_PROGRAMMING,
+			CategoryTitle.SUBROUTINES,
+			CategoryTitle.DATABASES,
+			CategoryTitle.ENERGY_TECHNOLOGY,
+			CategoryTitle.ENERGY_TECHNOLOGY_RETCONNED,
+			CategoryTitle.FICTIONAL_TECHNOLOGY,
+			CategoryTitle.HOLOGRAPHIC_TECHNOLOGY,
+			CategoryTitle.IDENTIFICATION_TECHNOLOGY,
+			CategoryTitle.LIFE_SUPPORT_TECHNOLOGY,
+			CategoryTitle.SENSOR_TECHNOLOGY,
+			CategoryTitle.SENSOR_TECHNOLOGY_RETCONNED,
+			CategoryTitle.SHIELD_TECHNOLOGY,
+			CategoryTitle.SHIELD_TECHNOLOGY_RETCONNED,
+			CategoryTitle.TOOLS,
+			CategoryTitle.CULINARY_TOOLS,
+			CategoryTitle.ENGINEERING_TOOLS,
+			CategoryTitle.HOUSEHOLD_TOOLS,
+			CategoryTitle.MEDICAL_EQUIPMENT,
+			CategoryTitle.TRANSPORTER_TECHNOLOGY,
+			CategoryTitle.TRANSPORTATION_TECHNOLOGY,
+			CategoryTitle.SECURITY_TECHNOLOGY,
+			CategoryTitle.SPACECRAFT_COMPONENTS,
+			CategoryTitle.SPACECRAFT_COMPONENTS_RETCONNED,
+			CategoryTitle.PROPULSION_TECHNOLOGY,
+			CategoryTitle.PROPULSION_TECHNOLOGY_RETCONNED,
+			CategoryTitle.WARP,
+			CategoryTitle.TRANSWARP,
+			CategoryTitle.TIME_TRAVEL_TECHNOLOGY,
+			CategoryTitle.MILITARY_TECHNOLOGY,
+			CategoryTitle.VICTUAL_TECHNOLOGY,
+			CategoryTitle.WEAPON_COMPONENTS,
+			CategoryTitle.ARTIFICIAL_LIFEFORM_COMPONENTS
+	);
+
 }

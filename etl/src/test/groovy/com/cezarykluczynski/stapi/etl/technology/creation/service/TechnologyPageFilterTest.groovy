@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.etl.technology.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -30,7 +32,7 @@ class TechnologyPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns true when page is sorted on top of any category"() {
+	void "returns true when page is sorted on top of technology-related categories"() {
 		given:
 		Page page = new Page()
 
@@ -38,7 +40,20 @@ class TechnologyPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = technologyPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> true
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, CategoryTitles.TECHNOLOGY) >> true
+		0 * _
+		shouldBeFilteredOut
+	}
+
+	void "returns true when page title is among invalid titles"() {
+		given:
+		Page page = new Page(title: RandomUtil.randomItem(TechnologyPageFilter.INVALID_TITLES))
+
+		when:
+		boolean shouldBeFilteredOut = technologyPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, CategoryTitles.TECHNOLOGY) >> false
 		0 * _
 		shouldBeFilteredOut
 	}
@@ -51,7 +66,7 @@ class TechnologyPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = technologyPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, CategoryTitles.TECHNOLOGY) >> false
 		0 * _
 		!shouldBeFilteredOut
 	}

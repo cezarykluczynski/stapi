@@ -33,13 +33,14 @@ public class TechnologyPageProcessor implements ItemProcessor<Page, Technology> 
 	}
 
 	@Override
+	@SuppressWarnings("CyclomaticComplexity")
 	public Technology process(Page item) throws Exception {
 		if (technologyPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 
 		Technology technology = new Technology();
-		technology.setName(TitleUtil.getNameFromTitle(item.getTitle()));
+		technology.setName(TitleUtil.getNameFromTitleIfBracketsEndsString(item.getTitle()));
 
 		technology.setPage(pageBindingService.fromPageToPageEntity(item));
 		technology.setUid(uidGenerator.generateFromPage(technology.getPage(), Technology.class));
@@ -65,13 +66,30 @@ public class TechnologyPageProcessor implements ItemProcessor<Page, Technology> 
 				|| categoryTitleList.contains(CategoryTitle.SENSOR_TECHNOLOGY_RETCONNED));
 		technology.setShieldTechnology(categoryTitleList.contains(CategoryTitle.SHIELD_TECHNOLOGY)
 				|| categoryTitleList.contains(CategoryTitle.SHIELD_TECHNOLOGY_RETCONNED));
+		technology.setSecurityTechnology(technology.getSensorTechnology() || technology.getShieldTechnology()
+				|| technology.getIdentificationTechnology() || categoryTitleList.contains(CategoryTitle.SECURITY_TECHNOLOGY));
+		technology.setWarpTechnology(categoryTitleList.contains(CategoryTitle.WARP));
+		technology.setTranswarpTechnology(categoryTitleList.contains(CategoryTitle.TRANSWARP));
+		technology.setTimeTravelTechnology(categoryTitleList.contains(CategoryTitle.TIME_TRAVEL_TECHNOLOGY));
+		technology.setMilitaryTechnology(categoryTitleList.contains(CategoryTitle.MILITARY_TECHNOLOGY));
+		technology.setPropulsionTechnology(technology.getWarpTechnology() || technology.getTranswarpTechnology()
+				|| categoryTitleList.contains(CategoryTitle.PROPULSION_TECHNOLOGY)
+				|| categoryTitleList.contains(CategoryTitle.PROPULSION_TECHNOLOGY_RETCONNED));
+		technology.setSpacecraftComponent(technology.getPropulsionTechnology()
+				|| categoryTitleList.contains(CategoryTitle.SPACECRAFT_COMPONENTS)
+				|| categoryTitleList.contains(CategoryTitle.SPACECRAFT_COMPONENTS_RETCONNED));
 		technology.setCulinaryTool(categoryTitleList.contains(CategoryTitle.CULINARY_TOOLS));
+		technology.setVictualTechnology(technology.getCulinaryTool() || categoryTitleList.contains(CategoryTitle.VICTUAL_TECHNOLOGY));
 		technology.setEngineeringTool(categoryTitleList.contains(CategoryTitle.ENGINEERING_TOOLS));
 		technology.setHouseholdTool(categoryTitleList.contains(CategoryTitle.HOUSEHOLD_TOOLS));
 		technology.setMedicalEquipment(categoryTitleList.contains(CategoryTitle.MEDICAL_EQUIPMENT));
 		technology.setTool(technology.getCulinaryTool() || technology.getEngineeringTool() || technology.getHouseholdTool()
 				|| technology.getMedicalEquipment() || categoryTitleList.contains(CategoryTitle.TOOLS));
 		technology.setTransporterTechnology(categoryTitleList.contains(CategoryTitle.TRANSPORTER_TECHNOLOGY));
+		technology.setTransportationTechnology(technology.getTransporterTechnology()
+				|| categoryTitleList.contains(CategoryTitle.TRANSPORTATION_TECHNOLOGY));
+		technology.setWeaponComponent(categoryTitleList.contains(CategoryTitle.WEAPON_COMPONENTS));
+		technology.setArtificialLifeformComponent(categoryTitleList.contains(CategoryTitle.ARTIFICIAL_LIFEFORM_COMPONENTS));
 
 		return technology;
 	}

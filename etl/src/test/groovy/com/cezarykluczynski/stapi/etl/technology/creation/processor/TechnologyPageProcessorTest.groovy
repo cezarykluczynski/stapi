@@ -19,6 +19,7 @@ class TechnologyPageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (with brackets)'
+	private static final String TITLE_WITH_BRACKETS_IN_THE_MIDDLE = 'USS Defiant (NCC-1764) library computer'
 	private static final String NAME = 'NAME'
 	private static final String UID = 'UID'
 
@@ -66,6 +67,18 @@ class TechnologyPageProcessorTest extends Specification {
 		technology.name == TITLE
 	}
 
+	void "sets name from page title, when brackets are present, but don't end string"() {
+		given:
+		SourcesPage page = new SourcesPage(title: TITLE_WITH_BRACKETS_IN_THE_MIDDLE)
+
+		when:
+		Technology technology = technologyPageProcessor.process(page)
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		technology.name == TITLE_WITH_BRACKETS_IN_THE_MIDDLE
+	}
+
 	void "page is bound"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
@@ -108,42 +121,65 @@ class TechnologyPageProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(technology) == trueBooleans
 
 		where:
-		page                                                                                       | flagName                   | flag  | trueBooleans
-		new SourcesPage(categories: Lists.newArrayList())                                          | 'borgTechnology'           | false | 0
-		new SourcesPage(categories: createList(CategoryTitle.BORG_TECHNOLOGY))                     | 'borgTechnology'           | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.BORG_COMPONENTS))                     | 'borgTechnology'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.BORG_COMPONENTS))                     | 'borgComponent'            | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.COMMUNICATIONS_TECHNOLOGY))           | 'communicationsTechnology' | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.COMMUNICATIONS_TECHNOLOGY_RETCONNED)) | 'communicationsTechnology' | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.COMPUTER_TECHNOLOGY))                 | 'computerTechnology'       | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.COMPUTER_PROGRAMMING))                | 'computerTechnology'       | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.COMPUTER_PROGRAMMING))                | 'computerProgramming'      | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SUBROUTINES))                         | 'computerTechnology'       | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.SUBROUTINES))                         | 'computerProgramming'      | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.SUBROUTINES))                         | 'subroutine'               | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.DATABASES))                           | 'computerTechnology'       | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.DATABASES))                           | 'database'                 | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ENERGY_TECHNOLOGY))                   | 'energyTechnology'         | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.ENERGY_TECHNOLOGY_RETCONNED))         | 'energyTechnology'         | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.FICTIONAL_TECHNOLOGY))                | 'fictionalTechnology'      | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.HOLOGRAPHIC_TECHNOLOGY))              | 'holographicTechnology'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.IDENTIFICATION_TECHNOLOGY))           | 'identificationTechnology' | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.LIFE_SUPPORT_TECHNOLOGY))             | 'lifeSupportTechnology'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SENSOR_TECHNOLOGY))                   | 'sensorTechnology'         | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SENSOR_TECHNOLOGY_RETCONNED))         | 'sensorTechnology'         | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SHIELD_TECHNOLOGY))                   | 'shieldTechnology'         | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SHIELD_TECHNOLOGY_RETCONNED))         | 'shieldTechnology'         | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.TOOLS))                               | 'tool'                     | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.CULINARY_TOOLS))                      | 'tool'                     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.CULINARY_TOOLS))                      | 'culinaryTool'             | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ENGINEERING_TOOLS))                   | 'tool'                     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ENGINEERING_TOOLS))                   | 'engineeringTool'          | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.HOUSEHOLD_TOOLS))                     | 'tool'                     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.HOUSEHOLD_TOOLS))                     | 'householdTool'            | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_EQUIPMENT))                   | 'tool'                     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_EQUIPMENT))                   | 'medicalEquipment'         | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.TRANSPORTER_TECHNOLOGY))              | 'transporterTechnology'    | true  | 1
-
+		page                                                                                       | flagName                      | flag  | trueBooleans
+		new SourcesPage(categories: Lists.newArrayList())                                          | 'borgTechnology'              | false | 0
+		new SourcesPage(categories: createList(CategoryTitle.BORG_TECHNOLOGY))                     | 'borgTechnology'              | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.BORG_COMPONENTS))                     | 'borgTechnology'              | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.BORG_COMPONENTS))                     | 'borgComponent'               | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.COMMUNICATIONS_TECHNOLOGY))           | 'communicationsTechnology'    | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.COMMUNICATIONS_TECHNOLOGY_RETCONNED)) | 'communicationsTechnology'    | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.COMPUTER_TECHNOLOGY))                 | 'computerTechnology'          | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.COMPUTER_PROGRAMMING))                | 'computerTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.COMPUTER_PROGRAMMING))                | 'computerProgramming'         | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SUBROUTINES))                         | 'computerTechnology'          | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.SUBROUTINES))                         | 'computerProgramming'         | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.SUBROUTINES))                         | 'subroutine'                  | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.DATABASES))                           | 'computerTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.DATABASES))                           | 'database'                    | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.ENERGY_TECHNOLOGY))                   | 'energyTechnology'            | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ENERGY_TECHNOLOGY_RETCONNED))         | 'energyTechnology'            | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.FICTIONAL_TECHNOLOGY))                | 'fictionalTechnology'         | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.HOLOGRAPHIC_TECHNOLOGY))              | 'holographicTechnology'       | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.IDENTIFICATION_TECHNOLOGY))           | 'identificationTechnology'    | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.IDENTIFICATION_TECHNOLOGY))           | 'securityTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.LIFE_SUPPORT_TECHNOLOGY))             | 'lifeSupportTechnology'       | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.SENSOR_TECHNOLOGY))                   | 'sensorTechnology'            | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SENSOR_TECHNOLOGY))                   | 'securityTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SENSOR_TECHNOLOGY_RETCONNED))         | 'sensorTechnology'            | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SENSOR_TECHNOLOGY_RETCONNED))         | 'securityTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SHIELD_TECHNOLOGY))                   | 'shieldTechnology'            | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SHIELD_TECHNOLOGY))                   | 'securityTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SHIELD_TECHNOLOGY_RETCONNED))         | 'shieldTechnology'            | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SHIELD_TECHNOLOGY_RETCONNED))         | 'securityTechnology'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SECURITY_TECHNOLOGY))                 | 'securityTechnology'          | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.WARP))                                | 'warpTechnology'              | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.WARP))                                | 'propulsionTechnology'        | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.WARP))                                | 'spacecraftComponent'         | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.TRANSWARP))                           | 'transwarpTechnology'         | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.TRANSWARP))                           | 'propulsionTechnology'        | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.TRANSWARP))                           | 'spacecraftComponent'         | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.TIME_TRAVEL_TECHNOLOGY))              | 'timeTravelTechnology'        | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.MILITARY_TECHNOLOGY))                 | 'militaryTechnology'          | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.PROPULSION_TECHNOLOGY))               | 'propulsionTechnology'        | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.PROPULSION_TECHNOLOGY))               | 'spacecraftComponent'         | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SPACECRAFT_COMPONENTS))               | 'spacecraftComponent'         | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.SPACECRAFT_COMPONENTS_RETCONNED))     | 'spacecraftComponent'         | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.TOOLS))                               | 'tool'                        | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.CULINARY_TOOLS))                      | 'tool'                        | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.CULINARY_TOOLS))                      | 'culinaryTool'                | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.CULINARY_TOOLS))                      | 'victualTechnology'           | true  | 3
+		new SourcesPage(categories: createList(CategoryTitle.VICTUAL_TECHNOLOGY))                  | 'victualTechnology'           | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ENGINEERING_TOOLS))                   | 'tool'                        | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.ENGINEERING_TOOLS))                   | 'engineeringTool'             | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.HOUSEHOLD_TOOLS))                     | 'tool'                        | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.HOUSEHOLD_TOOLS))                     | 'householdTool'               | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_EQUIPMENT))                   | 'tool'                        | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_EQUIPMENT))                   | 'medicalEquipment'            | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.TRANSPORTER_TECHNOLOGY))              | 'transporterTechnology'       | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.TRANSPORTER_TECHNOLOGY))              | 'transportationTechnology'    | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.TRANSPORTATION_TECHNOLOGY))           | 'transportationTechnology'    | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.WEAPON_COMPONENTS))                   | 'weaponComponent'             | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ARTIFICIAL_LIFEFORM_COMPONENTS))      | 'artificialLifeformComponent' | true  | 1
 	}
 
 	private static List<CategoryHeader> createList(String title) {
