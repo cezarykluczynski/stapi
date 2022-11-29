@@ -4,12 +4,15 @@
 			<ul>
 				<li>This is API documentation, both REST and SOAP.</li>
 				<li>
-					Please be advised that as long as STAPI stays in alpha version, SOAP contracts and Swagger specifications can and will change.
-					New versions of STAPI will be deployed without warning, breaking backward compatibility.
+					Please be advised that SOAP contracts will no longer be updated with model changes, because far less people used to use
+					SOAP to access STAPI. For the time being, however, it will still return data for the time being.
 				</li>
 				<li>
-					You can also <strong>download documentation</strong>: <a href="{{getRestSpecsZipLink()}}">REST</a> and <a
-						href="{{this.getSoapContractsZipLink()}}">SOAP</a>.
+					Only REST Swagger Specs will be developed further, in a non-breaking fashion, using API versioning.
+				</li>
+				<li>
+					You can <strong>download documentation</strong>: <a href="{{getRestSpecsZipLink()}}">REST</a> and <a
+						href="{{this.getSoapContractsZipLink()}}">SOAP (deprecated)</a>.
 				</li>
 				<li>
 					It is possible to generate clients from both ZIP packages.
@@ -20,7 +23,7 @@
 					Generating clients from SOAP depends on the target language. Google around for your tool.
 				</li>
 				<li>
-					In case of any	problems with Swagger specs of SOAP contracts, please <a
+					In case of any problems with Swagger specs, please <a
 						href="https://github.com/cezarykluczynski/stapi/issues">report a bug</a>.
 				</li>
 				<li>If you plan on mantaing STAPI client in language other than Java, please <a

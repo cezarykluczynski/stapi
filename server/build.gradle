@@ -3,7 +3,6 @@ import org.apache.commons.lang3.StringUtils
 import org.zeroturnaround.zip.ZipUtil
 import org.zeroturnaround.zip.commons.FileUtils
 
-import java.nio.file.Files
 import java.util.stream.Collectors
 
 plugins {
@@ -112,7 +111,10 @@ class CopyResources extends DefaultTask {
 		}
 		File docker = new File('./server/build/resources/main/application-docker.properties')
 		File stapiCustom = new File('./server/build/resources/main/application-stapi-custom.properties')
-		FileUtils.forceDelete(stapiCustom)
+		try {
+			FileUtils.forceDelete(stapiCustom)
+		} catch (Exception ignore) {
+		}
 		FileUtils.moveFile(docker, stapiCustom)
 	}
 

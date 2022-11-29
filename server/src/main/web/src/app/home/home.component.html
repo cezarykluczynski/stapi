@@ -4,19 +4,21 @@
 			<h2>Welcome to STAPI, a Star Trek API!</h2>
 			<h3>But what is it, really?</h3>
 			<ul>
-				<li>It's the first public Star Trek API, accessible via REST and SOAP.</li>
+				<li>It's the first public Star Trek API, accessible via REST and SOAP(deprecated).</li>
 				<li>It's an open source project, that anyone can <a
 					href="https://github.com/cezarykluczynski/stapi/wiki/Contributing">contribute to</a>.</li>
-				<li>STAPI is now a beta version. The API model is considered stable at this point.</li>
+				<li>STAPI is now in beta version. The API model is considered stable at this point.</li>
 			</ul>
 
 			<h3>How it works?</h3>
 			<ul>
-				<li>STAPI uses publicly available sources, mainly <a href="http://memory-alpha.fandom.com/">Memory Alpha</a>,
-					to get its data.</li>
+				<li>STAPI uses publicly available sources, mainly <a href="https://memory-alpha.fandom.com/">Memory Alpha</a>,
+					to get its data, but also <a href="http://www.startrekcards.com/">Star Trek Cards</a>
+					and <a href="https://memory-beta.fandom.com/">Memory Beta</a>.</li>
 				<li>Data is cleansed, standardized and put into relational model.</li>
-				<li>API can be browsed by anyone, even right now, using <a routerLink="api-browser">API Browser</a>.</li>
-				<li>SOAP contracts and Swagger specifications can be <a routerLink="api-documentation">downloaded</a>.</li>
+				<li>API is publicly available without the need of API keys and can be browser
+					using <a routerLink="api-browser">API Browser</a>.</li>
+				<li>Swagger specs can be <a routerLink="api-documentation">downloaded</a>.</li>
 				<li>STAPI is written in Java, with tests written in Groovy.</li>
 				<li><a href="https://github.com/cezarykluczynski/stapi/wiki/Clients">Clients</a> are available
 					in several languages.</li>

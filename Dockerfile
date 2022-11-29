@@ -4,6 +4,7 @@ ENV POSTGRES_PASSWORD=postgres86
 ENV POSTGRES_DB=stapi
 COPY server/build/libs/stapi.war app.war
 # temporarily:
-COPY data/step_40_stapi.sql /docker-entrypoint-initdb.d/
+COPY data/step_43_stapi.sql /docker-entrypoint-initdb.d/
+COPY contract/ /contract/
 COPY docker/startup.sh /startup.sh
 ENTRYPOINT ["./startup.sh"]

@@ -4,6 +4,7 @@ import {ColumnApi, GridApi, GridOptions} from 'ag-grid/main';
 
 import { StatisticsApi } from './statistics-api.service';
 import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
+import {FeatureSwitchApi} from '../feature-switch/feature-switch-api.service';
 
 @Component({
 	selector: 'entity-hits-grid',
@@ -21,11 +22,13 @@ export class EntityHitsGridComponent {
 	private statistics: any;
 	private details: any;
 	private names: any;
+	private docker: boolean;
 
-	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi) {
+	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi, featureSwitchApi: FeatureSwitchApi) {
 		this.statistics = statisticsApi.getStatistics();
 		this.details = apiBrowserApi.getDetails();
 		this.names = this.getEntityNameToPluralNameMap();
+		this.docker = featureSwitchApi.isEnabled('DOCKER');
 	}
 
 	getGridColumnDefs() {
@@ -67,6 +70,10 @@ export class EntityHitsGridComponent {
 
 	getTotalCount() {
 		return this.statistics.hitsStatistics.totalCount;
+	}
+
+	isDocker() {
+		return this.docker;
 	}
 
 	getEntityNameToPluralNameMap() {
