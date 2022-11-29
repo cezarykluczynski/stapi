@@ -1,0 +1,6 @@
+type: object
+description: Response object for single astronomical object query (V2)
+properties:
+  astronomicalObject:
+    $ref: '#/definitions/AstronomicalObjectV2Full'
+    description: Astronomical object, if found

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2Type;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum;
@@ -54,7 +55,11 @@ public interface EnumMapper {
 	}
 
 	default AstronomicalObjectTypeEnum mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectType astronomicalObjectType) {
-		return astronomicalObjectType == null ? null : AstronomicalObjectTypeEnum.valueOf(astronomicalObjectType.name());
+		try {
+			return astronomicalObjectType == null ? null : AstronomicalObjectTypeEnum.valueOf(astronomicalObjectType.name());
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
 	}
 
 	default AstronomicalObjectType mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum astronomicalObjectTypeEnum) {
@@ -63,12 +68,25 @@ public interface EnumMapper {
 
 	default com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType mapAstronomicalObjectTypeFromEntityEnumToRestEnum(
 			AstronomicalObjectType astronomicalObjectType) {
-		return astronomicalObjectType == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType
-				.valueOf(astronomicalObjectType.name());
+		try {
+			return astronomicalObjectType == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType
+					.valueOf(astronomicalObjectType.name());
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
+	default AstronomicalObjectV2Type mapAstronomicalObjectTypeFromEntityEnumToRestV2Enum(
+			AstronomicalObjectType astronomicalObjectType) {
+		return astronomicalObjectType == null ? null : AstronomicalObjectV2Type.valueOf(astronomicalObjectType.name());
 	}
 
 	default AstronomicalObjectType mapAstronomicalObjectTypeFromRestEnumToEntityEnum(
 			com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType astronomicalObjectType) {
+		return astronomicalObjectType == null ? null : AstronomicalObjectType.valueOf(astronomicalObjectType.name());
+	}
+
+	default AstronomicalObjectType mapAstronomicalObjectV2TypeFromRestEnumToEntityEnum(AstronomicalObjectV2Type astronomicalObjectType) {
 		return astronomicalObjectType == null ? null : AstronomicalObjectType.valueOf(astronomicalObjectType.name());
 	}
 

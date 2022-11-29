@@ -120,7 +120,7 @@ describe('ApiBrowserComponent', () => {
 		});
 	});
 
-	describe('when response is reveiced', () => {
+	describe('when response is received', () => {
 		let respondWith = (response) => {
 			spyOn(apiBrowserApiMock, 'search').and.returnValue(new Promise((resolve) => {
 				resolve(response);

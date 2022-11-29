@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2Full
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import org.mapstruct.factory.Mappers
 
@@ -24,6 +25,20 @@ class AstronomicalObjectFullRestMapperTest extends AbstractAstronomicalObjectMap
 		astronomicalObjectFull.name == NAME
 		astronomicalObjectFull.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_TYPE
 		astronomicalObjectFull.location != null
+	}
+
+	void "maps DB entity to full REST V2 entity"() {
+		given:
+		AstronomicalObject astronomicalObject = createAstronomicalObject()
+
+		when:
+		AstronomicalObjectV2Full astronomicalObjectV2Full = astronomicalObjectFullRestMapper.mapV2Full(astronomicalObject)
+
+		then:
+		astronomicalObjectV2Full.uid == UID
+		astronomicalObjectV2Full.name == NAME
+		astronomicalObjectV2Full.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_V2_TYPE
+		astronomicalObjectV2Full.location != null
 	}
 
 }

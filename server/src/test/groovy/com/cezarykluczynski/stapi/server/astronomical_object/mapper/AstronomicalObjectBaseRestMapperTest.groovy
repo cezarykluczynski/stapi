@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2Base
 import com.cezarykluczynski.stapi.model.astronomical_object.dto.AstronomicalObjectRequestDTO
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams
@@ -45,6 +46,20 @@ class AstronomicalObjectBaseRestMapperTest extends AbstractAstronomicalObjectMap
 		restAstronomicalObject.name == NAME
 		restAstronomicalObject.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_TYPE
 		restAstronomicalObject.location != null
+	}
+
+	void "maps DB entity to base REST V2 entity"() {
+		given:
+		AstronomicalObject dBAstronomicalObject = createAstronomicalObject()
+
+		when:
+		AstronomicalObjectV2Base astronomicalObjectV2Base = astronomicalObjectBaseRestMapper.mapV2Base(Lists.newArrayList(dBAstronomicalObject))[0]
+
+		then:
+		astronomicalObjectV2Base.uid == UID
+		astronomicalObjectV2Base.name == NAME
+		astronomicalObjectV2Base.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_V2_TYPE
+		astronomicalObjectV2Base.location != null
 	}
 
 }

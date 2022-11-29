@@ -21,10 +21,16 @@ public class Performer {
 		this.apiKey = apiKey;
 	}
 
+	@Deprecated
 	public PerformerFullResponse get(String uid) throws ApiException {
 		return performerApi.v1RestPerformerGet(uid, apiKey);
 	}
 
+	public PerformerV2FullResponse getV2(String uid) throws ApiException {
+		return performerApi.v2RestPerformerGet(uid, apiKey);
+	}
+
+	@Deprecated
 	public PerformerBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
 			LocalDate dateOfBirthFrom, LocalDate dateOfBirthTo, String placeOfBirth, LocalDate dateOfDeathFrom, LocalDate dateOfDeathTo,
 			String placeOfDeath, Boolean animalPerformer, Boolean disPerformer, Boolean ds9Performer, Boolean entPerformer, Boolean filmPerformer,
@@ -33,10 +39,6 @@ public class Performer {
 		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, disPerformer, ds9Performer, entPerformer, filmPerformer,
 				standInPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
-	}
-
-	public PerformerV2FullResponse getV2(String uid) throws ApiException {
-		return performerApi.v2RestPerformerGet(uid, apiKey);
 	}
 
 	public PerformerV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,

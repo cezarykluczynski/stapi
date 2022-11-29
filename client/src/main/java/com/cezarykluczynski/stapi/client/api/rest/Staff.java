@@ -21,6 +21,7 @@ public class Staff {
 		this.apiKey = apiKey;
 	}
 
+	@Deprecated
 	public StaffFullResponse get(String uid) throws ApiException {
 		return staffApi.v1RestStaffGet(uid, apiKey);
 	}
@@ -29,6 +30,7 @@ public class Staff {
 		return staffApi.v2RestStaffGet(uid, apiKey);
 	}
 
+	@Deprecated
 	public StaffBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
 			LocalDate dateOfBirthFrom, LocalDate dateOfBirthTo, String placeOfBirth, LocalDate dateOfDeathFrom, LocalDate dateOfDeathTo,
 			String placeOfDeath, Boolean artDepartment, Boolean artDirector, Boolean productionDesigner, Boolean cameraAndElectricalDepartment,

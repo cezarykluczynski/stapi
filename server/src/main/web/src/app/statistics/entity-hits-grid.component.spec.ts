@@ -7,6 +7,7 @@ import { StatisticsApi } from './statistics-api.service';
 import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
 import { TOTAL_COUNT, STATISTICS, DETAILS } from './statistics.fixture';
+import {FeatureSwitchApi} from "../feature-switch/feature-switch-api.service";
 
 class StatisticsApiMock {
 	public getStatistics() {
@@ -23,15 +24,22 @@ class ApiBrowserApiMock {
 	}
 }
 
+class FeatureSwitchApiMock {
+	public isEnabled() {}
+}
+
+
 describe('EntityHitsGridComponent', () => {
 	let component: EntityHitsGridComponent;
 	let fixture: ComponentFixture<EntityHitsGridComponent>;
 	let statisticsApiMock: StatisticsApiMock;
 	let apiBrowserApiMock: ApiBrowserApiMock;
+	let featureSwitchApiMock: FeatureSwitchApiMock;
 
 	beforeEach(async(() => {
 		statisticsApiMock = new StatisticsApiMock();
 		apiBrowserApiMock = new ApiBrowserApiMock();
+		featureSwitchApiMock = new FeatureSwitchApiMock();
 
 		TestBed.configureTestingModule({
 			declarations: [EntityHitsGridComponent],
@@ -43,6 +51,10 @@ describe('EntityHitsGridComponent', () => {
 				{
 					provide: ApiBrowserApi,
 					useValue: apiBrowserApiMock
+				},
+				{
+					provide: FeatureSwitchApi,
+					useValue: featureSwitchApiMock
 				}
 			],
 			imports: [

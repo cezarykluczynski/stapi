@@ -13,11 +13,14 @@ paths:
     $ref: ./animal/path/animal.path.yaml
   /v1/rest/animal/search:
     $ref: ./animal/path/animalSearch.path.yaml
-  # TODO: Add V2
   /v1/rest/astronomicalObject:
     $ref: ./astronomical_object/path/astronomicalObject.path.yaml
   /v1/rest/astronomicalObject/search:
     $ref: ./astronomical_object/path/astronomicalObjectSearch.path.yaml
+  /v2/rest/astronomicalObject:
+    $ref: ./astronomical_object/path/astronomicalObjectV2.path.yaml
+  /v2/rest/astronomicalObject/search:
+    $ref: ./astronomical_object/path/astronomicalObjectV2Search.path.yaml
   # TODO: Add V2
   /v1/rest/book:
     $ref: ./book/path/book.path.yaml
@@ -209,6 +212,16 @@ definitions:
     $ref: ./astronomical_object/entity/astronomicalObjectFullResponse.yaml
   AstronomicalObjectType:
     $ref: ./astronomical_object/entity/enum/astronomicalObjectType.yaml
+  AstronomicalObjectV2Base:
+    $ref: ./astronomical_object/entity/astronomicalObjectV2Base.yaml
+  AstronomicalObjectV2Full:
+    $ref: ./astronomical_object/entity/astronomicalObjectV2Full.yaml
+  AstronomicalObjectV2BaseResponse:
+    $ref: ./astronomical_object/entity/astronomicalObjectV2BaseResponse.yaml
+  AstronomicalObjectV2FullResponse:
+    $ref: ./astronomical_object/entity/astronomicalObjectV2FullResponse.yaml
+  AstronomicalObjectV2Type:
+    $ref: ./astronomical_object/entity/enum/astronomicalObjectV2Type.yaml
   BloodType:
     $ref: ./common/entity/enum/bloodType.yaml
   BookHeader:
