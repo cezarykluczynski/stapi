@@ -17,6 +17,7 @@ public interface TitleFullSoapMapper {
 	@Mapping(target = "militaryRank", ignore = true)
 	@Mapping(target = "fleetRank", ignore = true)
 	@Mapping(target = "religiousTitle", ignore = true)
+	@Mapping(target = "educationTitle", ignore = true)
 	@Mapping(target = "position", ignore = true)
 	@Mapping(target = "mirror", ignore = true)
 	@Mapping(target = "sort", ignore = true)

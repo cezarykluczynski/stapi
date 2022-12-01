@@ -15,6 +15,7 @@ import java.util.List;
 public interface TitleBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "educationTitle", ignore = true)
 	TitleRequestDTO mapBase(TitleBaseRequest titleBaseRequest);
 
 	TitleBase mapBase(Title title);

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.title.dto.TitleRestBeanParams;
+import com.cezarykluczynski.stapi.server.title.dto.TitleV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +29,12 @@ public class TitleRestQuery {
 	public Page<Title> query(TitleRestBeanParams titleRestBeanParams) {
 		TitleRequestDTO titleRequestDTO = titleBaseRestMapper.mapBase(titleRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(titleRestBeanParams);
+		return titleRepository.findMatching(titleRequestDTO, pageRequest);
+	}
+
+	public Page<Title> query(TitleV2RestBeanParams titleV2RestBeanParams) {
+		TitleRequestDTO titleRequestDTO = titleBaseRestMapper.mapV2Base(titleV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(titleV2RestBeanParams);
 		return titleRepository.findMatching(titleRequestDTO, pageRequest);
 	}
 

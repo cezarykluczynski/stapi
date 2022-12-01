@@ -13,6 +13,7 @@ abstract class AbstractTitleMapperTest extends AbstractTitleTest {
 				militaryRank: MILITARY_RANK,
 				fleetRank: FLEET_RANK,
 				religiousTitle: RELIGIOUS_TITLE,
+				educationTitle: EDUCATION_TITLE,
 				position: POSITION,
 				mirror: MIRROR,
 				characters: createSetOfRandomNumberOfMocks(Character))

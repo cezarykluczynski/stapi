@@ -9,6 +9,7 @@ class AbstractTitleTest extends AbstractTest {
 	protected static final Boolean MILITARY_RANK = RandomUtil.nextBoolean()
 	protected static final Boolean FLEET_RANK = RandomUtil.nextBoolean()
 	protected static final Boolean RELIGIOUS_TITLE = RandomUtil.nextBoolean()
+	protected static final Boolean EDUCATION_TITLE = RandomUtil.nextBoolean()
 	protected static final Boolean POSITION = RandomUtil.nextBoolean()
 	protected static final Boolean MIRROR = RandomUtil.nextBoolean()
 

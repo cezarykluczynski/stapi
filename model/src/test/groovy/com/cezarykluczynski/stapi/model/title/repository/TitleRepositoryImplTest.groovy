@@ -62,6 +62,8 @@ class TitleRepositoryImplTest extends AbstractTitleTest {
 		1 * titleQueryBuilder.equal(Title_.fleetRank, FLEET_RANK)
 		1 * titleRequestDTO.religiousTitle >> RELIGIOUS_TITLE
 		1 * titleQueryBuilder.equal(Title_.religiousTitle, RELIGIOUS_TITLE)
+		1 * titleRequestDTO.educationTitle >> EDUCATION_TITLE
+		1 * titleQueryBuilder.equal(Title_.educationTitle, EDUCATION_TITLE)
 		1 * titleRequestDTO.position >> POSITION
 		1 * titleQueryBuilder.equal(Title_.position, POSITION)
 		1 * titleRequestDTO.mirror >> MIRROR

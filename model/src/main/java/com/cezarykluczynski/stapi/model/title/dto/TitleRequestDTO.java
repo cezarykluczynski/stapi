@@ -18,6 +18,8 @@ public class TitleRequestDTO {
 
 	private Boolean religiousTitle;
 
+	private Boolean educationTitle;
+
 	private Boolean position;
 
 	private Boolean mirror;

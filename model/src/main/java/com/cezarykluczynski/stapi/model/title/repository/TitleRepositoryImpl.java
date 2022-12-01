@@ -31,6 +31,7 @@ public class TitleRepositoryImpl extends AbstractRepositoryImpl<Title> implement
 		titleQueryBuilder.equal(Title_.militaryRank, criteria.getMilitaryRank());
 		titleQueryBuilder.equal(Title_.fleetRank, criteria.getFleetRank());
 		titleQueryBuilder.equal(Title_.religiousTitle, criteria.getReligiousTitle());
+		titleQueryBuilder.equal(Title_.educationTitle, criteria.getEducationTitle());
 		titleQueryBuilder.equal(Title_.position, criteria.getPosition());
 		titleQueryBuilder.equal(Title_.mirror, criteria.getMirror());
 		titleQueryBuilder.setSort(criteria.getSort());

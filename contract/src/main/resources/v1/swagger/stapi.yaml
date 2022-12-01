@@ -83,11 +83,14 @@ paths:
     $ref: ./literature/path/literature.path.yaml
   /v1/rest/literature/search:
     $ref: ./literature/path/literatureSearch.path.yaml
-  # TODO: Add V2
   /v1/rest/location:
     $ref: ./location/path/location.path.yaml
   /v1/rest/location/search:
     $ref: ./location/path/locationSearch.path.yaml
+  /v2/rest/location:
+    $ref: ./location/path/locationV2.path.yaml
+  /v2/rest/location/search:
+    $ref: ./location/path/locationV2Search.path.yaml
   /v1/rest/magazine:
     $ref: ./magazine/path/magazine.path.yaml
   /v1/rest/magazine/search:
@@ -162,11 +165,14 @@ paths:
     $ref: ./technology/path/technology.path.yaml
   /v1/rest/technology/search:
     $ref: ./technology/path/technologySearch.path.yaml
-  # TODO: Add V2
   /v1/rest/title:
     $ref: ./title/path/title.path.yaml
   /v1/rest/title/search:
     $ref: ./title/path/titleSearch.path.yaml
+  /v2/rest/title:
+    $ref: ./title/path/titleV2.path.yaml
+  /v2/rest/title/search:
+    $ref: ./title/path/titleV2Search.path.yaml
   /v1/rest/tradingCard:
     $ref: ./trading_card/path/tradingCard.path.yaml
   /v1/rest/tradingCard/search:
@@ -403,6 +409,14 @@ definitions:
     $ref: ./location/entity/locationBaseResponse.yaml
   LocationFullResponse:
     $ref: ./location/entity/locationFullResponse.yaml
+  LocationV2Base:
+    $ref: ./location/entity/locationV2Base.yaml
+  LocationV2Full:
+    $ref: ./location/entity/locationV2Full.yaml
+  LocationV2BaseResponse:
+    $ref: ./location/entity/locationV2BaseResponse.yaml
+  LocationV2FullResponse:
+    $ref: ./location/entity/locationV2FullResponse.yaml
   MagazineHeader:
     $ref: ./magazine/entity/magazineHeader.yaml
   MagazineBase:
@@ -609,6 +623,14 @@ definitions:
     $ref: ./title/entity/titleBaseResponse.yaml
   TitleFullResponse:
     $ref: ./title/entity/titleFullResponse.yaml
+  TitleV2Base:
+    $ref: ./title/entity/titleV2Base.yaml
+  TitleV2Full:
+    $ref: ./title/entity/titleV2Full.yaml
+  TitleV2BaseResponse:
+    $ref: ./title/entity/titleV2BaseResponse.yaml
+  TitleV2FullResponse:
+    $ref: ./title/entity/titleV2FullResponse.yaml
   TradingCardHeader:
     $ref: ./trading_card/entity/tradingCardHeader.yaml
   TradingCardBase:
