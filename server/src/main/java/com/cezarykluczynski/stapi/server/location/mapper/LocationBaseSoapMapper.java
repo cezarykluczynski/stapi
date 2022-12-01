@@ -15,8 +15,13 @@ import java.util.List;
 public interface LocationBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "qonosLocation", ignore = true)
+	@Mapping(target = "mythologicalLocation", ignore = true)
+	@Mapping(target = "restaurant", ignore = true)
+	@Mapping(target = "residence", ignore = true)
 	LocationRequestDTO mapBase(LocationBaseRequest locationBaseRequest);
 
+	@Mapping(target = "landmark", constant = "false")
 	LocationBase mapBase(Location location);
 
 	List<LocationBase> mapBase(List<Location> locationList);

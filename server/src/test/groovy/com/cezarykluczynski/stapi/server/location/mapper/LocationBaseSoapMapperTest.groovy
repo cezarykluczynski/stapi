@@ -94,7 +94,7 @@ class LocationBaseSoapMapperTest extends AbstractLocationMapperTest {
 		locationBase.bajoranSettlement == BAJORAN_SETTLEMENT
 		locationBase.colony == COLONY
 		locationBase.landform == LANDFORM
-		locationBase.landmark == LANDMARK
+		!locationBase.landmark
 		locationBase.road == ROAD
 		locationBase.structure == STRUCTURE
 		locationBase.shipyard == SHIPYARD

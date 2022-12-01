@@ -10,8 +10,10 @@ abstract class AbstractLocationMapperTest extends AbstractLocationTest {
 				uid: UID,
 				name: NAME,
 				earthlyLocation: EARTHLY_LOCATION,
+				qonosLocation: QONOS_LOCATION,
 				fictionalLocation: FICTIONAL_LOCATION,
 				religiousLocation: RELIGIOUS_LOCATION,
+				mythologicalLocation: MYTHOLOGICAL_LOCATION,
 				geographicalLocation: GEOGRAPHICAL_LOCATION,
 				bodyOfWater: BODY_OF_WATER,
 				country: COUNTRY,
@@ -30,6 +32,8 @@ abstract class AbstractLocationMapperTest extends AbstractLocationTest {
 				medicalEstablishment: MEDICAL_ESTABLISHMENT,
 				ds9Establishment: DS9_ESTABLISHMENT,
 				school: SCHOOL,
+				restaurant: RESTAURANT,
+				residence: RESIDENCE,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 	}

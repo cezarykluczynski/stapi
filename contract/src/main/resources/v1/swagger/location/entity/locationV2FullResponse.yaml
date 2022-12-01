@@ -1,0 +1,6 @@
+type: object
+description: Response object for single location query (V2)
+properties:
+  location:
+    $ref: '#/definitions/LocationV2Full'
+    description: Location, if found

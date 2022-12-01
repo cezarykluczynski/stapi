@@ -131,6 +131,7 @@ class LocationPageProcessorTest extends Specification {
 		where:
 		categories                                                 | flagName               | flag  | trueBooleans
 		Lists.newArrayList()                                       | 'establishment'        | false | 0
+		Lists.newArrayList()                                       | 'landmark'             | false | 0
 		createList(CategoryTitle.LOCATIONS)                        | 'establishment'        | false | 0
 		createList(CategoryTitle.EARTH_LOCATIONS)                  | 'earthlyLocation'      | true  | 1
 		createList(CategoryTitle.EARTH_ROADS)                      | 'earthlyLocation'      | true  | 3

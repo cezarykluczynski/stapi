@@ -37,6 +37,7 @@ public class BookInitialQueryBuilderFactory implements InitialQueryBuilderFactor
 		bookQueryBuilder.equal(Book_.rolePlayingBook, criteria.getRolePlayingBook());
 		bookQueryBuilder.equal(Book_.eBook, criteria.getEBook());
 		bookQueryBuilder.equal(Book_.anthology, criteria.getAnthology());
+		bookQueryBuilder.equal(Book_.unauthorizedPublication, criteria.getUnauthorizedPublication());
 		bookQueryBuilder.equal(Book_.novelization, criteria.getNovelization());
 		bookQueryBuilder.equal(Book_.audiobook, criteria.getAudiobook());
 		bookQueryBuilder.equal(Book_.audiobookAbridged, criteria.getAudiobookAbridged());

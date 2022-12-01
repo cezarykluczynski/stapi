@@ -7,7 +7,9 @@ abstract class AbstractLocationTest extends AbstractTest {
 	protected static final String UID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'
 	protected static final boolean EARTHLY_LOCATION = RandomUtil.nextBoolean()
+	protected static final boolean QONOS_LOCATION = RandomUtil.nextBoolean()
 	protected static final boolean FICTIONAL_LOCATION = RandomUtil.nextBoolean()
+	protected static final boolean MYTHOLOGICAL_LOCATION = RandomUtil.nextBoolean()
 	protected static final boolean RELIGIOUS_LOCATION = RandomUtil.nextBoolean()
 	protected static final boolean GEOGRAPHICAL_LOCATION = RandomUtil.nextBoolean()
 	protected static final boolean BODY_OF_WATER = RandomUtil.nextBoolean()
@@ -27,6 +29,8 @@ abstract class AbstractLocationTest extends AbstractTest {
 	protected static final boolean MEDICAL_ESTABLISHMENT = RandomUtil.nextBoolean()
 	protected static final boolean DS9_ESTABLISHMENT = RandomUtil.nextBoolean()
 	protected static final boolean SCHOOL = RandomUtil.nextBoolean()
+	protected static final boolean RESTAURANT = RandomUtil.nextBoolean()
+	protected static final boolean RESIDENCE = RandomUtil.nextBoolean()
 	protected static final boolean MIRROR = RandomUtil.nextBoolean()
 	protected static final boolean ALTERNATE_REALITY = RandomUtil.nextBoolean()
 

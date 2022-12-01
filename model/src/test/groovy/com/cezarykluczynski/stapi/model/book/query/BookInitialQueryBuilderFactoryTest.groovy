@@ -83,7 +83,6 @@ class BookInitialQueryBuilderFactoryTest extends AbstractBookTest {
 		1 * bookQueryBuilder.equal(Book_.novel, NOVEL)
 		1 * bookRequestDTO.referenceBook >> REFERENCE_BOOK
 		1 * bookQueryBuilder.equal(Book_.referenceBook, REFERENCE_BOOK)
-
 		1 * bookRequestDTO.biographyBook >> BIOGRAPHY_BOOK
 		1 * bookQueryBuilder.equal(Book_.biographyBook, BIOGRAPHY_BOOK)
 		1 * bookRequestDTO.rolePlayingBook >> ROLE_PLAYING_BOOK
@@ -92,6 +91,8 @@ class BookInitialQueryBuilderFactoryTest extends AbstractBookTest {
 		1 * bookQueryBuilder.equal(Book_.eBook, E_BOOK)
 		1 * bookRequestDTO.anthology >> ANTHOLOGY
 		1 * bookQueryBuilder.equal(Book_.anthology, ANTHOLOGY)
+		1 * bookRequestDTO.unauthorizedPublication >> UNAUTHORIZED_PUBLICATION
+		1 * bookQueryBuilder.equal(Book_.unauthorizedPublication, UNAUTHORIZED_PUBLICATION)
 		1 * bookRequestDTO.novelization >> NOVELIZATION
 		1 * bookQueryBuilder.equal(Book_.novelization, NOVELIZATION)
 		1 * bookRequestDTO.audiobook >> AUDIOBOOK

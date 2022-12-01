@@ -73,6 +73,7 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 				|| categoryTitleList.contains(CategoryTitle.QONOS_SETTLEMENTS));
 		location.setBuildingInterior(categoryTitleList.contains(CategoryTitle.BUILDING_INTERIORS));
 		location.setLandform(categoryTitleList.contains(CategoryTitle.LANDFORMS));
+		location.setLandmark(false);
 		location.setReligiousLocation(categoryTitleList.contains(CategoryTitle.RELIGIOUS_LOCATIONS));
 		location.setRoad(categoryTitleList.contains(CategoryTitle.ROADS) || categoryTitleList.contains(CategoryTitle.EARTH_ROADS));
 		location.setShipyard(categoryTitleList.contains(CategoryTitle.SHIPYARDS));

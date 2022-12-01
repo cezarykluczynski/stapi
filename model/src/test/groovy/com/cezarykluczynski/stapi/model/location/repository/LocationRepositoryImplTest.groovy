@@ -53,8 +53,12 @@ class LocationRepositoryImplTest extends AbstractLocationTest {
 		then: 'boolean criteria are set'
 		1 * locationRequestDTO.earthlyLocation >> EARTHLY_LOCATION
 		1 * locationQueryBuilder.equal(Location_.earthlyLocation, EARTHLY_LOCATION)
+		1 * locationRequestDTO.qonosLocation >> EARTHLY_LOCATION
+		1 * locationQueryBuilder.equal(Location_.earthlyLocation, EARTHLY_LOCATION)
 		1 * locationRequestDTO.fictionalLocation >> FICTIONAL_LOCATION
 		1 * locationQueryBuilder.equal(Location_.fictionalLocation, FICTIONAL_LOCATION)
+		1 * locationRequestDTO.mythologicalLocation >> MYTHOLOGICAL_LOCATION
+		1 * locationQueryBuilder.equal(Location_.mythologicalLocation, MYTHOLOGICAL_LOCATION)
 		1 * locationRequestDTO.religiousLocation >> RELIGIOUS_LOCATION
 		1 * locationQueryBuilder.equal(Location_.religiousLocation, RELIGIOUS_LOCATION)
 		1 * locationRequestDTO.geographicalLocation >> GEOGRAPHICAL_LOCATION
@@ -93,6 +97,10 @@ class LocationRepositoryImplTest extends AbstractLocationTest {
 		1 * locationQueryBuilder.equal(Location_.ds9Establishment, DS9_ESTABLISHMENT)
 		1 * locationRequestDTO.school >> SCHOOL
 		1 * locationQueryBuilder.equal(Location_.school, SCHOOL)
+		1 * locationRequestDTO.restaurant >> RESTAURANT
+		1 * locationQueryBuilder.equal(Location_.restaurant, RESTAURANT)
+		1 * locationRequestDTO.residence >> RESIDENCE
+		1 * locationQueryBuilder.equal(Location_.residence, RESIDENCE)
 		1 * locationRequestDTO.mirror >> MIRROR
 		1 * locationQueryBuilder.equal(Location_.mirror, MIRROR)
 		1 * locationRequestDTO.alternateReality >> ALTERNATE_REALITY

@@ -63,7 +63,7 @@ public class Location extends PageAwareEntity implements PageAware {
 
 	private Boolean landform;
 
-	private Boolean landmark; // TODO: remove
+	private Boolean landmark; // TODO: remove when API V1 is removed
 
 	private Boolean road;
 

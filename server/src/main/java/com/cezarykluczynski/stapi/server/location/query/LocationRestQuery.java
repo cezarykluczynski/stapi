@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.location.dto.LocationRestBeanParams;
+import com.cezarykluczynski.stapi.server.location.dto.LocationV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +29,12 @@ public class LocationRestQuery {
 	public Page<Location> query(LocationRestBeanParams locationRestBeanParams) {
 		LocationRequestDTO locationRequestDTO = locationBaseRestMapper.mapBase(locationRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(locationRestBeanParams);
+		return locationRepository.findMatching(locationRequestDTO, pageRequest);
+	}
+
+	public Page<Location> query(LocationV2RestBeanParams locationV2RestBeanParams) {
+		LocationRequestDTO locationRequestDTO = locationBaseRestMapper.mapV2Base(locationV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(locationV2RestBeanParams);
 		return locationRepository.findMatching(locationRequestDTO, pageRequest);
 	}
 

@@ -14,7 +14,9 @@ public interface LocationFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
 	@Mapping(target = "earthlyLocation", ignore = true)
+	@Mapping(target = "qonosLocation", ignore = true)
 	@Mapping(target = "fictionalLocation", ignore = true)
+	@Mapping(target = "mythologicalLocation", ignore = true)
 	@Mapping(target = "religiousLocation", ignore = true)
 	@Mapping(target = "geographicalLocation", ignore = true)
 	@Mapping(target = "bodyOfWater", ignore = true)
@@ -34,11 +36,14 @@ public interface LocationFullSoapMapper {
 	@Mapping(target = "medicalEstablishment", ignore = true)
 	@Mapping(target = "ds9Establishment", ignore = true)
 	@Mapping(target = "school", ignore = true)
+	@Mapping(target = "restaurant", ignore = true)
+	@Mapping(target = "residence", ignore = true)
 	@Mapping(target = "mirror", ignore = true)
 	@Mapping(target = "alternateReality", ignore = true)
 	@Mapping(target = "sort", ignore = true)
 	LocationRequestDTO mapFull(LocationFullRequest locationFullRequest);
 
+	@Mapping(target = "landmark", constant = "false")
 	LocationFull mapFull(Location location);
 
 }

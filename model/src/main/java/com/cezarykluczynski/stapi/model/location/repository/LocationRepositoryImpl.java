@@ -25,7 +25,9 @@ public class LocationRepositoryImpl implements LocationRepositoryCustom {
 		locationQueryBuilder.equal(Location_.uid, criteria.getUid());
 		locationQueryBuilder.like(Location_.name, criteria.getName());
 		locationQueryBuilder.equal(Location_.earthlyLocation, criteria.getEarthlyLocation());
+		locationQueryBuilder.equal(Location_.qonosLocation, criteria.getQonosLocation());
 		locationQueryBuilder.equal(Location_.fictionalLocation, criteria.getFictionalLocation());
+		locationQueryBuilder.equal(Location_.mythologicalLocation, criteria.getMythologicalLocation());
 		locationQueryBuilder.equal(Location_.religiousLocation, criteria.getReligiousLocation());
 		locationQueryBuilder.equal(Location_.geographicalLocation, criteria.getGeographicalLocation());
 		locationQueryBuilder.equal(Location_.bodyOfWater, criteria.getBodyOfWater());
@@ -45,6 +47,8 @@ public class LocationRepositoryImpl implements LocationRepositoryCustom {
 		locationQueryBuilder.equal(Location_.medicalEstablishment, criteria.getMedicalEstablishment());
 		locationQueryBuilder.equal(Location_.ds9Establishment, criteria.getDs9Establishment());
 		locationQueryBuilder.equal(Location_.school, criteria.getSchool());
+		locationQueryBuilder.equal(Location_.restaurant, criteria.getRestaurant());
+		locationQueryBuilder.equal(Location_.residence, criteria.getResidence());
 		locationQueryBuilder.equal(Location_.mirror, criteria.getMirror());
 		locationQueryBuilder.equal(Location_.alternateReality, criteria.getAlternateReality());
 		locationQueryBuilder.setSort(criteria.getSort());
