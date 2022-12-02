@@ -9,11 +9,11 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 
 	private StapiSoapClient stapiSoapClient
 
-	void "soap client can be instantiated with canonical URL"() {
-		when:
+	void "soap client can be instantiated"() {
+		when: 'it is instantiated with canonical URL'
 		stapiSoapClient = new StapiSoapClient(null, null)
 
-		then:
+		then: 'canonical url is set'
 		((String) toBindingProvider(stapiSoapClient.seriesPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.performerPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.staffPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
@@ -54,6 +54,48 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.medicalConditionPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.technologyPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.occupationPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
+
+		then: 'API aware proxies are set'
+		stapiSoapClient.series != null
+		stapiSoapClient.performer != null
+		stapiSoapClient.staff != null
+		stapiSoapClient.character != null
+		stapiSoapClient.episode != null
+		stapiSoapClient.movie != null
+		stapiSoapClient.astronomicalObject != null
+		stapiSoapClient.company != null
+		stapiSoapClient.comicSeries != null
+		stapiSoapClient.comics != null
+		stapiSoapClient.comicStrip != null
+		stapiSoapClient.comicCollection != null
+		stapiSoapClient.species != null
+		stapiSoapClient.organization != null
+		stapiSoapClient.food != null
+		stapiSoapClient.location != null
+		stapiSoapClient.bookSeries != null
+		stapiSoapClient.book != null
+		stapiSoapClient.bookCollection != null
+		stapiSoapClient.magazine != null
+		stapiSoapClient.magazineSeries != null
+		stapiSoapClient.literature != null
+		stapiSoapClient.season != null
+		stapiSoapClient.videoRelease != null
+		stapiSoapClient.tradingCardSet != null
+		stapiSoapClient.tradingCardDeck != null
+		stapiSoapClient.tradingCard != null
+		stapiSoapClient.videoGame != null
+		stapiSoapClient.soundtrack != null
+		stapiSoapClient.weapon != null
+		stapiSoapClient.spacecraftClass != null
+		stapiSoapClient.spacecraft != null
+		stapiSoapClient.title != null
+		stapiSoapClient.material != null
+		stapiSoapClient.conflict != null
+		stapiSoapClient.animal != null
+		stapiSoapClient.element != null
+		stapiSoapClient.medicalCondition != null
+		stapiSoapClient.technology != null
+		stapiSoapClient.occupation != null
 	}
 
 	void "soap client can be instantiated with custom URL"() {
@@ -101,53 +143,6 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.medicalConditionPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapClient.technologyPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapClient.occupationPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
-	}
-
-	void "soap client has API key aware proxies"() {
-		when:
-		stapiSoapClient = new StapiSoapClient(null, null)
-
-		then:
-		stapiSoapClient.series != null
-		stapiSoapClient.performer != null
-		stapiSoapClient.staff != null
-		stapiSoapClient.character != null
-		stapiSoapClient.episode != null
-		stapiSoapClient.movie != null
-		stapiSoapClient.astronomicalObject != null
-		stapiSoapClient.company != null
-		stapiSoapClient.comicSeries != null
-		stapiSoapClient.comics != null
-		stapiSoapClient.comicStrip != null
-		stapiSoapClient.comicCollection != null
-		stapiSoapClient.species != null
-		stapiSoapClient.organization != null
-		stapiSoapClient.food != null
-		stapiSoapClient.location != null
-		stapiSoapClient.bookSeries != null
-		stapiSoapClient.book != null
-		stapiSoapClient.bookCollection != null
-		stapiSoapClient.magazine != null
-		stapiSoapClient.magazineSeries != null
-		stapiSoapClient.literature != null
-		stapiSoapClient.season != null
-		stapiSoapClient.videoRelease != null
-		stapiSoapClient.tradingCardSet != null
-		stapiSoapClient.tradingCardDeck != null
-		stapiSoapClient.tradingCard != null
-		stapiSoapClient.videoGame != null
-		stapiSoapClient.soundtrack != null
-		stapiSoapClient.weapon != null
-		stapiSoapClient.spacecraftClass != null
-		stapiSoapClient.spacecraft != null
-		stapiSoapClient.title != null
-		stapiSoapClient.material != null
-		stapiSoapClient.conflict != null
-		stapiSoapClient.animal != null
-		stapiSoapClient.element != null
-		stapiSoapClient.medicalCondition != null
-		stapiSoapClient.technology != null
-		stapiSoapClient.occupation != null
 	}
 
 	void "API key can be changed"() {

@@ -80,12 +80,10 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseService;
 import com.cezarykluczynski.stapi.client.v1.soap.WeaponPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.WeaponService;
-import lombok.Getter;
 
 import javax.xml.ws.BindingProvider;
 import java.util.Map;
 
-@Getter
 public class StapiSoapPortTypesProvider extends AbstractStapiClient implements StapiClient {
 
 	private String apiUrl;
@@ -172,50 +170,290 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
 		this.apiUrl = apiUrl;
-		seriesPortType = changeUrl(new SeriesService().getSeriesPortType());
-		performerPortType = changeUrl(new PerformerService().getPerformerPortType());
-		staffPortType = changeUrl(new StaffService().getStaffPortType());
-		characterPortType = changeUrl(new CharacterService().getCharacterPortType());
-		episodePortType = changeUrl(new EpisodeService().getEpisodePortType());
-		moviePortType = changeUrl(new MovieService().getMoviePortType());
-		astronomicalObjectPortType = changeUrl(new AstronomicalObjectService().getAstronomicalObjectPortType());
-		companyPortType = changeUrl(new CompanyService().getCompanyPortType());
-		comicSeriesPortType = changeUrl(new ComicSeriesService().getComicSeriesPortType());
-		comicsPortType = changeUrl(new ComicsService().getComicsPortType());
-		comicStripPortType = changeUrl(new ComicStripService().getComicStripPortType());
-		comicCollectionPortType = changeUrl(new ComicCollectionService().getComicCollectionPortType());
-		speciesPortType = changeUrl(new SpeciesService().getSpeciesPortType());
-		organizationPortType = changeUrl(new OrganizationService().getOrganizationPortType());
-		foodPortType = changeUrl(new FoodService().getFoodPortType());
-		locationPortType = changeUrl(new LocationService().getLocationPortType());
-		bookSeriesPortType = changeUrl(new BookSeriesService().getBookSeriesPortType());
-		bookPortType = changeUrl(new BookService().getBookPortType());
-		bookCollectionPortType = changeUrl(new BookCollectionService().getBookCollectionPortType());
-		magazinePortType = changeUrl(new MagazineService().getMagazinePortType());
-		magazineSeriesPortType = changeUrl(new MagazineSeriesService().getMagazineSeriesPortType());
-		literaturePortType = changeUrl(new LiteratureService().getLiteraturePortType());
-		seasonPortType = changeUrl(new SeasonService().getSeasonPortType());
-		videoReleasePortType = changeUrl(new VideoReleaseService().getVideoReleasePortType());
-		tradingCardSetPortType = changeUrl(new TradingCardSetService().getTradingCardSetPortType());
-		tradingCardDeckPortType = changeUrl(new TradingCardDeckService().getTradingCardDeckPortType());
-		tradingCardPortType = changeUrl(new TradingCardService().getTradingCardPortType());
-		videoGamePortType = changeUrl(new VideoGameService().getVideoGamePortType());
-		soundtrackPortType = changeUrl(new SoundtrackService().getSoundtrackPortType());
-		weaponPortType = changeUrl(new WeaponService().getWeaponPortType());
-		spacecraftClassPortType = changeUrl(new SpacecraftClassService().getSpacecraftClassPortType());
-		spacecraftPortType = changeUrl(new SpacecraftService().getSpacecraftPortType());
-		titlePortType = changeUrl(new TitleService().getTitlePortType());
-		materialPortType = changeUrl(new MaterialService().getMaterialPortType());
-		conflictPortType = changeUrl(new ConflictService().getConflictPortType());
-		animalPortType = changeUrl(new AnimalService().getAnimalPortType());
-		elementPortType = changeUrl(new ElementService().getElementPortType());
-		medicalConditionPortType = changeUrl(new MedicalConditionService().getMedicalConditionPortType());
-		technologyPortType = changeUrl(new TechnologyService().getTechnologyPortType());
-		occupationPortType = changeUrl(new OccupationService().getOccupationPortType());
+	}
+
+	public synchronized SeriesPortType getSeriesPortType() {
+		if (seriesPortType == null) {
+			seriesPortType = changeUrl(new SeriesService().getSeriesPortType());
+		}
+		return seriesPortType;
+	}
+
+	public synchronized PerformerPortType getPerformerPortType() {
+		if (performerPortType == null) {
+			performerPortType = changeUrl(new PerformerService().getPerformerPortType());
+		}
+		return performerPortType;
+	}
+
+	public synchronized StaffPortType getStaffPortType() {
+		if (staffPortType == null) {
+			staffPortType = changeUrl(new StaffService().getStaffPortType());
+		}
+		return staffPortType;
+	}
+
+	public synchronized CharacterPortType getCharacterPortType() {
+		if (characterPortType == null) {
+			characterPortType = changeUrl(new CharacterService().getCharacterPortType());
+		}
+		return characterPortType;
+	}
+
+	public synchronized EpisodePortType getEpisodePortType() {
+		if (episodePortType == null) {
+			episodePortType = changeUrl(new EpisodeService().getEpisodePortType());
+		}
+		return episodePortType;
+	}
+
+	public synchronized MoviePortType getMoviePortType() {
+		if (moviePortType == null) {
+			moviePortType = changeUrl(new MovieService().getMoviePortType());
+		}
+		return moviePortType;
+	}
+
+	public synchronized AstronomicalObjectPortType getAstronomicalObjectPortType() {
+		if (astronomicalObjectPortType == null) {
+			astronomicalObjectPortType = changeUrl(new AstronomicalObjectService().getAstronomicalObjectPortType());
+		}
+		return astronomicalObjectPortType;
+	}
+
+	public synchronized CompanyPortType getCompanyPortType() {
+		if (companyPortType == null) {
+			companyPortType = changeUrl(new CompanyService().getCompanyPortType());
+		}
+		return companyPortType;
+	}
+
+	public synchronized ComicSeriesPortType getComicSeriesPortType() {
+		if (comicSeriesPortType == null) {
+			comicSeriesPortType = changeUrl(new ComicSeriesService().getComicSeriesPortType());
+		}
+		return comicSeriesPortType;
+	}
+
+	public synchronized ComicsPortType getComicsPortType() {
+		if (comicsPortType == null) {
+			comicsPortType = changeUrl(new ComicsService().getComicsPortType());
+		}
+		return comicsPortType;
+	}
+
+	public synchronized ComicStripPortType getComicStripPortType() {
+		if (comicStripPortType == null) {
+			comicStripPortType = changeUrl(new ComicStripService().getComicStripPortType());
+		}
+		return comicStripPortType;
+	}
+
+	public synchronized ComicCollectionPortType getComicCollectionPortType() {
+		if (comicCollectionPortType == null) {
+			comicCollectionPortType = changeUrl(new ComicCollectionService().getComicCollectionPortType());
+		}
+		return comicCollectionPortType;
+	}
+
+	public synchronized SpeciesPortType getSpeciesPortType() {
+		if (speciesPortType == null) {
+			speciesPortType = changeUrl(new SpeciesService().getSpeciesPortType());
+		}
+		return speciesPortType;
+	}
+
+	public synchronized OrganizationPortType getOrganizationPortType() {
+		if (organizationPortType == null) {
+			organizationPortType = changeUrl(new OrganizationService().getOrganizationPortType());
+		}
+		return organizationPortType;
+	}
+
+	public synchronized FoodPortType getFoodPortType() {
+		if (foodPortType == null) {
+			foodPortType = changeUrl(new FoodService().getFoodPortType());
+		}
+		return foodPortType;
+	}
+
+	public synchronized LocationPortType getLocationPortType() {
+		if (locationPortType == null) {
+			locationPortType = changeUrl(new LocationService().getLocationPortType());
+		}
+		return locationPortType;
+	}
+
+	public synchronized BookSeriesPortType getBookSeriesPortType() {
+		if (bookSeriesPortType == null) {
+			bookSeriesPortType = changeUrl(new BookSeriesService().getBookSeriesPortType());
+		}
+		return bookSeriesPortType;
+	}
+
+	public synchronized BookPortType getBookPortType() {
+		if (bookPortType == null) {
+			bookPortType = changeUrl(new BookService().getBookPortType());
+		}
+		return bookPortType;
+	}
+
+	public synchronized BookCollectionPortType getBookCollectionPortType() {
+		if (bookCollectionPortType == null) {
+			bookCollectionPortType = changeUrl(new BookCollectionService().getBookCollectionPortType());
+		}
+		return bookCollectionPortType;
+	}
+
+	public synchronized MagazinePortType getMagazinePortType() {
+		if (magazinePortType == null) {
+			magazinePortType = changeUrl(new MagazineService().getMagazinePortType());
+		}
+		return magazinePortType;
+	}
+
+	public synchronized MagazineSeriesPortType getMagazineSeriesPortType() {
+		if (magazineSeriesPortType == null) {
+			magazineSeriesPortType = changeUrl(new MagazineSeriesService().getMagazineSeriesPortType());
+		}
+		return magazineSeriesPortType;
+	}
+
+	public synchronized LiteraturePortType getLiteraturePortType() {
+		if (literaturePortType == null) {
+			literaturePortType = changeUrl(new LiteratureService().getLiteraturePortType());
+		}
+		return literaturePortType;
+	}
+
+	public synchronized SeasonPortType getSeasonPortType() {
+		if (seasonPortType == null) {
+			seasonPortType = changeUrl(new SeasonService().getSeasonPortType());
+		}
+		return seasonPortType;
+	}
+
+	public synchronized VideoReleasePortType getVideoReleasePortType() {
+		if (videoReleasePortType == null) {
+			videoReleasePortType = changeUrl(new VideoReleaseService().getVideoReleasePortType());
+		}
+		return videoReleasePortType;
+	}
+
+	public synchronized TradingCardSetPortType getTradingCardSetPortType() {
+		if (tradingCardSetPortType == null) {
+			tradingCardSetPortType = changeUrl(new TradingCardSetService().getTradingCardSetPortType());
+		}
+		return tradingCardSetPortType;
+	}
+
+	public synchronized TradingCardDeckPortType getTradingCardDeckPortType() {
+		if (tradingCardDeckPortType == null) {
+			tradingCardDeckPortType = changeUrl(new TradingCardDeckService().getTradingCardDeckPortType());
+		}
+		return tradingCardDeckPortType;
+	}
+
+	public synchronized TradingCardPortType getTradingCardPortType() {
+		if (tradingCardPortType == null) {
+			tradingCardPortType = changeUrl(new TradingCardService().getTradingCardPortType());
+		}
+		return tradingCardPortType;
+	}
+
+	public synchronized VideoGamePortType getVideoGamePortType() {
+		if (videoGamePortType == null) {
+			videoGamePortType = changeUrl(new VideoGameService().getVideoGamePortType());
+		}
+		return videoGamePortType;
+	}
+
+	public synchronized SoundtrackPortType getSoundtrackPortType() {
+		if (soundtrackPortType == null) {
+			soundtrackPortType = changeUrl(new SoundtrackService().getSoundtrackPortType());
+		}
+		return soundtrackPortType;
+	}
+
+	public synchronized WeaponPortType getWeaponPortType() {
+		if (weaponPortType == null) {
+			weaponPortType = changeUrl(new WeaponService().getWeaponPortType());
+		}
+		return weaponPortType;
+	}
+
+	public synchronized SpacecraftClassPortType getSpacecraftClassPortType() {
+		if (spacecraftClassPortType == null) {
+			spacecraftClassPortType = changeUrl(new SpacecraftClassService().getSpacecraftClassPortType());
+		}
+		return spacecraftClassPortType;
+	}
+
+	public synchronized SpacecraftPortType getSpacecraftPortType() {
+		if (spacecraftPortType == null) {
+			spacecraftPortType = changeUrl(new SpacecraftService().getSpacecraftPortType());
+		}
+		return spacecraftPortType;
+	}
+
+	public synchronized TitlePortType getTitlePortType() {
+		if (titlePortType == null) {
+			titlePortType = changeUrl(new TitleService().getTitlePortType());
+		}
+		return titlePortType;
+	}
+
+	public synchronized MaterialPortType getMaterialPortType() {
+		if (materialPortType == null) {
+			materialPortType = changeUrl(new MaterialService().getMaterialPortType());
+		}
+		return materialPortType;
+	}
+
+	public synchronized ConflictPortType getConflictPortType() {
+		if (conflictPortType == null) {
+			conflictPortType = changeUrl(new ConflictService().getConflictPortType());
+		}
+		return conflictPortType;
+	}
+
+	public synchronized AnimalPortType getAnimalPortType() {
+		if (animalPortType == null) {
+			animalPortType = changeUrl(new AnimalService().getAnimalPortType());
+		}
+		return animalPortType;
+	}
+
+	public synchronized ElementPortType getElementPortType() {
+		if (elementPortType == null) {
+			elementPortType = changeUrl(new ElementService().getElementPortType());
+		}
+		return elementPortType;
+	}
+
+	public synchronized MedicalConditionPortType getMedicalConditionPortType() {
+		if (medicalConditionPortType == null) {
+			medicalConditionPortType = changeUrl(new MedicalConditionService().getMedicalConditionPortType());
+		}
+		return medicalConditionPortType;
+	}
+
+	public synchronized TechnologyPortType getTechnologyPortType() {
+		if (technologyPortType == null) {
+			technologyPortType = changeUrl(new TechnologyService().getTechnologyPortType());
+		}
+		return technologyPortType;
+	}
+
+	public synchronized OccupationPortType getOccupationPortType() {
+		if (occupationPortType == null) {
+			occupationPortType = changeUrl(new OccupationService().getOccupationPortType());
+		}
+		return occupationPortType;
 	}
 
 	private <T> T changeUrl(T service) {
-		if (getApiUrl() == null) {
+		if (apiUrl == null || CANONICAL_API_URL.equals(apiUrl)) {
 			return service;
 		}
 

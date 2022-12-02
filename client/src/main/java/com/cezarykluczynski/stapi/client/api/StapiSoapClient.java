@@ -92,338 +92,731 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	private ApiKeySupplier apiKeySupplier;
 
-	@Getter
 	private AnimalPortType animalPortType;
 
-	@Getter
 	private AstronomicalObjectPortType astronomicalObjectPortType;
 
-	@Getter
 	private BookPortType bookPortType;
 
-	@Getter
 	private BookCollectionPortType bookCollectionPortType;
 
-	@Getter
 	private BookSeriesPortType bookSeriesPortType;
 
-	@Getter
 	private CharacterPortType characterPortType;
 
-	@Getter
 	private ComicCollectionPortType comicCollectionPortType;
 
-	@Getter
 	private ComicsPortType comicsPortType;
 
-	@Getter
 	private ComicSeriesPortType comicSeriesPortType;
 
-	@Getter
 	private ComicStripPortType comicStripPortType;
 
-	@Getter
 	private CompanyPortType companyPortType;
 
-	@Getter
 	private ConflictPortType conflictPortType;
 
-	@Getter
 	private ElementPortType elementPortType;
 
-	@Getter
 	private EpisodePortType episodePortType;
 
-	@Getter
 	private FoodPortType foodPortType;
 
-	@Getter
 	private LiteraturePortType literaturePortType;
 
-	@Getter
 	private LocationPortType locationPortType;
 
-	@Getter
 	private MagazinePortType magazinePortType;
 
-	@Getter
 	private MagazineSeriesPortType magazineSeriesPortType;
 
-	@Getter
 	private MaterialPortType materialPortType;
 
-	@Getter
 	private MedicalConditionPortType medicalConditionPortType;
 
-	@Getter
 	private MoviePortType moviePortType;
 
-	@Getter
 	private OccupationPortType occupationPortType;
 
-	@Getter
 	private OrganizationPortType organizationPortType;
 
-	@Getter
 	private PerformerPortType performerPortType;
 
-	@Getter
 	private SeasonPortType seasonPortType;
 
-	@Getter
 	private SeriesPortType seriesPortType;
 
-	@Getter
 	private SoundtrackPortType soundtrackPortType;
 
-	@Getter
 	private SpacecraftPortType spacecraftPortType;
 
-	@Getter
 	private SpacecraftClassPortType spacecraftClassPortType;
 
-	@Getter
 	private SpeciesPortType speciesPortType;
 
-	@Getter
 	private StaffPortType staffPortType;
 
-	@Getter
 	private TechnologyPortType technologyPortType;
 
-	@Getter
 	private TitlePortType titlePortType;
 
-	@Getter
 	private TradingCardPortType tradingCardPortType;
 
-	@Getter
 	private TradingCardDeckPortType tradingCardDeckPortType;
 
-	@Getter
 	private TradingCardSetPortType tradingCardSetPortType;
 
-	@Getter
 	private VideoGamePortType videoGamePortType;
 
-	@Getter
 	private VideoReleasePortType videoReleasePortType;
 
-	@Getter
 	private WeaponPortType weaponPortType;
 
-	@Getter
 	private Animal animal;
 
-	@Getter
 	private AstronomicalObject astronomicalObject;
 
-	@Getter
 	private Book book;
 
-	@Getter
 	private BookCollection bookCollection;
 
-	@Getter
 	private BookSeries bookSeries;
 
-	@Getter
 	private Character character;
 
-	@Getter
 	private ComicCollection comicCollection;
 
-	@Getter
 	private Comics comics;
 
-	@Getter
 	private ComicSeries comicSeries;
 
-	@Getter
 	private ComicStrip comicStrip;
 
-	@Getter
 	private Company company;
 
-	@Getter
 	private Conflict conflict;
 
-	@Getter
 	private Element element;
 
-	@Getter
 	private Episode episode;
 
-	@Getter
 	private Food food;
 
-	@Getter
 	private Literature literature;
 
-	@Getter
 	private Location location;
 
-	@Getter
 	private Magazine magazine;
 
-	@Getter
 	private MagazineSeries magazineSeries;
 
-	@Getter
 	private Material material;
 
-	@Getter
 	private MedicalCondition medicalCondition;
 
-	@Getter
 	private Movie movie;
 
-	@Getter
 	private Occupation occupation;
 
-	@Getter
 	private Organization organization;
 
-	@Getter
 	private Performer performer;
 
-	@Getter
 	private Season season;
 
-	@Getter
 	private Series series;
 
-	@Getter
 	private Soundtrack soundtrack;
 
-	@Getter
 	private Spacecraft spacecraft;
 
-	@Getter
 	private SpacecraftClass spacecraftClass;
 
-	@Getter
 	private Species species;
 
-	@Getter
 	private Staff staff;
 
-	@Getter
 	private Technology technology;
 
-	@Getter
 	private Title title;
 
-	@Getter
 	private TradingCard tradingCard;
 
-	@Getter
 	private TradingCardDeck tradingCardDeck;
 
-	@Getter
 	private TradingCardSet tradingCardSet;
 
-	@Getter
 	private VideoGame videoGame;
 
-	@Getter
 	private VideoRelease videoRelease;
 
-	@Getter
 	private Weapon weapon;
 
 	public StapiSoapClient(String apiUrl, String apiKey) {
 		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_URL));
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(this.apiUrl);
 		apiKeySupplier = new ApiKeySupplier(apiKey);
-		bindPortTypes();
-		createApiKeyAwareProxies();
 	}
 
-	private void bindPortTypes() {
-		animalPortType = stapiSoapPortTypesProvider.getAnimalPortType();
-		astronomicalObjectPortType = stapiSoapPortTypesProvider.getAstronomicalObjectPortType();
-		bookPortType = stapiSoapPortTypesProvider.getBookPortType();
-		bookCollectionPortType = stapiSoapPortTypesProvider.getBookCollectionPortType();
-		bookSeriesPortType = stapiSoapPortTypesProvider.getBookSeriesPortType();
-		characterPortType = stapiSoapPortTypesProvider.getCharacterPortType();
-		comicCollectionPortType = stapiSoapPortTypesProvider.getComicCollectionPortType();
-		comicsPortType = stapiSoapPortTypesProvider.getComicsPortType();
-		comicSeriesPortType = stapiSoapPortTypesProvider.getComicSeriesPortType();
-		comicStripPortType = stapiSoapPortTypesProvider.getComicStripPortType();
-		companyPortType = stapiSoapPortTypesProvider.getCompanyPortType();
-		conflictPortType = stapiSoapPortTypesProvider.getConflictPortType();
-		elementPortType = stapiSoapPortTypesProvider.getElementPortType();
-		episodePortType = stapiSoapPortTypesProvider.getEpisodePortType();
-		foodPortType = stapiSoapPortTypesProvider.getFoodPortType();
-		literaturePortType = stapiSoapPortTypesProvider.getLiteraturePortType();
-		locationPortType = stapiSoapPortTypesProvider.getLocationPortType();
-		magazinePortType = stapiSoapPortTypesProvider.getMagazinePortType();
-		magazineSeriesPortType = stapiSoapPortTypesProvider.getMagazineSeriesPortType();
-		materialPortType = stapiSoapPortTypesProvider.getMaterialPortType();
-		medicalConditionPortType = stapiSoapPortTypesProvider.getMedicalConditionPortType();
-		moviePortType = stapiSoapPortTypesProvider.getMoviePortType();
-		occupationPortType = stapiSoapPortTypesProvider.getOccupationPortType();
-		organizationPortType = stapiSoapPortTypesProvider.getOrganizationPortType();
-		performerPortType = stapiSoapPortTypesProvider.getPerformerPortType();
-		seasonPortType = stapiSoapPortTypesProvider.getSeasonPortType();
-		seriesPortType = stapiSoapPortTypesProvider.getSeriesPortType();
-		soundtrackPortType = stapiSoapPortTypesProvider.getSoundtrackPortType();
-		spacecraftPortType = stapiSoapPortTypesProvider.getSpacecraftPortType();
-		spacecraftClassPortType = stapiSoapPortTypesProvider.getSpacecraftClassPortType();
-		speciesPortType = stapiSoapPortTypesProvider.getSpeciesPortType();
-		staffPortType = stapiSoapPortTypesProvider.getStaffPortType();
-		technologyPortType = stapiSoapPortTypesProvider.getTechnologyPortType();
-		titlePortType = stapiSoapPortTypesProvider.getTitlePortType();
-		tradingCardPortType = stapiSoapPortTypesProvider.getTradingCardPortType();
-		tradingCardDeckPortType = stapiSoapPortTypesProvider.getTradingCardDeckPortType();
-		tradingCardSetPortType = stapiSoapPortTypesProvider.getTradingCardSetPortType();
-		videoGamePortType = stapiSoapPortTypesProvider.getVideoGamePortType();
-		videoReleasePortType = stapiSoapPortTypesProvider.getVideoReleasePortType();
-		weaponPortType = stapiSoapPortTypesProvider.getWeaponPortType();
+	public synchronized Animal getAnimal() {
+		if (animal == null) {
+			animal = new Animal(getAnimalPortType(), apiKeySupplier);
+		}
+		return animal;
 	}
 
-	private void createApiKeyAwareProxies() {
-		animal = new Animal(animalPortType, apiKeySupplier);
-		astronomicalObject = new AstronomicalObject(astronomicalObjectPortType, apiKeySupplier);
-		book = new Book(bookPortType, apiKeySupplier);
-		bookCollection = new BookCollection(bookCollectionPortType, apiKeySupplier);
-		bookSeries = new BookSeries(bookSeriesPortType, apiKeySupplier);
-		character = new Character(characterPortType, apiKeySupplier);
-		comicCollection = new ComicCollection(comicCollectionPortType, apiKeySupplier);
-		comics = new Comics(comicsPortType, apiKeySupplier);
-		comicSeries = new ComicSeries(comicSeriesPortType, apiKeySupplier);
-		comicStrip = new ComicStrip(comicStripPortType, apiKeySupplier);
-		company = new Company(companyPortType, apiKeySupplier);
-		conflict = new Conflict(conflictPortType, apiKeySupplier);
-		element = new Element(elementPortType, apiKeySupplier);
-		episode = new Episode(episodePortType, apiKeySupplier);
-		food = new Food(foodPortType, apiKeySupplier);
-		literature = new Literature(literaturePortType, apiKeySupplier);
-		location = new Location(locationPortType, apiKeySupplier);
-		magazine = new Magazine(magazinePortType, apiKeySupplier);
-		magazineSeries = new MagazineSeries(magazineSeriesPortType, apiKeySupplier);
-		material = new Material(materialPortType, apiKeySupplier);
-		medicalCondition = new MedicalCondition(medicalConditionPortType, apiKeySupplier);
-		movie = new Movie(moviePortType, apiKeySupplier);
-		occupation = new Occupation(occupationPortType, apiKeySupplier);
-		organization = new Organization(organizationPortType, apiKeySupplier);
-		performer = new Performer(performerPortType, apiKeySupplier);
-		season = new Season(seasonPortType, apiKeySupplier);
-		series = new Series(seriesPortType, apiKeySupplier);
-		soundtrack = new Soundtrack(soundtrackPortType, apiKeySupplier);
-		spacecraft = new Spacecraft(spacecraftPortType, apiKeySupplier);
-		spacecraftClass = new SpacecraftClass(spacecraftClassPortType, apiKeySupplier);
-		species = new Species(speciesPortType, apiKeySupplier);
-		staff = new Staff(staffPortType, apiKeySupplier);
-		technology = new Technology(technologyPortType, apiKeySupplier);
-		title = new Title(titlePortType, apiKeySupplier);
-		tradingCard = new TradingCard(tradingCardPortType, apiKeySupplier);
-		tradingCardDeck = new TradingCardDeck(tradingCardDeckPortType, apiKeySupplier);
-		tradingCardSet = new TradingCardSet(tradingCardSetPortType, apiKeySupplier);
-		videoGame = new VideoGame(videoGamePortType, apiKeySupplier);
-		videoRelease = new VideoRelease(videoReleasePortType, apiKeySupplier);
-		weapon = new Weapon(weaponPortType, apiKeySupplier);
+	public synchronized AnimalPortType getAnimalPortType() {
+		if (animalPortType == null) {
+			animalPortType = stapiSoapPortTypesProvider.getAnimalPortType();
+		}
+
+		return animalPortType;
+	}
+
+	public synchronized AstronomicalObject getAstronomicalObject() {
+		if (astronomicalObject == null) {
+			astronomicalObject = new AstronomicalObject(getAstronomicalObjectPortType(), apiKeySupplier);
+		}
+		return astronomicalObject;
+	}
+
+	public synchronized AstronomicalObjectPortType getAstronomicalObjectPortType() {
+		if (astronomicalObjectPortType == null) {
+			astronomicalObjectPortType = stapiSoapPortTypesProvider.getAstronomicalObjectPortType();
+		}
+		return astronomicalObjectPortType;
+	}
+
+	public synchronized Book getBook() {
+		if (book == null) {
+			book = new Book(getBookPortType(), apiKeySupplier);
+		}
+		return book;
+	}
+
+	public synchronized BookPortType getBookPortType() {
+		if (bookPortType == null) {
+			bookPortType = stapiSoapPortTypesProvider.getBookPortType();
+		}
+		return bookPortType;
+	}
+
+	public synchronized BookCollection getBookCollection() {
+		if (bookCollection == null) {
+			bookCollection = new BookCollection(getBookCollectionPortType(), apiKeySupplier);
+		}
+		return bookCollection;
+	}
+
+	public synchronized BookCollectionPortType getBookCollectionPortType() {
+		if (bookCollectionPortType == null) {
+			bookCollectionPortType = stapiSoapPortTypesProvider.getBookCollectionPortType();
+		}
+		return bookCollectionPortType;
+	}
+
+	public synchronized BookSeries getBookSeries() {
+		if (bookSeries == null) {
+			bookSeries = new BookSeries(getBookSeriesPortType(), apiKeySupplier);
+		}
+		return bookSeries;
+	}
+
+	public synchronized BookSeriesPortType getBookSeriesPortType() {
+		if (bookSeriesPortType == null) {
+			bookSeriesPortType = stapiSoapPortTypesProvider.getBookSeriesPortType();
+		}
+		return bookSeriesPortType;
+	}
+
+	public synchronized Character getCharacter() {
+		if (character == null) {
+			character = new Character(getCharacterPortType(), apiKeySupplier);
+		}
+		return character;
+	}
+
+	public synchronized CharacterPortType getCharacterPortType() {
+		if (characterPortType == null) {
+			characterPortType = stapiSoapPortTypesProvider.getCharacterPortType();
+		}
+		return characterPortType;
+	}
+
+	public synchronized ComicCollection getComicCollection() {
+		if (comicCollection == null) {
+			comicCollection = new ComicCollection(getComicCollectionPortType(), apiKeySupplier);
+		}
+		return comicCollection;
+	}
+
+	public synchronized ComicCollectionPortType getComicCollectionPortType() {
+		if (comicCollectionPortType == null) {
+			comicCollectionPortType = stapiSoapPortTypesProvider.getComicCollectionPortType();
+		}
+		return comicCollectionPortType;
+	}
+
+	public synchronized Comics getComics() {
+		if (comics == null) {
+			comics = new Comics(getComicsPortType(), apiKeySupplier);
+		}
+		return comics;
+	}
+
+	public synchronized ComicsPortType getComicsPortType() {
+		if (comicsPortType == null) {
+			comicsPortType = stapiSoapPortTypesProvider.getComicsPortType();
+		}
+		return comicsPortType;
+	}
+
+	public synchronized ComicSeries getComicSeries() {
+		if (comicSeries == null) {
+			comicSeries = new ComicSeries(getComicSeriesPortType(), apiKeySupplier);
+		}
+		return comicSeries;
+	}
+
+	public synchronized ComicSeriesPortType getComicSeriesPortType() {
+		if (comicSeriesPortType == null) {
+			comicSeriesPortType = stapiSoapPortTypesProvider.getComicSeriesPortType();
+		}
+		return comicSeriesPortType;
+	}
+
+	public synchronized ComicStrip getComicStrip() {
+		if (comicStrip == null) {
+			comicStrip = new ComicStrip(getComicStripPortType(), apiKeySupplier);
+		}
+		return comicStrip;
+	}
+
+	public synchronized ComicStripPortType getComicStripPortType() {
+		if (comicStripPortType == null) {
+			comicStripPortType = stapiSoapPortTypesProvider.getComicStripPortType();
+		}
+		return comicStripPortType;
+	}
+
+	public synchronized Company getCompany() {
+		if (company == null) {
+			company = new Company(getCompanyPortType(), apiKeySupplier);
+		}
+		return company;
+	}
+
+	public synchronized CompanyPortType getCompanyPortType() {
+		if (companyPortType == null) {
+			companyPortType = stapiSoapPortTypesProvider.getCompanyPortType();
+		}
+		return companyPortType;
+	}
+
+	public synchronized Conflict getConflict() {
+		if (conflict == null) {
+			conflict = new Conflict(getConflictPortType(), apiKeySupplier);
+		}
+		return conflict;
+	}
+
+	public synchronized ConflictPortType getConflictPortType() {
+		if (conflictPortType == null) {
+			conflictPortType = stapiSoapPortTypesProvider.getConflictPortType();
+		}
+		return conflictPortType;
+	}
+
+	public synchronized Element getElement() {
+		if (element == null) {
+			element = new Element(getElementPortType(), apiKeySupplier);
+		}
+		return element;
+	}
+
+	public synchronized ElementPortType getElementPortType() {
+		if (elementPortType == null) {
+			elementPortType = stapiSoapPortTypesProvider.getElementPortType();
+		}
+		return elementPortType;
+	}
+
+	public synchronized Episode getEpisode() {
+		if (episode == null) {
+			episode = new Episode(getEpisodePortType(), apiKeySupplier);
+		}
+		return episode;
+	}
+
+	public synchronized EpisodePortType getEpisodePortType() {
+		if (episodePortType == null) {
+			episodePortType = stapiSoapPortTypesProvider.getEpisodePortType();
+		}
+		return episodePortType;
+	}
+
+	public synchronized Food getFood() {
+		if (food == null) {
+			food = new Food(getFoodPortType(), apiKeySupplier);
+		}
+		return food;
+	}
+
+	public synchronized FoodPortType getFoodPortType() {
+		if (foodPortType == null) {
+			foodPortType = stapiSoapPortTypesProvider.getFoodPortType();
+		}
+		return foodPortType;
+	}
+
+	public synchronized Literature getLiterature() {
+		if (literature == null) {
+			literature = new Literature(getLiteraturePortType(), apiKeySupplier);
+		}
+		return literature;
+	}
+
+	public synchronized LiteraturePortType getLiteraturePortType() {
+		if (literaturePortType == null) {
+			literaturePortType = stapiSoapPortTypesProvider.getLiteraturePortType();
+		}
+		return literaturePortType;
+	}
+
+	public synchronized Location getLocation() {
+		if (location == null) {
+			location = new Location(getLocationPortType(), apiKeySupplier);
+		}
+		return location;
+	}
+
+	public synchronized LocationPortType getLocationPortType() {
+		if (locationPortType == null) {
+			locationPortType = stapiSoapPortTypesProvider.getLocationPortType();
+		}
+		return locationPortType;
+	}
+
+	public synchronized Magazine getMagazine() {
+		if (magazine == null) {
+			magazine = new Magazine(getMagazinePortType(), apiKeySupplier);
+		}
+		return magazine;
+	}
+
+	public synchronized MagazinePortType getMagazinePortType() {
+		if (magazinePortType == null) {
+			magazinePortType = stapiSoapPortTypesProvider.getMagazinePortType();
+		}
+		return magazinePortType;
+	}
+
+	public synchronized MagazineSeries getMagazineSeries() {
+		if (magazineSeries == null) {
+			magazineSeries = new MagazineSeries(getMagazineSeriesPortType(), apiKeySupplier);
+		}
+		return magazineSeries;
+	}
+
+	public synchronized MagazineSeriesPortType getMagazineSeriesPortType() {
+		if (magazineSeriesPortType == null) {
+			magazineSeriesPortType = stapiSoapPortTypesProvider.getMagazineSeriesPortType();
+		}
+		return magazineSeriesPortType;
+	}
+
+	public synchronized Material getMaterial() {
+		if (material == null) {
+			material = new Material(getMaterialPortType(), apiKeySupplier);
+		}
+		return material;
+	}
+
+	public synchronized MaterialPortType getMaterialPortType() {
+		if (materialPortType == null) {
+			materialPortType = stapiSoapPortTypesProvider.getMaterialPortType();
+		}
+		return materialPortType;
+	}
+
+	public synchronized MedicalCondition getMedicalCondition() {
+		if (medicalCondition == null) {
+			medicalCondition = new MedicalCondition(getMedicalConditionPortType(), apiKeySupplier);
+		}
+		return medicalCondition;
+	}
+
+	public synchronized MedicalConditionPortType getMedicalConditionPortType() {
+		if (medicalConditionPortType == null) {
+			medicalConditionPortType = stapiSoapPortTypesProvider.getMedicalConditionPortType();
+		}
+		return medicalConditionPortType;
+	}
+
+	public synchronized Movie getMovie() {
+		if (movie == null) {
+			movie = new Movie(getMoviePortType(), apiKeySupplier);
+		}
+		return movie;
+	}
+
+	public synchronized MoviePortType getMoviePortType() {
+		if (moviePortType == null) {
+			moviePortType = stapiSoapPortTypesProvider.getMoviePortType();
+		}
+		return moviePortType;
+	}
+
+	public synchronized Occupation getOccupation() {
+		if (occupation == null) {
+			occupation = new Occupation(getOccupationPortType(), apiKeySupplier);
+		}
+		return occupation;
+	}
+
+	public synchronized OccupationPortType getOccupationPortType() {
+		if (occupationPortType == null) {
+			occupationPortType = stapiSoapPortTypesProvider.getOccupationPortType();
+		}
+		return occupationPortType;
+	}
+
+	public synchronized Organization getOrganization() {
+		if (organization == null) {
+			organization = new Organization(getOrganizationPortType(), apiKeySupplier);
+		}
+		return organization;
+	}
+
+	public synchronized OrganizationPortType getOrganizationPortType() {
+		if (organizationPortType == null) {
+			organizationPortType = stapiSoapPortTypesProvider.getOrganizationPortType();
+		}
+		return organizationPortType;
+	}
+
+	public synchronized Performer getPerformer() {
+		if (performer == null) {
+			performer = new Performer(getPerformerPortType(), apiKeySupplier);
+		}
+		return performer;
+	}
+
+	public synchronized PerformerPortType getPerformerPortType() {
+		if (performerPortType == null) {
+			performerPortType = stapiSoapPortTypesProvider.getPerformerPortType();
+		}
+		return performerPortType;
+	}
+
+	public synchronized Season getSeason() {
+		if (season == null) {
+			season = new Season(getSeasonPortType(), apiKeySupplier);
+		}
+		return season;
+	}
+
+	public synchronized SeasonPortType getSeasonPortType() {
+		if (seasonPortType == null) {
+			seasonPortType = stapiSoapPortTypesProvider.getSeasonPortType();
+		}
+		return seasonPortType;
+	}
+
+	public synchronized Series getSeries() {
+		if (series == null) {
+			series = new Series(getSeriesPortType(), apiKeySupplier);
+		}
+		return series;
+	}
+
+	public synchronized SeriesPortType getSeriesPortType() {
+		if (seriesPortType == null) {
+			seriesPortType = stapiSoapPortTypesProvider.getSeriesPortType();
+		}
+		return seriesPortType;
+	}
+
+	public synchronized Soundtrack getSoundtrack() {
+		if (soundtrack == null) {
+			soundtrack = new Soundtrack(getSoundtrackPortType(), apiKeySupplier);
+		}
+		return soundtrack;
+	}
+
+	public synchronized SoundtrackPortType getSoundtrackPortType() {
+		if (soundtrackPortType == null) {
+			soundtrackPortType = stapiSoapPortTypesProvider.getSoundtrackPortType();
+		}
+		return soundtrackPortType;
+	}
+
+	public synchronized Spacecraft getSpacecraft() {
+		if (spacecraft == null) {
+			spacecraft = new Spacecraft(getSpacecraftPortType(), apiKeySupplier);
+		}
+		return spacecraft;
+	}
+
+	public synchronized SpacecraftPortType getSpacecraftPortType() {
+		if (spacecraftPortType == null) {
+			spacecraftPortType = stapiSoapPortTypesProvider.getSpacecraftPortType();
+		}
+		return spacecraftPortType;
+	}
+
+	public synchronized SpacecraftClass getSpacecraftClass() {
+		if (spacecraftClass == null) {
+			spacecraftClass = new SpacecraftClass(getSpacecraftClassPortType(), apiKeySupplier);
+		}
+		return spacecraftClass;
+	}
+
+	public synchronized SpacecraftClassPortType getSpacecraftClassPortType() {
+		if (spacecraftClassPortType == null) {
+			spacecraftClassPortType = stapiSoapPortTypesProvider.getSpacecraftClassPortType();
+		}
+		return spacecraftClassPortType;
+	}
+
+	public synchronized Species getSpecies() {
+		if (species == null) {
+			species = new Species(getSpeciesPortType(), apiKeySupplier);
+		}
+		return species;
+	}
+
+	public synchronized SpeciesPortType getSpeciesPortType() {
+		if (speciesPortType == null) {
+			speciesPortType = stapiSoapPortTypesProvider.getSpeciesPortType();
+		}
+		return speciesPortType;
+	}
+
+	public synchronized Staff getStaff() {
+		if (staff == null) {
+			staff = new Staff(getStaffPortType(), apiKeySupplier);
+		}
+		return staff;
+	}
+
+	public synchronized StaffPortType getStaffPortType() {
+		if (staffPortType == null) {
+			staffPortType = stapiSoapPortTypesProvider.getStaffPortType();
+		}
+		return staffPortType;
+	}
+
+	public synchronized Technology getTechnology() {
+		if (technology == null) {
+			technology = new Technology(getTechnologyPortType(), apiKeySupplier);
+		}
+		return technology;
+	}
+
+	public synchronized TechnologyPortType getTechnologyPortType() {
+		if (technologyPortType == null) {
+			technologyPortType = stapiSoapPortTypesProvider.getTechnologyPortType();
+		}
+		return technologyPortType;
+	}
+
+	public synchronized Title getTitle() {
+		if (title == null) {
+			title = new Title(getTitlePortType(), apiKeySupplier);
+		}
+		return title;
+	}
+
+	public synchronized TitlePortType getTitlePortType() {
+		if (titlePortType == null) {
+			titlePortType = stapiSoapPortTypesProvider.getTitlePortType();
+		}
+		return titlePortType;
+	}
+
+	public synchronized TradingCard getTradingCard() {
+		if (tradingCard == null) {
+			tradingCard = new TradingCard(getTradingCardPortType(), apiKeySupplier);
+		}
+		return tradingCard;
+	}
+
+	public synchronized TradingCardPortType getTradingCardPortType() {
+		if (tradingCardPortType == null) {
+			tradingCardPortType = stapiSoapPortTypesProvider.getTradingCardPortType();
+		}
+		return tradingCardPortType;
+	}
+
+	public synchronized TradingCardDeck getTradingCardDeck() {
+		if (tradingCardDeck == null) {
+			tradingCardDeck = new TradingCardDeck(getTradingCardDeckPortType(), apiKeySupplier);
+		}
+		return tradingCardDeck;
+	}
+
+	public synchronized TradingCardDeckPortType getTradingCardDeckPortType() {
+		if (tradingCardDeckPortType == null) {
+			tradingCardDeckPortType = stapiSoapPortTypesProvider.getTradingCardDeckPortType();
+		}
+		return tradingCardDeckPortType;
+	}
+
+	public synchronized TradingCardSet getTradingCardSet() {
+		if (tradingCardSet == null) {
+			tradingCardSet = new TradingCardSet(getTradingCardSetPortType(), apiKeySupplier);
+		}
+		return tradingCardSet;
+	}
+
+	public synchronized TradingCardSetPortType getTradingCardSetPortType() {
+		if (tradingCardSetPortType == null) {
+			tradingCardSetPortType = stapiSoapPortTypesProvider.getTradingCardSetPortType();
+		}
+		return tradingCardSetPortType;
+	}
+
+	public synchronized VideoGame getVideoGame() {
+		if (videoGame == null) {
+			videoGame = new VideoGame(getVideoGamePortType(), apiKeySupplier);
+		}
+		return videoGame;
+	}
+
+	public synchronized VideoGamePortType getVideoGamePortType() {
+		if (videoGamePortType == null) {
+			videoGamePortType = stapiSoapPortTypesProvider.getVideoGamePortType();
+		}
+		return videoGamePortType;
+	}
+
+	public synchronized VideoRelease getVideoRelease() {
+		if (videoRelease == null) {
+			videoRelease = new VideoRelease(getVideoReleasePortType(), apiKeySupplier);
+		}
+		return videoRelease;
+	}
+
+	public synchronized VideoReleasePortType getVideoReleasePortType() {
+		if (videoReleasePortType == null) {
+			videoReleasePortType = stapiSoapPortTypesProvider.getVideoReleasePortType();
+		}
+		return videoReleasePortType;
+	}
+
+	public synchronized Weapon getWeapon() {
+		if (weapon == null) {
+			weapon = new Weapon(getWeaponPortType(), apiKeySupplier);
+		}
+		return weapon;
+	}
+
+	public synchronized WeaponPortType getWeaponPortType() {
+		if (weaponPortType == null) {
+			weaponPortType = stapiSoapPortTypesProvider.getWeaponPortType();
+		}
+		return weaponPortType;
 	}
 
 }
