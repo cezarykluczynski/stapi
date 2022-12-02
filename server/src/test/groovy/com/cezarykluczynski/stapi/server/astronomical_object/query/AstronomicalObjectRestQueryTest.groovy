@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class AstronomicalObjectRestQueryTest extends Specification {
 
-	private AstronomicalObjectBaseRestMapper astronomicalObjectRestMapperMock
+	private AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class AstronomicalObjectRestQueryTest extends Specification {
 	private AstronomicalObjectRestQuery astronomicalObjectRestQuery
 
 	void setup() {
-		astronomicalObjectRestMapperMock = Mock()
+		astronomicalObjectBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		astronomicalObjectRepositoryMock = Mock()
-		astronomicalObjectRestQuery = new AstronomicalObjectRestQuery(astronomicalObjectRestMapperMock, pageMapperMock,
+		astronomicalObjectRestQuery = new AstronomicalObjectRestQuery(astronomicalObjectBaseRestMapperMock, pageMapperMock,
 				astronomicalObjectRepositoryMock)
 	}
 
@@ -38,7 +38,7 @@ class AstronomicalObjectRestQueryTest extends Specification {
 		Page pageOutput = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams)
 
 		then:
-		1 * astronomicalObjectRestMapperMock.mapBase(astronomicalObjectRestBeanParams) >> astronomicalObjectRequestDTO
+		1 * astronomicalObjectBaseRestMapperMock.mapBase(astronomicalObjectRestBeanParams) >> astronomicalObjectRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(astronomicalObjectRestBeanParams) >> pageRequest
 		1 * astronomicalObjectRepositoryMock.findMatching(astronomicalObjectRequestDTO, pageRequest) >> page
 		pageOutput == page

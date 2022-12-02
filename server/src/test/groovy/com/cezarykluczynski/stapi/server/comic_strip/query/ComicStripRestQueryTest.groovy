@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class ComicStripRestQueryTest extends Specification {
 
-	private ComicStripBaseRestMapper comicStripRestMapperMock
+	private ComicStripBaseRestMapper comicStripBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class ComicStripRestQueryTest extends Specification {
 	private ComicStripRestQuery comicStripRestQuery
 
 	void setup() {
-		comicStripRestMapperMock = Mock()
+		comicStripBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		comicStripRepositoryMock = Mock()
-		comicStripRestQuery = new ComicStripRestQuery(comicStripRestMapperMock, pageMapperMock, comicStripRepositoryMock)
+		comicStripRestQuery = new ComicStripRestQuery(comicStripBaseRestMapperMock, pageMapperMock, comicStripRepositoryMock)
 	}
 
 	void "maps ComicStripRestBeanParams to ComicStripRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class ComicStripRestQueryTest extends Specification {
 		Page pageOutput = comicStripRestQuery.query(comicStripRestBeanParams)
 
 		then:
-		1 * comicStripRestMapperMock.mapBase(comicStripRestBeanParams) >> comicStripRequestDTO
+		1 * comicStripBaseRestMapperMock.mapBase(comicStripRestBeanParams) >> comicStripRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(comicStripRestBeanParams) >> pageRequest
 		1 * comicStripRepositoryMock.findMatching(comicStripRequestDTO, pageRequest) >> page
 		pageOutput == page

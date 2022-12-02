@@ -15,6 +15,10 @@ import java.util.List;
 public interface WeaponBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "directedEnergyWeapon", ignore = true)
+	@Mapping(target = "explosiveWeapon", ignore = true)
+	@Mapping(target = "projectileWeapon", ignore = true)
+	@Mapping(target = "fictionalWeapon", ignore = true)
 	WeaponRequestDTO mapBase(WeaponBaseRequest weaponBaseRequest);
 
 	WeaponBase mapBase(Weapon weapon);

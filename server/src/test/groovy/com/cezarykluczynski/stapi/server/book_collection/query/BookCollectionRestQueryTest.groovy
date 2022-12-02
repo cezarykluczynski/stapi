@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class BookCollectionRestQueryTest extends Specification {
 
-	private BookCollectionBaseRestMapper bookCollectionRestMapperMock
+	private BookCollectionBaseRestMapper bookCollectionBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class BookCollectionRestQueryTest extends Specification {
 	private BookCollectionRestQuery bookCollectionRestQuery
 
 	void setup() {
-		bookCollectionRestMapperMock = Mock()
+		bookCollectionBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		bookCollectionRepositoryMock = Mock()
-		bookCollectionRestQuery = new BookCollectionRestQuery(bookCollectionRestMapperMock, pageMapperMock, bookCollectionRepositoryMock)
+		bookCollectionRestQuery = new BookCollectionRestQuery(bookCollectionBaseRestMapperMock, pageMapperMock, bookCollectionRepositoryMock)
 	}
 
 	void "maps BookCollectionRestBeanParams to BookCollectionRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class BookCollectionRestQueryTest extends Specification {
 		Page pageOutput = bookCollectionRestQuery.query(bookCollectionRestBeanParams)
 
 		then:
-		1 * bookCollectionRestMapperMock.mapBase(bookCollectionRestBeanParams) >> bookCollectionRequestDTO
+		1 * bookCollectionBaseRestMapperMock.mapBase(bookCollectionRestBeanParams) >> bookCollectionRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(bookCollectionRestBeanParams) >> pageRequest
 		1 * bookCollectionRepositoryMock.findMatching(bookCollectionRequestDTO, pageRequest) >> page
 		pageOutput == page

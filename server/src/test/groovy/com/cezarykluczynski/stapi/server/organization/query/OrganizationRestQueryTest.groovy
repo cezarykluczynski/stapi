@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class OrganizationRestQueryTest extends Specification {
 
-	private OrganizationBaseRestMapper organizationRestMapperMock
+	private OrganizationBaseRestMapper organizationBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class OrganizationRestQueryTest extends Specification {
 	private OrganizationRestQuery organizationRestQuery
 
 	void setup() {
-		organizationRestMapperMock = Mock()
+		organizationBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		organizationRepositoryMock = Mock()
-		organizationRestQuery = new OrganizationRestQuery(organizationRestMapperMock, pageMapperMock, organizationRepositoryMock)
+		organizationRestQuery = new OrganizationRestQuery(organizationBaseRestMapperMock, pageMapperMock, organizationRepositoryMock)
 	}
 
 	void "maps OrganizationRestBeanParams to OrganizationRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class OrganizationRestQueryTest extends Specification {
 		Page pageOutput = organizationRestQuery.query(organizationRestBeanParams)
 
 		then:
-		1 * organizationRestMapperMock.mapBase(organizationRestBeanParams) >> organizationRequestDTO
+		1 * organizationBaseRestMapperMock.mapBase(organizationRestBeanParams) >> organizationRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(organizationRestBeanParams) >> pageRequest
 		1 * organizationRepositoryMock.findMatching(organizationRequestDTO, pageRequest) >> page
 		pageOutput == page

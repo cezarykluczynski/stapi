@@ -61,6 +61,14 @@ class WeaponRepositoryImplTest extends AbstractWeaponTest {
 		1 * weaponQueryBuilder.equal(Weapon_.photonicTechnology, PHOTONIC_TECHNOLOGY)
 		1 * weaponRequestDTO.phaserTechnology >> PHASER_TECHNOLOGY
 		1 * weaponQueryBuilder.equal(Weapon_.phaserTechnology, PHASER_TECHNOLOGY)
+		1 * weaponRequestDTO.directedEnergyWeapon >> DIRECTED_ENERGY_WEAPON
+		1 * weaponQueryBuilder.equal(Weapon_.directedEnergyWeapon, DIRECTED_ENERGY_WEAPON)
+		1 * weaponRequestDTO.explosiveWeapon >> EXPLOSIVE_WEAPON
+		1 * weaponQueryBuilder.equal(Weapon_.explosiveWeapon, EXPLOSIVE_WEAPON)
+		1 * weaponRequestDTO.projectileWeapon >> PROJECTILE_WEAPON
+		1 * weaponQueryBuilder.equal(Weapon_.projectileWeapon, PROJECTILE_WEAPON)
+		1 * weaponRequestDTO.fictionalWeapon >> PROJECTILE_WEAPON
+		1 * weaponQueryBuilder.equal(Weapon_.fictionalWeapon, PROJECTILE_WEAPON)
 		1 * weaponRequestDTO.mirror >> MIRROR
 		1 * weaponQueryBuilder.equal(Weapon_.mirror, MIRROR)
 		1 * weaponRequestDTO.alternateReality >> ALTERNATE_REALITY

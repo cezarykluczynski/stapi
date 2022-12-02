@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class ElementRestQueryTest extends Specification {
 
-	private ElementBaseRestMapper elementRestMapperMock
+	private ElementBaseRestMapper elementBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class ElementRestQueryTest extends Specification {
 	private ElementRestQuery elementRestQuery
 
 	void setup() {
-		elementRestMapperMock = Mock()
+		elementBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		elementRepositoryMock = Mock()
-		elementRestQuery = new ElementRestQuery(elementRestMapperMock, pageMapperMock, elementRepositoryMock)
+		elementRestQuery = new ElementRestQuery(elementBaseRestMapperMock, pageMapperMock, elementRepositoryMock)
 	}
 
 	void "maps ElementRestBeanParams to ElementRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class ElementRestQueryTest extends Specification {
 		Page pageOutput = elementRestQuery.query(elementRestBeanParams)
 
 		then:
-		1 * elementRestMapperMock.mapBase(elementRestBeanParams) >> elementRequestDTO
+		1 * elementBaseRestMapperMock.mapBase(elementRestBeanParams) >> elementRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(elementRestBeanParams) >> pageRequest
 		1 * elementRepositoryMock.findMatching(elementRequestDTO, pageRequest) >> page
 		pageOutput == page

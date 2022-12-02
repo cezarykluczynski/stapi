@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class AnimalRestQueryTest extends Specification {
 
-	private AnimalBaseRestMapper animalRestMapperMock
+	private AnimalBaseRestMapper animalBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class AnimalRestQueryTest extends Specification {
 	private AnimalRestQuery animalRestQuery
 
 	void setup() {
-		animalRestMapperMock = Mock()
+		animalBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		animalRepositoryMock = Mock()
-		animalRestQuery = new AnimalRestQuery(animalRestMapperMock, pageMapperMock, animalRepositoryMock)
+		animalRestQuery = new AnimalRestQuery(animalBaseRestMapperMock, pageMapperMock, animalRepositoryMock)
 	}
 
 	void "maps AnimalRestBeanParams to AnimalRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class AnimalRestQueryTest extends Specification {
 		Page pageOutput = animalRestQuery.query(animalRestBeanParams)
 
 		then:
-		1 * animalRestMapperMock.mapBase(animalRestBeanParams) >> animalRequestDTO
+		1 * animalBaseRestMapperMock.mapBase(animalRestBeanParams) >> animalRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(animalRestBeanParams) >> pageRequest
 		1 * animalRepositoryMock.findMatching(animalRequestDTO, pageRequest) >> page
 		pageOutput == page

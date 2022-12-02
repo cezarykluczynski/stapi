@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class MedicalConditionRestQueryTest extends Specification {
 
-	private MedicalConditionBaseRestMapper medicalConditionRestMapperMock
+	private MedicalConditionBaseRestMapper medicalConditionBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class MedicalConditionRestQueryTest extends Specification {
 	private MedicalConditionRestQuery medicalConditionRestQuery
 
 	void setup() {
-		medicalConditionRestMapperMock = Mock()
+		medicalConditionBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		medicalConditionRepositoryMock = Mock()
-		medicalConditionRestQuery = new MedicalConditionRestQuery(medicalConditionRestMapperMock, pageMapperMock, medicalConditionRepositoryMock)
+		medicalConditionRestQuery = new MedicalConditionRestQuery(medicalConditionBaseRestMapperMock, pageMapperMock, medicalConditionRepositoryMock)
 	}
 
 	void "maps MedicalConditionRestBeanParams to MedicalConditionRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class MedicalConditionRestQueryTest extends Specification {
 		Page pageOutput = medicalConditionRestQuery.query(medicalConditionRestBeanParams)
 
 		then:
-		1 * medicalConditionRestMapperMock.mapBase(medicalConditionRestBeanParams) >> medicalConditionRequestDTO
+		1 * medicalConditionBaseRestMapperMock.mapBase(medicalConditionRestBeanParams) >> medicalConditionRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(medicalConditionRestBeanParams) >> pageRequest
 		1 * medicalConditionRepositoryMock.findMatching(medicalConditionRequestDTO, pageRequest) >> page
 		pageOutput == page

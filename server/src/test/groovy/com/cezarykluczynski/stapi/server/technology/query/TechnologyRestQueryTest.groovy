@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class TechnologyRestQueryTest extends Specification {
 
-	private TechnologyBaseRestMapper technologyRestMapperMock
+	private TechnologyBaseRestMapper technologyBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class TechnologyRestQueryTest extends Specification {
 	private TechnologyRestQuery technologyRestQuery
 
 	void setup() {
-		technologyRestMapperMock = Mock()
+		technologyBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		technologyRepositoryMock = Mock()
-		technologyRestQuery = new TechnologyRestQuery(technologyRestMapperMock, pageMapperMock, technologyRepositoryMock)
+		technologyRestQuery = new TechnologyRestQuery(technologyBaseRestMapperMock, pageMapperMock, technologyRepositoryMock)
 	}
 
 	void "maps TechnologyRestBeanParams to TechnologyRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class TechnologyRestQueryTest extends Specification {
 		Page pageOutput = technologyRestQuery.query(technologyRestBeanParams)
 
 		then:
-		1 * technologyRestMapperMock.mapBase(technologyRestBeanParams) >> technologyRequestDTO
+		1 * technologyBaseRestMapperMock.mapBase(technologyRestBeanParams) >> technologyRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(technologyRestBeanParams) >> pageRequest
 		1 * technologyRepositoryMock.findMatching(technologyRequestDTO, pageRequest) >> page
 		pageOutput == page

@@ -1,0 +1,6 @@
+type: object
+description: Response object for single weapon query (V2)
+properties:
+  weapon:
+    $ref: '#/definitions/WeaponV2Full'
+    description: Weapon, if found

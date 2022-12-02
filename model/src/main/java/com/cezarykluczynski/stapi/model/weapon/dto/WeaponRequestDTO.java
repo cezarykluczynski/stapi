@@ -22,6 +22,14 @@ public class WeaponRequestDTO {
 
 	private Boolean phaserTechnology;
 
+	private Boolean directedEnergyWeapon;
+
+	private Boolean explosiveWeapon;
+
+	private Boolean projectileWeapon;
+
+	private Boolean fictionalWeapon;
+
 	private Boolean mirror;
 
 	private Boolean alternateReality;

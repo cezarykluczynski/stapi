@@ -14,6 +14,10 @@ abstract class AbstractWeaponMapperTest extends AbstractWeaponTest {
 				plasmaTechnology: PLASMA_TECHNOLOGY,
 				photonicTechnology: PHOTONIC_TECHNOLOGY,
 				phaserTechnology: PHASER_TECHNOLOGY,
+				directedEnergyWeapon: DIRECTED_ENERGY_WEAPON,
+				explosiveWeapon: EXPLOSIVE_WEAPON,
+				projectileWeapon: PROJECTILE_WEAPON,
+				fictionalWeapon: FICTIONAL_WEAPON,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 	}

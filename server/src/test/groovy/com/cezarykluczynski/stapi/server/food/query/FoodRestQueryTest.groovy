@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class FoodRestQueryTest extends Specification {
 
-	private FoodBaseRestMapper foodRestMapperMock
+	private FoodBaseRestMapper foodBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class FoodRestQueryTest extends Specification {
 	private FoodRestQuery foodRestQuery
 
 	void setup() {
-		foodRestMapperMock = Mock()
+		foodBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		foodRepositoryMock = Mock()
-		foodRestQuery = new FoodRestQuery(foodRestMapperMock, pageMapperMock, foodRepositoryMock)
+		foodRestQuery = new FoodRestQuery(foodBaseRestMapperMock, pageMapperMock, foodRepositoryMock)
 	}
 
 	void "maps FoodRestBeanParams to FoodRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class FoodRestQueryTest extends Specification {
 		Page pageOutput = foodRestQuery.query(foodRestBeanParams)
 
 		then:
-		1 * foodRestMapperMock.mapBase(foodRestBeanParams) >> foodRequestDTO
+		1 * foodBaseRestMapperMock.mapBase(foodRestBeanParams) >> foodRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(foodRestBeanParams) >> pageRequest
 		1 * foodRepositoryMock.findMatching(foodRequestDTO, pageRequest) >> page
 		pageOutput == page

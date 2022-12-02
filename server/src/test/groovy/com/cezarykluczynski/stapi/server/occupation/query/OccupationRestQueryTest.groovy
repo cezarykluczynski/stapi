@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class OccupationRestQueryTest extends Specification {
 
-	private OccupationBaseRestMapper occupationRestMapperMock
+	private OccupationBaseRestMapper occupationBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class OccupationRestQueryTest extends Specification {
 	private OccupationRestQuery occupationRestQuery
 
 	void setup() {
-		occupationRestMapperMock = Mock()
+		occupationBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		occupationRepositoryMock = Mock()
-		occupationRestQuery = new OccupationRestQuery(occupationRestMapperMock, pageMapperMock, occupationRepositoryMock)
+		occupationRestQuery = new OccupationRestQuery(occupationBaseRestMapperMock, pageMapperMock, occupationRepositoryMock)
 	}
 
 	void "maps OccupationRestBeanParams to OccupationRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class OccupationRestQueryTest extends Specification {
 		Page pageOutput = occupationRestQuery.query(occupationRestBeanParams)
 
 		then:
-		1 * occupationRestMapperMock.mapBase(occupationRestBeanParams) >> occupationRequestDTO
+		1 * occupationBaseRestMapperMock.mapBase(occupationRestBeanParams) >> occupationRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(occupationRestBeanParams) >> pageRequest
 		1 * occupationRepositoryMock.findMatching(occupationRequestDTO, pageRequest) >> page
 		pageOutput == page

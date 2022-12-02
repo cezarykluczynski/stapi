@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class LiteratureRestQueryTest extends Specification {
 
-	private LiteratureBaseRestMapper literatureRestMapperMock
+	private LiteratureBaseRestMapper literatureBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class LiteratureRestQueryTest extends Specification {
 	private LiteratureRestQuery literatureRestQuery
 
 	void setup() {
-		literatureRestMapperMock = Mock()
+		literatureBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		literatureRepositoryMock = Mock()
-		literatureRestQuery = new LiteratureRestQuery(literatureRestMapperMock, pageMapperMock, literatureRepositoryMock)
+		literatureRestQuery = new LiteratureRestQuery(literatureBaseRestMapperMock, pageMapperMock, literatureRepositoryMock)
 	}
 
 	void "maps LiteratureRestBeanParams to LiteratureRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class LiteratureRestQueryTest extends Specification {
 		Page pageOutput = literatureRestQuery.query(literatureRestBeanParams)
 
 		then:
-		1 * literatureRestMapperMock.mapBase(literatureRestBeanParams) >> literatureRequestDTO
+		1 * literatureBaseRestMapperMock.mapBase(literatureRestBeanParams) >> literatureRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(literatureRestBeanParams) >> pageRequest
 		1 * literatureRepositoryMock.findMatching(literatureRequestDTO, pageRequest) >> page
 		pageOutput == page

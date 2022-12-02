@@ -11,6 +11,10 @@ class AbstractWeaponTest extends AbstractTest {
 	protected static final Boolean PLASMA_TECHNOLOGY = RandomUtil.nextBoolean()
 	protected static final Boolean PHOTONIC_TECHNOLOGY = RandomUtil.nextBoolean()
 	protected static final Boolean PHASER_TECHNOLOGY = RandomUtil.nextBoolean()
+	protected static final Boolean DIRECTED_ENERGY_WEAPON = RandomUtil.nextBoolean()
+	protected static final Boolean EXPLOSIVE_WEAPON = RandomUtil.nextBoolean()
+	protected static final Boolean PROJECTILE_WEAPON = RandomUtil.nextBoolean()
+	protected static final Boolean FICTIONAL_WEAPON = RandomUtil.nextBoolean()
 	protected static final Boolean MIRROR = RandomUtil.nextBoolean()
 	protected static final Boolean ALTERNATE_REALITY = RandomUtil.nextBoolean()
 

@@ -30,6 +30,10 @@ public class WeaponRepositoryImpl implements WeaponRepositoryCustom {
 		weaponQueryBuilder.equal(Weapon_.plasmaTechnology, criteria.getPlasmaTechnology());
 		weaponQueryBuilder.equal(Weapon_.photonicTechnology, criteria.getPhotonicTechnology());
 		weaponQueryBuilder.equal(Weapon_.phaserTechnology, criteria.getPhaserTechnology());
+		weaponQueryBuilder.equal(Weapon_.directedEnergyWeapon, criteria.getDirectedEnergyWeapon());
+		weaponQueryBuilder.equal(Weapon_.explosiveWeapon, criteria.getExplosiveWeapon());
+		weaponQueryBuilder.equal(Weapon_.projectileWeapon, criteria.getProjectileWeapon());
+		weaponQueryBuilder.equal(Weapon_.fictionalWeapon, criteria.getFictionalWeapon());
 		weaponQueryBuilder.equal(Weapon_.mirror, criteria.getMirror());
 		weaponQueryBuilder.equal(Weapon_.alternateReality, criteria.getAlternateReality());
 		weaponQueryBuilder.setSort(criteria.getSort());

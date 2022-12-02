@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 @CrossOriginResourceSharing(allowAllOrigins = CxfConfiguration.CORS_ALLOW_ALL_ORIGINS, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class LocationV2RestEndpoint {
 
-	public static final String ADDRESS = "/v2/rest/locationV2";
+	public static final String ADDRESS = "/v2/rest/location";
 
 	private final LocationV2RestReader locationV2RestReader;
 

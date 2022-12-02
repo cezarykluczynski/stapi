@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class TitleRestQueryTest extends Specification {
 
-	private TitleBaseRestMapper titleRestMapperMock
+	private TitleBaseRestMapper titleBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class TitleRestQueryTest extends Specification {
 	private TitleRestQuery titleRestQuery
 
 	void setup() {
-		titleRestMapperMock = Mock()
+		titleBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		titleRepositoryMock = Mock()
-		titleRestQuery = new TitleRestQuery(titleRestMapperMock, pageMapperMock, titleRepositoryMock)
+		titleRestQuery = new TitleRestQuery(titleBaseRestMapperMock, pageMapperMock, titleRepositoryMock)
 	}
 
 	void "maps TitleRestBeanParams to TitleRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class TitleRestQueryTest extends Specification {
 		Page pageOutput = titleRestQuery.query(titleRestBeanParams)
 
 		then:
-		1 * titleRestMapperMock.mapBase(titleRestBeanParams) >> titleRequestDTO
+		1 * titleBaseRestMapperMock.mapBase(titleRestBeanParams) >> titleRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(titleRestBeanParams) >> pageRequest
 		1 * titleRepositoryMock.findMatching(titleRequestDTO, pageRequest) >> page
 		pageOutput == page

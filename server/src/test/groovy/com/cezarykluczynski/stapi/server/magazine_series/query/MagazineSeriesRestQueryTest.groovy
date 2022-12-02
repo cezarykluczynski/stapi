@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class MagazineSeriesRestQueryTest extends Specification {
 
-	private MagazineSeriesBaseRestMapper magazineSeriesRestMapperMock
+	private MagazineSeriesBaseRestMapper magazineSeriesBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class MagazineSeriesRestQueryTest extends Specification {
 	private MagazineSeriesRestQuery magazineSeriesRestQuery
 
 	void setup() {
-		magazineSeriesRestMapperMock = Mock()
+		magazineSeriesBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		magazineSeriesRepositoryMock = Mock()
-		magazineSeriesRestQuery = new MagazineSeriesRestQuery(magazineSeriesRestMapperMock, pageMapperMock, magazineSeriesRepositoryMock)
+		magazineSeriesRestQuery = new MagazineSeriesRestQuery(magazineSeriesBaseRestMapperMock, pageMapperMock, magazineSeriesRepositoryMock)
 	}
 
 	void "maps MagazineSeriesRestBeanParams to MagazineSeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class MagazineSeriesRestQueryTest extends Specification {
 		Page pageOutput = magazineSeriesRestQuery.query(magazineSeriesRestBeanParams)
 
 		then:
-		1 * magazineSeriesRestMapperMock.mapBase(magazineSeriesRestBeanParams) >> magazineSeriesRequestDTO
+		1 * magazineSeriesBaseRestMapperMock.mapBase(magazineSeriesRestBeanParams) >> magazineSeriesRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(magazineSeriesRestBeanParams) >> pageRequest
 		1 * magazineSeriesRepositoryMock.findMatching(magazineSeriesRequestDTO, pageRequest) >> page
 		pageOutput == page

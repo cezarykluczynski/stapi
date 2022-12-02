@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class CompanyRestQueryTest extends Specification {
 
-	private CompanyBaseRestMapper companyRestMapperMock
+	private CompanyBaseRestMapper companyBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class CompanyRestQueryTest extends Specification {
 	private CompanyRestQuery companyRestQuery
 
 	void setup() {
-		companyRestMapperMock = Mock()
+		companyBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		companyRepositoryMock = Mock()
-		companyRestQuery = new CompanyRestQuery(companyRestMapperMock, pageMapperMock, companyRepositoryMock)
+		companyRestQuery = new CompanyRestQuery(companyBaseRestMapperMock, pageMapperMock, companyRepositoryMock)
 	}
 
 	void "maps CompanyRestBeanParams to CompanyRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class CompanyRestQueryTest extends Specification {
 		Page pageOutput = companyRestQuery.query(companyRestBeanParams)
 
 		then:
-		1 * companyRestMapperMock.mapBase(companyRestBeanParams) >> companyRequestDTO
+		1 * companyBaseRestMapperMock.mapBase(companyRestBeanParams) >> companyRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(companyRestBeanParams) >> pageRequest
 		1 * companyRepositoryMock.findMatching(companyRequestDTO, pageRequest) >> page
 		pageOutput == page

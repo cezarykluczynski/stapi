@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class MaterialRestQueryTest extends Specification {
 
-	private MaterialBaseRestMapper materialRestMapperMock
+	private MaterialBaseRestMapper materialBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class MaterialRestQueryTest extends Specification {
 	private MaterialRestQuery materialRestQuery
 
 	void setup() {
-		materialRestMapperMock = Mock()
+		materialBaseRestMapperMock = Mock()
 		pageMapperMock = Mock()
 		materialRepositoryMock = Mock()
-		materialRestQuery = new MaterialRestQuery(materialRestMapperMock, pageMapperMock, materialRepositoryMock)
+		materialRestQuery = new MaterialRestQuery(materialBaseRestMapperMock, pageMapperMock, materialRepositoryMock)
 	}
 
 	void "maps MaterialRestBeanParams to MaterialRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -37,7 +37,7 @@ class MaterialRestQueryTest extends Specification {
 		Page pageOutput = materialRestQuery.query(materialRestBeanParams)
 
 		then:
-		1 * materialRestMapperMock.mapBase(materialRestBeanParams) >> materialRequestDTO
+		1 * materialBaseRestMapperMock.mapBase(materialRestBeanParams) >> materialRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(materialRestBeanParams) >> pageRequest
 		1 * materialRepositoryMock.findMatching(materialRequestDTO, pageRequest) >> page
 		pageOutput == page
