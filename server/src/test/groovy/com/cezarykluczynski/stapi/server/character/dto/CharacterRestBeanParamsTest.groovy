@@ -21,10 +21,10 @@ class CharacterRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null CharacterRestBeanParams from null PageSortBeanParams"() {
 		when:
-		CharacterRestBeanParams seriesRestBeanParams = CharacterRestBeanParams.fromPageSortBeanParams null
+		CharacterRestBeanParams characterRestBeanParams = CharacterRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		characterRestBeanParams == null
 	}
 
 }

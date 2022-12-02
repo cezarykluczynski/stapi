@@ -21,10 +21,10 @@ class StaffRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null StaffRestBeanParams from null PageSortBeanParams"() {
 		when:
-		StaffRestBeanParams seriesRestBeanParams = StaffRestBeanParams.fromPageSortBeanParams null
+		StaffRestBeanParams staffRestBeanParams = StaffRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		staffRestBeanParams == null
 	}
 
 }

@@ -66,11 +66,14 @@ paths:
     $ref: ./conflict/path/conflict.path.yaml
   /v1/rest/conflict/search:
     $ref: ./conflict/path/conflictSearch.path.yaml
-  # TODO: Add V2
   /v1/rest/element:
     $ref: ./element/path/element.path.yaml
   /v1/rest/element/search:
     $ref: ./element/path/elementSearch.path.yaml
+  /v2/rest/element:
+    $ref: ./element/path/elementV2.path.yaml
+  /v2/rest/element/search:
+    $ref: ./element/path/elementV2Search.path.yaml
   /v1/rest/episode:
     $ref: ./episode/path/episode.path.yaml
   /v1/rest/episode/search:
@@ -366,6 +369,14 @@ definitions:
     $ref: ./element/entity/elementBaseResponse.yaml
   ElementFullResponse:
     $ref: ./element/entity/elementFullResponse.yaml
+  ElementV2Base:
+    $ref: ./element/entity/elementV2Base.yaml
+  ElementV2Full:
+    $ref: ./element/entity/elementV2Full.yaml
+  ElementV2BaseResponse:
+    $ref: ./element/entity/elementV2BaseResponse.yaml
+  ElementV2FullResponse:
+    $ref: ./element/entity/elementV2FullResponse.yaml
   EpisodeHeader:
     $ref: ./episode/entity/episodeHeader.yaml
   EpisodeBase:

@@ -21,10 +21,10 @@ class SoundtrackRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null SoundtrackRestBeanParams from null PageSortBeanParams"() {
 		when:
-		SoundtrackRestBeanParams seriesRestBeanParams = SoundtrackRestBeanParams.fromPageSortBeanParams null
+		SoundtrackRestBeanParams soundtrackRestBeanParams = SoundtrackRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		soundtrackRestBeanParams == null
 	}
 
 }

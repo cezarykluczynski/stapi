@@ -21,10 +21,10 @@ class AstronomicalObjectRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null AstronomicalObjectRestBeanParams from null PageSortBeanParams"() {
 		when:
-		AstronomicalObjectRestBeanParams seriesRestBeanParams = AstronomicalObjectRestBeanParams.fromPageSortBeanParams null
+		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = AstronomicalObjectRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		astronomicalObjectRestBeanParams == null
 	}
 
 }

@@ -14,7 +14,7 @@ public class ElementRequestDTO {
 
 	private String symbol;
 
-	private Boolean transuranium;
+	private Boolean transuranic;
 
 	private Boolean gammaSeries;
 

@@ -21,10 +21,10 @@ class MagazineRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null MagazineRestBeanParams from null PageSortBeanParams"() {
 		when:
-		MagazineRestBeanParams seriesRestBeanParams = MagazineRestBeanParams.fromPageSortBeanParams null
+		MagazineRestBeanParams magazineRestBeanParams = MagazineRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		magazineRestBeanParams == null
 	}
 
 }

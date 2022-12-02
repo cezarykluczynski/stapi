@@ -21,10 +21,10 @@ class SeasonRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null SeasonRestBeanParams from null PageSortBeanParams"() {
 		when:
-		SeasonRestBeanParams seriesRestBeanParams = SeasonRestBeanParams.fromPageSortBeanParams null
+		SeasonRestBeanParams seasonRestBeanParams = SeasonRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		seasonRestBeanParams == null
 	}
 
 }

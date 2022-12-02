@@ -21,10 +21,10 @@ class TitleRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null TitleRestBeanParams from null PageSortBeanParams"() {
 		when:
-		TitleRestBeanParams seriesRestBeanParams = TitleRestBeanParams.fromPageSortBeanParams null
+		TitleRestBeanParams titleRestBeanParams = TitleRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		titleRestBeanParams == null
 	}
 
 }

@@ -21,10 +21,10 @@ class ComicSeriesRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null ComicSeriesRestBeanParams from null PageSortBeanParams"() {
 		when:
-		ComicSeriesRestBeanParams seriesRestBeanParams = ComicSeriesRestBeanParams.fromPageSortBeanParams null
+		ComicSeriesRestBeanParams comicSeriesRestBeanParams = ComicSeriesRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		comicSeriesRestBeanParams == null
 	}
 
 }

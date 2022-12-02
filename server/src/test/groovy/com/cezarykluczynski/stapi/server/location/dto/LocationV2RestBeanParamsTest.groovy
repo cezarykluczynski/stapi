@@ -21,10 +21,10 @@ class LocationV2RestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null LocationV2RestBeanParams from null PageSortBeanParams"() {
 		when:
-		LocationV2RestBeanParams seriesRestBeanParams = LocationV2RestBeanParams.fromPageSortBeanParams null
+		LocationV2RestBeanParams locationV2RestBeanParams = LocationV2RestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		locationV2RestBeanParams == null
 	}
 
 }

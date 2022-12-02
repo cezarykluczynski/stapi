@@ -21,10 +21,10 @@ class BookRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null BookRestBeanParams from null PageSortBeanParams"() {
 		when:
-		BookRestBeanParams seriesRestBeanParams = BookRestBeanParams.fromPageSortBeanParams null
+		BookRestBeanParams bookRestBeanParams = BookRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		bookRestBeanParams == null
 	}
 
 }

@@ -21,10 +21,10 @@ class TechnologyRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null TechnologyRestBeanParams from null PageSortBeanParams"() {
 		when:
-		TechnologyRestBeanParams seriesRestBeanParams = TechnologyRestBeanParams.fromPageSortBeanParams null
+		TechnologyRestBeanParams technologyRestBeanParams = TechnologyRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		technologyRestBeanParams == null
 	}
 
 }

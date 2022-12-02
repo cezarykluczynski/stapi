@@ -21,10 +21,10 @@ class ConflictRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null ConflictRestBeanParams from null PageSortBeanParams"() {
 		when:
-		ConflictRestBeanParams seriesRestBeanParams = ConflictRestBeanParams.fromPageSortBeanParams null
+		ConflictRestBeanParams conflictRestBeanParams = ConflictRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		conflictRestBeanParams == null
 	}
 
 }

@@ -21,10 +21,10 @@ class MovieRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null MovieRestBeanParams from null PageSortBeanParams"() {
 		when:
-		MovieRestBeanParams seriesRestBeanParams = MovieRestBeanParams.fromPageSortBeanParams null
+		MovieRestBeanParams movieRestBeanParams = MovieRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		movieRestBeanParams == null
 	}
 
 }

@@ -21,10 +21,10 @@ class LocationRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null LocationRestBeanParams from null PageSortBeanParams"() {
 		when:
-		LocationRestBeanParams seriesRestBeanParams = LocationRestBeanParams.fromPageSortBeanParams null
+		LocationRestBeanParams locationRestBeanParams = LocationRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		locationRestBeanParams == null
 	}
 
 }

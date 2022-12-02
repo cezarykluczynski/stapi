@@ -14,7 +14,7 @@ public interface ElementFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
 	@Mapping(target = "symbol", ignore = true)
-	@Mapping(target = "transuranium", ignore = true)
+	@Mapping(target = "transuranic", ignore = true)
 	@Mapping(target = "gammaSeries", ignore = true)
 	@Mapping(target = "hypersonicSeries", ignore = true)
 	@Mapping(target = "megaSeries", ignore = true)

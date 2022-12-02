@@ -21,10 +21,10 @@ class EpisodeRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null EpisodeRestBeanParams from null PageSortBeanParams"() {
 		when:
-		EpisodeRestBeanParams seriesRestBeanParams = EpisodeRestBeanParams.fromPageSortBeanParams null
+		EpisodeRestBeanParams episodeRestBeanParams = EpisodeRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		episodeRestBeanParams == null
 	}
 
 }

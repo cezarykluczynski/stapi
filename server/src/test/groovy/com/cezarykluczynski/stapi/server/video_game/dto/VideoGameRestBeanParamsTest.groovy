@@ -21,10 +21,10 @@ class VideoGameRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null VideoGameRestBeanParams from null PageSortBeanParams"() {
 		when:
-		VideoGameRestBeanParams seriesRestBeanParams = VideoGameRestBeanParams.fromPageSortBeanParams null
+		VideoGameRestBeanParams videoGameRestBeanParams = VideoGameRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		videoGameRestBeanParams == null
 	}
 
 }

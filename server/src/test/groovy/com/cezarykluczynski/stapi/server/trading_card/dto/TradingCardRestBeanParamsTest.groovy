@@ -21,10 +21,10 @@ class TradingCardRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null TradingCardRestBeanParams from null PageSortBeanParams"() {
 		when:
-		TradingCardRestBeanParams seriesRestBeanParams = TradingCardRestBeanParams.fromPageSortBeanParams null
+		TradingCardRestBeanParams tradingCardRestBeanParams = TradingCardRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		tradingCardRestBeanParams == null
 	}
 
 }

@@ -21,10 +21,10 @@ class MedicalConditionRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null MedicalConditionRestBeanParams from null PageSortBeanParams"() {
 		when:
-		MedicalConditionRestBeanParams seriesRestBeanParams = MedicalConditionRestBeanParams.fromPageSortBeanParams null
+		MedicalConditionRestBeanParams medicalConditionRestBeanParams = MedicalConditionRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		medicalConditionRestBeanParams == null
 	}
 
 }

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.element.entity.Element;
 import com.cezarykluczynski.stapi.model.element.repository.ElementRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.element.dto.ElementRestBeanParams;
+import com.cezarykluczynski.stapi.server.element.dto.ElementV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +29,12 @@ public class ElementRestQuery {
 	public Page<Element> query(ElementRestBeanParams elementRestBeanParams) {
 		ElementRequestDTO elementRequestDTO = elementBaseRestMapper.mapBase(elementRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(elementRestBeanParams);
+		return elementRepository.findMatching(elementRequestDTO, pageRequest);
+	}
+
+	public Page<Element> query(ElementV2RestBeanParams elementV2RestBeanParams) {
+		ElementRequestDTO elementRequestDTO = elementBaseRestMapper.mapV2Base(elementV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(elementV2RestBeanParams);
 		return elementRepository.findMatching(elementRequestDTO, pageRequest);
 	}
 

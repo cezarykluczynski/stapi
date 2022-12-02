@@ -25,7 +25,7 @@ public class ElementRepositoryImpl implements ElementRepositoryCustom {
 		elementQueryBuilder.equal(Element_.uid, criteria.getUid());
 		elementQueryBuilder.like(Element_.name, criteria.getName());
 		elementQueryBuilder.like(Element_.symbol, criteria.getSymbol());
-		elementQueryBuilder.equal(Element_.transuranic, criteria.getTransuranium());
+		elementQueryBuilder.equal(Element_.transuranic, criteria.getTransuranic());
 		elementQueryBuilder.equal(Element_.gammaSeries, criteria.getGammaSeries());
 		elementQueryBuilder.equal(Element_.hypersonicSeries, criteria.getHypersonicSeries());
 		elementQueryBuilder.equal(Element_.megaSeries, criteria.getMegaSeries());

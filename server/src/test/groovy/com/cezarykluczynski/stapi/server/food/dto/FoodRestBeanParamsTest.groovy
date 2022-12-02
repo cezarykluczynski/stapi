@@ -21,10 +21,10 @@ class FoodRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null FoodRestBeanParams from null PageSortBeanParams"() {
 		when:
-		FoodRestBeanParams seriesRestBeanParams = FoodRestBeanParams.fromPageSortBeanParams null
+		FoodRestBeanParams foodRestBeanParams = FoodRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		foodRestBeanParams == null
 	}
 
 }

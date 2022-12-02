@@ -21,10 +21,10 @@ class CompanyRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null CompanyRestBeanParams from null PageSortBeanParams"() {
 		when:
-		CompanyRestBeanParams seriesRestBeanParams = CompanyRestBeanParams.fromPageSortBeanParams null
+		CompanyRestBeanParams companyRestBeanParams = CompanyRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		companyRestBeanParams == null
 	}
 
 }

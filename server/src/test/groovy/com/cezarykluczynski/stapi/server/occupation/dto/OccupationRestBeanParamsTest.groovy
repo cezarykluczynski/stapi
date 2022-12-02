@@ -21,10 +21,10 @@ class OccupationRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null OccupationRestBeanParams from null PageSortBeanParams"() {
 		when:
-		OccupationRestBeanParams seriesRestBeanParams = OccupationRestBeanParams.fromPageSortBeanParams null
+		OccupationRestBeanParams occupationRestBeanParams = OccupationRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		occupationRestBeanParams == null
 	}
 
 }

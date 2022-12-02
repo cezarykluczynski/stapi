@@ -21,10 +21,10 @@ class VideoReleaseRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null VideoReleaseRestBeanParams from null PageSortBeanParams"() {
 		when:
-		VideoReleaseRestBeanParams seriesRestBeanParams = VideoReleaseRestBeanParams.fromPageSortBeanParams null
+		VideoReleaseRestBeanParams videoReleaseRestBeanParams = VideoReleaseRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		videoReleaseRestBeanParams == null
 	}
 
 }

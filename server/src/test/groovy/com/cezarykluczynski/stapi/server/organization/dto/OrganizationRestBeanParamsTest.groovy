@@ -21,10 +21,10 @@ class OrganizationRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null OrganizationRestBeanParams from null PageSortBeanParams"() {
 		when:
-		OrganizationRestBeanParams seriesRestBeanParams = OrganizationRestBeanParams.fromPageSortBeanParams null
+		OrganizationRestBeanParams organizationRestBeanParams = OrganizationRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		organizationRestBeanParams == null
 	}
 
 }

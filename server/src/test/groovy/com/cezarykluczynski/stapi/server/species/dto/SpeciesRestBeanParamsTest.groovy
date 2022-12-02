@@ -21,10 +21,10 @@ class SpeciesRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null SpeciesRestBeanParams from null PageSortBeanParams"() {
 		when:
-		SpeciesRestBeanParams seriesRestBeanParams = SpeciesRestBeanParams.fromPageSortBeanParams null
+		SpeciesRestBeanParams speciesRestBeanParams = SpeciesRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		speciesRestBeanParams == null
 	}
 
 }

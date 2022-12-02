@@ -21,10 +21,10 @@ class WeaponRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null WeaponRestBeanParams from null PageSortBeanParams"() {
 		when:
-		WeaponRestBeanParams seriesRestBeanParams = WeaponRestBeanParams.fromPageSortBeanParams null
+		WeaponRestBeanParams weaponRestBeanParams = WeaponRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		weaponRestBeanParams == null
 	}
 
 }

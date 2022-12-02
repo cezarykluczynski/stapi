@@ -34,7 +34,7 @@ class ElementBaseSoapMapperTest extends AbstractElementMapperTest {
 		then:
 		elementRequestDTO.name == NAME
 		elementRequestDTO.symbol == SYMBOL
-		elementRequestDTO.transuranium == TRANSURANIC
+		elementRequestDTO.transuranic == TRANSURANIC
 		elementRequestDTO.gammaSeries == GAMMA_SERIES
 		elementRequestDTO.hypersonicSeries == HYPERSONIC_SERIES
 		elementRequestDTO.megaSeries == MEGA_SERIES

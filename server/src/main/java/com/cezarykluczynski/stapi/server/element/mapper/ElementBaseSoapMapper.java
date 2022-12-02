@@ -15,6 +15,7 @@ import java.util.List;
 public interface ElementBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(source = "transuranium", target = "transuranic")
 	ElementRequestDTO mapBase(ElementBaseRequest elementBaseRequest);
 
 	@Mapping(source = "transuranic", target = "transuranium")

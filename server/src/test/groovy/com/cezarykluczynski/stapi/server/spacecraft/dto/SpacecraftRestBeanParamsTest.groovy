@@ -21,10 +21,10 @@ class SpacecraftRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	void "creates null SpacecraftRestBeanParams from null PageSortBeanParams"() {
 		when:
-		SpacecraftRestBeanParams seriesRestBeanParams = SpacecraftRestBeanParams.fromPageSortBeanParams null
+		SpacecraftRestBeanParams spacecraftRestBeanParams = SpacecraftRestBeanParams.fromPageSortBeanParams null
 
 		then:
-		seriesRestBeanParams == null
+		spacecraftRestBeanParams == null
 	}
 
 }
