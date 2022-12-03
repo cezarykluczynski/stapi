@@ -35,17 +35,20 @@ class RanksTemplateServiceTest extends Specification {
 		Page page = new Page(wikitext: TEMPLATE_TEXT)
 
 		when:
-		ranksTemplateService.postConstruct()
+		boolean isFleetRank = ranksTemplateService.isFleetRank('Crewman')
 
 		then:
-		pageApiMock.getTemplate(TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN) >> page
+		1 * pageApiMock.getTemplate(TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN) >> page
+		0 * _
 
 		then:
-		ranksTemplateService.isFleetRank('Crewman')
+		0 * _
+		isFleetRank
 		ranksTemplateService.isMilitaryRank('Private')
 		ranksTemplateService.isPosition('technician')
 
 		then:
+		0 * _
 		!ranksTemplateService.isFleetRank('airman')
 		!ranksTemplateService.isMilitaryRank('Captain')
 		!ranksTemplateService.isPosition('Andorian Imperial Guard ranks')

@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class ComicsPageFilterTest extends Specification {
@@ -45,7 +44,7 @@ class ComicsPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = comicsPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.STAR_TREK_SERIES_MAGAZINES)
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> [CategoryTitle.STAR_TREK_SERIES_MAGAZINES]
 		0 * _
 		shouldBeFilteredOut
 	}
@@ -53,26 +52,25 @@ class ComicsPageFilterTest extends Specification {
 	void "returns true when page is a product of redirect"() {
 		given:
 		PageHeader pageHeader = Mock()
-		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
+		Page page = new Page(redirectPath: [pageHeader])
 
 		when:
 		boolean shouldBeFilteredOut = comicsPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
 		0 * _
 		shouldBeFilteredOut
 	}
 
 	void "returns false when everything is in order"() {
 		given:
-		Page page = new Page(redirectPath: Lists.newArrayList())
+		Page page = new Page(redirectPath: [])
 
 		when:
 		boolean shouldBeFilteredOut = comicsPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		1 * categoryTitlesExtractingProcessorMock.process([]) >> []
 		0 * _
 		!shouldBeFilteredOut
 	}

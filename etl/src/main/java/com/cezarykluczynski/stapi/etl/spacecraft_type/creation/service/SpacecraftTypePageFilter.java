@@ -1,26 +1,31 @@
 package com.cezarykluczynski.stapi.etl.spacecraft_type.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
-import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class SpacecraftTypePageFilter implements MediaWikiPageFilter {
+public class SpacecraftTypePageFilter extends AbstractMediaWikiPageFilter {
 
 	private static final List<String> INVALID_TITLES = Lists.newArrayList("Ares V", "Base camp");
+	private static final List<String> INVALID_CATEGORIES_TO_BE_SORTED_ON_TOP_OF = Lists.newArrayList(CategoryTitle.SPACECRAFT_CLASSIFICATIONS);
 
+	@Getter
 	private final CategorySortingService categorySortingService;
 
-	@Override
-	public boolean shouldBeFilteredOut(Page page) {
-		return !page.getRedirectPath().isEmpty() || INVALID_TITLES.contains(page.getTitle())
-				|| categorySortingService.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList(CategoryTitle.SPACECRAFT_CLASSIFICATIONS));
+	public SpacecraftTypePageFilter(CategorySortingService categorySortingService) {
+		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
+				.invalidTitles(INVALID_TITLES)
+				.invalidCategoriesToBeSortedOnTopOf(INVALID_CATEGORIES_TO_BE_SORTED_ON_TOP_OF)
+				.build());
+		this.categorySortingService = categorySortingService;
 	}
+
 }

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.magazine_series.service;
 
-import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class MagazineSeriesPageFilter implements MediaWikiPageFilter {
+public class MagazineSeriesPageFilter extends AbstractMediaWikiPageFilter {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.MAGAZINES, PageTitle.PARTWORK);
 
-	@Override
-	public boolean shouldBeFilteredOut(Page page) {
-		return INVALID_TITLES.contains(page.getTitle()) || !page.getRedirectPath().isEmpty();
+	public MagazineSeriesPageFilter() {
+		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
+				.invalidTitles(INVALID_TITLES)
+				.build());
 	}
 
 }

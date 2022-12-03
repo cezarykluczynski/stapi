@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// TODO: places
 @Service
 @Slf4j
 public class IndividualLifeBoundaryProcessor implements ItemProcessor<String, IndividualLifeBoundaryDTO> {

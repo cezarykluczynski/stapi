@@ -51,7 +51,7 @@ class BookSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification 
 				assert enrichablePair.input.value == dayMonthYearRange
 				assert enrichablePair.output != null
 		}
-		1 * bookSeriesTemplateNumberOfBooksFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * bookSeriesTemplateNumberOfBooksFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		bookSeriesTemplate.title == TITLE
 	}
@@ -64,7 +64,7 @@ class BookSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification 
 		bookSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(bookSeriesTemplate, bookSeriesTemplate))
 
 		then:
-		1 * bookSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * bookSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * bookSeriesTemplateNumberOfBooksFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(NUMBER_OF_BOOKS)
 		0 * _
 		bookSeriesTemplate.numberOfBooks == NUMBER_OF_BOOKS

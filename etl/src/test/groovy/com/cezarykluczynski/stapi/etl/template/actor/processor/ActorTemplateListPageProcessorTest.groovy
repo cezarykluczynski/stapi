@@ -83,7 +83,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 			assert pageHeader.mediaWikiSource == SOURCES_MEDIA_WIKI_SOURCE
 			pageEntity
 		}
-		1 * videoGamePerformerLifeRangeFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * videoGamePerformerLifeRangeFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		actorTemplate.page == pageEntity
 	}
@@ -98,7 +98,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageHeaderToPageEntity(_)
-		1 * videoGamePerformerLifeRangeFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * videoGamePerformerLifeRangeFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		actorTemplate.name == TITLE
 		!actorTemplate.animalPerformer

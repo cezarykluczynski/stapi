@@ -15,14 +15,10 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 
 	private final UidGenerator uidGenerator;
 
-	private final SeriesAbbreviationFixedValueProvider seriesAbbreviationFixedValueProvider;
-
 	private final SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider;
 
-	public SeriesTemplateProcessor(UidGenerator uidGenerator, SeriesAbbreviationFixedValueProvider seriesAbbreviationFixedValueProvider,
-			SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider) {
+	public SeriesTemplateProcessor(UidGenerator uidGenerator, SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider) {
 		this.uidGenerator = uidGenerator;
-		this.seriesAbbreviationFixedValueProvider = seriesAbbreviationFixedValueProvider;
 		this.seriesEpisodeStatisticsFixedValueProvider = seriesEpisodeStatisticsFixedValueProvider;
 	}
 
@@ -44,14 +40,6 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 		series.setEpisodesCount(item.getEpisodesCount());
 		if (series.getSeasonsCount() != null || series.getEpisodesCount() != null) {
 			series.setFeatureLengthEpisodesCount(0);
-		}
-
-		if (series.getAbbreviation() == null) {
-			FixedValueHolder<String> abbreviationFixedValueHolder = seriesAbbreviationFixedValueProvider.getSearchedValue(item.getTitle());
-
-			if (abbreviationFixedValueHolder.isFound()) {
-				series.setAbbreviation(abbreviationFixedValueHolder.getValue());
-			}
 		}
 
 		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder

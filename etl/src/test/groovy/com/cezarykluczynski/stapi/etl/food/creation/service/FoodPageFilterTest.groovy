@@ -38,7 +38,7 @@ class FoodPageFilterTest extends Specification {
 
 	void "returns true when page title is on list of title to filter out"() {
 		given:
-		Page page = new Page(title: FoodPageFilter.NOT_FOODS[0])
+		Page page = new Page(title: FoodPageFilter.INVALID_TITLES[0])
 
 		when:
 		boolean shouldBeFilteredOut = foodPageFilter.shouldBeFilteredOut(page)

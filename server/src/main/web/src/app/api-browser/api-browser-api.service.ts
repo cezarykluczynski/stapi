@@ -47,7 +47,6 @@ export class ApiBrowserApi {
 		});
 	}
 
-	// TODO
 	get(symbol, uid) {
 		const serviceName = this.findBySymbol(symbol).apiEndpointSuffix;
 		const api = this.api[serviceName];

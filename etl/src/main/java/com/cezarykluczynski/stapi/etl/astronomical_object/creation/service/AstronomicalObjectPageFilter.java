@@ -1,17 +1,22 @@
 package com.cezarykluczynski.stapi.etl.astronomical_object.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import lombok.Getter;
 import org.apache.commons.collections.CollectionUtils;
 import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 import java.util.List;
 
 @Service
-public class AstronomicalObjectPageFilter implements MediaWikiPageFilter {
+public class AstronomicalObjectPageFilter extends AbstractMediaWikiPageFilter {
 
 	private static final List<String> INVALID_TITLES = Lists.newArrayList("Planetary classification", "Americas", "Bohemia", "Boundary layer",
 			"Breeding planet", "Earth Sector 2", "Earth Sector 45", "Earth Sector 49", "Frontier", "Galaxy", "Grid square fifteen-delta",
@@ -19,27 +24,19 @@ public class AstronomicalObjectPageFilter implements MediaWikiPageFilter {
 			"Nebula", "Niwray Border", "Patrol area", "Quasar", "Temporal inversion fold", "Territory", "Time zone", "Tropics", "Zone");
 	private static final List<String> INVALID_CATEGORIES = Lists.newArrayList(CategoryTitle.PLANET_LISTS, CategoryTitle.CELESTIAL_OBJECTS,
 			CategoryTitle.ASTRONOMICAL_CLASSIFICATIONS);
-	private static final String UNNAMED_PREFIX = "Unnamed";
+	private static final List<String> INVALID_PREFIXES = Lists.newArrayList("Unnamed");
 
+	@Getter
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	public AstronomicalObjectPageFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
+		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
+				.invalidTitles(INVALID_TITLES)
+				.invalidCategories(INVALID_CATEGORIES)
+				.invalidPrefixes(INVALID_PREFIXES)
+				.build());
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-	}
-
-	@Override
-	public boolean shouldBeFilteredOut(Page page) {
-		if (!page.getRedirectPath().isEmpty()) {
-			return true;
-		}
-
-		String title = page.getTitle();
-		if (title.startsWith(UNNAMED_PREFIX) || INVALID_TITLES.contains(title)) {
-			return true;
-		}
-
-		List<String> categoryHeaderList = categoryTitlesExtractingProcessor.process(page.getCategories());
-		return CollectionUtils.containsAny(categoryHeaderList, INVALID_CATEGORIES);
 	}
 
 }

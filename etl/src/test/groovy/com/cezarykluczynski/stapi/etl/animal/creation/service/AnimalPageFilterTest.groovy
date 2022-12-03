@@ -45,6 +45,7 @@ class AnimalPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = animalPageFilter.shouldBeFilteredOut(page)
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process([]) >> []
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> true
 		0 * _
 		shouldBeFilteredOut
@@ -60,7 +61,6 @@ class AnimalPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = animalPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.INDIVIDUAL_ANIMALS)
 		0 * _
 		shouldBeFilteredOut
@@ -101,7 +101,7 @@ class AnimalPageFilterTest extends Specification {
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		1 * categoryTitlesExtractingProcessorMock.process([]) >> []
 		0 * _
 		!shouldBeFilteredOut
 	}

@@ -1,18 +1,21 @@
 package com.cezarykluczynski.stapi.etl.template.series.service;
 
-import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import org.apache.commons.lang3.StringUtils;
+import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
+import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class SeriesPageFilter implements MediaWikiPageFilter {
+public class SeriesPageFilter extends AbstractMediaWikiPageFilter {
 
-	private static final String UNTITLED_SECTION_31_SERIES = "Untitled Section 31 series";
+	private static final List<String> INVALID_TITLES = Lists.newArrayList("Untitled Section 31 series");
 
-	@Override
-	public boolean shouldBeFilteredOut(Page page) {
-		return StringUtils.equals(page.getTitle(), UNTITLED_SECTION_31_SERIES);
+	public SeriesPageFilter() {
+		super(MediaWikiPageFilterConfiguration.builder()
+				.invalidTitles(INVALID_TITLES)
+				.build());
 	}
 
 }

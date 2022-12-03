@@ -135,8 +135,8 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >> Optional.empty()
 		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> true
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		magazineSeriesTemplate != null
 	}
@@ -163,8 +163,8 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == templatePartList
 			assert enrichablePair.output != null
 		}
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		magazineSeriesTemplate.title == TITLE
 	}
@@ -186,7 +186,7 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> true
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(monthYearRange)
-		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineSeriesTemplate.publishedMonthFrom == MONTH_FROM
 		magazineSeriesTemplate.publishedYearFrom == YEAR_FROM
@@ -209,7 +209,7 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >> Optional.empty()
 		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> true
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(ISSUES_INTEGER)
 		0 * _
 		magazineSeriesTemplate.numberOfIssues == ISSUES_INTEGER

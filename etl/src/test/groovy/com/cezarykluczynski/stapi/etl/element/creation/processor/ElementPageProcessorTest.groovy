@@ -94,7 +94,7 @@ class ElementPageProcessorTest extends Specification {
 			assert enrichablePair.output != null
 		}
 		1 * elementTransuranicProcessorMock.isTransuranic(TITLE_WITH_BRACKETS) >> true
-		1 * elementSymbolFixedValueProviderMock.getSearchedValue(TITLE_WITH_BRACKETS) >> FixedValueHolder.empty()
+		1 * elementSymbolFixedValueProviderMock.getSearchedValue(TITLE_WITH_BRACKETS) >> FixedValueHolder.notFound()
 		0 * _
 		element.name == TITLE
 		element.uid == UID

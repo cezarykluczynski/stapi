@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(staticName = "of")
-@NoArgsConstructor(staticName = "empty") // TODO: remove
+@NoArgsConstructor(staticName = "notFound")
 @Getter
 public class FixedValueHolder<T> {
 
@@ -15,10 +15,6 @@ public class FixedValueHolder<T> {
 
 	public static <T> FixedValueHolder<T> found(T value) {
 		return FixedValueHolder.of(true, value);
-	}
-
-	public static <T> FixedValueHolder<T> notFound() {
-		return FixedValueHolder.of(false, null);
 	}
 
 }

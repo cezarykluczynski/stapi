@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,7 +28,7 @@ public class CategorySortingService {
 		return getCategoriesThisPageIsSortedOnTopOf(page).count() > 0;
 	}
 
-	public boolean isSortedOnTopOfAnyOfCategories(Page page, List<String> categoryList) {
+	public boolean isSortedOnTopOfAnyOfCategories(Page page, Collection<String> categoryList) {
 		List<String> categoryListLowerCase = categoryList.stream()
 				.map(String::toLowerCase)
 				.collect(Collectors.toList());

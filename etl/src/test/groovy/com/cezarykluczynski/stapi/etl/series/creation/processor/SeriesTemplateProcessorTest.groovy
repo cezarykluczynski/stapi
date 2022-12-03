@@ -29,18 +29,14 @@ class SeriesTemplateProcessorTest extends Specification {
 
 	private UidGenerator uidGeneratorMock
 
-	private SeriesAbbreviationFixedValueProvider seriesAbbreviationFixedValueProviderMock
-
 	private SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProviderMock
 
 	private SeriesTemplateProcessor seriesTemplateProcessor
 
 	void setup() {
 		uidGeneratorMock = Mock()
-		seriesAbbreviationFixedValueProviderMock = Mock()
 		seriesEpisodeStatisticsFixedValueProviderMock = Mock()
-		seriesTemplateProcessor = new SeriesTemplateProcessor(uidGeneratorMock, seriesAbbreviationFixedValueProviderMock,
-				seriesEpisodeStatisticsFixedValueProviderMock)
+		seriesTemplateProcessor = new SeriesTemplateProcessor(uidGeneratorMock, seriesEpisodeStatisticsFixedValueProviderMock)
 	}
 
 	void "converts SeriesTemplate to Series"() {
@@ -81,42 +77,19 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.originalBroadcaster == originalBroadcaster
 	}
 
-	void "abbreviation is taken from SeriesAbbreviationFixedValueProvider when none is present"() {
-		given:
-		SeriesTemplate seriesTemplate = new SeriesTemplate(
-				title: TITLE,
-				productionYearRange: new YearRange(),
-				originalRunDateRange: new DateRange(),
-				page: PAGE)
-		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder.empty()
-		FixedValueHolder<String> abbreviationFixedValueHolder = FixedValueHolder.found(ABBREVIATION)
-
-		when:
-		Series series = seriesTemplateProcessor.process(seriesTemplate)
-
-		then:
-		1 * uidGeneratorMock.generateFromPage(PAGE, Series) >> null
-		1 * seriesAbbreviationFixedValueProviderMock.getSearchedValue(TITLE) >> abbreviationFixedValueHolder
-		1 * seriesEpisodeStatisticsFixedValueProviderMock.getSearchedValue(ABBREVIATION) >> seriesEpisodeStatisticsDTOFixedValueHolder
-		0 * _
-		series.abbreviation == ABBREVIATION
-	}
-
 	void "null values are tolerated"() {
 		given:
 		SeriesTemplate seriesTemplate = new SeriesTemplate(
 				productionYearRange: new YearRange(),
 				originalRunDateRange: new DateRange(),
 				page: PAGE)
-		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder.empty()
-		FixedValueHolder<String> abbreviationFixedValueHolder = FixedValueHolder.empty()
+		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder.notFound()
 
 		when:
 		Series series = seriesTemplateProcessor.process(seriesTemplate)
 
 		then:
 		1 * uidGeneratorMock.generateFromPage(PAGE, Series) >> null
-		1 * seriesAbbreviationFixedValueProviderMock.getSearchedValue(null) >> abbreviationFixedValueHolder
 		1 * seriesEpisodeStatisticsFixedValueProviderMock.getSearchedValue(null) >> seriesEpisodeStatisticsDTOFixedValueHolder
 		0 * _
 		series.uid == null

@@ -54,7 +54,7 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart)
 		0 * _
 	}
@@ -69,7 +69,7 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 		bookTemplate.publishedYear == YEAR
@@ -90,7 +90,7 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 		bookTemplate.audiobookPublishedYear == YEAR
@@ -111,7 +111,7 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 	}

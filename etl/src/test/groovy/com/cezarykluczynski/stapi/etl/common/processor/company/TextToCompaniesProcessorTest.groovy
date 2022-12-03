@@ -43,7 +43,7 @@ class TextToCompaniesProcessorTest extends Specification {
 		Set<Company> companySet = textToCompaniesProcessor.process(NAME)
 
 		then:
-		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * companyRepositoryMock.findByName(NAME) >> Optional.of(company)
 		0 * _
 		companySet.size() == 1
@@ -55,7 +55,7 @@ class TextToCompaniesProcessorTest extends Specification {
 		Set<Company> companySet = textToCompaniesProcessor.process(NAME)
 
 		then:
-		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * companyRepositoryMock.findByName(NAME) >> Optional.empty()
 		0 * _
 		companySet.empty
@@ -96,11 +96,11 @@ class TextToCompaniesProcessorTest extends Specification {
 		Set<Company> companySet = textToCompaniesProcessor.process(NAME_COMPOSITE)
 
 		then:
-		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME_COMPOSITE) >> FixedValueHolder.empty()
+		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME_COMPOSITE) >> FixedValueHolder.notFound()
 		1 * companyRepositoryMock.findByName(NAME_COMPOSITE) >> Optional.empty()
 		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.found(NAME_ALIAS)
 		1 * companyRepositoryMock.findByName(NAME_ALIAS) >> Optional.of(company1)
-		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME_2) >> FixedValueHolder.empty()
+		1 * companyAliasFixedValueProviderMock.getSearchedValue(NAME_2) >> FixedValueHolder.notFound()
 		1 * companyRepositoryMock.findByName(NAME_2) >> Optional.of(company2)
 		1 *
 		0 * _

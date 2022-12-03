@@ -71,8 +71,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * wikitextToEntitiesProcessorMock.findMagazineSeries(PUBLICATION) >> Lists.newArrayList(magazineSeries1, magazineSeries2)
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineTemplate.magazineSeries.size() == 2
 		magazineTemplate.magazineSeries.contains magazineSeries1
@@ -88,8 +88,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 		magazineTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), magazineTemplate))
 
 		then:
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineTemplate.issueNumber == ISSUE
 	}
@@ -106,8 +106,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * wikitextToEntitiesProcessorMock.findCompanies(PUBLISHER) >> Lists.newArrayList(company1, company2)
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineTemplate.publishers.size() == 2
 		magazineTemplate.publishers.contains company1
@@ -126,8 +126,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * wikitextToEntitiesProcessorMock.findStaff(EDITOR) >> Lists.newArrayList(editor1, editor2)
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineTemplate.editors.size() == 2
 		magazineTemplate.editors.contains editor1
@@ -148,8 +148,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 	}
 
@@ -167,8 +167,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 	}
 
@@ -186,8 +186,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 	}
 
@@ -201,8 +201,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * numberOfPartsProcessorMock.process(PAGES_STRING) >> PAGES_INTEGER
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineTemplate.numberOfPages == PAGES_INTEGER
 	}
@@ -218,7 +218,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(publicationDates)
-		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		0 * _
 		magazineTemplate.publishedYear == PUBLISHED_YEAR
 		magazineTemplate.publishedMonth == PUBLISHED_MONTH
@@ -236,7 +236,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 		magazineTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(), magazineTemplate))
 
 		then:
-		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(PAGES_INTEGER)
 		0 * _
 		magazineTemplate.numberOfPages == PAGES_INTEGER

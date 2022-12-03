@@ -79,7 +79,7 @@ class OrganizationPageProcessorTest extends Specification {
 		Organization organization = organizationPageProcessor.process(page)
 
 		then:
-		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		organization.name == NAME
 	}
@@ -93,7 +93,7 @@ class OrganizationPageProcessorTest extends Specification {
 		Organization organization = organizationPageProcessor.process(page)
 
 		then:
-		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		organization.page == modelPage
@@ -108,7 +108,7 @@ class OrganizationPageProcessorTest extends Specification {
 		Organization organization = organizationPageProcessor.process(page)
 
 		then:
-		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Organization) >> UID
@@ -122,7 +122,7 @@ class OrganizationPageProcessorTest extends Specification {
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
 		}
-		organizationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		organizationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 
 		expect:
 		Organization organization = organizationPageProcessor.process(page)

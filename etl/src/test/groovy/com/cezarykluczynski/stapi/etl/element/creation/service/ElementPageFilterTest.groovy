@@ -52,7 +52,6 @@ class ElementPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = elementPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}

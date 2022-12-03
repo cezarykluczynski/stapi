@@ -59,7 +59,7 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 				assert enrichablePair.input == page
 				assert enrichablePair.output == characterTemplate
 		}
-		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.MBETA) >> Optional.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_HOLOGRAM) >> Optional.empty()
@@ -85,7 +85,7 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 				assert enrichablePair.output == characterTemplate
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
-		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 		1 * individualTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Template, CharacterTemplate> enrichablePair ->
 				assert enrichablePair.input == sidebarIndividualTemplate

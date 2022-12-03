@@ -57,8 +57,8 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 				assert enrichablePair.input.value == dayMonthYearRange
 				assert enrichablePair.output != null
 		}
-		1 * comicSeriesTemplateNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * comicSeriesStardateYearFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * comicSeriesTemplateNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * comicSeriesStardateYearFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		comicSeriesTemplate.title == TITLE
 	}
@@ -71,9 +71,9 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate))
 
 		then:
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * comicSeriesTemplateNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(NUMBER_OF_ISSUES)
-		1 * comicSeriesStardateYearFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * comicSeriesStardateYearFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * _
 		comicSeriesTemplate.numberOfIssues == NUMBER_OF_ISSUES
 	}
@@ -87,8 +87,8 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate))
 
 		then:
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * comicSeriesTemplateNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()
+		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * comicSeriesTemplateNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * comicSeriesStardateYearFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(stardateYearDTO)
 		0 * _
 		comicSeriesTemplate.stardateFrom == STARDATE_FROM

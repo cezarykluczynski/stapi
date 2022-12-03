@@ -7,7 +7,7 @@ import spock.lang.Unroll
 
 class StringUtilTest extends Specification {
 
-	@Unroll('tells if #subject start with any of #candidates, ignoring case')
+	@Unroll('tells if #subject starts with any of #candidates, ignoring case')
 	void "tells if string starts with any of the given strings, ignoring case"() {
 		expect:
 		StringUtil.startsWithAnyIgnoreCase(subject, candidates) == result
@@ -22,6 +22,25 @@ class StringUtilTest extends Specification {
 		'ABC'   | ['def', 'abc'] | true
 		'abc'   | ['def', 'abc'] | true
 		'abc'   | ['DEF', 'ABC'] | true
+	}
+
+	@Unroll('tells if #subject ends with any of #candidates, ignoring case')
+	void "tells if string ends with any of the given strings, ignoring case"() {
+		expect:
+		StringUtil.endsWithAnyIgnoreCase(subject, candidates) == result
+
+		where:
+		subject    | candidates     | result
+		null       | ['def', 'abc'] | false
+		'ABC'      | ['qwerty']     | false
+		'abc'      | null           | false
+		'abc'      | ['', null]     | false
+		'ABC test' | ['DEF', 'ABC'] | false
+		'abc de'   | ['def', 'abc'] | false
+		'ABC'      | ['DEF', 'ABC'] | true
+		'ABC'      | ['def', 'abc'] | true
+		'abc'      | ['def', 'abc'] | true
+		'abc'      | ['DEF', 'ABC'] | true
 	}
 
 	@Unroll('tells if #subject contains any of #candidates, ignoring case')

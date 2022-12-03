@@ -79,7 +79,7 @@ class LocationPageProcessorTest extends Specification {
 		Location location = locationPageProcessor.process(page)
 
 		then:
-		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		location.name == NAME
 	}
@@ -93,7 +93,7 @@ class LocationPageProcessorTest extends Specification {
 		Location location = locationPageProcessor.process(page)
 
 		then:
-		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		location.page == modelPage
@@ -108,7 +108,7 @@ class LocationPageProcessorTest extends Specification {
 		Location location = locationPageProcessor.process(page)
 
 		then:
-		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Location) >> UID
@@ -121,7 +121,7 @@ class LocationPageProcessorTest extends Specification {
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
 		}
-		1 * locationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * locationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 
 		expect:
 		Location location = locationPageProcessor.process(new SourcesPage(categories: categories))

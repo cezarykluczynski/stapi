@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.occupation.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
@@ -33,6 +32,7 @@ class OccupationPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process([]) >> []
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> true
 		0 * _
 		shouldBeFilteredOut
@@ -46,7 +46,6 @@ class OccupationPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}
@@ -59,22 +58,20 @@ class OccupationPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}
 
-	void "returns true when 'Lists' category is found"() {
+	void "returns true when invalid category is found"() {
 		given:
-		CategoryHeader categoryHeader = Mock()
+		CategoryHeader categoryHeader = new CategoryHeader(title: RandomUtil.randomItem(OccupationPageFilter.INVALID_CATEGORIES))
 		Page page = new Page(title: TITLE, categories: Lists.newArrayList(categoryHeader))
 
 		when:
 		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList(categoryHeader)) >> Lists.newArrayList(CategoryTitle.LISTS)
+		1 * categoryTitlesExtractingProcessorMock.process([categoryHeader]) >> [categoryHeader.title]
 		0 * _
 		shouldBeFilteredOut
 	}

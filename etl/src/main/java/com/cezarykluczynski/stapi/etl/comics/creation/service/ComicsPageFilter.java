@@ -1,30 +1,33 @@
 package com.cezarykluczynski.stapi.etl.comics.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Sets;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-public class ComicsPageFilter implements MediaWikiPageFilter {
+public class ComicsPageFilter extends AbstractMediaWikiPageFilter {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.COMICS, PageTitle.PHOTONOVELS);
+	private static final Set<String> INVALID_CATEGORIES = Sets.newHashSet(CategoryTitle.STAR_TREK_SERIES_MAGAZINES);
 
+	@Getter
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	public ComicsPageFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
+		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
+				.invalidTitles(INVALID_TITLES)
+				.invalidCategories(INVALID_CATEGORIES)
+				.build());
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-	}
 
-	@Override
-	public boolean shouldBeFilteredOut(Page item) {
-		return INVALID_TITLES.contains(item.getTitle()) || categoryTitlesExtractingProcessor.process(item.getCategories())
-				.contains(CategoryTitle.STAR_TREK_SERIES_MAGAZINES) || !item.getRedirectPath().isEmpty();
 	}
 
 }

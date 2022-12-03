@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +77,7 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 			switch (key) {
 				case SeriesTemplateParameter.ABBR:
-					if (!"".equals(value)) {
+					if (StringUtils.isNotBlank(value)) {
 						seriesTemplate.setAbbreviation(value);
 					}
 					break;

@@ -52,7 +52,6 @@ class LiteraturePageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = literaturePageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}

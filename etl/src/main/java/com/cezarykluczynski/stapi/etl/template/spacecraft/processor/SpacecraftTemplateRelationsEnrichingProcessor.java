@@ -59,7 +59,7 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 						}
 					}
 					break;
-				case StarshipTemplateParameter.CLASS: // class sometime contains {{type}} template...
+				case StarshipTemplateParameter.CLASS: // TODO: class sometime contains {{type}} template...
 					List<SpacecraftClass> classList = wikitextToEntitiesProcessor.findSpacecraftClasses(value);
 					if (!classList.isEmpty()) {
 						setFirstSpacecraftToTemplate(classList, starshipTemplate);

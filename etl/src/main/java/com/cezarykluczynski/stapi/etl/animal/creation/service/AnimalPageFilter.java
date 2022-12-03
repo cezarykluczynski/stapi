@@ -2,35 +2,38 @@ package com.cezarykluczynski.stapi.etl.animal.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
-import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.google.common.collect.Sets;
-import org.apache.commons.lang3.StringUtils;
+import lombok.Getter;
+import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
-public class AnimalPageFilter implements MediaWikiPageFilter {
+public class AnimalPageFilter extends AbstractMediaWikiPageFilter {
 
-	private static final String UNNAMED_PREFIX = "Unnamed";
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Pet", "Game animal", "Riding animal", "Parasite");
+	private static final List<String> INVALID_TITLES = Lists.newArrayList("Pet", "Game animal", "Riding animal", "Parasite");
+	private static final List<String> INVALID_PREFIXES = Lists.newArrayList("Unnamed");
+	private static final List<String> INVALID_CATEGORIES = Lists.newArrayList(CategoryTitle.INDIVIDUAL_ANIMALS);
 
+	@Getter
 	private final CategorySortingService categorySortingService;
 
+	@Getter
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	public AnimalPageFilter(CategorySortingService categorySortingService, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
+		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
+				.invalidTitles(INVALID_TITLES)
+				.invalidPrefixes(INVALID_PREFIXES)
+				.invalidCategories(INVALID_CATEGORIES)
+				.skipPagesSortedOnTopOfAnyCategory(true)
+				.build());
 		this.categorySortingService = categorySortingService;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-	}
-
-	@Override
-	public boolean shouldBeFilteredOut(Page page) {
-		return !page.getRedirectPath().isEmpty() || StringUtils.startsWith(page.getTitle(), UNNAMED_PREFIX)
-				|| INVALID_TITLES.contains(page.getTitle()) || categorySortingService.isSortedOnTopOfAnyCategory(page)
-				|| categoryTitlesExtractingProcessor.process(page.getCategories()).contains(CategoryTitle.INDIVIDUAL_ANIMALS);
 	}
 
 }

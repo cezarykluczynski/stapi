@@ -52,7 +52,6 @@ class MedicalConditionPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = medicalConditionPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}

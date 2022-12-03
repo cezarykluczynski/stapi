@@ -10,13 +10,22 @@ import java.util.stream.Stream;
 
 public class StringUtil {
 
-	public static boolean startsWithAnyIgnoreCase(String subject, List<String> candidates) {
+	public static boolean startsWithAnyIgnoreCase(String subject, Collection<String> candidates) {
 		if (subject == null || candidates == null) {
 			return false;
 		}
 
 		String subjectLowerCase = subject.toLowerCase();
 		return getLowerCandidatesStream(candidates).anyMatch(subjectLowerCase::startsWith);
+	}
+
+	public static boolean endsWithAnyIgnoreCase(String subject, Collection<String> candidates) {
+		if (subject == null || candidates == null) {
+			return false;
+		}
+
+		String subjectLowerCase = subject.toLowerCase();
+		return getLowerCandidatesStream(candidates).anyMatch(subjectLowerCase::endsWith);
 	}
 
 	public static boolean containsAnyIgnoreCase(String subject, List<String> candidates) {
@@ -84,7 +93,7 @@ public class StringUtil {
 		return result;
 	}
 
-	private static Stream<String> getLowerCandidatesStream(List<String> candidates) {
+	private static Stream<String> getLowerCandidatesStream(Collection<String> candidates) {
 		List<String> candidatesLowerCase = candidates.stream()
 				.filter(StringUtils::isNotBlank)
 				.map(String::toLowerCase)

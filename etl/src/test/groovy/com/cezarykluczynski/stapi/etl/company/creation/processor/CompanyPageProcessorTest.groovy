@@ -50,7 +50,7 @@ class CompanyPageProcessorTest extends Specification {
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
 		}
-		companyNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		companyNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.notFound()
 
 		expect:
 		Company company = companyPageProcessor.process(page)
@@ -111,7 +111,7 @@ class CompanyPageProcessorTest extends Specification {
 		Company company = companyPageProcessor.process(etlPage)
 
 		then:
-		1 * companyNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
+		1 * companyNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.notFound()
 		1 * pageBindingServiceMock.fromPageToPageEntity(etlPage) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Company) >> UID
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()

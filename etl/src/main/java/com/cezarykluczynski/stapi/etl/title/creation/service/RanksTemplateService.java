@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Set;
 
 @Service
@@ -31,13 +30,18 @@ public class RanksTemplateService {
 	private final Set<String> militaryRanks = Sets.newHashSet();
 	private final Set<String> positions = Sets.newHashSet();
 
+	private boolean initialized;
+
 	public RanksTemplateService(PageApi pageApi, WikitextApi wikitextApi) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 	}
 
-	@PostConstruct // TODO: should initialize on first call
-	public void postConstruct() {
+	public synchronized void initialize() {
+		if (initialized) {
+			return;
+		}
+		initialized = true;
 		Page page = pageApi.getTemplate(TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN);
 
 		if (page == null) {
@@ -57,14 +61,17 @@ public class RanksTemplateService {
 	}
 
 	public boolean isFleetRank(String titleName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(fleetRanks, titleName);
 	}
 
 	public boolean isMilitaryRank(String titleName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(militaryRanks, titleName);
 	}
 
 	public boolean isPosition(String titleName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(positions, titleName);
 	}
 

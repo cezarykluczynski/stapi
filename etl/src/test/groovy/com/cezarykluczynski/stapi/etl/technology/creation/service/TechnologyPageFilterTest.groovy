@@ -53,7 +53,6 @@ class TechnologyPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = technologyPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, CategoryTitles.TECHNOLOGY) >> false
 		0 * _
 		shouldBeFilteredOut
 	}

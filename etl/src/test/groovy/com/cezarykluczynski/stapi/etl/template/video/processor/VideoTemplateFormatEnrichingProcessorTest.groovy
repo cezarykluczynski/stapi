@@ -53,7 +53,7 @@ class VideoTemplateFormatEnrichingProcessorTest extends Specification {
 		videoTemplateFormatEnrichingProcessor.enrich(EnrichablePair.of(page, videoTemplate))
 
 		then:
-		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(null) >> FixedValueHolder.empty()
+		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(null) >> FixedValueHolder.notFound()
 		1 * videoReleaseFormatFromCategoryLinkProcessorMock.process(categoryHeaderList) >> null
 		0 * _
 	}
@@ -67,7 +67,7 @@ class VideoTemplateFormatEnrichingProcessorTest extends Specification {
 		videoTemplateFormatEnrichingProcessor.enrich(EnrichablePair.of(page, videoTemplate))
 
 		then:
-		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(null) >> FixedValueHolder.empty()
+		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(null) >> FixedValueHolder.notFound()
 		1 * videoReleaseFormatFromCategoryLinkProcessorMock.process(Lists.newArrayList()) >> FORMAT_VHS
 		0 * _
 		videoTemplate.format == FORMAT_VHS
@@ -82,7 +82,7 @@ class VideoTemplateFormatEnrichingProcessorTest extends Specification {
 		videoTemplateFormatEnrichingProcessor.enrich(EnrichablePair.of(page, videoTemplate))
 
 		then:
-		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(null) >> FixedValueHolder.empty()
+		1 * videoReleaseFormatFixedValueProviderMock.getSearchedValue(null) >> FixedValueHolder.notFound()
 		1 * videoReleaseFormatFromCategoryLinkProcessorMock.process(Lists.newArrayList()) >> FORMAT_VHS
 		0 * _
 		videoTemplate.format == FORMAT_DVD

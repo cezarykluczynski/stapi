@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.primitives.Ints;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Collections;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class NumberOfEpisodesProcessor implements ItemProcessor<Template.Part, I
 	@Override
 	public Integer process(Template.Part item) throws Exception {
 		final List<Template> templates = item.getTemplates();
-		if (Collections.isNullOrEmpty(templates)) {
+		if (CollectionUtils.isEmpty(templates)) {
 			log.warn("No templates found for item {}, returning null number of episodes.", item);
 			return null;
 		}

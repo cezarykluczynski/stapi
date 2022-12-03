@@ -1,31 +1,30 @@
 package com.cezarykluczynski.stapi.etl.location.creation.service
 
-import com.cezarykluczynski.stapi.etl.common.service.CategoryFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class LocationPageFilterTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 
-	private CategoryFinder categoryFinderMock
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
 	private LocationPageFilter locationPageFilter
 
 	void setup() {
-		categoryFinderMock = Mock()
-		locationPageFilter = new LocationPageFilter(categoryFinderMock)
+		categoryTitlesExtractingProcessorMock = Mock()
+		locationPageFilter = new LocationPageFilter(categoryTitlesExtractingProcessorMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
 		given:
 		PageHeader pageHeader = Mock()
-		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
+		Page page = new Page(redirectPath: [pageHeader])
 
 		when:
 		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
@@ -35,43 +34,16 @@ class LocationPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns true when page contains Organization's category"() {
+	void "returns true when page contains invalid category"() {
 		given:
-		Page page = new Page()
+		CategoryHeader categoryHeader = new CategoryHeader(title: RandomUtil.randomItem(CategoryTitles.ORGANIZATIONS))
+		Page page = new Page(categories: [categoryHeader])
 
 		when:
 		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> true
-		0 * _
-		shouldBeFilteredOut
-	}
-
-	void "returns true when page contains Lists category"() {
-		given:
-		Page page = new Page()
-
-		when:
-		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
-
-		then:
-		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
-		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> true
-		0 * _
-		shouldBeFilteredOut
-	}
-
-	void "returns true when location is among invalid locations"() {
-		given:
-		Page page = new Page(title: RandomUtil.randomItem(LocationPageFilter.INVALID_LOCATIONS))
-
-		when:
-		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
-
-		then:
-		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
-		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
+		1 * categoryTitlesExtractingProcessorMock.process([categoryHeader]) >> [categoryHeader.title]
 		0 * _
 		shouldBeFilteredOut
 	}
@@ -84,8 +56,7 @@ class LocationPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
-		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
+		1 * categoryTitlesExtractingProcessorMock.process([]) >> []
 		0 * _
 		!shouldBeFilteredOut
 	}

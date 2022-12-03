@@ -52,7 +52,6 @@ class ConflictPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = conflictPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		shouldBeFilteredOut
 	}
