@@ -43,6 +43,27 @@ class StringUtilTest extends Specification {
 		'abc'      | ['DEF', 'ABC'] | true
 	}
 
+	@Unroll('tells if #subject equals any of #candidates, ignoring case')
+	void "tells if string equals any of the given strings, ignoring case"() {
+		expect:
+		StringUtil.endsWithAnyIgnoreCase(subject, candidates) == result
+
+		where:
+		subject    | candidates       | result
+		null       | ['def', 'abc']   | false
+		'ABC'      | ['qwerty']       | false
+		'abc'      | null             | false
+		'abc'      | ['', null]       | false
+		'ABC test' | ['DEF', 'ABC']   | false
+		'abc de'   | ['def', 'abc']   | false
+		'ABC'      | ['DEF ', 'ABC '] | false
+		'ABC'      | [' DEF', ' ABC'] | false
+		'ABC'      | ['DEF', 'ABC']   | true
+		'ABC'      | ['def', 'abc']   | true
+		'abc'      | ['def', 'abc']   | true
+		'abc'      | ['DEF', 'ABC']   | true
+	}
+
 	@Unroll('tells if #subject contains any of #candidates, ignoring case')
 	void "tells if string contains any of the given strings, ignoring case"() {
 		expect:

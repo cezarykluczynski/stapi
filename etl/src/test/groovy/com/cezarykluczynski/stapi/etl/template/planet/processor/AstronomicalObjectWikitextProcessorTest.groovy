@@ -30,29 +30,34 @@ class AstronomicalObjectWikitextProcessorTest extends Specification {
 		astronomicalObjectType == astronomicalObjectWikitextProcessor.process(wikitext)
 
 		where:
-		pageLinkList                                                                                | astronomicalObjectType                  | wikitext
-		Lists.newArrayList()                                                                        | null                                    | WIKITEXT
-		Lists.newArrayList(new PageLink())                                                          | null                                    | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.ROGUE_PLANET))   | AstronomicalObjectType.ROGUE_PLANET     | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.M_CLASS_1))      | AstronomicalObjectType.M_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.M_CLASS_2))      | AstronomicalObjectType.M_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_M))        | AstronomicalObjectType.M_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_M))        | AstronomicalObjectType.PLANET           | AstronomicalObjectWikitextProcessor.NON
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_M))        | AstronomicalObjectType.PLANET           | AstronomicalObjectWikitextProcessor.FORMERLY
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_D))        | AstronomicalObjectType.D_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_H))        | AstronomicalObjectType.H_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_L))        | AstronomicalObjectType.L_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_K_PLANET)) | AstronomicalObjectType.K_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_Y_PLANET)) | AstronomicalObjectType.Y_CLASS_PLANET   | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.GAS_GIANT))      | AstronomicalObjectType.GAS_GIANT_PLANET | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PLANETOID))      | AstronomicalObjectType.PLANETOID        | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.MOON))           | AstronomicalObjectType.MOON             | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_4_MOON))   | AstronomicalObjectType.MOON             | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PLANET))         | AstronomicalObjectType.PLANET           | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.ASTEROID))       | AstronomicalObjectType.ASTEROID         | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.STAR))           | AstronomicalObjectType.STAR             | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.BINARY_SUN))     | AstronomicalObjectType.STAR             | WIKITEXT
-		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PROTOPLANET))    | AstronomicalObjectType.PLANET           | WIKITEXT
+		pageLinkList                                                                                    | astronomicalObjectType                  | wikitext
+		Lists.newArrayList()                                                                            | null                                    | WIKITEXT
+		Lists.newArrayList(new PageLink())                                                              | null                                    | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.ROGUE_PLANET))       | AstronomicalObjectType.ROGUE_PLANET     | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.M_CLASS_1))          | AstronomicalObjectType.M_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.M_CLASS_2))          | AstronomicalObjectType.M_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_M))            | AstronomicalObjectType.M_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_M))            | AstronomicalObjectType.PLANET           | AstronomicalObjectWikitextProcessor.NON
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_M))            | AstronomicalObjectType.PLANET           | AstronomicalObjectWikitextProcessor.FORMERLY
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_D))            | AstronomicalObjectType.D_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_H))            | AstronomicalObjectType.H_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_L))            | AstronomicalObjectType.L_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_K_PLANET))     | AstronomicalObjectType.K_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_Y_PLANET))     | AstronomicalObjectType.Y_CLASS_PLANET   | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.GAS_GIANT))          | AstronomicalObjectType.GAS_GIANT_PLANET | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PLANETOID))          | AstronomicalObjectType.PLANETOID        | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.MOON))               | AstronomicalObjectType.MOON             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_4_MOON))       | AstronomicalObjectType.MOON             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PLANET))             | AstronomicalObjectType.PLANET           | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PROTOPLANET))        | AstronomicalObjectType.PLANET           | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.ASTEROID))           | AstronomicalObjectType.ASTEROID         | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.STAR))               | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.BINARY_STAR))        | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.BINARY_STAR_SYSTEM)) | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.BINARY_SUN))         | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.BINARY_SYSTEM))      | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.TWIN_STAR))          | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.TWIN_STAR_SYSTEM))   | AstronomicalObjectType.STAR             | WIKITEXT
 	}
 
 }

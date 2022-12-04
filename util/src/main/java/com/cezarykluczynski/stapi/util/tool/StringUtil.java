@@ -28,6 +28,16 @@ public class StringUtil {
 		return getLowerCandidatesStream(candidates).anyMatch(subjectLowerCase::endsWith);
 	}
 
+
+	public static boolean equalsAnyIgnoreCase(String subject, Collection<String> candidates) {
+		if (subject == null || candidates == null) {
+			return false;
+		}
+
+		String subjectLowerCase = subject.toLowerCase();
+		return getLowerCandidatesStream(candidates).anyMatch(subjectLowerCase::equals);
+	}
+
 	public static boolean containsAnyIgnoreCase(String subject, List<String> candidates) {
 		if (subject == null || candidates == null) {
 			return false;

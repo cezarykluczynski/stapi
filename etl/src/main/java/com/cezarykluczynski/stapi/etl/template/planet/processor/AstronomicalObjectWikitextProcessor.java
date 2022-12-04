@@ -3,11 +3,15 @@ package com.cezarykluczynski.stapi.etl.template.planet.processor;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.util.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String, AstronomicalObjectType> {
 
@@ -29,8 +33,17 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 	private static final String PLANET = "Planet";
 	private static final String ASTEROID = "Asteroid";
 	private static final String STAR = "Star";
+	private static final String BINARY_STAR = "Binary star";
+	private static final String BINARY_STAR_SYSTEM = "Binary star system";
 	private static final String BINARY_SUN = "Binary sun";
+	private static final String BINARY_SYSTEM = "Binary system";
+	private static final String TWIN_STAR = "Twin star";
+	private static final String TWIN_STAR_SYSTEM = "Twin star system";
 	private static final String PROTOPLANET = "Protoplanet";
+	private static final List<String> M_CLASS_PLANETS = Lists.newArrayList(M_CLASS_1, M_CLASS_2, CLASS_M);
+	private static final List<String> BINARY_STAR_SYSTEMS = Lists.newArrayList(BINARY_STAR, BINARY_STAR_SYSTEM, BINARY_SUN, BINARY_SYSTEM, TWIN_STAR,
+			TWIN_STAR_SYSTEM);
+	private static final List<String> CONTRADICTIONS = Lists.newArrayList(NON, FORMERLY);
 
 	private final WikitextApi wikitextApi;
 
@@ -52,9 +65,8 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 			AstronomicalObjectType astronomicalObjectType = null;
 			if (ROGUE_PLANET.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.ROGUE_PLANET;
-			} else if (M_CLASS_1.equalsIgnoreCase(title) || M_CLASS_2.equalsIgnoreCase(title) || CLASS_M.equalsIgnoreCase(title)) {
-				String itemLowerCase = item.toLowerCase();
-				return itemLowerCase.contains(NON) || itemLowerCase.contains(FORMERLY) ? AstronomicalObjectType.PLANET
+			} else if (StringUtil.equalsAnyIgnoreCase(title, M_CLASS_PLANETS)) {
+				return StringUtil.containsAnyIgnoreCase(item, CONTRADICTIONS) ? AstronomicalObjectType.PLANET
 						: AstronomicalObjectType.M_CLASS_PLANET;
 			} else if (CLASS_D.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.D_CLASS_PLANET;
@@ -72,16 +84,12 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 				astronomicalObjectType = AstronomicalObjectType.PLANETOID;
 			} else if (MOON.equalsIgnoreCase(title) || CLASS_4_MOON.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.MOON;
-			} else if (PLANET.equalsIgnoreCase(title)) {
+			} else if (PLANET.equalsIgnoreCase(title) || PROTOPLANET.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.PLANET;
 			} else if (ASTEROID.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.ASTEROID;
-			} else if (STAR.equalsIgnoreCase(title)) {
+			} else if (STAR.equalsIgnoreCase(title) || StringUtil.equalsAnyIgnoreCase(title, BINARY_STAR_SYSTEMS)) {
 				astronomicalObjectType = AstronomicalObjectType.STAR;
-			} else if (BINARY_SUN.equalsIgnoreCase(title)) {
-				astronomicalObjectType = AstronomicalObjectType.STAR; // TODO version 2: Change to BINARY_STAR
-			} else if (PROTOPLANET.equalsIgnoreCase(title)) {
-				astronomicalObjectType = AstronomicalObjectType.PLANET; // TODO version 2: change to PROTOPLANET
 			}
 
 			if (astronomicalObjectType != null) {
