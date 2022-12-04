@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourc
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.service.fandom.FandomWikisDetector
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import info.bliki.api.Connector
@@ -31,6 +32,7 @@ class BlikiConnectorTest extends Specification {
 	private static final String API_URL = 'API_URL'
 	private static final String ACTION_URL = 'ACTION_URL'
 	private static final String CATEGORY_TITLE = 'CATEGORY_TITLE'
+	private static final String RAW_RESULT = 'RAW_RESULT'
 	private static final String CATEGORY_JSON = '{"categorytree":{"*":"<div class=\\"CategoryTreeSection\\">' +
 			'<div class=\\"CategoryTreeItem\\"><span class=\\"CategoryTreeEmptyBullet\\"></span>' +
 			'<a href=\\"/wiki/Category:Animal_performers\\" title=\\"Category:Animal performers\\">Animal performers</a></div>' +
@@ -302,6 +304,23 @@ class BlikiConnectorTest extends Specification {
 		1 * restTemplateMock.getForEntity(url, String, "{\"depth\":$depth}") >> ResponseEntity.ok(CATEGORY_JSON)
 		0 * _
 		categoryHeaders == [new CategoryHeader(title: 'Animal_performers'), new CategoryHeader(title: 'Audiobook_performers')]
+	}
+
+	void "gets raw template transclusions from Memory Alpha EN"() {
+		given:
+		String ticontinue = '234'
+		String url = "$API_URL?action=query&prop=transcludedin&tilimit=500&tinamespace=0&titles=Template:${TemplateTitle.SIDEBAR_ORGANIZATION}" +
+				"&format=json&ticontinue=$ticontinue"
+
+		when:
+		String rawResult = blikiConnector.getRawTemplateTransclusions(TemplateTitle.SIDEBAR_ORGANIZATION, ticontinue,
+				MediaWikiSource.MEMORY_ALPHA_EN)
+
+		then:
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * restTemplateMock.getForEntity(url, String) >> ResponseEntity.ok(RAW_RESULT)
+		0 * _
+		rawResult == RAW_RESULT
 	}
 
 	void "throws StapiRuntimeError on any error"() {

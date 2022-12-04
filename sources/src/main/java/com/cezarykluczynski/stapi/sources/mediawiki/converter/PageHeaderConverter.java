@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.converter;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.SpecialApiImpl;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -31,6 +32,14 @@ public class PageHeaderConverter {
 		pageHeader.setTitle(page.getTitle());
 		pageHeader.setPageId(page.getPageId());
 		pageHeader.setMediaWikiSource(page.getMediaWikiSource());
+		return pageHeader;
+	}
+
+	public PageHeader fromTranscludedInPage(SpecialApiImpl.Page page, MediaWikiSource mediaWikiSource) {
+		PageHeader pageHeader = new PageHeader();
+		pageHeader.setPageId(page.getPageid());
+		pageHeader.setTitle(page.getTitle());
+		pageHeader.setMediaWikiSource(mediaWikiSource);
 		return pageHeader;
 	}
 

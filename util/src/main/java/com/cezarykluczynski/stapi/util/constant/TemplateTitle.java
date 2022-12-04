@@ -35,6 +35,7 @@ public class TemplateTitle {
 	public static final String SIDEBAR_STATION = "sidebar station";
 	public static final String SIDEBAR_MILITARY_CONFLICT = "sidebar military conflict";
 	public static final String SIDEBAR_ELEMENT = "sidebar element";
+	public static final String SIDEBAR_ORGANIZATION = "sidebar organization";
 
 	public static final String BORN = "born";
 

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.converter
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.SpecialApiImpl
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
@@ -73,6 +74,19 @@ class PageHeaderConverterTest extends Specification {
 		then:
 		pageHeader.pageId == PAGE_ID_1_LONG
 		pageHeader.title == TITLE_1
+		pageHeader.mediaWikiSource == MEDIA_WIKI_SOURCE
+	}
+
+	void "converts transcluded in page to PageHeader"() {
+		given:
+		SpecialApiImpl.Page page = new SpecialApiImpl.Page(title: TITLE_1, pageid: PAGE_ID_1_LONG, ns: 0)
+
+		when:
+		PageHeader pageHeader = pageHeaderConverter.fromTranscludedInPage(page, MEDIA_WIKI_SOURCE)
+
+		then:
+		pageHeader.title == TITLE_1
+		pageHeader.pageId == PAGE_ID_1_LONG
 		pageHeader.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 

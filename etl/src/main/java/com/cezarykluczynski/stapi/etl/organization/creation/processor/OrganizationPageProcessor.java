@@ -38,7 +38,7 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 	}
 
 	@Override
-	public Organization process(Page item) throws Exception { // TODO: add sidebar organization template perhaps?
+	public Organization process(Page item) throws Exception {
 		if (organizationPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}

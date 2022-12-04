@@ -16,6 +16,7 @@ import info.bliki.api.User;
 import info.bliki.api.query.RequestBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -125,6 +126,20 @@ public class BlikiConnector {
 		return rawJsonCategoriesToList(rawCategoriesJson);
 	}
 
+	public String getRawTemplateTransclusions(String templateName, String tiContinue, MediaWikiSource mediaWikiSource) {
+		String jsonTransclusions;
+		switch (mediaWikiSource) {
+			case MEMORY_BETA_EN:
+				jsonTransclusions = doQueryMemoryBeta(() -> rawTranscludedIn(templateName, tiContinue, MediaWikiSource.MEMORY_BETA_EN));
+				break;
+			default:
+			case MEMORY_ALPHA_EN:
+				jsonTransclusions = doQueryMemoryAlpha(() -> rawTranscludedIn(templateName, tiContinue, MediaWikiSource.MEMORY_ALPHA_EN));
+				break;
+		}
+		return jsonTransclusions;
+	}
+
 	private String rawJsonCategories(String categoryTitle, int depth, MediaWikiSource mediaWikiSource) {
 		String urlPrefix;
 		if (MediaWikiSource.MEMORY_BETA_EN.equals(mediaWikiSource)) {
@@ -135,6 +150,20 @@ public class BlikiConnector {
 		String options = String.format("{\"depth\":%d}", depth);
 		String url = String.format("%s?action=categorytree&category=%s&format=json&options={options}", urlPrefix, categoryTitle);
 		final ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class, options);
+		return forEntity.getBody();
+	}
+
+	private String rawTranscludedIn(String templateTitle, String ticontinue, MediaWikiSource mediaWikiSource) {
+		String urlPrefix;
+		if (MediaWikiSource.MEMORY_BETA_EN.equals(mediaWikiSource)) {
+			urlPrefix = mediaWikiSourcesProperties.getMemoryBetaEn().getApiUrl();
+		} else {
+			urlPrefix = mediaWikiSourcesProperties.getMemoryAlphaEn().getApiUrl();
+		}
+		String tiContinueParam = StringUtils.isNotBlank(ticontinue) ? "&ticontinue=" + ticontinue : "";
+		String url = String.format("%s?action=query&prop=transcludedin&tilimit=500&tinamespace=0&titles=Template:%s&format=json%s",
+				urlPrefix, templateTitle, tiContinueParam);
+		final ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class);
 		return forEntity.getBody();
 	}
 
