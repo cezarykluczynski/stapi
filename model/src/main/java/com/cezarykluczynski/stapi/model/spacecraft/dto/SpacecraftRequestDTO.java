@@ -12,5 +12,9 @@ public class SpacecraftRequestDTO {
 
 	private String name;
 
+	private String registry;
+
+	private String status;
+
 	private RequestSortDTO sort;
 }

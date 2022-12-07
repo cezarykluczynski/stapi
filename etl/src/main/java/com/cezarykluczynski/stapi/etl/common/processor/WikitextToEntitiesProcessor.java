@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
+import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -81,6 +82,10 @@ public class WikitextToEntitiesProcessor {
 
 	public List<Occupation> findOccupations(String item) {
 		return wikitextToEntitiesGenericProcessor.process(item, Occupation.class);
+	}
+
+	public List<Weapon> findWeapons(String item) {
+		return wikitextToEntitiesGenericProcessor.process(item, Weapon.class);
 	}
 
 }

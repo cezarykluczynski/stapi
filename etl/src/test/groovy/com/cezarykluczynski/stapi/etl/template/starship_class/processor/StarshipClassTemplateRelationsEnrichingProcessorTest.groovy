@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
+import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -15,18 +17,23 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 	private static final String OPERATOR = 'OPERATOR'
 	private static final String AFFILIATION = 'AFFILIATION'
 	private static final String TYPE = 'TYPE'
+	private static final String ARMAMENT = 'ARMAMENT'
 
 	private StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessorMock
 
 	private StarshipClassTemplatePartOrganizationsEnrichingProcessor starshipClassTemplatePartOrganizationsEnrichingProcessorMock
+
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private StarshipClassTemplateRelationsEnrichingProcessor starshipClassTemplateRelationsEnrichingProcessor
 
 	void setup() {
 		starshipClassSpacecraftTypeProcessorMock = Mock()
 		starshipClassTemplatePartOrganizationsEnrichingProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		starshipClassTemplateRelationsEnrichingProcessor = new StarshipClassTemplateRelationsEnrichingProcessor(
-				starshipClassSpacecraftTypeProcessorMock, starshipClassTemplatePartOrganizationsEnrichingProcessorMock)
+				starshipClassSpacecraftTypeProcessorMock, starshipClassTemplatePartOrganizationsEnrichingProcessorMock,
+				wikitextToEntitiesProcessorMock)
 	}
 
 	void "when owner part is found, StarshipClassTemplatePartOrganizationsEnrichingProcessor is used"() {
@@ -94,6 +101,25 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		0 * _
 		starshipClassTemplate.spacecraftTypes.contains spacecraftType1
 		starshipClassTemplate.spacecraftTypes.contains spacecraftType2
+	}
+
+	void "when armament part is found, WikitextToEntitiesProcessor is used to process it"() {
+		given:
+		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+				key: StarshipClassTemplateParameter.ARMAMENT,
+				value: ARMAMENT)))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+		Weapon weapon1 = Mock()
+		Weapon weapon2 = Mock()
+
+		when:
+		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
+
+		then:
+		1 * wikitextToEntitiesProcessorMock.findWeapons(ARMAMENT) >> [weapon1, weapon2]
+		0 * _
+		starshipClassTemplate.armaments.contains weapon1
+		starshipClassTemplate.armaments.contains weapon2
 	}
 
 }

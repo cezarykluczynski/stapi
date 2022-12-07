@@ -31,15 +31,17 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.equal(SpacecraftClass_.uid, uid);
 		spacecraftClassQueryBuilder.like(SpacecraftClass_.name, criteria.getName());
 		spacecraftClassQueryBuilder.equal(SpacecraftClass_.warpCapable, criteria.getWarpCapable());
+		spacecraftClassQueryBuilder.equal(SpacecraftClass_.mirror, criteria.getMirror());
 		spacecraftClassQueryBuilder.equal(SpacecraftClass_.alternateReality, criteria.getAlternateReality());
 		spacecraftClassQueryBuilder.setSort(criteria.getSort());
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.homeworld, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.quadrant, doFetch);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owner);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operator);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliation);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owners, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operators, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.operator, doFetch);
@@ -56,7 +58,11 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		}
 
 		page.getContent().forEach(spacecraftClass -> {
+			spacecraftClass.setOwners(Sets.newHashSet());
+			spacecraftClass.setOperators(Sets.newHashSet());
+			spacecraftClass.setAffiliations(Sets.newHashSet());
 			spacecraftClass.setSpacecraftTypes(Sets.newHashSet());
+			spacecraftClass.setArmaments(Sets.newHashSet());
 			spacecraftClass.setSpacecrafts(Sets.newHashSet());
 		});
 	}

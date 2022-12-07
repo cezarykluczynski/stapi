@@ -89,6 +89,7 @@ public class TemplateTitle {
 	public static final String WORLD_SERIES = "world series";
 
 	public static final String BGINFO = "bginfo";
+	public static final String TYPE = "type";
 
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";

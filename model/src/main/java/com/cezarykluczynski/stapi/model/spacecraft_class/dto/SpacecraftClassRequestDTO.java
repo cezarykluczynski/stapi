@@ -14,6 +14,8 @@ public class SpacecraftClassRequestDTO {
 
 	private Boolean warpCapable;
 
+	private Boolean mirror;
+
 	private Boolean alternateReality;
 
 	private RequestSortDTO sort;

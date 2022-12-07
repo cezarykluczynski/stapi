@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specification {
@@ -15,6 +16,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 	private static final String TITLE_1 = 'TITLE_1'
 	private static final String TITLE_2 = 'TITLE_2'
 	private static final String TITLE_3 = 'TITLE_3'
+	private static final String TITLE_MIRROR = 'TITLE_(mirror)'
 	private static final String TITLE_ALTERNATE_REALITY = 'TITLE_(alternate_reality)'
 
 	private SpeciesStarshipClassesToSpeciesMappingProvider speciesStarshipClassesToSpeciesMappingProviderMock
@@ -43,7 +45,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_1) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.species == null
-		starshipClassTemplate.affiliation == null
+		starshipClassTemplate.affiliations.empty
 		!starshipClassTemplate.alternateReality
 	}
 
@@ -65,7 +67,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.species == species
-		starshipClassTemplate.affiliation == null
+		starshipClassTemplate.affiliations.empty
 		!starshipClassTemplate.alternateReality
 	}
 
@@ -86,20 +88,20 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		0 * _
-		starshipClassTemplate.affiliation == organization
+		starshipClassTemplate.affiliations == Sets.newHashSet(organization)
 		starshipClassTemplate.species == null
 		!starshipClassTemplate.alternateReality
 	}
 
-	void "when more than one species was found, none is used"() {
+	void "when more than one species was found, first one is used"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(title: TITLE_1),
 				new CategoryHeader(title: TITLE_2),
 				new CategoryHeader(title: TITLE_3))
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
-		Species species1 = Mock()
-		Species species2 = Mock()
+		Species species1 = new Species(name: 'species1')
+		Species species2 = new Species(name: 'species2')
 
 		when:
 		starshipClassTemplateCategoriesEnrichingProcessor.enrich(EnrichablePair.of(categoryHeaderList, starshipClassTemplate))
@@ -112,12 +114,12 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_3) >> Optional.of(species2)
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_3) >> Optional.empty()
 		0 * _
-		starshipClassTemplate.species == null
-		starshipClassTemplate.affiliation == null
+		starshipClassTemplate.species == species1
+		starshipClassTemplate.affiliations.empty
 		!starshipClassTemplate.alternateReality
 	}
 
-	void "when more than one organization was found, none is used"() {
+	void "when more than one organization was found, both are used"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(title: TITLE_1),
@@ -139,11 +141,29 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_3) >> Optional.of(organization2)
 		0 * _
 		starshipClassTemplate.species == null
-		starshipClassTemplate.affiliation == null
+		starshipClassTemplate.affiliations == Sets.newHashSet(organization1, organization2)
 		!starshipClassTemplate.alternateReality
 	}
 
-	void "sets alternateReality flag to true when title contains string 'alternate_reality'"() {
+	void "sets alternateReality flag to true when title ends with string '(mirror)'"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: TITLE_MIRROR))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+
+		when:
+		starshipClassTemplateCategoriesEnrichingProcessor.enrich(EnrichablePair.of(categoryHeaderList, starshipClassTemplate))
+
+		then:
+		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_MIRROR) >> Optional.empty()
+		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_MIRROR) >> Optional.empty()
+		0 * _
+		starshipClassTemplate.species == null
+		starshipClassTemplate.affiliations.empty
+		starshipClassTemplate.mirror
+		!starshipClassTemplate.alternateReality
+	}
+
+	void "sets alternateReality flag to true when title ends with string '(alternate_reality)'"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: TITLE_ALTERNATE_REALITY))
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
@@ -156,7 +176,8 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_ALTERNATE_REALITY) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.species == null
-		starshipClassTemplate.affiliation == null
+		starshipClassTemplate.affiliations.empty
+		!starshipClassTemplate.mirror
 		starshipClassTemplate.alternateReality
 	}
 

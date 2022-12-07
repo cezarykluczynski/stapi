@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.title.entity.Title
+import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import spock.lang.Specification
 
@@ -214,6 +215,19 @@ class WikitextToEntitiesProcessorTest extends Specification {
 		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Occupation) >> occupationClassList
 		0 * _
 		occupationClassListOutput == occupationClassList
+	}
+
+	void "finds weapons"() {
+		given:
+		List<Weapon> weaponList = Mock()
+
+		when:
+		List<Weapon> weaponListOutput = wikitextToEntitiesProcessor.findWeapons(WIKITEXT)
+
+		then:
+		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Weapon) >> weaponList
+		0 * _
+		weaponListOutput == weaponList
 	}
 
 }

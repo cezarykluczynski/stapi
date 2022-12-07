@@ -8,27 +8,26 @@ import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplatePara
 import com.cezarykluczynski.stapi.etl.template.starship.processor.ClassTemplateSpacecraftClassesProcessor;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessor;
 
-	public SpacecraftTemplateRelationsEnrichingProcessor(WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
-			ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessor) {
-		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
-		this.classTemplateSpacecraftClassesProcessor = classTemplateSpacecraftClassesProcessor;
-	}
-
 	@Override
+	@SuppressWarnings("NPathComplexity")
 	public void enrich(EnrichablePair<Template, StarshipTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		StarshipTemplate starshipTemplate = enrichablePair.getOutput();
@@ -59,7 +58,17 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 						}
 					}
 					break;
-				case StarshipTemplateParameter.CLASS: // TODO: class sometime contains {{type}} template...
+				case StarshipTemplateParameter.AFFILIATION:
+					List<Organization> affiliations = wikitextToEntitiesProcessor.findOrganizations(value);
+					if (!affiliations.isEmpty()) {
+						starshipTemplate.setAffiliation(affiliations.iterator().next());
+						if (affiliations.size() > 1) {
+							log.info("More than one organization found for spacecraft \"{}\" for affiliation value \"{}\", using the first value",
+									starshipName, value);
+						}
+					}
+					break;
+				case StarshipTemplateParameter.CLASS:
 					List<SpacecraftClass> classList = wikitextToEntitiesProcessor.findSpacecraftClasses(value);
 					if (!classList.isEmpty()) {
 						setFirstSpacecraftToTemplate(classList, starshipTemplate);
@@ -67,16 +76,18 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 							log.info("More than one spacecraft class found for spacecraft \"{}\" for operator value \"{}\", using the first value",
 									starshipName, value);
 						}
-					} else {
-						classList = classTemplateSpacecraftClassesProcessor.process(part);
-						if (!classList.isEmpty()) {
-							setFirstSpacecraftToTemplate(classList, starshipTemplate);
-							if (classList.size() > 1) {
-								log.info("More than one spacecraft class found for spacecraft \"{}\" for operator part \"{}\", using the first value",
-										starshipName, part);
-							}
+					}
+					final Pair<List<SpacecraftClass>, List<SpacecraftType>> pair = classTemplateSpacecraftClassesProcessor.process(part);
+					classList = pair.getKey();
+					if (!classList.isEmpty() && starshipTemplate.getSpacecraftClass() == null) {
+						setFirstSpacecraftToTemplate(classList, starshipTemplate);
+						if (classList.size() > 1) {
+							log.info("More than one spacecraft class found for spacecraft \"{}\" for operator part \"{}\", using the first value",
+									starshipName, part);
 						}
 					}
+					final List<SpacecraftType> spacecraftTypes = pair.getValue();
+					starshipTemplate.getSpacecraftTypes().addAll(spacecraftTypes);
 					break;
 				default:
 					break;

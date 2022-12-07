@@ -30,6 +30,7 @@ public class StarshipTemplateProcessor implements ItemProcessor<StarshipTemplate
 		}
 		spacecraft.setOwner(item.getOwner());
 		spacecraft.setOperator(item.getOperator());
+		spacecraft.setAffiliation(item.getAffiliation());
 		spacecraft.setStatus(item.getStatus());
 		spacecraft.setDateStatus(item.getDateStatus());
 

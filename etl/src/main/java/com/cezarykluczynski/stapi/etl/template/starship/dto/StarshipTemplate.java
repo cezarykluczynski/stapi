@@ -28,6 +28,8 @@ public class StarshipTemplate {
 
 	private Organization operator;
 
+	private Organization affiliation;
+
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
 }

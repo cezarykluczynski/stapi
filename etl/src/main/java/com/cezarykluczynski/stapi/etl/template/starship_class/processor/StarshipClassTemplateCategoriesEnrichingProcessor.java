@@ -14,13 +14,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class StarshipClassTemplateCategoriesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<List<CategoryHeader>, StarshipClassTemplate>> {
 
-	private static final String ALTERNATE_REALITY = "alternate_reality";
+	private static final String ALTERNATE_REALITY = "(alternate_reality)";
+	private static final String MIRROR = "(mirror)";
 
 	private final SpeciesStarshipClassesToSpeciesMappingProvider speciesStarshipClassesToSpeciesMappingProvider;
 
@@ -44,25 +46,24 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 			String title = categoryHeader.getTitle();
 			speciesStarshipClassesToSpeciesMappingProvider.provide(title).ifPresent(speciesCandidatesList::add);
 			organizationsStarshipClassesToOrganizationsMappingProvider.provide(title).ifPresent(organizationCandidatesList::add);
-			if (StringUtils.contains(title, ALTERNATE_REALITY)) {
+			if (StringUtils.endsWith(title, ALTERNATE_REALITY)) {
 				starshipClassTemplate.setAlternateReality(true);
 			}
-			// TODO: add mirror perhaps?
+			if (StringUtils.endsWith(title, MIRROR)) {
+				starshipClassTemplate.setMirror(true);
+			}
 		});
 
-		if (speciesCandidatesList.size() == 1) {
+		if (!speciesCandidatesList.isEmpty()) {
 			starshipClassTemplate.setSpecies(speciesCandidatesList.get(0));
-		} else if (!speciesCandidatesList.isEmpty()) {
-			log.warn("More than one species found for starship class \"{}\" when categories were looked at, none was used",
-					starshipClassTemplate.getName());
 		}
 
-		if (organizationCandidatesList.size() == 1) {
-			starshipClassTemplate.setAffiliation(organizationCandidatesList.get(0));
-		} else if (!organizationCandidatesList.isEmpty()) {
-			log.warn("More than one organization found for starship class \"{}\" when categories were looked at, none was used",
-					starshipClassTemplate.getName());
+		if (speciesCandidatesList.size() > 1) {
+			log.warn("More than one species found for starship class \"{}\" when categories were looked at, first one was used, species were: {}.",
+					starshipClassTemplate.getName(), speciesCandidatesList.stream().map(Species::getName).collect(Collectors.toList()));
 		}
+
+		starshipClassTemplate.getAffiliations().addAll(organizationCandidatesList);
 	}
 
 }

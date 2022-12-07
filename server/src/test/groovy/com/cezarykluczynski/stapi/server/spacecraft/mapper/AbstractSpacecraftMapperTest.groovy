@@ -18,6 +18,7 @@ abstract class AbstractSpacecraftMapperTest extends AbstractSpacecraftTest {
 				spacecraftClass: new SpacecraftClass(),
 				owner: new Organization(),
 				operator: new Organization(),
+				affiliation: new Organization(),
 				spacecraftTypes: createSetOfRandomNumberOfMocks(SpacecraftType))
 	}
 

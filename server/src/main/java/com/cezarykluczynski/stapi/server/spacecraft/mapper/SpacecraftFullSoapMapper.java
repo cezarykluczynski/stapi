@@ -15,6 +15,8 @@ public interface SpacecraftFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
 	@Mapping(target = "sort", ignore = true)
+	@Mapping(target = "registry", ignore = true)
+	@Mapping(target = "status", ignore = true)
 	SpacecraftRequestDTO mapFull(SpacecraftFullRequest spacecraftFullRequest);
 
 	SpacecraftFull mapFull(Spacecraft spacecraft);

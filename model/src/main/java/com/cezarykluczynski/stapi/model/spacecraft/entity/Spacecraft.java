@@ -31,8 +31,8 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
-@EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
+@ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "affiliation", "spacecraftTypes"})
+@EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "affiliation", "spacecraftTypes"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftRepository.class, singularName = "spacecraft",
 		pluralName = "spacecrafts")
@@ -64,6 +64,10 @@ public class Spacecraft extends PageAwareEntity implements PageAware {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "operator_id")
 	private Organization operator;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "affiliation_id")
+	private Organization affiliation;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "spacecrafts_spacecraft_types",

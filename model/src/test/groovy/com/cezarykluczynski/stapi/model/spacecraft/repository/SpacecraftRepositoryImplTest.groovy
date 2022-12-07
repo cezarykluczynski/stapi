@@ -51,6 +51,10 @@ class SpacecraftRepositoryImplTest extends AbstractSpacecraftTest {
 		then: 'string criteria are set'
 		1 * spacecraftRequestDTO.name >> NAME
 		1 * spacecraftQueryBuilder.like(Spacecraft_.name, NAME)
+		1 * spacecraftRequestDTO.registry >> REGISTRY
+		1 * spacecraftQueryBuilder.like(Spacecraft_.registry, REGISTRY)
+		1 * spacecraftRequestDTO.status >> STATUS
+		1 * spacecraftQueryBuilder.like(Spacecraft_.status, STATUS)
 
 		then: 'sort is set'
 		1 * spacecraftRequestDTO.sort >> SORT
@@ -59,11 +63,9 @@ class SpacecraftRepositoryImplTest extends AbstractSpacecraftTest {
 		then: 'fetch is performed'
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.species, true)
-		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.owner, true)
-		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.operator, true)
-		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.affiliation, true)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.owner)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.operator)
+		1 * spacecraftQueryBuilder.fetch(Spacecraft_.affiliation)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftTypes, true)
 
 		then: 'page is retrieved'

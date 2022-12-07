@@ -27,6 +27,7 @@ class StarshipTemplateProcessorTest extends AbstractSpacecraftTest {
 		given:
 		Organization owner = Mock()
 		Organization operator = Mock()
+		Organization affiliation = Mock()
 		SpacecraftType spacecraftType1 = Mock()
 		SpacecraftType spacecraftType2 = Mock()
 		SpacecraftType spacecraftType3 = Mock()
@@ -40,6 +41,7 @@ class StarshipTemplateProcessorTest extends AbstractSpacecraftTest {
 				page: page,
 				owner: owner,
 				operator: operator,
+				affiliation: affiliation,
 				spacecraftClass: spacecraftClass,
 				spacecraftTypes: Sets.newHashSet(spacecraftType3, spacecraftType4))
 
@@ -56,6 +58,7 @@ class StarshipTemplateProcessorTest extends AbstractSpacecraftTest {
 		spacecraft.page == page
 		spacecraft.owner == owner
 		spacecraft.operator == operator
+		spacecraft.affiliation == affiliation
 		spacecraft.spacecraftClass == spacecraftClass
 		spacecraft.spacecraftTypes.size() == 4
 		spacecraft.spacecraftTypes.contains spacecraftType1

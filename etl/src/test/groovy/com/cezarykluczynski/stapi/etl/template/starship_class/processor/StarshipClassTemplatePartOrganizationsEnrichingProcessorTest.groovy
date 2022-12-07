@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Specification {
@@ -43,7 +44,7 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList()
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList()
 		0 * _
-		starshipClassTemplate.owner == null
+		starshipClassTemplate.owners.empty
 	}
 
 	void "when owner part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
@@ -61,10 +62,10 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList(organization)
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList()
 		0 * _
-		starshipClassTemplate.owner == organization
+		starshipClassTemplate.owners[0] == organization
 	}
 
-	void "when owner part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns two items, both are used"() {
 		given:
 		Template.Part part = new Template.Part(
 				key: StarshipClassTemplateParameter.T5OWNER,
@@ -80,7 +81,7 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList(organization1)
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList(organization2)
 		0 * _
-		starshipClassTemplate.owner == organization1
+		starshipClassTemplate.owners == Sets.newHashSet(organization1, organization2)
 	}
 
 	void "when operator part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
@@ -97,7 +98,7 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList()
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList()
 		0 * _
-		starshipClassTemplate.operator == null
+		starshipClassTemplate.operators.empty
 	}
 
 	void "when operator part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
@@ -115,10 +116,10 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList()
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList(organization)
 		0 * _
-		starshipClassTemplate.operator == organization
+		starshipClassTemplate.operators == Sets.newHashSet(organization)
 	}
 
-	void "when operator part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns two items, both are used"() {
 		given:
 		Template.Part part = new Template.Part(
 				key: StarshipClassTemplateParameter.T5OPERATOR,
@@ -134,7 +135,7 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList(organization1)
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList(organization2)
 		0 * _
-		starshipClassTemplate.operator == organization1
+		starshipClassTemplate.operators == Sets.newHashSet(organization1, organization2)
 	}
 
 	void "when affiliation part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
@@ -151,7 +152,7 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(AFFILIATION) >> Lists.newArrayList()
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList()
 		0 * _
-		starshipClassTemplate.operator == null
+		starshipClassTemplate.operators.empty
 	}
 
 	void "when affiliation part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
@@ -169,10 +170,10 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(AFFILIATION) >> Lists.newArrayList(organization)
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList()
 		0 * _
-		starshipClassTemplate.affiliation == organization
+		starshipClassTemplate.affiliations == Sets.newHashSet(organization)
 	}
 
-	void "when affiliation part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
+	void "when affiliation part is found, and WikitextToEntitiesProcessor returns two items, both are used"() {
 		given:
 		Template.Part part = new Template.Part(
 				key: StarshipClassTemplateParameter.T5AFFILIATION,
@@ -188,7 +189,7 @@ class StarshipClassTemplatePartOrganizationsEnrichingProcessorTest extends Speci
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(AFFILIATION) >> Lists.newArrayList(organization1, organization2)
 		1 * wikitextToEntitiesProcessorMock.findOrganizations(part) >> Lists.newArrayList()
 		0 * _
-		starshipClassTemplate.affiliation == organization1
+		starshipClassTemplate.affiliations == Sets.newHashSet(organization1, organization2)
 	}
 
 }

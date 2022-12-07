@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -17,6 +18,8 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 	private final StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessor;
 
 	private final StarshipClassTemplatePartOrganizationsEnrichingProcessor starshipClassTemplatePartOrganizationsEnrichingProcessor;
+
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	@Override
 	public void enrich(EnrichablePair<Template, StarshipClassTemplate> enrichablePair) throws Exception {
@@ -55,6 +58,9 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 				case StarshipClassTemplateParameter.T4TYPE:
 				case StarshipClassTemplateParameter.T5TYPE:
 					starshipClassTemplate.getSpacecraftTypes().addAll(starshipClassSpacecraftTypeProcessor.process(value));
+					break;
+				case StarshipClassTemplateParameter.ARMAMENT:
+					starshipClassTemplate.getArmaments().addAll(wikitextToEntitiesProcessor.findWeapons(value));
 					break;
 				default:
 					break;

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.google.common.collect.Sets;
 import lombok.Data;
 
@@ -18,6 +19,10 @@ public class StarshipClassTemplate {
 
 	private Integer numberOfDecks;
 
+	private String crew;
+
+	private Boolean mirror;
+
 	private Boolean alternateReality;
 
 	private Boolean warpCapable;
@@ -28,11 +33,13 @@ public class StarshipClassTemplate {
 
 	private Species species;
 
-	private Organization owner;
+	private Set<Organization> owners = Sets.newHashSet();
 
-	private Organization operator;
+	private Set<Organization> operators = Sets.newHashSet();
 
-	private Organization affiliation;
+	private Set<Organization> affiliations = Sets.newHashSet();
+
+	private Set<Weapon> armaments = Sets.newHashSet();
 
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 

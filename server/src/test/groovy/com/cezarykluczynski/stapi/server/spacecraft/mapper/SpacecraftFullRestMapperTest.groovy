@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2Full
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft
 import org.mapstruct.factory.Mappers
 
@@ -29,6 +30,26 @@ class SpacecraftFullRestMapperTest extends AbstractSpacecraftMapperTest {
 		spacecraftFull.owner != null
 		spacecraftFull.operator != null
 		spacecraftFull.spacecraftTypes.size() == spacecraft.spacecraftTypes.size()
+	}
+
+	void "maps DB entity to full REST V2 entity"() {
+		given:
+		Spacecraft spacecraft = createSpacecraft()
+
+		when:
+		SpacecraftV2Full spacecraftV2Full = spacecraftFullRestMapper.mapV2Full(spacecraft)
+
+		then:
+		spacecraftV2Full.uid == UID
+		spacecraftV2Full.name == NAME
+		spacecraftV2Full.registry == REGISTRY
+		spacecraftV2Full.status == STATUS
+		spacecraftV2Full.dateStatus == DATE_STATUS
+		spacecraftV2Full.spacecraftClass != null
+		spacecraftV2Full.owner != null
+		spacecraftV2Full.operator != null
+		spacecraftV2Full.affiliation != null
+		spacecraftV2Full.spacecraftTypes.size() == spacecraft.spacecraftTypes.size()
 	}
 
 }

@@ -31,7 +31,5 @@ public enum AstronomicalObjectType {
 	STAR_SYSTEM,
 	SECTOR,
 	REGION
-	// BINARY_STAR // TODO version 2
-	// PROTOPLANET // TODO version 2
 
 }

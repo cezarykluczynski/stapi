@@ -71,4 +71,6 @@
 	<include file="conflict/0068_extend_conflict.xml" relativeToChangelogFile="true"/>
 	<include file="element/0069_rename_column.xml" relativeToChangelogFile="true"/>
 	<include file="technology/0070_extend_technology.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft_class/0071_extend_spacecraft_class.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft/0072_extend_spacecraft.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -7,12 +7,14 @@ import com.cezarykluczynski.stapi.etl.template.starship_class.dto.ActivityPeriod
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipClassTemplate> {
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
@@ -21,13 +23,7 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 
 	private final StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor;
 
-	public StarshipClassTemplateContentsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
-			StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor,
-			StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor) {
-		this.numberOfPartsProcessor = numberOfPartsProcessor;
-		this.starshipClassWarpCapableProcessor = starshipClassWarpCapableProcessor;
-		this.starshipClassActivityPeriodProcessor = starshipClassActivityPeriodProcessor;
-	}
+	private final StarshipClassCrewProcessor starshipClassCrewProcessor;
 
 	@Override
 	public void enrich(EnrichablePair<Template, StarshipClassTemplate> enrichablePair) throws Exception {
@@ -42,8 +38,9 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 				continue;
 			}
 
-			// TODO: add crew (found 136 times), armament (203), defenses (161)
-			// also consider: length (21), diameter (5), mass (10), beam (7), height (6), volume (1), cargo (11)
+			// TODO: As of 2022, there are defenses on 161 pages, but most of the defences are in technology category;
+			// if defenses are to be included here, they need to be moved to Weapon and marked as defensive weapon;
+			// something to consider for the future
 			switch (key) {
 				case StarshipClassTemplateParameter.DECKS:
 				case StarshipClassTemplateParameter.T1DECKS:
@@ -91,6 +88,9 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 						log.info("Activity period already set for {} to {}, value {} won't be used.",
 								starshipClassTemplate.getName(), currentActivityPeriodDTO, activityPeriodDTO);
 					}
+					break;
+				case StarshipClassTemplateParameter.CREW:
+					starshipClassTemplate.setCrew(starshipClassCrewProcessor.process(value));
 					break;
 				default:
 					break;

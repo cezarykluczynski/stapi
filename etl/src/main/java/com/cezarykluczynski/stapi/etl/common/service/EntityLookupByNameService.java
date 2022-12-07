@@ -6,6 +6,8 @@ import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
+import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -54,6 +56,14 @@ public class EntityLookupByNameService {
 
 	public Optional<Series> findSeriesByName(String seriesName, MediaWikiSource mediaWikiSource) {
 		return genericEntityLookupByNameService.findEntityByName(seriesName, mediaWikiSource, Series.class);
+	}
+
+	public Optional<SpacecraftClass> findSpacecraftClassByName(String spacecraftClassName, MediaWikiSource mediaWikiSource) {
+		return genericEntityLookupByNameService.findEntityByName(spacecraftClassName, mediaWikiSource, SpacecraftClass.class);
+	}
+
+	public Optional<SpacecraftType> findSpacecraftTypeByName(String spacecraftTypeName, MediaWikiSource mediaWikiSource) {
+		return genericEntityLookupByNameService.findEntityByName(spacecraftTypeName, mediaWikiSource, SpacecraftType.class);
 	}
 
 }

@@ -18,6 +18,8 @@ import java.util.List;
 public interface SpacecraftBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "registry", ignore = true)
+	@Mapping(target = "status", ignore = true)
 	SpacecraftRequestDTO mapBase(SpacecraftBaseRequest spacecraftBaseRequest);
 
 	SpacecraftBase mapBase(Spacecraft spacecraft);

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.model.spacecraft_class.repository.SpacecraftClassRepository;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,13 +30,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
 
-@ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
-@EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
+@ToString(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts"})
+@EqualsAndHashCode(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftClassRepository.class, singularName = "spacecraft class",
 		pluralName = "spacecraft classes")
@@ -52,11 +55,15 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 
 	private Integer numberOfDecks;
 
+	private String crew;
+
 	private Boolean warpCapable;
 
 	private String activeFrom;
 
 	private String activeTo;
+
+	private Boolean mirror;
 
 	private Boolean alternateReality;
 
@@ -64,17 +71,26 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	@JoinColumn(name = "species_id")
 	private Species species;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "owner_id")
-	private Organization owner;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "spacecraft_classes_owners",
+			joinColumns = @JoinColumn(name = "spacecraft_class_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Organization> owners = Sets.newHashSet();
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "operator_id")
-	private Organization operator;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "spacecraft_classes_operators",
+			joinColumns = @JoinColumn(name = "spacecraft_class_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Organization> operators = Sets.newHashSet();
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "affiliation_id")
-	private Organization affiliation;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "spacecraft_classes_affiliations",
+			joinColumns = @JoinColumn(name = "spacecraft_class_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Organization> affiliations = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "spacecraft_classes_types",
@@ -82,6 +98,13 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "spacecraft_type_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "spacecraft_classes_weapons",
+			joinColumns = @JoinColumn(name = "spacecraft_class_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "weapon_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Weapon> armaments = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "spacecraftClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

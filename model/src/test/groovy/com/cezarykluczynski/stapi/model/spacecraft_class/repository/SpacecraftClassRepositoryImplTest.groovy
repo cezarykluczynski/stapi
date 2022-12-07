@@ -60,7 +60,9 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 
 		then: 'boolean criteria are set'
 		1 * spacecraftClassRequestDTO.warpCapable >> WARP_CAPABLE
-		1 * spacecraftClassQueryBuilder.equal(Species_.warpCapableSpecies, WARP_CAPABLE)
+		1 * spacecraftClassQueryBuilder.equal(SpacecraftClass_.warpCapable, WARP_CAPABLE)
+		1 * spacecraftClassRequestDTO.mirror >> MIRROR
+		1 * spacecraftClassQueryBuilder.equal(SpacecraftClass_.mirror, MIRROR)
 		1 * spacecraftClassRequestDTO.alternateReality >> ALTERNATE_REALITY
 		1 * spacecraftClassQueryBuilder.equal(Species_.alternateReality, ALTERNATE_REALITY)
 
@@ -72,9 +74,10 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.homeworld, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.quadrant, true)
-		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owner)
-		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operator)
-		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliation)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owners, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operators, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, true)
@@ -105,7 +108,11 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 
 		then: 'proxies are cleared'
 		1 * page.content >> Lists.newArrayList(spacecraftClass)
+		1 * spacecraftClass.setOwners(Sets.newHashSet())
+		1 * spacecraftClass.setOperators(Sets.newHashSet())
+		1 * spacecraftClass.setAffiliations(Sets.newHashSet())
 		1 * spacecraftClass.setSpacecraftTypes(Sets.newHashSet())
+		1 * spacecraftClass.setArmaments(Sets.newHashSet())
 		1 * spacecraftClass.setSpacecrafts(Sets.newHashSet())
 		pageOutput == page
 	}

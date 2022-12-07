@@ -1,0 +1,6 @@
+type: object
+description: Response object for single spacecraft query (V2)
+properties:
+  spacecraft:
+    $ref: '#/definitions/SpacecraftV2Full'
+    description: Spacecraft, if found

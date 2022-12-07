@@ -6,6 +6,8 @@ import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
@@ -22,6 +24,8 @@ class EntityLookupByNameServiceTest extends Specification {
 	private static final String SPECIES_NAME = 'SPECIES_NAME'
 	private static final String BOOK_TITLE = 'BOOK_TITLE'
 	private static final String SERIES_TITLE = 'SERIES_TITLE'
+	private static final String SPACECRAFT_CLASS_TITLE = 'SPACECRAFT_CLASS_TITLE'
+	private static final String SPACECRAFT_TYPE_TITLE = 'SPACECRAFT_TYPE_TITLE'
 
 	private GenericEntityLookupByNameService genericEntityLookupByNameService
 
@@ -136,6 +140,36 @@ class EntityLookupByNameServiceTest extends Specification {
 		1 * genericEntityLookupByNameService.findEntityByName(SERIES_TITLE, SOURCES_MEDIA_WIKI_SOURCE, Series) >> Optional.of(series)
 		0 * _
 		seriesOptional.get() == series
+	}
+
+	void "gets spacecraft class object from generic service"() {
+		given:
+		SpacecraftClass spacecraftClass = Mock()
+
+		when:
+		Optional<SpacecraftClass> seriesOptional = entityLookupByNameService
+				.findSpacecraftClassByName(SPACECRAFT_CLASS_TITLE, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * genericEntityLookupByNameService.findEntityByName(SPACECRAFT_CLASS_TITLE, SOURCES_MEDIA_WIKI_SOURCE, SpacecraftClass) >>
+				Optional.of(spacecraftClass)
+		0 * _
+		seriesOptional.get() == spacecraftClass
+	}
+
+	void "gets spacecraft type object from generic service"() {
+		given:
+		SpacecraftType spacecraftType = Mock()
+
+		when:
+		Optional<SpacecraftType> seriesOptional = entityLookupByNameService
+				.findSpacecraftTypeByName(SPACECRAFT_TYPE_TITLE, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * genericEntityLookupByNameService.findEntityByName(SPACECRAFT_TYPE_TITLE, SOURCES_MEDIA_WIKI_SOURCE, SpacecraftType) >>
+				Optional.of(spacecraftType)
+		0 * _
+		seriesOptional.get() == spacecraftType
 	}
 
 }

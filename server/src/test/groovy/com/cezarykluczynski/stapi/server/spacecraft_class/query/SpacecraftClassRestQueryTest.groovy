@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.dto.SpacecraftClassRequ
 import com.cezarykluczynski.stapi.model.spacecraft_class.repository.SpacecraftClassRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.spacecraft_class.dto.SpacecraftClassRestBeanParams
+import com.cezarykluczynski.stapi.server.spacecraft_class.dto.SpacecraftClassV2RestBeanParams
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -39,6 +40,23 @@ class SpacecraftClassRestQueryTest extends Specification {
 		then:
 		1 * spacecraftClassBaseRestMapperMock.mapBase(spacecraftClassRestBeanParams) >> spacecraftClassRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(spacecraftClassRestBeanParams) >> pageRequest
+		1 * spacecraftClassRepositoryMock.findMatching(spacecraftClassRequestDTO, pageRequest) >> page
+		pageOutput == page
+	}
+
+	void "maps SpacecraftClassV2RestBeanParams to SpacecraftClassRequestDTO and to PageRequest, then calls repository, then returns result"() {
+		given:
+		PageRequest pageRequest = Mock()
+		SpacecraftClassV2RestBeanParams spacecraftClassV2RestBeanParams = Mock()
+		SpacecraftClassRequestDTO spacecraftClassRequestDTO = Mock()
+		Page page = Mock()
+
+		when:
+		Page pageOutput = spacecraftClassRestQuery.query(spacecraftClassV2RestBeanParams)
+
+		then:
+		1 * spacecraftClassBaseRestMapperMock.mapV2Base(spacecraftClassV2RestBeanParams) >> spacecraftClassRequestDTO
+		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(spacecraftClassV2RestBeanParams) >> pageRequest
 		1 * spacecraftClassRepositoryMock.findMatching(spacecraftClassRequestDTO, pageRequest) >> page
 		pageOutput == page
 	}

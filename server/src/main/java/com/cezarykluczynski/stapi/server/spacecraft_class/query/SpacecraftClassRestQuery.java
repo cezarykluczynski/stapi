@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_class.repository.SpacecraftClassRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.spacecraft_class.dto.SpacecraftClassRestBeanParams;
+import com.cezarykluczynski.stapi.server.spacecraft_class.dto.SpacecraftClassV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,12 @@ public class SpacecraftClassRestQuery {
 	public Page<SpacecraftClass> query(SpacecraftClassRestBeanParams spacecraftClassRestBeanParams) {
 		SpacecraftClassRequestDTO spacecraftClassRequestDTO = spacecraftClassBaseRestMapper.mapBase(spacecraftClassRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(spacecraftClassRestBeanParams);
+		return spacecraftClassRepository.findMatching(spacecraftClassRequestDTO, pageRequest);
+	}
+
+	public Page<SpacecraftClass> query(SpacecraftClassV2RestBeanParams spacecraftClassV2RestBeanParams) {
+		SpacecraftClassRequestDTO spacecraftClassRequestDTO = spacecraftClassBaseRestMapper.mapV2Base(spacecraftClassV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(spacecraftClassV2RestBeanParams);
 		return spacecraftClassRepository.findMatching(spacecraftClassRequestDTO, pageRequest);
 	}
 

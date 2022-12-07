@@ -19,6 +19,8 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 	private static final String ACTIVE_FROM = 'ACTIVE_FROM'
 	private static final String ACTIVE_TO = 'ACTIVE_TO'
 	private static final String UNUSED_STRING = 'UNUSED_STRING'
+	private static final String CREW_RAW = 'CREW_RAW'
+	private static final String CREW = 'CREW'
 	private static final Boolean WARP_CAPABLE = RandomUtil.nextBoolean()
 	private static final Integer JUST_FOR_LOGGING_INTEGER = 11
 	private static final String JUST_FOR_LOGGING_BOOLEAN = !WARP_CAPABLE
@@ -29,14 +31,17 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 
 	private StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessorMock
 
+	private StarshipClassCrewProcessor starshipClassCrewProcessorMock
+
 	private StarshipClassTemplateContentsEnrichingProcessor starshipClassTemplateContentsEnrichingProcessor
 
 	void setup() {
 		numberOfPartsProcessorMock = Mock()
 		starshipClassWarpCapableProcessorMock = Mock()
 		starshipClassActivityPeriodProcessorMock = Mock()
+		starshipClassCrewProcessorMock = Mock()
 		starshipClassTemplateContentsEnrichingProcessor = new StarshipClassTemplateContentsEnrichingProcessor(numberOfPartsProcessorMock,
-				starshipClassWarpCapableProcessorMock, starshipClassActivityPeriodProcessorMock)
+				starshipClassWarpCapableProcessorMock, starshipClassActivityPeriodProcessorMock, starshipClassCrewProcessorMock)
 	}
 
 	void "when decks part is found, NumberOfPartsProcessor is used to process it"() {
@@ -158,6 +163,22 @@ class StarshipClassTemplateContentsEnrichingProcessorTest extends Specification 
 		0 * _
 		starshipClassTemplate.activeFrom == ACTIVE_FROM
 		starshipClassTemplate.activeTo == ACTIVE_TO
+	}
+
+	void "when crew part is found, it's value is set via a processor"() {
+		given:
+		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(
+				new Template.Part(key: StarshipClassTemplateParameter.CREW, value: CREW_RAW)
+		))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+
+		when:
+		starshipClassTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
+
+		then:
+		1 * starshipClassCrewProcessorMock.process(CREW_RAW) >> CREW
+		0 * _
+		starshipClassTemplate.crew == CREW
 	}
 
 }

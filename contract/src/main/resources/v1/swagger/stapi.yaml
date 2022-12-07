@@ -147,10 +147,18 @@ paths:
     $ref: ./spacecraft/path/spacecraft.path.yaml
   /v1/rest/spacecraft/search:
     $ref: ./spacecraft/path/spacecraftSearch.path.yaml
+  /v2/rest/spacecraft:
+    $ref: ./spacecraft/path/spacecraftV2.path.yaml
+  /v2/rest/spacecraft/search:
+    $ref: ./spacecraft/path/spacecraftV2Search.path.yaml
   /v1/rest/spacecraftClass:
     $ref: ./spacecraft_class/path/spacecraftClass.path.yaml
   /v1/rest/spacecraftClass/search:
     $ref: ./spacecraft_class/path/spacecraftClassSearch.path.yaml
+  /v2/rest/spacecraftClass:
+    $ref: ./spacecraft_class/path/spacecraftClassV2.path.yaml
+  /v2/rest/spacecraftClass/search:
+    $ref: ./spacecraft_class/path/spacecraftClassV2Search.path.yaml
   /v1/rest/species:
     $ref: ./species/path/species.path.yaml
   /v1/rest/species/search:
@@ -577,6 +585,14 @@ definitions:
     $ref: ./spacecraft/entity/spacecraftBaseResponse.yaml
   SpacecraftFullResponse:
     $ref: ./spacecraft/entity/spacecraftFullResponse.yaml
+  SpacecraftV2Base:
+    $ref: ./spacecraft/entity/spacecraftV2Base.yaml
+  SpacecraftV2Full:
+    $ref: ./spacecraft/entity/spacecraftV2Full.yaml
+  SpacecraftV2BaseResponse:
+    $ref: ./spacecraft/entity/spacecraftV2BaseResponse.yaml
+  SpacecraftV2FullResponse:
+    $ref: ./spacecraft/entity/spacecraftV2FullResponse.yaml
   SpacecraftClassHeader:
     $ref: ./spacecraft_class/entity/spacecraftClassHeader.yaml
   SpacecraftClassBase:
@@ -587,6 +603,14 @@ definitions:
     $ref: ./spacecraft_class/entity/spacecraftClassBaseResponse.yaml
   SpacecraftClassFullResponse:
     $ref: ./spacecraft_class/entity/spacecraftClassFullResponse.yaml
+  SpacecraftClassV2Base:
+    $ref: ./spacecraft_class/entity/spacecraftClassV2Base.yaml
+  SpacecraftClassV2Full:
+    $ref: ./spacecraft_class/entity/spacecraftClassV2Full.yaml
+  SpacecraftClassV2BaseResponse:
+    $ref: ./spacecraft_class/entity/spacecraftClassV2BaseResponse.yaml
+  SpacecraftClassV2FullResponse:
+    $ref: ./spacecraft_class/entity/spacecraftClassV2FullResponse.yaml
   SpacecraftType:
     $ref: ./spacecraft_type/entity/spacecraftType.yaml
   SpeciesHeader:
