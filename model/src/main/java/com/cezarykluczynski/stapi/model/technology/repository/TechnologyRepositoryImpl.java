@@ -38,12 +38,23 @@ public class TechnologyRepositoryImpl implements TechnologyRepositoryCustom {
 		technologyQueryBuilder.equal(Technology_.lifeSupportTechnology, criteria.getLifeSupportTechnology());
 		technologyQueryBuilder.equal(Technology_.sensorTechnology, criteria.getSensorTechnology());
 		technologyQueryBuilder.equal(Technology_.shieldTechnology, criteria.getShieldTechnology());
+		technologyQueryBuilder.equal(Technology_.securityTechnology, criteria.getSecurityTechnology());
+		technologyQueryBuilder.equal(Technology_.propulsionTechnology, criteria.getPropulsionTechnology());
+		technologyQueryBuilder.equal(Technology_.spacecraftComponent, criteria.getSpacecraftComponent());
+		technologyQueryBuilder.equal(Technology_.warpTechnology, criteria.getWarpTechnology());
+		technologyQueryBuilder.equal(Technology_.transwarpTechnology, criteria.getTranswarpTechnology());
+		technologyQueryBuilder.equal(Technology_.timeTravelTechnology, criteria.getTimeTravelTechnology());
+		technologyQueryBuilder.equal(Technology_.militaryTechnology, criteria.getMilitaryTechnology());
+		technologyQueryBuilder.equal(Technology_.victualTechnology, criteria.getVictualTechnology());
 		technologyQueryBuilder.equal(Technology_.tool, criteria.getTool());
 		technologyQueryBuilder.equal(Technology_.culinaryTool, criteria.getCulinaryTool());
 		technologyQueryBuilder.equal(Technology_.engineeringTool, criteria.getEngineeringTool());
 		technologyQueryBuilder.equal(Technology_.householdTool, criteria.getHouseholdTool());
 		technologyQueryBuilder.equal(Technology_.medicalEquipment, criteria.getMedicalEquipment());
 		technologyQueryBuilder.equal(Technology_.transporterTechnology, criteria.getTransporterTechnology());
+		technologyQueryBuilder.equal(Technology_.transportationTechnology, criteria.getTransportationTechnology());
+		technologyQueryBuilder.equal(Technology_.weaponComponent, criteria.getWeaponComponent());
+		technologyQueryBuilder.equal(Technology_.artificialLifeformComponent, criteria.getArtificialLifeformComponent());
 		technologyQueryBuilder.setSort(criteria.getSort());
 
 		return technologyQueryBuilder.findPage();

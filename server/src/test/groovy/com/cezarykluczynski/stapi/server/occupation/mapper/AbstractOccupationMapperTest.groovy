@@ -10,9 +10,17 @@ abstract class AbstractOccupationMapperTest extends AbstractOccupationTest {
 		new Occupation(
 				uid: UID,
 				name: NAME,
+				artsOccupation: ARTS_OCCUPATION,
+				communicationOccupation: COMMUNICATION_OCCUPATION,
+				economicOccupation: ECONOMIC_OCCUPATION,
+				educationOccupation: EDUCATION_OCCUPATION,
+				entertainmentOccupation: ENTERTAINMENT_OCCUPATION,
+				illegalOccupation: ILLEGAL_OCCUPATION,
 				legalOccupation: LEGAL_OCCUPATION,
 				medicalOccupation: MEDICAL_OCCUPATION,
 				scientificOccupation: SCIENTIFIC_OCCUPATION,
+				sportsOccupation: SPORTS_OCCUPATION,
+				victualOccupation: VICTUAL_OCCUPATION,
 				characters: createSetOfRandomNumberOfMocks(Character))
 	}
 

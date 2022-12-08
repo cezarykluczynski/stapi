@@ -56,12 +56,28 @@ class OccupationRepositoryImplTest extends AbstractOccupationTest {
 		1 * occupationQueryBuilder.like(Occupation_.name, NAME)
 
 		then: 'boolean criteria are set'
+		1 * occupationRequestDTO.artsOccupation >> ARTS_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.artsOccupation, ARTS_OCCUPATION)
+		1 * occupationRequestDTO.communicationOccupation >> COMMUNICATION_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.communicationOccupation, COMMUNICATION_OCCUPATION)
+		1 * occupationRequestDTO.economicOccupation >> ECONOMIC_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.economicOccupation, ECONOMIC_OCCUPATION)
+		1 * occupationRequestDTO.educationOccupation >> EDUCATION_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.educationOccupation, EDUCATION_OCCUPATION)
+		1 * occupationRequestDTO.entertainmentOccupation >> ENTERTAINMENT_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.entertainmentOccupation, ENTERTAINMENT_OCCUPATION)
+		1 * occupationRequestDTO.illegalOccupation >> ILLEGAL_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.illegalOccupation, ILLEGAL_OCCUPATION)
 		1 * occupationRequestDTO.legalOccupation >> LEGAL_OCCUPATION
 		1 * occupationQueryBuilder.equal(Occupation_.legalOccupation, LEGAL_OCCUPATION)
 		1 * occupationRequestDTO.medicalOccupation >> MEDICAL_OCCUPATION
 		1 * occupationQueryBuilder.equal(Occupation_.medicalOccupation, MEDICAL_OCCUPATION)
 		1 * occupationRequestDTO.scientificOccupation >> SCIENTIFIC_OCCUPATION
 		1 * occupationQueryBuilder.equal(Occupation_.scientificOccupation, SCIENTIFIC_OCCUPATION)
+		1 * occupationRequestDTO.sportsOccupation >> SPORTS_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.sportsOccupation, SPORTS_OCCUPATION)
+		1 * occupationRequestDTO.victualOccupation >> VICTUAL_OCCUPATION
+		1 * occupationQueryBuilder.equal(Occupation_.victualOccupation, VICTUAL_OCCUPATION)
 
 		then: 'sort is set'
 		1 * occupationRequestDTO.sort >> SORT

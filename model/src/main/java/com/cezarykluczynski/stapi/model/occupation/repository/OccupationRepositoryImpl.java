@@ -28,9 +28,17 @@ public class OccupationRepositoryImpl extends AbstractRepositoryImpl<Occupation>
 
 		occupationQueryBuilder.equal(Occupation_.uid, uid);
 		occupationQueryBuilder.like(Occupation_.name, criteria.getName());
+		occupationQueryBuilder.equal(Occupation_.artsOccupation, criteria.getArtsOccupation());
+		occupationQueryBuilder.equal(Occupation_.communicationOccupation, criteria.getCommunicationOccupation());
+		occupationQueryBuilder.equal(Occupation_.economicOccupation, criteria.getEconomicOccupation());
+		occupationQueryBuilder.equal(Occupation_.educationOccupation, criteria.getEducationOccupation());
+		occupationQueryBuilder.equal(Occupation_.entertainmentOccupation, criteria.getEntertainmentOccupation());
+		occupationQueryBuilder.equal(Occupation_.illegalOccupation, criteria.getIllegalOccupation());
 		occupationQueryBuilder.equal(Occupation_.legalOccupation, criteria.getLegalOccupation());
 		occupationQueryBuilder.equal(Occupation_.medicalOccupation, criteria.getMedicalOccupation());
 		occupationQueryBuilder.equal(Occupation_.scientificOccupation, criteria.getScientificOccupation());
+		occupationQueryBuilder.equal(Occupation_.sportsOccupation, criteria.getSportsOccupation());
+		occupationQueryBuilder.equal(Occupation_.victualOccupation, criteria.getVictualOccupation());
 		occupationQueryBuilder.setSort(criteria.getSort());
 		occupationQueryBuilder.fetch(Occupation_.characters, doFetch);
 

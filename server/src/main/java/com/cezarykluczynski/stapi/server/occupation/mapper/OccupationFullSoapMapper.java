@@ -14,9 +14,17 @@ import org.mapstruct.Mapping;
 public interface OccupationFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
+	@Mapping(target = "artsOccupation", ignore = true)
+	@Mapping(target = "communicationOccupation", ignore = true)
+	@Mapping(target = "economicOccupation", ignore = true)
+	@Mapping(target = "educationOccupation", ignore = true)
+	@Mapping(target = "entertainmentOccupation", ignore = true)
+	@Mapping(target = "illegalOccupation", ignore = true)
 	@Mapping(target = "legalOccupation", ignore = true)
 	@Mapping(target = "medicalOccupation", ignore = true)
 	@Mapping(target = "scientificOccupation", ignore = true)
+	@Mapping(target = "sportsOccupation", ignore = true)
+	@Mapping(target = "victualOccupation", ignore = true)
 	@Mapping(target = "sort", ignore = true)
 	OccupationRequestDTO mapFull(OccupationFullRequest occupationFullRequest);
 

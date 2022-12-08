@@ -114,11 +114,14 @@ paths:
     $ref: ./movie/path/movie.path.yaml
   /v1/rest/movie/search:
     $ref: ./movie/path/movieSearch.path.yaml
-  # TODO: Add V2
   /v1/rest/occupation:
     $ref: ./occupation/path/occupation.path.yaml
   /v1/rest/occupation/search:
     $ref: ./occupation/path/occupationSearch.path.yaml
+  /v2/rest/occupation:
+    $ref: ./occupation/path/occupationV2.path.yaml
+  /v2/rest/occupation/search:
+    $ref: ./occupation/path/occupationV2Search.path.yaml
   /v1/rest/organization:
     $ref: ./organization/path/organization.path.yaml
   /v1/rest/organization/search:
@@ -508,6 +511,14 @@ definitions:
     $ref: ./occupation/entity/occupationBaseResponse.yaml
   OccupationFullResponse:
     $ref: ./occupation/entity/occupationFullResponse.yaml
+  OccupationV2Base:
+    $ref: ./occupation/entity/occupationV2Base.yaml
+  OccupationV2Full:
+    $ref: ./occupation/entity/occupationV2Full.yaml
+  OccupationV2BaseResponse:
+    $ref: ./occupation/entity/occupationV2BaseResponse.yaml
+  OccupationV2FullResponse:
+    $ref: ./occupation/entity/occupationV2FullResponse.yaml
   OrganizationHeader:
     $ref: ./organization/entity/organizationHeader.yaml
   OrganizationBase:

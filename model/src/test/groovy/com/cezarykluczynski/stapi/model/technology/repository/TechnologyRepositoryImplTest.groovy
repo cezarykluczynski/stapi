@@ -82,6 +82,23 @@ class TechnologyRepositoryImplTest extends AbstractTechnologyTest {
 		1 * technologyQueryBuilder.equal(Technology_.sensorTechnology, SENSOR_TECHNOLOGY)
 		1 * technologyRequestDTO.shieldTechnology >> SHIELD_TECHNOLOGY
 		1 * technologyQueryBuilder.equal(Technology_.shieldTechnology, SHIELD_TECHNOLOGY)
+
+		1 * technologyRequestDTO.securityTechnology >> SECURITY_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.securityTechnology, SECURITY_TECHNOLOGY)
+		1 * technologyRequestDTO.propulsionTechnology >> PROPULSION_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.propulsionTechnology, PROPULSION_TECHNOLOGY)
+		1 * technologyRequestDTO.spacecraftComponent >> SPACECRAFT_COMPONENT
+		1 * technologyQueryBuilder.equal(Technology_.spacecraftComponent, SPACECRAFT_COMPONENT)
+		1 * technologyRequestDTO.warpTechnology >> WARP_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.warpTechnology, WARP_TECHNOLOGY)
+		1 * technologyRequestDTO.transwarpTechnology >> TRANSWARP_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.transwarpTechnology, TRANSWARP_TECHNOLOGY)
+		1 * technologyRequestDTO.timeTravelTechnology >> TIME_TRAVEL_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.timeTravelTechnology, TIME_TRAVEL_TECHNOLOGY)
+		1 * technologyRequestDTO.militaryTechnology >> MILITARY_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.militaryTechnology, MILITARY_TECHNOLOGY)
+		1 * technologyRequestDTO.victualTechnology >> VICTUAL_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.victualTechnology, VICTUAL_TECHNOLOGY)
 		1 * technologyRequestDTO.tool >> TOOL
 		1 * technologyQueryBuilder.equal(Technology_.tool, TOOL)
 		1 * technologyRequestDTO.culinaryTool >> CULINARY_TOOL
@@ -94,6 +111,12 @@ class TechnologyRepositoryImplTest extends AbstractTechnologyTest {
 		1 * technologyQueryBuilder.equal(Technology_.medicalEquipment, MEDICAL_EQUIPMENT)
 		1 * technologyRequestDTO.transporterTechnology >> TRANSPORTER_TECHNOLOGY
 		1 * technologyQueryBuilder.equal(Technology_.transporterTechnology, TRANSPORTER_TECHNOLOGY)
+		1 * technologyRequestDTO.transportationTechnology >> TRANSPORTATION_TECHNOLOGY
+		1 * technologyQueryBuilder.equal(Technology_.transportationTechnology, TRANSPORTATION_TECHNOLOGY)
+		1 * technologyRequestDTO.weaponComponent >> WEAPON_COMPONENT
+		1 * technologyQueryBuilder.equal(Technology_.weaponComponent, WEAPON_COMPONENT)
+		1 * technologyRequestDTO.artificialLifeformComponent >> ARTIFICIAL_LIFEFORM_COMPONENT
+		1 * technologyQueryBuilder.equal(Technology_.artificialLifeformComponent, ARTIFICIAL_LIFEFORM_COMPONENT)
 
 		then: 'sort is set'
 		1 * technologyRequestDTO.sort >> SORT

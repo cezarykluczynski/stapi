@@ -12,11 +12,27 @@ public class OccupationRequestDTO {
 
 	private String name;
 
+	private Boolean artsOccupation;
+
+	private Boolean communicationOccupation;
+
+	private Boolean economicOccupation;
+
+	private Boolean educationOccupation;
+
+	private Boolean entertainmentOccupation;
+
+	private Boolean illegalOccupation;
+
 	private Boolean legalOccupation;
 
 	private Boolean medicalOccupation;
 
 	private Boolean scientificOccupation;
+
+	private Boolean sportsOccupation;
+
+	private Boolean victualOccupation;
 
 	private RequestSortDTO sort;
 

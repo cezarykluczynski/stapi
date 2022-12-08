@@ -1,0 +1,6 @@
+type: object
+description: Response object for single occupation query (V2)
+properties:
+  occupation:
+    $ref: '#/definitions/OccupationV2Full'
+    description: Occupation, if found
