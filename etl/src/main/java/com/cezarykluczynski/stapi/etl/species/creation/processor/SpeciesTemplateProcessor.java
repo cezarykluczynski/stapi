@@ -29,6 +29,7 @@ public class SpeciesTemplateProcessor implements ItemProcessor<SpeciesTemplate, 
 		species.setExtraGalacticSpecies(item.isExtraGalacticSpecies());
 		species.setHumanoidSpecies(item.isHumanoidSpecies());
 		species.setReptilianSpecies(item.isReptilianSpecies());
+		species.setAvianSpecies(item.isAvianSpecies());
 		species.setNonCorporealSpecies(item.isNonCorporealSpecies());
 		species.setShapeshiftingSpecies(item.isShapeshiftingSpecies());
 		species.setSpaceborneSpecies(item.isSpaceborneSpecies());

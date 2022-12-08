@@ -61,6 +61,8 @@ public class Species extends PageAwareEntity implements PageAware {
 
 	private Boolean reptilianSpecies;
 
+	private Boolean avianSpecies;
+
 	private Boolean nonCorporealSpecies;
 
 	private Boolean shapeshiftingSpecies;

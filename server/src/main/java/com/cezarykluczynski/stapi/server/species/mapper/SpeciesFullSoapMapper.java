@@ -19,6 +19,7 @@ public interface SpeciesFullSoapMapper {
 	@Mapping(target = "extraGalacticSpecies", ignore = true)
 	@Mapping(target = "humanoidSpecies", ignore = true)
 	@Mapping(target = "reptilianSpecies", ignore = true)
+	@Mapping(target = "avianSpecies", ignore = true)
 	@Mapping(target = "nonCorporealSpecies", ignore = true)
 	@Mapping(target = "shapeshiftingSpecies", ignore = true)
 	@Mapping(target = "spaceborneSpecies", ignore = true)

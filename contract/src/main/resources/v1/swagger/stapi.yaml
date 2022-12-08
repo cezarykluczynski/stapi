@@ -163,6 +163,10 @@ paths:
     $ref: ./species/path/species.path.yaml
   /v1/rest/species/search:
     $ref: ./species/path/speciesSearch.path.yaml
+  /v2/rest/species:
+    $ref: ./species/path/speciesV2.path.yaml
+  /v2/rest/species/search:
+    $ref: ./species/path/speciesV2Search.path.yaml
   /v1/rest/staff:
     $ref: ./staff/path/staff.path.yaml
   /v1/rest/staff/search:
@@ -623,6 +627,14 @@ definitions:
     $ref: ./species/entity/speciesBaseResponse.yaml
   SpeciesFullResponse:
     $ref: ./species/entity/speciesFullResponse.yaml
+  SpeciesV2Base:
+    $ref: ./species/entity/speciesV2Base.yaml
+  SpeciesV2Full:
+    $ref: ./species/entity/speciesV2Full.yaml
+  SpeciesV2BaseResponse:
+    $ref: ./species/entity/speciesV2BaseResponse.yaml
+  SpeciesV2FullResponse:
+    $ref: ./species/entity/speciesV2FullResponse.yaml
   StaffHeader:
     $ref: ./staff/entity/staffHeader.yaml
   StaffBase:

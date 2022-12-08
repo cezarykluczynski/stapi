@@ -73,7 +73,8 @@ public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemWithTe
 		}
 		if (StringUtil.containsIgnoreCase(pageTitleList, ORNITHOID) || StringUtil.containsIgnoreCase(pageTitleList, AVIAN)
 				|| StringUtil.containsIgnoreCase(pageTitleList, BIRD)) {
-			// TODO: add avian species
+			speciesTemplate.setAvianSpecies(true);
+			someFlagSet = true;
 		}
 		if (!StringUtil.containsIgnoreCase(pageTitleList, NON_HUMANOID) && !someFlagSet) {
 			String pageTitle = "[unknown]";

@@ -44,6 +44,9 @@ class SpeciesTemplateTypeWikitextEnrichingProcessorTest extends Specification {
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.REPTILIAN              | 'reptilianSpecies'     | true  | 1
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.REPTILOID              | 'reptilianSpecies'     | true  | 1
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SAURIAN                | 'reptilianSpecies'     | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.ORNITHOID              | 'avianSpecies'         | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.AVIAN                  | 'avianSpecies'         | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.BIRD                   | 'avianSpecies'         | true  | 1
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL_SPECIES  | 'nonCorporealSpecies'  | true  | 1
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL          | 'nonCorporealSpecies'  | true  | 1
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL_LIFEFORM | 'nonCorporealSpecies'  | true  | 1

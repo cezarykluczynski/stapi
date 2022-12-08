@@ -11,6 +11,7 @@ abstract class AbstractSpeciesTest extends AbstractTest {
 	protected static final Boolean EXTRA_GALACTIC_SPECIES = RandomUtil.nextBoolean()
 	protected static final Boolean HUMANOID_SPECIES = RandomUtil.nextBoolean()
 	protected static final Boolean REPTILIAN_SPECIES = RandomUtil.nextBoolean()
+	protected static final Boolean AVIAN_SPECIES = RandomUtil.nextBoolean()
 	protected static final Boolean NON_CORPOREAL_SPECIES = RandomUtil.nextBoolean()
 	protected static final Boolean SHAPESHIFTING_SPECIES = RandomUtil.nextBoolean()
 	protected static final Boolean SPACEBORNE_SPECIES = RandomUtil.nextBoolean()

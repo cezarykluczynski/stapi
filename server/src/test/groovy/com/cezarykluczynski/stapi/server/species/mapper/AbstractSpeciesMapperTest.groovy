@@ -21,6 +21,7 @@ abstract class AbstractSpeciesMapperTest extends AbstractSpeciesTest {
 				extraGalacticSpecies: EXTRA_GALACTIC_SPECIES,
 				humanoidSpecies: HUMANOID_SPECIES,
 				reptilianSpecies: REPTILIAN_SPECIES,
+				avianSpecies: AVIAN_SPECIES,
 				nonCorporealSpecies: NON_CORPOREAL_SPECIES,
 				shapeshiftingSpecies: SHAPESHIFTING_SPECIES,
 				spaceborneSpecies: SPACEBORNE_SPECIES,

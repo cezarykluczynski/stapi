@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.species.repository.SpeciesRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams;
+import com.cezarykluczynski.stapi.server.species.dto.SpeciesV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,5 +32,10 @@ public class SpeciesRestQuery {
 		return speciesRepository.findMatching(speciesRequestDTO, pageRequest);
 	}
 
+	public Page<Species> query(SpeciesV2RestBeanParams speciesRestBeanParams) {
+		SpeciesRequestDTO speciesRequestDTO = speciesRequestMapper.mapV2Base(speciesRestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(speciesRestBeanParams);
+		return speciesRepository.findMatching(speciesRequestDTO, pageRequest);
+	}
 
 }

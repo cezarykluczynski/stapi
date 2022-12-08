@@ -45,6 +45,7 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 		speciesQueryBuilder.equal(Species_.extraGalacticSpecies, criteria.getExtraGalacticSpecies());
 		speciesQueryBuilder.equal(Species_.humanoidSpecies, criteria.getHumanoidSpecies());
 		speciesQueryBuilder.equal(Species_.reptilianSpecies, criteria.getReptilianSpecies());
+		speciesQueryBuilder.equal(Species_.avianSpecies, criteria.getAvianSpecies());
 		speciesQueryBuilder.equal(Species_.nonCorporealSpecies, criteria.getNonCorporealSpecies());
 		speciesQueryBuilder.equal(Species_.shapeshiftingSpecies, criteria.getShapeshiftingSpecies());
 		speciesQueryBuilder.equal(Species_.spaceborneSpecies, criteria.getSpaceborneSpecies());

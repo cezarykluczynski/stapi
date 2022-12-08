@@ -35,6 +35,7 @@ class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 				extraGalacticSpecies: EXTRA_GALACTIC_SPECIES,
 				humanoidSpecies: HUMANOID_SPECIES,
 				reptilianSpecies: REPTILIAN_SPECIES,
+				avianSpecies: AVIAN_SPECIES,
 				nonCorporealSpecies: NON_CORPOREAL_SPECIES,
 				shapeshiftingSpecies: SHAPESHIFTING_SPECIES,
 				spaceborneSpecies: SPACEBORNE_SPECIES,
@@ -59,6 +60,7 @@ class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 		species.extraGalacticSpecies == EXTRA_GALACTIC_SPECIES
 		species.humanoidSpecies == HUMANOID_SPECIES
 		species.reptilianSpecies == REPTILIAN_SPECIES
+		species.avianSpecies == AVIAN_SPECIES
 		species.nonCorporealSpecies == NON_CORPOREAL_SPECIES
 		species.shapeshiftingSpecies == SHAPESHIFTING_SPECIES
 		species.spaceborneSpecies == SPACEBORNE_SPECIES

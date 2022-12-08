@@ -16,6 +16,7 @@ import java.util.List;
 public interface SpeciesBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "avianSpecies", ignore = true)
 	SpeciesRequestDTO mapBase(SpeciesBaseRequest speciesBaseRequest);
 
 	SpeciesBase mapBase(Species species);

@@ -25,6 +25,8 @@ public class SpeciesTemplate {
 
 	private boolean reptilianSpecies;
 
+	private boolean avianSpecies;
+
 	private boolean nonCorporealSpecies;
 
 	private boolean shapeshiftingSpecies;

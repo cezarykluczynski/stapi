@@ -82,6 +82,8 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		1 * speciesQueryBuilder.equal(Species_.humanoidSpecies, HUMANOID_SPECIES)
 		1 * speciesRequestDTO.reptilianSpecies >> REPTILIAN_SPECIES
 		1 * speciesQueryBuilder.equal(Species_.reptilianSpecies, REPTILIAN_SPECIES)
+		1 * speciesRequestDTO.avianSpecies >> AVIAN_SPECIES
+		1 * speciesQueryBuilder.equal(Species_.avianSpecies, AVIAN_SPECIES)
 		1 * speciesRequestDTO.nonCorporealSpecies >> NON_CORPOREAL_SPECIES
 		1 * speciesQueryBuilder.equal(Species_.nonCorporealSpecies, NON_CORPOREAL_SPECIES)
 		1 * speciesRequestDTO.shapeshiftingSpecies >> SHAPESHIFTING_SPECIES

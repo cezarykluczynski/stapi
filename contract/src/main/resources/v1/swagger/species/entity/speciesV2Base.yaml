@@ -1,0 +1,56 @@
+type: object
+description: Base species, returned in search results (V2)
+properties:
+  uid:
+    type: string
+    required: true
+    description: Species unique ID
+  name:
+    type: string
+    required: true
+    description: Species name
+  homeworld:
+    $ref: '#/definitions/AstronomicalObjectHeader'
+    description: Homeworld of the species
+  quadrant:
+    $ref: '#/definitions/AstronomicalObjectHeader'
+    description: Quadrant the species originates from
+  extinctSpecies:
+    type: boolean
+    description: Whether it's an extinct species
+  warpCapableSpecies:
+    type: boolean
+    description: Whether it's a warp-capable species
+  extraGalacticSpecies:
+    type: boolean
+    description: Whether it's an extra-galactic species
+  humanoidSpecies:
+    type: boolean
+    description: Whether it's a humanoid species
+  reptilianSpecies:
+    type: boolean
+    description: Whether it's a reptilian species
+  avianSpecies:
+    type: boolean
+    description: Whether it's an avian species
+  nonCorporealSpecies:
+    type: boolean
+    description: Whether it's a non-corporeal species
+  shapeshiftingSpecies:
+    type: boolean
+    description: Whether it's a shapeshifting species
+  spaceborneSpecies:
+    type: boolean
+    description: Whether it's a spaceborne species
+  telepathicSpecies:
+    type: boolean
+    description: Whether it's a telepathic species
+  transDimensionalSpecies:
+    type: boolean
+    description: Whether it's a trans-dimensional species
+  unnamedSpecies:
+    type: boolean
+    description: Whether it's a unnamed species
+  alternateReality:
+    type: boolean
+    description: Whether this species is from alternate reality

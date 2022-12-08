@@ -73,4 +73,5 @@
 	<include file="technology/0070_extend_technology.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft_class/0071_extend_spacecraft_class.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft/0072_extend_spacecraft.xml" relativeToChangelogFile="true"/>
+	<include file="species/0073_extend_species.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
