@@ -15,6 +15,17 @@ import java.util.List;
 public interface TechnologyBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "securityTechnology", ignore = true)
+	@Mapping(target = "propulsionTechnology", ignore = true)
+	@Mapping(target = "spacecraftComponent", ignore = true)
+	@Mapping(target = "warpTechnology", ignore = true)
+	@Mapping(target = "transwarpTechnology", ignore = true)
+	@Mapping(target = "timeTravelTechnology", ignore = true)
+	@Mapping(target = "militaryTechnology", ignore = true)
+	@Mapping(target = "victualTechnology", ignore = true)
+	@Mapping(target = "transportationTechnology", ignore = true)
+	@Mapping(target = "weaponComponent", ignore = true)
+	@Mapping(target = "artificialLifeformComponent", ignore = true)
 	TechnologyRequestDTO mapBase(TechnologyBaseRequest technologyBaseRequest);
 
 	TechnologyBase mapBase(Technology technology);

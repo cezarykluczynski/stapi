@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class TechnologyRestReader implements BaseReader<TechnologyRestBeanParams, TechnologyBaseResponse>,
 		FullReader<String, TechnologyFullResponse> {
 
-	private TechnologyRestQuery technologyRestQuery;
+	private final TechnologyRestQuery technologyRestQuery;
 
-	private TechnologyBaseRestMapper technologyBaseRestMapper;
+	private final TechnologyBaseRestMapper technologyBaseRestMapper;
 
-	private TechnologyFullRestMapper technologyFullRestMapper;
+	private final TechnologyFullRestMapper technologyFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	private final SortMapper sortMapper;
 

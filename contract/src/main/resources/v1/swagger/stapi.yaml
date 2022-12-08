@@ -175,11 +175,14 @@ paths:
     $ref: ./staff/path/staffV2.path.yaml
   /v2/rest/staff/search:
     $ref: ./staff/path/staffV2Search.path.yaml
-  # TODO: Add V2
   /v1/rest/technology:
     $ref: ./technology/path/technology.path.yaml
   /v1/rest/technology/search:
     $ref: ./technology/path/technologySearch.path.yaml
+  /v2/rest/technology:
+    $ref: ./technology/path/technologyV2.path.yaml
+  /v2/rest/technology/search:
+    $ref: ./technology/path/technologyV2Search.path.yaml
   /v1/rest/title:
     $ref: ./title/path/title.path.yaml
   /v1/rest/title/search:
@@ -663,6 +666,14 @@ definitions:
     $ref: ./technology/entity/technologyBaseResponse.yaml
   TechnologyFullResponse:
     $ref: ./technology/entity/technologyFullResponse.yaml
+  TechnologyV2Base:
+    $ref: ./technology/entity/technologyV2Base.yaml
+  TechnologyV2Full:
+    $ref: ./technology/entity/technologyV2Full.yaml
+  TechnologyV2BaseResponse:
+    $ref: ./technology/entity/technologyV2BaseResponse.yaml
+  TechnologyV2FullResponse:
+    $ref: ./technology/entity/technologyV2FullResponse.yaml
   TitleHeader:
     $ref: ./title/entity/titleHeader.yaml
   TitleBase:

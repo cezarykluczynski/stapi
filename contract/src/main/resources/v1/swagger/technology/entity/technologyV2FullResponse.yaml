@@ -1,0 +1,6 @@
+type: object
+description: Response object for single technology query (V2)
+properties:
+  technology:
+    $ref: '#/definitions/TechnologyV2Full'
+    description: Technology, if found

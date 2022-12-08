@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.technology.repository.TechnologyRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.technology.dto.TechnologyRestBeanParams;
+import com.cezarykluczynski.stapi.server.technology.dto.TechnologyV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +28,12 @@ public class TechnologyRestQuery {
 
 	public Page<Technology> query(TechnologyRestBeanParams technologyRestBeanParams) {
 		TechnologyRequestDTO technologyRequestDTO = technologyBaseRestMapper.mapBase(technologyRestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(technologyRestBeanParams);
+		return technologyRepository.findMatching(technologyRequestDTO, pageRequest);
+	}
+
+	public Page<Technology> query(TechnologyV2RestBeanParams technologyRestBeanParams) {
+		TechnologyRequestDTO technologyRequestDTO = technologyBaseRestMapper.mapV2Base(technologyRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(technologyRestBeanParams);
 		return technologyRepository.findMatching(technologyRequestDTO, pageRequest);
 	}

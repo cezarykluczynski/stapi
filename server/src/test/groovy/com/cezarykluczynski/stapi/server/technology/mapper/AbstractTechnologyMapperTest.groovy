@@ -23,12 +23,23 @@ abstract class AbstractTechnologyMapperTest extends AbstractTechnologyTest {
 				lifeSupportTechnology: LIFE_SUPPORT_TECHNOLOGY,
 				sensorTechnology: SENSOR_TECHNOLOGY,
 				shieldTechnology: SHIELD_TECHNOLOGY,
+				securityTechnology: SECURITY_TECHNOLOGY,
+				propulsionTechnology: PROPULSION_TECHNOLOGY,
+				spacecraftComponent: SPACECRAFT_COMPONENT,
+				warpTechnology: WARP_TECHNOLOGY,
+				transwarpTechnology: TRANSWARP_TECHNOLOGY,
+				timeTravelTechnology: TIME_TRAVEL_TECHNOLOGY,
+				militaryTechnology: MILITARY_TECHNOLOGY,
+				victualTechnology: VICTUAL_TECHNOLOGY,
 				tool: TOOL,
 				culinaryTool: CULINARY_TOOL,
 				engineeringTool: ENGINEERING_TOOL,
 				householdTool: HOUSEHOLD_TOOL,
 				medicalEquipment: MEDICAL_EQUIPMENT,
-				transporterTechnology: TRANSPORTER_TECHNOLOGY)
+				transporterTechnology: TRANSPORTER_TECHNOLOGY,
+				transportationTechnology: TRANSPORTATION_TECHNOLOGY,
+				weaponComponent: WEAPON_COMPONENT,
+				artificialLifeformComponent: ARTIFICIAL_LIFEFORM_COMPONENT)
 	}
 
 }
