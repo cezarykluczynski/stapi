@@ -26,7 +26,7 @@ class TitleFullRestMapperTest extends AbstractTitleMapperTest {
 		titleFull.militaryRank == MILITARY_RANK
 		titleFull.fleetRank == FLEET_RANK
 		titleFull.religiousTitle == RELIGIOUS_TITLE
-		titleFull.position == POSITION
+		!titleFull.position
 		titleFull.mirror == MIRROR
 		titleFull.characters.size() == title.characters.size()
 	}
@@ -45,7 +45,6 @@ class TitleFullRestMapperTest extends AbstractTitleMapperTest {
 		titleFull.fleetRank == FLEET_RANK
 		titleFull.religiousTitle == RELIGIOUS_TITLE
 		titleFull.educationTitle == EDUCATION_TITLE
-		titleFull.position == POSITION
 		titleFull.mirror == MIRROR
 		titleFull.characters.size() == title.characters.size()
 	}

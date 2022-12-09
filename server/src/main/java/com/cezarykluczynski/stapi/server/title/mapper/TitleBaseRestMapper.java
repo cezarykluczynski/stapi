@@ -19,10 +19,12 @@ public interface TitleBaseRestMapper {
 	@Mapping(target = "educationTitle", ignore = true)
 	TitleRequestDTO mapBase(TitleRestBeanParams titleRestBeanParams);
 
+	@Mapping(target = "position", constant = "false")
 	TitleBase mapBase(Title title);
 
 	List<TitleBase> mapBase(List<Title> titleList);
 
+	@Mapping(target = "position", ignore = true)
 	TitleRequestDTO mapV2Base(TitleV2RestBeanParams titleV2RestBeanParams);
 
 	TitleV2Base mapV2Base(Title title);

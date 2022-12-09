@@ -65,11 +65,11 @@ class TitleTest extends AbstractTitleTest {
 
 		when:
 		TitleV2BaseResponse titleBaseResponseOutput = title.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE,
-				EDUCATION_TITLE, POSITION, MIRROR)
+				EDUCATION_TITLE, MIRROR)
 
 		then:
 		1 * titleApiMock.v2RestTitleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE,
-				EDUCATION_TITLE, POSITION, MIRROR) >> titleV2BaseResponse
+				EDUCATION_TITLE, MIRROR) >> titleV2BaseResponse
 		0 * _
 		titleV2BaseResponse == titleBaseResponseOutput
 	}

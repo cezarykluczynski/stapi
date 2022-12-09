@@ -23,9 +23,6 @@ public class TitleV2RestBeanParams extends PageSortBeanParams {
 	@FormParam("educationTitle")
 	private Boolean educationTitle;
 
-	@FormParam("position")
-	private Boolean position;
-
 	@FormParam("mirror")
 	private Boolean mirror;
 
@@ -43,10 +40,6 @@ public class TitleV2RestBeanParams extends PageSortBeanParams {
 
 	public Boolean getEducationTitle() {
 		return educationTitle;
-	}
-
-	public Boolean getPosition() {
-		return position;
 	}
 
 	public Boolean getMirror() {

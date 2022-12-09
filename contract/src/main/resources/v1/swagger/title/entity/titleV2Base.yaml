@@ -21,9 +21,6 @@ properties:
   educationTitle:
     type: boolean
     description: Whether it's a education title
-  position:
-    type: boolean
-    description: Whether it's a position
   mirror:
     type: boolean
     description: Whether this title is from mirror universe

@@ -16,8 +16,6 @@ class RanksTemplateServiceTest extends Specification {
 		| align="left" | Military:
 		| colspan="2" | [[private|PVT]]<br />[[airman|AMN]]
 		| [[corporal|CPL]]
-		| align="left" | Positions:
-		| colspan="7" align="justify" | [[Technician]] &bull; [[Specialist]] &bull; [[Chief]]
 		| align="left" | Services:
 		| colspan="20" | [[Andorian Imperial Guard ranks|Andorian]]'''
 
@@ -45,13 +43,11 @@ class RanksTemplateServiceTest extends Specification {
 		0 * _
 		isFleetRank
 		ranksTemplateService.isMilitaryRank('Private')
-		ranksTemplateService.isPosition('technician')
 
 		then:
 		0 * _
 		!ranksTemplateService.isFleetRank('airman')
 		!ranksTemplateService.isMilitaryRank('Captain')
-		!ranksTemplateService.isPosition('Andorian Imperial Guard ranks')
 	}
 
 }

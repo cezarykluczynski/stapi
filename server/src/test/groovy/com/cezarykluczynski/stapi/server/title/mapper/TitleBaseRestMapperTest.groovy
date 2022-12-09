@@ -48,7 +48,6 @@ class TitleBaseRestMapperTest extends AbstractTitleMapperTest {
 				fleetRank: FLEET_RANK,
 				religiousTitle: RELIGIOUS_TITLE,
 				educationTitle: EDUCATION_TITLE,
-				position: POSITION,
 				mirror: MIRROR)
 
 		when:
@@ -60,7 +59,7 @@ class TitleBaseRestMapperTest extends AbstractTitleMapperTest {
 		titleRequestDTO.fleetRank == FLEET_RANK
 		titleRequestDTO.religiousTitle == RELIGIOUS_TITLE
 		titleRequestDTO.educationTitle == EDUCATION_TITLE
-		titleRequestDTO.position == POSITION
+		titleRequestDTO.position == null
 		titleRequestDTO.mirror == MIRROR
 	}
 
@@ -77,7 +76,7 @@ class TitleBaseRestMapperTest extends AbstractTitleMapperTest {
 		titleBase.militaryRank == MILITARY_RANK
 		titleBase.fleetRank == FLEET_RANK
 		titleBase.religiousTitle == RELIGIOUS_TITLE
-		titleBase.position == POSITION
+		!titleBase.position
 		titleBase.mirror == MIRROR
 	}
 
@@ -95,7 +94,6 @@ class TitleBaseRestMapperTest extends AbstractTitleMapperTest {
 		titleBase.fleetRank == FLEET_RANK
 		titleBase.religiousTitle == RELIGIOUS_TITLE
 		titleBase.educationTitle == EDUCATION_TITLE
-		titleBase.position == POSITION
 		titleBase.mirror == MIRROR
 	}
 

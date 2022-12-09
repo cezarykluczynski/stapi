@@ -19,7 +19,6 @@ public class RanksTemplateService {
 
 	private static final String FLEET = "Fleet:";
 	private static final String MILITARY = "Military:";
-	private static final String POSITIONS = "Positions:"; // TODO: this section is no longer present
 	private static final String SERVICES = "Services:";
 
 	private final PageApi pageApi;
@@ -28,7 +27,6 @@ public class RanksTemplateService {
 
 	private final Set<String> fleetRanks = Sets.newHashSet();
 	private final Set<String> militaryRanks = Sets.newHashSet();
-	private final Set<String> positions = Sets.newHashSet();
 
 	private boolean initialized;
 
@@ -50,14 +48,12 @@ public class RanksTemplateService {
 
 		String fleetRanksText = StringUtils.substringAfter(page.getWikitext(), FLEET);
 		String militaryRanksText = StringUtils.substringAfter(fleetRanksText, MILITARY);
-		String positionsText = StringUtils.substringAfter(militaryRanksText, POSITIONS);
 		fleetRanksText = StringUtils.substringBefore(fleetRanksText, MILITARY);
-		militaryRanksText = StringUtils.substringBefore(militaryRanksText, POSITIONS);
-		positionsText = StringUtils.substringBefore(positionsText, SERVICES);
+		militaryRanksText = StringUtils.substringBefore(militaryRanksText, SERVICES);
 
 		fleetRanks.addAll(wikitextApi.getPageTitlesFromWikitext(fleetRanksText));
 		militaryRanks.addAll(wikitextApi.getPageTitlesFromWikitext(militaryRanksText));
-		positions.addAll(wikitextApi.getPageTitlesFromWikitext(positionsText));
+		"".length();
 	}
 
 	public boolean isFleetRank(String titleName) {
@@ -68,11 +64,6 @@ public class RanksTemplateService {
 	public boolean isMilitaryRank(String titleName) {
 		initialize();
 		return StringUtil.containsIgnoreCase(militaryRanks, titleName);
-	}
-
-	public boolean isPosition(String titleName) {
-		initialize();
-		return StringUtil.containsIgnoreCase(positions, titleName);
 	}
 
 }

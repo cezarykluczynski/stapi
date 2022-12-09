@@ -76,7 +76,6 @@ class TitlePageProcessorTest extends Specification {
 		1 * uidGeneratorMock.generateFromPage(modelPage, Title) >> UID
 		1 * ranksTemplateServiceMock.isMilitaryRank(NAME_WITH_BRACKETS) >> false
 		1 * ranksTemplateServiceMock.isFleetRank(NAME_WITH_BRACKETS) >> false
-		1 * ranksTemplateServiceMock.isPosition(NAME_WITH_BRACKETS) >> false
 		0 * _
 		title.name == NAME
 		title.uid == UID
@@ -107,7 +106,6 @@ class TitlePageProcessorTest extends Specification {
 		1 * uidGeneratorMock.generateFromPage(modelPage, Title) >> UID
 		1 * ranksTemplateServiceMock.isMilitaryRank(NAME_WITH_BRACKETS) >> true
 		1 * ranksTemplateServiceMock.isFleetRank(NAME_WITH_BRACKETS) >> true
-		1 * ranksTemplateServiceMock.isPosition(NAME_WITH_BRACKETS) >> true
 		0 * _
 		title.name == NAME
 		title.uid == UID
@@ -115,7 +113,7 @@ class TitlePageProcessorTest extends Specification {
 		title.militaryRank
 		title.fleetRank
 		!title.religiousTitle
-		title.position
+		!title.position
 		!title.mirror
 	}
 

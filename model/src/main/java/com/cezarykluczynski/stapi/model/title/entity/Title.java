@@ -47,7 +47,7 @@ public class Title extends PageAwareEntity implements PageAware {
 
 	private Boolean educationTitle;
 
-	private Boolean position;
+	private Boolean position; // TODO: remove when API V1 is removed
 
 	private Boolean mirror;
 

@@ -35,9 +35,9 @@ public class Title {
 	}
 
 	public TitleV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
-			Boolean religiousTitle, Boolean educationTitle, Boolean position, Boolean mirror) throws ApiException {
+			Boolean religiousTitle, Boolean educationTitle, Boolean mirror) throws ApiException {
 		return titleApi.v2RestTitleSearchPost(pageNumber, pageSize, sort, apiKey, name, militaryRank, fleetRank, religiousTitle, educationTitle,
-				position, mirror);
+				mirror);
 	}
 
 }

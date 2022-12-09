@@ -70,10 +70,6 @@ post:
       in: formData
       type: boolean
       description: Whether it should be a education title
-    - name: position
-      in: formData
-      type: boolean
-      description: Whether it should be a position
     - name: mirror
       in: formData
       type: boolean
