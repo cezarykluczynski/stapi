@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.occupation.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationRestEndpoint;
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationSoapEndpoint;
+import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseRestMapper;
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationFullRestMapper;
@@ -29,6 +30,11 @@ public class OccupationConfiguration {
 	@Bean
 	public Server occupationServer() {
 		return endpointFactory.createRestEndpoint(OccupationRestEndpoint.class, OccupationRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server occupationV2Server() {
+		return endpointFactory.createRestEndpoint(OccupationV2RestEndpoint.class, OccupationV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

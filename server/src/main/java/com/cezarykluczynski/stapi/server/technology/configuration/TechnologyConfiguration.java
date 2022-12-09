@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.technology.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.technology.endpoint.TechnologyRestEndpoint;
 import com.cezarykluczynski.stapi.server.technology.endpoint.TechnologySoapEndpoint;
+import com.cezarykluczynski.stapi.server.technology.endpoint.TechnologyV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyBaseRestMapper;
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyFullRestMapper;
@@ -29,6 +30,11 @@ public class TechnologyConfiguration {
 	@Bean
 	public Server technologyServer() {
 		return endpointFactory.createRestEndpoint(TechnologyRestEndpoint.class, TechnologyRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server technologyV2Server() {
+		return endpointFactory.createRestEndpoint(TechnologyV2RestEndpoint.class, TechnologyV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

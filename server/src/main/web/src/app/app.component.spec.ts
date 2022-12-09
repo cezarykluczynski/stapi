@@ -4,8 +4,8 @@ import { AppComponent } from './app.component';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 import { PanelApi } from './panel/panel-api.service';
 
-import {RouterTestingModule} from "@angular/router/testing";
-import {Router} from "@angular/router";
+import {RouterTestingModule} from '@angular/router/testing';
+import {Router} from '@angular/router';
 
 class FeatureSwitchApiMock {
 	public isEnabled() {}
@@ -45,7 +45,7 @@ describe('AppComponent', () => {
 				_resolve({
 					stargazersCount: 23
 				});
-			}
+			};
 		}));
 	}));
 
@@ -58,7 +58,7 @@ describe('AppComponent', () => {
 	it('tells whether panel is enabled', async(() => {
 		const fixture = TestBed.createComponent(AppComponent);
 
-		let isEnabled: jasmine.Spy = spyOn(featureSwitchApiMock, 'isEnabled');
+		const isEnabled: jasmine.Spy = spyOn(featureSwitchApiMock, 'isEnabled');
 
 		isEnabled.and.callFake((featureSwitchName) => {
 			return featureSwitchName === 'ADMIN_PANEL';

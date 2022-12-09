@@ -66,7 +66,9 @@ export class ApiDocumentationComponent implements OnInit {
 	}
 
 	stopPropagation(event) {
-		event && event.stopPropagation && event.stopPropagation();
+		if (event && event.stopPropagation) {
+			event.stopPropagation();
+		}
 	}
 
 	selectFile(index) {

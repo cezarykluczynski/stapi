@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.occupation.configuration
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationSoapEndpoint
+import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationV2RestEndpoint
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseRestMapper
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationFullRestMapper
@@ -45,6 +46,19 @@ class OccupationConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(OccupationRestEndpoint, OccupationRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Occupation V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = occupationConfiguration.occupationV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(OccupationV2RestEndpoint, OccupationV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.element.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.element.endpoint.ElementRestEndpoint;
 import com.cezarykluczynski.stapi.server.element.endpoint.ElementSoapEndpoint;
+import com.cezarykluczynski.stapi.server.element.endpoint.ElementV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseRestMapper;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementFullRestMapper;
@@ -29,6 +30,11 @@ public class ElementConfiguration {
 	@Bean
 	public Server elementServer() {
 		return endpointFactory.createRestEndpoint(ElementRestEndpoint.class, ElementRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server elementV2Server() {
+		return endpointFactory.createRestEndpoint(ElementV2RestEndpoint.class, ElementV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

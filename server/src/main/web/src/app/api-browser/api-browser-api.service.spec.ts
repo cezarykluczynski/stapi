@@ -11,23 +11,37 @@ class RestClientMock {
 	public performer: any;
 }
 
+class RestClientV2Mock {
+	public res: any;
+	public book: any;
+}
+
 class RestApiServiceMock {
 	public getApi() {}
+	public getApiV2() {}
 }
 
 describe('ApiBrowserApi', () => {
 	let restClientMock: RestClientMock;
+	let restClientV2Mock: RestClientV2Mock;
 	let restApiServiceMock: RestApiServiceMock;
 	let res;
+	let resV2;
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
+		restClientV2Mock = new RestClientV2Mock();
 		restApiServiceMock = new RestApiServiceMock();
 		spyOn(restApiServiceMock, 'getApi').and.returnValue(restClientMock);
+		spyOn(restApiServiceMock, 'getApiV2').and.returnValue(restClientV2Mock);
 		res = jasmine.createSpy('res').and.callFake(() => {
 			return { res };
 		});
+		resV2 = jasmine.createSpy('resV2').and.callFake(() => {
+			return { resV2 };
+		});
 		restClientMock.res = res;
+		restClientV2Mock.res = resV2;
 
 		TestBed.configureTestingModule({
 			providers: [
@@ -53,13 +67,10 @@ describe('ApiBrowserApi', () => {
 
 	describe('after initialization', () => {
 		let detailsPromise;
-
-		const DETAIL = {
-			apiEndpointSuffix: 'performer',
-			symbol: 'PE'
-		};
-		const page = {};
-		const content = {};
+		const performerPage = {};
+		const performerContent = {};
+		const bookPage = {};
+		const bookContent = {};
 		const DOCUMENTATION = 'DOCUMENTATION';
 		const OAUTH_URL = 'OAUTH_URL';
 		const CURRENT_USER_NAME = 'CURRENT_USER_NAME';
@@ -67,7 +78,15 @@ describe('ApiBrowserApi', () => {
 		beforeEach(() => {
 			detailsPromise = () => {
 				return Promise.resolve({
-					details: [DETAIL]
+					details: [{
+						apiEndpointSuffix: 'performer',
+						symbol: 'PE',
+						version: 'v1'
+					}, {
+						apiEndpointSuffix: 'book',
+						symbol: 'BO',
+						version: 'v2'
+					}]
 				});
 			};
 
@@ -78,21 +97,51 @@ describe('ApiBrowserApi', () => {
 				search: {
 					post: () => {
 						return Promise.resolve({
-							page: page,
-							performer: content
+							page: performerPage,
+							performer: performerContent
 						});
 					},
 					get: () => {
 						return Promise.resolve({
-							page: page,
-							performer: content
+							page: performerPage,
+							performer: performerContent
 						});
 					}
+				},
+				get: ({}) => {
+					return Promise.resolve({
+						performer: performerContent
+					});
+				}
+			};
+			restClientV2Mock.book = {
+				search: {
+					post: () => {
+						return Promise.resolve({
+							page: bookPage,
+							book: bookContent
+						});
+					},
+					get: () => {
+						return Promise.resolve({
+							page: bookPage,
+							book: bookContent
+						});
+					}
+				},
+				get: () => {
+					return Promise.resolve({
+						book: bookContent
+					});
 				}
 			};
 
 			spyOn(restClientMock.performer.search, 'post').and.callThrough();
 			spyOn(restClientMock.performer.search, 'get').and.callThrough();
+			spyOn(restClientMock.performer, 'get').and.callThrough();
+			spyOn(restClientV2Mock.book.search, 'post').and.callThrough();
+			spyOn(restClientV2Mock.book.search, 'get').and.callThrough();
+			spyOn(restClientV2Mock.book, 'get').and.callThrough();
 		});
 
 		it('does not throw error', inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
@@ -106,12 +155,26 @@ describe('ApiBrowserApi', () => {
 
 			setTimeout(() => {
 				apiBrowserApi.search('PE', 'Patrick', false).then((response) => {
-					expect(response.page).toBe(page);
-					expect(response.content).toBe(content);
+					expect(response.page).toBe(performerPage);
+					expect(response.content).toBe(performerContent);
 				});
 
 				expect(restClientMock.performer.search.post).toHaveBeenCalled();
 				expect(restClientMock.performer.search.get).not.toHaveBeenCalled();
+			});
+		})));
+
+		it('searches for phrase (V2)', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+			apiBrowserApi.loadDetails();
+
+			setTimeout(() => {
+				apiBrowserApi.search('BO', 'Star Trek Encyclopedia', false).then((response) => {
+					expect(response.page).toBe(bookPage);
+					expect(response.content).toBe(bookContent);
+				});
+
+				expect(restClientV2Mock.book.search.post).toHaveBeenCalled();
+				expect(restClientV2Mock.book.search.get).not.toHaveBeenCalled();
 			});
 		})));
 
@@ -120,8 +183,8 @@ describe('ApiBrowserApi', () => {
 
 			setTimeout(() => {
 				apiBrowserApi.search('PE', '', false).then((response) => {
-					expect(response.page).toBe(page);
-					expect(response.content).toBe(content);
+					expect(response.page).toBe(performerPage);
+					expect(response.content).toBe(performerContent);
 				});
 
 				expect(restClientMock.performer.search.get).toHaveBeenCalled();
@@ -129,8 +192,42 @@ describe('ApiBrowserApi', () => {
 			});
 		})));
 
-		it('gets single entity', async(inject([RestApiService], (service: RestApiService) => {
-			// TODO
+		it('gets all entities (V2)', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+			apiBrowserApi.loadDetails();
+
+			setTimeout(() => {
+				apiBrowserApi.search('BO', '', false).then((response) => {
+					expect(response.page).toBe(bookPage);
+					expect(response.content).toBe(bookContent);
+				});
+
+				expect(restClientV2Mock.book.search.get).toHaveBeenCalled();
+				expect(restClientV2Mock.book.search.post).not.toHaveBeenCalled();
+			});
+		})));
+
+		it('gets single entity', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+			apiBrowserApi.loadDetails();
+
+			setTimeout(() => {
+				apiBrowserApi.get('PE', 'PEMA0000004852').then((response) => {
+					expect(response.content).toBe(performerContent);
+				});
+
+				expect(restClientMock.performer.get).toHaveBeenCalled();
+			});
+		})));
+
+		it('gets single entity (V2)', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+			apiBrowserApi.loadDetails();
+
+			setTimeout(() => {
+				apiBrowserApi.get('BO', 'PEMA0000004852').then((response) => {
+					expect(response.content).toBe(bookContent);
+				});
+
+				expect(restClientV2Mock.book.get).toHaveBeenCalled();
+			});
 		})));
 	});
 });

@@ -12,7 +12,7 @@ import { PanelAdminManagementApi } from '../panel-admin-management-api.service';
 export class PanelAdminAccountsComponent implements OnInit {
 
 	private panelAdminManagementApi: PanelAdminManagementApi;
-	private notificationsService : NotificationsService;
+	private notificationsService: NotificationsService;
 	private pageNumber: Number = 0;
 	public pager: any = {
 		totalPages: 0,
@@ -26,7 +26,7 @@ export class PanelAdminAccountsComponent implements OnInit {
 		email: null
 	};
 	private accounts: Array<any>;
-	private loadingApiKeys: boolean = true;
+	private loadingApiKeys = true;
 
 	constructor(panelAdminManagementApi: PanelAdminManagementApi, notificationsService: NotificationsService) {
 		this.panelAdminManagementApi = panelAdminManagementApi;
@@ -38,7 +38,9 @@ export class PanelAdminAccountsComponent implements OnInit {
 	}
 
 	search(event: any) {
-		event && event.preventDefault && event.preventDefault();
+		if (event && event.preventDefault) {
+			event.preventDefault();
+		}
 		this.loadAccounts(true);
 	}
 

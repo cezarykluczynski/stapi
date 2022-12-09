@@ -23,7 +23,8 @@ import javax.persistence.SequenceGenerator;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "location", pluralName = "locations")
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "location",
+		pluralName = "locations", restApiVersion = "v2")
 public class Location extends PageAwareEntity implements PageAware {
 
 	@Id

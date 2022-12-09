@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.title.configuration
 import com.cezarykluczynski.stapi.server.title.endpoint.TitleRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.title.endpoint.TitleSoapEndpoint
+import com.cezarykluczynski.stapi.server.title.endpoint.TitleV2RestEndpoint
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseRestMapper
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseSoapMapper
 import com.cezarykluczynski.stapi.server.title.mapper.TitleFullRestMapper
@@ -45,6 +46,19 @@ class TitleConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(TitleRestEndpoint, TitleRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Title V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = titleConfiguration.titleV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(TitleV2RestEndpoint, TitleV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

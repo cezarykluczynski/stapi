@@ -29,7 +29,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes",
 		"episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = StaffRepository.class, singularName = "staff", pluralName = "staff")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = StaffRepository.class, singularName = "staff", pluralName = "staff",
+		restApiVersion = "v2")
 public class Staff extends RealWorldPerson implements PageAware {
 
 	@Id

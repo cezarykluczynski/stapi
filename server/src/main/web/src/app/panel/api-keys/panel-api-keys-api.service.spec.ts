@@ -52,14 +52,14 @@ describe('PanelApiKeysApi', () => {
 	}));
 
 	describe('after initialization', () => {
-		let API_KEY = {
+		const API_KEY = {
 			apiKey: 'apiKey'
 		};
-		let API_KEYS = {
+		const API_KEYS = {
 			apiKeys: 'apiKeys'
 		};
-		let API_KEY_ID: number = 17;
-		let DELETE_RESULT = {
+		const API_KEY_ID = 17;
+		const DELETE_RESULT = {
 			removed: true
 		};
 		const UPDATE_RESULT = {
@@ -81,7 +81,7 @@ describe('PanelApiKeysApi', () => {
 						expect(details).toBe(API_KEY_DETAILS);
 						return Promise.resolve(UPDATE_RESULT);
 					}
-				}
+				};
 			};
 			restClientMock.common.panel.apiKeys.post = () => {
 				return Promise.resolve(API_KEY);

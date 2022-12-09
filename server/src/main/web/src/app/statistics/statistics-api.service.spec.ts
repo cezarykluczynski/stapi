@@ -90,7 +90,7 @@ describe('StatisticsApi', () => {
 					},
 					loaded: true
 				});
-			})
+			});
 		})));
 	});
 });

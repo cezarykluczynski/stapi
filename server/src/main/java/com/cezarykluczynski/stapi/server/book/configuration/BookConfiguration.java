@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.book.configuration;
 
 import com.cezarykluczynski.stapi.server.book.endpoint.BookRestEndpoint;
 import com.cezarykluczynski.stapi.server.book.endpoint.BookSoapEndpoint;
+import com.cezarykluczynski.stapi.server.book.endpoint.BookV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper;
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullRestMapper;
@@ -29,6 +30,11 @@ public class BookConfiguration {
 	@Bean
 	public Server bookServer() {
 		return endpointFactory.createRestEndpoint(BookRestEndpoint.class, BookRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server bookV2Server() {
+		return endpointFactory.createRestEndpoint(BookV2RestEndpoint.class, BookV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

@@ -8,10 +8,12 @@ import { RestApiService } from '../rest-api/rest-api.service';
 export class ApiBrowserApi {
 
 	private api: RestClient;
+	private apiV2: RestClient;
 	private details: any;
 
 	constructor(restApiService: RestApiService) {
 		this.api = restApiService.getApi();
+		this.apiV2 = restApiService.getApiV2();
 		this.register();
 	}
 
@@ -21,10 +23,14 @@ export class ApiBrowserApi {
 				return left.symbol > right.symbol ? 1 : -1;
 			});
 			this.details = response.details;
-			this.details.forEach((url) => {
+			this.details.forEach((restEndpointDetails) => {
 				const res = {};
-				res[url.apiEndpointSuffix] = ['search'];
-				this.api.res(res);
+				res[restEndpointDetails.apiEndpointSuffix] = ['search'];
+				if (restEndpointDetails.version === 'v2') {
+					this.apiV2.res(res);
+				} else {
+					this.api.res(res);
+				}
 			});
 		});
 	}
@@ -34,8 +40,8 @@ export class ApiBrowserApi {
 	}
 
 	search(symbol, phrase, single) {
-		const serviceName = this.findBySymbol(symbol).apiEndpointSuffix;
-		const searchApi = this.api[serviceName].search;
+		const restEndpointDetails = this.findBySymbol(symbol);
+		const searchApi = this.getApi(restEndpointDetails).search;
 		const promise = phrase ? searchApi.post({
 			title: phrase, name: phrase
 		}, 'application/x-www-form-urlencoded') : searchApi.get();
@@ -48,8 +54,8 @@ export class ApiBrowserApi {
 	}
 
 	get(symbol, uid) {
-		const serviceName = this.findBySymbol(symbol).apiEndpointSuffix;
-		const api = this.api[serviceName];
+		const restEndpointDetails = this.findBySymbol(symbol);
+		const api = this.getApi(restEndpointDetails);
 		return api.get({uid: uid}).then(response => {
 			return {
 				page: null,
@@ -72,13 +78,19 @@ export class ApiBrowserApi {
 	}
 
 	private getContentKey(response) {
-		for (let key in response) {
+		for (const key in response) {
 			if (key !== 'page' && key !== 'sort') {
 				return key;
 			}
 		}
 
 		return Object.keys(response)[0];
+	}
+
+	private getApi(restEndpointDetails: any) {
+		const serviceName = restEndpointDetails.apiEndpointSuffix;
+		const api = restEndpointDetails.version === 'v2' ? this.apiV2 : this.api;
+		return api[serviceName];
 	}
 
 }

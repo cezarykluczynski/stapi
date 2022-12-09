@@ -41,7 +41,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftClassRepository.class, singularName = "spacecraft class",
-		pluralName = "spacecraft classes")
+		pluralName = "spacecraft classes", restApiVersion = "v2")
 public class SpacecraftClass extends PageAwareEntity implements PageAware {
 
 	@Id

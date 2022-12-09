@@ -107,7 +107,7 @@ describe('PanelComponent', () => {
 
 	describe('initialization without error', () => {
 		let permissions;
-		var resolve;
+		let resolve;
 
 		beforeEach(() => {
 			permissions = [];
@@ -118,7 +118,7 @@ describe('PanelComponent', () => {
 						email: EMAIL,
 						permissions: permissions
 					});
-				}
+				};
 			}));
 		});
 
@@ -161,7 +161,7 @@ describe('PanelComponent', () => {
 
 		describe('admin API keys', () => {
 			beforeEach(() => {
-				permissions = ['API_KEY_MANAGEMENT', 'ADMIN_MANAGEMENT']
+				permissions = ['API_KEY_MANAGEMENT', 'ADMIN_MANAGEMENT'];
 			});
 
 			it('allows tab switching', () => {
@@ -190,12 +190,12 @@ describe('PanelComponent', () => {
 	});
 
 	describe('initialization with error', () => {
-		let window = {
+		const window = {
 			location: {
 				href: ''
 			}
 		};
-		let error = {
+		const error = {
 			status: 403
 		};
 

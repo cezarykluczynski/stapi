@@ -24,7 +24,7 @@ import javax.persistence.SequenceGenerator;
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = WeaponRepository.class, singularName = "weapon",
-		pluralName = "weapons")
+		pluralName = "weapons", restApiVersion = "v2")
 public class Weapon extends PageAwareEntity implements PageAware {
 
 	@Id

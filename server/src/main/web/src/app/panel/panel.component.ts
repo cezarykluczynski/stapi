@@ -33,10 +33,10 @@ export class PanelComponent implements OnInit {
 	private router: Router;
 	private name: string;
 	private permissions: Set<ApplicationPermission>;
-	private authenticated: boolean = false;
-	private redirecting: boolean = false;
-	private authenticationRequired: boolean = false;
-	private hasLegalConsents: boolean = false;
+	private authenticated = false;
+	private redirecting = false;
+	private authenticationRequired = false;
+	private hasLegalConsents = false;
 	private activeView: PanelView = PanelView.API_KEYS;
 	private basicData: any;
 
@@ -70,7 +70,7 @@ export class PanelComponent implements OnInit {
 			};
 			this.permissions = new Set();
 			response.permissions.forEach((permission) => {
-				let applicationPermission: ApplicationPermission = ApplicationPermission[<string>permission];
+				const applicationPermission: ApplicationPermission = ApplicationPermission[<string>permission];
 				this.permissions.add(applicationPermission);
 			});
 		});

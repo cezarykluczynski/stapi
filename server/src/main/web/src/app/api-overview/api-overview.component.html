@@ -22,7 +22,7 @@
 			<h3>API layout</h3>
 			<p>For people just wanting to quick jump into using STAPI, REST version is the best choice.
 				Every entity in the API has two REST endpoints, one for searching and one for retrieving an entire entity, along with it's satellites.
-				Available entities are listed on <a href="http://stapi.co/api/">this page</a> on the bottom,
+				Available entities are listed on <a href="/api/">this page</a> on the bottom,
 				in <em>Available RESTful services</em> section.
 			</p>
 
@@ -30,13 +30,13 @@
 			<h4>Listing</h4>
 			<p>
 				Take, for example, the Season entity. To get all seasons, one should call this URL:
-				<a href="http://stapi.co/api/v1/rest/season/search">http://stapi.co/api/v1/rest/season/search</a>.
+				<a href="/api/v1/rest/season/search">/api/v1/rest/season/search</a>.
 			</p>
 
 			<h4>Searching</h4>
 			<p>
 				Similar to listing entities, sending POST request to the same URL,
-				<a href="http://stapi.co/api/v1/rest/season/search">http://stapi.co/api/v1/rest/season/search</a>,
+				<a href="/api/v1/rest/season/search">/api/v1/rest/season/search</a>,
 				allows searching for entities using predefined criteria. Criteria that can be used for searching can be found in
 				<a routerLink="/api-documentation">API documentation</a>.
 			</p>
@@ -49,13 +49,13 @@
 			<p>Single entities can also be retrieved, using previously obtained UID. After searching for seasons, you will find that season one
 				of The Next Generation happens to have UID SAMA0000001633 (entity UID's rarely change over time, and ideally would not change at all).
 				So another call to the API renders details about this season, as well as all episodes from this season:
-				<a href="http://stapi.co/api/v1/rest/season?uid=SAMA0000001633">http://stapi.co/api/v1/rest/season?uid=SAMA0000001633</a>.
+				<a href="/api/v1/rest/season?uid=SAMA0000001633">/api/v1/rest/season?uid=SAMA0000001633</a>.
 			</p>
 
 			<h4>Tips</h4>
 			<ul>
 				<li>You can prepend <code>pretty</code> to any REST request URL to pretty print JSON, for example:
-					<a href="http://stapi.co/api/v1/rest/season?uid=SAMA0000001633&pretty">http://stapi.co/api/v1/rest/season?uid=SAMA0000001633&pretty</a>.
+					<a href="/api/v1/rest/season?uid=SAMA0000001633&pretty">/api/v1/rest/season?uid=SAMA0000001633&pretty</a>.
 				</li>
 			</ul>
 		</div>

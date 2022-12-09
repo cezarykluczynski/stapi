@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.conflict.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictRestEndpoint;
 import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictSoapEndpoint;
+import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictBaseRestMapper;
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictFullRestMapper;
@@ -29,6 +30,11 @@ public class ConflictConfiguration {
 	@Bean
 	public Server conflictServer() {
 		return endpointFactory.createRestEndpoint(ConflictRestEndpoint.class, ConflictRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server conflictV2Server() {
+		return endpointFactory.createRestEndpoint(ConflictV2RestEndpoint.class, ConflictV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

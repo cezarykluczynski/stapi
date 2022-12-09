@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.book.configuration
 
 import com.cezarykluczynski.stapi.server.book.endpoint.BookSoapEndpoint
+import com.cezarykluczynski.stapi.server.book.endpoint.BookV2RestEndpoint
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseSoapMapper
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullRestMapper
@@ -45,6 +46,19 @@ class BookConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(BookRestEndpoint, BookRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Book V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = bookConfiguration.bookV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(BookV2RestEndpoint, BookV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

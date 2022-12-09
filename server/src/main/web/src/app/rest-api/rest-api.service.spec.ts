@@ -28,7 +28,6 @@ describe('RestApiService', () => {
 	let restClientFactoryServiceMock: RestClientFactoryServiceMock;
 	let restClientMock: RestClientMock;
 	let cookieServiceMock: CookieServiceMock;
-	let restApiService: RestApiService;
 	let res;
 	let on;
 	let get;
@@ -73,8 +72,8 @@ describe('RestApiService', () => {
 		const LIMIT_REMAINING = 154;
 		const xhr = {
 			setRequestHeader: jasmine.createSpy('setRequestHeader')
-		}
-		let callback = on.calls.argsFor(0)[1];
+		};
+		const callback = on.calls.argsFor(0)[1];
 		spyOn(cookieServiceMock, 'get').and.returnValue(XSRF_TOKEN_VALUE);
 
 		callback(xhr);
@@ -91,8 +90,8 @@ describe('RestApiService', () => {
 				return key === 'X-Throttle-Limit-Total' ? LIMIT_TOTAL : LIMIT_REMAINING;
 			},
 			setRequestHeader: () => {}
-		}
-		let callback = on.calls.argsFor(1)[1];
+		};
+		const callback = on.calls.argsFor(1)[1];
 		let limits;
 
 		service.onLimitUpdate((_limits: any) => {
@@ -113,8 +112,8 @@ describe('RestApiService', () => {
 				return null;
 			},
 			setRequestHeader: () => {}
-		}
-		let callback = on.calls.argsFor(1)[1];
+		};
+		const callback = on.calls.argsFor(1)[1];
 		let limits;
 
 		service.onLimitUpdate((_limits: any) => {

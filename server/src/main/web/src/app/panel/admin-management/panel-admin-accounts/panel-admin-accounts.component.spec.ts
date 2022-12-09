@@ -46,7 +46,8 @@ describe('PanelAdminAccountsComponent', () => {
 		notificationsServiceMock = new NotificationsServiceMock();
 		panelAdminManagementApiMock = new PanelAdminManagementApiMock();
 
-		panelAdminManagementApiMockSearchAccountsSpy = spyOn(panelAdminManagementApiMock, 'searchAccounts').and.returnValue(Promise.resolve(ACCOUNTS));
+		panelAdminManagementApiMockSearchAccountsSpy = spyOn(panelAdminManagementApiMock, 'searchAccounts')
+			.and.returnValue(Promise.resolve(ACCOUNTS));
 
 		TestBed.configureTestingModule({
 			schemas: [NO_ERRORS_SCHEMA],
@@ -88,7 +89,7 @@ describe('PanelAdminAccountsComponent', () => {
 	it('searches for accounts', () => {
 		fixture.whenStable().then(() => {
 			expect(panelAdminManagementApiMockSearchAccountsSpy.calls.count()).toBe(1);
-			let event = {
+			const event = {
 				preventDefault: jasmine.createSpy('preventDefault')
 			};
 

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.location.configuration
 import com.cezarykluczynski.stapi.server.location.endpoint.LocationRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.location.endpoint.LocationSoapEndpoint
+import com.cezarykluczynski.stapi.server.location.endpoint.LocationV2RestEndpoint
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseRestMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullRestMapper
@@ -45,6 +46,19 @@ class LocationConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(LocationRestEndpoint, LocationRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Location V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = locationConfiguration.locationV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(LocationV2RestEndpoint, LocationV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

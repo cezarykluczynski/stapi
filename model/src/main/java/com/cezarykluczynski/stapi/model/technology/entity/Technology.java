@@ -24,7 +24,7 @@ import javax.persistence.SequenceGenerator;
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = TechnologyRepository.class, singularName = "technology",
-		pluralName = "technology")
+		pluralName = "technology", restApiVersion = "v2")
 public class Technology extends PageAwareEntity implements PageAware {
 
 	@Id

@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,13 +31,18 @@ public class MaterialsAndSubstancesDetectorService {
 	private final Set<String> explosives = Sets.newHashSet();
 	private final Set<String> preciousMaterials = Sets.newHashSet();
 
+	private boolean initialized;
+
 	public MaterialsAndSubstancesDetectorService(PageApi pageApi, WikitextApi wikitextApi) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 	}
 
-	@PostConstruct
-	public void postConstruct() {
+	public synchronized void initialize() {
+		if (initialized) {
+			return;
+		}
+		initialized = true;
 		Page page = pageApi.getPage(PageTitle.MATERIALS_AND_SUBSTANCES, MediaWikiSource.MEMORY_ALPHA_EN);
 
 		if (page == null) {
@@ -62,18 +66,22 @@ public class MaterialsAndSubstancesDetectorService {
 	}
 
 	public boolean isAlloyOrComposite(String materialName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(alloysAndComposites, materialName);
 	}
 
 	public boolean isFuel(String materialName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(fuels, materialName);
 	}
 
 	public boolean isExplosive(String materialName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(explosives, materialName);
 	}
 
 	public boolean isPreciousMaterial(String materialName) {
+		initialize();
 		return StringUtil.containsIgnoreCase(preciousMaterials, materialName);
 	}
 

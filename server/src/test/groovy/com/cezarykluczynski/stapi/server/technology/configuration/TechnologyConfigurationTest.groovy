@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.technology.configuration
 import com.cezarykluczynski.stapi.server.technology.endpoint.TechnologyRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.technology.endpoint.TechnologySoapEndpoint
+import com.cezarykluczynski.stapi.server.technology.endpoint.TechnologyV2RestEndpoint
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyBaseRestMapper
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyBaseSoapMapper
 import com.cezarykluczynski.stapi.server.technology.mapper.TechnologyFullRestMapper
@@ -45,6 +46,19 @@ class TechnologyConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(TechnologyRestEndpoint, TechnologyRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Technology V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = technologyConfiguration.technologyV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(TechnologyV2RestEndpoint, TechnologyV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

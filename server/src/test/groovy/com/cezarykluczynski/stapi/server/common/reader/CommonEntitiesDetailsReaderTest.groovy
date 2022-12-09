@@ -61,12 +61,14 @@ class CommonEntitiesDetailsReaderTest extends Specification {
 		restEndpointDetailsDTO.details[0].symbol == 'CH'
 		restEndpointDetailsDTO.details[0].singularName == 'character'
 		restEndpointDetailsDTO.details[0].pluralName == 'characters'
+		restEndpointDetailsDTO.details[0].version == 'v1'
 		restEndpointDetailsDTO.details[1].name == 'Book'
 		restEndpointDetailsDTO.details[1].type == TrackedEntityType.REAL_WORLD_PRIMARY
 		restEndpointDetailsDTO.details[1].apiEndpointSuffix == 'book'
 		restEndpointDetailsDTO.details[1].symbol == 'BO'
 		restEndpointDetailsDTO.details[1].singularName == 'book'
 		restEndpointDetailsDTO.details[1].pluralName == 'books'
+		restEndpointDetailsDTO.details[1].version == 'v2'
 	}
 
 }

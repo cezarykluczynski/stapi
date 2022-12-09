@@ -16,6 +16,8 @@ public class RestEndpointDetailDTO {
 
 	private String pluralName;
 
+	private String version;
+
 	public String getName() {
 		return name;
 	}
@@ -64,4 +66,11 @@ public class RestEndpointDetailDTO {
 		this.pluralName = pluralName;
 	}
 
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 }

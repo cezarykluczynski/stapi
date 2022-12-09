@@ -67,13 +67,13 @@ export class PanelAccountSettingsComponent implements OnInit {
 				return 'I agree to receive technical mailing, mainly information about new STAPI versions, '
 					+ 'scheduled maintenance, outages, and details about limitation on access to STAPI.';
 			default:
-				'Unknown consent...'
+				return 'Unknown consent...';
 		}
 	}
 
 	updateOwnConsents() {
 		this.ownConsents = [];
-		for (let key in this.selectedConsents) {
+		for (const key in this.selectedConsents) {
 			if (this.selectedConsents.hasOwnProperty(key) && this.selectedConsents[key]) {
 				this.ownConsents.push(key);
 			}

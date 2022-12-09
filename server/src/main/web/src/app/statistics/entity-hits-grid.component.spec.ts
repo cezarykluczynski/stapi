@@ -7,7 +7,7 @@ import { StatisticsApi } from './statistics-api.service';
 import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
 import { TOTAL_COUNT, STATISTICS, DETAILS } from './statistics.fixture';
-import {FeatureSwitchApi} from "../feature-switch/feature-switch-api.service";
+import {FeatureSwitchApi} from '../feature-switch/feature-switch-api.service';
 
 class StatisticsApiMock {
 	public getStatistics() {

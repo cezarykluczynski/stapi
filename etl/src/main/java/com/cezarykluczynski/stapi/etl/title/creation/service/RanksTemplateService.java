@@ -53,7 +53,6 @@ public class RanksTemplateService {
 
 		fleetRanks.addAll(wikitextApi.getPageTitlesFromWikitext(fleetRanksText));
 		militaryRanks.addAll(wikitextApi.getPageTitlesFromWikitext(militaryRanksText));
-		"".length();
 	}
 
 	public boolean isFleetRank(String titleName) {

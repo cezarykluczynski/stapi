@@ -78,6 +78,7 @@ class CommonEntitiesDetailsReader {
 		restEndpointDetailDTO.setSymbol(simpleClassNameToSymbolMap.get(entityName));
 		restEndpointDetailDTO.setSingularName(trackedEntity.singularName());
 		restEndpointDetailDTO.setPluralName(trackedEntity.pluralName());
+		restEndpointDetailDTO.setVersion(trackedEntity.restApiVersion());
 		return restEndpointDetailDTO;
 	}
 

@@ -25,7 +25,7 @@ describe('ApiBrowserComponent', () => {
 	let apiBrowserApiMock: ApiBrowserApiMock;
 	let restApiServiceMock: RestApiServiceMock;
 	let element: HTMLElement;
-	let details: any[] = [
+	const details: any[] = [
 		{
 			symbol: 'AN',
 			name: 'Animal'
@@ -121,7 +121,7 @@ describe('ApiBrowserComponent', () => {
 	});
 
 	describe('when response is received', () => {
-		let respondWith = (response) => {
+		const respondWith = (response) => {
 			spyOn(apiBrowserApiMock, 'search').and.returnValue(new Promise((resolve) => {
 				resolve(response);
 			}));

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.species.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint;
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint;
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper;
@@ -29,6 +30,11 @@ public class SpeciesConfiguration {
 	@Bean
 	public Server speciesServer() {
 		return endpointFactory.createRestEndpoint(SpeciesRestEndpoint.class, SpeciesRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server speciesV2Server() {
+		return endpointFactory.createRestEndpoint(SpeciesV2RestEndpoint.class, SpeciesV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

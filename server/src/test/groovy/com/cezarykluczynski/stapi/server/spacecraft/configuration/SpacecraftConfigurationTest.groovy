@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.spacecraft.configuration
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftSoapEndpoint
+import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftV2RestEndpoint
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseRestMapper
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseSoapMapper
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullRestMapper
@@ -45,6 +46,19 @@ class SpacecraftConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(SpacecraftRestEndpoint, SpacecraftRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Spacecraft V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = spacecraftConfiguration.spacecraftV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(SpacecraftV2RestEndpoint, SpacecraftV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

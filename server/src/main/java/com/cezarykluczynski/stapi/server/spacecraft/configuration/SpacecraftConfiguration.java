@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.spacecraft.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftRestEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftSoapEndpoint;
+import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseRestMapper;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullRestMapper;
@@ -29,6 +30,11 @@ public class SpacecraftConfiguration {
 	@Bean
 	public Server spacecraftServer() {
 		return endpointFactory.createRestEndpoint(SpacecraftRestEndpoint.class, SpacecraftRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server spacecraftV2Server() {
+		return endpointFactory.createRestEndpoint(SpacecraftV2RestEndpoint.class, SpacecraftV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

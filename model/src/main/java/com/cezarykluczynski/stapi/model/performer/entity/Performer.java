@@ -36,7 +36,7 @@ import java.util.Set;
 		"moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = PerformerRepository.class, singularName = "performer",
-		pluralName = "performers")
+		pluralName = "performers", restApiVersion = "v2")
 public class Performer extends RealWorldPerson implements PageAware {
 
 	@Id

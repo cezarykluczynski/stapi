@@ -36,7 +36,7 @@ class MaterialsAndSubstancesDetectorServiceTest extends Specification {
 				preciousMaterialsPageSection, new PageSection()))
 
 		when:
-		materialsAndSubstancesDetectorService.postConstruct()
+		materialsAndSubstancesDetectorService.initialize()
 
 		then:
 		pageApiMock.getPage(PageTitle.MATERIALS_AND_SUBSTANCES, MediaWikiSource.MEMORY_ALPHA_EN) >> page

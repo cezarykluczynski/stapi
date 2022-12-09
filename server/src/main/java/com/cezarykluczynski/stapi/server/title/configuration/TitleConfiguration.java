@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.title.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.title.endpoint.TitleRestEndpoint;
 import com.cezarykluczynski.stapi.server.title.endpoint.TitleSoapEndpoint;
+import com.cezarykluczynski.stapi.server.title.endpoint.TitleV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseRestMapper;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleFullRestMapper;
@@ -29,6 +30,11 @@ public class TitleConfiguration {
 	@Bean
 	public Server titleServer() {
 		return endpointFactory.createRestEndpoint(TitleRestEndpoint.class, TitleRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server titleV2Server() {
+		return endpointFactory.createRestEndpoint(TitleV2RestEndpoint.class, TitleV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

@@ -24,4 +24,6 @@ public @interface TrackedEntity {
 
 	String pluralName();
 
+	String restApiVersion() default "v1";
+
 }

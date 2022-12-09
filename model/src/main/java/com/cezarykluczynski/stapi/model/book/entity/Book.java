@@ -38,7 +38,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers",
 		"audiobookPublishers", "characters", "references", "audiobookReferences", "bookCollections"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookRepository.class, singularName = "book", pluralName = "books")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookRepository.class, singularName = "book", pluralName = "books",
+		restApiVersion = "v2")
 public class Book extends PageAwareEntity implements PageAware {
 
 	@Id

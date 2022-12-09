@@ -12,7 +12,7 @@ import { PanelApiKeysApi } from './panel-api-keys-api.service';
 export class PanelApiKeysComponent implements OnInit {
 
 	private panelApiKeysApi: PanelApiKeysApi;
-	private notificationsService : NotificationsService;
+	private notificationsService: NotificationsService;
 	private apiKeys: Array<any>;
 	private apiKeyDetails: any;
 	private keysBeingRemoved: Set<number> = new Set();

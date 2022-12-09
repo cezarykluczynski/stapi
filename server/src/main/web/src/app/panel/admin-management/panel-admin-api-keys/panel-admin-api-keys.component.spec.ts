@@ -46,7 +46,8 @@ describe('PanelAdminApiKeysComponent', () => {
 		notificationsServiceMock = new NotificationsServiceMock();
 		panelAdminManagementApiMock = new PanelAdminManagementApiMock();
 
-		panelAdminManagementApiMockSearchApiKeysSpy = spyOn(panelAdminManagementApiMock, 'searchApiKeys').and.returnValue(Promise.resolve(API_KEYS));
+		panelAdminManagementApiMockSearchApiKeysSpy = spyOn(panelAdminManagementApiMock, 'searchApiKeys')
+			.and.returnValue(Promise.resolve(API_KEYS));
 		spyOn(panelAdminManagementApiMock, 'blockApiKey').and.returnValue(Promise.resolve(BLOCK_RESULT));
 		spyOn(panelAdminManagementApiMock, 'unblockApiKey').and.returnValue(Promise.resolve(UNBLOCK_RESULT));
 
@@ -90,7 +91,7 @@ describe('PanelAdminApiKeysComponent', () => {
 	it('searches for API keys', () => {
 		fixture.whenStable().then(() => {
 			expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(1);
-			let event = {
+			const event = {
 				preventDefault: jasmine.createSpy('preventDefault')
 			};
 

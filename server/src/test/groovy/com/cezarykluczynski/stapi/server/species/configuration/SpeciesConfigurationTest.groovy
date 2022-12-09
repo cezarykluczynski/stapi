@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.species.configuration
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesV2RestEndpoint
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper
@@ -45,6 +46,19 @@ class SpeciesConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(SpeciesRestEndpoint, SpeciesRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Species V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = speciesConfiguration.speciesV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(SpeciesV2RestEndpoint, SpeciesV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

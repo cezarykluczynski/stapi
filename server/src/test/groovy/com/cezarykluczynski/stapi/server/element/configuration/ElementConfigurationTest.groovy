@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.element.configuration
 import com.cezarykluczynski.stapi.server.element.endpoint.ElementRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.element.endpoint.ElementSoapEndpoint
+import com.cezarykluczynski.stapi.server.element.endpoint.ElementV2RestEndpoint
 import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseRestMapper
 import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseSoapMapper
 import com.cezarykluczynski.stapi.server.element.mapper.ElementFullRestMapper
@@ -45,6 +46,19 @@ class ElementConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(ElementRestEndpoint, ElementRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Element V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = elementConfiguration.elementV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(ElementV2RestEndpoint, ElementV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

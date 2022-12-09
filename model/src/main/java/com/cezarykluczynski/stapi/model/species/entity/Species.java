@@ -32,7 +32,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpeciesRepository.class, singularName = "species", pluralName = "species")
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpeciesRepository.class, singularName = "species", pluralName = "species",
+		restApiVersion = "v2")
 public class Species extends PageAwareEntity implements PageAware {
 
 	@Id

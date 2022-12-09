@@ -33,7 +33,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = AstronomicalObjectRepository.class, singularName = "astronomical object",
-		pluralName = "astronomical objects")
+		pluralName = "astronomical objects", restApiVersion = "v2")
 public class AstronomicalObject extends PageAwareEntity implements PageAware {
 
 	@Id
