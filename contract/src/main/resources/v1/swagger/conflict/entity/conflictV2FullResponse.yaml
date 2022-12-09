@@ -1,0 +1,6 @@
+type: object
+description: Response object for single conflict query (V2)
+properties:
+  conflict:
+    $ref: '#/definitions/ConflictV2Full'
+    description: Conflict, if found

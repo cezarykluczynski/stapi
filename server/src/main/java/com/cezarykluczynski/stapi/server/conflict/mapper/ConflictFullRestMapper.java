@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.conflict.mapper;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictFull;
+import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2Full;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
@@ -12,5 +13,7 @@ import org.mapstruct.Mapper;
 public interface ConflictFullRestMapper {
 
 	ConflictFull mapFull(Conflict conflict);
+
+	ConflictV2Full mapV2Full(Conflict conflict);
 
 }

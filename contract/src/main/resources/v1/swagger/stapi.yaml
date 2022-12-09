@@ -61,11 +61,14 @@ paths:
     $ref: ./company/path/company.path.yaml
   /v1/rest/company/search:
     $ref: ./company/path/companySearch.path.yaml
-  # TODO: Add V2
   /v1/rest/conflict:
     $ref: ./conflict/path/conflict.path.yaml
   /v1/rest/conflict/search:
     $ref: ./conflict/path/conflictSearch.path.yaml
+  /v2/rest/conflict:
+    $ref: ./conflict/path/conflictV2.path.yaml
+  /v2/rest/conflict/search:
+    $ref: ./conflict/path/conflictV2Search.path.yaml
   /v1/rest/element:
     $ref: ./element/path/element.path.yaml
   /v1/rest/element/search:
@@ -349,26 +352,34 @@ definitions:
     $ref: ./comic_strip/entity/comicStripBaseResponse.yaml
   ComicStripFullResponse:
     $ref: ./comic_strip/entity/comicStripFullResponse.yaml
+  CompanyHeader:
+    $ref: ./company/entity/companyHeader.yaml
   CompanyBase:
     $ref: ./company/entity/companyBase.yaml
   CompanyFull:
     $ref: ./company/entity/companyFull.yaml
-  CompanyHeader:
-    $ref: ./company/entity/companyHeader.yaml
   CompanyBaseResponse:
     $ref: ./company/entity/companyBaseResponse.yaml
   CompanyFullResponse:
     $ref: ./company/entity/companyFullResponse.yaml
+  ConflictHeader:
+    $ref: ./conflict/entity/conflictHeader.yaml
   ConflictBase:
     $ref: ./conflict/entity/conflictBase.yaml
   ConflictFull:
     $ref: ./conflict/entity/conflictFull.yaml
-  ConflictHeader:
-    $ref: ./conflict/entity/conflictHeader.yaml
   ConflictBaseResponse:
     $ref: ./conflict/entity/conflictBaseResponse.yaml
   ConflictFullResponse:
     $ref: ./conflict/entity/conflictFullResponse.yaml
+  ConflictV2Base:
+    $ref: ./conflict/entity/conflictV2Base.yaml
+  ConflictV2Full:
+    $ref: ./conflict/entity/conflictV2Full.yaml
+  ConflictV2BaseResponse:
+    $ref: ./conflict/entity/conflictV2BaseResponse.yaml
+  ConflictV2FullResponse:
+    $ref: ./conflict/entity/conflictV2FullResponse.yaml
   ContentLanguage:
     $ref: ./content_language/entity/contentLanguage.yaml
   ContentRatingSystem:

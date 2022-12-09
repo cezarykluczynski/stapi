@@ -21,8 +21,10 @@ abstract class AbstractConflictMapperTest extends AbstractConflictTest {
 				alternateReality: ALTERNATE_REALITY,
 				locations: createSetOfRandomNumberOfMocks(Location),
 				firstSideBelligerents: createSetOfRandomNumberOfMocks(Organization),
+				firstSideLocations: createSetOfRandomNumberOfMocks(Location),
 				firstSideCommanders: createSetOfRandomNumberOfMocks(Character),
 				secondSideBelligerents: createSetOfRandomNumberOfMocks(Organization),
+				secondSideLocations: createSetOfRandomNumberOfMocks(Location),
 				secondSideCommanders: createSetOfRandomNumberOfMocks(Character))
 	}
 

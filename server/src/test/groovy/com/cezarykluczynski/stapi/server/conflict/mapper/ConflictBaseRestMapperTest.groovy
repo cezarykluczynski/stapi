@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.conflict.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2Base
 import com.cezarykluczynski.stapi.model.conflict.dto.ConflictRequestDTO
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
 import com.cezarykluczynski.stapi.server.conflict.dto.ConflictRestBeanParams
@@ -35,6 +36,25 @@ class ConflictBaseRestMapperTest extends AbstractConflictMapperTest {
 
 		when:
 		ConflictBase conflictBase = conflictBaseRestMapper.mapBase(Lists.newArrayList(conflict))[0]
+
+		then:
+		conflictBase.uid == UID
+		conflictBase.name == NAME
+		conflictBase.yearFrom == YEAR_FROM
+		conflictBase.yearTo == YEAR_TO
+		conflictBase.earthConflict == EARTH_CONFLICT
+		conflictBase.federationWar == FEDERATION_WAR
+		conflictBase.klingonWar == KLINGON_WAR
+		conflictBase.dominionWarBattle == DOMINION_WAR_BATTLE
+		conflictBase.alternateReality == ALTERNATE_REALITY
+	}
+
+	void "maps DB entity to base REST V2 entity"() {
+		given:
+		Conflict conflict = createConflict()
+
+		when:
+		ConflictV2Base conflictBase = conflictBaseRestMapper.mapV2Base(Lists.newArrayList(conflict))[0]
 
 		then:
 		conflictBase.uid == UID
