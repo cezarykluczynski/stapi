@@ -25,7 +25,6 @@
 							</ul>
 						</li>
 						<li><a routerLinkActive="navigation-element--active" routerLink="api-browser">API Browser</a></li>
-						<li><a routerLinkActive="navigation-element--active" routerLink="statistics">Statistics</a></li>
 					</ul>
 					<ul class='nav navbar-nav navbar-right'>
 						<li *ngIf="hasGitHubProjectDetails()">
@@ -60,8 +59,9 @@
 	<div class="footer">
 		<div class="footer-content">
 			<ul>
-				<li><a href="/terms-of-service">Regulamin (Terms of service)</a></li>
-				<li><a href="/privacy-policy">Polityka prywatności (Privacy policy)</a></li>
+				<li class="footer-data-version" *ngIf="hasDataVersion()">Serving data gather in {{getDataVersion()}}</li>
+				<li *ngIf="hasTocAndPP()"><a href="/terms-of-service">Regulamin (Terms of service)</a></li>
+				<li *ngIf="hasTocAndPP()"><a href="/privacy-policy">Polityka prywatności (Privacy policy)</a></li>
 			</ul>
 		</div>
 	</div>

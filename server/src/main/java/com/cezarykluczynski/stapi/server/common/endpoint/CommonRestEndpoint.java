@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
+import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
@@ -73,6 +74,12 @@ public class CommonRestEndpoint {
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Response soapContractsZip() {
 		return commonDataReader.soapContractsZip();
+	}
+
+	@GET
+	@Path("dataVersion")
+	public DataVersionDTO dataVersion() {
+		return commonDataReader.dataVersion();
 	}
 
 }

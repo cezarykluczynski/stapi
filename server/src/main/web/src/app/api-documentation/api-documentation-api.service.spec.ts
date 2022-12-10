@@ -45,14 +45,18 @@ describe('ApiDocumentationApi', () => {
 	it('is created', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 		expect(apiDocumentationApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(2);
+		expect(res.calls.count()).toBe(4);
 		expect(res.calls.argsFor(0)).toEqual(['common']);
 		expect(res.calls.argsFor(1)).toEqual(['documentation']);
+		expect(res.calls.argsFor(2)).toEqual(['common']);
+		expect(res.calls.argsFor(3)).toEqual(['dataVersion']);
 	}));
 
 	describe('after initialization', () => {
 		let documentationPromise;
+		let dataVersionPromise;
 		const DOCUMENTATION = 'DOCUMENTATION';
+		const DATA_VERSION = 'DATA_VERSION';
 
 		beforeEach(() => {
 			documentationPromise = () => {
@@ -61,14 +65,22 @@ describe('ApiDocumentationApi', () => {
 				});
 			};
 
+			dataVersionPromise = () => {
+				return Promise.resolve({
+					dataVersion: DATA_VERSION
+				});
+			};
+
 			restClientMock.common = {
-				documentation: { get: documentationPromise }
+				documentation: { get: documentationPromise },
+				dataVersion: { get: dataVersionPromise }
 			};
 		});
 
 		it('does not throw error', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			expect(() => {
 				apiDocumentationApi.loadDocumentation();
+				apiDocumentationApi.loadDataVersion();
 			}).not.toThrow();
 		}));
 
@@ -79,6 +91,14 @@ describe('ApiDocumentationApi', () => {
 				expect(apiDocumentationApi.getDocumentation()).toEqual({
 					documentation: DOCUMENTATION
 				});
+			});
+		})));
+
+		it('gets data version', async(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
+			apiDocumentationApi.loadDataVersion();
+
+			setTimeout(() => {
+				expect(apiDocumentationApi.getDataVersion()).toEqual(DATA_VERSION);
 			});
 		})));
 	});

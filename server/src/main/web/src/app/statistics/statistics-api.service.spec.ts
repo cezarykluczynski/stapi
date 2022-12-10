@@ -44,13 +44,13 @@ describe('StatisticsApi', () => {
 	it('is created', inject([StatisticsApi], (statisticsApi: StatisticsApi) => {
 		expect(statisticsApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(6);
+		expect(res.calls.count()).toBe(3);
 		expect(res.calls.argsFor(0)).toEqual(['common']);
 		expect(res.calls.argsFor(1)).toEqual(['statistics']);
 		expect(res.calls.argsFor(2)).toEqual(['entities']);
-		expect(res.calls.argsFor(3)).toEqual(['common']);
-		expect(res.calls.argsFor(4)).toEqual(['statistics']);
-		expect(res.calls.argsFor(5)).toEqual(['hits']);
+		// expect(res.calls.argsFor(3)).toEqual(['common']);
+		// expect(res.calls.argsFor(4)).toEqual(['statistics']);
+		// expect(res.calls.argsFor(5)).toEqual(['hits']);
 	}));
 
 	describe('after initialization', () => {
@@ -85,9 +85,9 @@ describe('StatisticsApi', () => {
 					entitiesStatistics: {
 						statistics: []
 					},
-					hitsStatistics: {
-						statistics: []
-					},
+					// hitsStatistics: {
+					// 	statistics: []
+					// },
 					loaded: true
 				});
 			});

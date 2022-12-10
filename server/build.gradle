@@ -54,6 +54,7 @@ configurations.compile.exclude group: 'io.swagger'
 task copyDocs(type: CopyDocs) << {}
 task copyResources(type: CopyResources) << {}
 task addWarProfile(type: AddWarProfile) << {}
+task dockerize(type: Dockerize) << {}
 task npmBuild(type: NpmRunBuild) << {}
 
 copyDocs {
@@ -61,6 +62,10 @@ copyDocs {
 }
 copyResources {
 	dependsOn(copyDocs)
+}
+
+dockerize {
+	dependsOn('bootRepackage')
 }
 
 class NpmRunBuild extends DefaultTask {
@@ -158,6 +163,57 @@ class AddWarProfile extends DefaultTask {
 				})
 				.collect(Collectors.toList())
 		return StringUtils.join(newLines, NEW_LINE_SEPARATOR).getBytes()
+	}
+
+}
+
+class Dockerize extends DefaultTask {
+
+	private String version;
+
+	@Option(option = "version", description = "Data version which should be downloaded")
+	public void setVersion(String version) {
+		this.version = version
+	}
+
+	@Input
+	public String getVersion() {
+		return version
+	}
+
+	@TaskAction
+	def dockerize() {
+		String dataFileUrl = "https://s3.us-east-2.amazonaws.com/static.stapi/db_dumps/${this.version}/postgres.sql"
+		String path = new File(".").absolutePath
+		String localDirPath = "data/"
+		new File(localDirPath).mkdir()
+		String localPath = "data/postgres.sql"
+		File localFile = new File(localPath)
+		if (localFile.exists()) {
+			localFile.delete()
+		}
+		localFile.text = ''
+		ant.get(src: dataFileUrl, dest: localFile.absolutePath)
+		logger.info("Downloaded data version ${this.version} from S3 to ${localPath}.")
+
+		ProcessBuilder pb
+		if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+			pb = new ProcessBuilder(['cmd', '/c', 'docker', 'build', '.', '--build-arg', 'STAPI_DATA_VERSION=' + this.version, '-t', 'stapi:' + this.version])
+		} else {
+			pb = new ProcessBuilder(['docker', 'build', '.', '--build-arg', 'STAPI_DATA_VERSION=' + this.version, '-t', 'stapi:' + this.version])
+		}
+		pb.directory(new File('.'))
+		pb.inheritIO()
+
+		Process proc = pb.start()
+		proc.waitFor()
+		if (proc.exitValue() != 0) {
+			throw new RuntimeException(new BufferedReader(new InputStreamReader(proc.errorStream))
+					.lines().collect(Collectors.joining("\n")))
+		} else {
+			new BufferedReader(new InputStreamReader(proc.inputStream))
+					.lines().forEach { println(it) }
+		}
 	}
 
 }

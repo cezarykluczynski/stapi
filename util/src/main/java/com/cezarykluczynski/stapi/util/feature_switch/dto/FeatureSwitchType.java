@@ -4,6 +4,7 @@ public enum FeatureSwitchType {
 
 	ADMIN_PANEL,
 	USER_PANEL,
-	DOCKER
+	DOCKER,
+	TOS_AND_PP
 
 }

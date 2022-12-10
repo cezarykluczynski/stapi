@@ -26,6 +26,7 @@ export class InitializerService {
 			this.apiBrowserApi.loadDetails(),
 			this.statisticsApi.loadStatistics(),
 			this.apiDocumentationApi.loadDocumentation(),
+			this.apiDocumentationApi.loadDataVersion(),
 			this.featureSwitchApi.loadFeatureSwitches()
 		]);
 	}

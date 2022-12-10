@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.client.api.rest.ComicStrip;
 import com.cezarykluczynski.stapi.client.api.rest.Comics;
 import com.cezarykluczynski.stapi.client.api.rest.Company;
 import com.cezarykluczynski.stapi.client.api.rest.Conflict;
+import com.cezarykluczynski.stapi.client.api.rest.DataVersion;
 import com.cezarykluczynski.stapi.client.api.rest.Element;
 import com.cezarykluczynski.stapi.client.api.rest.Episode;
 import com.cezarykluczynski.stapi.client.api.rest.Food;
@@ -52,6 +53,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.ComicStripApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.ComicsApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.CompanyApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.ConflictApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.DataVersionApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.ElementApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.EpisodeApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.FoodApi;
@@ -125,6 +127,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 
 	@Getter
 	private ConflictApi conflictApi;
+
+	@Getter
+	private DataVersionApi dataVersionApi;
 
 	@Getter
 	private ElementApi elementApi;
@@ -247,6 +252,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private Conflict conflict;
 
 	@Getter
+	private DataVersion dataVersion;
+
+	@Getter
 	private Element element;
 
 	@Getter
@@ -345,6 +353,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		comicStripApi = new ComicStripApi(apiClient);
 		companyApi = new CompanyApi(apiClient);
 		conflictApi = new ConflictApi(apiClient);
+		dataVersionApi = new DataVersionApi(apiClient);
 		elementApi = new ElementApi(apiClient);
 		episodeApi = new EpisodeApi(apiClient);
 		foodApi = new FoodApi(apiClient);
@@ -385,6 +394,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		comicStrip = new ComicStrip(comicStripApi, apiKey);
 		company = new Company(companyApi, apiKey);
 		conflict = new Conflict(conflictApi, apiKey);
+		dataVersion = new DataVersion(dataVersionApi);
 		element = new Element(elementApi, apiKey);
 		episode = new Episode(episodeApi, apiKey);
 		food = new Food(foodApi, apiKey);

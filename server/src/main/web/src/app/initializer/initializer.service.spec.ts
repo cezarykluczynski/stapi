@@ -17,6 +17,7 @@ class StatisticsApiMock {
 
 class ApiDocumentationApiMock {
 	public loadDocumentation() {}
+	public loadDataVersion() {}
 }
 
 class FeatureSwitchApiMock {
@@ -66,12 +67,14 @@ describe('InitializerService', () => {
 		spyOn(apiBrowserApiMock, 'loadDetails').and.returnValue(true);
 		spyOn(statisticsApiMock, 'loadStatistics').and.returnValue(true);
 		spyOn(apiDocumentationApiMock, 'loadDocumentation').and.returnValue(true);
+		spyOn(apiDocumentationApiMock, 'loadDataVersion').and.returnValue(true);
 		spyOn(featureSwitchApiMock, 'loadFeatureSwitches').and.returnValue(true);
 
 		initializerService.init().then(() => {
 			expect(apiBrowserApiMock.loadDetails).toHaveBeenCalled();
 			expect(statisticsApiMock.loadStatistics).toHaveBeenCalled();
 			expect(apiDocumentationApiMock.loadDocumentation).toHaveBeenCalled();
+			expect(apiDocumentationApiMock.loadDataVersion).toHaveBeenCalled();
 			expect(featureSwitchApiMock.loadFeatureSwitches).toHaveBeenCalled();
 		});
 	}));

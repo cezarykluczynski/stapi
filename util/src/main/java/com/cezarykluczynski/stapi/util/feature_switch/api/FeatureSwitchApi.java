@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.util.feature_switch.api;
 
+import com.cezarykluczynski.stapi.util.constant.EnvironmentVariable;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.cezarykluczynski.stapi.util.feature_switch.configuration.FeatureSwitchProperties;
@@ -30,7 +31,10 @@ public class FeatureSwitchApi {
 		final List<FeatureSwitchDTO> featureSwitches = featureSwitchProperties.getFeatureSwitch().entrySet()
 				.stream().map(this::map)
 				.collect(Collectors.toList());
-		featureSwitches.add(FeatureSwitchDTO.of(FeatureSwitchType.DOCKER, Arrays.asList(environment.getActiveProfiles()).contains(SpringProfile.DOCKER)));
+		featureSwitches.add(FeatureSwitchDTO.of(FeatureSwitchType.DOCKER,
+				Arrays.asList(environment.getActiveProfiles()).contains(SpringProfile.DOCKER)));
+		featureSwitches.add(FeatureSwitchDTO.of(FeatureSwitchType.TOS_AND_PP,
+				environment.getProperty(EnvironmentVariable.STAPI_TOS_AND_PP, "false").equals("true")));
 		return FeatureSwitchesDTO.of(featureSwitches);
 	}
 

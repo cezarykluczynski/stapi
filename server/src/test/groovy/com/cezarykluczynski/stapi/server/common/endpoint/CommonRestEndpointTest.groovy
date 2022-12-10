@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.endpoint
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
@@ -104,6 +105,19 @@ class CommonRestEndpointTest extends Specification {
 		1 * commonDataReaderMock.soapContractsZip() >> response
 		0 * _
 		responseOutput == response
+	}
+
+	void "gets data version"() {
+		given:
+		DataVersionDTO dataVersionDTO = Mock()
+
+		when:
+		DataVersionDTO dataVersionDTOOutput = commonRestEndpoint.dataVersion()
+
+		then:
+		1 * commonDataReaderMock.dataVersion() >> dataVersionDTO
+		0 * _
+		dataVersionDTOOutput == dataVersionDTO
 	}
 
 }

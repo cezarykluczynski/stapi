@@ -5,7 +5,6 @@ import { AboutComponent } from './about/about.component';
 import { ApiBrowserComponent } from './api-browser/api-browser.component';
 import { ApiDocumentationComponent } from './api-documentation/api-documentation.component';
 import { LicensingComponent } from './licensing/licensing.component';
-import { StatisticsComponent } from './statistics/statistics.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PanelComponent } from './panel/panel.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
@@ -31,10 +30,6 @@ export const APP_ROUTES: Routes = [
 	{
 		path: 'licensing',
 		component: LicensingComponent
-	},
-	{
-		path: 'statistics',
-		component: StatisticsComponent
 	},
 	{
 		path: 'panel',

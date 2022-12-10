@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.common.reader
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import com.cezarykluczynski.stapi.server.common.dataversion.CommonDataVersionProvider
 import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider
+import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import spock.lang.Specification
@@ -16,7 +18,9 @@ class CommonDataReaderTest extends Specification {
 
 	private StatisticsReader statisticsReaderMock
 
-	private DocumentationProvider documentationProvider
+	private DocumentationProvider documentationProviderMock
+
+	private CommonDataVersionProvider commonDataVersionProviderMock
 
 	private CommonDataReader commonDataReader
 
@@ -24,9 +28,10 @@ class CommonDataReaderTest extends Specification {
 		commonEntitiesStatisticsReaderMock = Mock()
 		commonEntitiesDetailsReaderMock = Mock()
 		statisticsReaderMock = Mock()
-		documentationProvider = Mock()
+		documentationProviderMock = Mock()
+		commonDataVersionProviderMock = Mock()
 		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock, statisticsReaderMock,
-				documentationProvider)
+				documentationProviderMock, commonDataVersionProviderMock)
 	}
 
 	void "gets entities statistics from CommonEntitiesStatisticsReader"() {
@@ -76,7 +81,7 @@ class CommonDataReaderTest extends Specification {
 		DocumentationDTO documentationDTOOutput = commonDataReader.documentation()
 
 		then:
-		1 * documentationProvider.provideDocumentation() >> documentationDTO
+		1 * documentationProviderMock.provideDocumentation() >> documentationDTO
 		0 * _
 		documentationDTOOutput == documentationDTO
 	}
@@ -89,7 +94,7 @@ class CommonDataReaderTest extends Specification {
 		Response responseOutput = commonDataReader.restSpecsZip()
 
 		then:
-		1 * documentationProvider.provideRestSpecsZip() >> response
+		1 * documentationProviderMock.provideRestSpecsZip() >> response
 		0 * _
 		responseOutput == response
 	}
@@ -102,9 +107,22 @@ class CommonDataReaderTest extends Specification {
 		Response responseOutput = commonDataReader.soapContractsZip()
 
 		then:
-		1 * documentationProvider.provideSoapContractsZip() >> response
+		1 * documentationProviderMock.provideSoapContractsZip() >> response
 		0 * _
 		responseOutput == response
+	}
+
+	void "gets data version"() {
+		given:
+		DataVersionDTO dataVersionDTO = Mock()
+
+		when:
+		DataVersionDTO dataVersionDTOOutput = commonDataReader.dataVersion()
+
+		then:
+		1 * commonDataVersionProviderMock.provide() >> dataVersionDTO
+		0 * _
+		dataVersionDTOOutput == dataVersionDTO
 	}
 
 }

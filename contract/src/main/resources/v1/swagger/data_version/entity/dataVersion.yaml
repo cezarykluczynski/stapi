@@ -1,0 +1,7 @@
+type: object
+description: Data version
+properties:
+  dataVersion:
+    type: string
+    required: true
+    description: Version of the data served by this STAPI instance

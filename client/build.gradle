@@ -26,202 +26,202 @@ wsdl2java {
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/series.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/series.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/series.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/season.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/season.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/season.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/performer.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/performer.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/performer.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/staff.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/staff.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/staff.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/character.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/character.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/character.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/episode.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/episode.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/episode.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/movie.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/movie.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/movie.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/astronomicalObject.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/astronomicalObject.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/astronomicalObject.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/company.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/company.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/company.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/comicSeries.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/comicSeries.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/comicSeries.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/comics.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/comics.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/comics.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/comicStrip.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/comicStrip.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/comicStrip.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/comicCollection.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/comicCollection.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/comicCollection.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/species.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/species.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/species.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/organization.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/organization.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/organization.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/food.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/food.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/food.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/location.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/location.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/location.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/bookSeries.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/bookSeries.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/bookSeries.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/book.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/book.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/book.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/bookCollection.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/bookCollection.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/bookCollection.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/magazine.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/magazine.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/magazine.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/magazineSeries.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/magazineSeries.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/magazineSeries.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/literature.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/literature.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/literature.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/videoRelease.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/videoRelease.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/videoRelease.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/tradingCard.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/tradingCard.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/tradingCard.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/tradingCardSet.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/tradingCardSet.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/tradingCardSet.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/tradingCardDeck.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/tradingCardDeck.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/tradingCardDeck.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/videoGame.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/videoGame.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/videoGame.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/soundtrack.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/soundtrack.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/soundtrack.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/weapon.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/weapon.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/weapon.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/spacecraftClass.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/spacecraftClass.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/spacecraftClass.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/spacecraft.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/spacecraft.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/spacecraft.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/title.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/title.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/title.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/material.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/material.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/material.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/conflict.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/conflict.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/conflict.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/animal.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/animal.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/animal.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/element.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/element.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/element.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/medicalCondition.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/medicalCondition.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/medicalCondition.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/technology.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/technology.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/technology.wsdl"
 			],
 			[
 					'-wsdlLocation', 'classpath:v1/wsdl/occupation.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
-					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/occupation.wsdl"
+					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/occupation.wsdl"
 			]
 	]
 	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")

@@ -13,6 +13,5 @@ public class SpringProfile {
 	public static final String GENDERIZE_NOT = NOT + GENDERIZE;
 	public static final String API_THROTTLE_NOT = NOT + API_THROTTLE;
 	public static final String WAR_NOT = NOT + WAR;
-	public static final String AUTH_NOT = NOT + AUTH;
 
 }

@@ -69,6 +69,8 @@ paths:
     $ref: ./conflict/path/conflictV2.path.yaml
   /v2/rest/conflict/search:
     $ref: ./conflict/path/conflictV2Search.path.yaml
+  /v1/rest/common/dataVersion:
+    $ref: ./data_version/path/dataVersion.path.yaml
   /v1/rest/element:
     $ref: ./element/path/element.path.yaml
   /v1/rest/element/search:
@@ -388,6 +390,8 @@ definitions:
     $ref: ./content_rating/entity/contentRating.yaml
   Country:
     $ref: ./country/entity/country.yaml
+  DataVersion:
+    $ref: ./data_version/entity/dataVersion.yaml
   ElementHeader:
     $ref: ./element/entity/elementHeader.yaml
   ElementBase:

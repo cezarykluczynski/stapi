@@ -3,9 +3,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 import { PanelApi } from './panel/panel-api.service';
-
+import { ApiDocumentationApi } from './api-documentation/api-documentation-api.service';
 import {RouterTestingModule} from '@angular/router/testing';
-import {Router} from '@angular/router';
 
 class FeatureSwitchApiMock {
 	public isEnabled() {}
@@ -15,14 +14,20 @@ class PanelApiMock {
 	public getGitHubProjectDetails() {}
 }
 
+class ApiDocumentationApiMock {
+	public getDataVersion() {}
+}
+
 describe('AppComponent', () => {
 	let featureSwitchApiMock: FeatureSwitchApiMock;
 	let panelApiMock: PanelApiMock;
+	let apiDocumentationApiMock: ApiDocumentationApiMock;
 	let resolve;
 
 	beforeEach(async(() => {
 		featureSwitchApiMock = new FeatureSwitchApiMock();
 		panelApiMock = new PanelApiMock();
+		apiDocumentationApiMock = new ApiDocumentationApiMock();
 
 		TestBed.configureTestingModule({
 			imports: [RouterTestingModule.withRoutes([])],
@@ -36,6 +41,10 @@ describe('AppComponent', () => {
 				{
 					provide: PanelApi,
 					useValue: panelApiMock
+				},
+				{
+					provide: ApiDocumentationApi,
+					useValue: apiDocumentationApiMock
 				}
 			]
 		}).compileComponents();

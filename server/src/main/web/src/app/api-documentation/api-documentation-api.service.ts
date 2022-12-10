@@ -9,6 +9,7 @@ export class ApiDocumentationApi {
 
 	private api: RestClient;
 	private documentation: any;
+	private dataVersion: String;
 
 	constructor(restApiService: RestApiService) {
 		this.api = restApiService.getApi();
@@ -22,12 +23,24 @@ export class ApiDocumentationApi {
 		});
 	}
 
+	loadDataVersion() {
+		return this.api.common.dataVersion.get().then(response => {
+			this.dataVersion = response.dataVersion;
+			return this.dataVersion;
+		});
+	}
+
 	getDocumentation() {
 		return this.documentation;
 	}
 
+	getDataVersion() {
+		return this.dataVersion;
+	}
+
 	private register() {
 		this.api.res('common').res('documentation');
+		this.api.res('common').res('dataVersion');
 	}
 
 }
