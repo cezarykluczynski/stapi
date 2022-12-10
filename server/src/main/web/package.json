@@ -56,7 +56,7 @@
 		"grunt-contrib-clean": "1.1.0",
 		"grunt-contrib-copy": "1.0.0",
 		"grunt-exec": "1.0.0",
-		"grunt-contrib-watch": "1.0.0",
+		"grunt-contrib-watch": "1.1.0",
 		"jasmine-core": "2.6.2",
 		"jasmine-expect": "3.7.1",
 		"jasmine-spec-reporter": "4.1.0",
