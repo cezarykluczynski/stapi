@@ -44,7 +44,7 @@ class CompanyPageProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('LineLength')
-	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
+	@Unroll('set #flagName flag when category #{page.categories} is passed; expect #trueBooleans not null fields')
 	void "sets flagName when page is passed"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
@@ -60,23 +60,45 @@ class CompanyPageProcessorTest extends Specification {
 		where:
 		page                                                                                     | flagName                          | flag  | trueBooleans
 		new EtlPage(categories: Lists.newArrayList())                                            | 'broadcaster'                     | false | 0
+		new EtlPage(categories: createList(CategoryTitle.STREAMING_SERVICES))                    | 'streamingService'                | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.STREAMING_SERVICES))                    | 'broadcaster'                     | true  | 2
 		new EtlPage(categories: createList(CategoryTitle.BROADCASTERS))                          | 'broadcaster'                     | true  | 1
 		new EtlPage(categories: createList(CategoryTitle.COLLECTIBLE_COMPANIES))                 | 'collectibleCompany'              | true  | 1
 		new EtlPage(categories: createList(CategoryTitle.CONGLOMERATES))                         | 'conglomerate'                    | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES))      | 'digitalVisualEffectsCompany'     | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.DISTRIBUTORS))                          | 'distributor'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES))      | 'digitalVisualEffectsCompany'     | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES))      | 'visualEffectsCompany'            | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES))      | 'productionCompany'               | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MATTE_PAINTING_COMPANIES))              | 'mattePaintingCompany'            | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MATTE_PAINTING_COMPANIES))              | 'visualEffectsCompany'            | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MATTE_PAINTING_COMPANIES))              | 'productionCompany'               | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES)) | 'modelAndMiniatureEffectsCompany' | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES)) | 'visualEffectsCompany'            | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES)) | 'productionCompany'               | true  | 3
 		new EtlPage(categories: createList(CategoryTitle.GAME_COMPANIES))                        | 'gameCompany'                     | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.FILM_EQUIPMENT_COMPANIES))              | 'filmEquipmentCompany'            | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.MAKE_UP_EFFECTS_STUDIOS))               | 'makeUpEffectsStudio'             | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.MATTE_PAINTING_COMPANIES))              | 'mattePaintingCompany'            | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES)) | 'modelAndMiniatureEffectsCompany' | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.POST_PRODUCTION_COMPANIES))             | 'postProductionCompany'           | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.VISUAL_EFFECTS_COMPANIES))              | 'visualEffectsCompany'            | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.VISUAL_EFFECTS_COMPANIES))              | 'productionCompany'               | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.SPECIAL_EFFECTS_COMPANIES))             | 'specialEffectsCompany'           | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.SPECIAL_EFFECTS_COMPANIES))             | 'productionCompany'               | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.POST_PRODUCTION_COMPANIES))             | 'postProductionCompany'           | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.POST_PRODUCTION_COMPANIES))             | 'productionCompany'               | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.FILM_EQUIPMENT_COMPANIES))              | 'filmEquipmentCompany'            | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.FILM_EQUIPMENT_COMPANIES))              | 'productionCompany'               | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.DISTRIBUTORS))                          | 'distributor'                     | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.DISTRIBUTORS))                          | 'productionCompany'               | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.TV_AND_FILM_PRODUCTION_COMPANIES))      | 'tvAndFilmProductionCompany'      | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.TV_AND_FILM_PRODUCTION_COMPANIES))      | 'productionCompany'               | true  | 2
 		new EtlPage(categories: createList(CategoryTitle.PRODUCTION_COMPANIES))                  | 'productionCompany'               | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.PROP_COMPANIES))                        | 'propCompany'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.PROP_COMPANIES))                        | 'propCompany'                     | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.PROP_COMPANIES))                        | 'specialEffectsCompany'           | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.PROP_COMPANIES))                        | 'productionCompany'               | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MAKE_UP_EFFECTS_STUDIOS))               | 'makeUpEffectsStudio'             | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MAKE_UP_EFFECTS_STUDIOS))               | 'specialEffectsCompany'           | true  | 3
+		new EtlPage(categories: createList(CategoryTitle.MAKE_UP_EFFECTS_STUDIOS))               | 'productionCompany'               | true  | 3
 		new EtlPage(categories: createList(CategoryTitle.RECORD_LABELS))                         | 'recordLabel'                     | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.SPECIAL_EFFECTS_COMPANIES))             | 'specialEffectsCompany'           | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.TV_AND_FILM_PRODUCTION_COMPANIES))      | 'tvAndFilmProductionCompany'      | true  | 1
-		new EtlPage(categories: createList(CategoryTitle.VIDEO_GAME_COMPANIES))                  | 'videoGameCompany'                | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.VIDEO_GAME_COMPANIES))                  | 'videoGameCompany'                | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.VIDEO_GAME_COMPANIES))                  | 'gameCompany'                     | true  | 2
+		new EtlPage(categories: createList(CategoryTitle.PUBLISHERS))                            | 'publisher'                       | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.STAR_TREK_PUBLICATION_ART_STUDIOS))     | 'publicationArtStudio'            | true  | 1
 	}
 
 	void "returns null when page is a result of redirect"() {

@@ -25,8 +25,10 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 		companyQueryBuilder.equal(Company_.uid, criteria.getUid());
 		companyQueryBuilder.like(Company_.name, criteria.getName());
 		companyQueryBuilder.equal(Company_.broadcaster, criteria.getBroadcaster());
+		companyQueryBuilder.equal(Company_.streamingService, criteria.getStreamingService());
 		companyQueryBuilder.equal(Company_.collectibleCompany, criteria.getCollectibleCompany());
 		companyQueryBuilder.equal(Company_.conglomerate, criteria.getConglomerate());
+		companyQueryBuilder.equal(Company_.visualEffectsCompany, criteria.getVisualEffectsCompany());
 		companyQueryBuilder.equal(Company_.digitalVisualEffectsCompany, criteria.getDigitalVisualEffectsCompany());
 		companyQueryBuilder.equal(Company_.distributor, criteria.getDistributor());
 		companyQueryBuilder.equal(Company_.gameCompany, criteria.getGameCompany());
@@ -41,6 +43,8 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 		companyQueryBuilder.equal(Company_.specialEffectsCompany, criteria.getSpecialEffectsCompany());
 		companyQueryBuilder.equal(Company_.tvAndFilmProductionCompany, criteria.getTvAndFilmProductionCompany());
 		companyQueryBuilder.equal(Company_.videoGameCompany, criteria.getVideoGameCompany());
+		companyQueryBuilder.equal(Company_.publisher, criteria.getPublisher());
+		companyQueryBuilder.equal(Company_.publicationArtStudio, criteria.getPublicationArtStudio());
 		companyQueryBuilder.setSort(criteria.getSort());
 
 		return companyQueryBuilder.findPage();

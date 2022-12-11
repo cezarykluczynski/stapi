@@ -118,12 +118,12 @@ properties:
   publishers:
     type: array
     items:
-      $ref: '#/definitions/CompanyBase'
+      $ref: '#/definitions/CompanyV2Base'
     description: Book publishers
   audiobookPublishers:
     type: array
     items:
-      $ref: '#/definitions/CompanyBase'
+      $ref: '#/definitions/CompanyV2Base'
     description: Audiobook publishers
   characters:
     type: array

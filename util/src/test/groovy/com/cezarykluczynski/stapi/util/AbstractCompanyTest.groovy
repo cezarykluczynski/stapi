@@ -7,8 +7,10 @@ abstract class AbstractCompanyTest extends AbstractTest {
 	protected static final String UID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'
 	protected static final boolean BROADCASTER = RandomUtil.nextBoolean()
+	protected static final boolean STREAMING_SERVICE = RandomUtil.nextBoolean()
 	protected static final boolean COLLECTIBLE_COMPANY = RandomUtil.nextBoolean()
 	protected static final boolean CONGLOMERATE = RandomUtil.nextBoolean()
+	protected static final boolean VISUAL_EFFECTS_COMPANY = RandomUtil.nextBoolean()
 	protected static final boolean DIGITAL_VISUAL_EFFECTS_COMPANY = RandomUtil.nextBoolean()
 	protected static final boolean DISTRIBUTOR = RandomUtil.nextBoolean()
 	protected static final boolean GAME_COMPANY = RandomUtil.nextBoolean()
@@ -23,5 +25,7 @@ abstract class AbstractCompanyTest extends AbstractTest {
 	protected static final boolean SPECIAL_EFFECTS_COMPANY = RandomUtil.nextBoolean()
 	protected static final boolean TV_AND_FILM_PRODUCTION_COMPANY = RandomUtil.nextBoolean()
 	protected static final boolean VIDEO_GAME_COMPANY = RandomUtil.nextBoolean()
+	protected static final boolean PUBLISHER = RandomUtil.nextBoolean()
+	protected static final boolean PUBLICATION_ART_STUDIO = RandomUtil.nextBoolean()
 
 }

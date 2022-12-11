@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.company.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint;
+import com.cezarykluczynski.stapi.server.company.endpoint.CompanyV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper;
@@ -29,6 +30,11 @@ public class CompanyConfiguration {
 	@Bean
 	public Server companyServer() {
 		return endpointFactory.createRestEndpoint(CompanyRestEndpoint.class, CompanyRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server companyV2Server() {
+		return endpointFactory.createRestEndpoint(CompanyV2RestEndpoint.class, CompanyV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

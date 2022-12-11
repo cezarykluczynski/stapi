@@ -20,11 +20,11 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = CompanyRepository.class, singularName = "company", pluralName = "companies")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = CompanyRepository.class, singularName = "company", pluralName = "companies",
+		restApiVersion = "v2")
 public class Company extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -38,9 +38,13 @@ public class Company extends PageAwareEntity implements PageAware {
 
 	private Boolean broadcaster;
 
+	private Boolean streamingService;
+
 	private Boolean collectibleCompany;
 
 	private Boolean conglomerate;
+
+	private Boolean visualEffectsCompany;
 
 	private Boolean digitalVisualEffectsCompany;
 
@@ -70,5 +74,9 @@ public class Company extends PageAwareEntity implements PageAware {
 	private Boolean tvAndFilmProductionCompany;
 
 	private Boolean videoGameCompany;
+
+	private Boolean publisher;
+
+	private Boolean publicationArtStudio;
 
 }

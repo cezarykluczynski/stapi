@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single company (V2)
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Company unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CompanyV2FullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Company

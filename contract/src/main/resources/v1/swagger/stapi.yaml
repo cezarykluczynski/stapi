@@ -61,6 +61,10 @@ paths:
     $ref: ./company/path/company.path.yaml
   /v1/rest/company/search:
     $ref: ./company/path/companySearch.path.yaml
+  /v2/rest/company:
+    $ref: ./company/path/companyV2.path.yaml
+  /v2/rest/company/search:
+    $ref: ./company/path/companyV2Search.path.yaml
   /v1/rest/conflict:
     $ref: ./conflict/path/conflict.path.yaml
   /v1/rest/conflict/search:
@@ -364,6 +368,14 @@ definitions:
     $ref: ./company/entity/companyBaseResponse.yaml
   CompanyFullResponse:
     $ref: ./company/entity/companyFullResponse.yaml
+  CompanyV2Base:
+    $ref: ./company/entity/companyV2Base.yaml
+  CompanyV2Full:
+    $ref: ./company/entity/companyV2Full.yaml
+  CompanyV2BaseResponse:
+    $ref: ./company/entity/companyV2BaseResponse.yaml
+  CompanyV2FullResponse:
+    $ref: ./company/entity/companyV2FullResponse.yaml
   ConflictHeader:
     $ref: ./conflict/entity/conflictHeader.yaml
   ConflictBase:

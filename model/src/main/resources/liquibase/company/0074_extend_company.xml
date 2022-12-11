@@ -1,0 +1,13 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0074_extend_company" author="cezarykluczynski">
+		<addColumn schemaName="stapi" tableName="company">
+			<column name="streaming_service" type="boolean"/>
+			<column name="visual_effects_company" type="boolean"/>
+			<column name="publisher" type="boolean"/>
+			<column name="publication_art_studio" type="boolean"/>
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

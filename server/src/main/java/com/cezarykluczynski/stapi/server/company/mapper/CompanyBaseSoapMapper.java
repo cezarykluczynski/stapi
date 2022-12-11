@@ -15,6 +15,10 @@ import java.util.List;
 public interface CompanyBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)
+	@Mapping(target = "streamingService", ignore = true)
+	@Mapping(target = "visualEffectsCompany", ignore = true)
+	@Mapping(target = "publisher", ignore = true)
+	@Mapping(target = "publicationArtStudio", ignore = true)
 	CompanyRequestDTO mapBase(CompanyBaseRequest companyBaseRequest);
 
 	CompanyBase mapBase(Company company);

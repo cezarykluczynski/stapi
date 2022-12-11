@@ -5,13 +5,15 @@ import com.cezarykluczynski.stapi.util.AbstractCompanyTest
 
 abstract class AbstractCompanyMapperTest extends AbstractCompanyTest {
 
-	protected Company createCompany() {
+	protected static Company createCompany() {
 		new Company(
 				uid: UID,
 				name: NAME,
 				broadcaster: BROADCASTER,
+				streamingService: STREAMING_SERVICE,
 				collectibleCompany: COLLECTIBLE_COMPANY,
 				conglomerate: CONGLOMERATE,
+				visualEffectsCompany: VISUAL_EFFECTS_COMPANY,
 				digitalVisualEffectsCompany: DIGITAL_VISUAL_EFFECTS_COMPANY,
 				distributor: DISTRIBUTOR,
 				gameCompany: GAME_COMPANY,
@@ -25,7 +27,9 @@ abstract class AbstractCompanyMapperTest extends AbstractCompanyTest {
 				recordLabel: RECORD_LABEL,
 				specialEffectsCompany: SPECIAL_EFFECTS_COMPANY,
 				tvAndFilmProductionCompany: TV_AND_FILM_PRODUCTION_COMPANY,
-				videoGameCompany: VIDEO_GAME_COMPANY)
+				videoGameCompany: VIDEO_GAME_COMPANY,
+				publisher: PUBLISHER,
+				publicationArtStudio: PUBLICATION_ART_STUDIO)
 	}
 
 }

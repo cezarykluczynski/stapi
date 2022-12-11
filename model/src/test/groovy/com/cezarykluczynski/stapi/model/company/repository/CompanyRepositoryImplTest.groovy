@@ -56,10 +56,14 @@ class CompanyRepositoryImplTest extends AbstractCompanyTest {
 		then: 'boolean criteria are set'
 		1 * companyRequestDTO.broadcaster >> BROADCASTER
 		1 * companyQueryBuilder.equal(Company_.broadcaster, BROADCASTER)
+		1 * companyRequestDTO.streamingService >> STREAMING_SERVICE
+		1 * companyQueryBuilder.equal(Company_.streamingService, STREAMING_SERVICE)
 		1 * companyRequestDTO.collectibleCompany >> COLLECTIBLE_COMPANY
 		1 * companyQueryBuilder.equal(Company_.collectibleCompany, COLLECTIBLE_COMPANY)
 		1 * companyRequestDTO.conglomerate >> CONGLOMERATE
 		1 * companyQueryBuilder.equal(Company_.conglomerate, CONGLOMERATE)
+		1 * companyRequestDTO.visualEffectsCompany >> VISUAL_EFFECTS_COMPANY
+		1 * companyQueryBuilder.equal(Company_.visualEffectsCompany, VISUAL_EFFECTS_COMPANY)
 		1 * companyRequestDTO.digitalVisualEffectsCompany >> DIGITAL_VISUAL_EFFECTS_COMPANY
 		1 * companyQueryBuilder.equal(Company_.digitalVisualEffectsCompany, DIGITAL_VISUAL_EFFECTS_COMPANY)
 		1 * companyRequestDTO.distributor >> DISTRIBUTOR
@@ -88,6 +92,10 @@ class CompanyRepositoryImplTest extends AbstractCompanyTest {
 		1 * companyQueryBuilder.equal(Company_.tvAndFilmProductionCompany, TV_AND_FILM_PRODUCTION_COMPANY)
 		1 * companyRequestDTO.videoGameCompany >> VIDEO_GAME_COMPANY
 		1 * companyQueryBuilder.equal(Company_.videoGameCompany, VIDEO_GAME_COMPANY)
+		1 * companyRequestDTO.publisher >> PUBLISHER
+		1 * companyQueryBuilder.equal(Company_.publisher, PUBLISHER)
+		1 * companyRequestDTO.publicationArtStudio >> PUBLICATION_ART_STUDIO
+		1 * companyQueryBuilder.equal(Company_.publicationArtStudio, PUBLICATION_ART_STUDIO)
 
 		then: 'sort is set'
 		1 * companyRequestDTO.sort >> SORT

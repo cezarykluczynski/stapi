@@ -6,6 +6,31 @@ import java.util.List;
 
 public class CategoryTitles {
 
+	public static final List<String> COMPANIES = ImmutableList.of(
+			CategoryTitle.COMPANIES,
+			CategoryTitle.BROADCASTERS,
+			CategoryTitle.STREAMING_SERVICES,
+			CategoryTitle.COLLECTIBLE_COMPANIES,
+			CategoryTitle.CONGLOMERATES,
+			CategoryTitle.VISUAL_EFFECTS_COMPANIES,
+			CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES,
+			CategoryTitle.DISTRIBUTORS,
+			CategoryTitle.GAME_COMPANIES,
+			CategoryTitle.FILM_EQUIPMENT_COMPANIES,
+			CategoryTitle.MAKE_UP_EFFECTS_STUDIOS,
+			CategoryTitle.MATTE_PAINTING_COMPANIES,
+			CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES,
+			CategoryTitle.POST_PRODUCTION_COMPANIES,
+			CategoryTitle.PRODUCTION_COMPANIES,
+			CategoryTitle.PROP_COMPANIES,
+			CategoryTitle.RECORD_LABELS,
+			CategoryTitle.SPECIAL_EFFECTS_COMPANIES,
+			CategoryTitle.TV_AND_FILM_PRODUCTION_COMPANIES,
+			CategoryTitle.VIDEO_GAME_COMPANIES,
+			CategoryTitle.PUBLISHERS,
+			CategoryTitle.STAR_TREK_PUBLICATION_ART_STUDIOS
+	);
+
 	public static final List<String> STAFF = ImmutableList.of(
 			CategoryTitle.ART_DEPARTMENT,
 			CategoryTitle.ART_DIRECTORS,

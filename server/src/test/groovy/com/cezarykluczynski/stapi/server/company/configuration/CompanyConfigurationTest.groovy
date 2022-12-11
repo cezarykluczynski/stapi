@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.company.configuration
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint
+import com.cezarykluczynski.stapi.server.company.endpoint.CompanyV2RestEndpoint
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper
@@ -45,6 +46,19 @@ class CompanyConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(CompanyRestEndpoint, CompanyRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "Company V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = companyConfiguration.companyV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(CompanyV2RestEndpoint, CompanyV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

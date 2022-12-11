@@ -14,9 +14,13 @@ public class CompanyRequestDTO {
 
 	private Boolean broadcaster;
 
+	private Boolean streamingService;
+
 	private Boolean collectibleCompany;
 
 	private Boolean conglomerate;
+
+	private Boolean visualEffectsCompany;
 
 	private Boolean digitalVisualEffectsCompany;
 
@@ -45,6 +49,10 @@ public class CompanyRequestDTO {
 	private Boolean tvAndFilmProductionCompany;
 
 	private Boolean videoGameCompany;
+
+	private Boolean publisher;
+
+	private Boolean publicationArtStudio;
 
 	private RequestSortDTO sort;
 

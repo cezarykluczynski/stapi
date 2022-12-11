@@ -164,8 +164,10 @@ public class CategoryTitle {
 
 	public static final String COMPANIES = "Companies";
 	public static final String BROADCASTERS = "Broadcasters";
+	public static final String STREAMING_SERVICES = "Streaming_services";
 	public static final String COLLECTIBLE_COMPANIES = "Collectible_companies";
 	public static final String CONGLOMERATES = "Conglomerates";
+	public static final String VISUAL_EFFECTS_COMPANIES = "Visual_effects_companies";
 	public static final String DIGITAL_VISUAL_EFFECTS_COMPANIES = "Digital_visual_effects_companies";
 	public static final String DISTRIBUTORS = "Distributors";
 	public static final String GAME_COMPANIES = "Game_companies";
@@ -180,6 +182,8 @@ public class CategoryTitle {
 	public static final String SPECIAL_EFFECTS_COMPANIES = "Special_effects_companies";
 	public static final String TV_AND_FILM_PRODUCTION_COMPANIES = "TV_and_film_production_companies";
 	public static final String VIDEO_GAME_COMPANIES = "Video_game_companies";
+	public static final String PUBLISHERS = "Publishers";
+	public static final String STAR_TREK_PUBLICATION_ART_STUDIOS = "Star Trek publication art studios";
 
 	public static final String COMIC_SERIES = "Comic_series";
 	public static final String PHOTONOVEL_SERIES = "Photonovel_series";

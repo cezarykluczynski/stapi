@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
+import com.cezarykluczynski.stapi.server.company.dto.CompanyV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +28,12 @@ public class CompanyRestQuery {
 
 	public Page<Company> query(CompanyRestBeanParams companyRestBeanParams) {
 		CompanyRequestDTO companyRequestDTO = companyBaseRestMapper.mapBase(companyRestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(companyRestBeanParams);
+		return companyRepository.findMatching(companyRequestDTO, pageRequest);
+	}
+
+	public Page<Company> query(CompanyV2RestBeanParams companyRestBeanParams) {
+		CompanyRequestDTO companyRequestDTO = companyBaseRestMapper.mapV2Base(companyRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(companyRestBeanParams);
 		return companyRepository.findMatching(companyRequestDTO, pageRequest);
 	}

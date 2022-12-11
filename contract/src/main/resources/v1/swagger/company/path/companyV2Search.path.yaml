@@ -1,0 +1,146 @@
+get:
+  description: Pagination over companies (V2)
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CompanyV2BaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Company
+post:
+  description: Searching companies (V2)
+  consumes:
+    - application/x-www-form-urlencoded
+  produces:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Company name
+    - name: broadcaster
+      in: formData
+      type: boolean
+      description: Whether it should be a broadcaster
+    - name: broadcaster
+      in: formData
+      type: boolean
+      description: Whether it should be a streaming service
+    - name: collectibleCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a collectible company
+    - name: conglomerate
+      in: formData
+      type: boolean
+      description: Whether it should be a conglomerate
+    - name: visualEffectsCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a visual effects company
+    - name: digitalVisualEffectsCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a digital visual effects company
+    - name: distributor
+      in: formData
+      type: boolean
+      description: Whether it should be a distributor
+    - name: gameCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a game company
+    - name: filmEquipmentCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a film equipment company
+    - name: makeUpEffectsStudio
+      in: formData
+      type: boolean
+      description: Whether it should be a make-up effects studio
+    - name: mattePaintingCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a matte painting company
+    - name: modelAndMiniatureEffectsCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a model and miniature effects company
+    - name: postProductionCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a post-production company
+    - name: productionCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a production company
+    - name: propCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a prop company
+    - name: recordLabel
+      in: formData
+      type: boolean
+      description: Whether it should be a record label
+    - name: specialEffectsCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a special effects company
+    - name: tvAndFilmProductionCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a TV and film production company
+    - name: videoGameCompany
+      in: formData
+      type: boolean
+      description: Whether it should be a video game company
+    - name: publisher
+      in: formData
+      type: boolean
+      description: Whether it should be a publisher
+    - name: publicationArtStudio
+      in: formData
+      type: boolean
+      description: Whether it should be a publication art studio
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CompanyV2BaseResponse'
+  tags:
+    - Company

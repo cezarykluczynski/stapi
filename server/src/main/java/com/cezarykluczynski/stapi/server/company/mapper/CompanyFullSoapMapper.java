@@ -14,8 +14,10 @@ public interface CompanyFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
 	@Mapping(target = "broadcaster", ignore = true)
+	@Mapping(target = "streamingService", ignore = true)
 	@Mapping(target = "collectibleCompany", ignore = true)
 	@Mapping(target = "conglomerate", ignore = true)
+	@Mapping(target = "visualEffectsCompany", ignore = true)
 	@Mapping(target = "digitalVisualEffectsCompany", ignore = true)
 	@Mapping(target = "distributor", ignore = true)
 	@Mapping(target = "gameCompany", ignore = true)
@@ -30,6 +32,8 @@ public interface CompanyFullSoapMapper {
 	@Mapping(target = "specialEffectsCompany", ignore = true)
 	@Mapping(target = "tvAndFilmProductionCompany", ignore = true)
 	@Mapping(target = "videoGameCompany", ignore = true)
+	@Mapping(target = "publisher", ignore = true)
+	@Mapping(target = "publicationArtStudio", ignore = true)
 	@Mapping(target = "sort", ignore = true)
 	CompanyRequestDTO mapFull(CompanyFullRequest companyFullRequest);
 
