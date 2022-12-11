@@ -16,6 +16,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@SuppressWarnings("MultipleStringLiterals")
 public class AstronomicalObjectLocationFixedValueProvider implements FixedValueProvider<AstronomicalObject, AstronomicalObject> {
 
 	private static final Map<String, String> LOCATIONS = Maps.newLinkedHashMap();

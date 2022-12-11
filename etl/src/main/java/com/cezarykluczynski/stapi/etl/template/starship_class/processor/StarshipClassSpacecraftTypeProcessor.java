@@ -23,8 +23,8 @@ import java.util.Set;
 public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<String, Set<SpacecraftType>> {
 
 	private static final MediaWikiSource MODEL_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
-	private static final com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE =
-			com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN;
+	private static final com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE
+			= com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN;
 
 	private final WikitextApi wikitextApi;
 
@@ -98,14 +98,14 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 	}
 
 	private String normalizePageTitle(String pageTitle) {
-		pageTitle = StringUtils.upperCaseFirst(pageTitle);
+		String pageTitleUcFirst = StringUtils.upperCaseFirst(pageTitle);
 		FixedValueHolder<String> correctedTitleFixedValueHolder = starshipClassTemplateNameCorrectionFixedValueProvider
-				.getSearchedValue(pageTitle);
+				.getSearchedValue(pageTitleUcFirst);
 
 		if (correctedTitleFixedValueHolder.isFound()) {
-			pageTitle = correctedTitleFixedValueHolder.getValue();
+			pageTitleUcFirst = correctedTitleFixedValueHolder.getValue();
 		}
-		return pageTitle;
+		return pageTitleUcFirst;
 	}
 
 	private void doLogMissingEntityByTitle(String pageTitle) {

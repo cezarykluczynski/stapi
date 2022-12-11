@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TradingCardRepositoryImpl implements TradingCardRepositoryCustom {
 
+	private static final String UID = "uid";
+
 	private final TradingCardQueryBuilderFactory tradingCardQueryBuilderFactory;
 
 	public TradingCardRepositoryImpl(TradingCardQueryBuilderFactory tradingCardQueryBuilderFactory) {
@@ -25,8 +27,8 @@ public class TradingCardRepositoryImpl implements TradingCardRepositoryCustom {
 
 		tradingCardQueryBuilder.equal(TradingCard_.uid, uid);
 		tradingCardQueryBuilder.like(TradingCard_.name, criteria.getName());
-		tradingCardQueryBuilder.joinPropertyEqual(TradingCard_.tradingCardDeck, "uid", criteria.getTradingCardDeckUid());
-		tradingCardQueryBuilder.joinPropertyEqual(TradingCard_.tradingCardSet, "uid", criteria.getTradingCardSetUid());
+		tradingCardQueryBuilder.joinPropertyEqual(TradingCard_.tradingCardDeck, UID, criteria.getTradingCardDeckUid());
+		tradingCardQueryBuilder.joinPropertyEqual(TradingCard_.tradingCardSet, UID, criteria.getTradingCardSetUid());
 		tradingCardQueryBuilder.setSort(criteria.getSort());
 		tradingCardQueryBuilder.fetch(TradingCard_.tradingCardSet);
 

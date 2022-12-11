@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile(SpringProfile.AUTH)
+@SuppressWarnings({"MemberName", "ParameterName"})
 public class ApiKeysOwnOperationsService {
 
 	private final OAuthSessionHolder oAuthSessionHolder;

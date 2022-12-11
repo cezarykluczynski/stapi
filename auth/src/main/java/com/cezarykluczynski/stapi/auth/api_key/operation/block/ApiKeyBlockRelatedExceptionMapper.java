@@ -14,7 +14,7 @@ class ApiKeyBlockRelatedExceptionMapper {
 
 	private final ApiKeyBlockRelatedResponseDTOFactory apiKeyBlockRelatedResponseDTOFactory;
 
-	public ApiKeyBlockRelatedExceptionMapper(ApiKeyBlockRelatedResponseDTOFactory apiKeyBlockRelatedResponseDTOFactory) {
+	ApiKeyBlockRelatedExceptionMapper(ApiKeyBlockRelatedResponseDTOFactory apiKeyBlockRelatedResponseDTOFactory) {
 		this.apiKeyBlockRelatedResponseDTOFactory = apiKeyBlockRelatedResponseDTOFactory;
 	}
 

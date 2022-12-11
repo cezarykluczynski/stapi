@@ -95,7 +95,7 @@ public class CardSizeProcessor implements ItemProcessor<String, CardSizeDTO> {
 				if (!StringUtils.contains(trimmedPart, SPACE)) {
 					wholeNumber = null;
 				}
-				List<String> parts = Lists.newArrayList(StringUtils.split(trimmedPart, " "));
+				List<String> parts = Lists.newArrayList(StringUtils.split(trimmedPart, SPACE));
 				for (String part : parts) {
 					if (StringUtils.containsAny(part, SLASHES)) {
 						fraction = tryGetFractionWithSlashes(part, fraction);
@@ -146,10 +146,11 @@ public class CardSizeProcessor implements ItemProcessor<String, CardSizeDTO> {
 		List<String> numberCandidates = Lists.newArrayList(StringUtils.split(part, joinArray(SLASHES)));
 		Double numerator = Doubles.tryParse(numberCandidates.get(0));
 		Double denominator = Doubles.tryParse(StringUtils.split(numberCandidates.get(1), joinArray(INCHES))[0]);
+		Double fractionToReturn = fraction;
 		if (numerator != null && denominator != null) {
-			fraction = numerator / denominator;
+			fractionToReturn = numerator / denominator;
 		}
-		return fraction;
+		return fractionToReturn;
 	}
 
 	private String joinArray(String[] arrayOfStrings) {

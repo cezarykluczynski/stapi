@@ -145,7 +145,7 @@
 		<module name="MethodCount">
 			<property name="maxTotal" value="50"/>
 			<property name="maxPrivate" value="30"/>
-			<property name="maxPackage" value="5"/>
+			<property name="maxPackage" value="15"/>
 			<property name="maxProtected" value="15"/>
 			<property name="maxPublic" value="25"/>
 		</module>

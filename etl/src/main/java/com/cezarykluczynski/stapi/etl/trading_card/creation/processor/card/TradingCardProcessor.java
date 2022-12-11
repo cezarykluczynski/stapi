@@ -31,6 +31,7 @@ public class TradingCardProcessor implements ItemProcessor<Element, TradingCard>
 	}
 
 	@Override
+	@SuppressWarnings("ReturnCount")
 	public TradingCard process(Element item) throws Exception {
 		if (item.getAllElements().size() == 1 && item.getAllElements().get(0) == item) {
 			return null;

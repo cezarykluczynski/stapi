@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.server.magazine_series.configuration;
 
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.magazine_series.endpoint.MagazineSeriesRestEndpoint;
 import com.cezarykluczynski.stapi.server.magazine_series.endpoint.MagazineSeriesSoapEndpoint;
 import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesBaseRestMapper;
 import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesFullRestMapper;
 import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesFullSoapMapper;
-import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;

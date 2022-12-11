@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalO
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,8 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class AstronomicalObjectLinkEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<AstronomicalObject>, AstronomicalObject>> {
+public class AstronomicalObjectLinkEnrichingProcessor implements
+		ItemEnrichingProcessor<EnrichablePair<List<AstronomicalObject>, AstronomicalObject>> {
 
 	private static final Map<AstronomicalObjectType, Integer> ASTRONOMICAL_OBJECTS_SIZE_MAP = Maps.newHashMap();
 

@@ -22,6 +22,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	@Override
+	@SuppressWarnings("CyclomaticComplexity")
 	public void enrich(EnrichablePair<Template, StarshipClassTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		StarshipClassTemplate starshipClassTemplate = enrichablePair.getOutput();

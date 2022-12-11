@@ -5,7 +5,6 @@
 		"http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-	<suppress files="[\\/]generated[\\/]|_" checks="."/>
 	<suppress files=".+RestBeanParams\.java" checks="FileLength|MethodCount"/>
 	<suppress files=".+query[\\/]QueryBuilder\.java" checks="FileLength"/>
 	<suppress files=".+CategoryTitle\.java" checks="FileLength"/>
@@ -17,5 +16,8 @@
 	<suppress files=".+StapiSoapPortTypesProvider\.java" checks="FileLength|MethodCount"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="FileLength"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="AvoidStaticImport"/>
+	<suppress files=".+ContentLanguageDTOProvider\.java" checks="FileLength"/>
+	<suppress files="_\.java" checks="."/>
+	<suppress files=".+com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]v1.+" checks="."/>
 	<suppress files="com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]" checks="ClassFanOutComplexity"/>
 </suppressions>

@@ -27,7 +27,7 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemWithTemplateEnr
 
 	private final WikitextApi wikitextApi;
 
-	public VideoGameTemplateContentsEnrichingProcessor(DatePartToLocalDateProcessor datePartToLocalDateProcessor,
+	VideoGameTemplateContentsEnrichingProcessor(DatePartToLocalDateProcessor datePartToLocalDateProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
 			WikitextApi wikitextApi) {
 		this.datePartToLocalDateProcessor = datePartToLocalDateProcessor;
@@ -75,7 +75,9 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemWithTemplateEnr
 					}
 					break;
 				case VideoGameTemplateParameter.REQUIREMENTS:
-					if (StringUtils.isNotBlank(value)) videoGameTemplate.setSystemRequirements(value);
+					if (StringUtils.isNotBlank(value)) {
+						videoGameTemplate.setSystemRequirements(value);
+					}
 					break;
 				default:
 					break;

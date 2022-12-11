@@ -16,7 +16,8 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StarshipClassTemplatePartOrganizationsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, StarshipClassTemplate>> {
+public class StarshipClassTemplatePartOrganizationsEnrichingProcessor implements
+		ItemEnrichingProcessor<EnrichablePair<Template.Part, StarshipClassTemplate>> {
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 

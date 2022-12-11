@@ -31,7 +31,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-import java.util.List;
 import java.util.Set;
 
 @Data

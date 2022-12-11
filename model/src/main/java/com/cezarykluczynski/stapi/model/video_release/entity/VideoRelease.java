@@ -14,7 +14,6 @@ import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRep
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -105,6 +104,7 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 
 	private Boolean googlePlayDigitalRelease;
 
+	@SuppressWarnings("MemberName")
 	private Boolean iTunesDigitalRelease;
 
 	private Boolean ultraVioletDigitalRelease;

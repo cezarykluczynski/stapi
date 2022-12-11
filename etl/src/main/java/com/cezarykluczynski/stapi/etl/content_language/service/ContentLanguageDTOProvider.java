@@ -12,8 +12,9 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Service
 @Slf4j
+@Service
+@SuppressWarnings("MultipleStringLiterals")
 public class ContentLanguageDTOProvider {
 
 	private static final String SLOVENE = "Slovene";

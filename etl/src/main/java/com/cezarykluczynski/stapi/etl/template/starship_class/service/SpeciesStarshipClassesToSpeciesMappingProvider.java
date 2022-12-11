@@ -16,6 +16,7 @@ import java.util.Set;
 public class SpeciesStarshipClassesToSpeciesMappingProvider {
 
 	private static final Map<String, String> MAPPINGS = Maps.newHashMap();
+	private static final String STARSHIP_CLASSES_SUFFIX = "_starship_classes";
 
 	static {
 		MAPPINGS.put("Earth_starship_classes", "Human");
@@ -34,8 +35,8 @@ public class SpeciesStarshipClassesToSpeciesMappingProvider {
 		if (MAPPINGS.containsKey(starshipClassCategoryTitle)) {
 			speciesName = MAPPINGS.get(starshipClassCategoryTitle);
 		} else {
-			if (starshipClassCategoryTitle.endsWith("_starship_classes")) {
-				speciesName = starshipClassCategoryTitle.replace("_starship_classes", "");
+			if (starshipClassCategoryTitle.endsWith(STARSHIP_CLASSES_SUFFIX)) {
+				speciesName = starshipClassCategoryTitle.replace(STARSHIP_CLASSES_SUFFIX, "");
 			} else {
 				return Optional.empty();
 			}

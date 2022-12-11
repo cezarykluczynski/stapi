@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
+@SuppressWarnings("LineLength")
 public class MagazineSeriesPublicationDatesFixedValueProvider implements FixedValueProvider<String, MonthYearRange> {
 
 	private static final Map<String, MonthYearRange> TITLES_TO_PUBLICATION_DATES = Maps.newHashMap();

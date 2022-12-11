@@ -72,7 +72,8 @@ public class MagazineSeriesTemplatePageProcessor implements ItemProcessor<Page, 
 			magazineCandidatePageGatheringService.addCandidate(item);
 			return null;
 		} else {
-			log.info("No template {} found in magazine series page candidate \"{}\", and no entry in detector, skipping.", TemplateTitle.SIDEBAR_MAGAZINE, title);
+			log.info("No template {} found in magazine series page candidate \"{}\", and no entry in detector, skipping.",
+					TemplateTitle.SIDEBAR_MAGAZINE, title);
 			return null;
 		}
 

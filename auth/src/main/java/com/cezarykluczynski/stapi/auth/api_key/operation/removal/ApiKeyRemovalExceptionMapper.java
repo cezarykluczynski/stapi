@@ -14,7 +14,7 @@ class ApiKeyRemovalExceptionMapper {
 
 	private final ApiKeyRemovalResponseDTOFactory apiKeyRemovalResponseDTOFactory;
 
-	public ApiKeyRemovalExceptionMapper(ApiKeyRemovalResponseDTOFactory apiKeyRemovalResponseDTOFactory) {
+	ApiKeyRemovalExceptionMapper(ApiKeyRemovalResponseDTOFactory apiKeyRemovalResponseDTOFactory) {
 		this.apiKeyRemovalResponseDTOFactory = apiKeyRemovalResponseDTOFactory;
 	}
 

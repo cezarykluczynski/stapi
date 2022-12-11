@@ -47,15 +47,11 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 		return item;
 	}
 
+	@SuppressWarnings("NPathComplexity")
 	private void doProcess(AstronomicalObject item) throws Exception {
 		Page modelPage = item.getPage();
 		String pageTitle = modelPage.getTitle();
 		MediaWikiSource mediaWikiSource = modelPage.getMediaWikiSource();
-
-//		List<String> valids = Lists.newArrayList("Antares (star)", "Antares_(star)");
-//		if (!valids.contains(pageTitle)) {
-//			return;
-//		}
 
 		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageApi
 				.getPage(pageTitle, mediaWikiSourceMapper.fromEntityToSources(mediaWikiSource));
@@ -72,8 +68,8 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 			return;
 		}
 
-		List<Template> astronomicalObjectsTemplates = templateFinder.findTemplates(page, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT, TemplateTitle.SIDEBAR_PLANET,
-				TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM);
+		List<Template> astronomicalObjectsTemplates = templateFinder.findTemplates(page, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT,
+				TemplateTitle.SIDEBAR_PLANET, TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM);
 		if (astronomicalObjectsTemplates.size() > 1) {
 			log.warn("More than one template found on page {}", pageTitle);
 		}
@@ -126,6 +122,7 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 				.orElse(null);
 	}
 
+	@SuppressWarnings("BooleanExpressionComplexity")
 	private static boolean isValidFirstParagraph(String s) {
 		return s != null
 				&& s.length() > 15

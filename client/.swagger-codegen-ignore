@@ -1,0 +1,16 @@
+.gitignore
+.travis.yml
+build.sbt
+build.gradle
+git_push.sh
+gradle.properties
+gradlew
+gradlew.bat
+pom.xml
+README.md
+settings.gradle
+LICENSE
+docs/
+gradle/
+src/test/
+src/main/AndroidManifest.xml

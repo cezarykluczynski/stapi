@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate;
-import com.cezarykluczynski.stapi.etl.video_game.creation.service.VideoGamePageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
+import com.cezarykluczynski.stapi.etl.video_game.creation.service.VideoGamePageFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
@@ -27,8 +27,8 @@ public class VideoGameTemplatePageProcessor implements ItemProcessor<Page, Video
 
 	private final VideoGameTemplateCompositeEnrichingProcessor videoGameTemplateCompositeEnrichingProcessor;
 
-	public VideoGameTemplatePageProcessor(VideoGamePageFilter videoGamePageFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
-	                                      VideoGameTemplateCompositeEnrichingProcessor videoGameTemplateCompositeEnrichingProcessor) {
+	public VideoGameTemplatePageProcessor(VideoGamePageFilter videoGamePageFilter, TemplateFinder templateFinder,
+			PageBindingService pageBindingService, VideoGameTemplateCompositeEnrichingProcessor videoGameTemplateCompositeEnrichingProcessor) {
 		this.videoGamePageFilter = videoGamePageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;

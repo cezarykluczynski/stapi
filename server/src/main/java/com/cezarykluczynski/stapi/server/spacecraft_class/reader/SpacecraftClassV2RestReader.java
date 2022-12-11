@@ -17,7 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpacecraftClassV2RestReader implements BaseReader<SpacecraftClassV2RestBeanParams, SpacecraftClassV2BaseResponse>, FullReader<String, SpacecraftClassV2FullResponse> {
+public class SpacecraftClassV2RestReader implements BaseReader<SpacecraftClassV2RestBeanParams, SpacecraftClassV2BaseResponse>,
+		FullReader<String, SpacecraftClassV2FullResponse> {
 
 	private final SpacecraftClassRestQuery spacecraftClassRestQuery;
 
@@ -55,7 +56,8 @@ public class SpacecraftClassV2RestReader implements BaseReader<SpacecraftClassV2
 		spacecraftClassV2RestBeanParams.setUid(uid);
 		Page<SpacecraftClass> spacecraftClassPage = spacecraftClassRestQuery.query(spacecraftClassV2RestBeanParams);
 		SpacecraftClassV2FullResponse spacecraftClassResponse = new SpacecraftClassV2FullResponse();
-		spacecraftClassResponse.setSpacecraftClass(spacecraftClassFullRestMapper.mapV2Full(Iterables.getOnlyElement(spacecraftClassPage.getContent(), null)));
+		spacecraftClassResponse.setSpacecraftClass(spacecraftClassFullRestMapper
+				.mapV2Full(Iterables.getOnlyElement(spacecraftClassPage.getContent(), null)));
 		return spacecraftClassResponse;
 	}
 

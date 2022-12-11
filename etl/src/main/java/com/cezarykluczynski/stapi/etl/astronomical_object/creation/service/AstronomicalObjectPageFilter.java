@@ -2,16 +2,11 @@ package com.cezarykluczynski.stapi.etl.astronomical_object.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
-import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.Getter;
-import org.apache.commons.collections.CollectionUtils;
 import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 import java.util.List;
 

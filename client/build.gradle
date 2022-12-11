@@ -224,16 +224,8 @@ wsdl2java {
 					'-autoNameResolution', "$projectDir/../contract/src/main/resources/v1/wsdl/occupation.wsdl"
 			]
 	]
-	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")
+	generatedWsdlDir = file("$projectDir/src/main/java")
 	wsdlDir = file("$projectDir/src/main/resources")
-}
-
-sourceSets {
-	main {
-		resources {
-			srcDirs = ['../contract/src/main/resources/']
-		}
-	}
 }
 
 jar.baseName = 'stapi-client'
@@ -251,12 +243,11 @@ task swaggerGenerate(type: Exec) {
 			"-l", "java",
 			"-i", "contract/src/main/resources/v1/swagger/stapi.yaml",
 			"-c", "contract/src/main/resources/v1/swagger/config.json",
-			"-o", "./client/build/generated"
+			"-o", "./client/"
 }
 
 compileJava {
 	dependsOn(wsdl2java, swaggerGenerate)
-	source += "build/generated/src/main/java/"
 }
 
 task javadocJar(type: Jar) {

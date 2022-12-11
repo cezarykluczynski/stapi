@@ -27,6 +27,7 @@ public class TradingCardDecksTableProcessor implements ItemProcessor<Element, Se
 	}
 
 	@Override
+	@SuppressWarnings("NPathComplexity")
 	public Set<TradingCardDeck> process(Element item) throws Exception {
 		Set<TradingCardDeck> tradingCardDeckSet = Sets.newHashSet();
 

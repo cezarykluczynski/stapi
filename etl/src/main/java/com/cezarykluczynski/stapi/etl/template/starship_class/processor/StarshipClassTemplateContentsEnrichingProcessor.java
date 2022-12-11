@@ -26,6 +26,7 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 	private final StarshipClassCrewProcessor starshipClassCrewProcessor;
 
 	@Override
+	@SuppressWarnings("CyclomaticComplexity")
 	public void enrich(EnrichablePair<Template, StarshipClassTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		StarshipClassTemplate starshipClassTemplate = enrichablePair.getOutput();
@@ -65,7 +66,7 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 					Boolean warpCapable = starshipClassWarpCapableProcessor.process(value);
 					if (starshipClassTemplate.getWarpCapable() == null) {
 						starshipClassTemplate.setWarpCapable(warpCapable);
-					} else if (!starshipClassTemplate.getWarpCapable().equals(warpCapable)){
+					} else if (!starshipClassTemplate.getWarpCapable().equals(warpCapable)) {
 						log.info("Warp capable flag already set for {} to {}, value {} won't be used.",
 								starshipClassTemplate.getName(), warpCapable, value);
 					}

@@ -20,6 +20,7 @@ public class TradingCardSetTableProcessor implements ItemProcessor<Element, Trad
 	}
 
 	@Override
+	@SuppressWarnings("MultipleStringLiterals")
 	public TradingCardSet process(Element item) throws Exception {
 		Elements tbodyCandidates = item.getElementsByTag(TagName.TBODY);
 

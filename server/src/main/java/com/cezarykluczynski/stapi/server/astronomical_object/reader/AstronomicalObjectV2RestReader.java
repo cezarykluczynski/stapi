@@ -30,8 +30,9 @@ public class AstronomicalObjectV2RestReader implements BaseReader<AstronomicalOb
 
 	private final SortMapper sortMapper;
 
-	public AstronomicalObjectV2RestReader(AstronomicalObjectRestQuery astronomicalObjectRestQuery, AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper,
-								 AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
+	public AstronomicalObjectV2RestReader(AstronomicalObjectRestQuery astronomicalObjectRestQuery,
+			AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper, AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper,
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.astronomicalObjectRestQuery = astronomicalObjectRestQuery;
 		this.astronomicalObjectBaseRestMapper = astronomicalObjectBaseRestMapper;
 		this.astronomicalObjectFullRestMapper = astronomicalObjectFullRestMapper;
@@ -56,7 +57,8 @@ public class AstronomicalObjectV2RestReader implements BaseReader<AstronomicalOb
 		astronomicalObjectV2RestBeanParams.setUid(uid);
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectV2RestBeanParams);
 		AstronomicalObjectV2FullResponse astronomicalObjectResponse = new AstronomicalObjectV2FullResponse();
-		astronomicalObjectResponse.setAstronomicalObject(astronomicalObjectFullRestMapper.mapV2Full(Iterables.getOnlyElement(astronomicalObjectPage.getContent(), null)));
+		astronomicalObjectResponse.setAstronomicalObject(astronomicalObjectFullRestMapper
+				.mapV2Full(Iterables.getOnlyElement(astronomicalObjectPage.getContent(), null)));
 		return astronomicalObjectResponse;
 	}
 

@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.spacecraft_class.creation.service.SpacecraftClassPageFilter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
-import com.cezarykluczynski.stapi.etl.spacecraft_class.creation.service.SpacecraftClassPageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
