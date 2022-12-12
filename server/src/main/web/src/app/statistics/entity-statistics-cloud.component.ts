@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { StatisticsApi } from './statistics-api.service';
 import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
+import {ApiDocumentationApi} from '../api-documentation/api-documentation-api.service';
 
 @Component({
 	selector: 'entity-statistics-cloud',
@@ -12,24 +13,28 @@ export class EntityStatisticsCloudComponent implements OnInit {
 
 	private statisticsApi: StatisticsApi;
 	private apiBrowserApi: ApiBrowserApi;
+	private apiDocumentationApi: ApiDocumentationApi;
 	private statistics: any;
 	private details: any;
-	private fictionalEntitites: Array<any>;
-	private realWorldEntitites: Array<any>;
+	private fictionalEntities: Array<any>;
+	private realWorldEntities: Array<any>;
 	private totalCount: number;
 	private fontSizeMin = 18;
 	private fontSizeMax = 35;
+	private dataVersion: String;
 
-	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi) {
+	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi, apiDocumentationApi: ApiDocumentationApi) {
 		this.statisticsApi = statisticsApi;
 		this.apiBrowserApi = apiBrowserApi;
+		this.apiDocumentationApi = apiDocumentationApi;
 	}
 
 	ngOnInit() {
 		this.statistics = this.statisticsApi.getStatistics();
 		this.details = this.apiBrowserApi.getDetails();
-		this.fictionalEntitites = this.createStatisticsForFictionalEntities();
-		this.realWorldEntitites = this.createStatisticsForRealWorldEntities();
+		this.fictionalEntities = this.createStatisticsForFictionalEntities();
+		this.realWorldEntities = this.createStatisticsForRealWorldEntities();
+		this.dataVersion = this.apiDocumentationApi.getDataVersion();
 	}
 
 	createStatisticsForFictionalEntities() {
@@ -41,11 +46,11 @@ export class EntityStatisticsCloudComponent implements OnInit {
 	}
 
 	getStatisticsForFictionalEntities() {
-		return this.fictionalEntitites;
+		return this.fictionalEntities;
 	}
 
 	getStatisticsForRealWorldEntities() {
-		return this.realWorldEntitites;
+		return this.realWorldEntities;
 	}
 
 	getTotalCount() {
@@ -96,6 +101,38 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		});
 
 		return names;
+	}
+
+	hasDataVersion() {
+		return this.dataVersion != null && this.dataVersion.length;
+	}
+
+	getDataVersion() {
+		if (!this.hasDataVersion()) {
+			return ' at unknown time';
+		}
+		const dataVersionParts = this.dataVersion.split('-');
+		const year = dataVersionParts[0];
+		const month = this.getMonth(Number.parseInt(dataVersionParts[1]));
+		return 'in ' + month + ' ' + year;
+	}
+
+	getMonth(number: number) {
+		switch (number) {
+			case 1: return 'January';
+			case 2: return 'February';
+			case 3: return 'March';
+			case 4: return 'April';
+			case 5: return 'May';
+			case 6: return 'June';
+			case 7: return 'July';
+			case 8: return 'August';
+			case 9: return 'September';
+			case 10: return 'October';
+			case 11: return 'November';
+			case 12: return 'December';
+		}
+		return '';
 	}
 
 }

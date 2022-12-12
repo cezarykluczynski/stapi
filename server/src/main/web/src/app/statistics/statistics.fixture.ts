@@ -58,4 +58,6 @@ DETAILS = [
 		pluralName: 'episodes',
 		version: 'v1'
 	}
-];
+],
+DATA_VERSION = '2022-12';
+

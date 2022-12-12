@@ -22,6 +22,7 @@ import { ApiBrowserComponent } from './api-browser/api-browser.component';
 import { ApiBrowserApi } from './api-browser/api-browser-api.service';
 import { ApiDocumentationComponent } from './api-documentation/api-documentation.component';
 import { ApiDocumentationApi } from './api-documentation/api-documentation-api.service';
+import { ClientsComponent } from './clients/clients.component';
 import { LicensingComponent } from './licensing/licensing.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { StatisticsApi } from './statistics/statistics-api.service';
@@ -58,6 +59,7 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		AboutComponent,
 		ApiBrowserComponent,
 		ApiDocumentationComponent,
+		ClientsComponent,
 		LicensingComponent,
 		StatisticsComponent,
 		EntityStatisticsCloudComponent,

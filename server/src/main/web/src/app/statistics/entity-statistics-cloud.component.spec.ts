@@ -5,7 +5,8 @@ import { EntityStatisticsCloudComponent } from './entity-statistics-cloud.compon
 import { StatisticsApi } from './statistics-api.service';
 import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
-import { TOTAL_COUNT, STATISTICS, DETAILS } from './statistics.fixture';
+import { TOTAL_COUNT, STATISTICS, DETAILS, DATA_VERSION } from './statistics.fixture';
+import {ApiDocumentationApi} from '../api-documentation/api-documentation-api.service';
 
 class StatisticsApiMock {
 	public getStatistics() {
@@ -22,15 +23,23 @@ class ApiBrowserApiMock {
 	}
 }
 
+class ApiDocumentationApiMock {
+	public getDataVersion() {
+		return DATA_VERSION;
+	}
+}
+
 describe('EntityStatisticsCloudComponent', () => {
 	let component: EntityStatisticsCloudComponent;
 	let fixture: ComponentFixture<EntityStatisticsCloudComponent>;
 	let statisticsApiMock: StatisticsApiMock;
 	let apiBrowserApiMock: ApiBrowserApiMock;
+	let apiDocumentationApiMock: ApiDocumentationApiMock;
 
 	beforeEach(async(() => {
 		statisticsApiMock = new StatisticsApiMock();
 		apiBrowserApiMock = new ApiBrowserApiMock();
+		apiDocumentationApiMock = new ApiDocumentationApiMock();
 
 		TestBed.configureTestingModule({
 			declarations: [EntityStatisticsCloudComponent],
@@ -42,6 +51,10 @@ describe('EntityStatisticsCloudComponent', () => {
 				{
 					provide: ApiBrowserApi,
 					useValue: apiBrowserApiMock
+				},
+				{
+					provide: ApiDocumentationApi,
+					useValue: apiDocumentationApiMock
 				}
 			]
 		})
@@ -106,5 +119,9 @@ describe('EntityStatisticsCloudComponent', () => {
 			Performer: 'performers',
 			Episode: 'episodes'
 		});
+	});
+
+	it('gets formatted data version', () => {
+		expect(component.getDataVersion()).toEqual('in December 2022');
 	});
 });

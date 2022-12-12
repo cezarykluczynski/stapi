@@ -1,6 +1,6 @@
 <div className='entity-statistics-cloud'>
 	<div>
-		<h4>Currently serving <strong>{{getTotalCount()}}</strong> entities!</h4>
+		<h4>Currently serving <strong>{{getTotalCount()}}</strong> entities, gathered {{getDataVersion()}}.</h4>
 		<hr>
 		<div>
 			<span *ngFor="let statistic of getStatisticsForFictionalEntities()" class="tag-cloud-tag"

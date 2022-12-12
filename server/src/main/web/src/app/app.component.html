@@ -21,6 +21,8 @@
 								<li role="separator" class="divider"></li>
 								<li><a routerLinkActive="navigation-element--active" routerLink="api-documentation">API documentation</a></li>
 								<li role="separator" class="divider"></li>
+								<li><a routerLinkActive="navigation-element--active" routerLink="clients">Clients</a></li>
+								<li role="separator" class="divider"></li>
 								<li><a routerLinkActive="navigation-element--active" routerLink="licensing">Licensing</a></li>
 							</ul>
 						</li>
@@ -56,12 +58,11 @@
 		<router-outlet></router-outlet>
 		<simple-notifications></simple-notifications>
 	</div>
-	<div class="footer">
+	<div class="footer" *ngIf="hasTocAndPP()">
 		<div class="footer-content">
 			<ul>
-				<li class="footer-data-version" *ngIf="hasDataVersion()">Serving data gather in {{getDataVersion()}}</li>
-				<li *ngIf="hasTocAndPP()"><a href="/terms-of-service">Regulamin (Terms of service)</a></li>
-				<li *ngIf="hasTocAndPP()"><a href="/privacy-policy">Polityka prywatności (Privacy policy)</a></li>
+				<li><a href="/terms-of-service">Regulamin (Terms of service)</a></li>
+				<li><a href="/privacy-policy">Polityka prywatności (Privacy policy)</a></li>
 			</ul>
 		</div>
 	</div>
