@@ -33,9 +33,10 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "references", "comics"})
+@ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "references", "comics",
+		"childComicSeries"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "references",
-		"comics"})
+		"comics", "childComicSeries"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicCollectionRepository.class, singularName = "comic collection",
 		pluralName = "comic collections")
@@ -80,6 +81,13 @@ public class ComicCollection extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "comic_collections_child_series",
+			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<ComicSeries> childComicSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collections_writers",

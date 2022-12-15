@@ -1,5 +1,5 @@
 type: object
-description: Base conflict, returned in search results (V2)
+description: Base conflict, returned in search results (V2) # TODO: remove
 properties:
   uid:
     type: string

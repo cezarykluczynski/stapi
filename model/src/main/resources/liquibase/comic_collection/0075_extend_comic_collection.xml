@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0075_extend_comic_collection" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="comic_collections_child_series">
+			<column name="comic_collection_id" type="bigint"/>
+			<column name="comic_series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
+				baseTableName="comic_collections_child_series"
+				baseTableSchemaName="stapi"
+				constraintName="cccs_comic_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_collection"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="comic_series_id"
+				baseTableName="comic_collections_child_series"
+				baseTableSchemaName="stapi"
+				constraintName="cccs_child_comic_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_series"
+				referencedTableSchemaName="stapi"/>
+	</changeSet>
+</databaseChangeLog>

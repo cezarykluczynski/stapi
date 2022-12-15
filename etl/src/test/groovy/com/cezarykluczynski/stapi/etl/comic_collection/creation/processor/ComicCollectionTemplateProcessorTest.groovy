@@ -30,6 +30,8 @@ class ComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 		given:
 		ComicSeries comicSeries1 = Mock()
 		ComicSeries comicSeries2 = Mock()
+		ComicSeries childComicSeries1 = Mock()
+		ComicSeries childComicSeries2 = Mock()
 		Staff writer1 = Mock()
 		Staff writer2 = Mock()
 		Staff artist1 = Mock()
@@ -63,6 +65,7 @@ class ComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 				yearTo: YEAR_TO,
 				photonovel: PHOTONOVEL,
 				comicSeries: Sets.newHashSet(comicSeries1, comicSeries2),
+				childComicSeries: Sets.newHashSet(childComicSeries1, childComicSeries2),
 				writers: Sets.newHashSet(writer1, writer2),
 				artists: Sets.newHashSet(artist1, artist2),
 				editors: Sets.newHashSet(editor1, editor2),
@@ -95,6 +98,8 @@ class ComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 		comicCollection.photonovel == PHOTONOVEL
 		comicCollection.comicSeries.contains comicSeries1
 		comicCollection.comicSeries.contains comicSeries2
+		comicCollection.childComicSeries.contains childComicSeries1
+		comicCollection.childComicSeries.contains childComicSeries2
 		comicCollection.writers.contains writer1
 		comicCollection.writers.contains writer2
 		comicCollection.artists.contains artist1

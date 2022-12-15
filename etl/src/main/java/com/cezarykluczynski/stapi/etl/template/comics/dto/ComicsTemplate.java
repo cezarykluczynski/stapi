@@ -34,6 +34,8 @@ public class ComicsTemplate extends PublishableTemplate {
 
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
+	private Set<ComicSeries> childComicSeries = Sets.newHashSet();
+
 	private Set<Staff> writers = Sets.newHashSet();
 
 	private Set<Staff> artists = Sets.newHashSet();

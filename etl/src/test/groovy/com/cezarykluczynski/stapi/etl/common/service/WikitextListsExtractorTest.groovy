@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.WikitextList
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
+@SuppressWarnings('LineLength')
 class WikitextListsExtractorTest extends Specification {
 
 	private static final String WIKITEXT_1 = 'WIKITEXT_1'
@@ -26,6 +27,9 @@ class WikitextListsExtractorTest extends Specification {
 ## [[Scott Dunbier]]
 # Creative consultant: [[Roberto Orci]]
 # Special thanks to [[Risa Kessler]] and [[John Van Citters]] at CBS Consumer Products.
+{{ol|21|"[[Star Trek After Darkness, Part 1]]"|"[[Star Trek After Darkness, Part 2]]"|"[[Star Trek After Darkness, Part 3]]"}}
+{{orderedlist|17|"{{dis|Bones|comic}}"|"[[The Voice of a Falling Star]]"|"{{dis|Scotty|comic}}"|"[[Red Level Down]]"}}
+{{ol|0|"[[Star Trek: The Next Generation - Mirror Broken, FCBD 2017 Edition|Issue 0]]"|"[[Star Trek: The Next Generation - Mirror Broken, Issue 1|Issue 1]]"}}
 '''
 
 	private static final String DEFINITION_WIKITEXT = '''
@@ -51,7 +55,7 @@ class WikitextListsExtractorTest extends Specification {
 		List<WikitextList> wikitextListList = wikitextListsExtractor.extractListsFromWikitext(LIST_WIKITEXT)
 
 		then:
-		wikitextListList.size() == 5
+		wikitextListList.size() == 8
 		wikitextListList[0].text == 'Writers:'
 		wikitextListList[0].level == 1
 		wikitextListList[0].children.size() == 2
@@ -76,6 +80,28 @@ class WikitextListsExtractorTest extends Specification {
 		wikitextListList[4].text == 'Special thanks to [[Risa Kessler]] and [[John Van Citters]] at CBS Consumer Products.'
 		wikitextListList[4].level == 1
 		wikitextListList[4].children.empty
+		wikitextListList[5].level == 0
+		wikitextListList[5].children.size() == 3
+		wikitextListList[5].children[0].level == 1
+		wikitextListList[5].children[0].text == '"[[Star Trek After Darkness, Part 1]]"'
+		wikitextListList[5].children[1].level == 1
+		wikitextListList[5].children[1].text == '"[[Star Trek After Darkness, Part 2]]"'
+		wikitextListList[5].children[2].level == 1
+		wikitextListList[5].children[2].text == '"[[Star Trek After Darkness, Part 3]]"'
+		wikitextListList[6].children.size() == 4
+		wikitextListList[6].children[0].level == 1
+		wikitextListList[6].children[0].text == '"{{dis|Bones|comic}}"'
+		wikitextListList[6].children[1].level == 1
+		wikitextListList[6].children[1].text == '"[[The Voice of a Falling Star]]"'
+		wikitextListList[6].children[2].level == 1
+		wikitextListList[6].children[2].text == '"{{dis|Scotty|comic}}"'
+		wikitextListList[6].children[3].level == 1
+		wikitextListList[6].children[3].text == '"[[Red Level Down]]"'
+		wikitextListList[7].children.size() == 2
+		wikitextListList[7].children[0].level == 1
+		wikitextListList[7].children[0].text == '"[[Star Trek: The Next Generation - Mirror Broken, FCBD 2017 Edition|Issue 0]]"'
+		wikitextListList[7].children[1].level == 1
+		wikitextListList[7].children[1].text == '"[[Star Trek: The Next Generation - Mirror Broken, Issue 1|Issue 1]]"'
 	}
 
 	void "parses wikitext containing definitions to WikitextList tree"() {

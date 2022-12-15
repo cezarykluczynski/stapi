@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.ComicCollectionApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFullResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class ComicCollection {
@@ -17,8 +18,13 @@ public class ComicCollection {
 		this.apiKey = apiKey;
 	}
 
+	@Deprecated
 	public ComicCollectionFullResponse get(String uid) throws ApiException {
 		return comicCollectionApi.v1RestComicCollectionGet(uid, apiKey);
+	}
+
+	public ComicCollectionV2FullResponse getV2(String uid) throws ApiException {
+		return comicCollectionApi.v2RestComicCollectionGet(uid, apiKey);
 	}
 
 	public ComicCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,

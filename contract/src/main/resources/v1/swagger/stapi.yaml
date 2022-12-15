@@ -49,6 +49,8 @@ paths:
     $ref: ./comic_collection/path/comicCollection.path.yaml
   /v1/rest/comicCollection/search:
     $ref: ./comic_collection/path/comicCollectionSearch.path.yaml
+  /v2/rest/comicCollection:
+    $ref: ./comic_collection/path/comicCollectionV2.path.yaml
   /v1/rest/comicSeries:
     $ref: ./comic_series/path/comicSeries.path.yaml
   /v1/rest/comicSeries/search:
@@ -338,6 +340,10 @@ definitions:
     $ref: ./comic_collection/entity/comicCollectionBaseResponse.yaml
   ComicCollectionFullResponse:
     $ref: ./comic_collection/entity/comicCollectionFullResponse.yaml
+  ComicCollectionV2Full:
+    $ref: ./comic_collection/entity/comicCollectionV2Full.yaml
+  ComicCollectionV2FullResponse:
+    $ref: ./comic_collection/entity/comicCollectionV2FullResponse.yaml
   ComicSeriesHeader:
     $ref: ./comic_series/entity/comicSeriesHeader.yaml
   ComicSeriesBase:

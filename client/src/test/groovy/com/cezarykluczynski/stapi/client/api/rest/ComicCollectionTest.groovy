@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.client.api.rest
 import com.cezarykluczynski.stapi.client.v1.rest.api.ComicCollectionApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFullResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractComicCollectionTest
 
 class ComicCollectionTest extends AbstractComicCollectionTest {
@@ -27,6 +28,19 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		1 * comicCollectionApiMock.v1RestComicCollectionGet(UID, API_KEY) >> comicCollectionFullResponse
 		0 * _
 		comicCollectionFullResponse == comicCollectionFullResponseOutput
+	}
+
+	void "gets single entity (V2)"() {
+		given:
+		ComicCollectionV2FullResponse comicCollectionV2FullResponse = Mock()
+
+		when:
+		ComicCollectionV2FullResponse comicCollectionV2FullResponseOutput = comicCollection.getV2(UID)
+
+		then:
+		1 * comicCollectionApiMock.v2RestComicCollectionGet(UID, API_KEY) >> comicCollectionV2FullResponse
+		0 * _
+		comicCollectionV2FullResponse == comicCollectionV2FullResponseOutput
 	}
 
 	void "searches entities"() {

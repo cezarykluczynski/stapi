@@ -7,7 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -19,6 +23,12 @@ public class WikitextListsExtractor {
 	private static final String HASH = "#";
 	private static final String SEMICOLON = ";";
 	private static final String COLON = ":";
+	private static final String PIPE = "|";
+	private static final String TEMPLATE_START = "{{";
+	private static final String LINK_START = "[[";
+	private static final String TEMPLATE_END = "}}";
+	private static final String LINK_END = "]]";
+	private static final Pattern OL_LINK = Pattern.compile("\\{\\{(?i:ol|OrderedList)(\\|.+)}}");
 
 	private static final Pattern REMOVE_COMMENTS = Pattern.compile("<!--(.+?)-->", Pattern.DOTALL);
 
@@ -26,9 +36,83 @@ public class WikitextListsExtractor {
 		List<WikitextList> wikitextListList = Lists.newArrayList();
 		wikitextListList.addAll(extractListLikeFromWikitext(wikitext, ASTERISK, ASTERISK));
 		wikitextListList.addAll(extractListLikeFromWikitext(wikitext, HASH, HASH));
+		wikitextListList.addAll(extractListLikeFromOlTemplate(wikitext));
 		return wikitextListList;
 	}
 
+	private Collection<WikitextList> extractListLikeFromOlTemplate(String wikitext) {
+		if (StringUtils.isEmpty(wikitext)) {
+			return Lists.newArrayList();
+		}
+		Matcher matcher = OL_LINK.matcher(wikitext);
+
+		List<WikitextList> wikitextListList = Lists.newArrayList();
+		while (matcher.find()) {
+			WikitextList wikitextList = new WikitextList();
+			wikitextList.setLevel(0);
+			wikitextListList.add(wikitextList);
+			String group = matcher.group(1);
+			List<String> parts = splitByPipeSkippingEmbeddedTemplates(group);
+			wikitextList.getChildren().addAll(parts.stream()
+					.skip(1L)
+					.map(text -> {
+						final WikitextList wikitextListChild = new WikitextList();
+						wikitextListChild.setLevel(1);
+						wikitextListChild.setText(text);
+						return wikitextListChild;
+					}).collect(Collectors.toList()));
+		}
+		return wikitextListList;
+	}
+
+	private List<String> splitByPipeSkippingEmbeddedTemplates(String group) {
+		if (StringUtils.isBlank(group)) {
+			return Lists.newArrayList();
+		}
+		final List<String> characters = Arrays.stream(group.split("")).collect(Collectors.toList());
+		List<Integer> indices = Lists.newArrayList();
+		int insideTemplate = 0;
+		int insideLink = 0;
+		for (int i = 0; i < characters.size(); i++) {
+			String character = characters.get(i);
+			String twoCharacters = character + safelyGet(characters, i + 1);
+			if (TEMPLATE_START.equals(twoCharacters)) {
+				insideTemplate++;
+			} else if (LINK_START.equals(twoCharacters)) {
+				insideLink++;
+			} else if (TEMPLATE_END.equals(twoCharacters)) {
+				insideTemplate--;
+				if (insideTemplate < 0) {
+					log.error("Group {} contains invalid template end not preceded by template start.", group);
+				}
+			} else if (LINK_END.equals(twoCharacters)) {
+				insideLink--;
+				if (insideLink < 0) {
+					log.error("Group {} contains invalid link end not preceded by link start.", group);
+				}
+			} else if (PIPE.equals(character) && insideTemplate == 0 && insideLink == 0) {
+				indices.add(i);
+			}
+		}
+
+		Collections.reverse(indices);
+		List<String> split = Lists.newArrayList();
+		String groupToSplit = group;
+		for (int j = 0; j < indices.size(); j++) {
+			int index = indices.get(j);
+			split.add(0, groupToSplit.substring(index + PIPE.length()));
+			groupToSplit = groupToSplit.substring(0, index);
+		}
+
+		return split;
+	}
+
+	private String safelyGet(List<String> characters, int i) {
+		if (characters.size() <= i) {
+			return "";
+		}
+		return characters.get(i);
+	}
 
 	public List<WikitextList> extractDefinitionsFromWikitext(String wikitext) {
 		return extractListLikeFromWikitext(wikitext, SEMICOLON, COLON);

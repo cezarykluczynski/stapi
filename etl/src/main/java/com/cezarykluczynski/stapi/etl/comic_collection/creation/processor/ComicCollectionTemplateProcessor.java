@@ -35,6 +35,7 @@ public class ComicCollectionTemplateProcessor implements ItemProcessor<ComicColl
 		comicCollection.setYearTo(item.getYearTo());
 		comicCollection.setPhotonovel(item.isPhotonovel());
 		comicCollection.getComicSeries().addAll(item.getComicSeries());
+		comicCollection.getChildComicSeries().addAll(item.getChildComicSeries());
 		comicCollection.getWriters().addAll(item.getWriters());
 		comicCollection.getArtists().addAll(item.getArtists());
 		comicCollection.getEditors().addAll(item.getEditors());

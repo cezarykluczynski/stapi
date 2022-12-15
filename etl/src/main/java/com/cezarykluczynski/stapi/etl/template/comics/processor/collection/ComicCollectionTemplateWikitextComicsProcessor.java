@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.etl.common.dto.WikitextList;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor;
 import com.cezarykluczynski.stapi.etl.common.service.WikitextListsExtractor;
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicCollectionContents;
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
@@ -16,12 +18,13 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProcessor<Page, Set<Comics>> {
+public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProcessor<Page, ComicCollectionContents> {
 
 	private static final String ISSUES = "Issues";
 	private static final String ISSUES_COLLECTED = "Issues collected";
@@ -29,6 +32,7 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 	private static final String CONTENTS = "Contents";
 	private static final String CHAPTERS = "Chapters";
 	private static final String BACKGROUND_INFORMATION = "Background information";
+	private static final String TITLES = "Titles";
 
 	private final PageSectionExtractor pageSectionExtractor;
 
@@ -47,14 +51,14 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 	}
 
 	@Override
-	public Set<Comics> process(Page item) throws Exception {
-		Set<Comics> comicsSet = Sets.newHashSet();
+	public ComicCollectionContents process(Page item) throws Exception {
 		List<PageSection> pageSectionList = pageSectionExtractor.findByTitles(item, ISSUES, ISSUES_COLLECTED, ISSUES_COLLECTED_UC, CONTENTS, CHAPTERS,
-				BACKGROUND_INFORMATION);
+				BACKGROUND_INFORMATION, TITLES);
 
+		ComicCollectionContents comicCollectionContents = new ComicCollectionContents();
 		if (pageSectionList.isEmpty()) {
 			log.info("No comics containing sections were found for comic collection \"{}\"", item.getTitle());
-			return comicsSet;
+			return comicCollectionContents;
 		}
 
 		if (pageSectionList.size() > 1) {
@@ -66,23 +70,26 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 		PageSection pageSection = pageSectionList.get(0);
 
 		if (pageSectionList.size() > 1) {
-			log.info("Page \"{}\" contains more than one section, using the first one: {}", item.getTitle(), pageSection.getText());
+			log.info("Page \"{}\" contains more than one section, using the first one: {}.", item.getTitle(), pageSection.getText());
 		}
 
 		String pageSectionWikitext = pageSection.getWikitext();
+		List<WikitextList> wikitextListList = Lists.newArrayList();
+		wikitextListList.addAll(wikitextListsExtractor.extractListsFromWikitext(pageSectionWikitext));
+		wikitextListList.addAll(wikitextListsExtractor.extractDefinitionsFromWikitext(pageSectionWikitext));
+		Set<String> pageLinkTitles = extractPageTitles(wikitextListList);
 
-		comicsSet.addAll(extractComics(wikitextListsExtractor.extractListsFromWikitext(pageSectionWikitext)));
-		comicsSet.addAll(extractComics(wikitextListsExtractor.extractDefinitionsFromWikitext(pageSectionWikitext)));
-
-		if (comicsSet.isEmpty()) {
-			log.info("No comics could be extracted from page \"{}\"", item.getTitle());
+		comicCollectionContents.getComics().addAll(extractComics(pageLinkTitles));
+		comicCollectionContents.getComicSeries().addAll(extractComicSeries(pageLinkTitles));
+		if (comicCollectionContents.getComics().isEmpty() && comicCollectionContents.getComicSeries().isEmpty()) {
+			log.info("Could not extract any comic collection contents from page \"{}\" section \"{}\".", item.getTitle(), pageSection.getAnchor());
 		}
 
-		return comicsSet;
+		return comicCollectionContents;
 	}
 
-	private Set<Comics> extractComics(List<WikitextList> wikitextListList) {
-		Set<Comics> comicsSet = Sets.newHashSet();
+	private Set<String> extractPageTitles(List<WikitextList> wikitextListList) {
+		Set<String> titles = Sets.newHashSet();
 
 		wikitextListsExtractor.flattenWikitextListList(wikitextListList).forEach(wikitextList -> {
 			List<String> lines = extractLines(wikitextList.getText());
@@ -94,17 +101,31 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 					return;
 				}
 
-				entityLookupByNameService
-						.findComicsByName(pageTitleList.get(0), MediaWikiSource.MEMORY_ALPHA_EN)
-						.ifPresent(comicsSet::add);
+				titles.add(pageTitleList.get(0));
 			});
 		});
 
-		return comicsSet;
+		return titles;
+	}
+
+	private Set<Comics> extractComics(Set<String> pageTitles) {
+		return pageTitles.stream()
+				.map(pageTitle -> entityLookupByNameService.findComicsByName(pageTitle, MediaWikiSource.MEMORY_ALPHA_EN))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toSet());
+	}
+
+	private Set<ComicSeries> extractComicSeries(Set<String> pageTitles) {
+		return pageTitles.stream()
+				.map(pageTitle -> entityLookupByNameService.findComicSeriesByName(pageTitle, MediaWikiSource.MEMORY_ALPHA_EN))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toSet());
 	}
 
 	private List<String> extractLines(String wikitext) {
-		return Lists.newArrayList(wikitext.split("\n"));
+		return wikitext != null ? Lists.newArrayList(wikitext.split("\n")) : Lists.newArrayList();
 	}
 
 }
