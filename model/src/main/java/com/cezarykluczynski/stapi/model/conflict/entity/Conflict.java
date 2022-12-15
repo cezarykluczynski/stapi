@@ -37,7 +37,7 @@ import java.util.Set;
 		"secondSideLocations", "firstSideCommanders", "secondSideCommanders"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = ConflictRepository.class, singularName = "conflict",
-		pluralName = "conflicts", restApiVersion = "v2")
+		pluralName = "conflicts")
 public class Conflict extends PageAwareEntity implements PageAware {
 
 	@Id

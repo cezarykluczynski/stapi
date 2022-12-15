@@ -38,8 +38,10 @@ public class ConflictRepositoryImpl extends AbstractRepositoryImpl<Conflict> imp
 		conflictQueryBuilder.setSort(criteria.getSort());
 		conflictQueryBuilder.fetch(Conflict_.locations, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.firstSideBelligerents, doFetch);
+		conflictQueryBuilder.fetch(Conflict_.firstSideLocations, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.firstSideCommanders, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.secondSideBelligerents, doFetch);
+		conflictQueryBuilder.fetch(Conflict_.secondSideLocations, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, doFetch);
 
 		Page<Conflict> conflictPage = conflictQueryBuilder.findPage();
@@ -56,8 +58,10 @@ public class ConflictRepositoryImpl extends AbstractRepositoryImpl<Conflict> imp
 		page.getContent().forEach(conflict -> {
 			conflict.setLocations(Sets.newHashSet());
 			conflict.setFirstSideBelligerents(Sets.newHashSet());
+			conflict.setFirstSideLocations(Sets.newHashSet());
 			conflict.setFirstSideCommanders(Sets.newHashSet());
 			conflict.setSecondSideBelligerents(Sets.newHashSet());
+			conflict.setSecondSideLocations(Sets.newHashSet());
 			conflict.setSecondSideCommanders(Sets.newHashSet());
 		});
 	}

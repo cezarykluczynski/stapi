@@ -81,8 +81,10 @@ class ConflictRepositoryImplTest extends AbstractConflictTest {
 		then: 'fetch is performed'
 		1 * conflictQueryBuilder.fetch(Conflict_.locations, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideBelligerents, true)
+		1 * conflictQueryBuilder.fetch(Conflict_.firstSideLocations, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideCommanders, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideBelligerents, true)
+		1 * conflictQueryBuilder.fetch(Conflict_.secondSideLocations, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, true)
 
 		then: 'page is retrieved'
@@ -108,8 +110,10 @@ class ConflictRepositoryImplTest extends AbstractConflictTest {
 		then: 'fetch is performed with false flag'
 		1 * conflictQueryBuilder.fetch(Conflict_.locations, false)
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideBelligerents, false)
+		1 * conflictQueryBuilder.fetch(Conflict_.firstSideLocations, false)
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideCommanders, false)
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideBelligerents, false)
+		1 * conflictQueryBuilder.fetch(Conflict_.secondSideLocations, false)
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, false)
 
 		then: 'page is searched for and returned'
@@ -119,8 +123,10 @@ class ConflictRepositoryImplTest extends AbstractConflictTest {
 		1 * page.content >> Lists.newArrayList(conflict)
 		1 * conflict.setLocations(Sets.newHashSet())
 		1 * conflict.setFirstSideBelligerents(Sets.newHashSet())
+		1 * conflict.setFirstSideLocations(Sets.newHashSet())
 		1 * conflict.setFirstSideCommanders(Sets.newHashSet())
 		1 * conflict.setSecondSideBelligerents(Sets.newHashSet())
+		1 * conflict.setSecondSideLocations(Sets.newHashSet())
 		1 * conflict.setSecondSideCommanders(Sets.newHashSet())
 		pageOutput == page
 	}

@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.conflict.mapper;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBase;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2Base;
 import com.cezarykluczynski.stapi.model.conflict.dto.ConflictRequestDTO;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
@@ -19,9 +18,5 @@ public interface ConflictBaseRestMapper {
 	ConflictBase mapBase(Conflict conflict);
 
 	List<ConflictBase> mapBase(List<Conflict> conflictList);
-
-	ConflictV2Base mapV2Base(Conflict conflict);
-
-	List<ConflictV2Base> mapV2Base(List<Conflict> conflictList);
 
 }

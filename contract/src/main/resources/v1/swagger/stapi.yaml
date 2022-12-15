@@ -73,8 +73,6 @@ paths:
     $ref: ./conflict/path/conflictSearch.path.yaml
   /v2/rest/conflict:
     $ref: ./conflict/path/conflictV2.path.yaml
-  /v2/rest/conflict/search:
-    $ref: ./conflict/path/conflictV2Search.path.yaml
   /v1/rest/common/dataVersion:
     $ref: ./data_version/path/dataVersion.path.yaml
   /v1/rest/element:
@@ -392,12 +390,8 @@ definitions:
     $ref: ./conflict/entity/conflictBaseResponse.yaml
   ConflictFullResponse:
     $ref: ./conflict/entity/conflictFullResponse.yaml
-  ConflictV2Base:
-    $ref: ./conflict/entity/conflictV2Base.yaml
   ConflictV2Full:
     $ref: ./conflict/entity/conflictV2Full.yaml
-  ConflictV2BaseResponse:
-    $ref: ./conflict/entity/conflictV2BaseResponse.yaml
   ConflictV2FullResponse:
     $ref: ./conflict/entity/conflictV2FullResponse.yaml
   ContentLanguage:

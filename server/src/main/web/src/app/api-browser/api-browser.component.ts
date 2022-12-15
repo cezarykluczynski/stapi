@@ -118,7 +118,7 @@ export class ApiBrowserComponent implements OnInit {
 
 	getInfo() {
 		return 'This is API Browser. Existing API entities can be queried here by name or title. <br>' +
-				'Pick resource to search in, type in full name or title, or part of name or title, then press enter.';
+				'Pick resource to search in, type in full name or title, or part of name or title, then press enter or click "Submit".';
 	}
 
 }
