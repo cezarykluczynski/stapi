@@ -38,16 +38,16 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Michele Wolfman", Gender.F); // source: http://marvel.fandom.com/wiki/Michelle_Wolfman
 		NAME_TO_GENDER_MAP.put("Anatonia Napoli", Gender.F); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Sandy Schofield", null); // pen name for two people
-		NAME_TO_GENDER_MAP.put("Hilary Bader", Gender.F); // genderize.io is not sure, IMDB used to determine
+		NAME_TO_GENDER_MAP.put("Hilary J. Bader", Gender.F); // genderize.io is not sure, IMDB used to determine
 		NAME_TO_GENDER_MAP.put("Two Steps From Hell", null); // group of two composers
 		NAME_TO_GENDER_MAP.put("Claudia Balboni", Gender.F); // wrong guess from pronouns
-		NAME_TO_GENDER_MAP.put("Lee Halpern", null); // genderize.io is not sure, not enough data on the web
+		NAME_TO_GENDER_MAP.put("Lee Halpern", Gender.M); // source: https://www.imdb.com/name/nm0356951/
 		NAME_TO_GENDER_MAP.put("Chris Abbott", Gender.F); // source: https://en.wikipedia.org/wiki/Chris_Abbott
 		NAME_TO_GENDER_MAP.put("Buffee Friedlich", Gender.F); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Skye Dent", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Kem Antilles", null); // pseudonym for two people
 		NAME_TO_GENDER_MAP.put("Monte Thrasher", Gender.M); // source: https://www.linkedin.com/in/monte-thrasher-8500b145
-		NAME_TO_GENDER_MAP.put("Dana Kramer-Rolls", null); // genderize.io is not sure, not enough data on the web
+		NAME_TO_GENDER_MAP.put("Dana Kramer-Rolls", Gender.F); // source: https://www.isfdb.org/cgi-bin/ea.cgi?5456
 		NAME_TO_GENDER_MAP.put("W. Reed Moran", Gender.M); // source: https://web.csulb.edu/depts/film/faculty_moran_w.html
 		NAME_TO_GENDER_MAP.put("L.A. Graf", null); // pseudonym for multiple people
 		NAME_TO_GENDER_MAP.put("Len Janson", Gender.M); // source: https://en.wikipedia.org/wiki/Len_Janson
@@ -55,7 +55,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("TG Theodore", Gender.M); // source: http://www.ted.to/
 		NAME_TO_GENDER_MAP.put("Paul Lynch", Gender.M); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Dene Nee", null); // genderize.io is not sure, not enough data on the web
-		NAME_TO_GENDER_MAP.put("Murray Golden", null); // genderize.io is not sure, not enough data on the web
+		NAME_TO_GENDER_MAP.put("Murray Golden", Gender.M); // source: https://www.imdb.com/name/nm0325476/
 		NAME_TO_GENDER_MAP.put("Sherman Labby", Gender.M); // source: https://en.wikipedia.org/wiki/Sherman_Labby
 		NAME_TO_GENDER_MAP.put("Chris Tezber", null); // genderize.io is not sure, not enough data on the web
 		NAME_TO_GENDER_MAP.put("Lynn Barker", Gender.F); // genderize.io is not sure, IMDB used to determine
@@ -73,6 +73,19 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Evangelatos", null); // no way of telling from the description
 		NAME_TO_GENDER_MAP.put("T.L. Mancour", null); // no way of telling from the description
 		NAME_TO_GENDER_MAP.put("D. Harrington", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Alan Dingman", Gender.M); // source: https://faso.com/artists/17062.html
+		NAME_TO_GENDER_MAP.put("Amy Sisson", Gender.F); // source: http://amysreviews.blogspot.com/
+		NAME_TO_GENDER_MAP.put("Andy Simonson", Gender.M); // photo used to determine
+		NAME_TO_GENDER_MAP.put("Blues Saraceno", Gender.M); // source: https://en.wikipedia.org/wiki/Blues_Saraceno
+		NAME_TO_GENDER_MAP.put("Cleo Severy", Gender.F); // source: https://www.linkedin.com/in/cleo-mannell-1a019781/
+		NAME_TO_GENDER_MAP.put("Jean Pierre Durand", Gender.M); // obvious
+		NAME_TO_GENDER_MAP.put("Jen Patton", Gender.F); // source: https://twitter.com/jenpattonla
+		NAME_TO_GENDER_MAP.put("Jo Perry", Gender.F); // source: https://www.murderbooks.com/event/thomas-perry
+		NAME_TO_GENDER_MAP.put("Jordan Hoffman", Gender.M); // source: https://jordanhoffman.com/about-me/
+		NAME_TO_GENDER_MAP.put("Kim Friedman", Gender.F); // source: https://en.wikipedia.org/wiki/Kim_Friedman
+		NAME_TO_GENDER_MAP.put("Kris Zimmerman", Gender.F); // source: https://www.imdb.com/name/nm0956743/
+		NAME_TO_GENDER_MAP.put("Lenny Kravitz", Gender.M); // common knowledge
+		NAME_TO_GENDER_MAP.put("Sharman Divono", Gender.F); // source: https://www.imdb.com/name/nm1406396/
 	}
 
 	@Override

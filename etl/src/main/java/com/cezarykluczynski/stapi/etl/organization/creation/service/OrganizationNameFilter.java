@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class OrganizationNameFilter {
 
-	private static final List<String> NOT_AN_ORGANIZATIONS = Lists.newArrayList("Intelligence agency", "Platoon", "Task force", "Dungeon", "Baldwin",
+	private static final List<String> NOT_ORGANIZATIONS = Lists.newArrayList("Intelligence agency", "Platoon", "Task force", "Dungeon", "Baldwin",
 			"Flotilla", "League", "Assault team", "Medical complex", "Column", "Squad", "Assault fleet", "Squadron", "Research facilities", "Fleet",
 			"Grand jury", "Legion", "Regiment","Fleet organization", "Garrison", "Division", "Dynasty", "Armada", "Battalion", "Attack wing",
 			"Brigade", "Militia", "Battery (unit)", "Democrat", "Service branch", "Kingdom", "City council", "News agency",
@@ -68,10 +68,11 @@ public class OrganizationNameFilter {
 			"Division of Advanced Synthetic Research", "El-Keshtanktil", "Federation Food and Drug Administration",
 			"Federation of State Medical Boards", "Freecloud Institute of Entertainment Robotics", "Immigration and Customs Enforcement",
 			"Kelpien and Ba'ul Alliance", "Kyrian forces", "MARDET", "METI", "Royal Family of Hysperia", "Search for Extra Terrestrial Intelligence",
-			"Supreme Court of the United States", "United Earth and Titan", "United States military", "Vaskan forces");
+			"Supreme Court of the United States", "United Earth and Titan", "United States military", "Vaskan forces", "House of Duras",
+			"House of Duras (mirror)", "Romulan underground movement", "V'draysh");
 
 	public Match isAnOrganization(String organizationName) {
-		if (NOT_AN_ORGANIZATIONS.contains(organizationName)) {
+		if (NOT_ORGANIZATIONS.contains(organizationName)) {
 			return Match.IS_NOT_AN_ORGANIZATION;
 		} else if (ORGANIZATIONS.contains(organizationName)) {
 			return Match.IS_AN_ORGANIZATION;

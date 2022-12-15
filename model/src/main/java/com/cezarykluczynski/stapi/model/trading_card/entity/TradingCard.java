@@ -27,8 +27,8 @@ import javax.persistence.SequenceGenerator;
 @ToString(exclude = {"tradingCardSet", "tradingCardDeck"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCardDeck"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardRepository.class, singularName = "trading card set",
-		pluralName = "trading card sets")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardRepository.class, singularName = "trading card",
+		pluralName = "trading cards")
 public class TradingCard {
 
 	@Id
