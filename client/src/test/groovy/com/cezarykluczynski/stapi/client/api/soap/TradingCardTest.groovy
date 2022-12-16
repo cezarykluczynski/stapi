@@ -11,14 +11,11 @@ class TradingCardTest extends Specification {
 
 	private TradingCardPortType tradingCardPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private TradingCard tradingCard
 
 	void setup() {
 		tradingCardPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		tradingCard = new TradingCard(tradingCardPortTypeMock, apiKeySupplierMock)
+		tradingCard = new TradingCard(tradingCardPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class TradingCardTest extends Specification {
 		TradingCardBaseResponse tradingCardBaseResponseOutput = tradingCard.search(tradingCardBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(tradingCardBaseRequest)
 		1 * tradingCardPortTypeMock.getTradingCardBase(tradingCardBaseRequest) >> tradingCardBaseResponse
 		0 * _
 		tradingCardBaseResponse == tradingCardBaseResponseOutput
@@ -45,7 +41,6 @@ class TradingCardTest extends Specification {
 		TradingCardFullResponse tradingCardFullResponseOutput = tradingCard.get(tradingCardFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(tradingCardFullRequest)
 		1 * tradingCardPortTypeMock.getTradingCardFull(tradingCardFullRequest) >> tradingCardFullResponse
 		0 * _
 		tradingCardFullResponse == tradingCardFullResponseOutput

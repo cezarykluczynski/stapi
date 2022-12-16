@@ -11,14 +11,11 @@ class ConflictTest extends Specification {
 
 	private ConflictPortType conflictPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Conflict conflict
 
 	void setup() {
 		conflictPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		conflict = new Conflict(conflictPortTypeMock, apiKeySupplierMock)
+		conflict = new Conflict(conflictPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class ConflictTest extends Specification {
 		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(conflictBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(conflictBaseRequest)
 		1 * conflictPortTypeMock.getConflictBase(conflictBaseRequest) >> conflictBaseResponse
 		0 * _
 		conflictBaseResponse == conflictBaseResponseOutput
@@ -45,7 +41,6 @@ class ConflictTest extends Specification {
 		ConflictFullResponse conflictFullResponseOutput = conflict.get(conflictFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(conflictFullRequest)
 		1 * conflictPortTypeMock.getConflictFull(conflictFullRequest) >> conflictFullResponse
 		0 * _
 		conflictFullResponse == conflictFullResponseOutput

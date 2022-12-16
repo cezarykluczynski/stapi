@@ -10,20 +10,17 @@ public class VideoRelease {
 
 	private final VideoReleaseApi videoReleaseApi;
 
-	private final String apiKey;
-
-	public VideoRelease(VideoReleaseApi videoReleaseApi, String apiKey) {
+	public VideoRelease(VideoReleaseApi videoReleaseApi) {
 		this.videoReleaseApi = videoReleaseApi;
-		this.apiKey = apiKey;
 	}
 
 	public VideoReleaseFullResponse get(String uid) throws ApiException {
-		return videoReleaseApi.v1RestVideoReleaseGet(uid, apiKey);
+		return videoReleaseApi.v1RestVideoReleaseGet(uid, null);
 	}
 
 	public VideoReleaseBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer yearFrom, Integer yearTo,
 			Integer runTimeFrom, Integer runTimeTo) throws ApiException {
-		return videoReleaseApi.v1RestVideoReleaseSearchPost(pageNumber, pageSize, sort, apiKey, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
+		return videoReleaseApi.v1RestVideoReleaseSearchPost(pageNumber, pageSize, sort, null, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
 	}
 
 }

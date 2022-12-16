@@ -10,20 +10,17 @@ public class Animal {
 
 	private AnimalPortType animalPortType; // not final for the sake of testing
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Animal(AnimalPortType animalPortType, ApiKeySupplier apiKeySupplier) {
+	public Animal(AnimalPortType animalPortType) {
 		this.animalPortType = animalPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public AnimalFullResponse get(AnimalFullRequest request) {
-		apiKeySupplier.supply(request);
 		return animalPortType.getAnimalFull(request);
 	}
 
+	@Deprecated
 	public AnimalBaseResponse search(AnimalBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return animalPortType.getAnimalBase(request);
 	}
 

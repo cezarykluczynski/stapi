@@ -1,17 +1,12 @@
 package com.cezarykluczynski.stapi.client.api
 
-import com.cezarykluczynski.stapi.client.v1.soap.AnimalBaseRequest
-import com.cezarykluczynski.stapi.client.v1.soap.AnimalPortType
-
 class StapiSoapClientTest extends AbstractStapiClientTest {
-
-	private static final String API_KEY = 'API_KEY'
 
 	private StapiSoapClient stapiSoapClient
 
 	void "soap client can be instantiated"() {
 		when: 'it is instantiated with canonical URL'
-		stapiSoapClient = new StapiSoapClient(null, null)
+		stapiSoapClient = new StapiSoapClient(null)
 
 		then: 'canonical url is set'
 		((String) toBindingProvider(stapiSoapClient.seriesPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
@@ -100,7 +95,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 
 	void "soap client can be instantiated with custom URL"() {
 		when:
-		stapiSoapClient = new StapiSoapClient(CUSTOM_URL, null)
+		stapiSoapClient = new StapiSoapClient(CUSTOM_URL)
 
 		then:
 		((String) toBindingProvider(stapiSoapClient.seriesPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
@@ -145,23 +140,9 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.occupationPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 	}
 
-	void "API key can be changed"() {
-		given:
-		AnimalBaseRequest animalBaseRequest = new AnimalBaseRequest()
-		AnimalPortType animalPortType = Mock()
-		stapiSoapClient = new StapiSoapClient(null, API_KEY)
-		stapiSoapClient.animal.animalPortType = animalPortType
-
-		when:
-		stapiSoapClient.animal.search(animalBaseRequest)
-
-		then:
-		animalBaseRequest.apiKey == API_KEY
-	}
-
 	void "SOAP client cannot be instantiated with URL that does not start with 'http'"() {
 		when:
-		stapiSoapClient = new StapiSoapClient('url/', API_KEY)
+		stapiSoapClient = new StapiSoapClient('url/')
 
 		then:
 		thrown(IllegalArgumentException)
@@ -169,7 +150,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 
 	void "SOAP client cannot be instantiated with URL that does not end with slash"() {
 		when:
-		stapiSoapClient = new StapiSoapClient('http://url', API_KEY)
+		stapiSoapClient = new StapiSoapClient('http://url')
 
 		then:
 		thrown(IllegalArgumentException)
@@ -177,7 +158,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 
 	void "when null URL is passed, canonical URL is used"() {
 		when:
-		stapiSoapClient = new StapiSoapClient(null, API_KEY)
+		stapiSoapClient = new StapiSoapClient(null)
 
 		then:
 		stapiSoapClient.apiUrl == StapiClient.CANONICAL_API_URL

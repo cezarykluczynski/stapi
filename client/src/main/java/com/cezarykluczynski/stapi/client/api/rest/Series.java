@@ -12,22 +12,19 @@ public class Series {
 
 	private final SeriesApi seriesApi;
 
-	private final String apiKey;
-
-	public Series(SeriesApi seriesApi, String apiKey) {
+	public Series(SeriesApi seriesApi) {
 		this.seriesApi = seriesApi;
-		this.apiKey = apiKey;
 	}
 
 	public SeriesFullResponse get(String uid) throws ApiException {
-		return seriesApi.v1RestSeriesGet(uid, apiKey);
+		return seriesApi.v1RestSeriesGet(uid, null);
 	}
 
 	public SeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, String abbreviation,
 			Integer productionStartYearFrom, Integer productionStartYearTo, Integer productionEndYearFrom, Integer productionEndYearTo,
 			LocalDate originalRunStartDateFrom, LocalDate originalRunStartDateTo, LocalDate originalRunEndDateFrom, LocalDate originalRunEndDateTo)
 			throws ApiException {
-		return seriesApi.v1RestSeriesSearchPost(pageNumber, pageSize, sort, apiKey, title, abbreviation, productionStartYearFrom,
+		return seriesApi.v1RestSeriesSearchPost(pageNumber, pageSize, sort, null, title, abbreviation, productionStartYearFrom,
 				productionStartYearTo, productionEndYearFrom, productionEndYearTo, originalRunStartDateFrom, originalRunStartDateTo,
 				originalRunEndDateFrom, originalRunEndDateTo);
 	}

@@ -10,20 +10,17 @@ public class Season {
 
 	private final SeasonPortType seasonPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Season(SeasonPortType seasonPortType, ApiKeySupplier apiKeySupplier) {
+	public Season(SeasonPortType seasonPortType) {
 		this.seasonPortType = seasonPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public SeasonFullResponse get(SeasonFullRequest request) {
-		apiKeySupplier.supply(request);
 		return seasonPortType.getSeasonFull(request);
 	}
 
+	@Deprecated
 	public SeasonBaseResponse search(SeasonBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return seasonPortType.getSeasonBase(request);
 	}
 

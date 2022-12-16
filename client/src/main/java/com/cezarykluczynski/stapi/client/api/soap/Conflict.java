@@ -10,20 +10,17 @@ public class Conflict {
 
 	private final ConflictPortType conflictPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Conflict(ConflictPortType conflictPortType, ApiKeySupplier apiKeySupplier) {
+	public Conflict(ConflictPortType conflictPortType) {
 		this.conflictPortType = conflictPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public ConflictFullResponse get(ConflictFullRequest request) {
-		apiKeySupplier.supply(request);
 		return conflictPortType.getConflictFull(request);
 	}
 
+	@Deprecated
 	public ConflictBaseResponse search(ConflictBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return conflictPortType.getConflictBase(request);
 	}
 

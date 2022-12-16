@@ -13,7 +13,7 @@ class TradingCardTest extends AbstractTradingCardTest {
 
 	void setup() {
 		tradingCardApiMock = Mock()
-		tradingCard = new TradingCard(tradingCardApiMock, API_KEY)
+		tradingCard = new TradingCard(tradingCardApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class TradingCardTest extends AbstractTradingCardTest {
 		TradingCardFullResponse tradingCardFullResponseOutput = tradingCard.get(UID)
 
 		then:
-		1 * tradingCardApiMock.v1RestTradingCardGet(UID, API_KEY) >> tradingCardFullResponse
+		1 * tradingCardApiMock.v1RestTradingCardGet(UID, null) >> tradingCardFullResponse
 		0 * _
 		tradingCardFullResponse == tradingCardFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class TradingCardTest extends AbstractTradingCardTest {
 				TRADING_CARD_SET_UID)
 
 		then:
-		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID) >>
+		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID) >>
 				tradingCardBaseResponse
 		0 * _
 		tradingCardBaseResponse == tradingCardBaseResponseOutput

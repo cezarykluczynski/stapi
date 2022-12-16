@@ -15,7 +15,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 
 	void setup() {
 		astronomicalObjectApiMock = Mock()
-		astronomicalObject = new AstronomicalObject(astronomicalObjectApiMock, API_KEY)
+		astronomicalObject = new AstronomicalObject(astronomicalObjectApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 		AstronomicalObjectFullResponse astronomicalObjectFullResponseOutput = astronomicalObject.get(UID)
 
 		then:
-		1 * astronomicalObjectApiMock.v1RestAstronomicalObjectGet(UID, API_KEY) >> astronomicalObjectFullResponse
+		1 * astronomicalObjectApiMock.v1RestAstronomicalObjectGet(UID, null) >> astronomicalObjectFullResponse
 		0 * _
 		astronomicalObjectFullResponse == astronomicalObjectFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 		AstronomicalObjectV2FullResponse astronomicalObjectV2FullResponseOutput = astronomicalObject.getV2(UID)
 
 		then:
-		1 * astronomicalObjectApiMock.v2RestAstronomicalObjectGet(UID, API_KEY) >> astronomicalObjectV2FullResponse
+		1 * astronomicalObjectApiMock.v2RestAstronomicalObjectGet(UID) >> astronomicalObjectV2FullResponse
 		0 * _
 		astronomicalObjectV2FullResponse == astronomicalObjectV2FullResponseOutput
 	}
@@ -53,7 +53,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 				ASTRONOMICAL_OBJECT_TYPE, LOCATION_UID)
 
 		then:
-		1 * astronomicalObjectApiMock.v1RestAstronomicalObjectSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, ASTRONOMICAL_OBJECT_TYPE,
+		1 * astronomicalObjectApiMock.v1RestAstronomicalObjectSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, ASTRONOMICAL_OBJECT_TYPE,
 				LOCATION_UID) >> astronomicalObjectBaseResponse
 		0 * _
 		astronomicalObjectBaseResponse == astronomicalObjectBaseResponseOutput
@@ -68,7 +68,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 				ASTRONOMICAL_OBJECT_TYPE, LOCATION_UID)
 
 		then:
-		1 * astronomicalObjectApiMock.v2RestAstronomicalObjectSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME,
+		1 * astronomicalObjectApiMock.v2RestAstronomicalObjectSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME,
 				ASTRONOMICAL_OBJECT_TYPE, LOCATION_UID) >> astronomicalObjectV2BaseResponse
 		0 * _
 		astronomicalObjectV2BaseResponse == astronomicalObjectV2BaseResponseOutput

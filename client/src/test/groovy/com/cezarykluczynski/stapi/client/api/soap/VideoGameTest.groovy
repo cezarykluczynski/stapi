@@ -11,14 +11,11 @@ class VideoGameTest extends Specification {
 
 	private VideoGamePortType videoGamePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private VideoGame videoGame
 
 	void setup() {
 		videoGamePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		videoGame = new VideoGame(videoGamePortTypeMock, apiKeySupplierMock)
+		videoGame = new VideoGame(videoGamePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class VideoGameTest extends Specification {
 		VideoGameBaseResponse videoGameBaseResponseOutput = videoGame.search(videoGameBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(videoGameBaseRequest)
 		1 * videoGamePortTypeMock.getVideoGameBase(videoGameBaseRequest) >> videoGameBaseResponse
 		0 * _
 		videoGameBaseResponse == videoGameBaseResponseOutput
@@ -45,7 +41,6 @@ class VideoGameTest extends Specification {
 		VideoGameFullResponse videoGameFullResponseOutput = videoGame.get(videoGameFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(videoGameFullRequest)
 		1 * videoGamePortTypeMock.getVideoGameFull(videoGameFullRequest) >> videoGameFullResponse
 		0 * _
 		videoGameFullResponse == videoGameFullResponseOutput

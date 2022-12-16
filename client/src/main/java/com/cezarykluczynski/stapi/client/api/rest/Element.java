@@ -12,34 +12,31 @@ public class Element {
 
 	private final ElementApi elementApi;
 
-	private final String apiKey;
-
-	public Element(ElementApi elementApi, String apiKey) {
+	public Element(ElementApi elementApi) {
 		this.elementApi = elementApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public ElementFullResponse get(String uid) throws ApiException {
-		return elementApi.v1RestElementGet(uid, apiKey);
+		return elementApi.v1RestElementGet(uid, null);
 	}
 
 	public ElementV2FullResponse getV2(String uid) throws ApiException {
-		return elementApi.v2RestElementGet(uid, apiKey);
+		return elementApi.v2RestElementGet(uid);
 	}
 
 	@Deprecated
 	public ElementBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String symbol, Boolean transuranium,
 			Boolean gammaSeries, Boolean hypersonicSeries, Boolean megaSeries, Boolean omegaSeries, Boolean transonicSeries, Boolean worldSeries)
 			throws ApiException {
-		return elementApi.v1RestElementSearchPost(pageNumber, pageSize, sort, apiKey, name, symbol, transuranium, gammaSeries, hypersonicSeries,
+		return elementApi.v1RestElementSearchPost(pageNumber, pageSize, sort, null, name, symbol, transuranium, gammaSeries, hypersonicSeries,
 				megaSeries, omegaSeries, transonicSeries, worldSeries);
 	}
 
 	public ElementV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String symbol, Boolean transuranic,
 			Boolean gammaSeries, Boolean hypersonicSeries, Boolean megaSeries, Boolean omegaSeries, Boolean transonicSeries, Boolean worldSeries)
 			throws ApiException {
-		return elementApi.v2RestElementSearchPost(pageNumber, pageSize, sort, apiKey, name, symbol, transuranic, gammaSeries, hypersonicSeries,
+		return elementApi.v2RestElementSearchPost(pageNumber, pageSize, sort, name, symbol, transuranic, gammaSeries, hypersonicSeries,
 				megaSeries, omegaSeries, transonicSeries, worldSeries);
 	}
 

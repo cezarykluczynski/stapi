@@ -11,30 +11,27 @@ public class Spacecraft {
 
 	private final SpacecraftApi spacecraftApi;
 
-	private final String apiKey;
-
-	public Spacecraft(SpacecraftApi spacecraftApi, String apiKey) {
+	public Spacecraft(SpacecraftApi spacecraftApi) {
 		this.spacecraftApi = spacecraftApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public SpacecraftFullResponse get(String uid) throws ApiException {
-		return spacecraftApi.v1RestSpacecraftGet(uid, apiKey);
+		return spacecraftApi.v1RestSpacecraftGet(uid, null);
 	}
 
 	public SpacecraftV2FullResponse getV2(String uid) throws ApiException {
-		return spacecraftApi.v2RestSpacecraftGet(uid, apiKey);
+		return spacecraftApi.v2RestSpacecraftGet(uid);
 	}
 
 	@Deprecated
 	public SpacecraftBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name) throws ApiException {
-		return spacecraftApi.v1RestSpacecraftSearchPost(pageNumber, pageSize, sort, apiKey, name);
+		return spacecraftApi.v1RestSpacecraftSearchPost(pageNumber, pageSize, sort, null, name);
 	}
 
 	public SpacecraftV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String registry, String status)
 			throws ApiException {
-		return spacecraftApi.v2RestSpacecraftSearchPost(pageNumber, pageSize, sort, apiKey, name, registry, status);
+		return spacecraftApi.v2RestSpacecraftSearchPost(pageNumber, pageSize, sort, name, registry, status);
 	}
 
 }

@@ -13,7 +13,7 @@ class MaterialTest extends AbstractMaterialTest {
 
 	void setup() {
 		materialApiMock = Mock()
-		material = new Material(materialApiMock, API_KEY)
+		material = new Material(materialApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class MaterialTest extends AbstractMaterialTest {
 		MaterialFullResponse materialFullResponseOutput = material.get(UID)
 
 		then:
-		1 * materialApiMock.v1RestMaterialGet(UID, API_KEY) >> materialFullResponse
+		1 * materialApiMock.v1RestMaterialGet(UID, null) >> materialFullResponse
 		0 * _
 		materialFullResponse == materialFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class MaterialTest extends AbstractMaterialTest {
 				DRUG, POISONOUS_SUBSTANCE, EXPLOSIVE, GEMSTONE, ALLOY_OR_COMPOSITE, FUEL, MINERAL, PRECIOUS_MATERIAL)
 
 		then:
-		1 * materialApiMock.v1RestMaterialSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, CHEMICAL_COMPOUND, BIOCHEMICAL_COMPOUND, DRUG,
+		1 * materialApiMock.v1RestMaterialSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, CHEMICAL_COMPOUND, BIOCHEMICAL_COMPOUND, DRUG,
 				POISONOUS_SUBSTANCE, EXPLOSIVE, GEMSTONE, ALLOY_OR_COMPOSITE, FUEL, MINERAL, PRECIOUS_MATERIAL) >> materialBaseResponse
 		0 * _
 		materialBaseResponse == materialBaseResponseOutput

@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.client.api.soap;
 
-
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineBaseRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineFullRequest;
@@ -11,20 +10,17 @@ public class Magazine {
 
 	private final MagazinePortType magazinePortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Magazine(MagazinePortType magazinePortType, ApiKeySupplier apiKeySupplier) {
+	public Magazine(MagazinePortType magazinePortType) {
 		this.magazinePortType = magazinePortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public MagazineFullResponse get(MagazineFullRequest request) {
-		apiKeySupplier.supply(request);
 		return magazinePortType.getMagazineFull(request);
 	}
 
+	@Deprecated
 	public MagazineBaseResponse search(MagazineBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return magazinePortType.getMagazineBase(request);
 	}
 

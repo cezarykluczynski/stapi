@@ -11,14 +11,11 @@ class EpisodeTest extends Specification {
 
 	private EpisodePortType episodePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Episode episode
 
 	void setup() {
 		episodePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		episode = new Episode(episodePortTypeMock, apiKeySupplierMock)
+		episode = new Episode(episodePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class EpisodeTest extends Specification {
 		EpisodeBaseResponse episodeBaseResponseOutput = episode.search(episodeBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(episodeBaseRequest)
 		1 * episodePortTypeMock.getEpisodeBase(episodeBaseRequest) >> episodeBaseResponse
 		0 * _
 		episodeBaseResponse == episodeBaseResponseOutput
@@ -45,7 +41,6 @@ class EpisodeTest extends Specification {
 		EpisodeFullResponse episodeFullResponseOutput = episode.get(episodeFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(episodeFullRequest)
 		1 * episodePortTypeMock.getEpisodeFull(episodeFullRequest) >> episodeFullResponse
 		0 * _
 		episodeFullResponse == episodeFullResponseOutput

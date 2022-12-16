@@ -10,20 +10,17 @@ public class ComicStrip {
 
 	private final ComicStripPortType comicStripPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public ComicStrip(ComicStripPortType comicStripPortType, ApiKeySupplier apiKeySupplier) {
+	public ComicStrip(ComicStripPortType comicStripPortType) {
 		this.comicStripPortType = comicStripPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public ComicStripFullResponse get(ComicStripFullRequest request) {
-		apiKeySupplier.supply(request);
 		return comicStripPortType.getComicStripFull(request);
 	}
 
+	@Deprecated
 	public ComicStripBaseResponse search(ComicStripBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return comicStripPortType.getComicStripBase(request);
 	}
 

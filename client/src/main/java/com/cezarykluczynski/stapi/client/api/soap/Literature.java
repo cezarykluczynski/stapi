@@ -10,20 +10,17 @@ public class Literature {
 
 	private final LiteraturePortType literaturePortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Literature(LiteraturePortType literaturePortType, ApiKeySupplier apiKeySupplier) {
+	public Literature(LiteraturePortType literaturePortType) {
 		this.literaturePortType = literaturePortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public LiteratureFullResponse get(LiteratureFullRequest request) {
-		apiKeySupplier.supply(request);
 		return literaturePortType.getLiteratureFull(request);
 	}
 
+	@Deprecated
 	public LiteratureBaseResponse search(LiteratureBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return literaturePortType.getLiteratureBase(request);
 	}
 

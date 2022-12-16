@@ -15,7 +15,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 
 	void setup() {
 		technologyApiMock = Mock()
-		technology = new Technology(technologyApiMock, API_KEY)
+		technology = new Technology(technologyApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 		TechnologyFullResponse technologyFullResponseOutput = technology.get(UID)
 
 		then:
-		1 * technologyApiMock.v1RestTechnologyGet(UID, API_KEY) >> technologyFullResponse
+		1 * technologyApiMock.v1RestTechnologyGet(UID, null) >> technologyFullResponse
 		0 * _
 		technologyFullResponse == technologyFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 		TechnologyV2FullResponse technologyV2FullResponseOutput = technology.getV2(UID)
 
 		then:
-		1 * technologyApiMock.v2RestTechnologyGet(UID, API_KEY) >> technologyV2FullResponse
+		1 * technologyApiMock.v2RestTechnologyGet(UID) >> technologyV2FullResponse
 		0 * _
 		technologyV2FullResponse == technologyV2FullResponseOutput
 	}
@@ -55,7 +55,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 				ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY)
 
 		then:
-		1 * technologyApiMock.v1RestTechnologySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
+		1 * technologyApiMock.v1RestTechnologySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
 				COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY, FICTIONAL_TECHNOLOGY,
 				HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY, SHIELD_TECHNOLOGY, TOOL, CULINARY_TOOL,
 				ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY) >> technologyBaseResponse
@@ -76,7 +76,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 				MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY, TRANSPORTATION_TECHNOLOGY, WEAPON_COMPONENT, ARTIFICIAL_LIFEFORM_COMPONENT)
 
 		then:
-		1 * technologyApiMock.v2RestTechnologySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
+		1 * technologyApiMock.v2RestTechnologySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
 				COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY, FICTIONAL_TECHNOLOGY,
 				HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY, SHIELD_TECHNOLOGY,
 				SECURITY_TECHNOLOGY, PROPULSION_TECHNOLOGY, SPACECRAFT_COMPONENT, WARP_TECHNOLOGY, TRANSWARP_TECHNOLOGY, TIME_TRAVEL_TECHNOLOGY,

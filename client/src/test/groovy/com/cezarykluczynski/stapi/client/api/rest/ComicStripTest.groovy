@@ -13,7 +13,7 @@ class ComicStripTest extends AbstractComicStripTest {
 
 	void setup() {
 		comicStripApiMock = Mock()
-		comicStrip = new ComicStrip(comicStripApiMock, API_KEY)
+		comicStrip = new ComicStrip(comicStripApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class ComicStripTest extends AbstractComicStripTest {
 		ComicStripFullResponse comicStripFullResponseOutput = comicStrip.get(UID)
 
 		then:
-		1 * comicStripApiMock.v1RestComicStripGet(UID, API_KEY) >> comicStripFullResponse
+		1 * comicStripApiMock.v1RestComicStripGet(UID, null) >> comicStripFullResponse
 		0 * _
 		comicStripFullResponse == comicStripFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class ComicStripTest extends AbstractComicStripTest {
 		PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, YEAR_FROM, YEAR_TO)
 
 		then:
-		1 * comicStripApiMock.v1RestComicStripSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicStripApiMock.v1RestComicStripSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, YEAR_FROM, YEAR_TO) >> comicStripBaseResponse
 		0 * _
 		comicStripBaseResponse == comicStripBaseResponseOutput

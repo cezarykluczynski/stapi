@@ -11,26 +11,23 @@ public class ComicCollection {
 
 	private final ComicCollectionApi comicCollectionApi;
 
-	private final String apiKey;
-
-	public ComicCollection(ComicCollectionApi comicCollectionApi, String apiKey) {
+	public ComicCollection(ComicCollectionApi comicCollectionApi) {
 		this.comicCollectionApi = comicCollectionApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public ComicCollectionFullResponse get(String uid) throws ApiException {
-		return comicCollectionApi.v1RestComicCollectionGet(uid, apiKey);
+		return comicCollectionApi.v1RestComicCollectionGet(uid, null);
 	}
 
 	public ComicCollectionV2FullResponse getV2(String uid) throws ApiException {
-		return comicCollectionApi.v2RestComicCollectionGet(uid, apiKey);
+		return comicCollectionApi.v2RestComicCollectionGet(uid);
 	}
 
 	public ComicCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean photonovel) throws ApiException {
-		return comicCollectionApi.v1RestComicCollectionSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+		return comicCollectionApi.v1RestComicCollectionSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, photonovel);
 	}
 

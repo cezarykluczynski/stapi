@@ -11,14 +11,11 @@ class BookTest extends Specification {
 
 	private BookPortType bookPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Book book
 
 	void setup() {
 		bookPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		book = new Book(bookPortTypeMock, apiKeySupplierMock)
+		book = new Book(bookPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class BookTest extends Specification {
 		BookBaseResponse bookBaseResponseOutput = book.search(bookBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(bookBaseRequest)
 		1 * bookPortTypeMock.getBookBase(bookBaseRequest) >> bookBaseResponse
 		0 * _
 		bookBaseResponse == bookBaseResponseOutput
@@ -45,7 +41,6 @@ class BookTest extends Specification {
 		BookFullResponse bookFullResponseOutput = book.get(bookFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(bookFullRequest)
 		1 * bookPortTypeMock.getBookFull(bookFullRequest) >> bookFullResponse
 		0 * _
 		bookFullResponse == bookFullResponseOutput

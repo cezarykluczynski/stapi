@@ -11,14 +11,11 @@ class AstronomicalObjectTest extends Specification {
 
 	private AstronomicalObjectPortType astronomicalObjectPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private AstronomicalObject astronomicalObject
 
 	void setup() {
 		astronomicalObjectPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		astronomicalObject = new AstronomicalObject(astronomicalObjectPortTypeMock, apiKeySupplierMock)
+		astronomicalObject = new AstronomicalObject(astronomicalObjectPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class AstronomicalObjectTest extends Specification {
 		AstronomicalObjectBaseResponse astronomicalObjectBaseResponseOutput = astronomicalObject.search(astronomicalObjectBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(astronomicalObjectBaseRequest)
 		1 * astronomicalObjectPortTypeMock.getAstronomicalObjectBase(astronomicalObjectBaseRequest) >> astronomicalObjectBaseResponse
 		0 * _
 		astronomicalObjectBaseResponse == astronomicalObjectBaseResponseOutput
@@ -45,7 +41,6 @@ class AstronomicalObjectTest extends Specification {
 		AstronomicalObjectFullResponse astronomicalObjectFullResponseOutput = astronomicalObject.get(astronomicalObjectFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(astronomicalObjectFullRequest)
 		1 * astronomicalObjectPortTypeMock.getAstronomicalObjectFull(astronomicalObjectFullRequest) >> astronomicalObjectFullResponse
 		0 * _
 		astronomicalObjectFullResponse == astronomicalObjectFullResponseOutput

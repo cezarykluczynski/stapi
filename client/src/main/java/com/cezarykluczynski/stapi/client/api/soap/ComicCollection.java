@@ -10,20 +10,17 @@ public class ComicCollection {
 
 	private final ComicCollectionPortType comicCollectionPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public ComicCollection(ComicCollectionPortType comicCollectionPortType, ApiKeySupplier apiKeySupplier) {
+	public ComicCollection(ComicCollectionPortType comicCollectionPortType) {
 		this.comicCollectionPortType = comicCollectionPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public ComicCollectionFullResponse get(ComicCollectionFullRequest request) {
-		apiKeySupplier.supply(request);
 		return comicCollectionPortType.getComicCollectionFull(request);
 	}
 
+	@Deprecated
 	public ComicCollectionBaseResponse search(ComicCollectionBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return comicCollectionPortType.getComicCollectionBase(request);
 	}
 

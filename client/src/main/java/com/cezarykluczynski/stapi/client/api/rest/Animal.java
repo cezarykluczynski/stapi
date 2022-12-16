@@ -10,20 +10,17 @@ public class Animal {
 
 	private final AnimalApi animalApi;
 
-	private final String apiKey;
-
-	public Animal(AnimalApi animalApi, String apiKey) {
+	public Animal(AnimalApi animalApi) {
 		this.animalApi = animalApi;
-		this.apiKey = apiKey;
 	}
 
 	public AnimalFullResponse get(String uid) throws ApiException {
-		return animalApi.v1RestAnimalGet(uid, apiKey);
+		return animalApi.v1RestAnimalGet(uid, null);
 	}
 
 	public AnimalBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthAnimal, Boolean earthInsect,
 			Boolean avian, Boolean canine, Boolean feline) throws ApiException {
-		return animalApi.v1RestAnimalSearchPost(pageNumber, pageSize, sort, apiKey, name, earthAnimal, earthInsect, avian, canine, feline);
+		return animalApi.v1RestAnimalSearchPost(pageNumber, pageSize, sort, null, name, earthAnimal, earthInsect, avian, canine, feline);
 	}
 
 }

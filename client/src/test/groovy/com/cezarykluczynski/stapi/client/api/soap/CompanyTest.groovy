@@ -11,14 +11,11 @@ class CompanyTest extends Specification {
 
 	private CompanyPortType companyPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Company company
 
 	void setup() {
 		companyPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		company = new Company(companyPortTypeMock, apiKeySupplierMock)
+		company = new Company(companyPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class CompanyTest extends Specification {
 		CompanyBaseResponse companyBaseResponseOutput = company.search(companyBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(companyBaseRequest)
 		1 * companyPortTypeMock.getCompanyBase(companyBaseRequest) >> companyBaseResponse
 		0 * _
 		companyBaseResponse == companyBaseResponseOutput
@@ -45,7 +41,6 @@ class CompanyTest extends Specification {
 		CompanyFullResponse companyFullResponseOutput = company.get(companyFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(companyFullRequest)
 		1 * companyPortTypeMock.getCompanyFull(companyFullRequest) >> companyFullResponse
 		0 * _
 		companyFullResponse == companyFullResponseOutput

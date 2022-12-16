@@ -11,14 +11,11 @@ class LiteratureTest extends Specification {
 
 	private LiteraturePortType literaturePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Literature literature
 
 	void setup() {
 		literaturePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		literature = new Literature(literaturePortTypeMock, apiKeySupplierMock)
+		literature = new Literature(literaturePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class LiteratureTest extends Specification {
 		LiteratureBaseResponse literatureBaseResponseOutput = literature.search(literatureBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(literatureBaseRequest)
 		1 * literaturePortTypeMock.getLiteratureBase(literatureBaseRequest) >> literatureBaseResponse
 		0 * _
 		literatureBaseResponse == literatureBaseResponseOutput
@@ -45,7 +41,6 @@ class LiteratureTest extends Specification {
 		LiteratureFullResponse literatureFullResponseOutput = literature.get(literatureFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(literatureFullRequest)
 		1 * literaturePortTypeMock.getLiteratureFull(literatureFullRequest) >> literatureFullResponse
 		0 * _
 		literatureFullResponse == literatureFullResponseOutput

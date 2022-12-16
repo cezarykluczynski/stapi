@@ -10,20 +10,17 @@ public class Element {
 
 	private final ElementPortType elementPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Element(ElementPortType elementPortType, ApiKeySupplier apiKeySupplier) {
+	public Element(ElementPortType elementPortType) {
 		this.elementPortType = elementPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public ElementFullResponse get(ElementFullRequest request) {
-		apiKeySupplier.supply(request);
 		return elementPortType.getElementFull(request);
 	}
 
+	@Deprecated
 	public ElementBaseResponse search(ElementBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return elementPortType.getElementBase(request);
 	}
 

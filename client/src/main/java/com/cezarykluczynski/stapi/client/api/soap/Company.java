@@ -10,20 +10,17 @@ public class Company {
 
 	private final CompanyPortType companyPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Company(CompanyPortType companyPortType, ApiKeySupplier apiKeySupplier) {
+	public Company(CompanyPortType companyPortType) {
 		this.companyPortType = companyPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public CompanyFullResponse get(CompanyFullRequest request) {
-		apiKeySupplier.supply(request);
 		return companyPortType.getCompanyFull(request);
 	}
 
+	@Deprecated
 	public CompanyBaseResponse search(CompanyBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return companyPortType.getCompanyBase(request);
 	}
 

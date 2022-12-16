@@ -12,31 +12,28 @@ public class SpacecraftClass {
 
 	private final SpacecraftClassApi spacecraftClassApi;
 
-	private final String apiKey;
-
-	public SpacecraftClass(SpacecraftClassApi spacecraftClassApi, String apiKey) {
+	public SpacecraftClass(SpacecraftClassApi spacecraftClassApi) {
 		this.spacecraftClassApi = spacecraftClassApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public SpacecraftClassFullResponse get(String uid) throws ApiException {
-		return spacecraftClassApi.v1RestSpacecraftClassGet(uid, apiKey);
+		return spacecraftClassApi.v1RestSpacecraftClassGet(uid, null);
 	}
 
 	public SpacecraftClassV2FullResponse getV2(String uid) throws ApiException {
-		return spacecraftClassApi.v2RestSpacecraftClassGet(uid, apiKey);
+		return spacecraftClassApi.v2RestSpacecraftClassGet(uid);
 	}
 
 	@Deprecated
 	public SpacecraftClassBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean warpCapableSpecies,
 			Boolean alternateReality) throws ApiException {
-		return spacecraftClassApi.v1RestSpacecraftClassSearchPost(pageNumber, pageSize, sort, apiKey, name, warpCapableSpecies, alternateReality);
+		return spacecraftClassApi.v1RestSpacecraftClassSearchPost(pageNumber, pageSize, sort, null, name, warpCapableSpecies, alternateReality);
 	}
 
 	public SpacecraftClassV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean warpCapableSpecies,
 			Boolean mirror, Boolean alternateReality) throws ApiException {
-		return spacecraftClassApi.v2RestSpacecraftClassSearchPost(pageNumber, pageSize, sort, apiKey, name, warpCapableSpecies, mirror,
+		return spacecraftClassApi.v2RestSpacecraftClassSearchPost(pageNumber, pageSize, sort, name, warpCapableSpecies, mirror,
 				alternateReality);
 	}
 

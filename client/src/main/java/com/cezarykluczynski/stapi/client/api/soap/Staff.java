@@ -10,20 +10,17 @@ public class Staff {
 
 	private final StaffPortType staffPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Staff(StaffPortType staffPortType, ApiKeySupplier apiKeySupplier) {
+	public Staff(StaffPortType staffPortType) {
 		this.staffPortType = staffPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public StaffFullResponse get(StaffFullRequest request) {
-		apiKeySupplier.supply(request);
 		return staffPortType.getStaffFull(request);
 	}
 
+	@Deprecated
 	public StaffBaseResponse search(StaffBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return staffPortType.getStaffBase(request);
 	}
 

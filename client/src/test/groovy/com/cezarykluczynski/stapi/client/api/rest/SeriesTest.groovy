@@ -13,7 +13,7 @@ class SeriesTest extends AbstractSeriesTest {
 
 	void setup() {
 		seriesApiMock = Mock()
-		series = new Series(seriesApiMock, API_KEY)
+		series = new Series(seriesApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class SeriesTest extends AbstractSeriesTest {
 		SeriesFullResponse seriesFullResponseOutput = series.get(UID)
 
 		then:
-		1 * seriesApiMock.v1RestSeriesGet(UID, API_KEY) >> seriesFullResponse
+		1 * seriesApiMock.v1RestSeriesGet(UID, null) >> seriesFullResponse
 		0 * _
 		seriesFullResponse == seriesFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class SeriesTest extends AbstractSeriesTest {
 				ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB)
 
 		then:
-		1 * seriesApiMock.v1RestSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
+		1 * seriesApiMock.v1RestSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
 				PRODUCTION_START_YEAR_TO, PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO, ORIGINAL_RUN_START_DATE_FROM_DB,
 				ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB) >> seriesBaseResponse
 		0 * _

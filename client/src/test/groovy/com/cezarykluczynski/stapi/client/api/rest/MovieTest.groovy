@@ -13,7 +13,7 @@ class MovieTest extends AbstractMovieTest {
 
 	void setup() {
 		movieApiMock = Mock()
-		movie = new Movie(movieApiMock, API_KEY)
+		movie = new Movie(movieApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class MovieTest extends AbstractMovieTest {
 		MovieFullResponse movieFullResponseOutput = movie.get(UID)
 
 		then:
-		1 * movieApiMock.v1RestMovieGet(UID, API_KEY) >> movieFullResponse
+		1 * movieApiMock.v1RestMovieGet(UID, null) >> movieFullResponse
 		0 * _
 		movieFullResponse == movieFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class MovieTest extends AbstractMovieTest {
 				US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO)
 
 		then:
-		1 * movieApiMock.v1RestMovieSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
+		1 * movieApiMock.v1RestMovieSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
 				US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO) >> movieBaseResponse
 		0 * _
 		movieBaseResponse == movieBaseResponseOutput

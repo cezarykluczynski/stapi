@@ -11,14 +11,11 @@ class VideoReleaseTest extends Specification {
 
 	private VideoReleasePortType videoReleasePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private VideoRelease videoRelease
 
 	void setup() {
 		videoReleasePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		videoRelease = new VideoRelease(videoReleasePortTypeMock, apiKeySupplierMock)
+		videoRelease = new VideoRelease(videoReleasePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class VideoReleaseTest extends Specification {
 		VideoReleaseBaseResponse videoReleaseBaseResponseOutput = videoRelease.search(videoReleaseBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(videoReleaseBaseRequest)
 		1 * videoReleasePortTypeMock.getVideoReleaseBase(videoReleaseBaseRequest) >> videoReleaseBaseResponse
 		0 * _
 		videoReleaseBaseResponse == videoReleaseBaseResponseOutput
@@ -45,7 +41,6 @@ class VideoReleaseTest extends Specification {
 		VideoReleaseFullResponse videoReleaseFullResponseOutput = videoRelease.get(videoReleaseFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(videoReleaseFullRequest)
 		1 * videoReleasePortTypeMock.getVideoReleaseFull(videoReleaseFullRequest) >> videoReleaseFullResponse
 		0 * _
 		videoReleaseFullResponse == videoReleaseFullResponseOutput

@@ -11,20 +11,17 @@ public class VideoGame {
 
 	private final VideoGameApi videoGameApi;
 
-	private final String apiKey;
-
-	public VideoGame(VideoGameApi videoGameApi, String apiKey) {
+	public VideoGame(VideoGameApi videoGameApi) {
 		this.videoGameApi = videoGameApi;
-		this.apiKey = apiKey;
 	}
 
 	public VideoGameFullResponse get(String uid) throws ApiException {
-		return videoGameApi.v1RestVideoGameGet(uid, apiKey);
+		return videoGameApi.v1RestVideoGameGet(uid, null);
 	}
 
 	public VideoGameBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, LocalDate releaseDateFrom,
 			LocalDate releaseDateTo) throws ApiException {
-		return videoGameApi.v1RestVideoGameSearchPost(pageNumber, pageSize, sort, apiKey, title, releaseDateFrom, releaseDateTo);
+		return videoGameApi.v1RestVideoGameSearchPost(pageNumber, pageSize, sort, null, title, releaseDateFrom, releaseDateTo);
 	}
 
 }

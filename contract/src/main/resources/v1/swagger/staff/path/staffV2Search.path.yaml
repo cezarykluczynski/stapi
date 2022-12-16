@@ -11,10 +11,6 @@ get:
       type: integer
       format: int32
       description: Page size
-    - name: apiKey
-      in: query
-      type: string
-      description: API key
   responses:
     200:
       schema:
@@ -46,10 +42,6 @@ post:
       type: string
       in: query
       description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
-    - name: apiKey
-      in: query
-      type: string
-      description: API key
     - name: name
       in: formData
       type: string

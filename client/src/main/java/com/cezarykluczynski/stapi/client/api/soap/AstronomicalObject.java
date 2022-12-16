@@ -10,20 +10,17 @@ public class AstronomicalObject {
 
 	private final AstronomicalObjectPortType astronomicalObjectPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public AstronomicalObject(AstronomicalObjectPortType astronomicalObjectPortType, ApiKeySupplier apiKeySupplier) {
+	public AstronomicalObject(AstronomicalObjectPortType astronomicalObjectPortType) {
 		this.astronomicalObjectPortType = astronomicalObjectPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public AstronomicalObjectFullResponse get(AstronomicalObjectFullRequest request) {
-		apiKeySupplier.supply(request);
 		return astronomicalObjectPortType.getAstronomicalObjectFull(request);
 	}
 
+	@Deprecated
 	public AstronomicalObjectBaseResponse search(AstronomicalObjectBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return astronomicalObjectPortType.getAstronomicalObjectBase(request);
 	}
 

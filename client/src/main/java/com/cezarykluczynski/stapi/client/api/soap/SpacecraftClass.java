@@ -10,20 +10,17 @@ public class SpacecraftClass {
 
 	private final SpacecraftClassPortType spacecraftClassPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public SpacecraftClass(SpacecraftClassPortType spacecraftClassPortType, ApiKeySupplier apiKeySupplier) {
+	public SpacecraftClass(SpacecraftClassPortType spacecraftClassPortType) {
 		this.spacecraftClassPortType = spacecraftClassPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public SpacecraftClassFullResponse get(SpacecraftClassFullRequest request) {
-		apiKeySupplier.supply(request);
 		return spacecraftClassPortType.getSpacecraftClassFull(request);
 	}
 
+	@Deprecated
 	public SpacecraftClassBaseResponse search(SpacecraftClassBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return spacecraftClassPortType.getSpacecraftClassBase(request);
 	}
 

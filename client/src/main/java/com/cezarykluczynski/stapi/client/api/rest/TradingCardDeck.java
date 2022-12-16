@@ -10,20 +10,17 @@ public class TradingCardDeck {
 
 	private final TradingCardDeckApi tradingCardDeckApi;
 
-	private final String apiKey;
-
-	public TradingCardDeck(TradingCardDeckApi tradingCardDeckApi, String apiKey) {
+	public TradingCardDeck(TradingCardDeckApi tradingCardDeckApi) {
 		this.tradingCardDeckApi = tradingCardDeckApi;
-		this.apiKey = apiKey;
 	}
 
 	public TradingCardDeckFullResponse get(String uid) throws ApiException {
-		return tradingCardDeckApi.v1RestTradingCardDeckGet(uid, apiKey);
+		return tradingCardDeckApi.v1RestTradingCardDeckGet(uid, null);
 	}
 
 	public TradingCardDeckBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String tradingCardSetUid)
 			throws ApiException {
-		return tradingCardDeckApi.v1RestTradingCardDeckSearchPost(pageNumber, pageSize, sort, apiKey, name, tradingCardSetUid);
+		return tradingCardDeckApi.v1RestTradingCardDeckSearchPost(pageNumber, pageSize, sort, null, name, tradingCardSetUid);
 	}
 
 }

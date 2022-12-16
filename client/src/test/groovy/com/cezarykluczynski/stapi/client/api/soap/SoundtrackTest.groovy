@@ -11,14 +11,11 @@ class SoundtrackTest extends Specification {
 
 	private SoundtrackPortType soundtrackPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Soundtrack soundtrack
 
 	void setup() {
 		soundtrackPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		soundtrack = new Soundtrack(soundtrackPortTypeMock, apiKeySupplierMock)
+		soundtrack = new Soundtrack(soundtrackPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class SoundtrackTest extends Specification {
 		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(soundtrackBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(soundtrackBaseRequest)
 		1 * soundtrackPortTypeMock.getSoundtrackBase(soundtrackBaseRequest) >> soundtrackBaseResponse
 		0 * _
 		soundtrackBaseResponse == soundtrackBaseResponseOutput
@@ -45,7 +41,6 @@ class SoundtrackTest extends Specification {
 		SoundtrackFullResponse soundtrackFullResponseOutput = soundtrack.get(soundtrackFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(soundtrackFullRequest)
 		1 * soundtrackPortTypeMock.getSoundtrackFull(soundtrackFullRequest) >> soundtrackFullResponse
 		0 * _
 		soundtrackFullResponse == soundtrackFullResponseOutput

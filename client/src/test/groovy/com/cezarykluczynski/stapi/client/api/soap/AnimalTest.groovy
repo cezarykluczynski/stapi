@@ -11,14 +11,11 @@ class AnimalTest extends Specification {
 
 	private AnimalPortType animalPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Animal animal
 
 	void setup() {
 		animalPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		animal = new Animal(animalPortTypeMock, apiKeySupplierMock)
+		animal = new Animal(animalPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class AnimalTest extends Specification {
 		AnimalBaseResponse animalBaseResponseOutput = animal.search(animalBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(animalBaseRequest)
 		1 * animalPortTypeMock.getAnimalBase(animalBaseRequest) >> animalBaseResponse
 		0 * _
 		animalBaseResponse == animalBaseResponseOutput
@@ -45,7 +41,6 @@ class AnimalTest extends Specification {
 		AnimalFullResponse animalFullResponseOutput = animal.get(animalFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(animalFullRequest)
 		1 * animalPortTypeMock.getAnimalFull(animalFullRequest) >> animalFullResponse
 		0 * _
 		animalFullResponse == animalFullResponseOutput

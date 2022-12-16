@@ -12,32 +12,28 @@ public class Title {
 
 	private final TitleApi titleApi;
 
-	private final String apiKey;
-
-	public Title(TitleApi titleApi, String apiKey) {
+	public Title(TitleApi titleApi) {
 		this.titleApi = titleApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public TitleFullResponse get(String uid) throws ApiException {
-		return titleApi.v1RestTitleGet(uid, apiKey);
+		return titleApi.v1RestTitleGet(uid, null);
 	}
 
 	public TitleV2FullResponse getV2(String uid) throws ApiException {
-		return titleApi.v2RestTitleGet(uid, apiKey);
+		return titleApi.v2RestTitleGet(uid);
 	}
 
 	@Deprecated
 	public TitleBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
 			Boolean religiousTitle, Boolean position, Boolean mirror) throws ApiException {
-		return titleApi.v1RestTitleSearchPost(pageNumber, pageSize, sort, apiKey, name, militaryRank, fleetRank, religiousTitle, position, mirror);
+		return titleApi.v1RestTitleSearchPost(pageNumber, pageSize, sort, null, name, militaryRank, fleetRank, religiousTitle, position, mirror);
 	}
 
 	public TitleV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
 			Boolean religiousTitle, Boolean educationTitle, Boolean mirror) throws ApiException {
-		return titleApi.v2RestTitleSearchPost(pageNumber, pageSize, sort, apiKey, name, militaryRank, fleetRank, religiousTitle, educationTitle,
-				mirror);
+		return titleApi.v2RestTitleSearchPost(pageNumber, pageSize, sort, name, militaryRank, fleetRank, religiousTitle, educationTitle, mirror);
 	}
 
 }

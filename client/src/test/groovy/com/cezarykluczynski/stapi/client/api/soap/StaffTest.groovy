@@ -11,14 +11,11 @@ class StaffTest extends Specification {
 
 	private StaffPortType staffPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Staff staff
 
 	void setup() {
 		staffPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		staff = new Staff(staffPortTypeMock, apiKeySupplierMock)
+		staff = new Staff(staffPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class StaffTest extends Specification {
 		StaffBaseResponse staffBaseResponseOutput = staff.search(staffBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(staffBaseRequest)
 		1 * staffPortTypeMock.getStaffBase(staffBaseRequest) >> staffBaseResponse
 		0 * _
 		staffBaseResponse == staffBaseResponseOutput
@@ -45,7 +41,6 @@ class StaffTest extends Specification {
 		StaffFullResponse staffFullResponseOutput = staff.get(staffFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(staffFullRequest)
 		1 * staffPortTypeMock.getStaffFull(staffFullRequest) >> staffFullResponse
 		0 * _
 		staffFullResponse == staffFullResponseOutput

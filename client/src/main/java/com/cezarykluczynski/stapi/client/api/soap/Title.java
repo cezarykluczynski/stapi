@@ -10,20 +10,17 @@ public class Title {
 
 	private final TitlePortType titlePortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Title(TitlePortType titlePortType, ApiKeySupplier apiKeySupplier) {
+	public Title(TitlePortType titlePortType) {
 		this.titlePortType = titlePortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public TitleFullResponse get(TitleFullRequest request) {
-		apiKeySupplier.supply(request);
 		return titlePortType.getTitleFull(request);
 	}
 
+	@Deprecated
 	public TitleBaseResponse search(TitleBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return titlePortType.getTitleBase(request);
 	}
 

@@ -11,14 +11,11 @@ class TechnologyTest extends Specification {
 
 	private TechnologyPortType technologyPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Technology technology
 
 	void setup() {
 		technologyPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		technology = new Technology(technologyPortTypeMock, apiKeySupplierMock)
+		technology = new Technology(technologyPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class TechnologyTest extends Specification {
 		TechnologyBaseResponse technologyBaseResponseOutput = technology.search(technologyBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(technologyBaseRequest)
 		1 * technologyPortTypeMock.getTechnologyBase(technologyBaseRequest) >> technologyBaseResponse
 		0 * _
 		technologyBaseResponse == technologyBaseResponseOutput
@@ -45,7 +41,6 @@ class TechnologyTest extends Specification {
 		TechnologyFullResponse technologyFullResponseOutput = technology.get(technologyFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(technologyFullRequest)
 		1 * technologyPortTypeMock.getTechnologyFull(technologyFullRequest) >> technologyFullResponse
 		0 * _
 		technologyFullResponse == technologyFullResponseOutput

@@ -12,20 +12,17 @@ public class Book {
 
 	private final BookApi bookApi;
 
-	private final String apiKey;
-
-	public Book(BookApi bookApi, String apiKey) {
+	public Book(BookApi bookApi) {
 		this.bookApi = bookApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public BookFullResponse get(String uid) throws ApiException {
-		return bookApi.v1RestBookGet(uid, apiKey);
+		return bookApi.v1RestBookGet(uid, null);
 	}
 
 	public BookV2FullResponse getV2(String uid) throws ApiException {
-		return bookApi.v2RestBookGet(uid, apiKey);
+		return bookApi.v2RestBookGet(uid);
 	}
 
 	@SuppressWarnings("ParameterName")
@@ -35,7 +32,7 @@ public class Book {
 			Integer yearTo, Boolean novel, Boolean referenceBook, Boolean biographyBook, Boolean rolePlayingBook, Boolean eBook, Boolean anthology,
 			Boolean novelization, Boolean audiobook, Boolean audiobookAbridged, Integer audiobookPublishedYearFrom, Integer audiobookPublishedYearTo,
 			Integer audiobookRunTimeFrom, Integer audiobookRunTimeTo) throws ApiException {
-		return bookApi.v1RestBookSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return bookApi.v1RestBookSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, novel, referenceBook, biographyBook, rolePlayingBook, eBook, anthology,
 				novelization, audiobook, audiobookAbridged, audiobookPublishedYearFrom, audiobookPublishedYearTo, audiobookRunTimeFrom,
 				audiobookRunTimeTo);
@@ -47,7 +44,7 @@ public class Book {
 			Integer yearTo, Boolean novel, Boolean referenceBook, Boolean biographyBook, Boolean rolePlayingBook, Boolean eBook, Boolean anthology,
 			Boolean novelization, Boolean unauthorizedPublication, Boolean audiobook, Boolean audiobookAbridged, Integer audiobookPublishedYearFrom,
 			Integer audiobookPublishedYearTo, Integer audiobookRunTimeFrom, Integer audiobookRunTimeTo) throws ApiException {
-		return bookApi.v2RestBookSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return bookApi.v2RestBookSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, novel, referenceBook, biographyBook, rolePlayingBook, eBook, anthology,
 				novelization, unauthorizedPublication, audiobook, audiobookAbridged, audiobookPublishedYearFrom, audiobookPublishedYearTo,
 				audiobookRunTimeFrom, audiobookRunTimeTo);

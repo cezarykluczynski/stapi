@@ -13,7 +13,7 @@ class FoodTest extends AbstractFoodTest {
 
 	void setup() {
 		foodApiMock = Mock()
-		food = new Food(foodApiMock, API_KEY)
+		food = new Food(foodApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class FoodTest extends AbstractFoodTest {
 		FoodFullResponse foodFullResponseOutput = food.get(UID)
 
 		then:
-		1 * foodApiMock.v1RestFoodGet(UID, API_KEY) >> foodFullResponse
+		1 * foodApiMock.v1RestFoodGet(UID, null) >> foodFullResponse
 		0 * _
 		foodFullResponse == foodFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class FoodTest extends AbstractFoodTest {
 				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA)
 
 		then:
-		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE, SAUCE, SOUP,
+		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE, SAUCE, SOUP,
 				BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
 		0 * _
 		foodBaseResponse == foodBaseResponseOutput

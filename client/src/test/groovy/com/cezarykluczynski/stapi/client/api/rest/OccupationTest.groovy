@@ -15,7 +15,7 @@ class OccupationTest extends AbstractOccupationTest {
 
 	void setup() {
 		occupationApiMock = Mock()
-		occupation = new Occupation(occupationApiMock, API_KEY)
+		occupation = new Occupation(occupationApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class OccupationTest extends AbstractOccupationTest {
 		OccupationFullResponse occupationFullResponseOutput = occupation.get(UID)
 
 		then:
-		1 * occupationApiMock.v1RestOccupationGet(UID, API_KEY) >> occupationFullResponse
+		1 * occupationApiMock.v1RestOccupationGet(UID, null) >> occupationFullResponse
 		0 * _
 		occupationFullResponse == occupationFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class OccupationTest extends AbstractOccupationTest {
 		OccupationV2FullResponse occupationV2FullResponseOutput = occupation.getV2(UID)
 
 		then:
-		1 * occupationApiMock.v2RestOccupationGet(UID, API_KEY) >> occupationV2FullResponse
+		1 * occupationApiMock.v2RestOccupationGet(UID) >> occupationV2FullResponse
 		0 * _
 		occupationV2FullResponse == occupationV2FullResponseOutput
 	}
@@ -53,7 +53,7 @@ class OccupationTest extends AbstractOccupationTest {
 				MEDICAL_OCCUPATION, SCIENTIFIC_OCCUPATION)
 
 		then:
-		1 * occupationApiMock.v1RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
+		1 * occupationApiMock.v1RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
 				SCIENTIFIC_OCCUPATION) >> occupationBaseResponse
 		0 * _
 		occupationBaseResponse == occupationBaseResponseOutput
@@ -69,7 +69,7 @@ class OccupationTest extends AbstractOccupationTest {
 				MEDICAL_OCCUPATION, SCIENTIFIC_OCCUPATION, SPORTS_OCCUPATION, VICTUAL_OCCUPATION)
 
 		then:
-		1 * occupationApiMock.v2RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, ARTS_OCCUPATION, COMMUNICATION_OCCUPATION,
+		1 * occupationApiMock.v2RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, ARTS_OCCUPATION, COMMUNICATION_OCCUPATION,
 				ECONOMIC_OCCUPATION, EDUCATION_OCCUPATION, ENTERTAINMENT_OCCUPATION, ILLEGAL_OCCUPATION, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
 				SCIENTIFIC_OCCUPATION, SPORTS_OCCUPATION, VICTUAL_OCCUPATION) >> occupationV2BaseResponse
 		0 * _

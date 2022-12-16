@@ -10,20 +10,17 @@ public class Performer {
 
 	private final PerformerPortType performerPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Performer(PerformerPortType performerPortType, ApiKeySupplier apiKeySupplier) {
+	public Performer(PerformerPortType performerPortType) {
 		this.performerPortType = performerPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public PerformerFullResponse get(PerformerFullRequest request) {
-		apiKeySupplier.supply(request);
 		return performerPortType.getPerformerFull(request);
 	}
 
+	@Deprecated
 	public PerformerBaseResponse search(PerformerBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return performerPortType.getPerformerBase(request);
 	}
 

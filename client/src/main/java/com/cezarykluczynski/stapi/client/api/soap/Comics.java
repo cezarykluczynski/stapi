@@ -10,20 +10,17 @@ public class Comics {
 
 	private final ComicsPortType comicsPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Comics(ComicsPortType comicsPortType, ApiKeySupplier apiKeySupplier) {
+	public Comics(ComicsPortType comicsPortType) {
 		this.comicsPortType = comicsPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public ComicsFullResponse get(ComicsFullRequest request) {
-		apiKeySupplier.supply(request);
 		return comicsPortType.getComicsFull(request);
 	}
 
+	@Deprecated
 	public ComicsBaseResponse search(ComicsBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return comicsPortType.getComicsBase(request);
 	}
 

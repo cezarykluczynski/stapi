@@ -15,7 +15,7 @@ class ElementTest extends AbstractElementTest {
 
 	void setup() {
 		elementApiMock = Mock()
-		element = new Element(elementApiMock, API_KEY)
+		element = new Element(elementApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class ElementTest extends AbstractElementTest {
 		ElementFullResponse elementFullResponseOutput = element.get(UID)
 
 		then:
-		1 * elementApiMock.v1RestElementGet(UID, API_KEY) >> elementFullResponse
+		1 * elementApiMock.v1RestElementGet(UID, null) >> elementFullResponse
 		0 * _
 		elementFullResponse == elementFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class ElementTest extends AbstractElementTest {
 		ElementV2FullResponse elementFullResponseOutput = element.getV2(UID)
 
 		then:
-		1 * elementApiMock.v2RestElementGet(UID, API_KEY) >> elementV2FullResponse
+		1 * elementApiMock.v2RestElementGet(UID) >> elementV2FullResponse
 		0 * _
 		elementV2FullResponse == elementFullResponseOutput
 	}
@@ -53,7 +53,7 @@ class ElementTest extends AbstractElementTest {
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES)
 
 		then:
-		1 * elementApiMock.v1RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
+		1 * elementApiMock.v1RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES) >> elementBaseResponse
 		0 * _
 		elementBaseResponse == elementBaseResponseOutput
@@ -68,7 +68,7 @@ class ElementTest extends AbstractElementTest {
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES)
 
 		then:
-		1 * elementApiMock.v2RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
+		1 * elementApiMock.v2RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES) >> elementBaseResponse
 		0 * _
 		elementBaseResponse == elementBaseResponseOutput

@@ -11,14 +11,11 @@ class PerformerTest extends Specification {
 
 	private PerformerPortType performerPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Performer performer
 
 	void setup() {
 		performerPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		performer = new Performer(performerPortTypeMock, apiKeySupplierMock)
+		performer = new Performer(performerPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class PerformerTest extends Specification {
 		PerformerBaseResponse performerBaseResponseOutput = performer.search(performerBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(performerBaseRequest)
 		1 * performerPortTypeMock.getPerformerBase(performerBaseRequest) >> performerBaseResponse
 		0 * _
 		performerBaseResponse == performerBaseResponseOutput
@@ -45,7 +41,6 @@ class PerformerTest extends Specification {
 		PerformerFullResponse performerFullResponseOutput = performer.get(performerFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(performerFullRequest)
 		1 * performerPortTypeMock.getPerformerFull(performerFullRequest) >> performerFullResponse
 		0 * _
 		performerFullResponse == performerFullResponseOutput

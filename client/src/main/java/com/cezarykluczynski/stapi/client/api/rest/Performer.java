@@ -14,20 +14,17 @@ public class Performer {
 
 	private final PerformerApi performerApi;
 
-	private final String apiKey;
-
-	public Performer(PerformerApi performerApi, String apiKey) {
+	public Performer(PerformerApi performerApi) {
 		this.performerApi = performerApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public PerformerFullResponse get(String uid) throws ApiException {
-		return performerApi.v1RestPerformerGet(uid, apiKey);
+		return performerApi.v1RestPerformerGet(uid, null);
 	}
 
 	public PerformerV2FullResponse getV2(String uid) throws ApiException {
-		return performerApi.v2RestPerformerGet(uid, apiKey);
+		return performerApi.v2RestPerformerGet(uid);
 	}
 
 	@Deprecated
@@ -36,7 +33,7 @@ public class Performer {
 			String placeOfDeath, Boolean animalPerformer, Boolean disPerformer, Boolean ds9Performer, Boolean entPerformer, Boolean filmPerformer,
 			Boolean standInPerformer, Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer,
 			Boolean videoGamePerformer, Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
-		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, null, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, disPerformer, ds9Performer, entPerformer, filmPerformer,
 				standInPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
 	}
@@ -48,7 +45,7 @@ public class Performer {
 			Boolean proPerformer, Boolean puppeteer, Boolean snwPerformer, Boolean standInPerformer, Boolean stPerformer,
 			Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer, Boolean videoGamePerformer,
 			Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
-		return performerApi.v2RestPerformerSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return performerApi.v2RestPerformerSearchPost(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, audiobookPerformer, cutPerformer, disPerformer,
 				ds9Performer, entPerformer, filmPerformer, ldPerformer, picPerformer, proPerformer, puppeteer, snwPerformer, standInPerformer,
 				stPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);

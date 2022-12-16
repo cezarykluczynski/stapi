@@ -2,13 +2,11 @@ package com.cezarykluczynski.stapi.client.api
 
 class StapiRestClientTest extends AbstractStapiClientTest {
 
-	private static final String API_KEY = 'API_KEY'
-
 	private StapiRestClient stapiRestClient
 
 	void "rest client can be instantiated with canonical URL"() {
 		when:
-		stapiRestClient = new StapiRestClient(null, null)
+		stapiRestClient = new StapiRestClient(null)
 
 		then:
 		stapiRestClient.animalApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
@@ -56,7 +54,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 
 	void "rest client can be instantiated with custom URL"() {
 		when:
-		stapiRestClient = new StapiRestClient(CUSTOM_URL, null)
+		stapiRestClient = new StapiRestClient(CUSTOM_URL)
 
 		then:
 		stapiRestClient.animalApi.apiClient.basePath.contains(CUSTOM_URL)
@@ -102,56 +100,9 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.weaponApi.apiClient.basePath.contains(CUSTOM_URL)
 	}
 
-	void "rest client has API key aware proxies"() {
-		when:
-		stapiRestClient = new StapiRestClient(null, API_KEY)
-
-		then:
-		stapiRestClient.animal.apiKey == API_KEY
-		stapiRestClient.astronomicalObject.apiKey == API_KEY
-		stapiRestClient.book.apiKey == API_KEY
-		stapiRestClient.bookCollection.apiKey == API_KEY
-		stapiRestClient.bookSeries.apiKey == API_KEY
-		stapiRestClient.character.apiKey == API_KEY
-		stapiRestClient.comicCollection.apiKey == API_KEY
-		stapiRestClient.comics.apiKey == API_KEY
-		stapiRestClient.comicSeries.apiKey == API_KEY
-		stapiRestClient.comicStrip.apiKey == API_KEY
-		stapiRestClient.company.apiKey == API_KEY
-		stapiRestClient.conflict.apiKey == API_KEY
-		stapiRestClient.element.apiKey == API_KEY
-		stapiRestClient.episode.apiKey == API_KEY
-		stapiRestClient.food.apiKey == API_KEY
-		stapiRestClient.literature.apiKey == API_KEY
-		stapiRestClient.location.apiKey == API_KEY
-		stapiRestClient.magazine.apiKey == API_KEY
-		stapiRestClient.magazineSeries.apiKey == API_KEY
-		stapiRestClient.material.apiKey == API_KEY
-		stapiRestClient.medicalCondition.apiKey == API_KEY
-		stapiRestClient.movie.apiKey == API_KEY
-		stapiRestClient.occupation.apiKey == API_KEY
-		stapiRestClient.organization.apiKey == API_KEY
-		stapiRestClient.performer.apiKey == API_KEY
-		stapiRestClient.season.apiKey == API_KEY
-		stapiRestClient.series.apiKey == API_KEY
-		stapiRestClient.soundtrack.apiKey == API_KEY
-		stapiRestClient.spacecraft.apiKey == API_KEY
-		stapiRestClient.spacecraftClass.apiKey == API_KEY
-		stapiRestClient.species.apiKey == API_KEY
-		stapiRestClient.staff.apiKey == API_KEY
-		stapiRestClient.technology.apiKey == API_KEY
-		stapiRestClient.title.apiKey == API_KEY
-		stapiRestClient.tradingCard.apiKey == API_KEY
-		stapiRestClient.tradingCardDeck.apiKey == API_KEY
-		stapiRestClient.tradingCardSet.apiKey == API_KEY
-		stapiRestClient.videoGame.apiKey == API_KEY
-		stapiRestClient.videoRelease.apiKey == API_KEY
-		stapiRestClient.weapon.apiKey == API_KEY
-	}
-
 	void "REST client cannot be instantiated with URL that does not start with 'http'"() {
 		when:
-		stapiRestClient = new StapiRestClient('url/', API_KEY)
+		stapiRestClient = new StapiRestClient('url/')
 
 		then:
 		thrown(IllegalArgumentException)
@@ -159,7 +110,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 
 	void "REST client cannot be instantiated with URL that does not end with slash"() {
 		when:
-		stapiRestClient = new StapiRestClient('http://url', API_KEY)
+		stapiRestClient = new StapiRestClient('http://url')
 
 		then:
 		thrown(IllegalArgumentException)
@@ -167,7 +118,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 
 	void "when null URL is passed, canonical URL is used"() {
 		when:
-		stapiRestClient = new StapiRestClient(null, API_KEY)
+		stapiRestClient = new StapiRestClient(null)
 
 		then:
 		stapiRestClient.apiUrl == StapiClient.CANONICAL_API_URL

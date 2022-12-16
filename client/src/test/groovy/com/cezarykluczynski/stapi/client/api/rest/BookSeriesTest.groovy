@@ -13,7 +13,7 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 
 	void setup() {
 		bookSeriesApiMock = Mock()
-		bookSeries = new BookSeries(bookSeriesApiMock, API_KEY)
+		bookSeries = new BookSeries(bookSeriesApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 		BookSeriesFullResponse bookSeriesFullResponseOutput = bookSeries.get(UID)
 
 		then:
-		1 * bookSeriesApiMock.v1RestBookSeriesGet(UID, API_KEY) >> bookSeriesFullResponse
+		1 * bookSeriesApiMock.v1RestBookSeriesGet(UID, null) >> bookSeriesFullResponse
 		0 * _
 		bookSeriesFullResponse == bookSeriesFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 				PUBLISHED_YEAR_TO, NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES)
 
 		then:
-		1 * bookSeriesApiMock.v1RestBookSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookSeriesApiMock.v1RestBookSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES) >> bookSeriesBaseResponse
 		0 * _
 		bookSeriesBaseResponse == bookSeriesBaseResponseOutput

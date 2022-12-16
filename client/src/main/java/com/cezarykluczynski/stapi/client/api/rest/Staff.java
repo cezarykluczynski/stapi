@@ -14,20 +14,17 @@ public class Staff {
 
 	private final StaffApi staffApi;
 
-	private final String apiKey;
-
-	public Staff(StaffApi staffApi, String apiKey) {
+	public Staff(StaffApi staffApi) {
 		this.staffApi = staffApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public StaffFullResponse get(String uid) throws ApiException {
-		return staffApi.v1RestStaffGet(uid, apiKey);
+		return staffApi.v1RestStaffGet(uid, null);
 	}
 
 	public StaffV2FullResponse getV2(String uid) throws ApiException {
-		return staffApi.v2RestStaffGet(uid, apiKey);
+		return staffApi.v2RestStaffGet(uid);
 	}
 
 	@Deprecated
@@ -45,7 +42,7 @@ public class Staff {
 			Boolean publicityArtist, Boolean cbsDigitalStaff, Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor,
 			Boolean studioExecutive, Boolean stuntDepartment, Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer)
 			throws ApiException {
-		return staffApi.v1RestStaffSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return staffApi.v1RestStaffSearchPost(pageNumber, pageSize, sort, null, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
 				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
 				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, linguist, locationStaff, makeupStaff, musicDepartment,
@@ -71,7 +68,7 @@ public class Staff {
 			Boolean publicationArtist, Boolean publicationDesigner, Boolean publicationEditor, Boolean publicityArtist, Boolean cbsDigitalStaff,
 			Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor, Boolean studioExecutive, Boolean stuntDepartment,
 			Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer) throws ApiException {
-		return staffApi.v2RestStaffSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return staffApi.v2RestStaffSearchPost(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
 				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
 				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, filmationProductionStaff, linguist, locationStaff, makeupStaff,

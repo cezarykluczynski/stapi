@@ -11,10 +11,6 @@ get:
       type: integer
       format: int32
       description: Page size
-    - name: apiKey
-      in: query
-      type: string
-      description: API key
   responses:
     200:
       schema:

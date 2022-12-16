@@ -11,14 +11,11 @@ class FoodTest extends Specification {
 
 	private FoodPortType foodPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Food food
 
 	void setup() {
 		foodPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		food = new Food(foodPortTypeMock, apiKeySupplierMock)
+		food = new Food(foodPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class FoodTest extends Specification {
 		FoodBaseResponse foodBaseResponseOutput = food.search(foodBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(foodBaseRequest)
 		1 * foodPortTypeMock.getFoodBase(foodBaseRequest) >> foodBaseResponse
 		0 * _
 		foodBaseResponse == foodBaseResponseOutput
@@ -45,7 +41,6 @@ class FoodTest extends Specification {
 		FoodFullResponse foodFullResponseOutput = food.get(foodFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(foodFullRequest)
 		1 * foodPortTypeMock.getFoodFull(foodFullRequest) >> foodFullResponse
 		0 * _
 		foodFullResponse == foodFullResponseOutput

@@ -13,7 +13,7 @@ class LiteratureTest extends AbstractLiteratureTest {
 
 	void setup() {
 		literatureApiMock = Mock()
-		literature = new Literature(literatureApiMock, API_KEY)
+		literature = new Literature(literatureApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class LiteratureTest extends AbstractLiteratureTest {
 		LiteratureFullResponse literatureFullResponseOutput = literature.get(UID)
 
 		then:
-		1 * literatureApiMock.v1RestLiteratureGet(UID, API_KEY) >> literatureFullResponse
+		1 * literatureApiMock.v1RestLiteratureGet(UID, null) >> literatureFullResponse
 		0 * _
 		literatureFullResponse == literatureFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class LiteratureTest extends AbstractLiteratureTest {
 				SHAKESPEAREAN_WORK, REPORT, SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE)
 
 		then:
-		1 * literatureApiMock.v1RestLiteratureSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK, REPORT,
+		1 * literatureApiMock.v1RestLiteratureSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK, REPORT,
 				SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE) >> literatureBaseResponse
 		0 * _
 		literatureBaseResponse == literatureBaseResponseOutput

@@ -11,14 +11,11 @@ class WeaponTest extends Specification {
 
 	private WeaponPortType weaponPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Weapon weapon
 
 	void setup() {
 		weaponPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		weapon = new Weapon(weaponPortTypeMock, apiKeySupplierMock)
+		weapon = new Weapon(weaponPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class WeaponTest extends Specification {
 		WeaponBaseResponse weaponBaseResponseOutput = weapon.search(weaponBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(weaponBaseRequest)
 		1 * weaponPortTypeMock.getWeaponBase(weaponBaseRequest) >> weaponBaseResponse
 		0 * _
 		weaponBaseResponse == weaponBaseResponseOutput
@@ -45,7 +41,6 @@ class WeaponTest extends Specification {
 		WeaponFullResponse weaponFullResponseOutput = weapon.get(weaponFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(weaponFullRequest)
 		1 * weaponPortTypeMock.getWeaponFull(weaponFullRequest) >> weaponFullResponse
 		0 * _
 		weaponFullResponse == weaponFullResponseOutput

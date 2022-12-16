@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.client.api.soap;
 
-
 import com.cezarykluczynski.stapi.client.v1.soap.LocationBaseRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationFullRequest;
@@ -11,20 +10,17 @@ public class Location {
 
 	private final LocationPortType locationPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Location(LocationPortType locationPortType, ApiKeySupplier apiKeySupplier) {
+	public Location(LocationPortType locationPortType) {
 		this.locationPortType = locationPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public LocationFullResponse get(LocationFullRequest request) {
-		apiKeySupplier.supply(request);
 		return locationPortType.getLocationFull(request);
 	}
 
+	@Deprecated
 	public LocationBaseResponse search(LocationBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return locationPortType.getLocationBase(request);
 	}
 

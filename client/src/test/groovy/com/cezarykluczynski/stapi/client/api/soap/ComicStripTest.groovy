@@ -11,14 +11,11 @@ class ComicStripTest extends Specification {
 
 	private ComicStripPortType comicStripPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private ComicStrip comicStrip
 
 	void setup() {
 		comicStripPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		comicStrip = new ComicStrip(comicStripPortTypeMock, apiKeySupplierMock)
+		comicStrip = new ComicStrip(comicStripPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class ComicStripTest extends Specification {
 		ComicStripBaseResponse comicStripBaseResponseOutput = comicStrip.search(comicStripBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(comicStripBaseRequest)
 		1 * comicStripPortTypeMock.getComicStripBase(comicStripBaseRequest) >> comicStripBaseResponse
 		0 * _
 		comicStripBaseResponse == comicStripBaseResponseOutput
@@ -45,7 +41,6 @@ class ComicStripTest extends Specification {
 		ComicStripFullResponse comicStripFullResponseOutput = comicStrip.get(comicStripFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(comicStripFullRequest)
 		1 * comicStripPortTypeMock.getComicStripFull(comicStripFullRequest) >> comicStripFullResponse
 		0 * _
 		comicStripFullResponse == comicStripFullResponseOutput

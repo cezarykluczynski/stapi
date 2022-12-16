@@ -13,7 +13,7 @@ class OrganizationTest extends AbstractOrganizationTest {
 
 	void setup() {
 		organizationApiMock = Mock()
-		organization = new Organization(organizationApiMock, API_KEY)
+		organization = new Organization(organizationApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class OrganizationTest extends AbstractOrganizationTest {
 		OrganizationFullResponse organizationFullResponseOutput = organization.get(UID)
 
 		then:
-		1 * organizationApiMock.v1RestOrganizationGet(UID, API_KEY) >> organizationFullResponse
+		1 * organizationApiMock.v1RestOrganizationGet(UID, null) >> organizationFullResponse
 		0 * _
 		organizationFullResponse == organizationFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class OrganizationTest extends AbstractOrganizationTest {
 				GOVERNMENT_AGENCY, LAW_ENFORCEMENT_AGENCY, PRISON_OR_PENAL_COLONY, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * organizationApiMock.v1RestOrganizationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, GOVERNMENT, INTERGOVERNMENTAL_ORGANIZATION,
+		1 * organizationApiMock.v1RestOrganizationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, GOVERNMENT, INTERGOVERNMENTAL_ORGANIZATION,
 				RESEARCH_ORGANIZATION, SPORT_ORGANIZATION, MEDICAL_ORGANIZATION, MILITARY_ORGANIZATION, MILITARY_UNIT, GOVERNMENT_AGENCY,
 				LAW_ENFORCEMENT_AGENCY, PRISON_OR_PENAL_COLONY, MIRROR, ALTERNATE_REALITY) >> organizationBaseResponse
 		0 * _

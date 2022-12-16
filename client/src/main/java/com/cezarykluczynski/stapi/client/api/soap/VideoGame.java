@@ -10,20 +10,17 @@ public class VideoGame {
 
 	private final VideoGamePortType animalPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public VideoGame(VideoGamePortType animalPortType, ApiKeySupplier apiKeySupplier) {
+	public VideoGame(VideoGamePortType animalPortType) {
 		this.animalPortType = animalPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public VideoGameFullResponse get(VideoGameFullRequest request) {
-		apiKeySupplier.supply(request);
 		return animalPortType.getVideoGameFull(request);
 	}
 
+	@Deprecated
 	public VideoGameBaseResponse search(VideoGameBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return animalPortType.getVideoGameBase(request);
 	}
 

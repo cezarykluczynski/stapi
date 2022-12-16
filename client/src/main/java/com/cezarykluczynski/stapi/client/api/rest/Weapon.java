@@ -12,27 +12,24 @@ public class Weapon {
 
 	private final WeaponApi weaponApi;
 
-	private final String apiKey;
-
-	public Weapon(WeaponApi weaponApi, String apiKey) {
+	public Weapon(WeaponApi weaponApi) {
 		this.weaponApi = weaponApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public WeaponFullResponse get(String uid) throws ApiException {
-		return weaponApi.v1RestWeaponGet(uid, apiKey);
+		return weaponApi.v1RestWeaponGet(uid, null);
 	}
 
 	public WeaponV2FullResponse getV2(String uid) throws ApiException {
-		return weaponApi.v2RestWeaponGet(uid, apiKey);
+		return weaponApi.v2RestWeaponGet(uid);
 	}
 
 	@Deprecated
 	public WeaponBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean handHeldWeapon, Boolean laserTechnology,
 			Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean mirror, Boolean alternateReality)
 			throws ApiException {
-		return weaponApi.v1RestWeaponSearchPost(pageNumber, pageSize, sort, apiKey, name, handHeldWeapon, laserTechnology, plasmaTechnology,
+		return weaponApi.v1RestWeaponSearchPost(pageNumber, pageSize, sort, null, name, handHeldWeapon, laserTechnology, plasmaTechnology,
 				photonicTechnology, phaserTechnology, mirror, alternateReality);
 	}
 
@@ -40,7 +37,7 @@ public class Weapon {
 			Boolean laserTechnology, Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean directedEnergyWeapon,
 			Boolean explosiveWeapon, Boolean projectileWeapon, Boolean fictionalWeapon, Boolean mirror, Boolean alternateReality)
 			throws ApiException {
-		return weaponApi.v2RestWeaponSearchPost(pageNumber, pageSize, sort, apiKey, name, handHeldWeapon, laserTechnology, plasmaTechnology,
+		return weaponApi.v2RestWeaponSearchPost(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
 				photonicTechnology, phaserTechnology, directedEnergyWeapon, explosiveWeapon, projectileWeapon, fictionalWeapon, mirror,
 				alternateReality);
 	}

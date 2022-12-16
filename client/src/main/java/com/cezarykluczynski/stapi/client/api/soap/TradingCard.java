@@ -10,20 +10,17 @@ public class TradingCard {
 
 	private final TradingCardPortType tradingCardPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public TradingCard(TradingCardPortType tradingCardPortType, ApiKeySupplier apiKeySupplier) {
+	public TradingCard(TradingCardPortType tradingCardPortType) {
 		this.tradingCardPortType = tradingCardPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public TradingCardFullResponse get(TradingCardFullRequest request) {
-		apiKeySupplier.supply(request);
 		return tradingCardPortType.getTradingCardFull(request);
 	}
 
+	@Deprecated
 	public TradingCardBaseResponse search(TradingCardBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return tradingCardPortType.getTradingCardBase(request);
 	}
 

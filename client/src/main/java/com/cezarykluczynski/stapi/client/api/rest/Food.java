@@ -10,21 +10,18 @@ public class Food {
 
 	private final FoodApi foodApi;
 
-	private final String apiKey;
-
-	public Food(FoodApi foodApi, String apiKey) {
+	public Food(FoodApi foodApi) {
 		this.foodApi = foodApi;
-		this.apiKey = apiKey;
 	}
 
 	public FoodFullResponse get(String uid) throws ApiException {
-		return foodApi.v1RestFoodGet(uid, apiKey);
+		return foodApi.v1RestFoodGet(uid, null);
 	}
 
 	public FoodBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthlyOrigin, Boolean dessert,
 			Boolean fruit, Boolean herbOrSpice, Boolean sauce, Boolean soup, Boolean beverage, Boolean alcoholicBeverage, Boolean juice, Boolean tea)
 			throws ApiException {
-		return foodApi.v1RestFoodSearchPost(pageNumber, pageSize, sort, apiKey, name, earthlyOrigin, dessert, fruit, herbOrSpice, sauce, soup,
+		return foodApi.v1RestFoodSearchPost(pageNumber, pageSize, sort, null, name, earthlyOrigin, dessert, fruit, herbOrSpice, sauce, soup,
 				beverage, alcoholicBeverage, juice, tea);
 	}
 

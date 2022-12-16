@@ -10,20 +10,17 @@ public class Episode {
 
 	private final EpisodePortType episodePortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Episode(EpisodePortType episodePortType, ApiKeySupplier apiKeySupplier) {
+	public Episode(EpisodePortType episodePortType) {
 		this.episodePortType = episodePortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public EpisodeFullResponse get(EpisodeFullRequest request) {
-		apiKeySupplier.supply(request);
 		return episodePortType.getEpisodeFull(request);
 	}
 
+	@Deprecated
 	public EpisodeBaseResponse search(EpisodeBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return episodePortType.getEpisodeBase(request);
 	}
 

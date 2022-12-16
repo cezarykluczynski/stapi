@@ -9,20 +9,17 @@ public class MedicalCondition {
 
 	private final MedicalConditionApi medicalConditionApi;
 
-	private final String apiKey;
-
-	public MedicalCondition(MedicalConditionApi medicalConditionApi, String apiKey) {
+	public MedicalCondition(MedicalConditionApi medicalConditionApi) {
 		this.medicalConditionApi = medicalConditionApi;
-		this.apiKey = apiKey;
 	}
 
 	public MedicalConditionFullResponse get(String uid) throws ApiException {
-		return medicalConditionApi.v1RestMedicalConditionGet(uid, apiKey);
+		return medicalConditionApi.v1RestMedicalConditionGet(uid, null);
 	}
 
 	public MedicalConditionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean psychologicalCondition)
 			throws ApiException {
-		return medicalConditionApi.v1RestMedicalConditionSearchPost(pageNumber, pageSize, sort, apiKey, name, psychologicalCondition);
+		return medicalConditionApi.v1RestMedicalConditionSearchPost(pageNumber, pageSize, sort, null, name, psychologicalCondition);
 	}
 
 }

@@ -11,14 +11,11 @@ class TitleTest extends Specification {
 
 	private TitlePortType titlePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Title title
 
 	void setup() {
 		titlePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		title = new Title(titlePortTypeMock, apiKeySupplierMock)
+		title = new Title(titlePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class TitleTest extends Specification {
 		TitleBaseResponse titleBaseResponseOutput = title.search(titleBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(titleBaseRequest)
 		1 * titlePortTypeMock.getTitleBase(titleBaseRequest) >> titleBaseResponse
 		0 * _
 		titleBaseResponse == titleBaseResponseOutput
@@ -45,7 +41,6 @@ class TitleTest extends Specification {
 		TitleFullResponse titleFullResponseOutput = title.get(titleFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(titleFullRequest)
 		1 * titlePortTypeMock.getTitleFull(titleFullRequest) >> titleFullResponse
 		0 * _
 		titleFullResponse == titleFullResponseOutput

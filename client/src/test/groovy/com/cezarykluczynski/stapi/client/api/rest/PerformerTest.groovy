@@ -15,7 +15,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 
 	void setup() {
 		performerApiMock = Mock()
-		performer = new Performer(performerApiMock, API_KEY)
+		performer = new Performer(performerApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		PerformerFullResponse performerFullResponseOutput = performer.get(UID)
 
 		then:
-		1 * performerApiMock.v1RestPerformerGet(UID, API_KEY) >> performerFullResponse
+		1 * performerApiMock.v1RestPerformerGet(UID, null) >> performerFullResponse
 		0 * _
 		performerFullResponse == performerFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		PerformerV2FullResponse performerV2FullResponseOutput = performer.getV2(UID)
 
 		then:
-		1 * performerApiMock.v2RestPerformerGet(UID, API_KEY) >> performerV2FullResponse
+		1 * performerApiMock.v2RestPerformerGet(UID) >> performerV2FullResponse
 		0 * _
 		performerV2FullResponse == performerV2FullResponseOutput
 	}
@@ -55,7 +55,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 				TOS_PERFORMER, VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER)
 
 		then:
-		1 * performerApiMock.v1RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
+		1 * performerApiMock.v1RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ANIMAL_PERFORMER, DIS_PERFORMER,
 				DS9_PERFORMER, ENT_PERFORMER, FILM_PERFORMER, STAND_IN_PERFORMER, STUNT_PERFORMER, TAS_PERFORMER, TNG_PERFORMER, TOS_PERFORMER,
 				VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER) >> performerBaseResponse
@@ -75,7 +75,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 				TOS_PERFORMER, VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER)
 
 		then:
-		1 * performerApiMock.v2RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
+		1 * performerApiMock.v2RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ANIMAL_PERFORMER, AUDIOBOOK_PERFORMER,
 				CUT_PERFORMER, DIS_PERFORMER, DS9_PERFORMER, ENT_PERFORMER, FILM_PERFORMER, LD_PERFORMER, PIC_PERFORMER, PRO_PERFORMER, PUPPETEER,
 				SNW_PERFORMER, STAND_IN_PERFORMER, ST_PERFORMER, STUNT_PERFORMER, TAS_PERFORMER, TNG_PERFORMER, TOS_PERFORMER, VIDEO_GAME_PERFORMER,

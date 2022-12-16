@@ -10,22 +10,19 @@ public class TradingCardSet {
 
 	private final TradingCardSetApi tradingCardSetApi;
 
-	private final String apiKey;
-
-	public TradingCardSet(TradingCardSetApi tradingCardSetApi, String apiKey) {
+	public TradingCardSet(TradingCardSetApi tradingCardSetApi) {
 		this.tradingCardSetApi = tradingCardSetApi;
-		this.apiKey = apiKey;
 	}
 
 	public TradingCardSetFullResponse get(String uid) throws ApiException {
-		return tradingCardSetApi.v1RestTradingCardSetGet(uid, apiKey);
+		return tradingCardSetApi.v1RestTradingCardSetGet(uid, null);
 	}
 
 	public TradingCardSetBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Integer releaseYearFrom,
 			Integer releaseYearTo, Integer cardsPerPackFrom, Integer cardsPerPackTo, Integer packsPerBoxFrom, Integer packsPerBoxTo,
 			Integer boxesPerCaseFrom, Integer boxesPerCaseTo, Integer productionRunFrom, Integer productionRunTo, String productionRunUnit,
 			Double cardWidthFrom, Double cardWidthTo, Double cardHeightFrom, Double cardHeightTo) throws ApiException {
-		return tradingCardSetApi.v1RestTradingCardSetSearchPost(pageNumber, pageSize, sort, apiKey, name, releaseYearFrom, releaseYearTo,
+		return tradingCardSetApi.v1RestTradingCardSetSearchPost(pageNumber, pageSize, sort, null, name, releaseYearFrom, releaseYearTo,
 				cardsPerPackFrom, cardsPerPackTo, packsPerBoxFrom, packsPerBoxTo, boxesPerCaseFrom, boxesPerCaseTo, productionRunFrom,
 				productionRunTo, productionRunUnit, cardWidthFrom, cardWidthTo, cardHeightFrom, cardHeightTo);
 	}

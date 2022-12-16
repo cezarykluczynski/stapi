@@ -10,21 +10,18 @@ public class Material {
 
 	private final MaterialApi materialApi;
 
-	private final String apiKey;
-
-	public Material(MaterialApi materialApi, String apiKey) {
+	public Material(MaterialApi materialApi) {
 		this.materialApi = materialApi;
-		this.apiKey = apiKey;
 	}
 
 	public MaterialFullResponse get(String uid) throws ApiException {
-		return materialApi.v1RestMaterialGet(uid, apiKey);
+		return materialApi.v1RestMaterialGet(uid, null);
 	}
 
 	public MaterialBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean chemicalCompound,
 			Boolean biochemicalCompound, Boolean drug, Boolean poisonousSubstance, Boolean explosive, Boolean gemstone, Boolean alloyOrComposite,
 			Boolean fuel, Boolean mineral, Boolean preciousMaterial) throws ApiException {
-		return materialApi.v1RestMaterialSearchPost(pageNumber, pageSize, sort, apiKey, name, chemicalCompound, biochemicalCompound, drug,
+		return materialApi.v1RestMaterialSearchPost(pageNumber, pageSize, sort, null, name, chemicalCompound, biochemicalCompound, drug,
 				poisonousSubstance, explosive, gemstone, alloyOrComposite, fuel, mineral, preciousMaterial);
 	}
 

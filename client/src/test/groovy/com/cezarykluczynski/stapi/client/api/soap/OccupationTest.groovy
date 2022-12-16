@@ -11,14 +11,11 @@ class OccupationTest extends Specification {
 
 	private OccupationPortType occupationPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Occupation occupation
 
 	void setup() {
 		occupationPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		occupation = new Occupation(occupationPortTypeMock, apiKeySupplierMock)
+		occupation = new Occupation(occupationPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class OccupationTest extends Specification {
 		OccupationBaseResponse occupationBaseResponseOutput = occupation.search(occupationBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(occupationBaseRequest)
 		1 * occupationPortTypeMock.getOccupationBase(occupationBaseRequest) >> occupationBaseResponse
 		0 * _
 		occupationBaseResponse == occupationBaseResponseOutput
@@ -45,7 +41,6 @@ class OccupationTest extends Specification {
 		OccupationFullResponse occupationFullResponseOutput = occupation.get(occupationFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(occupationFullRequest)
 		1 * occupationPortTypeMock.getOccupationFull(occupationFullRequest) >> occupationFullResponse
 		0 * _
 		occupationFullResponse == occupationFullResponseOutput

@@ -10,20 +10,17 @@ public class VideoRelease {
 
 	private final VideoReleasePortType videoReleasePortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public VideoRelease(VideoReleasePortType videoReleasePortType, ApiKeySupplier apiKeySupplier) {
+	public VideoRelease(VideoReleasePortType videoReleasePortType) {
 		this.videoReleasePortType = videoReleasePortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public VideoReleaseFullResponse get(VideoReleaseFullRequest request) {
-		apiKeySupplier.supply(request);
 		return videoReleasePortType.getVideoReleaseFull(request);
 	}
 
+	@Deprecated
 	public VideoReleaseBaseResponse search(VideoReleaseBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return videoReleasePortType.getVideoReleaseBase(request);
 	}
 

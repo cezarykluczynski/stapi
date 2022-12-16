@@ -10,22 +10,19 @@ public class Organization {
 
 	private final OrganizationApi organizationApi;
 
-	private final String apiKey;
-
-	public Organization(OrganizationApi organizationApi, String apiKey) {
+	public Organization(OrganizationApi organizationApi) {
 		this.organizationApi = organizationApi;
-		this.apiKey = apiKey;
 	}
 
 	public OrganizationFullResponse get(String uid) throws ApiException {
-		return organizationApi.v1RestOrganizationGet(uid, apiKey);
+		return organizationApi.v1RestOrganizationGet(uid, null);
 	}
 
 	public OrganizationBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean government,
 			Boolean intergovernmentalOrganization, Boolean researchOrganization, Boolean sportOrganization, Boolean medicalOrganization,
 			Boolean militaryOrganization, Boolean militaryUnit, Boolean governmentAgency, Boolean lawEnforcementAgency, Boolean prisonOrPenalColony,
 			Boolean mirror, Boolean alternateReality) throws ApiException {
-		return organizationApi.v1RestOrganizationSearchPost(pageNumber, pageSize, sort, apiKey, name, government, intergovernmentalOrganization,
+		return organizationApi.v1RestOrganizationSearchPost(pageNumber, pageSize, sort, null, name, government, intergovernmentalOrganization,
 				researchOrganization, sportOrganization, medicalOrganization, militaryOrganization, militaryUnit, governmentAgency,
 				lawEnforcementAgency, prisonOrPenalColony, mirror, alternateReality);
 	}

@@ -10,20 +10,17 @@ public class Organization {
 
 	private final OrganizationPortType organizationPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Organization(OrganizationPortType organizationPortType, ApiKeySupplier apiKeySupplier) {
+	public Organization(OrganizationPortType organizationPortType) {
 		this.organizationPortType = organizationPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public OrganizationFullResponse get(OrganizationFullRequest request) {
-		apiKeySupplier.supply(request);
 		return organizationPortType.getOrganizationFull(request);
 	}
 
+	@Deprecated
 	public OrganizationBaseResponse search(OrganizationBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return organizationPortType.getOrganizationBase(request);
 	}
 

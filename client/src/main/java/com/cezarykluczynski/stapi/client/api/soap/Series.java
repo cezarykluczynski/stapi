@@ -10,20 +10,17 @@ public class Series {
 
 	private final SeriesPortType seriesPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Series(SeriesPortType seriesPortType, ApiKeySupplier apiKeySupplier) {
+	public Series(SeriesPortType seriesPortType) {
 		this.seriesPortType = seriesPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public SeriesFullResponse get(SeriesFullRequest request) {
-		apiKeySupplier.supply(request);
 		return seriesPortType.getSeriesFull(request);
 	}
 
+	@Deprecated
 	public SeriesBaseResponse search(SeriesBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return seriesPortType.getSeriesBase(request);
 	}
 

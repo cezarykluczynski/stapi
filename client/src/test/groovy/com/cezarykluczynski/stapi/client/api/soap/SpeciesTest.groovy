@@ -11,14 +11,11 @@ class SpeciesTest extends Specification {
 
 	private SpeciesPortType speciesPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Species species
 
 	void setup() {
 		speciesPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		species = new Species(speciesPortTypeMock, apiKeySupplierMock)
+		species = new Species(speciesPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class SpeciesTest extends Specification {
 		SpeciesBaseResponse speciesBaseResponseOutput = species.search(speciesBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(speciesBaseRequest)
 		1 * speciesPortTypeMock.getSpeciesBase(speciesBaseRequest) >> speciesBaseResponse
 		0 * _
 		speciesBaseResponse == speciesBaseResponseOutput
@@ -45,7 +41,6 @@ class SpeciesTest extends Specification {
 		SpeciesFullResponse speciesFullResponseOutput = species.get(speciesFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(speciesFullRequest)
 		1 * speciesPortTypeMock.getSpeciesFull(speciesFullRequest) >> speciesFullResponse
 		0 * _
 		speciesFullResponse == speciesFullResponseOutput

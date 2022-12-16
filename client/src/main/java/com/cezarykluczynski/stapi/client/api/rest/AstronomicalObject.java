@@ -12,32 +12,29 @@ public class AstronomicalObject {
 
 	private final AstronomicalObjectApi astronomicalObjectApi;
 
-	private final String apiKey;
-
-	public AstronomicalObject(AstronomicalObjectApi astronomicalObjectApi, String apiKey) {
+	public AstronomicalObject(AstronomicalObjectApi astronomicalObjectApi) {
 		this.astronomicalObjectApi = astronomicalObjectApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public AstronomicalObjectFullResponse get(String uid) throws ApiException {
-		return astronomicalObjectApi.v1RestAstronomicalObjectGet(uid, apiKey);
+		return astronomicalObjectApi.v1RestAstronomicalObjectGet(uid, null);
 	}
 
 	public AstronomicalObjectV2FullResponse getV2(String uid) throws ApiException {
-		return astronomicalObjectApi.v2RestAstronomicalObjectGet(uid, apiKey);
+		return astronomicalObjectApi.v2RestAstronomicalObjectGet(uid);
 	}
 
 	@Deprecated
 	public AstronomicalObjectBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String astronomicalObjectType,
 			String locationUid) throws ApiException {
-		return astronomicalObjectApi.v1RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, apiKey, name, astronomicalObjectType,
+		return astronomicalObjectApi.v1RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, null, name, astronomicalObjectType,
 				locationUid);
 	}
 
 	public AstronomicalObjectV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String astronomicalObjectType,
 			String locationUid) throws ApiException {
-		return astronomicalObjectApi.v2RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, apiKey, name, astronomicalObjectType,
+		return astronomicalObjectApi.v2RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, name, astronomicalObjectType,
 				locationUid);
 	}
 

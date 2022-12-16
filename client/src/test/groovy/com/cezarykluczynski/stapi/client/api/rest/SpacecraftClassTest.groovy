@@ -15,7 +15,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 
 	void setup() {
 		spacecraftClassApiMock = Mock()
-		spacecraftClass = new SpacecraftClass(spacecraftClassApiMock, API_KEY)
+		spacecraftClass = new SpacecraftClass(spacecraftClassApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassFullResponse spacecraftClassFullResponseOutput = spacecraftClass.get(UID)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassGet(UID, API_KEY) >> spacecraftClassFullResponse
+		1 * spacecraftClassApiMock.v1RestSpacecraftClassGet(UID, null) >> spacecraftClassFullResponse
 		0 * _
 		spacecraftClassFullResponse == spacecraftClassFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassV2FullResponse spacecraftClassV2FullResponseOutput = spacecraftClass.getV2(UID)
 
 		then:
-		1 * spacecraftClassApiMock.v2RestSpacecraftClassGet(UID, API_KEY) >> spacecraftClassV2FullResponse
+		1 * spacecraftClassApiMock.v2RestSpacecraftClassGet(UID) >> spacecraftClassV2FullResponse
 		0 * _
 		spacecraftClassV2FullResponse == spacecraftClassV2FullResponseOutput
 	}
@@ -53,7 +53,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 				ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, WARP_CAPABLE, ALTERNATE_REALITY) >>
+		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, WARP_CAPABLE, ALTERNATE_REALITY) >>
 				spacecraftClassBaseResponse
 		0 * _
 		spacecraftClassBaseResponse == spacecraftClassBaseResponseOutput
@@ -68,7 +68,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 				MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, WARP_CAPABLE, MIRROR,
+		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, WARP_CAPABLE, MIRROR,
 				ALTERNATE_REALITY) >> spacecraftClassV2BaseResponse
 		0 * _
 		spacecraftClassV2BaseResponse == spacecraftClassV2BaseResponseOutput

@@ -10,20 +10,17 @@ public class TradingCardDeck {
 
 	private final TradingCardDeckPortType tradingCardDeckPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public TradingCardDeck(TradingCardDeckPortType tradingCardDeckPortType, ApiKeySupplier apiKeySupplier) {
+	public TradingCardDeck(TradingCardDeckPortType tradingCardDeckPortType) {
 		this.tradingCardDeckPortType = tradingCardDeckPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public TradingCardDeckFullResponse get(TradingCardDeckFullRequest request) {
-		apiKeySupplier.supply(request);
 		return tradingCardDeckPortType.getTradingCardDeckFull(request);
 	}
 
+	@Deprecated
 	public TradingCardDeckBaseResponse search(TradingCardDeckBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return tradingCardDeckPortType.getTradingCardDeckBase(request);
 	}
 

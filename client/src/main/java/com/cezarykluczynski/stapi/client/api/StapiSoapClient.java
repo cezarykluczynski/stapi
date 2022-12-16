@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.api.soap.Animal;
-import com.cezarykluczynski.stapi.client.api.soap.ApiKeySupplier;
 import com.cezarykluczynski.stapi.client.api.soap.AstronomicalObject;
 import com.cezarykluczynski.stapi.client.api.soap.Book;
 import com.cezarykluczynski.stapi.client.api.soap.BookCollection;
@@ -89,8 +88,6 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 	private String apiUrl;
 
 	private StapiSoapPortTypesProvider stapiSoapPortTypesProvider;
-
-	private ApiKeySupplier apiKeySupplier;
 
 	private AnimalPortType animalPortType;
 
@@ -252,15 +249,14 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	private Weapon weapon;
 
-	public StapiSoapClient(String apiUrl, String apiKey) {
+	public StapiSoapClient(String apiUrl) {
 		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_URL));
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(this.apiUrl);
-		apiKeySupplier = new ApiKeySupplier(apiKey);
 	}
 
 	public synchronized Animal getAnimal() {
 		if (animal == null) {
-			animal = new Animal(getAnimalPortType(), apiKeySupplier);
+			animal = new Animal(getAnimalPortType());
 		}
 		return animal;
 	}
@@ -275,7 +271,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized AstronomicalObject getAstronomicalObject() {
 		if (astronomicalObject == null) {
-			astronomicalObject = new AstronomicalObject(getAstronomicalObjectPortType(), apiKeySupplier);
+			astronomicalObject = new AstronomicalObject(getAstronomicalObjectPortType());
 		}
 		return astronomicalObject;
 	}
@@ -289,7 +285,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Book getBook() {
 		if (book == null) {
-			book = new Book(getBookPortType(), apiKeySupplier);
+			book = new Book(getBookPortType());
 		}
 		return book;
 	}
@@ -303,7 +299,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized BookCollection getBookCollection() {
 		if (bookCollection == null) {
-			bookCollection = new BookCollection(getBookCollectionPortType(), apiKeySupplier);
+			bookCollection = new BookCollection(getBookCollectionPortType());
 		}
 		return bookCollection;
 	}
@@ -317,7 +313,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized BookSeries getBookSeries() {
 		if (bookSeries == null) {
-			bookSeries = new BookSeries(getBookSeriesPortType(), apiKeySupplier);
+			bookSeries = new BookSeries(getBookSeriesPortType());
 		}
 		return bookSeries;
 	}
@@ -331,7 +327,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Character getCharacter() {
 		if (character == null) {
-			character = new Character(getCharacterPortType(), apiKeySupplier);
+			character = new Character(getCharacterPortType());
 		}
 		return character;
 	}
@@ -345,7 +341,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized ComicCollection getComicCollection() {
 		if (comicCollection == null) {
-			comicCollection = new ComicCollection(getComicCollectionPortType(), apiKeySupplier);
+			comicCollection = new ComicCollection(getComicCollectionPortType());
 		}
 		return comicCollection;
 	}
@@ -359,7 +355,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Comics getComics() {
 		if (comics == null) {
-			comics = new Comics(getComicsPortType(), apiKeySupplier);
+			comics = new Comics(getComicsPortType());
 		}
 		return comics;
 	}
@@ -373,7 +369,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized ComicSeries getComicSeries() {
 		if (comicSeries == null) {
-			comicSeries = new ComicSeries(getComicSeriesPortType(), apiKeySupplier);
+			comicSeries = new ComicSeries(getComicSeriesPortType());
 		}
 		return comicSeries;
 	}
@@ -387,7 +383,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized ComicStrip getComicStrip() {
 		if (comicStrip == null) {
-			comicStrip = new ComicStrip(getComicStripPortType(), apiKeySupplier);
+			comicStrip = new ComicStrip(getComicStripPortType());
 		}
 		return comicStrip;
 	}
@@ -401,7 +397,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Company getCompany() {
 		if (company == null) {
-			company = new Company(getCompanyPortType(), apiKeySupplier);
+			company = new Company(getCompanyPortType());
 		}
 		return company;
 	}
@@ -415,7 +411,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Conflict getConflict() {
 		if (conflict == null) {
-			conflict = new Conflict(getConflictPortType(), apiKeySupplier);
+			conflict = new Conflict(getConflictPortType());
 		}
 		return conflict;
 	}
@@ -429,7 +425,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Element getElement() {
 		if (element == null) {
-			element = new Element(getElementPortType(), apiKeySupplier);
+			element = new Element(getElementPortType());
 		}
 		return element;
 	}
@@ -443,7 +439,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Episode getEpisode() {
 		if (episode == null) {
-			episode = new Episode(getEpisodePortType(), apiKeySupplier);
+			episode = new Episode(getEpisodePortType());
 		}
 		return episode;
 	}
@@ -457,7 +453,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Food getFood() {
 		if (food == null) {
-			food = new Food(getFoodPortType(), apiKeySupplier);
+			food = new Food(getFoodPortType());
 		}
 		return food;
 	}
@@ -471,7 +467,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Literature getLiterature() {
 		if (literature == null) {
-			literature = new Literature(getLiteraturePortType(), apiKeySupplier);
+			literature = new Literature(getLiteraturePortType());
 		}
 		return literature;
 	}
@@ -485,7 +481,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Location getLocation() {
 		if (location == null) {
-			location = new Location(getLocationPortType(), apiKeySupplier);
+			location = new Location(getLocationPortType());
 		}
 		return location;
 	}
@@ -499,7 +495,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Magazine getMagazine() {
 		if (magazine == null) {
-			magazine = new Magazine(getMagazinePortType(), apiKeySupplier);
+			magazine = new Magazine(getMagazinePortType());
 		}
 		return magazine;
 	}
@@ -513,7 +509,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized MagazineSeries getMagazineSeries() {
 		if (magazineSeries == null) {
-			magazineSeries = new MagazineSeries(getMagazineSeriesPortType(), apiKeySupplier);
+			magazineSeries = new MagazineSeries(getMagazineSeriesPortType());
 		}
 		return magazineSeries;
 	}
@@ -527,7 +523,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Material getMaterial() {
 		if (material == null) {
-			material = new Material(getMaterialPortType(), apiKeySupplier);
+			material = new Material(getMaterialPortType());
 		}
 		return material;
 	}
@@ -541,7 +537,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized MedicalCondition getMedicalCondition() {
 		if (medicalCondition == null) {
-			medicalCondition = new MedicalCondition(getMedicalConditionPortType(), apiKeySupplier);
+			medicalCondition = new MedicalCondition(getMedicalConditionPortType());
 		}
 		return medicalCondition;
 	}
@@ -555,7 +551,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Movie getMovie() {
 		if (movie == null) {
-			movie = new Movie(getMoviePortType(), apiKeySupplier);
+			movie = new Movie(getMoviePortType());
 		}
 		return movie;
 	}
@@ -569,7 +565,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Occupation getOccupation() {
 		if (occupation == null) {
-			occupation = new Occupation(getOccupationPortType(), apiKeySupplier);
+			occupation = new Occupation(getOccupationPortType());
 		}
 		return occupation;
 	}
@@ -583,7 +579,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Organization getOrganization() {
 		if (organization == null) {
-			organization = new Organization(getOrganizationPortType(), apiKeySupplier);
+			organization = new Organization(getOrganizationPortType());
 		}
 		return organization;
 	}
@@ -597,7 +593,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Performer getPerformer() {
 		if (performer == null) {
-			performer = new Performer(getPerformerPortType(), apiKeySupplier);
+			performer = new Performer(getPerformerPortType());
 		}
 		return performer;
 	}
@@ -611,7 +607,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Season getSeason() {
 		if (season == null) {
-			season = new Season(getSeasonPortType(), apiKeySupplier);
+			season = new Season(getSeasonPortType());
 		}
 		return season;
 	}
@@ -625,7 +621,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Series getSeries() {
 		if (series == null) {
-			series = new Series(getSeriesPortType(), apiKeySupplier);
+			series = new Series(getSeriesPortType());
 		}
 		return series;
 	}
@@ -639,7 +635,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Soundtrack getSoundtrack() {
 		if (soundtrack == null) {
-			soundtrack = new Soundtrack(getSoundtrackPortType(), apiKeySupplier);
+			soundtrack = new Soundtrack(getSoundtrackPortType());
 		}
 		return soundtrack;
 	}
@@ -653,7 +649,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Spacecraft getSpacecraft() {
 		if (spacecraft == null) {
-			spacecraft = new Spacecraft(getSpacecraftPortType(), apiKeySupplier);
+			spacecraft = new Spacecraft(getSpacecraftPortType());
 		}
 		return spacecraft;
 	}
@@ -667,7 +663,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized SpacecraftClass getSpacecraftClass() {
 		if (spacecraftClass == null) {
-			spacecraftClass = new SpacecraftClass(getSpacecraftClassPortType(), apiKeySupplier);
+			spacecraftClass = new SpacecraftClass(getSpacecraftClassPortType());
 		}
 		return spacecraftClass;
 	}
@@ -681,7 +677,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Species getSpecies() {
 		if (species == null) {
-			species = new Species(getSpeciesPortType(), apiKeySupplier);
+			species = new Species(getSpeciesPortType());
 		}
 		return species;
 	}
@@ -695,7 +691,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Staff getStaff() {
 		if (staff == null) {
-			staff = new Staff(getStaffPortType(), apiKeySupplier);
+			staff = new Staff(getStaffPortType());
 		}
 		return staff;
 	}
@@ -709,7 +705,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Technology getTechnology() {
 		if (technology == null) {
-			technology = new Technology(getTechnologyPortType(), apiKeySupplier);
+			technology = new Technology(getTechnologyPortType());
 		}
 		return technology;
 	}
@@ -723,7 +719,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Title getTitle() {
 		if (title == null) {
-			title = new Title(getTitlePortType(), apiKeySupplier);
+			title = new Title(getTitlePortType());
 		}
 		return title;
 	}
@@ -737,7 +733,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized TradingCard getTradingCard() {
 		if (tradingCard == null) {
-			tradingCard = new TradingCard(getTradingCardPortType(), apiKeySupplier);
+			tradingCard = new TradingCard(getTradingCardPortType());
 		}
 		return tradingCard;
 	}
@@ -751,7 +747,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized TradingCardDeck getTradingCardDeck() {
 		if (tradingCardDeck == null) {
-			tradingCardDeck = new TradingCardDeck(getTradingCardDeckPortType(), apiKeySupplier);
+			tradingCardDeck = new TradingCardDeck(getTradingCardDeckPortType());
 		}
 		return tradingCardDeck;
 	}
@@ -765,7 +761,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized TradingCardSet getTradingCardSet() {
 		if (tradingCardSet == null) {
-			tradingCardSet = new TradingCardSet(getTradingCardSetPortType(), apiKeySupplier);
+			tradingCardSet = new TradingCardSet(getTradingCardSetPortType());
 		}
 		return tradingCardSet;
 	}
@@ -779,7 +775,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized VideoGame getVideoGame() {
 		if (videoGame == null) {
-			videoGame = new VideoGame(getVideoGamePortType(), apiKeySupplier);
+			videoGame = new VideoGame(getVideoGamePortType());
 		}
 		return videoGame;
 	}
@@ -793,7 +789,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized VideoRelease getVideoRelease() {
 		if (videoRelease == null) {
-			videoRelease = new VideoRelease(getVideoReleasePortType(), apiKeySupplier);
+			videoRelease = new VideoRelease(getVideoReleasePortType());
 		}
 		return videoRelease;
 	}
@@ -807,7 +803,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	public synchronized Weapon getWeapon() {
 		if (weapon == null) {
-			weapon = new Weapon(getWeaponPortType(), apiKeySupplier);
+			weapon = new Weapon(getWeaponPortType());
 		}
 		return weapon;
 	}

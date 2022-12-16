@@ -15,7 +15,7 @@ class TitleTest extends AbstractTitleTest {
 
 	void setup() {
 		titleApiMock = Mock()
-		title = new Title(titleApiMock, API_KEY)
+		title = new Title(titleApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class TitleTest extends AbstractTitleTest {
 		TitleFullResponse titleFullResponseOutput = title.get(UID)
 
 		then:
-		1 * titleApiMock.v1RestTitleGet(UID, API_KEY) >> titleFullResponse
+		1 * titleApiMock.v1RestTitleGet(UID, null) >> titleFullResponse
 		0 * _
 		titleFullResponse == titleFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class TitleTest extends AbstractTitleTest {
 		TitleV2FullResponse titleFullResponseOutput = title.getV2(UID)
 
 		then:
-		1 * titleApiMock.v2RestTitleGet(UID, API_KEY) >> titleV2FullResponse
+		1 * titleApiMock.v2RestTitleGet(UID) >> titleV2FullResponse
 		0 * _
 		titleV2FullResponse == titleFullResponseOutput
 	}
@@ -53,7 +53,7 @@ class TitleTest extends AbstractTitleTest {
 				POSITION, MIRROR)
 
 		then:
-		1 * titleApiMock.v1RestTitleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE, POSITION,
+		1 * titleApiMock.v1RestTitleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE, POSITION,
 				MIRROR) >> titleBaseResponse
 		0 * _
 		titleBaseResponse == titleBaseResponseOutput
@@ -68,7 +68,7 @@ class TitleTest extends AbstractTitleTest {
 				EDUCATION_TITLE, MIRROR)
 
 		then:
-		1 * titleApiMock.v2RestTitleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE,
+		1 * titleApiMock.v2RestTitleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE,
 				EDUCATION_TITLE, MIRROR) >> titleV2BaseResponse
 		0 * _
 		titleV2BaseResponse == titleBaseResponseOutput

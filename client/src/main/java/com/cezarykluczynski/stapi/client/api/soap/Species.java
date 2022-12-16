@@ -10,20 +10,17 @@ public class Species {
 
 	private final SpeciesPortType speciesPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Species(SpeciesPortType speciesPortType, ApiKeySupplier apiKeySupplier) {
+	public Species(SpeciesPortType speciesPortType) {
 		this.speciesPortType = speciesPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public SpeciesFullResponse get(SpeciesFullRequest request) {
-		apiKeySupplier.supply(request);
 		return speciesPortType.getSpeciesFull(request);
 	}
 
+	@Deprecated
 	public SpeciesBaseResponse search(SpeciesBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return speciesPortType.getSpeciesBase(request);
 	}
 

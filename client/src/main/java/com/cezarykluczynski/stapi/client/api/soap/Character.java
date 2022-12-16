@@ -10,20 +10,17 @@ public class Character {
 
 	private final CharacterPortType characterPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Character(CharacterPortType characterPortType, ApiKeySupplier apiKeySupplier) {
+	public Character(CharacterPortType characterPortType) {
 		this.characterPortType = characterPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public CharacterFullResponse get(CharacterFullRequest request) {
-		apiKeySupplier.supply(request);
 		return characterPortType.getCharacterFull(request);
 	}
 
+	@Deprecated
 	public CharacterBaseResponse search(CharacterBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return characterPortType.getCharacterBase(request);
 	}
 

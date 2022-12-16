@@ -10,20 +10,17 @@ public class Material {
 
 	private final MaterialPortType materialPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Material(MaterialPortType materialPortType, ApiKeySupplier apiKeySupplier) {
+	public Material(MaterialPortType materialPortType) {
 		this.materialPortType = materialPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public MaterialFullResponse get(MaterialFullRequest request) {
-		apiKeySupplier.supply(request);
 		return materialPortType.getMaterialFull(request);
 	}
 
+	@Deprecated
 	public MaterialBaseResponse search(MaterialBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return materialPortType.getMaterialBase(request);
 	}
 

@@ -10,21 +10,18 @@ public class BookCollection {
 
 	private final BookCollectionApi bookCollectionApi;
 
-	private final String apiKey;
-
-	public BookCollection(BookCollectionApi bookCollectionApi, String apiKey) {
+	public BookCollection(BookCollectionApi bookCollectionApi) {
 		this.bookCollectionApi = bookCollectionApi;
-		this.apiKey = apiKey;
 	}
 
 	public BookCollectionFullResponse get(String uid) throws ApiException {
-		return bookCollectionApi.v1RestBookCollectionGet(uid, apiKey);
+		return bookCollectionApi.v1RestBookCollectionGet(uid, null);
 	}
 
 	public BookCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo) throws ApiException {
-		return bookCollectionApi.v1RestBookCollectionSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+		return bookCollectionApi.v1RestBookCollectionSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo);
 	}
 

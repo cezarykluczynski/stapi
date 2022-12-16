@@ -10,20 +10,17 @@ public class Occupation {
 
 	private final OccupationPortType occupationPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Occupation(OccupationPortType occupationPortType, ApiKeySupplier apiKeySupplier) {
+	public Occupation(OccupationPortType occupationPortType) {
 		this.occupationPortType = occupationPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public OccupationFullResponse get(OccupationFullRequest request) {
-		apiKeySupplier.supply(request);
 		return occupationPortType.getOccupationFull(request);
 	}
 
+	@Deprecated
 	public OccupationBaseResponse search(OccupationBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return occupationPortType.getOccupationBase(request);
 	}
 

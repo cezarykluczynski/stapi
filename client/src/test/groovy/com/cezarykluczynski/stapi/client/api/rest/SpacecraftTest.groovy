@@ -15,7 +15,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 
 	void setup() {
 		spacecraftApiMock = Mock()
-		spacecraft = new Spacecraft(spacecraftApiMock, API_KEY)
+		spacecraft = new Spacecraft(spacecraftApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftFullResponse spacecraftFullResponseOutput = spacecraft.get(UID)
 
 		then:
-		1 * spacecraftApiMock.v1RestSpacecraftGet(UID, API_KEY) >> spacecraftFullResponse
+		1 * spacecraftApiMock.v1RestSpacecraftGet(UID, null) >> spacecraftFullResponse
 		0 * _
 		spacecraftFullResponse == spacecraftFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftV2FullResponse spacecraftV2FullResponseOutput = spacecraft.getV2(UID)
 
 		then:
-		1 * spacecraftApiMock.v2RestSpacecraftGet(UID, API_KEY) >> spacecraftV2FullResponse
+		1 * spacecraftApiMock.v2RestSpacecraftGet(UID) >> spacecraftV2FullResponse
 		0 * _
 		spacecraftV2FullResponse == spacecraftV2FullResponseOutput
 	}
@@ -52,7 +52,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftBaseResponse spacecraftBaseResponseOutput = spacecraft.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME)
 
 		then:
-		1 * spacecraftApiMock.v1RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME) >> spacecraftBaseResponse
+		1 * spacecraftApiMock.v1RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME) >> spacecraftBaseResponse
 		0 * _
 		spacecraftBaseResponse == spacecraftBaseResponseOutput
 	}
@@ -65,7 +65,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftV2BaseResponse spacecraftV2BaseResponseOutput = spacecraft.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, REGISTRY, STATUS)
 
 		then:
-		1 * spacecraftApiMock.v2RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, REGISTRY, STATUS) >> spacecraftV2BaseResponse
+		1 * spacecraftApiMock.v2RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, REGISTRY, STATUS) >> spacecraftV2BaseResponse
 		0 * _
 		spacecraftV2BaseResponse == spacecraftV2BaseResponseOutput
 	}

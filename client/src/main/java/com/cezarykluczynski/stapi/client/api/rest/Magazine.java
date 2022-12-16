@@ -10,20 +10,17 @@ public class Magazine {
 
 	private final MagazineApi magazineApi;
 
-	private final String apiKey;
-
-	public Magazine(MagazineApi magazineApi, String apiKey) {
+	public Magazine(MagazineApi magazineApi) {
 		this.magazineApi = magazineApi;
-		this.apiKey = apiKey;
 	}
 
 	public MagazineFullResponse get(String uid) throws ApiException {
-		return magazineApi.v1RestMagazineGet(uid, apiKey);
+		return magazineApi.v1RestMagazineGet(uid, null);
 	}
 
 	public MagazineBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo) throws ApiException {
-		return magazineApi.v1RestMagazineSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return magazineApi.v1RestMagazineSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo);
 	}
 

@@ -11,14 +11,11 @@ class LocationTest extends Specification {
 
 	private LocationPortType locationPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Location location
 
 	void setup() {
 		locationPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		location = new Location(locationPortTypeMock, apiKeySupplierMock)
+		location = new Location(locationPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class LocationTest extends Specification {
 		LocationBaseResponse locationBaseResponseOutput = location.search(locationBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(locationBaseRequest)
 		1 * locationPortTypeMock.getLocationBase(locationBaseRequest) >> locationBaseResponse
 		0 * _
 		locationBaseResponse == locationBaseResponseOutput
@@ -45,7 +41,6 @@ class LocationTest extends Specification {
 		LocationFullResponse locationFullResponseOutput = location.get(locationFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(locationFullRequest)
 		1 * locationPortTypeMock.getLocationFull(locationFullRequest) >> locationFullResponse
 		0 * _
 		locationFullResponse == locationFullResponseOutput

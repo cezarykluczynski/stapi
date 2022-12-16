@@ -11,26 +11,23 @@ public class Conflict {
 
 	private final ConflictApi conflictApi;
 
-	private final String apiKey;
-
-	public Conflict(ConflictApi conflictApi, String apiKey) {
+	public Conflict(ConflictApi conflictApi) {
 		this.conflictApi = conflictApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public ConflictFullResponse get(String uid) throws ApiException {
-		return conflictApi.v1RestConflictGet(uid, apiKey);
+		return conflictApi.v1RestConflictGet(uid, null);
 	}
 
 	public ConflictV2FullResponse getV2(String uid) throws ApiException {
-		return conflictApi.v2RestConflictGet(uid, apiKey);
+		return conflictApi.v2RestConflictGet(uid);
 	}
 
 	public ConflictBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Integer yearFrom, Integer yearTo,
 			Boolean earthConflict, Boolean federationWar, Boolean klingonWar, Boolean dominionWarBattle, Boolean alternateReality)
 			throws ApiException {
-		return conflictApi.v1RestConflictSearchPost(pageNumber, pageSize, sort, apiKey, name, yearFrom, yearTo, earthConflict, federationWar,
+		return conflictApi.v1RestConflictSearchPost(pageNumber, pageSize, sort, null, name, yearFrom, yearTo, earthConflict, federationWar,
 				klingonWar, dominionWarBattle, alternateReality);
 	}
 

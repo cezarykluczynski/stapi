@@ -15,7 +15,7 @@ class LocationTest extends AbstractLocationTest {
 
 	void setup() {
 		locationApiMock = Mock()
-		location = new Location(locationApiMock, API_KEY)
+		location = new Location(locationApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class LocationTest extends AbstractLocationTest {
 		LocationFullResponse locationFullResponseOutput = location.get(UID)
 
 		then:
-		1 * locationApiMock.v1RestLocationGet(UID, API_KEY) >> locationFullResponse
+		1 * locationApiMock.v1RestLocationGet(UID, null) >> locationFullResponse
 		0 * _
 		locationFullResponse == locationFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class LocationTest extends AbstractLocationTest {
 		LocationV2FullResponse locationV2FullResponseOutput = location.getV2(UID)
 
 		then:
-		1 * locationApiMock.v2RestLocationGet(UID, API_KEY) >> locationV2FullResponse
+		1 * locationApiMock.v2RestLocationGet(UID) >> locationV2FullResponse
 		0 * _
 		locationV2FullResponse == locationV2FullResponseOutput
 	}
@@ -55,7 +55,7 @@ class LocationTest extends AbstractLocationTest {
 				SCHOOL, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * locationApiMock.v1RestLocationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_LOCATION, FICTIONAL_LOCATION, RELIGIOUS_LOCATION,
+		1 * locationApiMock.v1RestLocationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, EARTHLY_LOCATION, FICTIONAL_LOCATION, RELIGIOUS_LOCATION,
 				GEOGRAPHICAL_LOCATION, BODY_OF_WATER, COUNTRY, SUBNATIONAL_ENTITY, SETTLEMENT, US_SETTLEMENT, BAJORAN_SETTLEMENT, COLONY, LANDFORM,
 				LANDMARK, ROAD, STRUCTURE, SHIPYARD, BUILDING_INTERIOR, ESTABLISHMENT, MEDICAL_ESTABLISHMENT, DS9_ESTABLISHMENT, SCHOOL, MIRROR,
 				ALTERNATE_REALITY) >> locationBaseResponse
@@ -74,7 +74,7 @@ class LocationTest extends AbstractLocationTest {
 				MEDICAL_ESTABLISHMENT, DS9_ESTABLISHMENT, SCHOOL, RESTAURANT, RESIDENCE, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * locationApiMock.v2RestLocationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_LOCATION, QONOS_LOCATION,
+		1 * locationApiMock.v2RestLocationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, EARTHLY_LOCATION, QONOS_LOCATION,
 				FICTIONAL_LOCATION, MYTHOLOGICAL_LOCATION, RELIGIOUS_LOCATION, GEOGRAPHICAL_LOCATION, BODY_OF_WATER, COUNTRY, SUBNATIONAL_ENTITY,
 				SETTLEMENT, US_SETTLEMENT, BAJORAN_SETTLEMENT, COLONY, LANDFORM, ROAD, STRUCTURE, SHIPYARD, BUILDING_INTERIOR, ESTABLISHMENT,
 				MEDICAL_ESTABLISHMENT, DS9_ESTABLISHMENT, SCHOOL, RESTAURANT, RESIDENCE, MIRROR, ALTERNATE_REALITY) >> locationV2BaseResponse

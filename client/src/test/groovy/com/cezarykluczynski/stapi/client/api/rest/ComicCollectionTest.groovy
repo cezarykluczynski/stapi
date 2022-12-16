@@ -14,7 +14,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 
 	void setup() {
 		comicCollectionApiMock = Mock()
-		comicCollection = new ComicCollection(comicCollectionApiMock, API_KEY)
+		comicCollection = new ComicCollection(comicCollectionApiMock)
 	}
 
 	void "gets single entity"() {
@@ -25,7 +25,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		ComicCollectionFullResponse comicCollectionFullResponseOutput = comicCollection.get(UID)
 
 		then:
-		1 * comicCollectionApiMock.v1RestComicCollectionGet(UID, API_KEY) >> comicCollectionFullResponse
+		1 * comicCollectionApiMock.v1RestComicCollectionGet(UID, null) >> comicCollectionFullResponse
 		0 * _
 		comicCollectionFullResponse == comicCollectionFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		ComicCollectionV2FullResponse comicCollectionV2FullResponseOutput = comicCollection.getV2(UID)
 
 		then:
-		1 * comicCollectionApiMock.v2RestComicCollectionGet(UID, API_KEY) >> comicCollectionV2FullResponse
+		1 * comicCollectionApiMock.v2RestComicCollectionGet(UID) >> comicCollectionV2FullResponse
 		0 * _
 		comicCollectionV2FullResponse == comicCollectionV2FullResponseOutput
 	}
@@ -53,7 +53,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 				PHOTONOVEL)
 
 		then:
-		1 * comicCollectionApiMock.v1RestComicCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicCollectionApiMock.v1RestComicCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL) >> comicCollectionBaseResponse
 		0 * _
 		comicCollectionBaseResponse == comicCollectionBaseResponseOutput

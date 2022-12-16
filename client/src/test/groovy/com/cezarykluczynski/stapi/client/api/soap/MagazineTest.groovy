@@ -11,14 +11,11 @@ class MagazineTest extends Specification {
 
 	private MagazinePortType magazinePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Magazine magazine
 
 	void setup() {
 		magazinePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		magazine = new Magazine(magazinePortTypeMock, apiKeySupplierMock)
+		magazine = new Magazine(magazinePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class MagazineTest extends Specification {
 		MagazineBaseResponse magazineBaseResponseOutput = magazine.search(magazineBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(magazineBaseRequest)
 		1 * magazinePortTypeMock.getMagazineBase(magazineBaseRequest) >> magazineBaseResponse
 		0 * _
 		magazineBaseResponse == magazineBaseResponseOutput
@@ -45,7 +41,6 @@ class MagazineTest extends Specification {
 		MagazineFullResponse magazineFullResponseOutput = magazine.get(magazineFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(magazineFullRequest)
 		1 * magazinePortTypeMock.getMagazineFull(magazineFullRequest) >> magazineFullResponse
 		0 * _
 		magazineFullResponse == magazineFullResponseOutput

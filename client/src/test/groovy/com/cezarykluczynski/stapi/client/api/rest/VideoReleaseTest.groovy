@@ -13,7 +13,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 
 	void setup() {
 		videoReleaseApiMock = Mock()
-		videoRelease = new VideoRelease(videoReleaseApiMock, API_KEY)
+		videoRelease = new VideoRelease(videoReleaseApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 		VideoReleaseFullResponse videoReleaseFullResponseOutput = videoRelease.get(UID)
 
 		then:
-		1 * videoReleaseApiMock.v1RestVideoReleaseGet(UID, API_KEY) >> videoReleaseFullResponse
+		1 * videoReleaseApiMock.v1RestVideoReleaseGet(UID, null) >> videoReleaseFullResponse
 		0 * _
 		videoReleaseFullResponse == videoReleaseFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 				RUN_TIME_FROM, RUN_TIME_TO)
 
 		then:
-		1 * videoReleaseApiMock.v1RestVideoReleaseSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
+		1 * videoReleaseApiMock.v1RestVideoReleaseSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
 				RUN_TIME_TO) >> videoReleaseBaseResponse
 		0 * _
 		videoReleaseBaseResponse == videoReleaseBaseResponseOutput

@@ -11,14 +11,11 @@ class MaterialTest extends Specification {
 
 	private MaterialPortType materialPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Material material
 
 	void setup() {
 		materialPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		material = new Material(materialPortTypeMock, apiKeySupplierMock)
+		material = new Material(materialPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class MaterialTest extends Specification {
 		MaterialBaseResponse materialBaseResponseOutput = material.search(materialBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(materialBaseRequest)
 		1 * materialPortTypeMock.getMaterialBase(materialBaseRequest) >> materialBaseResponse
 		0 * _
 		materialBaseResponse == materialBaseResponseOutput
@@ -45,7 +41,6 @@ class MaterialTest extends Specification {
 		MaterialFullResponse materialFullResponseOutput = material.get(materialFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(materialFullRequest)
 		1 * materialPortTypeMock.getMaterialFull(materialFullRequest) >> materialFullResponse
 		0 * _
 		materialFullResponse == materialFullResponseOutput

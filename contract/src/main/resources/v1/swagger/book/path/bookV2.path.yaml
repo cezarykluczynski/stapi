@@ -6,10 +6,6 @@ get:
       type: string
       required: true
       description: Book unique ID
-    - name: apiKey
-      in: query
-      type: string
-      description: API key
   responses:
     200:
       schema:

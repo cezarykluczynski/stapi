@@ -10,20 +10,17 @@ public class Soundtrack {
 
 	private final SoundtrackPortType soundtrackPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Soundtrack(SoundtrackPortType soundtrackPortType, ApiKeySupplier apiKeySupplier) {
+	public Soundtrack(SoundtrackPortType soundtrackPortType) {
 		this.soundtrackPortType = soundtrackPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public SoundtrackFullResponse get(SoundtrackFullRequest request) {
-		apiKeySupplier.supply(request);
 		return soundtrackPortType.getSoundtrackFull(request);
 	}
 
+	@Deprecated
 	public SoundtrackBaseResponse search(SoundtrackBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return soundtrackPortType.getSoundtrackBase(request);
 	}
 

@@ -11,14 +11,11 @@ class SeriesTest extends Specification {
 
 	private SeriesPortType seriesPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Series series
 
 	void setup() {
 		seriesPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		series = new Series(seriesPortTypeMock, apiKeySupplierMock)
+		series = new Series(seriesPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class SeriesTest extends Specification {
 		SeriesBaseResponse seriesBaseResponseOutput = series.search(seriesBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(seriesBaseRequest)
 		1 * seriesPortTypeMock.getSeriesBase(seriesBaseRequest) >> seriesBaseResponse
 		0 * _
 		seriesBaseResponse == seriesBaseResponseOutput
@@ -45,7 +41,6 @@ class SeriesTest extends Specification {
 		SeriesFullResponse seriesFullResponseOutput = series.get(seriesFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(seriesFullRequest)
 		1 * seriesPortTypeMock.getSeriesFull(seriesFullRequest) >> seriesFullResponse
 		0 * _
 		seriesFullResponse == seriesFullResponseOutput

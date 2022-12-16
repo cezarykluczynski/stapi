@@ -10,20 +10,17 @@ public class BookCollection {
 
 	private final BookCollectionPortType bookCollectionPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public BookCollection(BookCollectionPortType bookCollectionPortType, ApiKeySupplier apiKeySupplier) {
+	public BookCollection(BookCollectionPortType bookCollectionPortType) {
 		this.bookCollectionPortType = bookCollectionPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public BookCollectionFullResponse get(BookCollectionFullRequest request) {
-		apiKeySupplier.supply(request);
 		return bookCollectionPortType.getBookCollectionFull(request);
 	}
 
+	@Deprecated
 	public BookCollectionBaseResponse search(BookCollectionBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return bookCollectionPortType.getBookCollectionBase(request);
 	}
 

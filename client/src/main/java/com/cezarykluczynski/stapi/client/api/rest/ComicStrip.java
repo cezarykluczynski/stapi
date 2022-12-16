@@ -10,20 +10,17 @@ public class ComicStrip {
 
 	private ComicStripApi comicStripApi;
 
-	private String apiKey;
-
-	public ComicStrip(ComicStripApi comicStripApi, String apiKey) {
+	public ComicStrip(ComicStripApi comicStripApi) {
 		this.comicStripApi = comicStripApi;
-		this.apiKey = apiKey;
 	}
 
 	public ComicStripFullResponse get(String uid) throws ApiException {
-		return comicStripApi.v1RestComicStripGet(uid, apiKey);
+		return comicStripApi.v1RestComicStripGet(uid, null);
 	}
 
 	public ComicStripBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Integer yearFrom, Integer yearTo) throws ApiException {
-		return comicStripApi.v1RestComicStripSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+		return comicStripApi.v1RestComicStripSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, yearFrom, yearTo);
 	}
 

@@ -15,7 +15,7 @@ class StaffTest extends AbstractRealWorldPersonTest {
 
 	void setup() {
 		staffApiMock = Mock()
-		staff = new Staff(staffApiMock, API_KEY)
+		staff = new Staff(staffApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class StaffTest extends AbstractRealWorldPersonTest {
 		StaffFullResponse staffFullResponseOutput = staff.get(UID)
 
 		then:
-		1 * staffApiMock.v1RestStaffGet(UID, API_KEY) >> staffFullResponse
+		1 * staffApiMock.v1RestStaffGet(UID, null) >> staffFullResponse
 		0 * _
 		staffFullResponse == staffFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class StaffTest extends AbstractRealWorldPersonTest {
 		StaffV2FullResponse staffV2FullResponseOutput = staff.getV2(UID)
 
 		then:
-		1 * staffApiMock.v2RestStaffGet(UID, API_KEY) >> staffV2FullResponse
+		1 * staffApiMock.v2RestStaffGet(UID) >> staffV2FullResponse
 		0 * _
 		staffV2FullResponse == staffV2FullResponseOutput
 	}
@@ -61,7 +61,7 @@ class StaffTest extends AbstractRealWorldPersonTest {
 				STORY_EDITOR, STUDIO_EXECUTIVE, STUNT_DEPARTMENT, TRANSPORTATION_DEPARTMENT, VIDEO_GAME_PRODUCTION_STAFF, WRITER)
 
 		then:
-		1 * staffApiMock.v1RestStaffSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
+		1 * staffApiMock.v1RestStaffSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ART_DEPARTMENT, ART_DIRECTOR,
 				PRODUCTION_DESIGNER, CAMERA_AND_ELECTRICAL_DEPARTMENT, CINEMATOGRAPHER, CASTING_DEPARTMENT, COSTUME_DEPARTMENT, COSTUME_DESIGNER,
 				DIRECTOR, ASSISTANT_AND_SECOND_UNIT_DIRECTOR, EXHIBIT_AND_ATTRACTION_STAFF, FILM_EDITOR, LINGUIST, LOCATION_STAFF, MAKEUP_STAFF,
@@ -93,7 +93,7 @@ class StaffTest extends AbstractRealWorldPersonTest {
 				VIDEO_GAME_PRODUCTION_STAFF, WRITER)
 
 		then:
-		1 * staffApiMock.v2RestStaffSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
+		1 * staffApiMock.v2RestStaffSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, BIRTH_NAME, GENDER_STRING, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ART_DEPARTMENT, ART_DIRECTOR,
 				PRODUCTION_DESIGNER, CAMERA_AND_ELECTRICAL_DEPARTMENT, CINEMATOGRAPHER, CASTING_DEPARTMENT, COSTUME_DEPARTMENT, COSTUME_DESIGNER,
 				DIRECTOR, ASSISTANT_AND_SECOND_UNIT_DIRECTOR, EXHIBIT_AND_ATTRACTION_STAFF, FILM_EDITOR, FILMATION_PRODUCTION_STAFF, LINGUIST,

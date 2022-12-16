@@ -10,20 +10,18 @@ public class Character {
 
 	private final CharacterApi characterApi;
 
-	private final String apiKey;
 
-	public Character(CharacterApi characterApi, String apiKey) {
+	public Character(CharacterApi characterApi) {
 		this.characterApi = characterApi;
-		this.apiKey = apiKey;
 	}
 
 	public CharacterFullResponse get(String uid) throws ApiException {
-		return characterApi.v1RestCharacterGet(uid, apiKey);
+		return characterApi.v1RestCharacterGet(uid, null);
 	}
 
 	public CharacterBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String gender, Boolean deceased,
 			Boolean hologram, Boolean fictionalCharacter, Boolean mirror, Boolean alternateReality) throws ApiException {
-		return characterApi.v1RestCharacterSearchPost(pageNumber, pageSize, sort, apiKey, name, gender, deceased, hologram, fictionalCharacter,
+		return characterApi.v1RestCharacterSearchPost(pageNumber, pageSize, sort, null, name, gender, deceased, hologram, fictionalCharacter,
 				mirror, alternateReality);
 	}
 

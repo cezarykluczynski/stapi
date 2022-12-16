@@ -10,20 +10,17 @@ public class Technology {
 
 	private final TechnologyPortType technologyPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Technology(TechnologyPortType technologyPortType, ApiKeySupplier apiKeySupplier) {
+	public Technology(TechnologyPortType technologyPortType) {
 		this.technologyPortType = technologyPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public TechnologyFullResponse get(TechnologyFullRequest request) {
-		apiKeySupplier.supply(request);
 		return technologyPortType.getTechnologyFull(request);
 	}
 
+	@Deprecated
 	public TechnologyBaseResponse search(TechnologyBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return technologyPortType.getTechnologyBase(request);
 	}
 

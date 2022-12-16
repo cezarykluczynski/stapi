@@ -10,21 +10,18 @@ public class Literature {
 
 	private final LiteratureApi literatureApi;
 
-	private final String apiKey;
-
-	public Literature(LiteratureApi literatureApi, String apiKey) {
+	public Literature(LiteratureApi literatureApi) {
 		this.literatureApi = literatureApi;
-		this.apiKey = apiKey;
 	}
 
 	public LiteratureFullResponse get(String uid) throws ApiException {
-		return literatureApi.v1RestLiteratureGet(uid, apiKey);
+		return literatureApi.v1RestLiteratureGet(uid, null);
 	}
 
 	public LiteratureBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Boolean earthlyOrigin,
 			Boolean shakespeareanWork, Boolean report, Boolean scientificLiterature, Boolean technicalManual, Boolean religiousLiterature)
 			throws ApiException {
-		return literatureApi.v1RestLiteratureSearchPost(pageNumber, pageSize, sort, apiKey, title, earthlyOrigin, shakespeareanWork, report,
+		return literatureApi.v1RestLiteratureSearchPost(pageNumber, pageSize, sort, null, title, earthlyOrigin, shakespeareanWork, report,
 				scientificLiterature, technicalManual, religiousLiterature);
 	}
 

@@ -12,20 +12,17 @@ public class Movie {
 
 	private final MovieApi movieApi;
 
-	private final String apiKey;
-
-	public Movie(MovieApi movieApi, String apiKey) {
+	public Movie(MovieApi movieApi) {
 		this.movieApi = movieApi;
-		this.apiKey = apiKey;
 	}
 
 	public MovieFullResponse get(String uid) throws ApiException {
-		return movieApi.v1RestMovieGet(uid, apiKey);
+		return movieApi.v1RestMovieGet(uid, null);
 	}
 
 	public MovieBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Float stardateFrom, Float stardateTo,
 			Integer yearFrom, Integer yearTo, LocalDate usReleaseDateFrom, LocalDate usReleaseDateTo) throws ApiException {
-		return movieApi.v1RestMovieSearchPost(pageNumber, pageSize, sort, apiKey, title, stardateFrom, stardateTo, yearFrom, yearTo,
+		return movieApi.v1RestMovieSearchPost(pageNumber, pageSize, sort, null, title, stardateFrom, stardateTo, yearFrom, yearTo,
 				usReleaseDateFrom, usReleaseDateTo);
 	}
 

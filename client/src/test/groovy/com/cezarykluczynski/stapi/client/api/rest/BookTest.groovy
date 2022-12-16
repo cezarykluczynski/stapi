@@ -15,7 +15,7 @@ class BookTest extends AbstractBookTest {
 
 	void setup() {
 		bookApiMock = Mock()
-		book = new Book(bookApiMock, API_KEY)
+		book = new Book(bookApiMock)
 	}
 
 	void "gets single entity"() {
@@ -26,7 +26,7 @@ class BookTest extends AbstractBookTest {
 		BookFullResponse bookFullResponseOutput = book.get(UID)
 
 		then:
-		1 * bookApiMock.v1RestBookGet(UID, API_KEY) >> bookFullResponse
+		1 * bookApiMock.v1RestBookGet(UID, null) >> bookFullResponse
 		0 * _
 		bookFullResponse == bookFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class BookTest extends AbstractBookTest {
 		BookV2FullResponse bookV2FullResponseOutput = book.getV2(UID)
 
 		then:
-		1 * bookApiMock.v2RestBookGet(UID, API_KEY) >> bookV2FullResponse
+		1 * bookApiMock.v2RestBookGet(UID) >> bookV2FullResponse
 		0 * _
 		bookV2FullResponse == bookV2FullResponseOutput
 	}
@@ -55,7 +55,7 @@ class BookTest extends AbstractBookTest {
 				AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO)
 
 		then:
-		1 * bookApiMock.v1RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookApiMock.v1RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
 				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED, AUDIOBOOK_PUBLISHED_YEAR_FROM,
 				AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO) >>
@@ -75,7 +75,7 @@ class BookTest extends AbstractBookTest {
 				AUDIOBOOK_PUBLISHED_YEAR_FROM, AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO)
 
 		then:
-		1 * bookApiMock.v2RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookApiMock.v2RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
 				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, UNAUTHORIZED_PUBLICATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED,
 				AUDIOBOOK_PUBLISHED_YEAR_FROM, AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO) >>

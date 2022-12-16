@@ -10,20 +10,17 @@ public class Food {
 
 	private final FoodPortType foodPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Food(FoodPortType foodPortType, ApiKeySupplier apiKeySupplier) {
+	public Food(FoodPortType foodPortType) {
 		this.foodPortType = foodPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public FoodFullResponse get(FoodFullRequest request) {
-		apiKeySupplier.supply(request);
 		return foodPortType.getFoodFull(request);
 	}
 
+	@Deprecated
 	public FoodBaseResponse search(FoodBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return foodPortType.getFoodBase(request);
 	}
 

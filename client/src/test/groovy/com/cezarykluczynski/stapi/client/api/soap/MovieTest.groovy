@@ -11,14 +11,11 @@ class MovieTest extends Specification {
 
 	private MoviePortType moviePortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Movie movie
 
 	void setup() {
 		moviePortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		movie = new Movie(moviePortTypeMock, apiKeySupplierMock)
+		movie = new Movie(moviePortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class MovieTest extends Specification {
 		MovieBaseResponse movieBaseResponseOutput = movie.search(movieBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(movieBaseRequest)
 		1 * moviePortTypeMock.getMovieBase(movieBaseRequest) >> movieBaseResponse
 		0 * _
 		movieBaseResponse == movieBaseResponseOutput
@@ -45,7 +41,6 @@ class MovieTest extends Specification {
 		MovieFullResponse movieFullResponseOutput = movie.get(movieFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(movieFullRequest)
 		1 * moviePortTypeMock.getMovieFull(movieFullRequest) >> movieFullResponse
 		0 * _
 		movieFullResponse == movieFullResponseOutput

@@ -338,7 +338,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private Weapon weapon;
 
-	public StapiRestClient(String apiUrl, String apiKey) {
+	public StapiRestClient(String apiUrl) {
 		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_URL));
 		createApiClient();
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
@@ -382,47 +382,47 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		videoGameApi = new VideoGameApi(apiClient);
 		videoReleaseApi = new VideoReleaseApi(apiClient);
 		weaponApi = new WeaponApi(apiClient);
-		animal = new Animal(animalApi, apiKey);
-		astronomicalObject = new AstronomicalObject(astronomicalObjectApi, apiKey);
-		book = new Book(bookApi, apiKey);
-		bookCollection = new BookCollection(bookCollectionApi, apiKey);
-		bookSeries = new BookSeries(bookSeriesApi, apiKey);
-		character = new Character(characterApi, apiKey);
-		comicCollection = new ComicCollection(comicCollectionApi, apiKey);
-		comics = new Comics(comicsApi, apiKey);
-		comicSeries = new ComicSeries(comicSeriesApi, apiKey);
-		comicStrip = new ComicStrip(comicStripApi, apiKey);
-		company = new Company(companyApi, apiKey);
-		conflict = new Conflict(conflictApi, apiKey);
+		animal = new Animal(animalApi);
+		astronomicalObject = new AstronomicalObject(astronomicalObjectApi);
+		book = new Book(bookApi);
+		bookCollection = new BookCollection(bookCollectionApi);
+		bookSeries = new BookSeries(bookSeriesApi);
+		character = new Character(characterApi);
+		comicCollection = new ComicCollection(comicCollectionApi);
+		comics = new Comics(comicsApi);
+		comicSeries = new ComicSeries(comicSeriesApi);
+		comicStrip = new ComicStrip(comicStripApi);
+		company = new Company(companyApi);
+		conflict = new Conflict(conflictApi);
 		dataVersion = new DataVersion(dataVersionApi);
-		element = new Element(elementApi, apiKey);
-		episode = new Episode(episodeApi, apiKey);
-		food = new Food(foodApi, apiKey);
-		literature = new Literature(literatureApi, apiKey);
-		location = new Location(locationApi, apiKey);
-		magazine = new Magazine(magazineApi, apiKey);
-		magazineSeries = new MagazineSeries(magazineSeriesApi, apiKey);
-		material = new Material(materialApi, apiKey);
-		medicalCondition = new MedicalCondition(medicalConditionApi, apiKey);
-		movie = new Movie(movieApi, apiKey);
-		occupation = new Occupation(occupationApi, apiKey);
-		organization = new Organization(organizationApi, apiKey);
-		performer = new Performer(performerApi, apiKey);
-		season = new Season(seasonApi, apiKey);
-		series = new Series(seriesApi, apiKey);
-		soundtrack = new Soundtrack(soundtrackApi, apiKey);
-		spacecraft = new Spacecraft(spacecraftApi, apiKey);
-		spacecraftClass = new SpacecraftClass(spacecraftClassApi, apiKey);
-		species = new Species(speciesApi, apiKey);
-		staff = new Staff(staffApi, apiKey);
-		technology = new Technology(technologyApi, apiKey);
-		title = new Title(titleApi, apiKey);
-		tradingCard = new TradingCard(tradingCardApi, apiKey);
-		tradingCardDeck = new TradingCardDeck(tradingCardDeckApi, apiKey);
-		tradingCardSet = new TradingCardSet(tradingCardSetApi, apiKey);
-		videoGame = new VideoGame(videoGameApi, apiKey);
-		videoRelease = new VideoRelease(videoReleaseApi, apiKey);
-		weapon = new Weapon(weaponApi, apiKey);
+		element = new Element(elementApi);
+		episode = new Episode(episodeApi);
+		food = new Food(foodApi);
+		literature = new Literature(literatureApi);
+		location = new Location(locationApi);
+		magazine = new Magazine(magazineApi);
+		magazineSeries = new MagazineSeries(magazineSeriesApi);
+		material = new Material(materialApi);
+		medicalCondition = new MedicalCondition(medicalConditionApi);
+		movie = new Movie(movieApi);
+		occupation = new Occupation(occupationApi);
+		organization = new Organization(organizationApi);
+		performer = new Performer(performerApi);
+		season = new Season(seasonApi);
+		series = new Series(seriesApi);
+		soundtrack = new Soundtrack(soundtrackApi);
+		spacecraft = new Spacecraft(spacecraftApi);
+		spacecraftClass = new SpacecraftClass(spacecraftClassApi);
+		species = new Species(speciesApi);
+		staff = new Staff(staffApi);
+		technology = new Technology(technologyApi);
+		title = new Title(titleApi);
+		tradingCard = new TradingCard(tradingCardApi);
+		tradingCardDeck = new TradingCardDeck(tradingCardDeckApi);
+		tradingCardSet = new TradingCardSet(tradingCardSetApi);
+		videoGame = new VideoGame(videoGameApi);
+		videoRelease = new VideoRelease(videoReleaseApi);
+		weapon = new Weapon(weaponApi);
 	}
 
 	private void createApiClient() {

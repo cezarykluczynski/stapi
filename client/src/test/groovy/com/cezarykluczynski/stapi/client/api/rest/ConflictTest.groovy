@@ -14,7 +14,7 @@ class ConflictTest extends AbstractConflictTest {
 
 	void setup() {
 		conflictApiMock = Mock()
-		conflict = new Conflict(conflictApiMock, API_KEY)
+		conflict = new Conflict(conflictApiMock)
 	}
 
 	void "gets single entity"() {
@@ -25,7 +25,7 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictFullResponse conflictFullResponseOutput = conflict.get(UID)
 
 		then:
-		1 * conflictApiMock.v1RestConflictGet(UID, API_KEY) >> conflictFullResponse
+		1 * conflictApiMock.v1RestConflictGet(UID, null) >> conflictFullResponse
 		0 * _
 		conflictFullResponse == conflictFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictV2FullResponse conflictV2FullResponseOutput = conflict.getV2(UID)
 
 		then:
-		1 * conflictApiMock.v2RestConflictGet(UID, API_KEY) >> conflictV2FullResponse
+		1 * conflictApiMock.v2RestConflictGet(UID) >> conflictV2FullResponse
 		0 * _
 		conflictV2FullResponse == conflictV2FullResponseOutput
 	}
@@ -52,7 +52,7 @@ class ConflictTest extends AbstractConflictTest {
 				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY)
 
 		then:
-		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT, FEDERATION_WAR,
+		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT, FEDERATION_WAR,
 				KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
 		0 * _
 		conflictBaseResponse == conflictBaseResponseOutput

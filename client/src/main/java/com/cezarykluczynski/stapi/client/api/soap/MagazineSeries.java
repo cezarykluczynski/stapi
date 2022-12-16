@@ -10,20 +10,17 @@ public class MagazineSeries {
 
 	private final MagazineSeriesPortType magazineSeriesPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public MagazineSeries(MagazineSeriesPortType magazineSeriesPortType, ApiKeySupplier apiKeySupplier) {
+	public MagazineSeries(MagazineSeriesPortType magazineSeriesPortType) {
 		this.magazineSeriesPortType = magazineSeriesPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public MagazineSeriesFullResponse get(MagazineSeriesFullRequest request) {
-		apiKeySupplier.supply(request);
 		return magazineSeriesPortType.getMagazineSeriesFull(request);
 	}
 
+	@Deprecated
 	public MagazineSeriesBaseResponse search(MagazineSeriesBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return magazineSeriesPortType.getMagazineSeriesBase(request);
 	}
 

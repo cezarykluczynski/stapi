@@ -10,20 +10,17 @@ public class MedicalCondition {
 
 	private final MedicalConditionPortType medicalConditionPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public MedicalCondition(MedicalConditionPortType medicalConditionPortType, ApiKeySupplier apiKeySupplier) {
+	public MedicalCondition(MedicalConditionPortType medicalConditionPortType) {
 		this.medicalConditionPortType = medicalConditionPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public MedicalConditionFullResponse get(MedicalConditionFullRequest request) {
-		apiKeySupplier.supply(request);
 		return medicalConditionPortType.getMedicalConditionFull(request);
 	}
 
+	@Deprecated
 	public MedicalConditionBaseResponse search(MedicalConditionBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return medicalConditionPortType.getMedicalConditionBase(request);
 	}
 

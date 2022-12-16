@@ -11,14 +11,11 @@ class SpacecraftClassTest extends Specification {
 
 	private SpacecraftClassPortType spacecraftClassPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private SpacecraftClass spacecraftClass
 
 	void setup() {
 		spacecraftClassPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		spacecraftClass = new SpacecraftClass(spacecraftClassPortTypeMock, apiKeySupplierMock)
+		spacecraftClass = new SpacecraftClass(spacecraftClassPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class SpacecraftClassTest extends Specification {
 		SpacecraftClassBaseResponse spacecraftClassBaseResponseOutput = spacecraftClass.search(spacecraftClassBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(spacecraftClassBaseRequest)
 		1 * spacecraftClassPortTypeMock.getSpacecraftClassBase(spacecraftClassBaseRequest) >> spacecraftClassBaseResponse
 		0 * _
 		spacecraftClassBaseResponse == spacecraftClassBaseResponseOutput
@@ -45,7 +41,6 @@ class SpacecraftClassTest extends Specification {
 		SpacecraftClassFullResponse spacecraftClassFullResponseOutput = spacecraftClass.get(spacecraftClassFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(spacecraftClassFullRequest)
 		1 * spacecraftClassPortTypeMock.getSpacecraftClassFull(spacecraftClassFullRequest) >> spacecraftClassFullResponse
 		0 * _
 		spacecraftClassFullResponse == spacecraftClassFullResponseOutput

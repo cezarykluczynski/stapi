@@ -10,20 +10,17 @@ public class Movie {
 
 	private final MoviePortType moviePortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Movie(MoviePortType moviePortType, ApiKeySupplier apiKeySupplier) {
+	public Movie(MoviePortType moviePortType) {
 		this.moviePortType = moviePortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public MovieFullResponse get(MovieFullRequest request) {
-		apiKeySupplier.supply(request);
 		return moviePortType.getMovieFull(request);
 	}
 
+	@Deprecated
 	public MovieBaseResponse search(MovieBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return moviePortType.getMovieBase(request);
 	}
 

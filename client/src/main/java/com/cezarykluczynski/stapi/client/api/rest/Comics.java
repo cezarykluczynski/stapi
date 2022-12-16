@@ -10,21 +10,18 @@ public class Comics {
 
 	private final ComicsApi comicsApi;
 
-	private final String apiKey;
-
-	public Comics(ComicsApi comicsApi, String apiKey) {
+	public Comics(ComicsApi comicsApi) {
 		this.comicsApi = comicsApi;
-		this.apiKey = apiKey;
 	}
 
 	public ComicsFullResponse get(String uid) throws ApiException {
-		return comicsApi.v1RestComicsGet(uid, apiKey);
+		return comicsApi.v1RestComicsGet(uid, null);
 	}
 
 	public ComicsBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean photonovel, Boolean adaptation) throws ApiException {
-		return comicsApi.v1RestComicsSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return comicsApi.v1RestComicsSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, photonovel, adaptation);
 	}
 

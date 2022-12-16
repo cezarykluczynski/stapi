@@ -13,7 +13,7 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 
 	void setup() {
 		medicalConditionApiMock = Mock()
-		medicalCondition = new MedicalCondition(medicalConditionApiMock, API_KEY)
+		medicalCondition = new MedicalCondition(medicalConditionApiMock)
 	}
 
 	void "gets single entity"() {
@@ -24,7 +24,7 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 		MedicalConditionFullResponse medicalConditionFullResponseOutput = medicalCondition.get(UID)
 
 		then:
-		1 * medicalConditionApiMock.v1RestMedicalConditionGet(UID, API_KEY) >> medicalConditionFullResponse
+		1 * medicalConditionApiMock.v1RestMedicalConditionGet(UID, null) >> medicalConditionFullResponse
 		0 * _
 		medicalConditionFullResponse == medicalConditionFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 				PSYCHOLOGICAL_CONDITION)
 
 		then:
-		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, PSYCHOLOGICAL_CONDITION) >>
+		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, PSYCHOLOGICAL_CONDITION) >>
 				medicalConditionBaseResponse
 		0 * _
 		medicalConditionBaseResponse == medicalConditionBaseResponseOutput

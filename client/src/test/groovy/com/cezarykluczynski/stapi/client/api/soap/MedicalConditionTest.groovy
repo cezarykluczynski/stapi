@@ -11,14 +11,11 @@ class MedicalConditionTest extends Specification {
 
 	private MedicalConditionPortType medicalConditionPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private MedicalCondition medicalCondition
 
 	void setup() {
 		medicalConditionPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		medicalCondition = new MedicalCondition(medicalConditionPortTypeMock, apiKeySupplierMock)
+		medicalCondition = new MedicalCondition(medicalConditionPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class MedicalConditionTest extends Specification {
 		MedicalConditionBaseResponse medicalConditionBaseResponseOutput = medicalCondition.search(medicalConditionBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(medicalConditionBaseRequest)
 		1 * medicalConditionPortTypeMock.getMedicalConditionBase(medicalConditionBaseRequest) >> medicalConditionBaseResponse
 		0 * _
 		medicalConditionBaseResponse == medicalConditionBaseResponseOutput
@@ -45,7 +41,6 @@ class MedicalConditionTest extends Specification {
 		MedicalConditionFullResponse medicalConditionFullResponseOutput = medicalCondition.get(medicalConditionFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(medicalConditionFullRequest)
 		1 * medicalConditionPortTypeMock.getMedicalConditionFull(medicalConditionFullRequest) >> medicalConditionFullResponse
 		0 * _
 		medicalConditionFullResponse == medicalConditionFullResponseOutput

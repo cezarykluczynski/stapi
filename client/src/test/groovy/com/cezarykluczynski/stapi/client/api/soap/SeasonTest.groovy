@@ -11,14 +11,11 @@ class SeasonTest extends Specification {
 
 	private SeasonPortType seasonPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Season season
 
 	void setup() {
 		seasonPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		season = new Season(seasonPortTypeMock, apiKeySupplierMock)
+		season = new Season(seasonPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class SeasonTest extends Specification {
 		SeasonBaseResponse seasonBaseResponseOutput = season.search(seasonBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(seasonBaseRequest)
 		1 * seasonPortTypeMock.getSeasonBase(seasonBaseRequest) >> seasonBaseResponse
 		0 * _
 		seasonBaseResponse == seasonBaseResponseOutput
@@ -45,7 +41,6 @@ class SeasonTest extends Specification {
 		SeasonFullResponse seasonFullResponseOutput = season.get(seasonFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(seasonFullRequest)
 		1 * seasonPortTypeMock.getSeasonFull(seasonFullRequest) >> seasonFullResponse
 		0 * _
 		seasonFullResponse == seasonFullResponseOutput

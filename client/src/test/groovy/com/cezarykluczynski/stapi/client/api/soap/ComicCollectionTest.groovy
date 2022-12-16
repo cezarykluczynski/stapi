@@ -11,14 +11,11 @@ class ComicCollectionTest extends Specification {
 
 	private ComicCollectionPortType comicCollectionPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private ComicCollection comicCollection
 
 	void setup() {
 		comicCollectionPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		comicCollection = new ComicCollection(comicCollectionPortTypeMock, apiKeySupplierMock)
+		comicCollection = new ComicCollection(comicCollectionPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class ComicCollectionTest extends Specification {
 		ComicCollectionBaseResponse comicCollectionBaseResponseOutput = comicCollection.search(comicCollectionBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(comicCollectionBaseRequest)
 		1 * comicCollectionPortTypeMock.getComicCollectionBase(comicCollectionBaseRequest) >> comicCollectionBaseResponse
 		0 * _
 		comicCollectionBaseResponse == comicCollectionBaseResponseOutput
@@ -45,7 +41,6 @@ class ComicCollectionTest extends Specification {
 		ComicCollectionFullResponse comicCollectionFullResponseOutput = comicCollection.get(comicCollectionFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(comicCollectionFullRequest)
 		1 * comicCollectionPortTypeMock.getComicCollectionFull(comicCollectionFullRequest) >> comicCollectionFullResponse
 		0 * _
 		comicCollectionFullResponse == comicCollectionFullResponseOutput

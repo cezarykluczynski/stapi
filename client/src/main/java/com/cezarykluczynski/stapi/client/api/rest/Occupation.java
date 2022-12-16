@@ -12,26 +12,23 @@ public class Occupation {
 
 	private final OccupationApi occupationApi;
 
-	private final String apiKey;
-
-	public Occupation(OccupationApi occupationApi, String apiKey) {
+	public Occupation(OccupationApi occupationApi) {
 		this.occupationApi = occupationApi;
-		this.apiKey = apiKey;
 	}
 
 	@Deprecated
 	public OccupationFullResponse get(String uid) throws ApiException {
-		return occupationApi.v1RestOccupationGet(uid, apiKey);
+		return occupationApi.v1RestOccupationGet(uid, null);
 	}
 
 	public OccupationV2FullResponse getV2(String uid) throws ApiException {
-		return occupationApi.v2RestOccupationGet(uid, apiKey);
+		return occupationApi.v2RestOccupationGet(uid);
 	}
 
 	@Deprecated
 	public OccupationBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean legalOccupation,
 			Boolean medicalOccupation, Boolean scientificOccupation) throws ApiException {
-		return occupationApi.v1RestOccupationSearchPost(pageNumber, pageSize, sort, apiKey, name, legalOccupation, medicalOccupation,
+		return occupationApi.v1RestOccupationSearchPost(pageNumber, pageSize, sort, null, name, legalOccupation, medicalOccupation,
 				scientificOccupation);
 	}
 
@@ -39,7 +36,7 @@ public class Occupation {
 			Boolean communicationOccupation, Boolean economicOccupation, Boolean educationOccupation, Boolean entertainmentOccupation,
 			Boolean illegalOccupation, Boolean legalOccupation, Boolean medicalOccupation, Boolean scientificOccupation, Boolean sportsOccupation,
 			Boolean victualOccupation) throws ApiException {
-		return occupationApi.v2RestOccupationSearchPost(pageNumber, pageSize, sort, apiKey, name, artsOccupation, communicationOccupation,
+		return occupationApi.v2RestOccupationSearchPost(pageNumber, pageSize, sort, name, artsOccupation, communicationOccupation,
 				economicOccupation, educationOccupation, entertainmentOccupation, illegalOccupation, legalOccupation, medicalOccupation,
 				scientificOccupation, sportsOccupation, victualOccupation);
 	}

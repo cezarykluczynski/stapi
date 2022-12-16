@@ -11,14 +11,11 @@ class ElementTest extends Specification {
 
 	private ElementPortType elementPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Element element
 
 	void setup() {
 		elementPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		element = new Element(elementPortTypeMock, apiKeySupplierMock)
+		element = new Element(elementPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class ElementTest extends Specification {
 		ElementBaseResponse elementBaseResponseOutput = element.search(elementBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(elementBaseRequest)
 		1 * elementPortTypeMock.getElementBase(elementBaseRequest) >> elementBaseResponse
 		0 * _
 		elementBaseResponse == elementBaseResponseOutput
@@ -45,7 +41,6 @@ class ElementTest extends Specification {
 		ElementFullResponse elementFullResponseOutput = element.get(elementFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(elementFullRequest)
 		1 * elementPortTypeMock.getElementFull(elementFullRequest) >> elementFullResponse
 		0 * _
 		elementFullResponse == elementFullResponseOutput

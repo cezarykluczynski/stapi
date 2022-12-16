@@ -10,20 +10,17 @@ public class BookSeries {
 
 	private final BookSeriesPortType bookSeriesPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public BookSeries(BookSeriesPortType bookSeriesPortType, ApiKeySupplier apiKeySupplier) {
+	public BookSeries(BookSeriesPortType bookSeriesPortType) {
 		this.bookSeriesPortType = bookSeriesPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public BookSeriesFullResponse get(BookSeriesFullRequest request) {
-		apiKeySupplier.supply(request);
 		return bookSeriesPortType.getBookSeriesFull(request);
 	}
 
+	@Deprecated
 	public BookSeriesBaseResponse search(BookSeriesBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return bookSeriesPortType.getBookSeriesBase(request);
 	}
 

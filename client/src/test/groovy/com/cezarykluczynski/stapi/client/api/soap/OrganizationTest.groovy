@@ -11,14 +11,11 @@ class OrganizationTest extends Specification {
 
 	private OrganizationPortType organizationPortTypeMock
 
-	private ApiKeySupplier apiKeySupplierMock
-
 	private Organization organization
 
 	void setup() {
 		organizationPortTypeMock = Mock()
-		apiKeySupplierMock = Mock()
-		organization = new Organization(organizationPortTypeMock, apiKeySupplierMock)
+		organization = new Organization(organizationPortTypeMock)
 	}
 
 	void "gets single entity"() {
@@ -30,7 +27,6 @@ class OrganizationTest extends Specification {
 		OrganizationBaseResponse organizationBaseResponseOutput = organization.search(organizationBaseRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(organizationBaseRequest)
 		1 * organizationPortTypeMock.getOrganizationBase(organizationBaseRequest) >> organizationBaseResponse
 		0 * _
 		organizationBaseResponse == organizationBaseResponseOutput
@@ -45,7 +41,6 @@ class OrganizationTest extends Specification {
 		OrganizationFullResponse organizationFullResponseOutput = organization.get(organizationFullRequest)
 
 		then:
-		1 * apiKeySupplierMock.supply(organizationFullRequest)
 		1 * organizationPortTypeMock.getOrganizationFull(organizationFullRequest) >> organizationFullResponse
 		0 * _
 		organizationFullResponse == organizationFullResponseOutput

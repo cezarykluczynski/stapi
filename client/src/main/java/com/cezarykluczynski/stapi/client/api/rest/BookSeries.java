@@ -10,21 +10,18 @@ public class BookSeries {
 
 	private final BookSeriesApi bookSeriesApi;
 
-	private final String apiKey;
-
-	public BookSeries(BookSeriesApi bookSeriesApi, String apiKey) {
+	public BookSeries(BookSeriesApi bookSeriesApi) {
 		this.bookSeriesApi = bookSeriesApi;
-		this.apiKey = apiKey;
 	}
 
 	public BookSeriesFullResponse get(String uid) throws ApiException {
-		return bookSeriesApi.v1RestBookSeriesGet(uid, apiKey);
+		return bookSeriesApi.v1RestBookSeriesGet(uid, null);
 	}
 
 	public BookSeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfBooksFrom, Integer numberOfBooksTo, Integer yearFrom, Integer yearTo, Boolean miniseries,
 			@SuppressWarnings("ParameterName") Boolean eBookSeries) throws ApiException {
-		return bookSeriesApi.v1RestBookSeriesSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+		return bookSeriesApi.v1RestBookSeriesSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo,
 				numberOfBooksFrom, numberOfBooksTo, yearFrom, yearTo, miniseries, eBookSeries);
 	}
 

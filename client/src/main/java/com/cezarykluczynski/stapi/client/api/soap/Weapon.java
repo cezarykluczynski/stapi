@@ -10,20 +10,17 @@ public class Weapon {
 
 	private final WeaponPortType weaponPortType;
 
-	private final ApiKeySupplier apiKeySupplier;
-
-	public Weapon(WeaponPortType weaponPortType, ApiKeySupplier apiKeySupplier) {
+	public Weapon(WeaponPortType weaponPortType) {
 		this.weaponPortType = weaponPortType;
-		this.apiKeySupplier = apiKeySupplier;
 	}
 
+	@Deprecated
 	public WeaponFullResponse get(WeaponFullRequest request) {
-		apiKeySupplier.supply(request);
 		return weaponPortType.getWeaponFull(request);
 	}
 
+	@Deprecated
 	public WeaponBaseResponse search(WeaponBaseRequest request) {
-		apiKeySupplier.supply(request);
 		return weaponPortType.getWeaponBase(request);
 	}
 
