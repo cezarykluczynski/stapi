@@ -4,11 +4,15 @@ import com.cezarykluczynski.stapi.etl.template.book.dto.BookCollectionTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.processor.BookTemplatePageProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BookCollectionTemplatePageProcessor implements ItemProcessor<Page, BookCollectionTemplate> {
+
+	private final BookCollectionPageFilter bookCollectionPageFilter;
 
 	private final BookTemplatePageProcessor bookTemplatePageProcessor;
 
@@ -16,16 +20,13 @@ public class BookCollectionTemplatePageProcessor implements ItemProcessor<Page, 
 
 	private final BookCollectionTemplateWikitextBooksProcessor bookCollectionTemplateWikitextBooksProcessor;
 
-	public BookCollectionTemplatePageProcessor(BookTemplatePageProcessor bookTemplatePageProcessor,
-			BookTemplateToBookCollectionTemplateProcessor bookTemplateToComicCollectionTemplateProcessor,
-			BookCollectionTemplateWikitextBooksProcessor bookCollectionTemplateWikitextBooksProcessor) {
-		this.bookTemplatePageProcessor = bookTemplatePageProcessor;
-		this.bookTemplateToComicCollectionTemplateProcessor = bookTemplateToComicCollectionTemplateProcessor;
-		this.bookCollectionTemplateWikitextBooksProcessor = bookCollectionTemplateWikitextBooksProcessor;
-	}
 
 	@Override
 	public BookCollectionTemplate process(Page item) throws Exception {
+		if (bookCollectionPageFilter.shouldBeFilteredOut(item)) {
+			return null;
+		}
+
 		BookTemplate bookTemplate = bookTemplatePageProcessor.process(item);
 
 		if (bookTemplate == null) {

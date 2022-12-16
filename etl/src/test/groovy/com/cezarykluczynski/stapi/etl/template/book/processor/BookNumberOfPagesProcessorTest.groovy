@@ -23,6 +23,8 @@ class BookNumberOfPagesProcessorTest extends Specification {
 		' '                                        | null
 		'\t'                                       | null
 		'640'                                      | 640
+		'1,120'                                    | 1120
+		'11,300'                                   | 11300
 		'12'                                       | 12
 		'12 (1st edition)<br/>14 (Second Edition)' | null
 	}

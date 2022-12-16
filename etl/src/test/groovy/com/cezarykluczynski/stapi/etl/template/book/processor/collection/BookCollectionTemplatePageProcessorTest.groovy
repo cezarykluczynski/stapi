@@ -11,6 +11,8 @@ import spock.lang.Specification
 
 class BookCollectionTemplatePageProcessorTest extends Specification {
 
+	private BookCollectionPageFilter bookCollectionPageFilterMock
+
 	private BookTemplatePageProcessor bookTemplatePageProcessorMock
 
 	private BookTemplateToBookCollectionTemplateProcessor bookTemplateToBookCollectionTemplateProcessorMock
@@ -20,11 +22,25 @@ class BookCollectionTemplatePageProcessorTest extends Specification {
 	private BookCollectionTemplatePageProcessor bookCollectionTemplatePageProcessor
 
 	void setup() {
+		bookCollectionPageFilterMock = Mock()
 		bookTemplatePageProcessorMock = Mock()
 		bookTemplateToBookCollectionTemplateProcessorMock = Mock()
 		bookCollectionTemplateWikitextBooksProcessorMock = Mock()
-		bookCollectionTemplatePageProcessor = new BookCollectionTemplatePageProcessor(bookTemplatePageProcessorMock,
+		bookCollectionTemplatePageProcessor = new BookCollectionTemplatePageProcessor(bookCollectionPageFilterMock, bookTemplatePageProcessorMock,
 				bookTemplateToBookCollectionTemplateProcessorMock, bookCollectionTemplateWikitextBooksProcessorMock)
+	}
+
+	void "returns null when BookCollectionPageFilter returns true"() {
+		given:
+		Page page = new Page()
+
+		when:
+		BookCollectionTemplate bookCollectionTemplate = bookCollectionTemplatePageProcessor.process(page)
+
+		then:
+		1 * bookCollectionPageFilterMock.shouldBeFilteredOut(page) >> true
+		0 * _
+		bookCollectionTemplate == null
 	}
 
 	void "returns null when BookTemplatePageProcessor returns null"() {
@@ -35,6 +51,7 @@ class BookCollectionTemplatePageProcessorTest extends Specification {
 		BookCollectionTemplate bookCollectionTemplate = bookCollectionTemplatePageProcessor.process(page)
 
 		then:
+		1 * bookCollectionPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * bookTemplatePageProcessorMock.process(page) >> null
 		0 * _
 		bookCollectionTemplate == null
@@ -54,6 +71,7 @@ class BookCollectionTemplatePageProcessorTest extends Specification {
 		BookCollectionTemplate bookCollectionTemplateOutput = bookCollectionTemplatePageProcessor.process(page)
 
 		then:
+		1 * bookCollectionPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * bookTemplatePageProcessorMock.process(page) >> bookTemplate
 		1 * bookTemplateToBookCollectionTemplateProcessorMock.process(bookTemplate) >> bookCollectionTemplate
 		1 * bookCollectionTemplateWikitextBooksProcessorMock.process(page) >> Sets.newHashSet(book1, book2)

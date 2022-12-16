@@ -24,7 +24,7 @@ import javax.persistence.SequenceGenerator;
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LiteratureRepository.class, singularName = "literature",
-		pluralName = "literature")
+		pluralName = "literature pieces")
 public class Literature extends PageAwareEntity implements PageAware {
 
 	@Id

@@ -9,7 +9,7 @@
 				</div>
 				<div class="col-md-5">
 					<select class="form-control" [disabled]="isDisabled()" [(ngModel)]="symbol" name="symbol" *ngIf="loaded">
-						<option *ngFor="let option of getOptions()" [ngValue]="option.symbol">{{option.name}}</option>
+						<option *ngFor="let option of getOptions()" [ngValue]="option.symbol">{{option.pluralName}}</option>
 					</select>
 				</div>
 				<div class="col-md-2">
