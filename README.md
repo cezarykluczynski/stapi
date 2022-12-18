@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg)](https://codecov.io/gh/cezarykluczynski/stapi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.cezarykluczynski.stapi/stapi-client/badge.svg)](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
-![Docker Pulls](https://img.shields.io/docker/pulls/cezarykluczynski/stapi?color=%23%2300D100)
+[![Docker Pulls](https://img.shields.io/docker/pulls/cezarykluczynski/stapi?color=%23%2300D100)](https://hub.docker.com/r/cezarykluczynski/stapi)
 
 ## About
 STAPI is a first public [Star Trek API](http://stapi.co), accessible via REST.
