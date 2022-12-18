@@ -282,7 +282,7 @@ uploadArchives {
 			pom.project {
 				name 'STAPI Client'
 				description 'Official client library for STAPI, a Star Trek API'
-				version '0.0.14-SNAPSHOT'
+				version '0.1.0'
 				packaging 'jar'
 				artifactId 'stapi-client'
 				groupId 'com.cezarykluczynski.stapi'
@@ -337,7 +337,7 @@ uploadArchives {
 		}
 	}
 }
-// TODO: uncomment and make it configurable to sign client
-//signing {
-//	sign configurations.archives
-//}
+
+signing {
+	sign configurations.archives
+}
