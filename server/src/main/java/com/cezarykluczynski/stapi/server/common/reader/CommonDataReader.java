@@ -62,7 +62,7 @@ public class CommonDataReader {
 	}
 
 	public Response tosFormZip() {
-		return tosAttachmentProvider.provide("form.zip");
+		return tosAttachmentProvider.provide("form.docx");
 	}
 
 	public DataVersionDTO dataVersion() {

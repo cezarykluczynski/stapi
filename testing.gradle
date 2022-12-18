@@ -3,12 +3,6 @@ task codeCoverageReport(type: JacocoReport) {
 
 	subprojects.each {
 		sourceSets it.sourceSets.main
-
-		afterEvaluate {
-			classDirectories = files(classDirectories.files.collect {
-				fileTree(dir: it, exclude: ['**/form.zip'])
-			})
-		}
 	}
 
 	reports {

@@ -124,7 +124,7 @@ class CommonDataReaderTest extends Specification {
 		Response responseOutput = commonDataReader.tosFormZip()
 
 		then:
-		1 * tosAttachmentProviderMock.provide('form.zip') >> response
+		1 * tosAttachmentProviderMock.provide('form.docx') >> response
 		0 * _
 		responseOutput == response
 	}

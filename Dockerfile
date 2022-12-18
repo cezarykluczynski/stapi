@@ -7,6 +7,6 @@ ENV STAPI_DATA_VERSION $STAPI_DATA_VERSION
 COPY server/build/libs/stapi.war app.war
 COPY data/postgres.sql /docker-entrypoint-initdb.d/
 COPY contract/ /contract/
-COPY server/src/main/resources/form.zip /
+COPY server/src/main/resources/form.docx /
 COPY docker/startup.sh /startup.sh
 ENTRYPOINT ["./startup.sh"]
