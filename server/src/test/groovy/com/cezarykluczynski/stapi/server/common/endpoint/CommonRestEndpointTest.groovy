@@ -107,6 +107,19 @@ class CommonRestEndpointTest extends Specification {
 		responseOutput == response
 	}
 
+	void "gets zipped TOS form"() {
+		given:
+		Response response = Mock()
+
+		when:
+		Response responseOutput = commonRestEndpoint.tosFormZip()
+
+		then:
+		1 * commonDataReaderMock.tosFormZip() >> response
+		0 * _
+		responseOutput == response
+	}
+
 	void "gets data version"() {
 		given:
 		DataVersionDTO dataVersionDTO = Mock()

@@ -77,6 +77,14 @@ public class CommonRestEndpoint {
 	}
 
 	@GET
+	@Path("download/zip/tosForm")
+	@ResponseBody
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public Response tosFormZip() {
+		return commonDataReader.tosFormZip();
+	}
+
+	@GET
 	@Path("dataVersion")
 	public DataVersionDTO dataVersion() {
 		return commonDataReader.dataVersion();

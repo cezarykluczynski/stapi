@@ -3,6 +3,12 @@ task codeCoverageReport(type: JacocoReport) {
 
 	subprojects.each {
 		sourceSets it.sourceSets.main
+
+		afterEvaluate {
+			classDirectories = files(classDirectories.files.collect {
+				fileTree(dir: it, exclude: ['**/form.zip'])
+			})
+		}
 	}
 
 	reports {
@@ -38,7 +44,7 @@ subprojects {
 	}
 
 	jacoco {
-		toolVersion = "0.7.7.201606060606"
+		toolVersion = "0.8.8"
 		reportsDir = file("$buildDir/reports/jacoco")
 	}
 }

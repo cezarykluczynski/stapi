@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.common.documentation.service;
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.MediaType;
@@ -50,6 +51,19 @@ public class DocumentationProvider {
 		return createFromDirectoryOrRead(soapContractsZip, documentationDirectoryProvider.getWsdlDirectory(), WSDL_ATTACHMENT_NAME);
 	}
 
+	public Response provideFile(String path, String name) {
+		File file = new File(path);
+		return toResponse(file, name);
+	}
+
+	public Response provideFile(ClassPathResource resource, String name) {
+		try {
+			return toResponse(resource.getInputStream(), name);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	private Response createFromDirectoryOrRead(File zip, String directory, String attachmentName) {
 		if (!zip.exists()) {
 			synchronized (this) {
@@ -57,8 +71,12 @@ public class DocumentationProvider {
 			}
 		}
 
-		return Response.ok(zip, MediaType.APPLICATION_OCTET_STREAM)
-				.header("Content-Disposition", "attachment; filename=\"" + attachmentName + "\"")
+		return toResponse(zip, attachmentName);
+	}
+
+	private Response toResponse(Object entity, String fileName) {
+		return Response.ok(entity, MediaType.APPLICATION_OCTET_STREAM)
+				.header("Content-Disposition", "attachment; filename=\"" + fileName + "\"")
 				.header("Connection", "Close")
 				.build();
 	}

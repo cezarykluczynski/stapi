@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.common.reader
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
 import com.cezarykluczynski.stapi.server.common.dataversion.CommonDataVersionProvider
 import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider
+import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachmentProvider
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
@@ -22,6 +23,8 @@ class CommonDataReaderTest extends Specification {
 
 	private CommonDataVersionProvider commonDataVersionProviderMock
 
+	private TosAttachmentProvider tosAttachmentProviderMock
+
 	private CommonDataReader commonDataReader
 
 	void setup() {
@@ -30,8 +33,9 @@ class CommonDataReaderTest extends Specification {
 		statisticsReaderMock = Mock()
 		documentationProviderMock = Mock()
 		commonDataVersionProviderMock = Mock()
+		tosAttachmentProviderMock = Mock()
 		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock, statisticsReaderMock,
-				documentationProviderMock, commonDataVersionProviderMock)
+				documentationProviderMock, commonDataVersionProviderMock, tosAttachmentProviderMock)
 	}
 
 	void "gets entities statistics from CommonEntitiesStatisticsReader"() {
@@ -108,6 +112,19 @@ class CommonDataReaderTest extends Specification {
 
 		then:
 		1 * documentationProviderMock.provideSoapContractsZip() >> response
+		0 * _
+		responseOutput == response
+	}
+
+	void "gets zipped SOAP TOS form from DocumentationProvider"() {
+		given:
+		Response response = Mock()
+
+		when:
+		Response responseOutput = commonDataReader.tosFormZip()
+
+		then:
+		1 * tosAttachmentProviderMock.provide('form.zip') >> response
 		0 * _
 		responseOutput == response
 	}

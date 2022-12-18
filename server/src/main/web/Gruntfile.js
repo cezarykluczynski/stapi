@@ -51,21 +51,6 @@ module.exports = function(grunt) {
 						dest: '../resources/build'
 					},
 					{
-						expand: false,
-						src: '../web/src/assets/form.docx',
-						dest: '../resources/build/form.docx',
-					},
-					{
-						expand: false,
-						src: '../web/src/assets/form.docx',
-						dest: '../../../build/resources/main/build/form.docx',
-					},
-					{
-						expand: false,
-						src: '../web/src/assets/form.docx',
-						dest: '../../../out/production/resources/build/form.docx',
-					},
-					{
 						expand: true,
 						src: '**',
 						cwd: 'dist',

@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.common.documentation.service
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import org.springframework.core.io.ClassPathResource
 import spock.lang.Specification
 
 import javax.ws.rs.core.Response
@@ -11,6 +12,7 @@ class DocumentationProviderTest extends Specification {
 	private static final String SWAGGER_DIRECTORY = 'SWAGGER_DIRECTORY'
 	private static final String WSDL_DIRECTORY = 'WSDL_DIRECTORY'
 	private static final String TEMPORARY_DIRECTORY = 'TEMPORARY_DIRECTORY'
+	private static final String APPLIATION_TEST_PROPERTIES = 'application-test.properties'
 
 	private DocumentationReader documentationReaderMock
 
@@ -74,6 +76,35 @@ class DocumentationProviderTest extends Specification {
 		1 * documentationDirectoryProviderMock.temporaryDirectory >> TEMPORARY_DIRECTORY
 		1 * documentationDirectoryProviderMock.wsdlDirectory >> WSDL_DIRECTORY
 		1 * documentationZipperMock.zipDirectoryToFile(WSDL_DIRECTORY, _ as File)
+		0 * _
+		response.status == Response.Status.OK.statusCode
+		response.mediaType.type == 'application'
+		response.mediaType.subtype == 'octet-stream'
+	}
+
+	void "provides zipped file using path"() {
+		given:
+		ClassPathResource classPathResource = new ClassPathResource(APPLIATION_TEST_PROPERTIES)
+		String filename = classPathResource.filename
+
+		when:
+		Response response = documentationProvider.provideFile(filename, APPLIATION_TEST_PROPERTIES)
+
+		then:
+		0 * _
+		response.status == Response.Status.OK.statusCode
+		response.mediaType.type == 'application'
+		response.mediaType.subtype == 'octet-stream'
+	}
+
+	void "provides zipped file using classpath resource"() {
+		given:
+		ClassPathResource classPathResource = new ClassPathResource(APPLIATION_TEST_PROPERTIES)
+
+		when:
+		Response response = documentationProvider.provideFile(classPathResource, APPLIATION_TEST_PROPERTIES)
+
+		then:
 		0 * _
 		response.status == Response.Status.OK.statusCode
 		response.mediaType.type == 'application'

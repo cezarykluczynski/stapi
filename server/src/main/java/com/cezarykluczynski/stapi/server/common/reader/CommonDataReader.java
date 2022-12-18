@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.common.reader;
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
 import com.cezarykluczynski.stapi.server.common.dataversion.CommonDataVersionProvider;
 import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider;
+import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachmentProvider;
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
@@ -23,13 +24,17 @@ public class CommonDataReader {
 
 	private final CommonDataVersionProvider commonDataVersionProvider;
 
+	private final TosAttachmentProvider tosAttachmentProvider;
+
 	public CommonDataReader(CommonEntitiesStatisticsReader commonEntitiesStatisticsReader, CommonEntitiesDetailsReader commonEntitiesDetailsReader,
-			StatisticsReader statisticsReader, DocumentationProvider documentationProvider, CommonDataVersionProvider commonDataVersionProvider) {
+			StatisticsReader statisticsReader, DocumentationProvider documentationProvider, CommonDataVersionProvider commonDataVersionProvider,
+			TosAttachmentProvider tosAttachmentProvider) {
 		this.commonEntitiesStatisticsReader = commonEntitiesStatisticsReader;
 		this.commonEntitiesDetailsReader = commonEntitiesDetailsReader;
 		this.statisticsReader = statisticsReader;
 		this.documentationProvider = documentationProvider;
 		this.commonDataVersionProvider = commonDataVersionProvider;
+		this.tosAttachmentProvider = tosAttachmentProvider;
 	}
 
 	public RestEndpointStatisticsDTO entitiesStatistics() {
@@ -54,6 +59,10 @@ public class CommonDataReader {
 
 	public Response restSpecsZip() {
 		return documentationProvider.provideRestSpecsZip();
+	}
+
+	public Response tosFormZip() {
+		return tosAttachmentProvider.provide("form.zip");
 	}
 
 	public DataVersionDTO dataVersion() {

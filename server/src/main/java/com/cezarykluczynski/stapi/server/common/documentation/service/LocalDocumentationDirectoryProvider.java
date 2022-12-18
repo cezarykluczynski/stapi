@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile(SpringProfile.WAR_NOT)
+@Profile(SpringProfile.DOCKER_NOT)
 public class LocalDocumentationDirectoryProvider implements DocumentationDirectoryProvider {
 
 	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/v1/swagger";
