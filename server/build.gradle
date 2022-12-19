@@ -53,7 +53,6 @@ configurations.compile.exclude group: 'io.swagger'
 
 task copyDocs(type: CopyDocs) << {}
 task copyResources(type: CopyResources) << {}
-task addWarProfile(type: AddWarProfile) << {}
 task dockerize(type: Dockerize) << {}
 task npmBuild(type: NpmRunBuild) << {}
 
@@ -125,48 +124,6 @@ class CopyResources extends DefaultTask {
 
 }
 
-class AddWarProfile extends DefaultTask {
-
-	private static final String NEW_LINE_SEPARATOR = "\r\n"
-	private static final String PROFILES_PREFIX = "spring.profiles.active="
-	private static final String WAR = "war"
-
-	@TaskAction
-	def addProfile() {
-		File sourceWar = new File('./server/build/libs/stapi.war')
-		File tempWar = new File('./server/build/libs/stapi-tmp.war')
-
-		if (!sourceWar.exists()) {
-			throw new RuntimeException("No source war!")
-		}
-
-		String applicationPropertiesWarLocation = 'WEB-INF/classes/application.properties'
-		byte[] applicationProperties = ZipUtil.unpackEntry(sourceWar, applicationPropertiesWarLocation)
-		byte[] applicationPropertiesWithChangedProfile = replace(applicationProperties)
-		ZipUtil.replaceEntry(sourceWar, applicationPropertiesWarLocation, applicationPropertiesWithChangedProfile, tempWar)
-		FileUtils.forceDelete(sourceWar)
-		FileUtils.moveFile(tempWar, sourceWar)
-	}
-
-	byte[] replace(byte[] applicationProperties) {
-		String applicationPropertiesString = new String(applicationProperties)
-		List<String> lines = applicationPropertiesString.split(NEW_LINE_SEPARATOR).toList()
-		List<String> newLines = lines.stream()
-				.map({line ->
-					if (line.startsWith(PROFILES_PREFIX) && !line.contains("," + WAR) && !line.contains( WAR + ",")) {
-						logger.info("Adding war profile")
-						return line + ",war"
-					} else {
-						logger.info("Not adding war profile")
-						return line
-					}
-				})
-				.collect(Collectors.toList())
-		return StringUtils.join(newLines, NEW_LINE_SEPARATOR).getBytes()
-	}
-
-}
-
 class Dockerize extends DefaultTask {
 
 	private String version;
@@ -184,7 +141,6 @@ class Dockerize extends DefaultTask {
 	@TaskAction
 	def dockerize() {
 		String dataFileUrl = "https://s3.us-east-2.amazonaws.com/static.stapi/db_dumps/${this.version}/postgres.sql"
-		String path = new File(".").absolutePath
 		String localDirPath = "data/"
 		new File(localDirPath).mkdir()
 		String localPath = "data/postgres.sql"
@@ -223,6 +179,3 @@ war {
 	dependsOn(copyResources)
 }
 
-war.doLast {
-	tasks.addWarProfile.execute()
-}
