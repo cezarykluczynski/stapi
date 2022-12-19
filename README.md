@@ -1,5 +1,5 @@
 [![Build Status](https://semaphoreci.com/api/v1/cezarykluczynski/stapi/branches/master/badge.svg)](https://semaphoreci.com/cezarykluczynski/stapi)
-[![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg)](https://codecov.io/gh/cezarykluczynski/stapi)
+[![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg?token=QjxVvtnLbW)](https://codecov.io/gh/cezarykluczynski/stapi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.cezarykluczynski.stapi/stapi-client/badge.svg)](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
 [![Docker Pulls](https://img.shields.io/docker/pulls/cezarykluczynski/stapi?color=%23%2300D100)](https://hub.docker.com/r/cezarykluczynski/stapi)
@@ -21,10 +21,14 @@ STAPI can be accessed freely and without the need of API keys.
 
 [API documentation](http://stapi.co/api-documentation) offers detailed model description.
 
-[Clients](http://stapi.co/clients) are available in several languages.
-
 Swagger specs can be downloaded from [API documentation](http://stapi.co/api-documentation),
 and clients for other languages can be generated using [Swagger Codegen](https://swagger.io/tools/swagger-codegen/).
+
+## Clients
+Available clients are:
+* [Java client](https://github.com/cezarykluczynski/stapi/wiki/Java-client) available in [Maven Central](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
+* [Python client](https://github.com/mklucz/stapi-python) available in [pip](https://pypi.org/project/stapi/)
+* [Ruby client](https://github.com/jjuliano/tricorder) available in [RubyGems](https://rubygems.org/gems/tricorder/versions/0.1.0)
 
 ## Contributing
 
