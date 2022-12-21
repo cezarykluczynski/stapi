@@ -286,7 +286,7 @@ uploadArchives {
 				packaging 'jar'
 				artifactId 'stapi-client'
 				groupId 'com.cezarykluczynski.stapi'
-				url 'http://stapi.co/'
+				url 'https://stapi.co/'
 
 				scm {
 					connection 'https://github.com/cezarykluczynski/stapi.git'

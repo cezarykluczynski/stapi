@@ -339,7 +339,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private Weapon weapon;
 
 	public StapiRestClient(String apiUrl) {
-		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_URL));
+		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_HTTPS_URL));
 		createApiClient();
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
 		animalApi = new AnimalApi(apiClient);
@@ -428,7 +428,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private void createApiClient() {
 		apiClient = new ApiClient();
 		if (apiUrl != null) {
-			apiClient.setBasePath(changeBaseUrl(apiUrl, apiClient.getBasePath()));
+			apiClient.setBasePath(changeBaseHttpsUrl(apiUrl, apiClient.getBasePath()));
 		}
 		apiClient.setConnectTimeout(10000);
 	}

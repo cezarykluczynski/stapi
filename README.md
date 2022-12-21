@@ -5,23 +5,21 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/cezarykluczynski/stapi?color=%23%2300D100)](https://hub.docker.com/r/cezarykluczynski/stapi)
 
 ## About
-STAPI is a first public [Star Trek API](http://stapi.co), accessible via REST.
+STAPI is a first public [Star Trek API](https://stapi.co), accessible via REST.
 
-It was inspired by [Star Wars API](https://github.com/phalt/swapi) and [Pokéapi](https://github.com/PokeAPI/pokeapi).
-
-Started as a research project, it turned into fully working website in 2017. More about the development history can be found [here](http://stapi.co/about).
+Started as a research project, it turned into a fully working website in 2017. More about the development history can be found [here](https://stapi.co/about).
 
 ## Connecting
 
 STAPI can be accessed freely and without the need of API keys.
 
-[API Browser](http://stapi.co/api-browser) offers a peek into what data STAPI serves.
+[API Browser](https://stapi.co/api-browser) offers a peek into what data STAPI serves.
 
-[API overview](http://stapi.co/api-overview) describes key API concepts.
+[API overview](https://stapi.co/api-overview) describes key API concepts.
 
-[API documentation](http://stapi.co/api-documentation) offers detailed model description.
+[API documentation](https://stapi.co/api-documentation) offers detailed model description.
 
-Swagger specs can be downloaded from [API documentation](http://stapi.co/api-documentation),
+Swagger specs can be downloaded from [API documentation](https://stapi.co/api-documentation),
 and clients for other languages can be generated using [Swagger Codegen](https://swagger.io/tools/swagger-codegen/).
 
 ## Clients
@@ -43,6 +41,6 @@ Please open a [GitHub issue](https://github.com/cezarykluczynski/stapi/issues) d
 STAPI can be run as a local Docker container. Details can be found on [STAPI's Docker Hub page](https://hub.docker.com/r/cezarykluczynski/stapi).
 
 ## Documentation
-* API documentation can be found on the [website](http://stapi.co/api-documentation).
+* API documentation can be found on the [website](https://stapi.co/api-documentation).
 * Project documentation can be found on [wiki home](https://github.com/cezarykluczynski/stapi/wiki).
 

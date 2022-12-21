@@ -6,6 +6,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
+		<div *ngIf="hasHttpsNotice()" class="alert alert-success https-notice" role="alert">STAPI supports HTTPS. <a href="{{getHttpsVersionUrl()}}">Switch now</a> for safer browsing.</div>
 		<div class='container-fluid'>
 			<div class='collapse navbar-collapse' id="navigation-wrapper">
 					<ul class='nav navbar-nav'>

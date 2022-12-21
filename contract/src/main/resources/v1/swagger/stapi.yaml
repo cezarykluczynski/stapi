@@ -4,6 +4,7 @@ info:
   version: '1.0.0'
 host: stapi.co
 schemes:
+  - https
   - http
 basePath: /api
 produces:

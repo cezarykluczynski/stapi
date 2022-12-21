@@ -8,7 +8,7 @@ import spock.lang.Specification
 class TradingCardItemNumberProcessorTest extends Specification {
 
 	private static final String VALID_HREF = 'http://startrekcards.com/?p=5308&item_number=25078&reference=25078'
-	private static final String INVALID_HREF = 'http://stapi.co/'
+	private static final String INVALID_HREF = 'https://stapi.co/'
 	private static final Integer ITEM_NUMBER = 25078
 
 	private TradingCardItemNumberProcessor tradingCardItemNumberProcessor

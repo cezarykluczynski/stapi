@@ -13,7 +13,7 @@ import spock.lang.Specification
 
 class UrlContentRetrieverTest extends Specification {
 
-	private static final String URL = 'http://stapi.co/'
+	private static final String URL = 'https://stapi.co/'
 	private static final String BODY = 'BODY'
 
 	private OkHttpClient okHttpClientMock

@@ -2,8 +2,12 @@ package com.cezarykluczynski.stapi.client.api;
 
 abstract class AbstractStapiClient {
 
-	String changeBaseUrl(String baseUrl, String serviceUrl) {
-		return serviceUrl.replace(StapiClient.CANONICAL_API_URL, baseUrl);
+	String changeBaseHttpsUrl(String baseUrl, String serviceUrl) {
+		return serviceUrl.replace(StapiClient.CANONICAL_API_HTTPS_URL, baseUrl);
+	}
+
+	String changeBaseHttpUrl(String baseUrl, String serviceUrl) {
+		return serviceUrl.replace(StapiClient.CANONICAL_API_HTTP_URL, baseUrl);
 	}
 
 	String defaultIfBlank(String string, String defaultString) {

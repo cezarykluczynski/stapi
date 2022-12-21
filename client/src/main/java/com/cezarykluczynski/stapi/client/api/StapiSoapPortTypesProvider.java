@@ -453,13 +453,13 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	}
 
 	private <T> T changeUrl(T service) {
-		if (apiUrl == null || CANONICAL_API_URL.equals(apiUrl)) {
+		if (apiUrl == null || CANONICAL_API_HTTP_URL.equals(apiUrl)) {
 			return service;
 		}
 
 		BindingProvider bindingProvider = (BindingProvider) service;
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
-		String newServiceUrl = changeBaseUrl(apiUrl, (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
+		String newServiceUrl = changeBaseHttpUrl(apiUrl, (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
 		requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, newServiceUrl);
 		return service;
 	}

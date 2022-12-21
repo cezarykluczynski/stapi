@@ -10,6 +10,7 @@ import { ApiDocumentationApi } from './api-documentation/api-documentation-api.s
 })
 export class AppComponent implements OnInit {
 
+	private baseHttpUrl: String = 'stapi.co';
 	private gitHubStargazersCount: any;
 	private dataVersion: String;
 
@@ -32,6 +33,14 @@ export class AppComponent implements OnInit {
 
 	hasGitHubStargazersCount() {
 		return !!this.gitHubStargazersCount;
+	}
+
+	hasHttpsNotice() {
+		return location.href.startsWith('http://' + this.baseHttpUrl);
+	}
+
+	getHttpsVersionUrl() {
+		return location.href.replace('http://' + this.baseHttpUrl, 'https://' + this.baseHttpUrl);
 	}
 
 }
