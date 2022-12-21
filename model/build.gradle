@@ -15,7 +15,6 @@ dependencies {
 	}
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootVersion
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.4.0-atlassian-hosted'
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
 	compile group: 'org.postgresql', name: 'postgresql', version:'42.5.0'

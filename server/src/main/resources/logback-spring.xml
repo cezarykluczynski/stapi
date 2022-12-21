@@ -69,12 +69,6 @@
 	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" level="${logging.level.springframeworkServlet}">
 		<appender-ref ref="CONSOLE"/>
 	</logger>
-	<logger name="org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping" level="${logging.level.actuator}">
-		<appender-ref ref="CONSOLE"/>
-	</logger>
-	<logger name="org.springframework.boot.actuate.endpoint.jmx.EndpointMBeanExporter" level="${logging.level.actuator}">
-		<appender-ref ref="CONSOLE"/>
-	</logger>
 
 	<logger name="liquibase" additivity="FALSE" level="${logging.level.liquibase}">
 		<appender-ref ref="CONSOLE"/>

@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @SpringBootApplication
 @ComponentScan({
-		Package.AUTH,
 		Package.SERVER,
 		Package.SOURCES,
 		Package.MODEL,

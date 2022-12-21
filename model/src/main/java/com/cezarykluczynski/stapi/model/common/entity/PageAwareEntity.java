@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 @ToString
 public class PageAwareEntity {
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "page_id")
 	private Page page;
 

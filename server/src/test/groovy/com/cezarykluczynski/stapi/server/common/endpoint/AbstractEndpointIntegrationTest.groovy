@@ -10,7 +10,7 @@ import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification
 
 @SpringBootTest(
-		classes = [Application, IntegrationTestConfiguration],
+		classes = [Application],
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles('default,stapi-custom')

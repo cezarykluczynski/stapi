@@ -52,7 +52,7 @@ describe('FeatureSwitchApi', () => {
 				return Promise.resolve({
 					featureSwitches: [
 						{
-							type: 'ADMIN_PANEL',
+							type: 'TOS_AND_PP',
 							enabled: true
 						}
 					]
@@ -60,10 +60,8 @@ describe('FeatureSwitchApi', () => {
 			};
 
 			restClientMock.common = {
-				panel: {
-					featureSwitch: {
-						get: featureSwitchesPromise
-					}
+				featureSwitch: {
+					get: featureSwitchesPromise
 				}
 			};
 		});
@@ -78,7 +76,7 @@ describe('FeatureSwitchApi', () => {
 			featureSwitchApi.loadFeatureSwitches();
 
 			setTimeout(() => {
-				expect(featureSwitchApi.isEnabled('ADMIN_PANEL')).toBeTrue();
+				expect(featureSwitchApi.isEnabled('TOS_AND_PP')).toBeTrue();
 			});
 		})));
 

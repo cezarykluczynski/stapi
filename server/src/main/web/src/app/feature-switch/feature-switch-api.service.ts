@@ -16,7 +16,7 @@ export class FeatureSwitchApi {
 	}
 
 	loadFeatureSwitches() {
-		return this.api.common.panel.featureSwitch.get().then((response) => {
+		return this.api.common.featureSwitch.get().then((response) => {
 			response.featureSwitches.forEach((value) => {
 				this.featureSwitches[value.type] = value.enabled;
 			});
@@ -28,7 +28,7 @@ export class FeatureSwitchApi {
 	}
 
 	private register() {
-		this.api.res('common').res('panel').res('featureSwitch');
+		this.api.res('common').res('featureSwitch');
 	}
 
 }

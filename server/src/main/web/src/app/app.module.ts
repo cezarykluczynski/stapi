@@ -1,13 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgGridModule } from 'ag-grid-angular/main';
 import * as hljs from 'highlight.js';
 import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
-import { CookieService } from 'ngx-cookie-service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -34,15 +33,6 @@ import { InitializerService } from './initializer/initializer.service';
 import { RestClientFactoryService } from './rest-api/rest-client-factory.service';
 import { WindowReferenceService } from './window-reference/window-reference.service';
 import { InfoComponent } from './info/info.component';
-import { PanelComponent } from './panel/panel.component';
-import { PanelApi } from './panel/panel-api.service';
-import { PanelApiKeysComponent } from './panel/api-keys/panel-api-keys.component';
-import { PanelApiKeysApi } from './panel/api-keys/panel-api-keys-api.service';
-import { PanelAccountSettingsComponent } from './panel/account-settings/panel-account-settings.component';
-import { PanelAccountApi } from './panel/account-settings/panel-account-api.service';
-import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-management-api.service';
-import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
-import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
 import { LegalComponent } from './legal/legal.component';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
@@ -66,11 +56,6 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		EntityHitsGridComponent,
 		PageNotFoundComponent,
 		InfoComponent,
-		PanelComponent,
-		PanelApiKeysComponent,
-		PanelAccountSettingsComponent,
-		PanelAdminApiKeysComponent,
-		PanelAdminAccountsComponent,
 		ApiOverviewComponent,
 		LegalComponent
 	],
@@ -99,14 +84,9 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		ApiBrowserApi,
 		ApiDocumentationApi,
 		RestApiService,
-		PanelAdminManagementApi,
-		PanelAccountApi,
-		PanelApiKeysApi,
-		PanelApi,
 		StatisticsApi,
 		RestClientFactoryService,
 		WindowReferenceService,
-		CookieService,
 		FeatureSwitchApi
 	],
 	bootstrap: [AppComponent]

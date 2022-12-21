@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.model.configuration
 import com.cezarykluczynski.stapi.model.common.etl.EtlProperties
 import liquibase.integration.spring.SpringLiquibase
 import org.springframework.context.ApplicationContext
-import org.springframework.core.env.Environment
 import org.springframework.data.repository.support.Repositories
 import spock.lang.Specification
 
@@ -13,8 +12,6 @@ class ModelConfigurationTest extends Specification {
 
 	private ApplicationContext applicationContextMock
 
-	private Environment environmentMock
-
 	private EtlProperties etlPropertiesMock
 
 	private ModelConfiguration modelConfiguration
@@ -22,12 +19,10 @@ class ModelConfigurationTest extends Specification {
 	void setup() {
 		hibernatePropertiesMock = Mock()
 		applicationContextMock = Mock()
-		environmentMock = Mock()
 		etlPropertiesMock = Mock()
 		modelConfiguration = new ModelConfiguration(
 				hibernateProperties: hibernatePropertiesMock,
 				applicationContext: applicationContextMock,
-				environment: environmentMock,
 				etlProperties: etlPropertiesMock)
 	}
 
@@ -56,14 +51,6 @@ class ModelConfigurationTest extends Specification {
 		1 * applicationContextMock.parentBeanFactory >> null
 		0 * _
 		repositories != null
-	}
-
-	void "creates EhCacheInfoContributor"() {
-		when:
-		EhCacheInfoContributor ehCacheInfoContributor = modelConfiguration.ehCacheInfoContributor()
-
-		then:
-		ehCacheInfoContributor != null
 	}
 
 }

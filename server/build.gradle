@@ -1,6 +1,4 @@
 import groovy.io.FileType
-import org.apache.commons.lang3.StringUtils
-import org.zeroturnaround.zip.ZipUtil
 import org.zeroturnaround.zip.commons.FileUtils
 
 import java.util.stream.Collectors
@@ -17,7 +15,7 @@ springBoot {
 }
 
 dependencies {
-	compile project(':etl'), project(':client'), project(':auth')
+	compile project(':etl'), project(':client')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'

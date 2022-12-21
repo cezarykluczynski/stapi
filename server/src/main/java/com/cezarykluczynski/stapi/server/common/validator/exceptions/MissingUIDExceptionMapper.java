@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.validator.exceptions;
 
-import com.cezarykluczynski.stapi.server.common.throttle.rest.RestError;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 
 import javax.ws.rs.Produces;

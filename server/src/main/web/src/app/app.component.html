@@ -28,7 +28,7 @@
 						<li><a routerLinkActive="navigation-element--active" routerLink="api-browser">API Browser</a></li>
 					</ul>
 					<ul class='nav navbar-nav navbar-right'>
-						<li *ngIf="hasGitHubProjectDetails()">
+						<li *ngIf="hasGitHubStargazersCount()">
 							<button class="btn btn-success btn-xs github-stars">
 								<a class="github-stars__link" href="https://github.com/cezarykluczynski/stapi/stargazers">
 									<span class="github-stars__star">
@@ -48,7 +48,6 @@
 								<li><a href="https://github.com/cezarykluczynski/stapi/wiki">Wiki</a></li>
 							</ul>
 						</li>
-						<li *ngIf="panelIsEnabled()"><a routerLinkActive="navigation-element--active" routerLink="panel">Panel</a></li>
 					</ul>
 			</div>
 		</div>

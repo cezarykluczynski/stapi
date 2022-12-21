@@ -7,7 +7,6 @@ import { ApiDocumentationComponent } from './api-documentation/api-documentation
 import { ClientsComponent } from './clients/clients.component';
 import { LicensingComponent } from './licensing/licensing.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PanelComponent } from './panel/panel.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
 import { LegalComponent } from './legal/legal.component';
 
@@ -35,10 +34,6 @@ export const APP_ROUTES: Routes = [
 	{
 		path: 'licensing',
 		component: LicensingComponent
-	},
-	{
-		path: 'panel',
-		component: PanelComponent
 	},
 	{
 		path: 'api-overview',

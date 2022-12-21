@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
-import { PanelApi } from './panel/panel-api.service';
-import {ApiDocumentationApi} from './api-documentation/api-documentation-api.service';
-
-declare var $: any;
+import { ApiDocumentationApi } from './api-documentation/api-documentation-api.service';
 
 @Component({
 	selector: 'app-root',
@@ -13,22 +10,16 @@ declare var $: any;
 })
 export class AppComponent implements OnInit {
 
-	private gitHubProjectDetails: any;
+	private gitHubStargazersCount: any;
 	private dataVersion: String;
 
-	constructor(private domSanitizer: DomSanitizer, private featureSwitchApi: FeatureSwitchApi, private panelApi: PanelApi,
+	constructor(private domSanitizer: DomSanitizer, private featureSwitchApi: FeatureSwitchApi,
 				private apiDocumentationApi: ApiDocumentationApi) {
 	}
 
 	ngOnInit() {
-		this.panelApi.getGitHubProjectDetails().then((response) => {
-			this.gitHubProjectDetails = response;
-		});
 		this.dataVersion = this.apiDocumentationApi.getDataVersion();
-	}
-
-	panelIsEnabled() {
-		return this.featureSwitchApi.isEnabled('USER_PANEL') || this.featureSwitchApi.isEnabled('ADMIN_PANEL');
+		this.gitHubStargazersCount = this.apiDocumentationApi.getGitHubStargazersCount();
 	}
 
 	hasTocAndPP() {
@@ -36,11 +27,11 @@ export class AppComponent implements OnInit {
 	}
 
 	getGitHubStarsCount() {
-		return this.gitHubProjectDetails.stargazersCount;
+		return this.gitHubStargazersCount;
 	}
 
-	hasGitHubProjectDetails() {
-		return !!this.gitHubProjectDetails;
+	hasGitHubStargazersCount() {
+		return !!this.gitHubStargazersCount;
 	}
 
 }

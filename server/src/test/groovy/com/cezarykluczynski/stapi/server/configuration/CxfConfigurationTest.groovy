@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.configuration
 
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider
-import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter
@@ -63,14 +62,6 @@ class CxfConfigurationTest extends Specification {
 
 		then:
 		localDateRestParamConverterProvider != null
-	}
-
-	void "creates RestExceptionMapper"() {
-		when:
-		RestExceptionMapper restExceptionMapper = cxfConfiguration.restExceptionMapper()
-
-		then:
-		restExceptionMapper != null
 	}
 
 	void "creates MissingUIDExceptionMapper"() {

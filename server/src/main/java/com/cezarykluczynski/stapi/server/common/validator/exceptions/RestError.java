@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.server.common.throttle.rest;
+package com.cezarykluczynski.stapi.server.common.validator.exceptions;
 
 public class RestError {
 

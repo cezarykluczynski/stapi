@@ -6,6 +6,10 @@ import com.cezarykluczynski.stapi.server.common.dto.PongDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
+import com.cezarykluczynski.stapi.server.github.model.GitHubDTO
+import com.cezarykluczynski.stapi.server.github.service.GitHubApi
+import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi
+import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchesDTO
 import spock.lang.Specification
 
 import javax.ws.rs.core.Response
@@ -14,11 +18,43 @@ class CommonRestEndpointTest extends Specification {
 
 	private CommonDataReader commonDataReaderMock
 
+	private FeatureSwitchApi featureSwitchApiMock
+
+	private GitHubApi gitHubApiMock
+
 	private CommonRestEndpoint commonRestEndpoint
 
 	void setup() {
 		commonDataReaderMock = Mock()
-		commonRestEndpoint = new CommonRestEndpoint(commonDataReaderMock)
+		featureSwitchApiMock = Mock()
+		gitHubApiMock = Mock()
+		commonRestEndpoint = new CommonRestEndpoint(commonDataReaderMock, featureSwitchApiMock, gitHubApiMock)
+	}
+
+	void "gets feature switches"() {
+		given:
+		FeatureSwitchesDTO featureSwitchesDTO = Mock()
+
+		when:
+		FeatureSwitchesDTO featureSwitchesDTOOutput = commonRestEndpoint.featureSwitches()
+
+		then:
+		1 * featureSwitchApiMock.all >> featureSwitchesDTO
+		0 * _
+		featureSwitchesDTOOutput == featureSwitchesDTO
+	}
+
+	void "gets GitHub project details switches"() {
+		given:
+		GitHubDTO gitHubDTO = Mock()
+
+		when:
+		GitHubDTO gitHubDTOOutput = commonRestEndpoint.gitHubProjectDetails()
+
+		then:
+		1 * gitHubApiMock.projectDetails >> gitHubDTO
+		0 * _
+		gitHubDTOOutput == gitHubDTO
 	}
 
 	void "gets entities statistics from CommonDataReader"() {

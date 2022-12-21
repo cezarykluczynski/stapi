@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.validator.exceptions
 
-import com.cezarykluczynski.stapi.server.common.throttle.rest.RestError
 import spock.lang.Specification
 
 import javax.ws.rs.core.Response

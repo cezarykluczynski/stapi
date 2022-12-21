@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.util.constant.Package;
 import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
-import net.sf.ehcache.CacheManager;
 import org.hibernate.jpa.AvailableSettings;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -16,7 +15,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -33,8 +31,7 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class, ThrottleProperties.class, CacheProperties.class,
-		EtlProperties.class})
+@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class, CacheProperties.class, EtlProperties.class})
 @EnableJpaRepositories(basePackages = ModelConfiguration.JPA_BASE_PACKAGES)
 @EnableTransactionManagement
 @EnableAsync
@@ -54,9 +51,6 @@ public class ModelConfiguration {
 
 	@Inject
 	private ApplicationContext applicationContext;
-
-	@Inject
-	private Environment environment;
 
 	@Inject
 	private EtlProperties etlProperties;
@@ -123,11 +117,6 @@ public class ModelConfiguration {
 	@Bean
 	public Repositories repositories() {
 		return new Repositories(applicationContext);
-	}
-
-	@Bean
-	public EhCacheInfoContributor ehCacheInfoContributor() {
-		return new EhCacheInfoContributor(CacheManager.getInstance());
 	}
 
 }

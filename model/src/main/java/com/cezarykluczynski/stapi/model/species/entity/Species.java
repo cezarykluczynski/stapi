@@ -44,11 +44,11 @@ public class Species extends PageAwareEntity implements PageAware {
 
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "homeworld_id")
 	private AstronomicalObject homeworld;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "quadrant_id")
 	private AstronomicalObject quadrant;
 

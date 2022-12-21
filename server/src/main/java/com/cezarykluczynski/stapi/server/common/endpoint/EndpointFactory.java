@@ -1,11 +1,8 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
-import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper;
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper;
 import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContainerResponseFilter;
-import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottleLimitHeadersBindingInterceptor;
-import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.collect.Lists;
@@ -31,8 +28,6 @@ public class EndpointFactory {
 		Bus bus = applicationContext.getBean(SpringBus.class);
 		Object implementor = applicationContext.getBean(implementorClass);
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
-		endpoint.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
-		endpoint.setOutInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottleLimitHeadersBindingInterceptor.class)));
 		endpoint.publish(address);
 		return endpoint;
 	}
@@ -46,11 +41,8 @@ public class EndpointFactory {
 				new JacksonJsonProvider(applicationContext.getBean(ObjectMapper.class)),
 				applicationContext.getBean(CxfRestPrettyPrintContainerResponseFilter.class),
 				applicationContext.getBean(LocalDateRestParamConverterProvider.class),
-				applicationContext.getBean(RestExceptionMapper.class),
 				applicationContext.getBean(CrossOriginResourceSharingFilter.class),
 				applicationContext.getBean(MissingUIDExceptionMapper.class)));
-		factory.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
-		factory.setOutInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottleLimitHeadersBindingInterceptor.class)));
 		factory.setServiceBeans(Lists.newArrayList(implementor));
 		return factory.create();
 	}

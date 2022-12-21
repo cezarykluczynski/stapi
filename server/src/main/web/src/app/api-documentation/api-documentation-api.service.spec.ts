@@ -1,7 +1,5 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 
-import RestClient from 'another-rest-client';
-
 import { RestApiService } from '../rest-api/rest-api.service';
 import { ApiDocumentationApi } from './api-documentation-api.service';
 
@@ -45,18 +43,23 @@ describe('ApiDocumentationApi', () => {
 	it('is created', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 		expect(apiDocumentationApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(4);
+		expect(res.calls.count()).toBe(7);
 		expect(res.calls.argsFor(0)).toEqual(['common']);
 		expect(res.calls.argsFor(1)).toEqual(['documentation']);
 		expect(res.calls.argsFor(2)).toEqual(['common']);
 		expect(res.calls.argsFor(3)).toEqual(['dataVersion']);
+		expect(res.calls.argsFor(4)).toEqual(['common']);
+		expect(res.calls.argsFor(5)).toEqual(['github']);
+		expect(res.calls.argsFor(6)).toEqual(['projectDetails']);
 	}));
 
 	describe('after initialization', () => {
 		let documentationPromise;
 		let dataVersionPromise;
+		let githubProjectDetailsPromise;
 		const DOCUMENTATION = 'DOCUMENTATION';
 		const DATA_VERSION = 'DATA_VERSION';
+		const STARGAZERS_COUNT = 101;
 
 		beforeEach(() => {
 			documentationPromise = () => {
@@ -71,9 +74,20 @@ describe('ApiDocumentationApi', () => {
 				});
 			};
 
+			githubProjectDetailsPromise = () => {
+				return Promise.resolve({
+					stargazersCount: STARGAZERS_COUNT
+				});
+			};
+
 			restClientMock.common = {
 				documentation: { get: documentationPromise },
-				dataVersion: { get: dataVersionPromise }
+				dataVersion: { get: dataVersionPromise },
+				github: {
+					projectDetails: {
+						get: githubProjectDetailsPromise
+					}
+				}
 			};
 		});
 
@@ -93,6 +107,14 @@ describe('ApiDocumentationApi', () => {
 				});
 			});
 		})));
+
+		it('gets GitHub project details', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
+			apiDocumentationApi.loadGitHubProjectDetails();
+
+			setTimeout(() => {
+				expect(apiDocumentationApi.getGitHubStargazersCount()).toEqual(STARGAZERS_COUNT);
+			});
+		}));
 
 		it('gets data version', async(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			apiDocumentationApi.loadDataVersion();

@@ -47,7 +47,7 @@ public class AstronomicalObject extends PageAwareEntity implements PageAware {
 	@Enumerated(EnumType.STRING)
 	private AstronomicalObjectType astronomicalObjectType;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "location_id")
 	private AstronomicalObject location;
 

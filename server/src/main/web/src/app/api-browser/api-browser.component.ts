@@ -16,9 +16,7 @@ export class ApiBrowserComponent implements OnInit {
 	private details: any;
 	private options: Array<any>;
 	private lastUpdateWasError: boolean;
-	private lastUpdateTypeSearch: string;
 	private response: any;
-	private limits: any;
 	private symbol: any;
 	public phrase: any = '';
 	public latestLookupPhrase: any = '';
@@ -32,9 +30,6 @@ export class ApiBrowserComponent implements OnInit {
 	ngOnInit() {
 		this.details = this.apiBrowserApi.getDetails();
 		this.options = this.details;
-		this.restApiService.onLimitUpdate(limits => {
-			this.limits = limits;
-		});
 		this.symbol = this.options[0].symbol;
 		this.loaded = true;
 	}
@@ -90,10 +85,6 @@ export class ApiBrowserComponent implements OnInit {
 			}
 		}
 		return properties;
-	}
-
-	hasLimits() {
-		return !!(this.limits && this.limits.total);
 	}
 
 	hasElements() {

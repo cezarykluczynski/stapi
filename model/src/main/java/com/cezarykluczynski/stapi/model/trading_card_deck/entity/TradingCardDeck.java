@@ -47,7 +47,7 @@ public class TradingCardDeck {
 
 	private String frequency;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "trading_card_set_id")
 	private TradingCardSet tradingCardSet;
 

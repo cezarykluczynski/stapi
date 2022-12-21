@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.configuration;
 
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
-import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper;
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -51,11 +50,6 @@ public class CxfConfiguration {
 	@Bean
 	public LocalDateRestParamConverterProvider localDateRestParamConverterProvider() {
 		return new LocalDateRestParamConverterProvider();
-	}
-
-	@Bean
-	public RestExceptionMapper restExceptionMapper() {
-		return new RestExceptionMapper();
 	}
 
 	@Bean

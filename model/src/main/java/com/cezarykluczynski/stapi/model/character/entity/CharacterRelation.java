@@ -30,11 +30,11 @@ import javax.persistence.SequenceGenerator;
 		singularName = "character relation", pluralName = "character relations")
 public class CharacterRelation {
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "source_character_id")
 	private Character source;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "target_character_id")
 	private Character target;
 

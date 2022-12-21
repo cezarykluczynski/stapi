@@ -7,8 +7,6 @@ import { ApiBrowserComponent } from './api-browser.component';
 import { ApiBrowserApi } from './api-browser-api.service';
 import { RestApiService } from '../rest-api/rest-api.service';
 
-declare var $: any;
-
 class ApiBrowserApiMock {
 	public getStatistics() {}
 	public getDetails() {}
@@ -77,19 +75,6 @@ describe('ApiBrowserComponent', () => {
 
 	it('return select options', () => {
 		expect(component.getOptions()).toEqual(details);
-	});
-
-	it('updates limits', () => {
-		expect(component.hasLimits()).toBeFalse();
-
-		onLimitUpdate({
-			total: 15
-		});
-
-		fixture.detectChanges();
-		fixture.whenStable().then(() => {
-			expect(component.hasLimits()).toBeTrue();
-		});
 	});
 
 	it('allows searching for entities', () => {
