@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.FoodSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.FoodApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse
@@ -34,12 +38,41 @@ class FoodTest extends AbstractFoodTest {
 		FoodBaseResponse foodBaseResponse = Mock()
 
 		when:
-		FoodBaseResponse foodBaseResponseOutput = food.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
-				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA)
+		FoodBaseResponse foodBaseResponseOutput = food.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT,
+				HERB_OR_SPICE, SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA)
 
 		then:
-		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE, SAUCE, SOUP,
-				BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
+		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
+				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
+		0 * _
+		foodBaseResponse == foodBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		FoodBaseResponse foodBaseResponse = Mock()
+		FoodSearchCriteria foodSearchCriteria = new FoodSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				earthlyOrigin: EARTHLY_ORIGIN,
+				dessert: DESSERT,
+				fruit: FRUIT,
+				herbOrSpice: HERB_OR_SPICE,
+				sauce: SAUCE,
+				soup: SOUP,
+				beverage: BEVERAGE,
+				alcoholicBeverage: ALCOHOLIC_BEVERAGE,
+				juice: JUICE,
+				tea: TEA)
+		foodSearchCriteria.sort.addAll(SORT)
+
+		when:
+		FoodBaseResponse foodBaseResponseOutput = food.search(foodSearchCriteria)
+
+		then:
+		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
+				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
 		0 * _
 		foodBaseResponse == foodBaseResponseOutput
 	}

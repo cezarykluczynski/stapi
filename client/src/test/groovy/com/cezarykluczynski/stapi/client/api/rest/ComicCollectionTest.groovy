@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.ComicCollectionSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.ComicCollectionApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFullResponse
@@ -48,13 +52,43 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		ComicCollectionBaseResponse comicCollectionBaseResponse = Mock()
 
 		when:
-		ComicCollectionBaseResponse comicCollectionBaseResponseOutput = comicCollection.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE,
+		ComicCollectionBaseResponse comicCollectionBaseResponseOutput = comicCollection.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE,
 				PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
 				PHOTONOVEL)
 
 		then:
-		1 * comicCollectionApiMock.v1RestComicCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
-				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL) >> comicCollectionBaseResponse
+		1 * comicCollectionApiMock.v1RestComicCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM,
+				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL) >>
+				comicCollectionBaseResponse
+		0 * _
+		comicCollectionBaseResponse == comicCollectionBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		ComicCollectionBaseResponse comicCollectionBaseResponse = Mock()
+		ComicCollectionSearchCriteria comicCollectionSearchCriteria = new ComicCollectionSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				publishedYearFrom: PUBLISHED_YEAR_FROM,
+				publishedYearTo: PUBLISHED_YEAR_TO,
+				numberOfPagesFrom: NUMBER_OF_PAGES_FROM,
+				numberOfPagesTo: NUMBER_OF_PAGES_TO,
+				stardateFrom: STARDATE_FROM,
+				stardateTo: STARDATE_TO,
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO,
+				photonovel: PHOTONOVEL)
+		comicCollectionSearchCriteria.sort.addAll(SORT)
+
+		when:
+		ComicCollectionBaseResponse comicCollectionBaseResponseOutput = comicCollection.search(comicCollectionSearchCriteria)
+
+		then:
+		1 * comicCollectionApiMock.v1RestComicCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM,
+				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL) >>
+				comicCollectionBaseResponse
 		0 * _
 		comicCollectionBaseResponse == comicCollectionBaseResponseOutput
 	}

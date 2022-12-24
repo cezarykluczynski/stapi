@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
+import com.cezarykluczynski.stapi.client.api.dto.SeriesSearchCriteria;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse;
@@ -20,6 +22,7 @@ public class Series {
 		return seriesApi.v1RestSeriesGet(uid, null);
 	}
 
+	@Deprecated
 	public SeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, String abbreviation,
 			Integer productionStartYearFrom, Integer productionStartYearTo, Integer productionEndYearFrom, Integer productionEndYearTo,
 			LocalDate originalRunStartDateFrom, LocalDate originalRunStartDateTo, LocalDate originalRunEndDateFrom, LocalDate originalRunEndDateTo)
@@ -27,6 +30,16 @@ public class Series {
 		return seriesApi.v1RestSeriesSearchPost(pageNumber, pageSize, sort, null, title, abbreviation, productionStartYearFrom,
 				productionStartYearTo, productionEndYearFrom, productionEndYearTo, originalRunStartDateFrom, originalRunStartDateTo,
 				originalRunEndDateFrom, originalRunEndDateTo);
+	}
+
+	public SeriesBaseResponse search(SeriesSearchCriteria seriesSearchCriteria) throws ApiException {
+		return seriesApi.v1RestSeriesSearchPost(seriesSearchCriteria.getPageNumber(), seriesSearchCriteria.getPageSize(),
+				StapiRestSortSerializer.serialize(seriesSearchCriteria.getSort()), null, seriesSearchCriteria.getTitle(),
+				seriesSearchCriteria.getAbbreviation(), seriesSearchCriteria.getProductionStartYearFrom(),
+				seriesSearchCriteria.getProductionStartYearTo(), seriesSearchCriteria.getProductionEndYearFrom(),
+				seriesSearchCriteria.getProductionEndYearTo(), seriesSearchCriteria.getOriginalRunStartDateFrom(),
+				seriesSearchCriteria.getOriginalRunStartDateTo(), seriesSearchCriteria.getOriginalRunEndDateFrom(),
+				seriesSearchCriteria.getOriginalRunEndDateTo());
 	}
 
 }

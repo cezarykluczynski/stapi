@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
+import com.cezarykluczynski.stapi.client.api.dto.SoundtrackSearchCriteria;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SoundtrackApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse;
@@ -24,6 +26,13 @@ public class Soundtrack {
 			LocalDate releaseDateTo, Integer lengthFrom, Integer lengthTo) throws ApiException {
 		return soundtrackApi.v1RestSoundtrackSearchPost(pageNumber, pageSize, sort, null, title, releaseDateFrom, releaseDateTo, lengthFrom,
 				lengthTo);
+	}
+
+	public SoundtrackBaseResponse search(SoundtrackSearchCriteria soundtrackSearchCriteria) throws ApiException {
+		return soundtrackApi.v1RestSoundtrackSearchPost(soundtrackSearchCriteria.getPageNumber(), soundtrackSearchCriteria.getPageSize(),
+				StapiRestSortSerializer.serialize(soundtrackSearchCriteria.getSort()), null, soundtrackSearchCriteria.getTitle(),
+				soundtrackSearchCriteria.getReleaseDateFrom(), soundtrackSearchCriteria.getReleaseDateTo(), soundtrackSearchCriteria.getLengthFrom(),
+				soundtrackSearchCriteria.getLengthTo());
 	}
 
 }

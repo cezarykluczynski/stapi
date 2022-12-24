@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.MagazineSeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineSeriesApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesFullResponse
@@ -34,12 +38,35 @@ class MagazineSeriesTest extends AbstractMagazineSeriesTest {
 		MagazineSeriesBaseResponse magazineSeriesBaseResponse = Mock()
 
 		when:
-		MagazineSeriesBaseResponse magazineSeriesBaseResponseOutput = magazineSeries.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, PUBLISHED_YEAR_FROM,
-				PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO)
+		MagazineSeriesBaseResponse magazineSeriesBaseResponseOutput = magazineSeries.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE,
+				PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO)
 
 		then:
-		1 * magazineSeriesApiMock.v1RestMagazineSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
-				NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO) >> magazineSeriesBaseResponse
+		1 * magazineSeriesApiMock.v1RestMagazineSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM,
+				PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO) >> magazineSeriesBaseResponse
+		0 * _
+		magazineSeriesBaseResponse == magazineSeriesBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		MagazineSeriesBaseResponse magazineSeriesBaseResponse = Mock()
+		MagazineSeriesSearchCriteria magazineSeriesSearchCriteria = new MagazineSeriesSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				publishedYearFrom: PUBLISHED_YEAR_FROM,
+				publishedYearTo: PUBLISHED_YEAR_TO,
+				numberOfIssuesFrom: NUMBER_OF_ISSUES_FROM,
+				numberOfIssuesTo: NUMBER_OF_ISSUES_TO)
+		magazineSeriesSearchCriteria.sort.addAll(SORT)
+
+		when:
+		MagazineSeriesBaseResponse magazineSeriesBaseResponseOutput = magazineSeries.search(magazineSeriesSearchCriteria)
+
+		then:
+		1 * magazineSeriesApiMock.v1RestMagazineSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM,
+				PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO) >> magazineSeriesBaseResponse
 		0 * _
 		magazineSeriesBaseResponse == magazineSeriesBaseResponseOutput
 	}

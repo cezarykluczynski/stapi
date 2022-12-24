@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
+import com.cezarykluczynski.stapi.client.api.dto.LocationV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.v1.rest.api.LocationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.LocationBaseResponse;
@@ -37,6 +39,7 @@ public class Location {
 				alternateReality);
 	}
 
+	@Deprecated
 	public LocationV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthlyLocation,
 			Boolean qonosLocation, Boolean fictionalLocation, Boolean mythologicalLocation, Boolean religiousLocation, Boolean geographicalLocation,
 			Boolean bodyOfWater, Boolean country, Boolean subnationalEntity, Boolean settlement, Boolean usSettlement, Boolean bajoranSettlement,
@@ -47,6 +50,21 @@ public class Location {
 				mythologicalLocation, religiousLocation, geographicalLocation, bodyOfWater, country, subnationalEntity, settlement, usSettlement,
 				bajoranSettlement, colony, landform, road, structure, shipyard, buildingInterior, establishment, medicalEstablishment,
 				ds9Establishment, school, restaurant, residence, mirror, alternateReality);
+	}
+
+	public LocationV2BaseResponse searchV2(LocationV2SearchCriteria locationV2SearchCriteria) throws ApiException {
+		return locationApi.v2RestLocationSearchPost(locationV2SearchCriteria.getPageNumber(), locationV2SearchCriteria.getPageSize(),
+				StapiRestSortSerializer.serialize(locationV2SearchCriteria.getSort()), locationV2SearchCriteria.getName(),
+				locationV2SearchCriteria.getEarthlyLocation(), locationV2SearchCriteria.getQonosLocation(),
+				locationV2SearchCriteria.getFictionalLocation(), locationV2SearchCriteria.getMythologicalLocation(),
+				locationV2SearchCriteria.getReligiousLocation(), locationV2SearchCriteria.getGeographicalLocation(),
+				locationV2SearchCriteria.getBodyOfWater(), locationV2SearchCriteria.getCountry(), locationV2SearchCriteria.getSubnationalEntity(),
+				locationV2SearchCriteria.getSettlement(), locationV2SearchCriteria.getUsSettlement(), locationV2SearchCriteria.getBajoranSettlement(),
+				locationV2SearchCriteria.getColony(), locationV2SearchCriteria.getLandform(), locationV2SearchCriteria.getRoad(),
+				locationV2SearchCriteria.getStructure(), locationV2SearchCriteria.getShipyard(), locationV2SearchCriteria.getBuildingInterior(),
+				locationV2SearchCriteria.getEstablishment(), locationV2SearchCriteria.getMedicalEstablishment(),
+				locationV2SearchCriteria.getDs9Establishment(), locationV2SearchCriteria.getSchool(), locationV2SearchCriteria.getRestaurant(),
+				locationV2SearchCriteria.getResidence(), locationV2SearchCriteria.getMirror(), locationV2SearchCriteria.getAlternateReality());
 	}
 
 }

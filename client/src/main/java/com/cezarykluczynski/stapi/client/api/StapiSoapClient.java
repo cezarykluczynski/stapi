@@ -249,6 +249,7 @@ public class StapiSoapClient extends AbstractStapiClient implements StapiClient 
 
 	private Weapon weapon;
 
+	@Deprecated
 	public StapiSoapClient(String apiUrl) {
 		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_HTTP_URL));
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(this.apiUrl);

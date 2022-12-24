@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.SoundtrackSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.SoundtrackApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFullResponse
@@ -34,12 +38,35 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 		SoundtrackBaseResponse soundtrackBaseResponse = Mock()
 
 		when:
-		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, RELEASE_DATE_FROM,
+		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM,
 				RELEASE_DATE_TO, LENGTH_FROM, LENGTH_TO)
 
 		then:
-		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO, LENGTH_FROM,
-				LENGTH_TO) >> soundtrackBaseResponse
+		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
+				LENGTH_FROM, LENGTH_TO) >> soundtrackBaseResponse
+		0 * _
+		soundtrackBaseResponse == soundtrackBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		SoundtrackBaseResponse soundtrackBaseResponse = Mock()
+		SoundtrackSearchCriteria soundtrackSearchCriteria = new SoundtrackSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				releaseDateFrom: RELEASE_DATE_FROM,
+				releaseDateTo: RELEASE_DATE_TO,
+				lengthFrom: LENGTH_FROM,
+				lengthTo: LENGTH_TO)
+		soundtrackSearchCriteria.sort.addAll(SORT)
+
+		when:
+		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(soundtrackSearchCriteria)
+
+		then:
+		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
+				LENGTH_FROM, LENGTH_TO) >> soundtrackBaseResponse
 		0 * _
 		soundtrackBaseResponse == soundtrackBaseResponseOutput
 	}

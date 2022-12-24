@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.SeasonSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeasonApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFullResponse
@@ -34,11 +38,34 @@ class SeasonTest extends AbstractSeasonTest {
 		SeasonBaseResponse seasonBaseResponse = Mock()
 
 		when:
-		SeasonBaseResponse seasonBaseResponseOutput = season.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
+		SeasonBaseResponse seasonBaseResponseOutput = season.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
 				NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO)
 
 		then:
-		1 * seasonApiMock.v1RestSeasonSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
+		1 * seasonApiMock.v1RestSeasonSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
+				NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO) >> seasonBaseResponse
+		0 * _
+		seasonBaseResponse == seasonBaseResponseOutput
+	}
+
+	void "searches entities with criteria (V2)"() {
+		given:
+		SeasonBaseResponse seasonBaseResponse = Mock()
+		SeasonSearchCriteria seasonSearchCriteria = new SeasonSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				seasonNumberFrom: SEASON_NUMBER_FROM,
+				seasonNumberTo: SEASON_NUMBER_TO,
+				numberOfEpisodesFrom: NUMBER_OF_EPISODES_FROM,
+				numberOfEpisodesTo: NUMBER_OF_EPISODES_TO)
+		seasonSearchCriteria.sort.addAll(SORT)
+
+		when:
+		SeasonBaseResponse seasonBaseResponseOutput = season.search(seasonSearchCriteria)
+
+		then:
+		1 * seasonApiMock.v1RestSeasonSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
 				NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO) >> seasonBaseResponse
 		0 * _
 		seasonBaseResponse == seasonBaseResponseOutput

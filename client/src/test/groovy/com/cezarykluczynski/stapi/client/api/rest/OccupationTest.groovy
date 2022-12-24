@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.OccupationV2SearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.OccupationApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationFullResponse
@@ -49,11 +53,11 @@ class OccupationTest extends AbstractOccupationTest {
 		OccupationBaseResponse occupationBaseResponse = Mock()
 
 		when:
-		OccupationBaseResponse occupationBaseResponseOutput = occupation.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, LEGAL_OCCUPATION,
+		OccupationBaseResponse occupationBaseResponseOutput = occupation.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, LEGAL_OCCUPATION,
 				MEDICAL_OCCUPATION, SCIENTIFIC_OCCUPATION)
 
 		then:
-		1 * occupationApiMock.v1RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
+		1 * occupationApiMock.v1RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
 				SCIENTIFIC_OCCUPATION) >> occupationBaseResponse
 		0 * _
 		occupationBaseResponse == occupationBaseResponseOutput
@@ -64,12 +68,43 @@ class OccupationTest extends AbstractOccupationTest {
 		OccupationV2BaseResponse occupationV2BaseResponse = Mock()
 
 		when:
-		OccupationV2BaseResponse occupationV2BaseResponseOutput = occupation.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, ARTS_OCCUPATION,
+		OccupationV2BaseResponse occupationV2BaseResponseOutput = occupation.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, ARTS_OCCUPATION,
 				COMMUNICATION_OCCUPATION, ECONOMIC_OCCUPATION, EDUCATION_OCCUPATION, ENTERTAINMENT_OCCUPATION, ILLEGAL_OCCUPATION, LEGAL_OCCUPATION,
 				MEDICAL_OCCUPATION, SCIENTIFIC_OCCUPATION, SPORTS_OCCUPATION, VICTUAL_OCCUPATION)
 
 		then:
-		1 * occupationApiMock.v2RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, ARTS_OCCUPATION, COMMUNICATION_OCCUPATION,
+		1 * occupationApiMock.v2RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, ARTS_OCCUPATION, COMMUNICATION_OCCUPATION,
+				ECONOMIC_OCCUPATION, EDUCATION_OCCUPATION, ENTERTAINMENT_OCCUPATION, ILLEGAL_OCCUPATION, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
+				SCIENTIFIC_OCCUPATION, SPORTS_OCCUPATION, VICTUAL_OCCUPATION) >> occupationV2BaseResponse
+		0 * _
+		occupationV2BaseResponse == occupationV2BaseResponseOutput
+	}
+
+	void "searches entities with criteria (V2)"() {
+		given:
+		OccupationV2BaseResponse occupationV2BaseResponse = Mock()
+		OccupationV2SearchCriteria occupationV2SearchCriteria = new OccupationV2SearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				artsOccupation: ARTS_OCCUPATION,
+				communicationOccupation: COMMUNICATION_OCCUPATION,
+				economicOccupation: ECONOMIC_OCCUPATION,
+				educationOccupation: EDUCATION_OCCUPATION,
+				entertainmentOccupation: ENTERTAINMENT_OCCUPATION,
+				illegalOccupation: ILLEGAL_OCCUPATION,
+				legalOccupation: LEGAL_OCCUPATION,
+				medicalOccupation: MEDICAL_OCCUPATION,
+				scientificOccupation: SCIENTIFIC_OCCUPATION,
+				sportsOccupation: SPORTS_OCCUPATION,
+				victualOccupation: VICTUAL_OCCUPATION)
+		occupationV2SearchCriteria.sort.addAll(SORT)
+
+		when:
+		OccupationV2BaseResponse occupationV2BaseResponseOutput = occupation.searchV2(occupationV2SearchCriteria)
+
+		then:
+		1 * occupationApiMock.v2RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, ARTS_OCCUPATION, COMMUNICATION_OCCUPATION,
 				ECONOMIC_OCCUPATION, EDUCATION_OCCUPATION, ENTERTAINMENT_OCCUPATION, ILLEGAL_OCCUPATION, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
 				SCIENTIFIC_OCCUPATION, SPORTS_OCCUPATION, VICTUAL_OCCUPATION) >> occupationV2BaseResponse
 		0 * _

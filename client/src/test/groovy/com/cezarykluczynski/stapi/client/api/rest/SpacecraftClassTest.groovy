@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.SpacecraftClassV2SearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpacecraftClassApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFullResponse
@@ -49,12 +53,12 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassBaseResponse spacecraftClassBaseResponse = Mock()
 
 		when:
-		SpacecraftClassBaseResponse spacecraftClassBaseResponseOutput = spacecraftClass.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, WARP_CAPABLE,
-				ALTERNATE_REALITY)
+		SpacecraftClassBaseResponse spacecraftClassBaseResponseOutput = spacecraftClass.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
+				WARP_CAPABLE, ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, WARP_CAPABLE, ALTERNATE_REALITY) >>
-				spacecraftClassBaseResponse
+		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, WARP_CAPABLE,
+				ALTERNATE_REALITY) >> spacecraftClassBaseResponse
 		0 * _
 		spacecraftClassBaseResponse == spacecraftClassBaseResponseOutput
 	}
@@ -64,11 +68,33 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassV2BaseResponse spacecraftClassV2BaseResponse = Mock()
 
 		when:
-		SpacecraftClassV2BaseResponse spacecraftClassV2BaseResponseOutput = spacecraftClass.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, WARP_CAPABLE,
-				MIRROR, ALTERNATE_REALITY)
+		SpacecraftClassV2BaseResponse spacecraftClassV2BaseResponseOutput = spacecraftClass.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
+				WARP_CAPABLE, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, WARP_CAPABLE, MIRROR,
+		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE, MIRROR,
+				ALTERNATE_REALITY) >> spacecraftClassV2BaseResponse
+		0 * _
+		spacecraftClassV2BaseResponse == spacecraftClassV2BaseResponseOutput
+	}
+
+	void "searches entities with criteria (V2)"() {
+		given:
+		SpacecraftClassV2BaseResponse spacecraftClassV2BaseResponse = Mock()
+		SpacecraftClassV2SearchCriteria spacecraftClassV2SearchCriteria = new SpacecraftClassV2SearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				warpCapable: WARP_CAPABLE,
+				mirror: MIRROR,
+				alternateReality: ALTERNATE_REALITY)
+		spacecraftClassV2SearchCriteria.sort.addAll(SORT)
+
+		when:
+		SpacecraftClassV2BaseResponse spacecraftClassV2BaseResponseOutput = spacecraftClass.searchV2(spacecraftClassV2SearchCriteria)
+
+		then:
+		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE, MIRROR,
 				ALTERNATE_REALITY) >> spacecraftClassV2BaseResponse
 		0 * _
 		spacecraftClassV2BaseResponse == spacecraftClassV2BaseResponseOutput

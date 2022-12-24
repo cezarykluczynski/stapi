@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.LiteratureSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.LiteratureApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFullResponse
@@ -34,12 +38,37 @@ class LiteratureTest extends AbstractLiteratureTest {
 		LiteratureBaseResponse literatureBaseResponse = Mock()
 
 		when:
-		LiteratureBaseResponse literatureBaseResponseOutput = literature.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, EARTHLY_ORIGIN,
+		LiteratureBaseResponse literatureBaseResponseOutput = literature.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, EARTHLY_ORIGIN,
 				SHAKESPEAREAN_WORK, REPORT, SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE)
 
 		then:
-		1 * literatureApiMock.v1RestLiteratureSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK, REPORT,
+		1 * literatureApiMock.v1RestLiteratureSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK, REPORT,
 				SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE) >> literatureBaseResponse
+		0 * _
+		literatureBaseResponse == literatureBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		LiteratureBaseResponse literatureBaseResponse = Mock()
+		LiteratureSearchCriteria literatureSearchCriteria = new LiteratureSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				earthlyOrigin: EARTHLY_ORIGIN,
+				shakespeareanWork: SHAKESPEAREAN_WORK,
+				report: REPORT,
+				scientificLiterature: SCIENTIFIC_LITERATURE,
+				technicalManual: TECHNICAL_MANUAL,
+				religiousLiterature: RELIGIOUS_LITERATURE)
+		literatureSearchCriteria.sort.addAll(SORT)
+
+		when:
+		LiteratureBaseResponse literatureBaseResponseOutput = literature.search(literatureSearchCriteria)
+
+		then:
+		1 * literatureApiMock.v1RestLiteratureSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK,
+				REPORT, SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE) >> literatureBaseResponse
 		0 * _
 		literatureBaseResponse == literatureBaseResponseOutput
 	}

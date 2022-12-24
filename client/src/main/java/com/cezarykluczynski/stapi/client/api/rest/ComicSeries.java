@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
+import com.cezarykluczynski.stapi.client.api.dto.ComicSeriesSearchCriteria;
 import com.cezarykluczynski.stapi.client.v1.rest.api.ComicSeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBaseResponse;
@@ -18,11 +20,21 @@ public class ComicSeries {
 		return comicSeriesApi.v1RestComicSeriesGet(uid, null);
 	}
 
+	@Deprecated
 	public ComicSeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfIssuesFrom, Integer numberOfIssuesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean miniseries, Boolean photonovelSeries) throws ApiException {
 		return comicSeriesApi.v1RestComicSeriesSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo,
 				numberOfIssuesFrom, numberOfIssuesTo, stardateFrom, stardateTo, yearFrom, yearTo, miniseries, photonovelSeries);
+	}
+
+	public ComicSeriesBaseResponse search(ComicSeriesSearchCriteria comicSeriesSearchCriteria) throws ApiException {
+		return comicSeriesApi.v1RestComicSeriesSearchPost(comicSeriesSearchCriteria.getPageNumber(), comicSeriesSearchCriteria.getPageSize(),
+				StapiRestSortSerializer.serialize(comicSeriesSearchCriteria.getSort()), null, comicSeriesSearchCriteria.getTitle(),
+				comicSeriesSearchCriteria.getPublishedYearFrom(), comicSeriesSearchCriteria.getPublishedYearTo(),
+				comicSeriesSearchCriteria.getNumberOfIssuesFrom(), comicSeriesSearchCriteria.getNumberOfIssuesTo(),
+				comicSeriesSearchCriteria.getStardateFrom(), comicSeriesSearchCriteria.getStardateTo(), comicSeriesSearchCriteria.getYearFrom(),
+				comicSeriesSearchCriteria.getYearTo(), comicSeriesSearchCriteria.getMiniseries(), comicSeriesSearchCriteria.getPhotonovelSeries());
 	}
 
 }

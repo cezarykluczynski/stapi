@@ -6,7 +6,7 @@ abstract class AbstractIndividualTest extends AbstractTest {
 
 	protected static final String NAME = 'NAME'
 	protected static final String UID = 'UID'
-	protected static final String GENDER = 'GENDER'
+	protected static final String GENDER = 'M'
 	protected static final Integer YEAR_OF_BIRTH = 1965
 	protected static final Integer MONTH_OF_BIRTH = 2
 	protected static final Integer DAY_OF_BIRTH = 17

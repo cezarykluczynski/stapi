@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.MedicalConditionSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.MedicalConditionApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFullResponse
@@ -34,11 +38,31 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 		MedicalConditionBaseResponse medicalConditionBaseResponse = Mock()
 
 		when:
-		MedicalConditionBaseResponse medicalConditionBaseResponseOutput = medicalCondition.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME,
+		MedicalConditionBaseResponse medicalConditionBaseResponseOutput = medicalCondition.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
 				PSYCHOLOGICAL_CONDITION)
 
 		then:
-		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, PSYCHOLOGICAL_CONDITION) >>
+		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, PSYCHOLOGICAL_CONDITION) >>
+				medicalConditionBaseResponse
+		0 * _
+		medicalConditionBaseResponse == medicalConditionBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		MedicalConditionBaseResponse medicalConditionBaseResponse = Mock()
+		MedicalConditionSearchCriteria medicalConditionSearchCriteria = new MedicalConditionSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				psychologicalCondition: PSYCHOLOGICAL_CONDITION)
+		medicalConditionSearchCriteria.sort.addAll(SORT)
+
+		when:
+		MedicalConditionBaseResponse medicalConditionBaseResponseOutput = medicalCondition.search(medicalConditionSearchCriteria)
+
+		then:
+		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, PSYCHOLOGICAL_CONDITION) >>
 				medicalConditionBaseResponse
 		0 * _
 		medicalConditionBaseResponse == medicalConditionBaseResponseOutput

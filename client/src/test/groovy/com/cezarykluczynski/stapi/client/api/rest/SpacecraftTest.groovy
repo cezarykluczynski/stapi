@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.SpacecraftV2SearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpacecraftApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftFullResponse
@@ -49,10 +53,10 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftBaseResponse spacecraftBaseResponse = Mock()
 
 		when:
-		SpacecraftBaseResponse spacecraftBaseResponseOutput = spacecraft.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME)
+		SpacecraftBaseResponse spacecraftBaseResponseOutput = spacecraft.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME)
 
 		then:
-		1 * spacecraftApiMock.v1RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME) >> spacecraftBaseResponse
+		1 * spacecraftApiMock.v1RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME) >> spacecraftBaseResponse
 		0 * _
 		spacecraftBaseResponse == spacecraftBaseResponseOutput
 	}
@@ -62,10 +66,30 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftV2BaseResponse spacecraftV2BaseResponse = Mock()
 
 		when:
-		SpacecraftV2BaseResponse spacecraftV2BaseResponseOutput = spacecraft.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, REGISTRY, STATUS)
+		SpacecraftV2BaseResponse spacecraftV2BaseResponseOutput = spacecraft.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, REGISTRY, STATUS)
 
 		then:
-		1 * spacecraftApiMock.v2RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, REGISTRY, STATUS) >> spacecraftV2BaseResponse
+		1 * spacecraftApiMock.v2RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, REGISTRY, STATUS) >> spacecraftV2BaseResponse
+		0 * _
+		spacecraftV2BaseResponse == spacecraftV2BaseResponseOutput
+	}
+
+	void "searches entities with criteria (V2)"() {
+		given:
+		SpacecraftV2BaseResponse spacecraftV2BaseResponse = Mock()
+		SpacecraftV2SearchCriteria spacecraftV2SearchCriteria = new SpacecraftV2SearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				registry: REGISTRY,
+				status: STATUS)
+		spacecraftV2SearchCriteria.sort.addAll(SORT)
+
+		when:
+		SpacecraftV2BaseResponse spacecraftV2BaseResponseOutput = spacecraft.searchV2(spacecraftV2SearchCriteria)
+
+		then:
+		1 * spacecraftApiMock.v2RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, REGISTRY, STATUS) >> spacecraftV2BaseResponse
 		0 * _
 		spacecraftV2BaseResponse == spacecraftV2BaseResponseOutput
 	}

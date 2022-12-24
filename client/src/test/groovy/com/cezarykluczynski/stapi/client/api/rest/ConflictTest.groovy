@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.ConflictSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.ConflictApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictFullResponse
@@ -48,12 +52,38 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictBaseResponse conflictBaseResponse = Mock()
 
 		when:
-		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
-				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY)
+		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO,
+				EARTH_CONFLICT, FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY)
 
 		then:
-		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT, FEDERATION_WAR,
-				KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
+		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
+				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
+		0 * _
+		conflictBaseResponse == conflictBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		ConflictBaseResponse conflictBaseResponse = Mock()
+		ConflictSearchCriteria conflictSearchCriteria = new ConflictSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO,
+				earthConflict: EARTH_CONFLICT,
+				federationWar: FEDERATION_WAR,
+				klingonWar: KLINGON_WAR,
+				dominionWarBattle: DOMINION_WAR_BATTLE,
+				alternateReality: ALTERNATE_REALITY)
+		conflictSearchCriteria.sort.addAll(SORT)
+
+		when:
+		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(conflictSearchCriteria)
+
+		then:
+		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
+				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
 		0 * _
 		conflictBaseResponse == conflictBaseResponseOutput
 	}

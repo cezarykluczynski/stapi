@@ -6,6 +6,7 @@
 
 <suppressions>
 	<suppress files=".+RestBeanParams\.java" checks="FileLength|MethodCount"/>
+	<suppress files=".+SearchCriteria\.java" checks="FileLength|MethodCount"/>
 	<suppress files=".+query[\\/]QueryBuilder\.java" checks="FileLength"/>
 	<suppress files=".+CategoryTitle\.java" checks="FileLength"/>
 	<suppress files=".+CategoryTitles\.java" checks="FileLength"/>

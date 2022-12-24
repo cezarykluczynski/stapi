@@ -6,7 +6,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 
 	void "rest client can be instantiated with canonical URL"() {
 		when:
-		stapiRestClient = new StapiRestClient(null)
+		stapiRestClient = new StapiRestClient()
 
 		then:
 		stapiRestClient.animalApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_HTTPS_URL)

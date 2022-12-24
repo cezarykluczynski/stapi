@@ -1,10 +1,14 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.BookV2SearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2FullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.BookBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.BookFullResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2BaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractBookTest
 
 class BookTest extends AbstractBookTest {
@@ -49,13 +53,13 @@ class BookTest extends AbstractBookTest {
 		BookBaseResponse bookBaseResponse = Mock()
 
 		when:
-		BookBaseResponse bookBaseResponseOutput = book.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		BookBaseResponse bookBaseResponseOutput = book.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
 				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED, AUDIOBOOK_PUBLISHED_YEAR_FROM,
 				AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO)
 
 		then:
-		1 * bookApiMock.v1RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookApiMock.v1RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
 				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED, AUDIOBOOK_PUBLISHED_YEAR_FROM,
 				AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO) >>
@@ -69,13 +73,57 @@ class BookTest extends AbstractBookTest {
 		BookV2BaseResponse bookV2BaseResponse = Mock()
 
 		when:
-		BookV2BaseResponse bookV2BaseResponseOutput = book.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		BookV2BaseResponse bookV2BaseResponseOutput = book.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
 				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, UNAUTHORIZED_PUBLICATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED,
 				AUDIOBOOK_PUBLISHED_YEAR_FROM, AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO)
 
 		then:
-		1 * bookApiMock.v2RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookApiMock.v2RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
+				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, UNAUTHORIZED_PUBLICATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED,
+				AUDIOBOOK_PUBLISHED_YEAR_FROM, AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO) >>
+				bookV2BaseResponse
+		0 * _
+		bookV2BaseResponse == bookV2BaseResponseOutput
+	}
+
+	void "searches entities with criteria (V2)"() {
+		given:
+		BookV2BaseResponse bookV2BaseResponse = Mock()
+		BookV2SearchCriteria bookV2SearchCriteria = new BookV2SearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				publishedYearFrom: PUBLISHED_YEAR_FROM,
+				publishedYearTo: PUBLISHED_YEAR_TO,
+				numberOfPagesFrom: NUMBER_OF_PAGES_FROM,
+				numberOfPagesTo: NUMBER_OF_PAGES_TO,
+				stardateFrom: STARDATE_FROM,
+				stardateTo: STARDATE_TO,
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO,
+				novel: NOVEL,
+				referenceBook: REFERENCE_BOOK,
+				biographyBook: BIOGRAPHY_BOOK,
+				rolePlayingBook: ROLE_PLAYING_BOOK,
+				eBook: E_BOOK,
+				anthology: ANTHOLOGY,
+				novelization: NOVELIZATION,
+				unauthorizedPublication: UNAUTHORIZED_PUBLICATION,
+				audiobook: AUDIOBOOK,
+				audiobookAbridged: AUDIOBOOK_ABRIDGED,
+				audiobookPublishedYearFrom: AUDIOBOOK_PUBLISHED_YEAR_FROM,
+				audiobookPublishedYearTo: AUDIOBOOK_PUBLISHED_YEAR_TO,
+				audiobookRunTimeFrom: AUDIOBOOK_RUN_TIME_FROM,
+				audiobookRunTimeTo: AUDIOBOOK_RUN_TIME_TO)
+		bookV2SearchCriteria.sort.addAll(SORT)
+
+		when:
+		BookV2BaseResponse bookV2BaseResponseOutput = book.searchV2(bookV2SearchCriteria)
+
+		then:
+		1 * bookApiMock.v2RestBookSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, NOVEL, REFERENCE_BOOK, BIOGRAPHY_BOOK,
 				ROLE_PLAYING_BOOK, E_BOOK, ANTHOLOGY, NOVELIZATION, UNAUTHORIZED_PUBLICATION, AUDIOBOOK, AUDIOBOOK_ABRIDGED,
 				AUDIOBOOK_PUBLISHED_YEAR_FROM, AUDIOBOOK_PUBLISHED_YEAR_TO, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO) >>

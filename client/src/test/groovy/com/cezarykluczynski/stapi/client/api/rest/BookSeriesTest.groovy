@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.BookSeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookSeriesApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.BookSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.BookSeriesFullResponse
@@ -34,11 +38,38 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 		BookSeriesBaseResponse bookSeriesBaseResponse = Mock()
 
 		when:
-		BookSeriesBaseResponse bookSeriesBaseResponseOutput = bookSeries.search(PAGE_NUMBER, PAGE_SIZE, SORT, TITLE, PUBLISHED_YEAR_FROM,
+		BookSeriesBaseResponse bookSeriesBaseResponseOutput = bookSeries.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
 				PUBLISHED_YEAR_TO, NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES)
 
 		then:
-		1 * bookSeriesApiMock.v1RestBookSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookSeriesApiMock.v1RestBookSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+				NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES) >> bookSeriesBaseResponse
+		0 * _
+		bookSeriesBaseResponse == bookSeriesBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		BookSeriesBaseResponse bookSeriesBaseResponse = Mock()
+		BookSeriesSearchCriteria bookSeriesSearchCriteria = new BookSeriesSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				title: TITLE,
+				publishedYearFrom: PUBLISHED_YEAR_FROM,
+				publishedYearTo: PUBLISHED_YEAR_TO,
+				numberOfBooksFrom: NUMBER_OF_BOOKS_FROM,
+				numberOfBooksTo: NUMBER_OF_BOOKS_TO,
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO,
+				miniseries: MINISERIES,
+				eBookSeries: E_BOOK_SERIES)
+		bookSeriesSearchCriteria.sort.addAll(SORT)
+
+		when:
+		BookSeriesBaseResponse bookSeriesBaseResponseOutput = bookSeries.search(bookSeriesSearchCriteria)
+
+		then:
+		1 * bookSeriesApiMock.v1RestBookSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES) >> bookSeriesBaseResponse
 		0 * _
 		bookSeriesBaseResponse == bookSeriesBaseResponseOutput

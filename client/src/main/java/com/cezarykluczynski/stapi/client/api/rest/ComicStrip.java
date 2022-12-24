@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
+import com.cezarykluczynski.stapi.client.api.dto.ComicStripSearchCriteria;
 import com.cezarykluczynski.stapi.client.v1.rest.api.ComicStripApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripBaseResponse;
@@ -18,10 +20,19 @@ public class ComicStrip {
 		return comicStripApi.v1RestComicStripGet(uid, null);
 	}
 
+	@Deprecated
 	public ComicStripBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Integer yearFrom, Integer yearTo) throws ApiException {
 		return comicStripApi.v1RestComicStripSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, yearFrom, yearTo);
+	}
+
+	public ComicStripBaseResponse search(ComicStripSearchCriteria comicStripSearchCriteria) throws ApiException {
+		return comicStripApi.v1RestComicStripSearchPost(comicStripSearchCriteria.getPageNumber(), comicStripSearchCriteria.getPageSize(),
+				StapiRestSortSerializer.serialize(comicStripSearchCriteria.getSort()), null, comicStripSearchCriteria.getTitle(),
+				comicStripSearchCriteria.getPublishedYearFrom(), comicStripSearchCriteria.getPublishedYearTo(),
+				comicStripSearchCriteria.getNumberOfPagesFrom(), comicStripSearchCriteria.getNumberOfPagesTo(),
+				comicStripSearchCriteria.getYearFrom(), comicStripSearchCriteria.getYearTo());
 	}
 
 }

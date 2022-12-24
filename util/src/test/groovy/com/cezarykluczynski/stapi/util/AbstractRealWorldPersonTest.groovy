@@ -11,7 +11,7 @@ abstract class AbstractRealWorldPersonTest extends AbstractTest {
 
 	protected static final String UID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'
-	protected static final String GENDER_STRING = 'GENDER_STRING'
+	protected static final String GENDER = 'M'
 	protected static final String BIRTH_NAME = 'BIRTH_NAME'
 	protected static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'
 	protected static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
@@ -64,15 +64,15 @@ abstract class AbstractRealWorldPersonTest extends AbstractTest {
 	protected static final Boolean PRO_PERFORMER = RandomUtil.nextBoolean()
 	protected static final Boolean PUPPETEER = RandomUtil.nextBoolean()
 	protected static final Boolean SNW_PERFORMER = RandomUtil.nextBoolean()
-	protected static final Boolean STAND_IN_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean ST_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean STUNT_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean TAS_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean TNG_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean TOS_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean VIDEO_GAME_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean VOICE_PERFORMER =  RandomUtil.nextBoolean()
-	protected static final Boolean VOY_PERFORMER =  RandomUtil.nextBoolean()
+	protected static final Boolean STAND_IN_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean ST_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean STUNT_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean TAS_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean TNG_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean TOS_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean VIDEO_GAME_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean VOICE_PERFORMER = RandomUtil.nextBoolean()
+	protected static final Boolean VOY_PERFORMER = RandomUtil.nextBoolean()
 
 	protected static final boolean ART_DEPARTMENT = RandomUtil.nextBoolean()
 	protected static final boolean ART_DIRECTOR = RandomUtil.nextBoolean()

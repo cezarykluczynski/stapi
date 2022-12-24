@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
+import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
+
+import com.cezarykluczynski.stapi.client.api.dto.TradingCardSearchCriteria
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardApi
 import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardFullResponse
@@ -34,12 +38,34 @@ class TradingCardTest extends AbstractTradingCardTest {
 		TradingCardBaseResponse tradingCardBaseResponse = Mock()
 
 		when:
-		TradingCardBaseResponse tradingCardBaseResponseOutput = tradingCard.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME, TRADING_CARD_DECK_UID,
-				TRADING_CARD_SET_UID)
+		TradingCardBaseResponse tradingCardBaseResponseOutput = tradingCard.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
+				TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID)
 
 		then:
-		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, null, NAME, TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID) >>
-				tradingCardBaseResponse
+		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, TRADING_CARD_DECK_UID,
+				TRADING_CARD_SET_UID) >> tradingCardBaseResponse
+		0 * _
+		tradingCardBaseResponse == tradingCardBaseResponseOutput
+	}
+
+	void "searches entities with criteria"() {
+		given:
+		TradingCardBaseResponse tradingCardBaseResponse = Mock()
+		TradingCardSearchCriteria tradingCardSearchCriteria = new TradingCardSearchCriteria(
+				pageNumber: PAGE_NUMBER,
+				pageSize: PAGE_SIZE,
+				name: NAME,
+				tradingCardDeckUid: TRADING_CARD_DECK_UID,
+				tradingCardSetUid: TRADING_CARD_SET_UID)
+		tradingCardSearchCriteria.sort.addAll(SORT)
+
+		when:
+		TradingCardBaseResponse tradingCardBaseResponseOutput = tradingCard.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
+				TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID)
+
+		then:
+		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, TRADING_CARD_DECK_UID,
+				TRADING_CARD_SET_UID) >> tradingCardBaseResponse
 		0 * _
 		tradingCardBaseResponse == tradingCardBaseResponseOutput
 	}

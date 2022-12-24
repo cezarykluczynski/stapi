@@ -338,6 +338,10 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private Weapon weapon;
 
+	public StapiRestClient() {
+		this(null);
+	}
+
 	public StapiRestClient(String apiUrl) {
 		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_HTTPS_URL));
 		createApiClient();
