@@ -16,8 +16,14 @@ public class EntitySizeNotCachedStatisticsProviderImpl implements EntitySizeStat
 	}
 
 	@Override
-	public Map<Class, Long> provide() {
-		return entitySizeCountingService.count();
+	public Map<Class, Long> provideEntitiesCount() {
+		return entitySizeCountingService.countEntities();
 	}
+
+	@Override
+	public Long provideRelationsCount() {
+		return entitySizeCountingService.countRelations();
+	}
+
 
 }

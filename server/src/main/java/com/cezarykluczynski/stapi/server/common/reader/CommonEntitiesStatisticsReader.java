@@ -21,7 +21,7 @@ class CommonEntitiesStatisticsReader {
 	RestEndpointStatisticsDTO entitiesStatistics() {
 		LongAdder longAdder = new LongAdder();
 
-		List<RestEndpointStatisticDTO> restEndpointStatisticDTOList = entitySizeStatisticsProvider.provide()
+		List<RestEndpointStatisticDTO> restEndpointStatisticDTOList = entitySizeStatisticsProvider.provideEntitiesCount()
 				.entrySet()
 				.stream()
 				.filter(entry -> entry.getValue() > 0L)
@@ -35,7 +35,8 @@ class CommonEntitiesStatisticsReader {
 				})
 				.collect(Collectors.toList());
 
-		return new RestEndpointStatisticsDTO(restEndpointStatisticDTOList, longAdder.longValue());
+		return new RestEndpointStatisticsDTO(restEndpointStatisticDTOList, longAdder.longValue(),
+				entitySizeStatisticsProvider.provideRelationsCount());
 	}
 
 }

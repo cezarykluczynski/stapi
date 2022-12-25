@@ -4,13 +4,16 @@ import java.util.List;
 
 public class RestEndpointStatisticsDTO {
 
-	private Long totalCount;
+	private final List<RestEndpointStatisticDTO> statistics;
 
-	private List<RestEndpointStatisticDTO> statistics;
+	private final Long totalCount;
 
-	public RestEndpointStatisticsDTO(List<RestEndpointStatisticDTO> statistics, Long totalCount) {
+	private final Long relationsCount;
+
+	public RestEndpointStatisticsDTO(List<RestEndpointStatisticDTO> statistics, Long totalCount, Long relationsCount) {
 		this.statistics = statistics;
 		this.totalCount = totalCount;
+		this.relationsCount = relationsCount;
 	}
 
 	public List<RestEndpointStatisticDTO> getStatistics() {
@@ -19,6 +22,10 @@ public class RestEndpointStatisticsDTO {
 
 	public Long getTotalCount() {
 		return totalCount;
+	}
+
+	public Long getRelationsCount() {
+		return relationsCount;
 	}
 
 }

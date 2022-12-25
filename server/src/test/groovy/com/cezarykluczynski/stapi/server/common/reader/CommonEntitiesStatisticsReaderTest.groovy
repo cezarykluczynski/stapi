@@ -14,6 +14,7 @@ class CommonEntitiesStatisticsReaderTest extends Specification {
 	private static final long SERIES_COUNT = 10
 	private static final long SPECIES_COUNT = 20
 	private static final long IGNORED_COUNT = 0
+	private static final long RELATIONS_COUNT = 15
 
 	private EntitySizeStatisticsProvider entitySizeStatisticsProviderMock
 
@@ -35,9 +36,11 @@ class CommonEntitiesStatisticsReaderTest extends Specification {
 		RestEndpointStatisticsDTO restEndpointStatisticsDTO = commonEntitiesStatisticsReader.entitiesStatistics()
 
 		then:
-		1 * entitySizeStatisticsProviderMock.provide() >> map
+		1 * entitySizeStatisticsProviderMock.provideEntitiesCount() >> map
+		1 * entitySizeStatisticsProviderMock.provideRelationsCount() >> RELATIONS_COUNT
 		0 * _
 		restEndpointStatisticsDTO.totalCount == SERIES_COUNT + SPECIES_COUNT
+		restEndpointStatisticsDTO.relationsCount == RELATIONS_COUNT
 		restEndpointStatisticsDTO.statistics.size() == 2
 		restEndpointStatisticsDTO.statistics[0].name == 'Series'
 		restEndpointStatisticsDTO.statistics[0].count == SERIES_COUNT

@@ -37,6 +37,7 @@ class CommonHitsStatisticsReaderTest extends Specification {
 		1 * endpointHitsReaderMock.readAllHitsCount() >> ALL_HITS_COUNT
 		0 * _
 		restEndpointStatisticsDTO.totalCount == ALL_HITS_COUNT
+		restEndpointStatisticsDTO.relationsCount == 0L
 		restEndpointStatisticsDTO.statistics[0].name == 'Book'
 		restEndpointStatisticsDTO.statistics[0].count == BOOK_HITS_COUNT
 		restEndpointStatisticsDTO.statistics[1].name == 'Comics'

@@ -32,7 +32,7 @@ public class CommonHitsStatisticsReader implements StatisticsReader {
 				})
 				.collect(Collectors.toList());
 
-		return new RestEndpointStatisticsDTO(restEndpointStatisticDTOList, endpointHitsReader.readAllHitsCount());
+		return new RestEndpointStatisticsDTO(restEndpointStatisticDTOList, endpointHitsReader.readAllHitsCount(), 0L);
 	}
 
 }

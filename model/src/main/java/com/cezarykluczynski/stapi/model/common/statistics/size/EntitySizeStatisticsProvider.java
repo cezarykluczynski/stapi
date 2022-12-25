@@ -4,6 +4,8 @@ import java.util.Map;
 
 public interface EntitySizeStatisticsProvider {
 
-	Map<Class, Long> provide();
+	Map<Class, Long> provideEntitiesCount();
+
+	Long provideRelationsCount();
 
 }

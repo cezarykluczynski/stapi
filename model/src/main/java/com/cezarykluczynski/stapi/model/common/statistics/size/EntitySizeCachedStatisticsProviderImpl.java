@@ -11,6 +11,8 @@ public class EntitySizeCachedStatisticsProviderImpl implements EntitySizeStatist
 
 	private Map<Class, Long> statistics;
 
+	private Long relationsCount;
+
 	private final EntitySizeCountingService entitySizeCountingService;
 
 	public EntitySizeCachedStatisticsProviderImpl(EntitySizeCountingService entitySizeCountingService) {
@@ -18,12 +20,21 @@ public class EntitySizeCachedStatisticsProviderImpl implements EntitySizeStatist
 	}
 
 	@Override
-	public synchronized Map<Class, Long> provide() {
+	public synchronized Map<Class, Long> provideEntitiesCount() {
 		if (statistics == null) {
-			statistics = entitySizeCountingService.count();
+			statistics = entitySizeCountingService.countEntities();
 		}
 
 		return statistics;
+	}
+
+	@Override
+	public synchronized Long provideRelationsCount() {
+		if (relationsCount == null) {
+			relationsCount = entitySizeCountingService.countRelations();
+		}
+
+		return relationsCount;
 	}
 
 }

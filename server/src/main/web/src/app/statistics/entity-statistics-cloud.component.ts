@@ -57,6 +57,10 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		return this.statistics.entitiesStatistics.totalCount;
 	}
 
+	getRelationsCount() {
+		return this.statistics.entitiesStatistics.relationsCount;
+	}
+
 	getEntitiesOfType(type) {
 		const entitiesNames = this.details
 			.filter(entity => entity.type === type)

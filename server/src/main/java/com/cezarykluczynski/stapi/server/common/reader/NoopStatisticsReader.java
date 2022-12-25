@@ -12,7 +12,7 @@ public class NoopStatisticsReader implements StatisticsReader {
 
 	@Override
 	public RestEndpointStatisticsDTO hitsStatistics() {
-		return new RestEndpointStatisticsDTO(Lists.newArrayList(), 0L);
+		return new RestEndpointStatisticsDTO(Lists.newArrayList(), 0L, 0L);
 	}
 
 }

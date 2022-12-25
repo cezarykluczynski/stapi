@@ -24,12 +24,7 @@ export class StatisticsApi {
 			this.statistics = this.statistics || {};
 			this.statistics.entitiesStatistics = response;
 		});
-		// const hitsStatisticsPromise = this.api.common.statistics.hits.get().then(response => {
-		// 	response.statistics.sort(sorter);
-		// 	this.statistics = this.statistics || {};
-		// 	this.statistics.hitsStatistics = response;
-		// });
-		return Promise.all([entitiesStatisticsPromise/*, hitsStatisticsPromise*/]).then(() => {
+		return Promise.all([entitiesStatisticsPromise]).then(() => {
 			this.statistics.loaded = true;
 		});
 	}
@@ -40,7 +35,6 @@ export class StatisticsApi {
 
 	private register() {
 		this.api.res('common').res('statistics').res('entities');
-		// this.api.res('common').res('statistics').res('hits');
 	}
 
 }
