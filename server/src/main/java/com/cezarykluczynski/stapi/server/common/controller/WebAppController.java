@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.server.common.controller;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +24,11 @@ public class WebAppController {
 		return "privacyPolicy";
 	}
 
+	@RequestMapping({"/robots.txt"})
+	public HttpEntity<String> robotsTxt() {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.TEXT_PLAIN);
+		return new HttpEntity<>("User-agent: *\nAllow: /\n", httpHeaders);
+	}
+
 }
-
-

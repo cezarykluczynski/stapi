@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.controller
 
+import org.springframework.http.HttpEntity
 import spock.lang.Specification
 
 class WebAppControllerTest extends Specification {
@@ -32,6 +33,16 @@ class WebAppControllerTest extends Specification {
 
 		then:
 		templateName == 'privacyPolicy'
+	}
+
+	void "returns robots.txt response"() {
+		when:
+		HttpEntity<String> httpEntity = webAppController.robotsTxt()
+
+		then:
+		httpEntity.headers.get('Content-Type').get(0) == 'text/plain'
+		httpEntity.body.contains('User-agent: *')
+		httpEntity.body.contains('Allow: /')
 	}
 
 }

@@ -10,6 +10,8 @@ import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+declare var $: any;
+
 export function highlightJsFactory() {
 	return hljs;
 }
@@ -39,7 +41,9 @@ import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 import { APP_ROUTES } from './app.routes';
 
 export function initConfiguration(initializerService: InitializerService): Function {
-	return () => initializerService.init();
+	return () => initializerService.init().then(() => {
+		$('.loader').hide();
+	});
 }
 
 @NgModule({
