@@ -33,7 +33,7 @@ class LiteratureWriterTest extends Specification {
 			assert args[0][0] == literature
 			literatureList
 		}
-		1 * literatureRepositoryMock.save(literatureList)
+		1 * literatureRepositoryMock.saveAll(literatureList)
 		0 * _
 	}
 

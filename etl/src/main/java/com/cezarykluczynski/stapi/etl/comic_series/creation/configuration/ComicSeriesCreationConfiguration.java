@@ -27,7 +27,7 @@ public class ComicSeriesCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public ComicSeriesReader comicSeriesReader() {
 		List<PageHeader> comicSeriess = Lists.newArrayList();
 

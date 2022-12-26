@@ -33,7 +33,7 @@ class ElementWriterTest extends Specification {
 			assert args[0][0] == element
 			elementList
 		}
-		1 * elementRepositoryMock.save(elementList)
+		1 * elementRepositoryMock.saveAll(elementList)
 		0 * _
 	}
 

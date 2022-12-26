@@ -27,7 +27,7 @@ public class TechnologyWriter implements ItemWriter<Technology> {
 
 	@Override
 	public void write(List<? extends Technology> items) throws Exception {
-		technologyRepository.save(process(items));
+		technologyRepository.saveAll(process(items));
 	}
 
 	private List<Technology> process(List<? extends Technology> technologyList) {

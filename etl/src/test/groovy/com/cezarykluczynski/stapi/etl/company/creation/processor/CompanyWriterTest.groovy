@@ -33,7 +33,7 @@ class CompanyWriterTest extends Specification {
 			assert args[0][0] == company
 			companyList
 		}
-		1 * companyRepositoryMock.save(companyList)
+		1 * companyRepositoryMock.saveAll(companyList)
 		0 * _
 	}
 

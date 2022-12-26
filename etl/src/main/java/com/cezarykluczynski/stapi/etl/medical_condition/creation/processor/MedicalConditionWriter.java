@@ -27,7 +27,7 @@ public class MedicalConditionWriter implements ItemWriter<MedicalCondition> {
 
 	@Override
 	public void write(List<? extends MedicalCondition> items) throws Exception {
-		medicalConditionRepository.save(process(items));
+		medicalConditionRepository.saveAll(process(items));
 	}
 
 	private List<MedicalCondition> process(List<? extends MedicalCondition> medicalConditionList) {

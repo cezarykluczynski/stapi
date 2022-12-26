@@ -36,7 +36,7 @@ public class OrganizationCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public OrganizationReader organizationReader() {
 		List<PageHeader> organizations = Lists.newArrayList();
 

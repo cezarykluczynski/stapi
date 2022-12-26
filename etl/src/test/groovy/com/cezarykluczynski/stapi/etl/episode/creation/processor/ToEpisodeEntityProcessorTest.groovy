@@ -60,7 +60,7 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 		then:
 		episode == episodeStub
 		1 * seriesDetached.id >> SERIES_ID
-		1 * seriesRepositoryMock.findOne(SERIES_ID) >> seriesNew
+		1 * seriesRepositoryMock.findById(SERIES_ID) >> Optional.of(seriesNew)
 		1 * uidGeneratorMock.generateFromPage(page, Episode) >> UID
 		episode.title == TITLE
 		episode.titleGerman == TITLE_GERMAN

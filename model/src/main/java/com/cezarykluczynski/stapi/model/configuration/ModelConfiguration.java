@@ -5,13 +5,12 @@ import com.cezarykluczynski.stapi.model.common.etl.EtlProperties;
 import com.cezarykluczynski.stapi.util.constant.Package;
 import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariDataSource;
-import liquibase.integration.spring.SpringLiquibase;
 import org.hibernate.jpa.AvailableSettings;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -93,18 +92,8 @@ public class ModelConfiguration {
 		return lef.getObject();
 	}
 
-	@Bean
-	@ConditionalOnProperty("liquibase.enabled")
-	public SpringLiquibase liquibase() {
-		SpringLiquibase springLiquibase = new SpringLiquibase();
-		springLiquibase.setChangeLog("classpath:liquibase/changelog.xml");
-		springLiquibase.setDefaultSchema("stapi");
-		springLiquibase.setDataSource(dataSource());
-		return springLiquibase;
-	}
-
 	@Bean(name = "liquibase")
-	@ConditionalOnProperty(name = "liquibase.enabled", havingValue = "false")
+	@ConditionalOnProperty(name = "spring.liquibase.enabled", havingValue = "false")
 	public Object liquibaseMock() {
 		return new Object();
 	}

@@ -25,7 +25,7 @@ public class ConflictWriter implements ItemWriter<Conflict> {
 
 	@Override
 	public void write(List<? extends Conflict> items) throws Exception {
-		conflictRepository.save(process(items));
+		conflictRepository.saveAll(process(items));
 	}
 
 	private List<Conflict> process(List<? extends Conflict> planetList) {

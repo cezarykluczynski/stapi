@@ -46,7 +46,7 @@ public class StaffCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public StaffReader staffReader() {
 		List<PageHeader> staff = Lists.newArrayList();
 

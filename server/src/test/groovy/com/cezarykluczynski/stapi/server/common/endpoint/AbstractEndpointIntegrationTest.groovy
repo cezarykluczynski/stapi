@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.server.common.endpoint
 import com.cezarykluczynski.stapi.client.api.StapiRestClient
 import com.cezarykluczynski.stapi.client.api.StapiSoapClient
 import com.cezarykluczynski.stapi.server.Application
-import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification

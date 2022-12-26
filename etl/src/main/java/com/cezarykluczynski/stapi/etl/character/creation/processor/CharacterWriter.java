@@ -25,7 +25,7 @@ public class CharacterWriter implements ItemWriter<Character> {
 
 	@Override
 	public void write(List<? extends Character> items) throws Exception {
-		characterRepository.save(process(items));
+		characterRepository.saveAll(process(items));
 	}
 
 	private List<Character> process(List<? extends Character> characterList) {

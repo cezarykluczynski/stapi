@@ -24,7 +24,7 @@ public class EpisodeWriter implements ItemWriter<Episode> {
 
 	@Override
 	public void write(List<? extends Episode> items) throws Exception {
-		episodeRepository.save(process(items));
+		episodeRepository.saveAll(process(items));
 	}
 
 	private List<Episode> process(List<? extends Episode> episodeList) {

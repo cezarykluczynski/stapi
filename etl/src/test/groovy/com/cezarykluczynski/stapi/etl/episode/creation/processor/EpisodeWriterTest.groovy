@@ -33,7 +33,7 @@ class EpisodeWriterTest extends Specification {
 			assert args[0][0] == episode
 			episodeList
 		}
-		1 * episodeRepositoryMock.save(episodeList)
+		1 * episodeRepositoryMock.saveAll(episodeList)
 		0 * _
 	}
 

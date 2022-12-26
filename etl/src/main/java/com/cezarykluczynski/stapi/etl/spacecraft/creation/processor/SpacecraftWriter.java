@@ -25,7 +25,7 @@ public class SpacecraftWriter implements ItemWriter<Spacecraft> {
 
 	@Override
 	public void write(List<? extends Spacecraft> items) throws Exception {
-		spacecraftRepository.save(process(items));
+		spacecraftRepository.saveAll(process(items));
 	}
 
 	private List<Spacecraft> process(List<? extends Spacecraft> planetList) {

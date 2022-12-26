@@ -25,7 +25,7 @@ public class CharacterLinkConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public CharacterLinkReader characterLinkReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 

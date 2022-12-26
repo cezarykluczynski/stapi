@@ -27,7 +27,7 @@ public class LiteratureCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public LiteratureReader literatureReader() {
 		List<PageHeader> literatureList = Lists.newArrayList();
 

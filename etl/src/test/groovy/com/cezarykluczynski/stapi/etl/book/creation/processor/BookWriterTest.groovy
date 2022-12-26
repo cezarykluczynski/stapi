@@ -33,7 +33,7 @@ class BookWriterTest extends Specification {
 			assert args[0][0] == book
 			bookList
 		}
-		1 * bookRepositoryMock.save(bookList)
+		1 * bookRepositoryMock.saveAll(bookList)
 		0 * _
 	}
 

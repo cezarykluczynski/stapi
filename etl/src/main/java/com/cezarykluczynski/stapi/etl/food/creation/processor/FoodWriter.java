@@ -26,7 +26,7 @@ public class FoodWriter implements ItemWriter<Food> {
 
 	@Override
 	public void write(List<? extends Food> items) throws Exception {
-		foodRepository.save(process(items));
+		foodRepository.saveAll(process(items));
 	}
 
 	private List<Food> process(List<? extends Food> foodList) {

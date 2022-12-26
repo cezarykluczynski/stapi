@@ -27,7 +27,7 @@ public class MaterialCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public MaterialReader materialReader() {
 		List<PageHeader> materials = Lists.newArrayList();
 

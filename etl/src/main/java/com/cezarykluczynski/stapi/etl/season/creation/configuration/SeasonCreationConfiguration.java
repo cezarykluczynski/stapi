@@ -27,7 +27,7 @@ public class SeasonCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public SeasonReader seasonReader() {
 		List<PageHeader> pageHeaderList = Lists.newArrayList();
 

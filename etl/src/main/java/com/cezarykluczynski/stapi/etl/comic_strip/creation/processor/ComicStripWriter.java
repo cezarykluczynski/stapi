@@ -26,7 +26,7 @@ public class ComicStripWriter implements ItemWriter<ComicStrip> {
 
 	@Override
 	public void write(List<? extends ComicStrip> items) throws Exception {
-		comicStripRepository.save(process(items));
+		comicStripRepository.saveAll(process(items));
 	}
 
 	private List<ComicStrip> process(List<? extends ComicStrip> comicStripList) {

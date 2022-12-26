@@ -33,7 +33,7 @@ class WeaponWriterTest extends Specification {
 			assert args[0][0] == weapon
 			weaponList
 		}
-		1 * weaponRepositoryMock.save(weaponList)
+		1 * weaponRepositoryMock.saveAll(weaponList)
 		0 * _
 	}
 

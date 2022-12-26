@@ -33,7 +33,7 @@ public class CharacterRelationRepositoryImpl implements CharacterRelationReposit
 			characterSet.add(persistedCharacterRelation.getTarget());
 		}
 
-		characterRepository.save(characterSet);
+		characterRepository.saveAll(characterSet);
 	}
 
 }

@@ -478,6 +478,9 @@ class QueryBuilderTest extends Specification {
 		1 * baseTypedQuery.resultList >> baseEntityList
 		1 * countTypedQuery.singleResult >> count
 
+		then: 'pageable is not interacted with in PageImpl constructor'
+		1 * pageable.toOptional() >> Optional.empty()
+
 		then: 'page is returned'
 		seriesPage.content == baseEntityList
 		seriesPage.totalElements == count

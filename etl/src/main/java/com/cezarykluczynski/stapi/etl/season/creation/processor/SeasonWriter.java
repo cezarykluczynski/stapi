@@ -19,7 +19,7 @@ public class SeasonWriter implements ItemWriter<Season> {
 
 	@Override
 	public void write(List<? extends Season> items) throws Exception {
-		seasonRepository.save(process(items));
+		seasonRepository.saveAll(process(items));
 	}
 
 	private List<Season> process(List<? extends Season> seasonList) {

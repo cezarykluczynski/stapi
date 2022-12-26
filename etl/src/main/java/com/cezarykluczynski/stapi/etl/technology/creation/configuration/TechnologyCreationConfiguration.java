@@ -27,7 +27,7 @@ public class TechnologyCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public TechnologyReader technologyReader() {
 		List<PageHeader> technology = Lists.newArrayList();
 

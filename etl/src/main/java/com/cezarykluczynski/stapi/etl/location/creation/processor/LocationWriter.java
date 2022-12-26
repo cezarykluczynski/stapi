@@ -28,7 +28,7 @@ public class LocationWriter implements ItemWriter<Location> {
 
 	@Override
 	public void write(List<? extends Location> items) throws Exception {
-		locationRepository.save(process(items));
+		locationRepository.saveAll(process(items));
 	}
 
 	private List<Location> process(List<? extends Location> locationList) {

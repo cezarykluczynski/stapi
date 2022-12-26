@@ -33,7 +33,7 @@ class CharacterWriterTest extends Specification {
 			assert args[0][0] == character
 			characterList
 		}
-		1 * characterRepositoryMock.save(characterList)
+		1 * characterRepositoryMock.saveAll(characterList)
 		0 * _
 	}
 

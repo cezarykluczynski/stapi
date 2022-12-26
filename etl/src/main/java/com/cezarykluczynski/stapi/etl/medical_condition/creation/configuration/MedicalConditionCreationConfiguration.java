@@ -27,7 +27,7 @@ public class MedicalConditionCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public MedicalConditionReader medicalConditionReader() {
 		List<PageHeader> medicalConditions = Lists.newArrayList();
 

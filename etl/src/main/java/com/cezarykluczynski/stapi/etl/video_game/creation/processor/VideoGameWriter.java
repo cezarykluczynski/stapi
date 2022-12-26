@@ -25,7 +25,7 @@ public class VideoGameWriter implements ItemWriter<VideoGame> {
 
 	@Override
 	public void write(List<? extends VideoGame> items) throws Exception {
-		videoGameRepository.save(process(items));
+		videoGameRepository.saveAll(process(items));
 	}
 
 	private List<VideoGame> process(List<? extends VideoGame> videoGameList) {

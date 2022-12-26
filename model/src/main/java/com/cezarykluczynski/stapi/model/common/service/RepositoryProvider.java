@@ -40,7 +40,7 @@ public class RepositoryProvider {
 				.map(ClassMetadata::getMappedClass)
 				.filter(this::isPrimaryEntity)
 				.map(clazz -> {
-					CrudRepository crudRepository = (CrudRepository) repositories.getRepositoryFor(clazz);
+					CrudRepository crudRepository = (CrudRepository) repositories.getRepositoryFor(clazz).get();
 					return Pair.of(clazz, crudRepository);
 				})
 				.collect(Collectors.toMap(Pair::getKey, Pair::getValue));

@@ -25,7 +25,7 @@ public class VideoReleaseWriter implements ItemWriter<VideoRelease> {
 
 	@Override
 	public void write(List<? extends VideoRelease> items) throws Exception {
-		videoReleaseRepository.save(process(items));
+		videoReleaseRepository.saveAll(process(items));
 	}
 
 	private List<VideoRelease> process(List<? extends VideoRelease> videoReleaseList) {

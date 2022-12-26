@@ -25,7 +25,7 @@ public class CompanyWriter implements ItemWriter<Company> {
 
 	@Override
 	public void write(List<? extends Company> items) throws Exception {
-		companyRepository.save(process(items));
+		companyRepository.saveAll(process(items));
 	}
 
 	private List<Company> process(List<? extends Company> companyList) {

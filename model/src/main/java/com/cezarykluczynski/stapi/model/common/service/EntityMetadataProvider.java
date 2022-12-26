@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
-import com.cezarykluczynski.stapi.model.consent.entity.Consent;
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.country.entity.Country;
@@ -25,14 +24,20 @@ import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.hibernate.Metamodel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metamodel.spi.MetamodelImplementor;
+import org.hibernate.persister.entity.EntityPersister;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.metamodel.EntityType;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,7 +67,6 @@ public class EntityMetadataProvider {
 		CUSTOM_SYMBOL_MAP.put(Spacecraft.class, "SR");
 		CUSTOM_SYMBOL_MAP.put(Material.class, "MT");
 		CUSTOM_SYMBOL_MAP.put(Conflict.class, "CF");
-		CUSTOM_SYMBOL_MAP.put(Consent.class, "CN");
 	}
 
 	private final EntityManager entityManager;
@@ -93,8 +97,7 @@ public class EntityMetadataProvider {
 	}
 
 	private void buildClassNameToMetadataMap() {
-		SessionFactory sessionFactory = ((Session) entityManager.getDelegate()).getSessionFactory();
-		classNameToMetadataMap = sessionFactory.getAllClassMetadata();
+		classNameToMetadataMap = getClassMetadata();
 	}
 
 	private void buildClassNameToSymbolMap() {
@@ -130,7 +133,24 @@ public class EntityMetadataProvider {
 
 	private Map<String, ClassMetadata> getClassMetadata() {
 		SessionFactory sessionFactory = ((Session) entityManager.getDelegate()).getSessionFactory();
-		return sessionFactory.getAllClassMetadata();
+		final Metamodel metamodel = sessionFactory.getMetamodel();
+		Map<String, ClassMetadata> classMetadataMap = Maps.newLinkedHashMap();
+		if (metamodel instanceof MetamodelImplementor) {
+			MetamodelImplementor metamodelImplementor = (MetamodelImplementor) metamodel;
+			final Set<EntityType<?>> entities = metamodel.getEntities();
+			for (EntityType<?> entity : entities) {
+				String canonicalName = entity.getJavaType().getCanonicalName();
+				final EntityPersister entityPersister = metamodelImplementor.entityPersister(canonicalName);
+				if (entityPersister instanceof ClassMetadata) {
+					classMetadataMap.put(canonicalName, (ClassMetadata) entityPersister);
+				} else {
+					throw new StapiRuntimeException("Expected entityPersister to be an instance of ClassMetadata, but it wasn't.");
+				}
+			}
+		} else {
+			throw new StapiRuntimeException("Expected metamodel to be instance of MetamodelImplementor, but it wasn't.");
+		}
+		return classMetadataMap;
 	}
 
 	private String buildClassSymbol(Class clazz) {

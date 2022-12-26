@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import java.lang.reflect.Field;
 
 @Configuration
-@DependsOn("batchDatabaseInitializer")
+@DependsOn("batchDataSourceInitializer")
 public class SpringBatchDaoConfiguration {
 
 	@Inject

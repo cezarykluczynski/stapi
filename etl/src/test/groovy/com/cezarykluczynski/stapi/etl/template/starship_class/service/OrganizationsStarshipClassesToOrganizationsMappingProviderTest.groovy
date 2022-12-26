@@ -77,7 +77,7 @@ class OrganizationsStarshipClassesToOrganizationsMappingProviderTest extends Spe
 				organizationOf(ORGANIZATION_2, 56)
 		]
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> [new PageLink(title: VALID_PAGE)]
-		1 * organizationRepositoryMock.findOne(VALID_PAGE_ID) >> organization
+		1 * organizationRepositoryMock.findById(VALID_PAGE_ID) >> Optional.of(organization)
 		0 * _
 		organizationsOptionalOutput == organizationOptional
 
@@ -85,7 +85,7 @@ class OrganizationsStarshipClassesToOrganizationsMappingProviderTest extends Spe
 		organizationsOptionalOutput = organizationsStarshipClassesToOrganizationsMappingProvider.provide(VALID_PAGE)
 
 		then:
-		1 * organizationRepositoryMock.findOne(VALID_PAGE_ID) >> organization
+		1 * organizationRepositoryMock.findById(VALID_PAGE_ID) >> Optional.of(organization)
 		0 * _
 		organizationsOptionalOutput == organizationOptional
 	}

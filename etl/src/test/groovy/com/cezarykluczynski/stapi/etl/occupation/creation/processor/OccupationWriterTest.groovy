@@ -33,7 +33,7 @@ class OccupationWriterTest extends Specification {
 			assert args[0][0] == occupation
 			occupationList
 		}
-		1 * occupationRepositoryMock.save(occupationList)
+		1 * occupationRepositoryMock.saveAll(occupationList)
 		0 * _
 	}
 

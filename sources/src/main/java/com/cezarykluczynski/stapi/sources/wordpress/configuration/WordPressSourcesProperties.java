@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = WordPressSourcesProperties.PREFIX)
 public class WordPressSourcesProperties {
 
-	public static final String PREFIX = "source.wordPress";
+	public static final String PREFIX = "source.wordpress";
 
 	private WordPressSourceProperties starTrekCards;
 

@@ -25,7 +25,7 @@ class TradingCardSetWriterTest extends Specification {
 		tradingCardSetWriter.write(tradingCardSetList)
 
 		then:
-		1 * tradingCardSetRepositoryMock.save(tradingCardSetList)
+		1 * tradingCardSetRepositoryMock.saveAll(tradingCardSetList)
 		0 * _
 	}
 

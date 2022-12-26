@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = MediaWikiSourcesProperties.PREFIX)
 public class MediaWikiSourcesProperties {
 
-	public static final String PREFIX = "source.mediaWiki";
+	public static final String PREFIX = "source.mediawiki";
 
 	private MediaWikiSourceProperties memoryAlphaEn;
 

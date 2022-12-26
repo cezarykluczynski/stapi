@@ -25,7 +25,7 @@ class MovieWriterTest extends Specification {
 		movieWriter.write(movieList)
 
 		then:
-		1 * movieRepositoryMock.save(movieList)
+		1 * movieRepositoryMock.saveAll(movieList)
 		0 * _
 	}
 

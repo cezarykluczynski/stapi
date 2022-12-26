@@ -33,7 +33,7 @@ class SoundtrackWriterTest extends Specification {
 			assert args[0][0] == soundtrack
 			soundtrackList
 		}
-		1 * soundtrackRepositoryMock.save(soundtrackList)
+		1 * soundtrackRepositoryMock.saveAll(soundtrackList)
 		0 * _
 	}
 

@@ -56,9 +56,9 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 		1 * episodePerformancesExtractorMock.process(page) >> episodePerformanceDTOList
 		1 * episodePerformancesToEntityMapperMock.mapToEntities(episodePerformanceDTOList, episode) >> episodePerformancesEntitiesDTO
 		1 * episodePerformancesEntitiesDTO.characterSet >> charactersSet
-		1 * characterRepositoryMock.save(charactersSet)
+		1 * characterRepositoryMock.saveAll(charactersSet)
 		1 * episodePerformancesEntitiesDTO.performerSet >> performersSet
-		1 * performerRepositoryMock.save(performersSet)
+		1 * performerRepositoryMock.saveAll(performersSet)
 	}
 
 }

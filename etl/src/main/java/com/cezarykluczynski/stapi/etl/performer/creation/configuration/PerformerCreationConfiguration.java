@@ -51,7 +51,7 @@ public class PerformerCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public PerformerReader performerReader() {
 		Set<PageHeader> performers = Sets.newHashSet();
 

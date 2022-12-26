@@ -27,7 +27,11 @@ class GenericEntityLookupByNameService {
 	}
 
 	public <T> Optional<T> findEntityByName(String pageName, MediaWikiSource mediaWikiSource, Class<T> clazz) {
-		Object repository = repositories.getRepositoryFor(clazz);
+		Optional<Object> repositoryOptional = repositories.getRepositoryFor(clazz);
+		if (!repositoryOptional.isPresent()) {
+			return Optional.empty();
+		}
+		Object repository = repositoryOptional.get();
 		if (!(repository instanceof PageAwareRepository)) {
 			return Optional.empty();
 		}

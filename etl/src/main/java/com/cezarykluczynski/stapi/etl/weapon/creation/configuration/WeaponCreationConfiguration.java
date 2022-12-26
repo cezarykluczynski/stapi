@@ -27,7 +27,7 @@ public class WeaponCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public WeaponReader weaponReader() {
 		List<PageHeader> weapons = Lists.newArrayList();
 

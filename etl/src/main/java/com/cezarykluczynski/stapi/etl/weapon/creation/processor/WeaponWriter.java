@@ -27,7 +27,7 @@ public class WeaponWriter implements ItemWriter<Weapon> {
 
 	@Override
 	public void write(List<? extends Weapon> items) throws Exception {
-		weaponRepository.save(process(items));
+		weaponRepository.saveAll(process(items));
 	}
 
 	private List<Weapon> process(List<? extends Weapon> weaponList) {

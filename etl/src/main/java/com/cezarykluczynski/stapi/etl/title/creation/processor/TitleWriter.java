@@ -26,7 +26,7 @@ public class TitleWriter implements ItemWriter<Title> {
 
 	@Override
 	public void write(List<? extends Title> items) throws Exception {
-		titleRepository.save(process(items));
+		titleRepository.saveAll(process(items));
 	}
 
 	private List<Title> process(List<? extends Title> titleList) {

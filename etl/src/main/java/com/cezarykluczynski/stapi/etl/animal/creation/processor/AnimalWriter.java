@@ -27,7 +27,7 @@ public class AnimalWriter implements ItemWriter<Animal> {
 
 	@Override
 	public void write(List<? extends Animal> items) throws Exception {
-		animalRepository.save(process(items));
+		animalRepository.saveAll(process(items));
 	}
 
 	private List<Animal> process(List<? extends Animal> animalList) {

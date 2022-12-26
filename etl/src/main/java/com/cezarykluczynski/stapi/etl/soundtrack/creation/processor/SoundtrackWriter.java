@@ -25,7 +25,7 @@ public class SoundtrackWriter implements ItemWriter<Soundtrack> {
 
 	@Override
 	public void write(List<? extends Soundtrack> items) throws Exception {
-		soundtrackRepository.save(process(items));
+		soundtrackRepository.saveAll(process(items));
 	}
 
 	private List<Soundtrack> process(List<? extends Soundtrack> soundtrackList) {

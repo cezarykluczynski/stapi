@@ -27,7 +27,7 @@ public class MagazineSeriesCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public MagazineSeriesReader magazineSeriesReader() {
 		List<PageHeader> magazinesList = Lists.newArrayList();
 

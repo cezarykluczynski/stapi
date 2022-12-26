@@ -34,8 +34,8 @@ public class EpisodePerformancesLinkingWorker implements LinkingWorker<Page, Epi
 		EpisodePerformancesEntitiesDTO imageEpisodePerformancesEntitiesDTO = episodePerformancesToEntityMapper
 				.mapToEntities(episodePerformances, baseEntity);
 
-		characterRepository.save(imageEpisodePerformancesEntitiesDTO.getCharacterSet());
-		performerRepository.save(imageEpisodePerformancesEntitiesDTO.getPerformerSet());
+		characterRepository.saveAll(imageEpisodePerformancesEntitiesDTO.getCharacterSet());
+		performerRepository.saveAll(imageEpisodePerformancesEntitiesDTO.getPerformerSet());
 	}
 
 }

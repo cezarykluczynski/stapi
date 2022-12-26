@@ -52,9 +52,9 @@ class RepositoryProviderTest extends Specification {
 		1 * seriesClassMetadata.mappedClass >> Series
 		1 * speciesClassMetadata.mappedClass >> Species
 		1 * tradingCardsClassMetadata.mappedClass >> TradingCard
-		1 * repositoriesMock.getRepositoryFor(Series) >> seriesRepository
-		1 * repositoriesMock.getRepositoryFor(Species) >> speciesRepository
-		1 * repositoriesMock.getRepositoryFor(TradingCard) >> tradingCardRepository
+		1 * repositoriesMock.getRepositoryFor(Series) >> Optional.of(seriesRepository)
+		1 * repositoriesMock.getRepositoryFor(Species) >> Optional.of(speciesRepository)
+		1 * repositoriesMock.getRepositoryFor(TradingCard) >> Optional.of(tradingCardRepository)
 		0 * _
 		map.size() == 3
 		map.get(Series) == seriesRepository

@@ -33,7 +33,7 @@ class ComicStripWriterTest extends Specification {
 			assert args[0][0] == comicStrip
 			comicStripList
 		}
-		1 * comicStripRepositoryMock.save(comicStripList)
+		1 * comicStripRepositoryMock.saveAll(comicStripList)
 		0 * _
 	}
 

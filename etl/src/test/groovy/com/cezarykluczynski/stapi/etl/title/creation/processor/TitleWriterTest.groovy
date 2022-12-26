@@ -33,7 +33,7 @@ class TitleWriterTest extends Specification {
 			assert args[0][0] == title
 			titleList
 		}
-		1 * titleRepositoryMock.save(titleList)
+		1 * titleRepositoryMock.saveAll(titleList)
 		0 * _
 	}
 

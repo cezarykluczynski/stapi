@@ -71,7 +71,7 @@ class StaticJobCompletenessDecider {
 		}
 
 		@Bean
-		@ConditionalOnProperty(name = 'liquibase.enabled', havingValue = 'false')
+		@ConditionalOnProperty(name = 'spring.liquibase.enabled', havingValue = 'false')
 		SpringLiquibase liquibase() {
 			new SpringLiquibase(
 					changeLog: 'classpath:liquibase/changelog.xml',

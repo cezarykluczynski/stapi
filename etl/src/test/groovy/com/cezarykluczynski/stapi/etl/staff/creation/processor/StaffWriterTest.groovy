@@ -49,7 +49,7 @@ class StaffWriterTest extends Specification {
 			assert args[0][0] == staff
 			seriesList
 		}
-		1 * staffRepositoryMock.save(seriesList)
+		1 * staffRepositoryMock.saveAll(seriesList)
 		0 * _
 	}
 

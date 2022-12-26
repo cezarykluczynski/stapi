@@ -25,7 +25,7 @@ class SeriesWriterTest extends Specification {
 		seriesWriter.write(seriesList)
 
 		then:
-		1 * seriesRepositoryMock.save(seriesList)
+		1 * seriesRepositoryMock.saveAll(seriesList)
 		0 * _
 	}
 

@@ -27,7 +27,7 @@ public class OccupationWriter implements ItemWriter<Occupation> {
 
 	@Override
 	public void write(List<? extends Occupation> items) throws Exception {
-		occupationRepository.save(process(items));
+		occupationRepository.saveAll(process(items));
 	}
 
 	private List<Occupation> process(List<? extends Occupation> occupationList) {

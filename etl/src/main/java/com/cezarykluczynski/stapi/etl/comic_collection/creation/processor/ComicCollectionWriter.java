@@ -25,7 +25,7 @@ public class ComicCollectionWriter implements ItemWriter<ComicCollection> {
 
 	@Override
 	public void write(List<? extends ComicCollection> items) throws Exception {
-		comicCollectionRepository.save(process(items));
+		comicCollectionRepository.saveAll(process(items));
 	}
 
 	private List<ComicCollection> process(List<? extends ComicCollection> comicCollectionList) {

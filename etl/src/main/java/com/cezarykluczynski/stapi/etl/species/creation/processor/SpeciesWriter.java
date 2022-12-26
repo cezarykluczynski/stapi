@@ -24,7 +24,7 @@ public class SpeciesWriter implements ItemWriter<Species> {
 
 	@Override
 	public void write(List<? extends Species> items) throws Exception {
-		speciesRepository.save(process(items));
+		speciesRepository.saveAll(process(items));
 	}
 
 	private List<Species> process(List<? extends Species> speciesList) {

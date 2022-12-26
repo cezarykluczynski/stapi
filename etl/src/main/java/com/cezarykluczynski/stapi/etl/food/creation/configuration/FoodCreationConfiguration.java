@@ -27,7 +27,7 @@ public class FoodCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public FoodReader foodReader() {
 		List<PageHeader> foods = Lists.newArrayList();
 

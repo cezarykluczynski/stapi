@@ -18,7 +18,7 @@ public class MovieWriter implements ItemWriter<Movie> {
 
 	@Override
 	public void write(List<? extends Movie> items) throws Exception {
-		movieRepository.save(items);
+		movieRepository.saveAll(items);
 	}
 
 }

@@ -33,7 +33,7 @@ class AnimalWriterTest extends Specification {
 			assert args[0][0] == animal
 			animalList
 		}
-		1 * animalRepositoryMock.save(animalList)
+		1 * animalRepositoryMock.saveAll(animalList)
 		0 * _
 	}
 

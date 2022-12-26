@@ -30,7 +30,7 @@ public class StaffWriter implements ItemWriter<Staff> {
 
 	@Override
 	public void write(List<? extends Staff> items) throws Exception {
-		staffRepository.save(process(items));
+		staffRepository.saveAll(process(items));
 	}
 
 	private List<Staff> process(List<? extends Staff> performerList) {

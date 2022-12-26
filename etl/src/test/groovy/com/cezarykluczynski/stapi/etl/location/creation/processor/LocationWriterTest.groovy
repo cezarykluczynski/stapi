@@ -33,7 +33,7 @@ class LocationWriterTest extends Specification {
 			assert args[0][0] == location
 			locationList
 		}
-		1 * locationRepositoryMock.save(locationList)
+		1 * locationRepositoryMock.saveAll(locationList)
 		0 * _
 	}
 

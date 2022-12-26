@@ -28,7 +28,7 @@ public class TradingCardCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	@Transactional
 	public TradingCardSetReader tradingCardReader() {
 		List<Page> tradingCardList = Lists.newArrayList();

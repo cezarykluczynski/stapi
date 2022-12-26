@@ -28,7 +28,7 @@ public class OrganizationWriter implements ItemWriter<Organization> {
 
 	@Override
 	public void write(List<? extends Organization> items) throws Exception {
-		organizationRepository.save(process(items));
+		organizationRepository.saveAll(process(items));
 	}
 
 	private List<Organization> process(List<? extends Organization> organizationList) {

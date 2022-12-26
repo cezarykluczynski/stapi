@@ -27,7 +27,7 @@ public class CompanyCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public CompanyReader companyReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 

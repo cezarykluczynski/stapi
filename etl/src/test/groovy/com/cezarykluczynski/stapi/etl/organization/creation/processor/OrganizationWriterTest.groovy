@@ -33,7 +33,7 @@ class OrganizationWriterTest extends Specification {
 			assert args[0][0] == organization
 			organizationList
 		}
-		1 * organizationRepositoryMock.save(organizationList)
+		1 * organizationRepositoryMock.saveAll(organizationList)
 		0 * _
 	}
 

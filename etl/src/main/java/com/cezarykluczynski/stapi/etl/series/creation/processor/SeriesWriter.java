@@ -19,7 +19,7 @@ public class SeriesWriter implements ItemWriter<Series> {
 
 	@Override
 	public void write(List<? extends Series> items) throws Exception {
-		seriesRepository.save(process(items));
+		seriesRepository.saveAll(process(items));
 	}
 
 	private List<Series> process(List<? extends Series> seriesList) {

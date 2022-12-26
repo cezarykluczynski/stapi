@@ -18,7 +18,7 @@ public class TradingCardSetWriter implements ItemWriter<TradingCardSet> {
 
 	@Override
 	public void write(List<? extends TradingCardSet> items) throws Exception {
-		tradingCardSetRepository.save(items);
+		tradingCardSetRepository.saveAll(items);
 	}
 
 }

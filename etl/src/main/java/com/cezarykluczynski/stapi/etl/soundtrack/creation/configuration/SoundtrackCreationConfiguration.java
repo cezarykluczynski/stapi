@@ -27,7 +27,7 @@ public class SoundtrackCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public SoundtrackReader soundtrackReader() {
 		List<PageHeader> soundtrackList = Lists.newArrayList();
 

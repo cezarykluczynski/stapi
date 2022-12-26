@@ -4,12 +4,14 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepPropertie
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.StepExecution;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Map;
 
 @Service
+@DependsOn("batchDataSourceInitializer")
 public class StepCompletenessDecider {
 
 	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;

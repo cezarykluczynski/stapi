@@ -27,7 +27,7 @@ public class LocationCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public LocationReader locationReader() {
 		List<PageHeader> locations = Lists.newArrayList();
 

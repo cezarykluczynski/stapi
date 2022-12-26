@@ -33,7 +33,7 @@ class FoodWriterTest extends Specification {
 			assert args[0][0] == food
 			foodList
 		}
-		1 * foodRepositoryMock.save(foodList)
+		1 * foodRepositoryMock.saveAll(foodList)
 		0 * _
 	}
 

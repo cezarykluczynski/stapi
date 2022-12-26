@@ -27,7 +27,7 @@ public class MaterialWriter implements ItemWriter<Material> {
 
 	@Override
 	public void write(List<? extends Material> items) throws Exception {
-		materialRepository.save(process(items));
+		materialRepository.saveAll(process(items));
 	}
 
 	private List<Material> process(List<? extends Material> materialList) {

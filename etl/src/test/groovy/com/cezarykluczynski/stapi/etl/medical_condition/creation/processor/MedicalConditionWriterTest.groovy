@@ -33,7 +33,7 @@ class MedicalConditionWriterTest extends Specification {
 			assert args[0][0] == medicalCondition
 			medicalConditionList
 		}
-		1 * medicalConditionRepositoryMock.save(medicalConditionList)
+		1 * medicalConditionRepositoryMock.saveAll(medicalConditionList)
 		0 * _
 	}
 

@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.model.configuration
 
 import com.cezarykluczynski.stapi.model.common.etl.EtlProperties
-import liquibase.integration.spring.SpringLiquibase
 import org.springframework.context.ApplicationContext
 import org.springframework.data.repository.support.Repositories
 import spock.lang.Specification
@@ -24,14 +23,6 @@ class ModelConfigurationTest extends Specification {
 				hibernateProperties: hibernatePropertiesMock,
 				applicationContext: applicationContextMock,
 				etlProperties: etlPropertiesMock)
-	}
-
-	void "creates SpringLiquibase"() {
-		when:
-		SpringLiquibase springLiquibase = modelConfiguration.liquibase()
-
-		then:
-		springLiquibase != null
 	}
 
 	void "creates SpringLiquibase mock"() {

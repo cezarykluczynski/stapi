@@ -27,7 +27,7 @@ public class TitleCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public TitleReader titleReader() {
 		List<PageHeader> titles = Lists.newArrayList();
 

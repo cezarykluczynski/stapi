@@ -42,19 +42,19 @@ public class VideoTemplateSeriesSeasonFromTitleEnrichingProcessor implements Ite
 		String normalizedTitle = normalizeTitle(title);
 		if (titleToSeriesIdMappings.containsKey(normalizedTitle)) {
 			// find a fresh entity to not mess up with Hibernate sessions
-			videoTemplate.setSeries(seriesRepository.findOne(titleToSeriesIdMappings.get(normalizedTitle)));
+			seriesRepository.findById(titleToSeriesIdMappings.get(normalizedTitle)).ifPresent(videoTemplate::setSeries);
 		}
 		if (videoTemplate.getSeries() == null) {
 			for (Map.Entry<String, Long> titleToSeriesEntry : titleToSeriesIdMappings.entrySet()) {
 				if (normalizedTitle.startsWith(titleToSeriesEntry.getKey())) {
-					videoTemplate.setSeries(seriesRepository.findOne(titleToSeriesIdMappings.get(titleToSeriesEntry.getKey())));
+					seriesRepository.findById(titleToSeriesIdMappings.get(titleToSeriesEntry.getKey())).ifPresent(videoTemplate::setSeries);
 				}
 			}
 		}
 		if (videoTemplate.getSeries() == null) {
 			String normalizedAbbreviation = normalizeAbbreviation(title);
 			if (abbreviationToSeriesIdMappings.containsKey(normalizedAbbreviation)) {
-				videoTemplate.setSeries(seriesRepository.findOne(abbreviationToSeriesIdMappings.get(normalizedAbbreviation)));
+				seriesRepository.findById(abbreviationToSeriesIdMappings.get(normalizedAbbreviation)).ifPresent(videoTemplate::setSeries);
 			}
 		}
 

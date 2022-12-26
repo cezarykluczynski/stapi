@@ -33,7 +33,7 @@ class TechnologyWriterTest extends Specification {
 			assert args[0][0] == technology
 			technologyList
 		}
-		1 * technologyRepositoryMock.save(technologyList)
+		1 * technologyRepositoryMock.saveAll(technologyList)
 		0 * _
 	}
 

@@ -33,7 +33,7 @@ class MagazineWriterTest extends Specification {
 			assert args[0][0] == magazine
 			magazineList
 		}
-		1 * magazineRepositoryMock.save(magazineList)
+		1 * magazineRepositoryMock.saveAll(magazineList)
 		0 * _
 	}
 

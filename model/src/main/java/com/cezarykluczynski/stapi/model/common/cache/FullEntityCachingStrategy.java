@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.model.common.cache;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.jpa.criteria.path.RootImpl;
+import org.hibernate.query.criteria.internal.path.RootImpl;
 
 import javax.persistence.criteria.Path;
 import java.lang.reflect.Field;

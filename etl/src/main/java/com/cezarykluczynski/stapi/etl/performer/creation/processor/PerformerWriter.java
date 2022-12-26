@@ -30,7 +30,7 @@ public class PerformerWriter implements ItemWriter<Performer> {
 
 	@Override
 	public void write(List<? extends Performer> items) throws Exception {
-		performerRepository.save(process(items));
+		performerRepository.saveAll(process(items));
 	}
 
 	private List<Performer> process(List<? extends Performer> performerList) {

@@ -49,7 +49,7 @@ class PerformerWriterTest extends Specification {
 			assert args[0][0] == performer
 			seriesList
 		}
-		1 * performerRepositoryMock.save(seriesList)
+		1 * performerRepositoryMock.saveAll(seriesList)
 		0 * _
 	}
 

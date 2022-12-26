@@ -59,7 +59,7 @@ public class OrganizationsStarshipClassesToOrganizationsMappingProvider {
 					pageLinkTitle = pageLinkTitle.substring(9);
 				}
 				if (organizationNamesToIds.containsKey(pageLinkTitle)) { // Romulan Star Empire, ambiguous
-					return Optional.of(organizationRepository.findOne(organizationNamesToIds.get(pageLinkTitle)));
+					return organizationRepository.findById(organizationNamesToIds.get(pageLinkTitle));
 				}
 			}
 			return Optional.empty();

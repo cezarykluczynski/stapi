@@ -25,7 +25,7 @@ public class AstronomicalObjectWriter implements ItemWriter<AstronomicalObject> 
 
 	@Override
 	public void write(List<? extends AstronomicalObject> items) throws Exception {
-		astronomicalObjectRepository.save(process(items));
+		astronomicalObjectRepository.saveAll(process(items));
 	}
 
 	private List<AstronomicalObject> process(List<? extends AstronomicalObject> planetList) {

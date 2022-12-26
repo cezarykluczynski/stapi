@@ -25,7 +25,7 @@ public class CharacterCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public CharacterReader characterReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 

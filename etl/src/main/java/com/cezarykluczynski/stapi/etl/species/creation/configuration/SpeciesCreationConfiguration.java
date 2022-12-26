@@ -27,7 +27,7 @@ public class SpeciesCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public SpeciesReader speciesReader() {
 		List<PageHeader> species = Lists.newArrayList();
 

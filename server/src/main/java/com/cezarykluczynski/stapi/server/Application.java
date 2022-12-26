@@ -3,21 +3,20 @@ package com.cezarykluczynski.stapi.server;
 import com.cezarykluczynski.stapi.etl.configuration.EtlConfiguration;
 import com.cezarykluczynski.stapi.util.constant.Package;
 import org.apache.cxf.spring.boot.autoconfigure.CxfAutoConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@SpringBootApplication
+@SpringBootApplication(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
+		JmxAutoConfiguration.class}, scanBasePackages = "com.cezarykluczynski.stapi")
 @ComponentScan({
 		Package.SERVER,
 		Package.SOURCES,
@@ -26,8 +25,6 @@ import org.springframework.context.annotation.Import;
 		Package.UTIL
 })
 @Import(EtlConfiguration.class)
-@EnableAutoConfiguration(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-		JmxAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Application extends SpringBootServletInitializer {
 

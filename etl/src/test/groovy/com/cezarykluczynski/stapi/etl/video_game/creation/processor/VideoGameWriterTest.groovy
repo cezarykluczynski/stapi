@@ -33,7 +33,7 @@ class VideoGameWriterTest extends Specification {
 			assert args[0][0] == videoGame
 			videoGameList
 		}
-		1 * videoGameRepositoryMock.save(videoGameList)
+		1 * videoGameRepositoryMock.saveAll(videoGameList)
 		0 * _
 	}
 

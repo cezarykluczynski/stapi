@@ -24,7 +24,7 @@ public class BookWriter implements ItemWriter<Book> {
 
 	@Override
 	public void write(List<? extends Book> items) throws Exception {
-		bookRepository.save(process(items));
+		bookRepository.saveAll(process(items));
 	}
 
 	private List<Book> process(List<? extends Book> bookList) {

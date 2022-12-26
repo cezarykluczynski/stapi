@@ -33,7 +33,7 @@ class VideoReleaseWriterTest extends Specification {
 			assert args[0][0] == videoRelease
 			videoReleaseList
 		}
-		1 * videoReleaseRepositoryMock.save(videoReleaseList)
+		1 * videoReleaseRepositoryMock.saveAll(videoReleaseList)
 		0 * _
 	}
 

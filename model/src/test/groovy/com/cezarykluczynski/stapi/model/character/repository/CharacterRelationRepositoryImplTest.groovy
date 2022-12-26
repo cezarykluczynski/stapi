@@ -50,7 +50,7 @@ class CharacterRelationRepositoryImplTest extends Specification {
 			characterRelation.id = ID_2
 			characterRelation
 		}
-		1 * characterRepositoryMock.save(Sets.newHashSet(subject, target1, target2))
+		1 * characterRepositoryMock.saveAll(Sets.newHashSet(subject, target1, target2))
 		0 * _
 		subject.characterRelations.contains characterRelation1
 		subject.characterRelations.contains characterRelation2

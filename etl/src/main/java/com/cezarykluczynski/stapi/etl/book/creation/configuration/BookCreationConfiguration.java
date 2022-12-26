@@ -27,7 +27,7 @@ public class BookCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public BookReader bookReader() {
 		List<PageHeader> bookList = Lists.newArrayList();
 

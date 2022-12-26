@@ -40,7 +40,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 
 		then:
 		1 * seriesRepositoryMock.findAll() >> [series]
-		1 * seriesRepositoryMock.findOne(ID) >> series
+		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		0 * _
 		videoTemplate.series == series
 	}
@@ -57,7 +57,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 
 		then:
 		1 * seriesRepositoryMock.findAll() >> [series]
-		1 * seriesRepositoryMock.findOne(ID) >> series
+		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		0 * _
 		videoTemplate.series == series
 	}
@@ -74,7 +74,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 
 		then:
 		1 * seriesRepositoryMock.findAll() >> [series]
-		1 * seriesRepositoryMock.findOne(ID) >> series
+		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		0 * _
 		videoTemplate.series == series
 	}
@@ -92,7 +92,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 
 		then:
 		1 * seriesRepositoryMock.findAll() >> [series]
-		1 * seriesRepositoryMock.findOne(ID) >> series
+		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(ABBREVIATION, 3) >> season
 		0 * _
 		videoTemplate.series == series

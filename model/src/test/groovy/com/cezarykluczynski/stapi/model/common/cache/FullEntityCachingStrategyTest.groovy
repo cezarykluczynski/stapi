@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.model.common.cache
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.series.entity.Series
-import org.hibernate.jpa.criteria.CriteriaBuilderImpl
-import org.hibernate.jpa.criteria.path.RootImpl
+import org.hibernate.query.criteria.internal.CriteriaBuilderImpl
+import org.hibernate.query.criteria.internal.path.RootImpl
 import spock.lang.Specification
 
 import javax.persistence.criteria.CriteriaQuery

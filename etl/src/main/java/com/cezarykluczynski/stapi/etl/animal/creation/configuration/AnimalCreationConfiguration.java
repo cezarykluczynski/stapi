@@ -27,7 +27,7 @@ public class AnimalCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public AnimalReader animalReader() {
 		List<PageHeader> animals = Lists.newArrayList();
 

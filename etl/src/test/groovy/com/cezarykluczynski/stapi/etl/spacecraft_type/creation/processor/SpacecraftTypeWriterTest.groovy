@@ -33,7 +33,7 @@ class SpacecraftTypeWriterTest extends Specification {
 			assert args[0][0] == planet
 			planetList
 		}
-		1 * planetRepositoryMock.save(planetList)
+		1 * planetRepositoryMock.saveAll(planetList)
 		0 * _
 	}
 

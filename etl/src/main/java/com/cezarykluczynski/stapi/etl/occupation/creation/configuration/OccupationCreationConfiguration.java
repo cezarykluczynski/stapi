@@ -27,7 +27,7 @@ public class OccupationCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public OccupationReader occupationReader() {
 		List<PageHeader> occupations = Lists.newArrayList();
 

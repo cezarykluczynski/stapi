@@ -27,7 +27,7 @@ public class VideoGameCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public VideoGameReader videoGameReader() {
 		List<PageHeader> videoGameList = Lists.newArrayList();
 

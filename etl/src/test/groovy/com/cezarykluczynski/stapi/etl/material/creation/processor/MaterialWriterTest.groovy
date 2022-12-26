@@ -33,7 +33,7 @@ class MaterialWriterTest extends Specification {
 			assert args[0][0] == material
 			materialList
 		}
-		1 * materialRepositoryMock.save(materialList)
+		1 * materialRepositoryMock.saveAll(materialList)
 		0 * _
 	}
 

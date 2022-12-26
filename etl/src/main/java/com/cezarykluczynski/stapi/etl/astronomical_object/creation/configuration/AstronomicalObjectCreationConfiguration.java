@@ -27,7 +27,7 @@ public class AstronomicalObjectCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public AstronomicalObjectReader astronomicalObjectReader() {
 		List<PageHeader> astronomicalObjects = Lists.newArrayList();
 

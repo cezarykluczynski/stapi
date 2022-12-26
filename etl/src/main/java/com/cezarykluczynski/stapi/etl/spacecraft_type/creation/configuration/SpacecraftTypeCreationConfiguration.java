@@ -28,7 +28,7 @@ public class SpacecraftTypeCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public SpacecraftTypeReader spacecraftTypeReader() {
 		List<PageHeader> spacecraftTypes = Lists.newArrayList();
 

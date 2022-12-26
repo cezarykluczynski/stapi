@@ -29,7 +29,7 @@ public class SpacecraftClassCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public SpacecraftClassReader spacecraftClassReader() {
 		List<PageHeader> spacecraftClasses = Lists.newArrayList();
 

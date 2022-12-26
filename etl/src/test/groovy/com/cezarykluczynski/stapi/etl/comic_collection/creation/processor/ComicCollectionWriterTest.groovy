@@ -33,7 +33,7 @@ class ComicCollectionWriterTest extends Specification {
 			assert args[0][0] == comicCollection
 			comicCollectionList
 		}
-		1 * comicCollectionRepositoryMock.save(comicCollectionList)
+		1 * comicCollectionRepositoryMock.saveAll(comicCollectionList)
 		0 * _
 	}
 

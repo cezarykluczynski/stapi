@@ -107,6 +107,7 @@ allprojects {
 
 	test {
 		exclude '**/*IntegrationTest*'
+		maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 	}
 
 	checkstyle {

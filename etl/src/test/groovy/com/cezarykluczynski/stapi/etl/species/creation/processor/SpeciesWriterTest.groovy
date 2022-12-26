@@ -33,7 +33,7 @@ class SpeciesWriterTest extends Specification {
 			assert args[0][0] == species
 			speciesList
 		}
-		1 * speciesRepositoryMock.save(speciesList)
+		1 * speciesRepositoryMock.saveAll(speciesList)
 		0 * _
 	}
 

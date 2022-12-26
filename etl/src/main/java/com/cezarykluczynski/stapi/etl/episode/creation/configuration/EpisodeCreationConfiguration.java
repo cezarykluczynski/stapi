@@ -32,7 +32,7 @@ public class EpisodeCreationConfiguration {
 	private ModuleEpisodeDataProvider moduleEpisodeDataProvider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public EpisodeReader episodeReader() {
 		List<PageHeader> episodes = Lists.newArrayList();
 

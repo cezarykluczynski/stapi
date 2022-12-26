@@ -27,7 +27,7 @@ public class ConflictCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public ConflictReader conflictReader() {
 		List<PageHeader> conflicts = Lists.newArrayList();
 

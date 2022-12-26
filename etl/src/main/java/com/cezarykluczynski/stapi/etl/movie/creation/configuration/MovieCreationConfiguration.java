@@ -35,7 +35,7 @@ public class MovieCreationConfiguration {
 	private MovieExistingEntitiesHelper movieExistingEntitiesHelper;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public MovieReader movieReader() {
 		List<PageHeader> movies = Lists.newArrayList();
 

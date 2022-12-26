@@ -27,7 +27,7 @@ public class ElementCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public ElementReader elementReader() {
 		List<PageHeader> elements = Lists.newArrayList();
 

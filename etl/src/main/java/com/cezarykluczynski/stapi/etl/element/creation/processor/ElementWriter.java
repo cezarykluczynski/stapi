@@ -26,7 +26,7 @@ public class ElementWriter implements ItemWriter<Element> {
 
 	@Override
 	public void write(List<? extends Element> items) throws Exception {
-		elementRepository.save(process(items));
+		elementRepository.saveAll(process(items));
 	}
 
 	private List<Element> process(List<? extends Element> elementList) {

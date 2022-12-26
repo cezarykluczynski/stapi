@@ -25,7 +25,7 @@ class SeasonWriterTest extends Specification {
 		seasonWriter.write(seasonList)
 
 		then:
-		1 * seasonRepositoryMock.save(seasonList)
+		1 * seasonRepositoryMock.saveAll(seasonList)
 		0 * _
 	}
 

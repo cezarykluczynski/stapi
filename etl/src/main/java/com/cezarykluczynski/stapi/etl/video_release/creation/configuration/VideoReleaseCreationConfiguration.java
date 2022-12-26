@@ -28,7 +28,7 @@ public class VideoReleaseCreationConfiguration {
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
-	@DependsOn("batchDatabaseInitializer")
+	@DependsOn("batchDataSourceInitializer")
 	public VideoReleaseReader videoReleaseReader() {
 		List<PageHeader> videoReleaseList = Lists.newArrayList();
 
