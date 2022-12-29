@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -51,6 +52,7 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, Pair<Li
 	private final Set<String> loggedCastMultilines = Sets.newHashSet();
 
 	@Override
+	@NonNull
 	public Pair<List<PageSection>, Page> process(Page page) throws Exception {
 		List<PageSection> creditsPageSectionList = Lists.newArrayList();
 		String pageTitle = page.getTitle();
@@ -83,6 +85,7 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, Pair<Li
 		return Pair.of(getPageSectionList(pageSectionLineList, pageTitle, creditsPageSectionList), creditsPage);
 	}
 
+	@SuppressWarnings("NPathComplexity")
 	private List<PageSection> getPageSectionList(List<String> pageSectionLineList, String pageTitle, List<PageSection> creditsPageSectionList) {
 		PageSection creditsPageSection = null;
 		List<String> creditsPageSectionWikitextLines = null;
@@ -93,7 +96,7 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, Pair<Li
 		boolean couldBeCastMultiline = false;
 		for (int i = 0; i < pageSectionLineList.size(); i++) {
 			boolean isCast = isCastPageSection(creditsPageSection);
-			couldBeCastMultiline = (isCast && couldBeCastMultiline(pageSectionLineList, i)) || couldBeCastMultiline;
+			couldBeCastMultiline = isCast && couldBeCastMultiline(pageSectionLineList, i) || couldBeCastMultiline;
 			if (couldBeCastMultiline && !loggedCastMultilines.contains(pageTitle)) {
 				log.info("Cast multiline section found on page {}.", pageTitle);
 				loggedCastMultilines.add(pageTitle);

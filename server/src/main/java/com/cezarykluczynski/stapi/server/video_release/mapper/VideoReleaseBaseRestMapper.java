@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseRestBeanParams;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public interface VideoReleaseBaseRestMapper {
 
 	VideoReleaseRequestDTO mapBase(VideoReleaseRestBeanParams videoReleaseRestBeanParams);
 
+	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
 	VideoReleaseBase mapBase(VideoRelease videoRelease);
 
 	List<VideoReleaseBase> mapBase(List<VideoRelease> videoReleaseList);

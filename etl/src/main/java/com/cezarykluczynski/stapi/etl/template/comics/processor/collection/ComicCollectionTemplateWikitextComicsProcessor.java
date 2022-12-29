@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,6 +52,7 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 	}
 
 	@Override
+	@NonNull
 	public ComicCollectionContents process(Page item) throws Exception {
 		List<PageSection> pageSectionList = pageSectionExtractor.findByTitles(item, ISSUES, ISSUES_COLLECTED, ISSUES_COLLECTED_UC, CONTENTS, CHAPTERS,
 				BACKGROUND_INFORMATION, TITLES);

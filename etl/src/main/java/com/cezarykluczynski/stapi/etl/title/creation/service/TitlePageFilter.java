@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilte
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Sets;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class TitlePageFilter implements MediaWikiPageFilter {
 
 	private final TitleListCache titleListCache;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public TitlePageFilter(CategorySortingService categorySortingService, TitleListCache titleListCache) {
 		this.categorySortingService = categorySortingService;
 		this.titleListCache = titleListCache;

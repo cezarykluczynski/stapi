@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 

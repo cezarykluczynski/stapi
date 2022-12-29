@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 
+import com.google.common.collect.Lists;
 import info.bliki.api.AbstractXMLParser;
 import info.bliki.api.PageInfo;
 import org.xml.sax.Attributes;
@@ -52,7 +53,7 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 	}
 
 	public List<PageInfo> getPagesList() {
-		return pagesList;
+		return Lists.newArrayList(pagesList);
 	}
 
 	@Override

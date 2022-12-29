@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.listener;
 
 import com.cezarykluczynski.stapi.etl.common.service.step.StepLogger;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
@@ -15,6 +16,7 @@ public class CommonStepExecutionListener implements StepExecutionListener {
 
 	private final List<StepLogger> stepLoggerList;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public CommonStepExecutionListener(List<StepLogger> stepLoggerList) {
 		this.stepLoggerList = stepLoggerList;
 	}

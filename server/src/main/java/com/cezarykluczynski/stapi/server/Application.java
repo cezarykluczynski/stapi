@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @SpringBootApplication(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-		JmxAutoConfiguration.class}, scanBasePackages = "com.cezarykluczynski.stapi")
+		JmxAutoConfiguration.class}, scanBasePackages = Package.ROOT)
 @ComponentScan({
 		Package.SERVER,
 		Package.SOURCES,

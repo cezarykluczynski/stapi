@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 

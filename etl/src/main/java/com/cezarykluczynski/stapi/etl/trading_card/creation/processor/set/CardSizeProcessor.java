@@ -127,7 +127,7 @@ public class CardSizeProcessor implements ItemProcessor<String, CardSizeDTO> {
 	}
 
 	private boolean canTryParseFraction(String trimmedPart, boolean containsInches) {
-		return trimmedPart.length() >= 3 || (trimmedPart.length() >= 2 && !containsInches);
+		return trimmedPart.length() >= 3 || trimmedPart.length() >= 2 && !containsInches;
 	}
 
 	private boolean isNonZeroFraction(Double fraction) {

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.statistics.size;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class EntitySizeCachedStatisticsProviderImpl implements EntitySizeStatist
 	}
 
 	@Override
+	@SuppressFBWarnings("EI_EXPOSE_REP")
 	public synchronized Map<Class, Long> provideEntitiesCount() {
 		if (statistics == null) {
 			statistics = entitySizeCountingService.countEntities();

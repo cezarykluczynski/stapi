@@ -27,6 +27,7 @@ public class IndividualDateStatusValueToYearProcessor implements ItemProcessor<S
 	}
 
 	@Override
+	@SuppressWarnings("NPathComplexity")
 	public Integer process(String value) throws Exception {
 		if (StringUtils.isBlank(value) || value.contains(CENTURY) || value.length() > 4 && "s".equals(String.valueOf(value.charAt(4)))) {
 			return null;

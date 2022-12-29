@@ -42,6 +42,14 @@ class DayMonthYearCandidateToLocalDateProcessorTest extends Specification {
 		dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(VALID_DAY, VALID_MONTH_STRING, QUESTION_MARK)) == null
 	}
 
+	void "null DayMonthYearCandidate results in null LocalDate"() {
+		when:
+		LocalDate localDate = dayMonthYearCandidateToLocalDateProcessor.process(null)
+
+		then:
+		localDate == null
+	}
+
 	void "null day results in null LocalDate"() {
 		when:
 		LocalDate localDate = dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(null, VALID_MONTH_STRING, VALID_YEAR))

@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
@@ -100,7 +100,7 @@ public class ModuleEpisodeDataProvider {
 	}
 
 	@SneakyThrows
-	@SuppressWarnings("ParameterAssignment")
+	@SuppressWarnings({"ParameterAssignment", "NPathComplexity"})
 	private ModuleEpisodeData doGet(String title) {
 		ModuleEpisodeData moduleEpisodeData = new ModuleEpisodeData();
 		title = title.toLowerCase(Locale.US);

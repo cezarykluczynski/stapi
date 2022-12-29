@@ -21,11 +21,11 @@ class VideoReleaseFormatFromCategoryLinkProcessorTest extends Specification {
 				categoryTitlesExtractingProcessorMock)
 	}
 
-	@Unroll('returns #format when #categoryTitle is among page categories')
-	void "returns format for given category title"() {
+	@Unroll('returns #format when #categoryHeaderList contains the right categories')
+	void "returns format for given category header list"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
-			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+			List<CategoryHeader> categoryHeaders -> Lists.newArrayList(categoryHeaders[0].title)
 		}
 
 		expect:

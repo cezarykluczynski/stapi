@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.github.service;
 
 import com.cezarykluczynski.stapi.server.github.model.GitHubDTO;
 import com.google.common.cache.Cache;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +18,7 @@ public class GitHubApi {
 	private final GitHub gitHub;
 	private final Cache<String, GitHubDTO> cache;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public GitHubApi(GitHub gitHub, @Qualifier("gitHubCache") Cache<String, GitHubDTO> cache) {
 		this.gitHub = gitHub;
 		this.cache = cache;

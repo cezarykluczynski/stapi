@@ -11,13 +11,21 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'io.freefair.lombok'
+	id 'java-library'
+	id 'maven-publish'
+	id 'signing'
+	id 'com.yupzip.wsdl2java'
+}
+
 dependencies {
-	compile project(':contract')
-	compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
-	compile group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
-	compile group: 'com.google.code.gson', name: 'gson', version: '2.10'
-	compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.17'
-	testCompile project(':util').sourceSets.test.output
+	implementation project(':contract')
+	implementation group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
+	implementation group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10'
+	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.5.17'
+	testImplementation project(':util').sourceSets.test.output
 }
 
 wsdl2java {
@@ -228,7 +236,7 @@ wsdl2java {
 	wsdlDir = file("$projectDir/src/main/resources")
 }
 
-jar.baseName = 'stapi-client'
+jar.archiveBaseName = 'stapi-client'
 
 task swaggerGenerate(type: Exec) {
 	File file = project.buildscript.configurations.classpath.find {
@@ -247,7 +255,7 @@ task swaggerGenerate(type: Exec) {
 }
 
 compileJava {
-	dependsOn(wsdl2java, swaggerGenerate)
+	dependsOn(wsdl2javaTask, swaggerGenerate)
 }
 
 task javadocJar(type: Jar) {
@@ -264,80 +272,95 @@ artifacts {
 	archives javadocJar, sourcesJar
 }
 
-uploadArchives {
-	repositories {
-		mavenDeployer {
-			beforeDeployment {
-				MavenDeployment deployment -> signing.signPom(deployment)
-			}
+java {
+	withJavadocJar()
+	withSourcesJar()
+}
 
-			repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				authentication(userName: project.findProperty("ossrhUsername") ?: "", password: project.findProperty("ossrhPassword") ?: "")
-			}
-
-			snapshotRepository(url: "http://oss.sonatype.org/content/repositories/snapshots/") {
-				authentication(userName: project.findProperty("ossrhUsername") ?: "", password: project.findProperty("ossrhPassword") ?: "")
-			}
-
-			pom.project {
-				name 'STAPI Client'
-				description 'Official client library for STAPI, a Star Trek API'
-				version '0.1.1-SNAPSHOT'
-				packaging 'jar'
-				artifactId 'stapi-client'
-				groupId 'com.cezarykluczynski.stapi'
-				url 'https://stapi.co/'
-
-				scm {
-					connection 'https://github.com/cezarykluczynski/stapi.git'
-					developerConnection 'git@github.com:cezarykluczynski/stapi.git'
-					url 'https://github.com/cezarykluczynski/stapi'
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			group = 'com.cezarykluczynski.stapi'
+			artifactId = 'stapi-client'
+			version = '0.1.1-SNAPSHOT'
+			from components.java
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
 				}
-
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+			pom {
+				name = 'STAPI Client'
+				description = 'Official client library for STAPI, a Star Trek API'
+				url = 'https://stapi.co/'
+				packaging = 'jar'
 				licenses {
 					license {
-						name 'MIT'
-						url 'https://opensource.org/licenses/MIT'
+						name = 'MIT'
+						url = 'https://opensource.org/licenses/MIT'
 					}
 				}
-
 				developers {
 					developer {
-						id 'cezary.kluczynski'
-						name 'Cezary Kluczyński'
-						email 'cezary.kluczynski@gmail.com'
+						id = 'cezary.kluczynski'
+						name = 'Cezary Kluczyński'
+						email = 'cezary.kluczynski@gmail.com'
+					}
+				}
+				scm {
+					connection = 'https://github.com/cezarykluczynski/stapi.git'
+					developerConnection = 'git@github.com:cezarykluczynski/stapi.git'
+					url = 'https://github.com/cezarykluczynski/stapi'
+				}
+				withXml {
+					Node pomNode = asNode()
+					Node dependencies = ((NodeList) pomNode.get("dependencies")).first()
+					List<Node> children = dependencies.children()
+					for (int i = children.size() - 1; i >= 0; i--) {
+						Node childNode = (Node) children.get(i)
+						List<Node> dependencyList = childNode.children()
+						boolean doDelete = true
+						for (int j = 0; j < dependencyList.size(); j++) {
+							Node subChild = (Node) dependencyList.get(j)
+							String subChildName = (String) subChild.name()
+							if (subChildName.endsWith('artifactId')) {
+								String value = (String) subChild.value()
+								if (value.contains('okhttp') && !value.contains('logging-interceptor') || value.contains('gson')) {
+									doDelete = false
+								}
+							}
+						}
+
+						if (doDelete) {
+							dependencies.remove(childNode)
+						}
 					}
 				}
 			}
-
-			pom.withXml {
-				Node pomNode = asNode()
-				Node dependencies = ((NodeList) pomNode.get("dependencies")).first()
-				List<Node> children = dependencies.children()
-				for (int i = children.size() - 1; i >= 0; i--) {
-					Node childNode = (Node) children.get(i)
-					List<Node> dependencyList = childNode.children()
-					boolean doDelete = true
-					for (int j = 0; j < dependencyList.size(); j++) {
-						Node subChild = (Node) dependencyList.get(j)
-						String subChildName = (String) subChild.name()
-						if (subChildName.endsWith('artifactId')) {
-							String value = (String) subChild.value()
-							if (value.contains('okhttp') && !value.contains('logging-interceptor') || value.contains('gson')) {
-								doDelete = false
-							}
-						}
-					}
-
-					if (doDelete) {
-						dependencies.remove(childNode)
-					}
-				}
+		}
+	}
+	repositories {
+		maven {
+			url version.endsWith('SNAPSHOT')
+					? "https://oss.sonatype.org/content/repositories/snapshots/"
+					: "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+			credentials {
+				username(project.findProperty("ossrhUsername") as String)
+				password(project.findProperty("ossrhPassword") as String)
 			}
 		}
 	}
 }
 
 signing {
-	sign configurations.archives
+	sign publishing.publications.mavenJava
+}
+
+javadoc {
+	if(JavaVersion.current().isJava9Compatible()) {
+		options.addBooleanOption('html5', true)
+	}
 }

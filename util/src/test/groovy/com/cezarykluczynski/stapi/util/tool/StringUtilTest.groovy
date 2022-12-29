@@ -98,7 +98,7 @@ class StringUtilTest extends Specification {
 		'abc'      | ['ABC']        | true
 	}
 
-	@Unroll('returns #positions when asked for positions of #search in #subject')
+	@Unroll('returns #result when asked for positions of #search in #subject')
 	void "returns all positions of a substring in a string"() {
 		expect:
 		StringUtil.getAllSubstringPositions(subject, search) == result
@@ -157,7 +157,7 @@ class StringUtilTest extends Specification {
 		'subject' | Lists.newArrayList('')               | false
 	}
 
-	@Unroll('returns #result when #subject is passed with #suffixed')
+	@Unroll('returns #result when #subject is passed with #suffixList')
 	void "returns string cut before any of the given suffixes"() {
 		expect:
 		StringUtil.substringBeforeAll(subject, suffixList) == result
@@ -199,6 +199,55 @@ class StringUtilTest extends Specification {
 		''          | true
 		'null'      | false
 		null        | false
+	}
+
+	@Unroll('returns #result when #value is passed')
+	void "returns string with uppercase first letter"() {
+		expect:
+		StringUtil.upperCaseFirst(value) == result
+
+		where:
+		value     | result
+		null      | null
+		''        | ''
+		'null'    | 'Null'
+		'Patrick' | 'Patrick'
+		'data'    | 'Data'
+		'A'       | 'A'
+		'b'       | 'B'
+	}
+
+	@Unroll('returns #result when #value is passed')
+	void "returns string with lowercase first letter"() {
+		expect:
+		StringUtil.lowerCaseFirst(value) == result
+
+		where:
+		value     | result
+		null      | null
+		''        | ''
+		'null'    | 'null'
+		'Patrick' | 'patrick'
+		'data'    | 'data'
+		'A'       | 'a'
+		'b'       | 'b'
+	}
+
+	@Unroll('returns #result when #subject is passed')
+	void "returns split string"() {
+		expect:
+		StringUtil.splitAndTrim(subject, delimeter) == result
+
+		where:
+		subject               | delimeter | result
+		null                  | ','       | null
+		''                    | ','       | ['']
+		'null'                | ','       | ['null']
+		' Patrick , Stewart ' | ','       | ['Patrick', 'Stewart']
+		' Patrick ; Stewart ' | ','       | ['Patrick ; Stewart']
+		' data'               | ','       | ['data']
+		'   data ,object    ' | ','       | ['data', 'object']
+
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
 import java.util.Map;
 
 @Configuration
@@ -35,6 +37,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableAsync
 @EnableScheduling
+@SuppressWarnings("ClassFanOutComplexity")
 public class ModelConfiguration {
 
 	static final String JPA_BASE_PACKAGES = Package.MODEL;
@@ -99,6 +102,14 @@ public class ModelConfiguration {
 	}
 
 	@Bean
+	@Primary
+	@ConditionalOnProperty(name = "etl.enabled", havingValue = "true")
+	public PlatformTransactionManager platformTransactionManager() {
+		return new JpaTransactionManager(entityManagerFactory());
+	}
+
+	@Bean
+	@ConditionalOnProperty(name = "etl.enabled", havingValue = "false")
 	public PlatformTransactionManager transactionManager() {
 		return new JpaTransactionManager(entityManagerFactory());
 	}

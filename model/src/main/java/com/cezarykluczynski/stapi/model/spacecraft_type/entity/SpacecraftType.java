@@ -33,9 +33,6 @@ public class SpacecraftType extends PageAwareEntity implements PageAware {
 	@SequenceGenerator(name = "spacecraft_type_sequence_generator", sequenceName = "spacecraft_type_sequence", allocationSize = 1)
 	private Long id;
 
-	@Column(length = 14, name = "u_id")
-	private String uid;
-
 	private String name;
 
 }

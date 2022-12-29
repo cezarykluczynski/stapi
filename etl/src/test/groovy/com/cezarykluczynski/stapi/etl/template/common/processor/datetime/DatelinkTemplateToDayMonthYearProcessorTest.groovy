@@ -13,7 +13,7 @@ class DatelinkTemplateToDayMonthYearProcessorTest extends Specification {
 	private static final Integer MONTH = 10
 	private static final Integer DAY = 20
 
-	private DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessorMock
+	private DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandiateProcessorMock
 
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 
@@ -42,6 +42,19 @@ class DatelinkTemplateToDayMonthYearProcessorTest extends Specification {
 		dayMonthYear.year == YEAR
 		dayMonthYear.month == MONTH
 		dayMonthYear.day == DAY
+	}
+
+	void "returns null when DatelinkTemplateToDayMonthYearCandidateProcessor returns null"() {
+		given:
+		Template template = Mock()
+
+		when:
+		DayMonthYear dayMonthYear = datelinkTemplateToDayMonthYearProcessor.process(template)
+
+		then:
+		1 * datelinkTemplateToDayMonthYearCandiateProcessorMock.process(template) >> null
+		0 * _
+		dayMonthYear == null
 	}
 
 	void "returns null when DayMonthYearCandidateToLocalDateProcessor returns null"() {

@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

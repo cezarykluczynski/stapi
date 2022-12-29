@@ -3,12 +3,14 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor.collection;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicCollectionTemplate;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ComicsTemplateToComicCollectionTemplateProcessor implements ItemProcessor<ComicsTemplate, ComicCollectionTemplate> {
 
 	@Override
+	@NonNull
 	public ComicCollectionTemplate process(ComicsTemplate item) throws Exception {
 		ComicCollectionTemplate comicCollectionTemplate = new ComicCollectionTemplate();
 

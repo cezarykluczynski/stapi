@@ -1,14 +1,17 @@
-apply plugin: 'groovy'
-apply plugin: 'java'
+plugins {
+	id 'io.freefair.lombok'
+	id 'groovy'
+	id 'java'
+}
 
 dependencies {
-	compile project(':model')
-	compile group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
-	compile group: 'com.afrozaar.wordpress', name: 'wp-api-v2-client-java', version: '2.0-beta15'
-	compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
-	compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
-	compile group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
-	testCompile(group: 'org.mock-server', name: 'mockserver-netty', version: '3.10.4') {
+	implementation project(':util'), project(':model')
+	implementation group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
+	implementation group: 'com.afrozaar.wordpress', name: 'wp-api-v2-client-java', version: '2.0-beta15'
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
+	implementation group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
+	implementation group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
+	testImplementation(group: 'org.mock-server', name: 'mockserver-netty', version: '3.10.4') {
 		// When 'xerces:xerces' is on classpath, XMLReaderFactory::createXMLReader picks
 		// 'org.apache.xerces.parsers.SAXParser' instead of 'com.sun.org.apache.xerces.internal.parsers.SAXParser',
 		// the parser assumed by 'info.bliki.wiki'. This results in failing tests in PageApiImplTest,

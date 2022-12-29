@@ -9,7 +9,7 @@ import spock.lang.Specification
 
 import java.time.Month
 
-class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification {
+class DatelinkTemplateToDayMonthYearCandidateProcessorTest extends Specification {
 
 	private static final Integer YEAR = 2000
 	private static final Month MONTH = Month.APRIL
@@ -20,13 +20,13 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 
-	private DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor
+	private DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandidateProcessor
 
 	private Template template
 
 	void setup() {
 		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
-		datelinkTemplateToDayMonthYearCandiateProcessor = new DatelinkTemplateToDayMonthYearCandiateProcessor()
+		datelinkTemplateToDayMonthYearCandidateProcessor = new DatelinkTemplateToDayMonthYearCandidateProcessor()
 		template = new Template(
 				title: TemplateTitle.D,
 				parts: Lists.newArrayList(
@@ -39,7 +39,7 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 
 	void "valid template with title 'd' is parsed"() {
 		when:
-		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandiateProcessor.process(template)
+		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandidateProcessor.process(template)
 
 		then:
 		dayMonthYearCandidate.day == DAY_STRING
@@ -52,7 +52,7 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 		template.title = TemplateTitle.DATELINK
 
 		when:
-		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandiateProcessor.process(template)
+		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandidateProcessor.process(template)
 
 		then:
 		dayMonthYearCandidate.day == DAY_STRING
@@ -62,7 +62,7 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 
 	void "template of different title produces null LocalDate"() {
 		when:
-		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandiateProcessor
+		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandidateProcessor
 				.process(new Template(title: 'different template'))
 
 		then:

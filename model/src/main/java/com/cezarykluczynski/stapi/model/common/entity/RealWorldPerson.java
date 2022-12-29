@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
+
 import java.time.LocalDate;
 
 @MappedSuperclass

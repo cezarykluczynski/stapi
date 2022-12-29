@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,7 +22,11 @@ public class DayMonthYearCandidateToLocalDateProcessor implements ItemProcessor<
 	}
 
 	@Override
-	public LocalDate process(DayMonthYearCandidate item) throws Exception {
+	public LocalDate process(@Nullable DayMonthYearCandidate item) throws Exception {
+		if (item == null) {
+			return null;
+		}
+
 		String dayValue = item.getDay();
 		String monthValue = item.getMonth();
 		String yearValue = item.getYear();

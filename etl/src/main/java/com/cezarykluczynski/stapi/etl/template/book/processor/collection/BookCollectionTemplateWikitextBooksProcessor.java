@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class BookCollectionTemplateWikitextBooksProcessor implements ItemProcess
 	}
 
 	@Override
+	@NonNull
 	public Set<Book> process(Page item) throws Exception {
 		String pageTitle = item.getTitle();
 		Set<Book> bookSet = Sets.newHashSet();

@@ -14,10 +14,11 @@ class CharacterSpeciesFixedValueProviderTest extends Specification {
 		characterSpeciesFixedValueProvider = new CharacterSpeciesFixedValueProvider()
 	}
 
+	@SuppressWarnings('ExplicitCallToEqualsMethod')
 	void "provides correct range"() {
 		expect:
 		characterSpeciesFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
-		characterSpeciesFixedValueProvider.getSearchedValue(EXISTING_TITLE).value.get('Human') == Fraction.getFraction(1, 1)
+		characterSpeciesFixedValueProvider.getSearchedValue(EXISTING_TITLE).value.get('Human').equals(Fraction.getFraction(1, 1))
 	}
 
 	void "provides missing range"() {

@@ -40,7 +40,7 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 	}
 
 	@Override
-	@SuppressWarnings({"CyclomaticComplexity", "NPathComplexity"})
+	@SuppressWarnings({"CyclomaticComplexity", "NPathComplexity", "ParameterAssignment"})
 	public void link(Set<List<String>> source, Movie baseEntity) {
 		Set<Performer> performerSet = Sets.newHashSet();
 		Set<Character> characterSet = Sets.newHashSet();

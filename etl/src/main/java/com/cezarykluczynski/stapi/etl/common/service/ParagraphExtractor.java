@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.google.common.collect.Lists;
-import liquibase.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +18,6 @@ public class ParagraphExtractor {
 		List<String> paragraphs = Lists.newArrayList(wikitext.split("\n\n"));
 		return paragraphs.isEmpty() ? Lists.newArrayList(wikitext) : paragraphs;
 	}
-
 
 	public List<String> extractLines(String wikitext) {
 		if (wikitext == null) {

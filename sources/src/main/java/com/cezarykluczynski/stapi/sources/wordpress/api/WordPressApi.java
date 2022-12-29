@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource;
 import com.cezarykluczynski.stapi.sources.wordpress.connector.afrozaar.WordPressAfrozaarConnector;
 import com.cezarykluczynski.stapi.sources.wordpress.connector.afrozaar.WordPressPageMapper;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

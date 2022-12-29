@@ -6,6 +6,7 @@ import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public class VideoTemplateEpisodesCountProcessor implements ItemProcessor<String
 	private static final String SPACE_BRACKET_LEFT = " " + BRACKET_LEFT;
 
 	@Override
+	@SuppressWarnings("NPathComplexity")
+	@NonNull
 	public EpisodesCountDTO process(String item) throws Exception {
 		EpisodesCountDTO episodesCountDTO = new EpisodesCountDTO();
 

@@ -8,9 +8,9 @@ import com.cezarykluczynski.stapi.model.title.repository.TitleRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 

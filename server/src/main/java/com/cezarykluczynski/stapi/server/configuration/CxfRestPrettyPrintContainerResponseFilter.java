@@ -10,6 +10,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
+
 import java.io.IOException;
 
 // source: http://stackoverflow.com/a/32649532

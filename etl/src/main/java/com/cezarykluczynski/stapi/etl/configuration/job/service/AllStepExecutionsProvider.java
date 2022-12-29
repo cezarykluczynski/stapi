@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.configuration.job.service;
 
 import com.google.common.collect.Lists;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobInstance;
 import org.springframework.batch.core.JobParameters;
@@ -24,6 +25,7 @@ public class AllStepExecutionsProvider {
 
 	private final ExecutionContextDao executionContextDao;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public AllStepExecutionsProvider(JobInstanceDao jobInstanceDao, JobExecutionDao jobExecutionDao,
 			StepExecutionDao stepExecutionDao, ExecutionContextDao executionContextDao) {
 		this.jobInstanceDao = jobInstanceDao;

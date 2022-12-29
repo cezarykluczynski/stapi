@@ -77,8 +77,8 @@ public class StatusProcessor implements ItemProcessor<String, String> {
 		return StringUtils.removeAll(StringUtils.capitalize(candidates.get(0)), "'");
 	}
 
-	private boolean mightBeAdjective(String s) {
-		return StringUtils.endsWith(s, ED);
+	private boolean mightBeAdjective(String adjectiveCandidate) {
+		return StringUtils.endsWith(adjectiveCandidate, ED);
 	}
 
 }

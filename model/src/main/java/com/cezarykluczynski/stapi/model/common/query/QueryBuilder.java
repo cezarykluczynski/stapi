@@ -25,6 +25,7 @@ import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ClassFanOutComplexity")
 public class QueryBuilder<T> {
 
 	private static final String PERCENT_SIGN = "%";

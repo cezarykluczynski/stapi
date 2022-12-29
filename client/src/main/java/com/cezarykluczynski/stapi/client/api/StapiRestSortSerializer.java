@@ -15,7 +15,7 @@ public class StapiRestSortSerializer {
 			}
 		});
 
-		return String.join(";", restSortClauseList.stream().map((restSortClause) ->
+		return String.join(";", restSortClauseList.stream().map(restSortClause ->
 						restSortClause.getName() + "," + restSortClause.getDirection().name())
 				.collect(Collectors.toList()));
 	}

@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.core.job.builder.JobBuilderException;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class StepConfigurationValidator {
 
 	private final Map<String, StepProperties> stepPropertiesMap = Maps.newLinkedHashMap();
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public StepConfigurationValidator(StepToStepPropertiesProvider stepToStepPropertiesProvider) {
 		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;
 	}

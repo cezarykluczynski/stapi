@@ -9,11 +9,13 @@ import com.cezarykluczynski.stapi.server.content_language.mapper.ContentLanguage
 import com.cezarykluczynski.stapi.server.content_rating.mapper.ContentRatingRestMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(config = MapstructConfiguration.class, uses = {ContentLanguageRestMapper.class, ContentRatingRestMapper.class, DateMapper.class,
 		EnumMapper.class, SeriesBaseRestMapper.class, SeriesBaseRestMapper.class})
 public interface VideoReleaseFullRestMapper {
 
+	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
 	VideoReleaseFull mapFull(VideoRelease videoRelease);
 
 }

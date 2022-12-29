@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
-import liquibase.util.StringUtils;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -62,7 +62,7 @@ public class CharacterTemplateWithCharacterboxTemplateEnrichingProcessor
 		if (LogicUtil.xorNull(baseValue, newValue)) {
 			return ObjectUtils.firstNonNull(baseValue, newValue);
 		} else if (!Objects.equals(baseValue, newValue)) {
-			log.warn("{} for {} differs: MA has \"{}\", while MB has \"{}\"", StringUtils.upperCaseFirst(valueName), characterTemplate.getName(),
+			log.warn("{} for {} differs: MA has \"{}\", while MB has \"{}\"", StringUtil.upperCaseFirst(valueName), characterTemplate.getName(),
 					baseValue, newValue);
 			return baseValue;
 		} else {

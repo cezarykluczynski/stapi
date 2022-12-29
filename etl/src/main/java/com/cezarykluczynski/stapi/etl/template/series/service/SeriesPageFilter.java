@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.series.service;
 
 import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

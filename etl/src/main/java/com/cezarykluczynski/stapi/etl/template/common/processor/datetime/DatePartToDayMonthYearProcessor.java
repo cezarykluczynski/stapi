@@ -10,6 +10,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,32 +32,38 @@ public class DatePartToDayMonthYearProcessor implements ItemProcessor<Template.P
 		List<Template> monthTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.M, TemplateTitle.MONTHLINK);
 		List<Template> yearTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.Y, TemplateTitle.YEARLINK);
 
-		DayMonthYear dayMonthYearFrom = null;
+		DayMonthYear dayMonthYear = null;
 
 		if (!dayTemplateList.isEmpty()) {
 			List<DayMonthYear> dayMonthYears = dayTemplateList.stream()
-					.map(templateToDayMonthYearParser::parseDayMonthYearCandidate).collect(Collectors.toList());
+					.map(templateToDayMonthYearParser::parseDayMonthYearCandidate)
+					.filter(Objects::nonNull)
+					.collect(Collectors.toList());
 			if (dayTemplateList.size() > 1) {
 				log.info("More than one datelink template found {}, using the first one", dayMonthYears);
 			}
-			dayMonthYearFrom = dayMonthYears.get(0);
+			dayMonthYear = dayMonthYears.get(0);
 		} else if (!monthTemplateList.isEmpty()) {
 			List<DayMonthYear> dayMonthYears = monthTemplateList.stream()
-					.map(templateToDayMonthYearParser::parseMonthYearCandidate).collect(Collectors.toList());
+					.map(templateToDayMonthYearParser::parseMonthYearCandidate)
+					.filter(Objects::nonNull)
+					.collect(Collectors.toList());
 			if (monthTemplateList.size() > 1) {
 				log.info("More than one monthlink template found {}, using the first one", dayMonthYears);
 			}
-			dayMonthYearFrom = dayMonthYears.get(0);
+			dayMonthYear = dayMonthYears.get(0);
 		} else if (!yearTemplateList.isEmpty()) {
 			final List<DayMonthYear> dayMonthYears = yearTemplateList.stream()
-					.map(templateToDayMonthYearParser::parseYearCandidate).collect(Collectors.toList());
+					.map(templateToDayMonthYearParser::parseYearCandidate)
+					.filter(Objects::nonNull)
+					.collect(Collectors.toList());
 			if (yearTemplateList.size() > 1) {
 				log.info("More than one yearlink template found {}, using the first one", dayMonthYears);
 			}
-			dayMonthYearFrom = dayMonthYears.get(0);
+			dayMonthYear = dayMonthYears.get(0);
 		}
 
-		return dayMonthYearFrom;
+		return dayMonthYear;
 	}
 
 }

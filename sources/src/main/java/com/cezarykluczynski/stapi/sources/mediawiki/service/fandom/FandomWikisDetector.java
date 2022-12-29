@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.service.fandom;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ public class FandomWikisDetector {
 
 	private final FandomUrlDetector fandomUrlDetector;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public FandomWikisDetector(MediaWikiSourcesProperties mediaWikiSourcesProperties, FandomUrlDetector fandomUrlDetector) {
 		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
 		this.fandomUrlDetector = fandomUrlDetector;

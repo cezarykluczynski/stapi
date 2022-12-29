@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +29,7 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 	}
 
 	@Override
+	@NonNull
 	public MovieTemplate process(Template item) throws Exception {
 		MovieTemplate movieTemplate = new MovieTemplate();
 		Movie movieStub = new Movie();

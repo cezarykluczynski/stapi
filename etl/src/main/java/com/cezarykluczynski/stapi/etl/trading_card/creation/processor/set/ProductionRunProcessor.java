@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetVa
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -83,6 +84,7 @@ public class ProductionRunProcessor implements ItemProcessor<TradingCardSetValue
 		return numbers;
 	}
 
+	@SuppressFBWarnings("DCN_NULLPOINTER_EXCEPTION")
 	private Integer sumProductionRun(String value, List<String> numbers) {
 		Integer productionRun;
 

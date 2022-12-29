@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class EndpointHitsReader {
 	}
 
 	public Map<Class<? extends PageAware>, Long> readEndpointHits() {
-		return entityToHitCountMap;
+		return Maps.newHashMap(entityToHitCountMap);
 	}
 
 	@Scheduled(cron = "${statistics.read.endpointHit}")

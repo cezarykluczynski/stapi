@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.common.service;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class UrlContentRetriever {
 
 	private final OkHttpClient okHttpClient;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public UrlContentRetriever(OkHttpClient okHttpClient) {
 		this.okHttpClient = okHttpClient;
 	}

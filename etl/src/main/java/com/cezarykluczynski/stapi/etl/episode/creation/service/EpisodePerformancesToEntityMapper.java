@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,9 @@ public class EpisodePerformancesToEntityMapper {
 
 	public EpisodePerformancesEntitiesDTO mapToEntities(List<EpisodePerformanceDTO> episodePerformanceDTOList, Episode episode) {
 		EpisodePerformancesEntitiesDTO imageEpisodePerformancesEntitiesDTO = new EpisodePerformancesEntitiesDTO();
+		if (CollectionUtils.isEmpty(episodePerformanceDTOList)) {
+			return imageEpisodePerformancesEntitiesDTO;
+		}
 		List<EpisodePerformanceEntitiesPair> episodePerformanceEntitiesPairList
 				= getEpisodePerformanceEntitiesPairList(episodePerformanceDTOList);
 		List<EpisodePerformanceForEntity> episodeStuntPerformanceEntityList

@@ -4,11 +4,11 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
+import com.google.common.collect.Lists;
 import info.bliki.api.AbstractXMLParser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.xml.sax.Attributes;
@@ -23,12 +23,14 @@ import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Slf4j
+@SuppressWarnings("ClassFanOutComplexity")
 public class XMLParseParser extends AbstractXMLParser {
 	// often no byte offset due to embedded templates or pages
 	private static final List<String> IGNORABLE_SECTIONS_NO_BYTE_OFFSET = Lists.newArrayList(

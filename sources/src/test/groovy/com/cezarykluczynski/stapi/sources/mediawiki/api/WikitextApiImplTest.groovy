@@ -164,7 +164,7 @@ class WikitextApiImplTest extends Specification {
 	}
 
 	@SuppressWarnings('LineLength')
-	@Unroll('returns #linkTitle when #template is passed')
+	@Unroll('returns #pageLink when #template is passed')
 	void "returns links title from DIS templates"() {
 		expect:
 		wikitextApiImpl.disTemplateToPageTitle(template) == pageLink

@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObje
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 

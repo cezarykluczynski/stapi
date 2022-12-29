@@ -30,9 +30,9 @@ public class HologramActivationDateProcessor implements ItemProcessor<String, St
 				.findFirst().orElse(null);
 	}
 
-	private String processDateStatus(String s) {
+	private String processDateStatus(String dateStatus) {
 		try {
-			return dateStatusProcessor.process(s);
+			return dateStatusProcessor.process(dateStatus);
 		} catch (Exception e) {
 			log.warn("Exception thrown by DateStatusProcessor", e);
 			return null;

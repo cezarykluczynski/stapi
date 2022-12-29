@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Element;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ElementTextNodesProcessor implements ItemProcessor<Element, List<String>> {
 
 	@Override
+	@NonNull
 	public List<String> process(Element item) throws Exception {
 		List<String> textNodes = Lists.newArrayList();
 		getElementsWithNonEmptyText(item).forEach(elementWithTextNodes -> {

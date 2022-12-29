@@ -25,8 +25,8 @@ public class CxfConfiguration {
 	public static final int CORS_MAX_AGE = 3600;
 
 	@Bean
-	public ServletRegistrationBean cxfServletRegistrationBean() {
-		return new ServletRegistrationBean(new CXFServlet(), "/api/*");
+	public ServletRegistrationBean<CXFServlet> cxfServletRegistrationBean() {
+		return new ServletRegistrationBean<>(new CXFServlet(), "/api/*");
 	}
 
 	@Bean

@@ -10,11 +10,9 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapstructConfiguration.class)
 public interface LocationFullRestMapper {
 
-	@Mapping(target = "tlement", ignore = true) // wrongly generated settlement setter
 	@Mapping(target = "landmark", constant = "false")
 	LocationFull mapFull(Location location);
 
-	@Mapping(target = "tlement", ignore = true) // wrongly generated settlement setter
 	LocationV2Full mapV2Full(Location location);
 
 }

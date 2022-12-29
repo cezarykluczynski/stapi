@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.common.reader;
 
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,7 +28,8 @@ public class TradingCardDecksTableProcessor implements ItemProcessor<Element, Se
 	}
 
 	@Override
-	@SuppressWarnings("NPathComplexity")
+	@NonNull
+	@SuppressWarnings("NPathComplexity") // TODO: this looks rather easy to break down into more methods
 	public Set<TradingCardDeck> process(Element item) throws Exception {
 		Set<TradingCardDeck> tradingCardDeckSet = Sets.newHashSet();
 

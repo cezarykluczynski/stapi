@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 
 import java.util.HashMap;
 
+@SuppressWarnings("IllegalType")
 public class CharacterRelationsMap extends HashMap<CharacterRelationCacheKey, Template.Part> {
 
 	public static CharacterRelationsMap of(CharacterRelationCacheKey characterRelationCacheKey, Template.Part templatePart) {

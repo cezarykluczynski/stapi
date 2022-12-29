@@ -7,9 +7,9 @@ import com.cezarykluczynski.stapi.model.spacecraft_type.repository.SpacecraftTyp
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Sets;
 import info.bliki.api.PageInfo;
-import liquibase.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -51,13 +51,13 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 		Set<SpacecraftType> spacecraftTypeSet = Sets.newHashSet();
 
 		pageTitleList.forEach(pageTitle -> {
-			pageTitle = normalizePageTitle(pageTitle);
+			String normalizedPageTitle = normalizePageTitle(pageTitle);
 
-			Optional<SpacecraftType> spacecraftTypeOptional = spacecraftTypeRepository.findByNameIgnoreCase(pageTitle);
+			Optional<SpacecraftType> spacecraftTypeOptional = spacecraftTypeRepository.findByNameIgnoreCase(normalizedPageTitle);
 			if (spacecraftTypeOptional.isPresent()) {
 				spacecraftTypeSet.add(spacecraftTypeOptional.get());
 			} else {
-				tryExtractUsingCanonicalPageTitle(pageTitle, spacecraftTypeSet);
+				tryExtractUsingCanonicalPageTitle(normalizedPageTitle, spacecraftTypeSet);
 			}
 		});
 
@@ -98,7 +98,7 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 	}
 
 	private String normalizePageTitle(String pageTitle) {
-		String pageTitleUcFirst = StringUtils.upperCaseFirst(pageTitle);
+		String pageTitleUcFirst = StringUtil.upperCaseFirst(pageTitle);
 		FixedValueHolder<String> correctedTitleFixedValueHolder = starshipClassTemplateNameCorrectionFixedValueProvider
 				.getSearchedValue(pageTitleUcFirst);
 

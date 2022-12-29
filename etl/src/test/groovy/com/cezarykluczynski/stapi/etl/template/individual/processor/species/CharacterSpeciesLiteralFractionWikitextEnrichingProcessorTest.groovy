@@ -24,6 +24,7 @@ class CharacterSpeciesLiteralFractionWikitextEnrichingProcessorTest extends Spec
 				characterSpeciesWithSpeciesNameEnrichingProcessorMock)
 	}
 
+	@SuppressWarnings('ExplicitCallToEqualsMethod')
 	void "passes found fraction to CharacterSpeciesWithSpeciesNameEnrichingProcessor"() {
 		given:
 		String wikitext = "&frac34; [[${HUMAN}]]<br>&frac14; [[${BETAZOID}]]"
@@ -42,13 +43,13 @@ class CharacterSpeciesLiteralFractionWikitextEnrichingProcessorTest extends Spec
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
 				assert enrichablePair.input.left == BETAZOID
-				assert enrichablePair.input.right == Fraction.getFraction(1, 4)
+				assert enrichablePair.input.right.equals(Fraction.getFraction(1, 4))
 				enrichablePair.output.add betazoidCharacterSpecies
 		}
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
 				assert enrichablePair.input.left == HUMAN
-				assert enrichablePair.input.right == Fraction.getFraction(3, 4)
+				assert enrichablePair.input.right.equals(Fraction.getFraction(3, 4))
 				enrichablePair.output.add humanCharacterSpecies
 		}
 		0 * _

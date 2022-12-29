@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.configuration.job.service;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.context.annotation.DependsOn;
@@ -18,6 +19,7 @@ public class StepCompletenessDecider {
 
 	private final AllStepExecutionsProvider allStepExecutionsProvider;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public StepCompletenessDecider(StepToStepPropertiesProvider stepToStepPropertiesProvider,
 			AllStepExecutionsProvider allStepExecutionsProvider) {
 		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;

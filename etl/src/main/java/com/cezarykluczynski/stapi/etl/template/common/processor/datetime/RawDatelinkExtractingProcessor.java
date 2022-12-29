@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearC
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class RawDatelinkExtractingProcessor implements ItemProcessor<String, Lis
 	}
 
 	@Override
+	@NonNull
 	public List<LocalDate> process(String item) throws Exception {
 		List<LocalDate> localDateList = Lists.newArrayList();
 

@@ -6,13 +6,15 @@ import com.cezarykluczynski.stapi.model.astronomical_object.repository.Astronomi
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.assertj.core.util.Lists;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NonUniqueResultException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +36,7 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 	}
 
 	@Override
+	@NonNull
 	public List<AstronomicalObject> process(String item) throws Exception {
 		List<String> paragraphList = paragraphExtractor.extractParagraphs(item);
 		List<AstronomicalObject> candidates = Lists.newArrayList();

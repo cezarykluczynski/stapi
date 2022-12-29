@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessD
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepNames;
 import com.cezarykluczynski.stapi.model.common.etl.EtlProperties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -36,6 +37,7 @@ public class JobBuilder {
 
 	private final EtlProperties etlProperties;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public JobBuilder(ApplicationContext applicationContext, JobBuilderFactory jobBuilderFactory,
 			StepConfigurationValidator stepConfigurationValidator, JobCompletenessDecider jobCompletenessDecider,
 			StepToStepPropertiesProvider stepToStepPropertiesProvider, EtlProperties etlProperties) {

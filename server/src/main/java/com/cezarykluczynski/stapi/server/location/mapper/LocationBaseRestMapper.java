@@ -22,7 +22,6 @@ public interface LocationBaseRestMapper {
 	@Mapping(target = "residence", ignore = true)
 	LocationRequestDTO mapBase(LocationRestBeanParams locationRestBeanParams);
 
-	@Mapping(target = "tlement", ignore = true) // wrongly generated settlement setter
 	@Mapping(target = "landmark", constant = "false")
 	LocationBase mapBase(Location location);
 
@@ -31,7 +30,6 @@ public interface LocationBaseRestMapper {
 	@Mapping(target = "landmark", ignore = true)
 	LocationRequestDTO mapV2Base(LocationV2RestBeanParams locationV2RestBeanParams);
 
-	@Mapping(target = "tlement", ignore = true) // wrongly generated settlement setter
 	LocationV2Base mapV2Base(Location location);
 
 	List<LocationV2Base> mapV2Base(List<Location> locationList);

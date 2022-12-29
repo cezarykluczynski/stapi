@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.CompanyAliasFixedValueProvider;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Sets;
-import liquibase.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class TextToCompaniesProcessor implements ItemProcessor<String, Set<Compa
 			return companySet;
 		}
 
-		List<String> companiesCandidates = StringUtils.splitAndTrim(item, ",");
+		List<String> companiesCandidates = StringUtil.splitAndTrim(item, ",");
 		companiesCandidates.forEach(companyCandidate -> tryAddCompanyFromCandidate(companySet, companyCandidate, 0));
 		return companySet;
 	}
@@ -61,7 +61,7 @@ public class TextToCompaniesProcessor implements ItemProcessor<String, Set<Compa
 			if (depth == 0) {
 				boolean hasSpace = org.apache.commons.lang3.StringUtils.contains(internalCompanyCandidate, SPACE);
 				if (hasSpace) {
-					List<String> companyCandidates = StringUtils.splitAndTrim(internalCompanyCandidate, SPACE);
+					List<String> companyCandidates = StringUtil.splitAndTrim(internalCompanyCandidate, SPACE);
 					companyCandidates.forEach(companyCandidateSingleWord -> tryAddCompanyFromCandidate(companySet, companyCandidateSingleWord, 1));
 				}
 

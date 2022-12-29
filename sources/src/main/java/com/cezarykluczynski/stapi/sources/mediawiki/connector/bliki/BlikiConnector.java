@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @Service
+@SuppressWarnings("ClassFanOutComplexity")
 @Slf4j
 public class BlikiConnector {
 
@@ -58,6 +59,7 @@ public class BlikiConnector {
 
 	private final RestTemplate restTemplate;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, FandomWikisDetector fandomWikisDetector,
 			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties,
 			RestTemplate restTemplate) {

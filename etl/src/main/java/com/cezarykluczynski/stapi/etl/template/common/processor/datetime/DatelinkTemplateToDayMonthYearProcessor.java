@@ -11,21 +11,23 @@ import java.time.LocalDate;
 @Service
 public class DatelinkTemplateToDayMonthYearProcessor implements ItemProcessor<Template, DayMonthYear> {
 
-	private final DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor;
+	private final DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandidateProcessor;
 
 	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	public DatelinkTemplateToDayMonthYearProcessor(DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor,
+	public DatelinkTemplateToDayMonthYearProcessor(DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandidateProcessor,
 			DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
-		this.datelinkTemplateToDayMonthYearCandiateProcessor = datelinkTemplateToDayMonthYearCandiateProcessor;
+		this.datelinkTemplateToDayMonthYearCandidateProcessor = datelinkTemplateToDayMonthYearCandidateProcessor;
 		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 	}
 
 	@Override
 	public DayMonthYear process(Template item) throws Exception {
-		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandiateProcessor.process(item);
+		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandidateProcessor.process(item);
+		if (dayMonthYearCandidate == null) {
+			return null;
+		}
 		LocalDate localDate = dayMonthYearCandidateToLocalDateProcessor.process(dayMonthYearCandidate);
-
 		if (localDate == null) {
 			return null;
 		}

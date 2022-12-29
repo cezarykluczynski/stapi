@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.country.service;
 import com.cezarykluczynski.stapi.etl.country.dto.CountryDTO;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import liquibase.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -288,7 +288,7 @@ public class CountryDTOProvider {
 	public Set<CountryDTO> provideFromString(String searchString) {
 		Set<CountryDTO> countryDTOSet = Sets.newHashSet();
 
-		if (StringUtils.isEmpty(searchString)) {
+		if (StringUtils.isBlank(searchString)) {
 			return countryDTOSet;
 		}
 

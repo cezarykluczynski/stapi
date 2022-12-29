@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

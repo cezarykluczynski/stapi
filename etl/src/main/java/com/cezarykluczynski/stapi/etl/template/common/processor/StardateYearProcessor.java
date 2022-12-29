@@ -77,6 +77,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 		}
 	}
 
+	@SuppressWarnings("NPathComplexity")
 	private void enrichWithStardates(StardateYearDTO stardateYearDTO, String stardate, String imageType, String title) {
 		if (stardate != null && !stardate.contains("Unknown")) {
 			List<String> stardateParts = Lists.newArrayList(stardate.split("-"));

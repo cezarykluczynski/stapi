@@ -35,6 +35,7 @@ public class VideoTemplateYearsProcessor implements ItemProcessor<Template.Part,
 	}
 
 	@Override
+	@SuppressWarnings("NPathComplexity")
 	public YearRange process(Template.Part item) throws Exception {
 		if (StringUtils.isBlank(item.getValue()) && StringUtils.isBlank(item.getContent()) && CollectionUtils.isEmpty(item.getTemplates())) {
 			return null;

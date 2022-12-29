@@ -12,16 +12,16 @@ class MonthlinkTemplateToMonthYearProcessorTest extends Specification {
 	private static final Integer YEAR = 2000
 	private static final Integer MONTH = 10
 
-	private MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToDayMonthYearCandiateProcessorMock
+	private MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToDayMonthYearCandidateProcessorMock
 
 	private MonthYearCandidateToYearMonthProcessor monthYearCandidateToYearMonthProcessorMock
 
 	private MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToDayMonthYearProcessor
 
 	void setup() {
-		monthlinkTemplateToDayMonthYearCandiateProcessorMock = Mock()
+		monthlinkTemplateToDayMonthYearCandidateProcessorMock = Mock()
 		monthYearCandidateToYearMonthProcessorMock = Mock()
-		monthlinkTemplateToDayMonthYearProcessor = new MonthlinkTemplateToMonthYearProcessor(monthlinkTemplateToDayMonthYearCandiateProcessorMock,
+		monthlinkTemplateToDayMonthYearProcessor = new MonthlinkTemplateToMonthYearProcessor(monthlinkTemplateToDayMonthYearCandidateProcessorMock,
 				monthYearCandidateToYearMonthProcessorMock)
 	}
 
@@ -35,11 +35,39 @@ class MonthlinkTemplateToMonthYearProcessorTest extends Specification {
 		DayMonthYear dayMonthYear = monthlinkTemplateToDayMonthYearProcessor.process(template)
 
 		then:
-		1 * monthlinkTemplateToDayMonthYearCandiateProcessorMock.process(template) >> monthYearCandidate
+		1 * monthlinkTemplateToDayMonthYearCandidateProcessorMock.process(template) >> monthYearCandidate
 		1 * monthYearCandidateToYearMonthProcessorMock.process(monthYearCandidate) >> yearMonth
 		0 * _
 		dayMonthYear.year == YEAR
 		dayMonthYear.month == MONTH
+	}
+
+	void "returns null when MonthlinkTemplateToDayMonthYearCandidateProcessor returns null"() {
+		given:
+		Template template = Mock()
+
+		when:
+		DayMonthYear dayMonthYear = monthlinkTemplateToDayMonthYearProcessor.process(template)
+
+		then:
+		1 * monthlinkTemplateToDayMonthYearCandidateProcessorMock.process(template) >> null
+		0 * _
+		dayMonthYear == null
+	}
+
+	void "returns null when MonthYearCandidateToYearMonthProcessor returns null"() {
+		given:
+		Template template = Mock()
+		MonthYearCandidate monthYearCandidate = Mock()
+
+		when:
+		DayMonthYear dayMonthYear = monthlinkTemplateToDayMonthYearProcessor.process(template)
+
+		then:
+		1 * monthlinkTemplateToDayMonthYearCandidateProcessorMock.process(template) >> monthYearCandidate
+		1 * monthYearCandidateToYearMonthProcessorMock.process(monthYearCandidate) >> null
+		0 * _
+		dayMonthYear == null
 	}
 
 }

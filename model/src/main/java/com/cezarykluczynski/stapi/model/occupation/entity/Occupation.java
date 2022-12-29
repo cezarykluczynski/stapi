@@ -20,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+
 import java.util.Set;
 
 @Data

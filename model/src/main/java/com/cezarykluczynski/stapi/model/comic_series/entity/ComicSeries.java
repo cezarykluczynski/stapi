@@ -25,6 +25,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+
 import java.util.Set;
 
 @Data

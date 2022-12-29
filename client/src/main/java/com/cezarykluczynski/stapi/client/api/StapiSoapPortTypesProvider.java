@@ -82,6 +82,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.WeaponPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.WeaponService;
 
 import javax.xml.ws.BindingProvider;
+
 import java.util.Map;
 
 public class StapiSoapPortTypesProvider extends AbstractStapiClient implements StapiClient {

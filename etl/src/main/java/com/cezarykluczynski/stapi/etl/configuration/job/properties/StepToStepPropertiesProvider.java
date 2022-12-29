@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.configuration.job.properties;
 
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -13,13 +14,14 @@ public class StepToStepPropertiesProvider {
 
 	private StepsProperties stepsProperties;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public StepToStepPropertiesProvider(StepsProperties stepsProperties) {
 		this.stepsProperties = stepsProperties;
 		addAllToMap();
 	}
 
 	public synchronized Map<String, StepProperties> provide() {
-		return stepPropertiesMap;
+		return Maps.newLinkedHashMap(stepPropertiesMap);
 	}
 
 	private void addAllToMap() {

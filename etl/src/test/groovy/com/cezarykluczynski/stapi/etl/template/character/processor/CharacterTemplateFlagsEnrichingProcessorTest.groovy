@@ -78,7 +78,7 @@ class CharacterTemplateFlagsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
-			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+			List<CategoryHeader> categoryHeaders -> Lists.newArrayList(categoryHeaders[0].title)
 		}
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _
@@ -137,7 +137,7 @@ class CharacterTemplateFlagsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
-			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+			List<CategoryHeader> categoryHeaders -> Lists.newArrayList(categoryHeaders[0].title)
 		}
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _
@@ -160,7 +160,7 @@ class CharacterTemplateFlagsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
-			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+			List<CategoryHeader> categoryHeaders -> Lists.newArrayList(categoryHeaders[0].title)
 		}
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _
@@ -183,7 +183,7 @@ class CharacterTemplateFlagsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
-			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+			List<CategoryHeader> categoryHeaders -> Lists.newArrayList(categoryHeaders[0].title)
 		}
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _

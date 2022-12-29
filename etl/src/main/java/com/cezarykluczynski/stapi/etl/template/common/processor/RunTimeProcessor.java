@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.common.processor;
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
-import liquibase.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 
 	@Override
 	public Integer process(String item) throws Exception {
-		if (StringUtils.isEmpty(item)) {
+		if (StringUtils.isBlank(item)) {
 			return null;
 		}
 

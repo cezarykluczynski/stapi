@@ -13,7 +13,7 @@ class DayInMonthProximityFindingProcessorTest extends Specification {
 		dayInMonthProximityFindingProcessor = new DayInMonthProximityFindingProcessor()
 	}
 
-	@Unroll('when #wikitext and #PageLink is passed, #day is returned')
+	@Unroll('when #wikitext and #pageLink is passed, #day is returned')
 	void "when wikitext and PageLink is passed, day is returned"() {
 		expect:
 		dayInMonthProximityFindingProcessor.process(Pair.of(wikitext, pageLink)) == day

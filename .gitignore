@@ -8,3 +8,5 @@ server/src/main/resources/application-stapi-custom.properties
 node_modules
 model/**/*_.java
 stapi.iml
+**/lombok.config
+server/src/main/generated/com/cezarykluczynski/stapi/server/

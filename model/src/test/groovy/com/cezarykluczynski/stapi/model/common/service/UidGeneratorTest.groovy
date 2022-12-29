@@ -278,8 +278,8 @@ class UidGeneratorTest extends Specification {
 		'microvision' | 'PLATICROVISION'
 	}
 
-	@Unroll('when #code is passed, #uid is returned for Title')
-	void "when code is passed, it is converted to uid for Title"() {
+	@Unroll('when #page and #pageSectionIndex is passed, #uid is returned for')
+	void "when page and pageSectionIndex is passed, it is converted to uid"() {
 		expect:
 		uidGenerator.generateForTitleListItem(page, pageSectionIndex) == uid
 

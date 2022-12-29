@@ -29,6 +29,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
 import java.util.Set;
 
 @Data

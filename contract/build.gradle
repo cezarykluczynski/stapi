@@ -1,4 +1,8 @@
+plugins {
+	id 'io.freefair.lombok'
+}
+
 dependencies {
-	compile project(':util')
-	testCompile project(':util').sourceSets.test.output
+	implementation project(':util')
+	testImplementation project(':util').sourceSets.test.output
 }

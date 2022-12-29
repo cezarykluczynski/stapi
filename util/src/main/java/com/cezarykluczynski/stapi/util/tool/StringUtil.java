@@ -120,4 +120,36 @@ public class StringUtil {
 		return string != null && !"null".equals(string);
 	}
 
+	public static String upperCaseFirst(String string) {
+		if (string == null) {
+			return null;
+		}
+		if (string.length() < 2) {
+			return string.toUpperCase();
+		}
+		return string.substring(0, 1).toUpperCase() + string.substring(1);
+	}
+
+	public static String lowerCaseFirst(String string) {
+		if (string == null) {
+			return null;
+		}
+		if (string.length() < 2) {
+			return string.toLowerCase();
+		}
+		return string.substring(0, 1).toLowerCase() + string.substring(1);
+	}
+
+	public static List<String> splitAndTrim(String subject, String regex) {
+		if (subject == null) {
+			return null;
+		}
+		List<String> returnList = Lists.newArrayList();
+		for (String string : subject.split(regex)) {
+			returnList.add(string.trim());
+		}
+
+		return returnList;
+	}
+
 }

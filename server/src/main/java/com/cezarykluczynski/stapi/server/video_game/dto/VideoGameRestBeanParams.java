@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.video_game.dto;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 
 import javax.ws.rs.FormParam;
+
 import java.time.LocalDate;
 
 public class VideoGameRestBeanParams extends PageSortBeanParams {

@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLQueryParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.service.complement.ParseComplementingService;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import info.bliki.api.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +41,7 @@ public class PageApiImpl implements PageApi {
 
 	private final List<Pair<String, String>> loggedRedirects = Lists.newArrayList();
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService,
 			PageCacheStorage pageCacheStorage) {
 		this.blikiConnector = blikiConnector;

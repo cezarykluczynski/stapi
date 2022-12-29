@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+
 import java.io.Serializable;
 
 @Data

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class IndividualLifeBoundaryProcessor implements ItemProcessor<String, In
 	}
 
 	@Override
+	@NonNull
 	public IndividualLifeBoundaryDTO process(String item) throws Exception {
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO();
 		List<PageLink> pageLinks = wikitextApi.getPageLinksFromWikitext(item);

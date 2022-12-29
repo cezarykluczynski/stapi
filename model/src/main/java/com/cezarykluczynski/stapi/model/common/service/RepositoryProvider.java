@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.model.common.service;
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
+import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.data.repository.CrudRepository;
@@ -20,6 +22,7 @@ public class RepositoryProvider {
 
 	private Map<Class, CrudRepository> map;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public RepositoryProvider(EntityMetadataProvider entityMetadataProvider, Repositories repositories) {
 		this.entityMetadataProvider = entityMetadataProvider;
 		this.repositories = repositories;
@@ -30,7 +33,7 @@ public class RepositoryProvider {
 			map = doProvide();
 		}
 
-		return map;
+		return Maps.newHashMap(map);
 	}
 
 	private Map<Class, CrudRepository> doProvide() {

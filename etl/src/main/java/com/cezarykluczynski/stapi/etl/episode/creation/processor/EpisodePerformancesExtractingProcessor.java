@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +46,7 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 	private final PageApi pageApi;
 
 	@Override
+	@NonNull
 	public List<EpisodePerformanceDTO> process(Page page) {
 		List<EpisodePerformanceDTO> episodePerformances = Lists.newArrayList();
 		List<PageSection> pageSectionList = page.getSections();

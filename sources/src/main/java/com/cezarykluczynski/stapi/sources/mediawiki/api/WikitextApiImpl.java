@@ -175,9 +175,9 @@ public class WikitextApiImpl implements WikitextApi {
 
 		allMatches = allMatches.stream()
 				.map(s -> {
-					s = s.substring(2, s.length() - 2).trim();
-					s = StringUtils.substringBefore(s, PIPE);
-					return s;
+					String result = s.substring(2, s.length() - 2).trim();
+					result = StringUtils.substringBefore(result, PIPE);
+					return result;
 				})
 				.collect(Collectors.toList());
 

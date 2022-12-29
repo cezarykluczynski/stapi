@@ -107,11 +107,11 @@ public class WikitextListsExtractor {
 		return split;
 	}
 
-	private String safelyGet(List<String> characters, int i) {
-		if (characters.size() <= i) {
+	private String safelyGet(List<String> characters, int index) {
+		if (characters.size() <= index) {
 			return "";
 		}
-		return characters.get(i);
+		return characters.get(index);
 	}
 
 	public List<WikitextList> extractDefinitionsFromWikitext(String wikitext) {

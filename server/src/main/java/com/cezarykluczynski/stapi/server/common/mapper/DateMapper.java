@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import java.time.LocalDate;
 
 @Mapper(config = MapstructConfiguration.class)

@@ -25,8 +25,8 @@ class CategoriesBookTemplateEnrichingProcessorTest extends Specification {
 	@Unroll('set #flagName flag when #categoryHeaderList is passed; expect #trueBooleans not null fields')
 	void "sets flagName when category header list is passed"() {
 		given:
-		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> { List<CategoryHeader> categoryHeaderList ->
-			Lists.newArrayList(categoryHeaderList[0].title)
+		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> { List<CategoryHeader> categoryHeaders ->
+			Lists.newArrayList(categoryHeaders[0].title)
 		}
 
 		expect:

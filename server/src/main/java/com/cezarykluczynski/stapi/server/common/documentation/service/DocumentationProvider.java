@@ -1,12 +1,14 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import java.io.File;
 
 @Service
@@ -31,6 +33,7 @@ public class DocumentationProvider {
 		this.documentationDirectoryProvider = documentationDirectoryProvider;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP")
 	public synchronized DocumentationDTO provideDocumentation() {
 		if (documentationDTO == null) {
 			documentationDTO = new DocumentationDTO();

@@ -39,7 +39,7 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityLookupByNameServiceMock, nonQualifiedCharacterFilterMock)
 	}
 
-	void "createss EpisodePerformancesEntitiesDTO and enriches Episode entity"() {
+	void "creates EpisodePerformancesEntitiesDTO and enriches Episode entity"() {
 		given:
 		Episode episode = new Episode()
 		EpisodePerformanceDTO performanceDTO = new EpisodePerformanceDTO(
@@ -89,6 +89,21 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 		episodePerformancesEntitiesDTO.performerSet.contains performer
 		episode.stuntPerformers.contains stuntPerformer
 		episode.standInPerformers.contains standInPerformer
+	}
+
+	void "creates empty list of episodes performances is passed, empty EpisodePerformancesEntitiesDTO is returned"() {
+		given:
+		Episode episode = new Episode()
+
+		when:
+		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = episodePerformancesToEntityMapper.mapToEntities([], episode)
+
+		then:
+		0 * _
+		episodePerformancesEntitiesDTO.characterSet.empty
+		episodePerformancesEntitiesDTO.performerSet.empty
+		episode.stuntPerformers.empty
+		episode.standInPerformers.empty
 	}
 
 }

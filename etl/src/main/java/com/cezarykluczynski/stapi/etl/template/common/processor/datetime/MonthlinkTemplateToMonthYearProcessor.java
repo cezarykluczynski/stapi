@@ -24,7 +24,13 @@ public class MonthlinkTemplateToMonthYearProcessor implements ItemProcessor<Temp
 	@Override
 	public DayMonthYear process(Template item) throws Exception {
 		MonthYearCandidate monthYearCandidate = monthlinkTemplateToMonthYearCandiateProcessor.process(item);
+		if (monthYearCandidate == null) {
+			return null;
+		}
 		YearMonth localDate = monthYearCandidateToYearMonthProcessor.process(monthYearCandidate);
+		if (localDate == null) {
+			return null;
+		}
 
 		DayMonthYear dayMonthYear = new DayMonthYear();
 		dayMonthYear.setMonth(localDate.getMonthValue());

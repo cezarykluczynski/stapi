@@ -21,6 +21,7 @@ public class ModuleEpisodeDataEnrichingProcessor implements ItemEnrichingProcess
 	private final SeriesToEpisodeBindingService seriesToEpisodeBindingService;
 
 	@Override
+	@SuppressWarnings("NPathComplexity")
 	public void enrich(EnrichablePair<ModuleEpisodeData, EpisodeTemplate> enrichablePair) throws Exception {
 		EpisodeTemplate episodeTemplate = enrichablePair.getOutput();
 		ModuleEpisodeData moduleEpisodeData = enrichablePair.getInput();

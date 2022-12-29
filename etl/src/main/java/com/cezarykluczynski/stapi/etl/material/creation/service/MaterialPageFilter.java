@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.material.creation.service;
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
 import com.cezarykluczynski.stapi.etl.template.common.service.AbstractMediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilterConfiguration;
+import com.google.common.collect.Lists;
 import lombok.Getter;
-import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

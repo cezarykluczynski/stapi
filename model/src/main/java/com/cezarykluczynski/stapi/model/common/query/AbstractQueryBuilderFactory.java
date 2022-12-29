@@ -13,7 +13,8 @@ public abstract class AbstractQueryBuilderFactory<T> {
 
 	private Class baseClass;
 
-	protected AbstractQueryBuilderFactory() {}
+	protected AbstractQueryBuilderFactory() {
+	}
 
 	protected AbstractQueryBuilderFactory(JpaContext jpaContext, CachingStrategy cachingStrategy, Class baseClass) {
 		Preconditions.checkNotNull(jpaContext, "JpaContext has to be set");

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.soundtrack.dto;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 
 import javax.ws.rs.FormParam;
+
 import java.time.LocalDate;
 
 public class SoundtrackRestBeanParams extends PageSortBeanParams {

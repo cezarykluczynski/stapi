@@ -8,7 +8,7 @@ task codeCoverageReport(type: JacocoReport) {
 	reports {
 		xml.enabled true
 		html.enabled true
-		html.destination "${buildDir}/reports/jacoco"
+		html.destination file("${buildDir}/reports/jacoco")
 		csv.enabled false
 	}
 }
@@ -20,8 +20,7 @@ codeCoverageReport.dependsOn {
 subprojects {
 	test {
 		jacoco {
-			append = false
-			destinationFile = file("$buildDir/jacoco/test.exec")
+			destinationFile =  layout.buildDirectory.file("jacoco/${name}.exec").get().asFile
 			classDumpDir = file("$buildDir/jacoco/classpathdumps")
 		}
 

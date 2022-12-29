@@ -11,19 +11,19 @@ import java.time.LocalDate;
 @Slf4j
 public class DatelinkTemplateToLocalDateProcessor implements ItemProcessor<Template, LocalDate> {
 
-	private final DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor;
+	private final DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandidateProcessor;
 
 	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	public DatelinkTemplateToLocalDateProcessor(DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor,
-			DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
-		this.datelinkTemplateToDayMonthYearCandiateProcessor = datelinkTemplateToDayMonthYearCandiateProcessor;
+	public DatelinkTemplateToLocalDateProcessor(DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandidateProcessor,
+												DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
+		this.datelinkTemplateToDayMonthYearCandidateProcessor = datelinkTemplateToDayMonthYearCandidateProcessor;
 		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 	}
 
 	@Override
 	public LocalDate process(Template item) throws Exception {
-		return dayMonthYearCandidateToLocalDateProcessor.process(datelinkTemplateToDayMonthYearCandiateProcessor.process(item));
+		return dayMonthYearCandidateToLocalDateProcessor.process(datelinkTemplateToDayMonthYearCandidateProcessor.process(item));
 	}
 
 }

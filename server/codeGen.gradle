@@ -2,9 +2,7 @@ import groovy.io.FileType
 
 import java.util.stream.Collectors
 
-task codeGen(type: EndpointScaffoldingGeneratorTask) << {
-
-}
+task codeGen(type: EndpointScaffoldingGeneratorTask) {}
 
 class EndpointScaffoldingGeneratorTask extends DefaultTask {
 

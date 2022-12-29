@@ -23,8 +23,8 @@ class VideoTemplateDatesEnrichingProcessorTest extends Specification {
 		videoTemplateDatesEnrichingProcessor = new VideoTemplateDatesEnrichingProcessor(datePartToLocalDateProcessorMock)
 	}
 
-	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
-	void "sets flagName when page is passed"() {
+	@Unroll('set #flagName flag when #key is passed')
+	void "sets flagName when key is passed"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: key)
 		LocalDate localDate = LocalDate.of(2001, Month.FEBRUARY, 3)

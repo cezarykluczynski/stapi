@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
+
 import java.util.List;
 
 @Configuration

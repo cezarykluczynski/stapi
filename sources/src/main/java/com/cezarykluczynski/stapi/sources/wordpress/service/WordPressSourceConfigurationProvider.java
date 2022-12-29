@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource;
 import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourceProperties;
 import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourcesProperties;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -15,6 +16,7 @@ public class WordPressSourceConfigurationProvider {
 
 	private final WordPressSourcesProperties wordPressSourcesProperties;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public WordPressSourceConfigurationProvider(WordPressSourcesProperties wordPressSourcesProperties) {
 		this.wordPressSourcesProperties = wordPressSourcesProperties;
 	}

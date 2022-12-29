@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGen
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,7 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 	}
 
 	@Override
+	@NonNull
 	public ActorTemplate process(Template item) throws Exception {
 		ActorTemplate actorTemplate = new ActorTemplate();
 

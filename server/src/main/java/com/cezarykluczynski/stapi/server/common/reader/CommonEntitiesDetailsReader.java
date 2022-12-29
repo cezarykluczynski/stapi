@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
-import liquibase.util.StringUtils;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
@@ -74,7 +74,7 @@ class CommonEntitiesDetailsReader {
 
 		restEndpointDetailDTO.setName(entityName);
 		restEndpointDetailDTO.setType(trackedEntity.type());
-		restEndpointDetailDTO.setApiEndpointSuffix(StringUtils.lowerCaseFirst(entityName));
+		restEndpointDetailDTO.setApiEndpointSuffix(StringUtil.lowerCaseFirst(entityName));
 		restEndpointDetailDTO.setSymbol(simpleClassNameToSymbolMap.get(entityName));
 		restEndpointDetailDTO.setSingularName(trackedEntity.singularName());
 		restEndpointDetailDTO.setPluralName(trackedEntity.pluralName());

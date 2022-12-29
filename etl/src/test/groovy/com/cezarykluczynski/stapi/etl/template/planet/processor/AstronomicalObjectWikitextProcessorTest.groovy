@@ -21,7 +21,7 @@ class AstronomicalObjectWikitextProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('LineLength')
-	@Unroll('when #pageLink is found in wikitext, #astronomicalObjectType is returned')
+	@Unroll('when #pageLinkList is found in wikitext, #astronomicalObjectType is returned')
 	void "when links are found, they are processed"() {
 		given:
 		wikitextApiMock.getPageLinksFromWikitext(_) >> pageLinkList

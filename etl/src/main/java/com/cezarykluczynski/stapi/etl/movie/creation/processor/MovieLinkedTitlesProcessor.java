@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -138,6 +139,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<Pair<List<PageS
 	}
 
 	@Override
+	@NonNull
 	public MovieLinkedTitlesDTO process(Pair<List<PageSection>, Page> pair) throws Exception {
 		Page page = pair.getRight();
 		List<PageSection> item = pair.getLeft();

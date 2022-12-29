@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class ClassTemplateSpacecraftClassesProcessor implements ItemProcessor<Te
 	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Override
+	@NonNull
 	public Pair<List<SpacecraftClass>, List<SpacecraftType>> process(Template.Part item) throws Exception {
 		List<SpacecraftClass> spacecraftClassList = Lists.newArrayList();
 		List<SpacecraftType> spacecraftTypeList = Lists.newArrayList();

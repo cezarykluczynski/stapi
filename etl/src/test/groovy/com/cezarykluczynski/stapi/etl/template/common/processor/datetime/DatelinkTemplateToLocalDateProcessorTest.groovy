@@ -9,7 +9,7 @@ import java.time.Month
 
 class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 
-	private DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessorMock
+	private DatelinkTemplateToDayMonthYearCandidateProcessor datelinkTemplateToDayMonthYearCandiateProcessorMock
 
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 

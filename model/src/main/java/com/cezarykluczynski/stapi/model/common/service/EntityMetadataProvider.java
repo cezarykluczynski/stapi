@@ -24,6 +24,7 @@ import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.hibernate.Metamodel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -77,6 +78,7 @@ public class EntityMetadataProvider {
 
 	private Map<String, Class> classSimpleNameToClassMap;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public EntityMetadataProvider(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		buildClassNameToSymbolMap();
@@ -85,15 +87,15 @@ public class EntityMetadataProvider {
 	}
 
 	public Map<String, String> provideClassNameToSymbolMap() {
-		return classNameToSymbolMap;
+		return Maps.newHashMap(classNameToSymbolMap);
 	}
 
 	public Map<String, ClassMetadata> provideClassNameToMetadataMap() {
-		return classNameToMetadataMap;
+		return Maps.newHashMap(classNameToMetadataMap);
 	}
 
 	public Map<String, Class> provideClassSimpleNameToClassMap() {
-		return classSimpleNameToClassMap;
+		return Maps.newHashMap(classSimpleNameToClassMap);
 	}
 
 	private void buildClassNameToMetadataMap() {

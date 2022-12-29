@@ -7,11 +7,11 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

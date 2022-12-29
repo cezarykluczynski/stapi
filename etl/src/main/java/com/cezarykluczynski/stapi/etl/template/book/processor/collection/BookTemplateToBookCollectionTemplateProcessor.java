@@ -5,10 +5,13 @@ import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
+
 @Service
 public class BookTemplateToBookCollectionTemplateProcessor implements ItemProcessor<BookTemplate, BookCollectionTemplate> {
 
 	@Override
+	@Nonnull
 	public BookCollectionTemplate process(BookTemplate item) throws Exception {
 		BookCollectionTemplate bookCollectionTemplate = new BookCollectionTemplate();
 

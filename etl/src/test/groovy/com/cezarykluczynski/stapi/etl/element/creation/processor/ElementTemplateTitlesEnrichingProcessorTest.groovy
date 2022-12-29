@@ -16,7 +16,7 @@ class ElementTemplateTitlesEnrichingProcessorTest extends Specification {
 		elementTemplateTitlesEnrichingProcessor = new ElementTemplateTitlesEnrichingProcessor()
 	}
 
-	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
+	@Unroll('set #flagName flag when #templateTitleList is passed; expect #trueBooleans not null fields')
 	void "sets flagName when page is passed"() {
 		given:
 		Element element = new Element()

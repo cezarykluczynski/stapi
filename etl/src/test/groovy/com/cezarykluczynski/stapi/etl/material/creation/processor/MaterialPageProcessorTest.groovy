@@ -163,7 +163,7 @@ class MaterialPageProcessorTest extends Specification {
 	void "sets flagName when page is passed"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
-			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+			List<CategoryHeader> categoryHeaders -> Lists.newArrayList(categoryHeaders[0].title)
 		}
 		materialsAndSubstancesDetectorServiceMock.isExplosive(HUTZELITE_27) >> true
 

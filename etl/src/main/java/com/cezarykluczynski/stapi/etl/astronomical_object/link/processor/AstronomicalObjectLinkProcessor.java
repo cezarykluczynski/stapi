@@ -123,14 +123,14 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 	}
 
 	@SuppressWarnings("BooleanExpressionComplexity")
-	private static boolean isValidFirstParagraph(String s) {
-		return s != null
-				&& s.length() > 15
-				&& !StringUtils.trim(s).startsWith("{{")
-				&& !s.substring(0, 15).contains("sidebar")
-				&& !s.substring(0, 18).contains("disambiguation")
-				&& !s.substring(0, 10).contains("multiple")
-				&& !StringUtils.trim(s).startsWith("[[File:");
+	private static boolean isValidFirstParagraph(String firstParagraphCandidate) {
+		return firstParagraphCandidate != null
+				&& firstParagraphCandidate.length() > 15
+				&& !StringUtils.trim(firstParagraphCandidate).startsWith("{{")
+				&& !firstParagraphCandidate.substring(0, 15).contains("sidebar")
+				&& !firstParagraphCandidate.substring(0, 18).contains("disambiguation")
+				&& !firstParagraphCandidate.substring(0, 10).contains("multiple")
+				&& !StringUtils.trim(firstParagraphCandidate).startsWith("[[File:");
 	}
 
 }

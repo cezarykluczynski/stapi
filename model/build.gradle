@@ -1,34 +1,25 @@
-configurations {
-	jpamodelgen
+plugins {
+	id 'io.freefair.lombok'
 }
 
 dependencies {
-	compile project(':util')
-	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.3'
-	compile group: 'org.hibernate', name: 'hibernate-ehcache', version: hibernateVersion
-	compile group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
-	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.2.RELEASE'
-	compile(group: 'org.springframework.data', name: 'spring-data-jdbc-core', version: '1.2.1.RELEASE') {
-		exclude(module: '*')
-	}
-	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
-	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
-	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
-	compile group: 'org.postgresql', name: 'postgresql', version:'42.5.0'
-	jpamodelgen group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
-	testCompile project(':util').sourceSets.test.output
+	implementation project(':util')
+	implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.3'
+	implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: hibernateVersion
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+	implementation group: 'org.springframework.data', name: 'spring-data-commons', version: springBootVersion
+	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.14.RELEASE'
+	implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
+	implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3' // TODO: update to 5.0.1 with Java 11
+	implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+	implementation group: 'org.postgresql', name: 'postgresql', version:'42.5.0'
+	annotationProcessor group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
+	testImplementation project(':util').sourceSets.test.output
 }
 
-task generateMetamodel(type: JavaCompile) {
-	source = sourceSets.main.java
-	classpath = configurations.compile + configurations.jpamodelgen
-	options.compilerArgs = [
-			"-proc:only"
-	]
-	destinationDir = sourceSets.main.java.srcDirs.iterator().next()
+tasks.withType(JavaCompile) {
+	options.compilerArgs += ['-AaddGenerationDate=true']
 }
-compileJava {
-	dependsOn generateMetamodel
-}
+
