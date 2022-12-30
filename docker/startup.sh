@@ -1,6 +1,6 @@
 #!/bin/sh
 touch /tmp/postgres.log
-./docker-entrypoint.sh postgres > /tmp/postgres.log &
+/usr/local/bin/docker-entrypoint.sh postgres > /tmp/postgres.log &
 while true ; do
   result=$(grep -nE 'ready to accept connections' /tmp/postgres.log)
   echo "Waiting for DB to start..."

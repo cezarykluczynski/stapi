@@ -10,3 +10,4 @@ model/**/*_.java
 stapi.iml
 **/lombok.config
 server/src/main/generated/com/cezarykluczynski/stapi/server/
+docker/build.log

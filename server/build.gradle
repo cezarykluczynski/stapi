@@ -150,21 +150,18 @@ class Dockerize extends DefaultTask {
 
 		ProcessBuilder pb
 		if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-			pb = new ProcessBuilder(['cmd', '/c', 'docker', 'build', '.', '--build-arg', 'STAPI_DATA_VERSION=' + this.version, '-t', 'cezarykluczynski/stapi:' + this.version, '-t', 'cezarykluczynski/stapi:latest'])
+			pb = new ProcessBuilder(['cmd', '/c', 'docker', 'build', '.', '--no-cache', '--build-arg', 'STAPI_DATA_VERSION=' + this.version, '-t', 'cezarykluczynski/stapi:' + this.version, '-t', 'cezarykluczynski/stapi:latest'])
 		} else {
-			pb = new ProcessBuilder(['docker', 'build', '.', '--build-arg', 'STAPI_DATA_VERSION=' + this.version, '-t', 'cezarykluczynski/stapi:' + this.version, '-t', 'cezarykluczynski/stapi:latest'])
+			pb = new ProcessBuilder(['docker', 'build', '.', '--no-cache', '--build-arg', 'STAPI_DATA_VERSION=' + this.version, '-t', 'cezarykluczynski/stapi:' + this.version, '-t', 'cezarykluczynski/stapi:latest'])
 		}
 		pb.directory(new File('.'))
-		pb.inheritIO()
-
+		File buildLog = new File('./docker/build.log')
+		pb.redirectOutput(buildLog)
+		pb.redirectError(buildLog)
 		Process proc = pb.start()
 		proc.waitFor()
 		if (proc.exitValue() != 0) {
-			throw new RuntimeException(new BufferedReader(new InputStreamReader(proc.errorStream))
-					.lines().collect(Collectors.joining("\n")))
-		} else {
-			new BufferedReader(new InputStreamReader(proc.inputStream))
-					.lines().forEach { println(it) }
+			throw new RuntimeException('Could not build docker image, details in docker/build.log')
 		}
 	}
 
