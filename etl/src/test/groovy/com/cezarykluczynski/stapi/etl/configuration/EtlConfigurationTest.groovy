@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration
 
 import org.springframework.core.task.SimpleAsyncTaskExecutor
-import org.springframework.core.task.TaskExecutor
 import spock.lang.Specification
 
 class EtlConfigurationTest extends Specification {
@@ -12,12 +11,12 @@ class EtlConfigurationTest extends Specification {
 		etlConfiguration = new EtlConfiguration()
 	}
 
-	void "task exeturor is created"() {
+	void "task executor is created"() {
 		when:
-		TaskExecutor taskExecutor = etlConfiguration.taskExecutor()
+		SimpleAsyncTaskExecutor simpleAsyncTaskExecutor = etlConfiguration.simpleAsyncTaskExecutor()
 
 		then:
-		taskExecutor instanceof SimpleAsyncTaskExecutor
+		simpleAsyncTaskExecutor instanceof SimpleAsyncTaskExecutor
 	}
 
 }

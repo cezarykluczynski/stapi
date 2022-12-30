@@ -8,7 +8,7 @@ plugins {
 }
 
 springBoot {
-	mainClassName = "com.cezarykluczynski.stapi.server.Application"
+	mainClass = "com.cezarykluczynski.stapi.server.Application"
 }
 
 dependencies {
@@ -30,11 +30,10 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
 
 	// Utils
-	implementation group: 'joda-time', name: 'joda-time', version: '2.9.2'
-	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10'
 	implementation "org.mapstruct:mapstruct:$mapstructVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
-	implementation group: 'org.zeroturnaround', name: 'zt-zip', version: '1.11'
+	implementation group: 'org.zeroturnaround', name: 'zt-zip', version: ztZipVersion
+	implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
 
 	// Other
 	implementation group: 'javax.servlet', name: 'jstl', version: '1.2'

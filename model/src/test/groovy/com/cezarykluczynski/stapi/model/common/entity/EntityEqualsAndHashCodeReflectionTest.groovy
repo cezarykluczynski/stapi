@@ -55,7 +55,7 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest
 			if (!entityFileOptional.isPresent()) {
 				throw new RuntimeException("Missing entity file: ${entityName}")
 			}
-			CompilationUnit compilationUnit = JavaParser.parse(entityFileOptional.get())
+			CompilationUnit compilationUnit = new JavaParser().parse(entityFileOptional.get()).result.get()
 			NodeList annotations = compilationUnit.types.annotations
 			NormalAnnotationExpr toStringAnnotation = getAnnotation(annotations, 'ToString')
 			NormalAnnotationExpr equalsAndHashCodeAnnotation = getAnnotation(annotations, 'EqualsAndHashCode')

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.springframework.core.task.TaskExecutor;
 
 @ConditionalOnProperty("etl.enabled")
 @Configuration
@@ -23,7 +22,7 @@ import org.springframework.core.task.TaskExecutor;
 public class EtlConfiguration {
 
 	@Bean
-	public TaskExecutor taskExecutor() {
+	public SimpleAsyncTaskExecutor simpleAsyncTaskExecutor() {
 		return new SimpleAsyncTaskExecutor();
 	}
 

@@ -11,7 +11,7 @@ public class PageDefault {
 	public static final int PAGE_SIZE_MIN = 1;
 	public static final int PAGE_SIZE_MAX = 100;
 
-	public static final PageRequest PAGE_REQUEST = new PageRequest(PAGE_NUMBER, PAGE_SIZE);
+	public static final PageRequest PAGE_REQUEST = PageRequest.of(PAGE_NUMBER, PAGE_SIZE);
 	public static final PageSortBeanParams SINGLE_PAGE_BEAN_PARAMS = new PageSortBeanParams();
 
 	static {

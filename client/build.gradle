@@ -3,11 +3,7 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath(group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0') {
-			exclude(module: 'org.slf4j')
-			exclude(module: 'log4j')
-			exclude(module: 'logback-classic')
-		}
+		classpath group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0'
 	}
 }
 

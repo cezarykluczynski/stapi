@@ -25,7 +25,7 @@ public class InPageAwareRepositoryPageFinder {
 	public synchronized List<Page> findByPagePageIdIn(Set<Long> pageIds, Class<? extends PageAware> baseClass) {
 		PageAwareQueryBuilderFactory pageAwareQueryBuilderFactory = pageAwareQueryBuilderSingletonFactoryProducer.create(baseClass);
 
-		PageRequest pageRequest = new PageRequest(0, 100);
+		PageRequest pageRequest = PageRequest.of(0, 100);
 		QueryBuilder<PageAware> pageAwareQueryBuilder = pageAwareQueryBuilderFactory.createQueryBuilder(pageRequest);
 
 		pageAwareQueryBuilder.joinPageIdsIn(pageIds);

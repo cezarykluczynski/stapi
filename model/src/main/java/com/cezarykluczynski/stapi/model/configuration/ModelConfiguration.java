@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.model.common.etl.EtlProperties;
 import com.cezarykluczynski.stapi.util.constant.Package;
 import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariDataSource;
-import org.hibernate.jpa.AvailableSettings;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -71,7 +70,7 @@ public class ModelConfiguration {
 		lef.setDataSource(dataSource());
 		lef.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		lef.setPackagesToScan(ModelConfiguration.JPA_BASE_PACKAGES);
-		lef.setPersistenceUnitName(AvailableSettings.PERSISTENCE_UNIT_NAME);
+		lef.setPersistenceUnitName(org.hibernate.cfg.AvailableSettings.PERSISTENCE_UNIT_NAME);
 		Map<String, String> properties = Maps.newHashMap();
 		properties.put("hibernate.implicit_naming_strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl");
 		properties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");

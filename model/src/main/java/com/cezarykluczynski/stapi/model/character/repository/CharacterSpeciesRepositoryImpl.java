@@ -29,7 +29,7 @@ public class CharacterSpeciesRepositoryImpl implements CharacterSpeciesRepositor
 
 	@Override
 	public CharacterSpecies findOrCreate(Species species, Fraction fraction) {
-		QueryBuilder<CharacterSpecies> characterSpeciesQueryBuilder = characterSpeciesQueryBuilderFactory.createQueryBuilder(new PageRequest(0, 1));
+		QueryBuilder<CharacterSpecies> characterSpeciesQueryBuilder = characterSpeciesQueryBuilderFactory.createQueryBuilder(PageRequest.of(0, 1));
 		Long numerator = (long) fraction.getNumerator();
 		Long denominator = (long) fraction.getDenominator();
 

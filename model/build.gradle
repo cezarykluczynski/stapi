@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
 	implementation project(':util')
-	implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.3'
+	implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.9.2'
 	implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: hibernateVersion
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
@@ -14,7 +14,7 @@ dependencies {
 	implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
 	implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3' // TODO: update to 5.0.1 with Java 11
 	implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
-	implementation group: 'org.postgresql', name: 'postgresql', version:'42.5.0'
+	implementation group: 'org.postgresql', name: 'postgresql', version:'42.5.1'
 	annotationProcessor group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
 	testImplementation project(':util').sourceSets.test.output
 }

@@ -15,7 +15,7 @@ import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.SimpleJobBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,7 +80,7 @@ public class JobBuilder {
 		}
 
 		return allStepsAreDisabled ? null : simpleJobBuilder
-				.split(applicationContext.getBean(TaskExecutor.class))
+				.split(applicationContext.getBean(SimpleAsyncTaskExecutor.class))
 				.add(flowBuilder.build())
 				.end()
 				.build();
