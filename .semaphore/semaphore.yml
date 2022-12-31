@@ -1,0 +1,38 @@
+version: v1.0
+name: STAPI
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: 'checkout'
+    dependencies: []
+    task:
+      jobs:
+        - name: 'checkout'
+          commands:
+            - checkout
+  - name: 'build-jvm'
+    dependencies: ["checkout"]
+    task:
+      jobs:
+        - name: 'build-jvm'
+          commands:
+            - checkout --use-cache
+            - ./gradlew test
+            - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+        - name: 'lint-jvm'
+          commands:
+            - checkout --use-cache
+            - ./gradlew checkstyleMain spotbugsMain codenarcTest
+  - name: 'build-frontend'
+    dependencies: ["checkout"]
+    task:
+      jobs:
+        - name: 'build-frontend'
+          commands:
+            - checkout --use-cache
+            - nvm install 8.7.0
+            - cd server/src/main/web && npm i && cd ../../../..
+            - cd server/src/main/web && npm run test-once-cov && npm run lint && cd ../../../..
+            - bash <(curl -s https://codecov.io/bash) -f "server/src/main/web/coverage/lcov.info"

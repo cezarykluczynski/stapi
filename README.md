@@ -1,4 +1,4 @@
-[![Build Status](https://semaphoreci.com/api/v1/cezarykluczynski/stapi/branches/master/badge.svg)](https://semaphoreci.com/cezarykluczynski/stapi)
+[![Build Status](https://cezarykluczynski.semaphoreci.com/badges/stapi.svg?style=shields)](https://cezarykluczynski.semaphoreci.com/projects/stapi)
 [![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg?token=QjxVvtnLbW)](https://codecov.io/gh/cezarykluczynski/stapi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.cezarykluczynski.stapi/stapi-client/badge.svg)](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
