@@ -50,7 +50,7 @@ class CharacterLinkProcessorTest extends Specification {
 		characterLinkProcessor.process(null)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> false
+		1 * charactersRelationsCacheMock.empty >> false
 		0 * _
 
 		when:
@@ -65,7 +65,7 @@ class CharacterLinkProcessorTest extends Specification {
 		characterLinkProcessor.process(null)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> true
+		1 * charactersRelationsCacheMock.empty >> true
 		1 * characterRepositoryMock.count() >> 0
 		0 * _
 		thrown(StapiRuntimeException)
@@ -83,7 +83,7 @@ class CharacterLinkProcessorTest extends Specification {
 		Character characterOutput = characterLinkProcessor.process(pageHeader)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> false
+		1 * charactersRelationsCacheMock.empty >> false
 		1 * charactersRelationsCacheMock.get(PAGE_ID) >> characterRelationsMap
 		1 * mediaWikiSourceMapperMock.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
@@ -107,7 +107,7 @@ class CharacterLinkProcessorTest extends Specification {
 		Character character = characterLinkProcessor.process(pageHeader)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> false
+		1 * charactersRelationsCacheMock.empty >> false
 		1 * charactersRelationsCacheMock.get(PAGE_ID) >> characterRelationsMap
 		1 * mediaWikiSourceMapperMock.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
@@ -128,7 +128,7 @@ class CharacterLinkProcessorTest extends Specification {
 		Character characterOutput = characterLinkProcessor.process(pageHeader)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> false
+		1 * charactersRelationsCacheMock.empty >> false
 		1 * charactersRelationsCacheMock.get(PAGE_ID) >> null
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
 		1 * characterLinkCacheStoringProcessorMock.process(page) >> characterRelationsMap
@@ -155,7 +155,7 @@ class CharacterLinkProcessorTest extends Specification {
 		Character character = characterLinkProcessor.process(pageHeader)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> false
+		1 * charactersRelationsCacheMock.empty >> false
 		1 * charactersRelationsCacheMock.get(PAGE_ID) >> null
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
 		1 * characterLinkCacheStoringProcessorMock.process(page) >> null
@@ -173,7 +173,7 @@ class CharacterLinkProcessorTest extends Specification {
 		Character character = characterLinkProcessor.process(pageHeader)
 
 		then:
-		1 * charactersRelationsCacheMock.isEmpty() >> false
+		1 * charactersRelationsCacheMock.empty >> false
 		1 * charactersRelationsCacheMock.get(PAGE_ID) >> null
 		1 * pageHeaderProcessorMock.process(pageHeader) >> null
 		0 * _

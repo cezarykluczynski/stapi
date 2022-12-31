@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO
-import com.cezarykluczynski.stapi.contract.documentation.dto.enums.DocumentType
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentDTO
+import com.cezarykluczynski.stapi.server.common.documentation.dto.enums.DocumentType
 import spock.lang.Specification
 
 class DocumentationReaderTest extends Specification {
@@ -16,7 +16,7 @@ class DocumentationReaderTest extends Specification {
 		given:
 		String rootDirectory = '../contract/src/main/resources/v1/swagger/book'
 		String contractDirectory = 'contract/src/main/resources/v1/swagger/book'
-		String directory = new File(rootDirectory).isDirectory() ? rootDirectory : contractDirectory
+		String directory = new File(rootDirectory).directory ? rootDirectory : contractDirectory
 
 		when:
 		List<DocumentDTO> documentDTOList = documentationReader.readDirectory(directory)

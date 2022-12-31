@@ -38,7 +38,7 @@ class PlatformFactoryTest extends Specification {
 		1 * platformCodeToNameMapperMock.map(CODE) >> NAME
 		1 * platformRepositoryMock.findByName(NAME) >> Optional.of(platform)
 		0 * _
-		platformOptional.isPresent()
+		platformOptional.present
 		platformOptional.get() == platform
 	}
 
@@ -55,7 +55,7 @@ class PlatformFactoryTest extends Specification {
 			assert platformInput.uid == UID
 		}
 		0 * _
-		platformOptional.isPresent()
+		platformOptional.present
 		platformOptional.get().name == NAME
 		platformOptional.get().uid == UID
 	}
@@ -67,7 +67,7 @@ class PlatformFactoryTest extends Specification {
 		then:
 		1 * platformCodeToNameMapperMock.map(CODE) >> null
 		0 * _
-		!platformOptional.isPresent()
+		!platformOptional.present
 	}
 
 }

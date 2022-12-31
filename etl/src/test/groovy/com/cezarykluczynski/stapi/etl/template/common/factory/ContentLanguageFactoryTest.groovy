@@ -39,7 +39,7 @@ class ContentLanguageFactoryTest extends Specification {
 		1 * contentLanguageDTOProviderMock.getByName(NAME) >> Optional.of(ContentLanguageDTO.of(NAME, CODE))
 		1 * contentLanguageRepositoryMock.findByName(NAME) >> Optional.of(contentLanguage)
 		0 * _
-		contentLanguageOptional.isPresent()
+		contentLanguageOptional.present
 		contentLanguageOptional.get() == contentLanguage
 	}
 
@@ -57,7 +57,7 @@ class ContentLanguageFactoryTest extends Specification {
 			assert contentLanguageInput.uid == UID
 		}
 		0 * _
-		contentLanguageOptional.isPresent()
+		contentLanguageOptional.present
 		contentLanguageOptional.get().name == NAME
 		contentLanguageOptional.get().iso6391Code == CODE
 		contentLanguageOptional.get().uid == UID
@@ -70,7 +70,7 @@ class ContentLanguageFactoryTest extends Specification {
 		then:
 		1 * contentLanguageDTOProviderMock.getByName(NAME) >> Optional.empty()
 		0 * _
-		!contentLanguageOptional.isPresent()
+		!contentLanguageOptional.present
 	}
 
 }

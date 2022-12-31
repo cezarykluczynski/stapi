@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.reader
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO
 import com.cezarykluczynski.stapi.server.common.dataversion.CommonDataVersionProvider
 import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider
 import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachmentProvider

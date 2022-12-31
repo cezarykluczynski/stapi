@@ -49,7 +49,7 @@ class MagazineReaderTest extends Specification {
 
 		then:
 		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINES) >> false
-		1 * magazineCandidatePageGatheringServiceMock.isEmpty() >> false
+		1 * magazineCandidatePageGatheringServiceMock.empty >> false
 		1 * magazineCandidatePageGatheringServiceMock.allPageHeadersThenClean >> Lists.newArrayList(pageHeaderFromService)
 		0 * _
 		pageHeader == pageHeaderFromService
@@ -72,7 +72,7 @@ class MagazineReaderTest extends Specification {
 
 		then:
 		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINES) >> false
-		1 * magazineCandidatePageGatheringServiceMock.isEmpty() >> true
+		1 * magazineCandidatePageGatheringServiceMock.empty >> true
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Lists.newArrayList(pageHeaderFromApi)
 		0 * _

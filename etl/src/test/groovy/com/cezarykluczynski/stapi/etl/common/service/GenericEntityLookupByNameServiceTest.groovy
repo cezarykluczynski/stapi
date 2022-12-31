@@ -141,7 +141,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		then:
 		1 * repositoriesMock.getRepositoryFor(Character) >> Optional.empty()
 		0 * _
-		!characterOptional.isPresent()
+		!characterOptional.present
 	}
 
 }

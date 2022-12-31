@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentDTO
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO
 import org.springframework.core.io.ClassPathResource
 import spock.lang.Specification
 

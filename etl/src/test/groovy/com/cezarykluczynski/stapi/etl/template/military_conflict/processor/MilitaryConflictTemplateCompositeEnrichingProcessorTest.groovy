@@ -12,8 +12,8 @@ import spock.lang.Specification
 
 class MilitaryConflictTemplateCompositeEnrichingProcessorTest extends Specification {
 
-	private static final CATEGORY_TITLE_1 = 'CATEGORY_TITLE_1'
-	private static final TEMPLATE_TITLE_1 = 'TEMPLATE_TITLE_1'
+	private static final String CATEGORY_TITLE_1 = 'CATEGORY_TITLE_1'
+	private static final String TEMPLATE_TITLE_1 = 'TEMPLATE_TITLE_1'
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 

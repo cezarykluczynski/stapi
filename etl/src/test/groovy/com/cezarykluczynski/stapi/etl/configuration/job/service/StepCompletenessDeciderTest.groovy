@@ -35,7 +35,7 @@ class StepCompletenessDeciderTest extends Specification {
 		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)
 
 		then:
-		1 * stepProperties.isEnabled() >> false
+		1 * stepProperties.enabled >> false
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 		0 * _
 		complete

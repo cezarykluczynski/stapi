@@ -1,8 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 
 @Service
-@Slf4j
 public class DocumentationProvider {
 
 	private static final String SWAGGER_ATTACHMENT_NAME = "stapi_swagger_specs.zip";

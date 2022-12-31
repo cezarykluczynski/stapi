@@ -37,10 +37,6 @@ public class TradingCardItemsProcessor implements ItemProcessor<String, Integer>
 		}
 
 		Multimap<String, Integer> labelMultimap = numbersToMultimap(numbers);
-		if (labelMultimap == null) {
-			return null;
-		}
-
 		return extractHighestValueFromFirstEntry(labelMultimap);
 	}
 

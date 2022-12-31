@@ -342,7 +342,7 @@ ruleset {
 	UnnecessarySelfAssignment
 	UnnecessarySemicolon
 	UnnecessaryStringInstantiation
-	UnnecessarySubstring
+	UnnecessaryCallToSubstring
 	UnnecessaryTernaryExpression
 	UnnecessaryToString
 	UnnecessaryTransientModifier

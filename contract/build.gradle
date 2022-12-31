@@ -2,7 +2,5 @@ plugins {
 	id 'io.freefair.lombok'
 }
 
-dependencies {
-	implementation project(':util')
-	testImplementation project(':util').sourceSets.test.output
-}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8

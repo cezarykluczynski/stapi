@@ -33,8 +33,8 @@ class PageMapperTest extends Specification {
 		page.totalElements >> TOTAL_ELEMENTS
 		page.totalPages >> TOTAL_PAGES
 		page.numberOfElements >> NUMBER_OF_ELEMENTS
-		page.isFirst() >> IS_FIRST_PAGE
-		page.isLast() >> IS_LAST_PAGE
+		page.first >> IS_FIRST_PAGE
+		page.last >> IS_LAST_PAGE
 
 		when:
 		SOAPResponsePage responsePage = pageMapper.fromPageToSoapResponsePage(page)
@@ -57,8 +57,8 @@ class PageMapperTest extends Specification {
 		page.totalElements >> TOTAL_ELEMENTS
 		page.totalPages >> TOTAL_PAGES
 		page.numberOfElements >> NUMBER_OF_ELEMENTS
-		page.isFirst() >> IS_FIRST_PAGE
-		page.isLast() >> IS_LAST_PAGE
+		page.first >> IS_FIRST_PAGE
+		page.last >> IS_LAST_PAGE
 
 		when:
 		RESTResponsePage responsePage = pageMapper.fromPageToRestResponsePage(page)

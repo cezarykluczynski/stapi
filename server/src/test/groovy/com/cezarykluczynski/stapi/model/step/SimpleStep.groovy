@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.model.step
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType
-import lombok.Data
 import org.springframework.batch.core.BatchStatus
 import org.springframework.data.repository.CrudRepository
 
@@ -13,7 +12,6 @@ import javax.persistence.Enumerated
 import javax.persistence.Id
 import javax.persistence.Table
 
-@Data
 @Entity(name = 'SimpleStep')
 @Table(schema = 'stapi', name = 'batch_step_execution')
 @SuppressWarnings('UnusedPrivateField')
@@ -28,5 +26,29 @@ class SimpleStep {
 
 	@Enumerated(EnumType.STRING)
 	private BatchStatus status
+
+	Long getId() {
+		id
+	}
+
+	void setId(Long id) {
+		this.id = id
+	}
+
+	String getStepName() {
+		stepName
+	}
+
+	void setStepName(String stepName) {
+		this.stepName = stepName
+	}
+
+	BatchStatus getStatus() {
+		status
+	}
+
+	void setStatus(BatchStatus status) {
+		this.status = status
+	}
 
 }

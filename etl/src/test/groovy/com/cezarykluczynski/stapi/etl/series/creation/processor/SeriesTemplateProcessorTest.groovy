@@ -23,9 +23,9 @@ class SeriesTemplateProcessorTest extends Specification {
 	private static final Integer END_YEAR = 2000
 	private static final LocalDate START_DATE = LocalDate.of(1996, 1, 1)
 	private static final LocalDate END_DATE = LocalDate.of(1999, 2, 2)
-	private static final SEASONS_COUNT = 1
-	private static final EPISODES_COUNT = 2
-	private static final FEATURE_LENGTH_EPISODES_COUNT = 3
+	private static final Integer SEASONS_COUNT = 1
+	private static final Integer EPISODES_COUNT = 2
+	private static final Integer FEATURE_LENGTH_EPISODES_COUNT = 3
 
 	private UidGenerator uidGeneratorMock
 

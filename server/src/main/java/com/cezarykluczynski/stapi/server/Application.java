@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.util.constant.Package;
 import org.apache.cxf.spring.boot.autoconfigure.CxfAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -15,13 +14,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@SpringBootApplication(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-		JmxAutoConfiguration.class}, scanBasePackages = Package.ROOT)
+@SpringBootApplication(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class},
+		scanBasePackages = Package.ROOT)
 @ComponentScan({
 		Package.SERVER,
 		Package.SOURCES,
 		Package.MODEL,
-		Package.CONTRACT,
 		Package.UTIL
 })
 @Import(EtlConfiguration.class)

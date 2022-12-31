@@ -24,7 +24,7 @@ class DocumentationZipperTest extends Specification {
 		File temporaryTargetFile = new File(TEMPORARY_TARGET_FILE)
 		FileUtils.deleteQuietly(temporaryTargetFile)
 		temporaryTargetFile.parentFile.mkdirs()
-		String directory = new File(ROOT_DIRECTORY).isDirectory() ? ROOT_DIRECTORY : CONTRACT_DIRECTORY
+		String directory = new File(ROOT_DIRECTORY).directory ? ROOT_DIRECTORY : CONTRACT_DIRECTORY
 
 		when:
 		documentationZipper.zipDirectoryToFile(directory, new File(TEMPORARY_TARGET_FILE))

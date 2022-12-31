@@ -82,6 +82,7 @@ class CharacterLinkCacheStoringProcessorTest extends Specification {
 		characterRelationsMap[CharacterRelationCacheKey.of(TemplateTitle.SIDEBAR_FICTIONAL, sidebarFictionalTemplateTemplatePart.key)] == sidebarFictionalTemplateTemplatePart
 	}
 
+	@SuppressWarnings('UnnecessaryGetter')
 	void "puts empty map into cache if nothing could be found"() {
 		given:
 		Page page = new Page(pageId: PAGE_ID)

@@ -63,7 +63,7 @@ class TemplateFinderTest extends Specification {
 		Optional<Template> templateOptional = templateFinder.findTemplate(page, TITLE_1, TITLE_2)
 
 		then:
-		!templateOptional.isPresent()
+		!templateOptional.present
 	}
 
 	void "tells if template is present by name"() {

@@ -25,7 +25,7 @@ class SpeciesStarshipClassesToSpeciesMappingProviderTest extends Specification {
 
 		then:
 		0 * _
-		!speciesOptional.isPresent()
+		!speciesOptional.present
 	}
 
 	void "when dynamic mappings is found, result of repository query is returned"() {

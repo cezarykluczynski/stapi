@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO;
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;

@@ -22,6 +22,7 @@ plugins {
 	id 'io.freefair.lombok' version '6.6.1' apply false
 	id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 	id 'com.yupzip.wsdl2java' version '2.3.2' apply false
+	id "com.github.ben-manes.versions" version "0.44.0"
 }
 
 allprojects {
@@ -60,16 +61,20 @@ allprojects {
 
 	configurations.all {
 		resolutionStrategy {
-			// version 4.0.0 was published on December 22, 2022, and it is compiled with Java 11
+			// version 4.0.0 is compiled with Java 11,
+			// and it generated SOAP classes with Jakarta packages,
+			// so we keep version 3.x for Java 8 client compatibility
 			force "org.apache.cxf:cxf-tools-wsdlto-core:$apacheCxfVersion"
 			force "org.apache.cxf:cxf-tools-wsdlto-frontend-jaxws:$apacheCxfVersion"
 			force "org.apache.cxf:cxf-tools-wsdlto-databinding-jaxb:$apacheCxfVersion"
-			// version 1.4.0 is compiled with Java 11
-			force 'ch.qos.logback:logback-core:1.2.3'
+			// for future Java 17 compatibility
+			force group: 'org.apache.ws.xmlschema', name: 'xmlschema-core', version: '2.3.0'
+			// problems with never versions
+			force 'ch.qos.logback:logback-core:1.2.11'
 			// multiple versions
 			force "org.springframework.data:spring-data-jpa:$springBootVersion"
 			// multiple versions
-			force 'net.bytebuddy:byte-buddy:1.12.20'
+			force "net.bytebuddy:byte-buddy:$byteBuddyVersion"
 		}
 	}
 
@@ -80,7 +85,7 @@ allprojects {
 
 		// Utils
 		implementation group: 'org.json', name: 'json', version: '20220924'
-		implementation group: 'com.google.guava', name: 'guava', version: '20.0'
+		implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 		implementation group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 		implementation group: 'commons-validator', name: 'commons-validator', version: '1.7'
 		implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
@@ -93,7 +98,7 @@ allprojects {
 		testImplementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.4'
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
 		testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
-		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.12.20'
+		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
 		testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 		testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 		testImplementation group: 'cglib', name: 'cglib-nodep', version: '3.3.0'
@@ -112,7 +117,7 @@ allprojects {
 
 	codenarc {
 		configFile = "$rootDir/codenarc.groovy" as File
-		toolVersion = '0.26.0'
+		toolVersion = '3.1.0'
 	}
 
 	checkstyleMain {
@@ -138,14 +143,6 @@ allprojects {
 		if (!file.exists()) {
 			logger.warn('Custom properties did not exists, empty file created.')
 			file.createNewFile()
-		}
-	}
-
-	configurations.codenarc {
-		resolutionStrategy.eachDependency { DependencyResolveDetails d ->
-			if (d.requested.group == 'org.codehaus.groovy') {
-				d.useVersion '2.4.10'
-			}
 		}
 	}
 }
@@ -178,5 +175,5 @@ apply from: 'testing.gradle'
 group 'com.cezarykluczynski.stapi'
 version '0.1.1-SNAPSHOT'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11

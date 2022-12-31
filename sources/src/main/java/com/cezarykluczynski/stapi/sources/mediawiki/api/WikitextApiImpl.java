@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -128,7 +128,7 @@ public class WikitextApiImpl implements WikitextApi {
 		List<PageLink> pageLinkList = Lists.reverse(getPageLinksFromWikitext(wikitext));
 
 		for (PageLink pageLink : pageLinkList) {
-			String pageLinkDescription = Objects.firstNonNull(pageLink.getDescription(), pageLink.getTitle());
+			String pageLinkDescription = MoreObjects.firstNonNull(pageLink.getDescription(), pageLink.getTitle());
 			wikitextWithoutLinks = wikitextWithoutLinks.substring(0,
 					pageLink.getStartPosition()) + pageLinkDescription + wikitextWithoutLinks.substring(pageLink.getEndPosition());
 		}

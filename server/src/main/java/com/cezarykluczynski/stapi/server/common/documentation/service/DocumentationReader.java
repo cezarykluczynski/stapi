@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO;
-import com.cezarykluczynski.stapi.contract.documentation.dto.enums.DocumentType;
+import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentDTO;
+import com.cezarykluczynski.stapi.server.common.documentation.dto.enums.DocumentType;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

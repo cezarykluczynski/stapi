@@ -49,7 +49,7 @@ class ComicStripReaderTest extends Specification {
 
 		then:
 		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_STRIPS) >> false
-		1 * comicStripCandidatePageGatheringServiceMock.isEmpty() >> false
+		1 * comicStripCandidatePageGatheringServiceMock.empty >> false
 		1 * comicStripCandidatePageGatheringServiceMock.allPageHeadersThenClean >> Lists.newArrayList(pageHeaderFromService)
 		0 * _
 		pageHeader == pageHeaderFromService
@@ -72,7 +72,7 @@ class ComicStripReaderTest extends Specification {
 
 		then:
 		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_STRIPS) >> false
-		1 * comicStripCandidatePageGatheringServiceMock.isEmpty() >> true
+		1 * comicStripCandidatePageGatheringServiceMock.empty >> true
 		1 * categoryApiMock.getPages(CategoryTitle.COMICS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
 		1 * categoryApiMock.getPages(CategoryTitle.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
 		0 * _

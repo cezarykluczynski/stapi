@@ -68,9 +68,9 @@ abstract class AbstractEntityReflectionTest extends Specification {
 
 		File[] fileList = directory.listFiles()
 		for (File file : fileList) {
-			if (file.isFile()) {
+			if (file.file) {
 				files.add(file)
-			} else if (file.isDirectory()) {
+			} else if (file.directory) {
 				fillFileList(file.absolutePath, files)
 			}
 		}

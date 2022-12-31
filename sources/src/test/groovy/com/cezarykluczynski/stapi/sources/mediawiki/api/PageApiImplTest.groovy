@@ -251,7 +251,7 @@ class PageApiImplTest extends Specification {
 		pageInfo.ns == NS
 	}
 
-	private static String createXml(String title, Long pageId, withWikitext = true) {
+	private static String createXml(String title, Long pageId, boolean withWikitext = true) {
 		String wikitext = withWikitext ? '''<wikitext xml:space="preserve">
 Ten chars.
 == Biography ==

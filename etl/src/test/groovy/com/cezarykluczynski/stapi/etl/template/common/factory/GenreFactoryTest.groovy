@@ -8,9 +8,9 @@ import spock.lang.Specification
 
 class GenreFactoryTest extends Specification {
 
-	private static final RAW_NAME = 'RAW_NAME'
-	private static final NORMALIZED_NAME = 'NORMALIZED_NAME'
-	private static final UID = 'UID'
+	private static final String RAW_NAME = 'RAW_NAME'
+	private static final String NORMALIZED_NAME = 'NORMALIZED_NAME'
+	private static final String UID = 'UID'
 
 	private GenreNameNormalizationService genreNameNormalizationServiceMock
 

@@ -43,7 +43,7 @@ class OrganizationsStarshipClassesToOrganizationsMappingProviderTest extends Spe
 		then:
 		1 * pageApiMock.getCategory(INVALID_KEY, MediaWikiSource.MEMORY_ALPHA_EN) >> null
 		0 * _
-		!organizationsOptional.isPresent()
+		!organizationsOptional.present
 	}
 
 	void "when mappings is found, result of repository query is returned"() {

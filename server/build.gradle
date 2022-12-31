@@ -1,5 +1,4 @@
 import groovy.io.FileType
-import java.util.stream.Collectors
 import org.zeroturnaround.zip.commons.FileUtils
 
 plugins {
@@ -13,7 +12,6 @@ springBoot {
 
 dependencies {
 	implementation project(':util'), project(':contract'), project(':model'), project(':etl'), project(':client')
-	implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
@@ -39,6 +37,7 @@ dependencies {
 	implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
 	implementation group: 'javax.json', name: 'javax.json-api', version: '1.0'
 	implementation group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+	implementation group: 'com.sun.xml.ws', name: 'jaxws-ri', version: '2.3.5'
 
 	testImplementation project(':util').sourceSets.test.output
 }
@@ -87,7 +86,7 @@ class CopyDocs extends DefaultTask {
 	def copy() {
 		def dir = new File('./contract/src/main/resources/v1/')
 		dir.eachFileRecurse (FileType.FILES) { file ->
-			File destination = new File('./server/build/resources/main/' + file.getPath().substring(2))
+			File destination = new File(project.rootDir, 'server/build/resources/main/' + file.getPath().substring(2))
 			destination.parentFile.mkdirs()
 			FileUtils.copyFile(file, destination)
 		}
@@ -140,7 +139,7 @@ class Dockerize extends DefaultTask {
 		String localDirPath = "data/"
 		new File(localDirPath).mkdir()
 		String localPath = "data/postgres.sql"
-		File localFile = new File(localPath)
+		File localFile = new File(project.rootDir, localPath)
 		if (localFile.exists()) {
 			localFile.delete()
 		}

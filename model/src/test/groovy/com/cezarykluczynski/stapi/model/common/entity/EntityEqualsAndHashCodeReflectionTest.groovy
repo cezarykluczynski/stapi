@@ -52,7 +52,7 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest
 					.collect(Collectors.toSet())
 			String entityName = StringUtils.split(entityClass.name, '.').last()
 			Optional<File> entityFileOptional = getEntityFileOptional(entityName)
-			if (!entityFileOptional.isPresent()) {
+			if (!entityFileOptional.present) {
 				throw new RuntimeException("Missing entity file: ${entityName}")
 			}
 			CompilationUnit compilationUnit = new JavaParser().parse(entityFileOptional.get()).result.get()
