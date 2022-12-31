@@ -360,6 +360,8 @@ signing {
 }
 
 javadoc {
+	failOnError(false)
+	options.addStringOption('Xdoclint:none', '-quiet')
 	if(JavaVersion.current().isJava9Compatible()) {
 		options.addBooleanOption('html5', true)
 	}

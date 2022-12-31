@@ -18,6 +18,7 @@ blocks:
       jobs:
         - name: 'build-jvm'
           commands:
+            - sem-version java 17
             - checkout --use-cache
             - ./gradlew test
             - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"

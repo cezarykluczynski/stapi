@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
+import com.cezarykluczynski.stapi.util.tool.TimeUtil
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
@@ -27,10 +27,7 @@ class DateMapperTest extends Specification {
 
 	void "maps XMLGregorianCalendar  LocalDate"() {
 		given:
-		XMLGregorianCalendar xmlGregorianCalendar = new XMLGregorianCalendarImpl()
-		xmlGregorianCalendar.setYear(YEAR)
-		xmlGregorianCalendar.setMonth(MONTH)
-		xmlGregorianCalendar.setDay(DAY)
+		XMLGregorianCalendar xmlGregorianCalendar = TimeUtil.createXmlGregorianCalendar(YEAR, MONTH, DAY)
 
 		when:
 		LocalDate localDate = dateMapper.map xmlGregorianCalendar

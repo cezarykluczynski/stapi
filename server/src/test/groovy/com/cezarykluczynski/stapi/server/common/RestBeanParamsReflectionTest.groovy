@@ -22,7 +22,7 @@ class RestBeanParamsReflectionTest extends Specification {
 
 		when:
 		Set<Field> formParams = reflections.getFieldsAnnotatedWith(FormParam).stream()
-				.filter { it.clazz.name.endsWith('RestBeanParams') }
+				.filter { it.declaringClass.name.endsWith('RestBeanParams') }
 				.collect(Collectors.toSet())
 
 		then:

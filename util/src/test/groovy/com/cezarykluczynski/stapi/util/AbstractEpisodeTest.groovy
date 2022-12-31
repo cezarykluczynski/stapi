@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
+import com.cezarykluczynski.stapi.util.tool.TimeUtil
 
-import javax.xml.datatype.DatatypeConstants
 import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
@@ -32,16 +31,11 @@ abstract class AbstractEpisodeTest extends AbstractTest {
 	protected static final LocalDate FINAL_SCRIPT_DATE = LocalDate.of(1989, 4, 2)
 	protected static final LocalDate FINAL_SCRIPT_DATE_FROM = LocalDate.of(1996, 5, 6)
 	protected static final LocalDate FINAL_SCRIPT_DATE_TO = LocalDate.of(1998, 7, 8)
-	protected static final XMLGregorianCalendar US_AIR_DATE_XML = XMLGregorianCalendarImpl.createDate(1990, 8, 4, DatatypeConstants.FIELD_UNDEFINED)
-	protected static final XMLGregorianCalendar US_AIR_DATE_FROM_XML = XMLGregorianCalendarImpl
-			.createDate(1991, 1, 2, DatatypeConstants.FIELD_UNDEFINED)
-	protected static final XMLGregorianCalendar US_AIR_DATE_TO_XML = XMLGregorianCalendarImpl
-			.createDate(1993, 3, 4, DatatypeConstants.FIELD_UNDEFINED)
-	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_XML = XMLGregorianCalendarImpl
-			.createDate(1989, 4, 2, DatatypeConstants.FIELD_UNDEFINED)
-	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_FROM_XML = XMLGregorianCalendarImpl
-			.createDate(1996, 5, 6, DatatypeConstants.FIELD_UNDEFINED)
-	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_TO_XML = XMLGregorianCalendarImpl
-			.createDate(1998, 7, 8, DatatypeConstants.FIELD_UNDEFINED)
+	protected static final XMLGregorianCalendar US_AIR_DATE_XML = TimeUtil.createXmlGregorianCalendar(1990, 8, 4)
+	protected static final XMLGregorianCalendar US_AIR_DATE_FROM_XML = TimeUtil.createXmlGregorianCalendar(1991, 1, 2)
+	protected static final XMLGregorianCalendar US_AIR_DATE_TO_XML = TimeUtil.createXmlGregorianCalendar(1993, 3, 4)
+	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_XML = TimeUtil.createXmlGregorianCalendar(1989, 4, 2)
+	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_FROM_XML = TimeUtil.createXmlGregorianCalendar(1996, 5, 6)
+	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_TO_XML = TimeUtil.createXmlGregorianCalendar(1998, 7, 8)
 
 }

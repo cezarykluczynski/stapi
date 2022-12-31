@@ -35,7 +35,7 @@ abstract class AbstractEntityReflectionTest extends Specification {
 
 	protected static Set<Field> getFieldsByClass(Set<Field> fieldSet, Class<?> clazz) {
 		fieldSet.stream()
-				.filter { field -> field.clazz.name == clazz.name }
+				.filter { field -> field.declaringClass.name == clazz.name }
 				.collect(Collectors.toSet())
 	}
 

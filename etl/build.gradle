@@ -7,8 +7,8 @@ plugins {
 dependencies {
 	implementation project(':util'), project(':model'), project(':sources')
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
-	implementation group: 'org.springframework.data', name: 'spring-data-commons', version: springBootVersion
-	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: springBootVersion
+	implementation group: 'org.springframework.data', name: 'spring-data-commons', version: springDataCommonsVersion
+	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: springDataCommonsVersion
 	implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
 	implementation group: 'info.debatty', name: 'java-string-similarity', version: '1.0.0'
 	implementation group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'

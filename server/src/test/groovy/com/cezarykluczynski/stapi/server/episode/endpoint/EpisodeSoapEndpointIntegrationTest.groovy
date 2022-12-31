@@ -12,11 +12,10 @@ import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
+import com.cezarykluczynski.stapi.util.tool.TimeUtil
 import com.google.common.collect.Lists
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
 import spock.lang.Requires
 
-import javax.xml.datatype.DatatypeConstants
 import java.util.stream.Collectors
 
 @Requires({
@@ -63,8 +62,8 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 						pageSize: pageSize
 				),
 				usAirDate: new DateRange(
-						from: XMLGregorianCalendarImpl.createDate(1996, 1, 1, DatatypeConstants.FIELD_UNDEFINED),
-						to: XMLGregorianCalendarImpl.createDate(1996, 12, 31, DatatypeConstants.FIELD_UNDEFINED)
+						from: TimeUtil.createXmlGregorianCalendar(1996, 1, 1),
+						to: TimeUtil.createXmlGregorianCalendar(1996, 12, 31)
 				),
 				sort: new RequestSort(
 						clauses: Lists.newArrayList(
