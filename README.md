@@ -1,5 +1,6 @@
 [![Build Status](https://cezarykluczynski.semaphoreci.com/badges/stapi.svg?style=shields)](https://cezarykluczynski.semaphoreci.com/projects/stapi)
 [![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg?token=QjxVvtnLbW)](https://codecov.io/gh/cezarykluczynski/stapi)
+![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m779070850-6bfc1cd9f79d6161c6728797)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.cezarykluczynski.stapi/stapi-client/badge.svg)](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
 [![Docker Pulls](https://img.shields.io/docker/pulls/cezarykluczynski/stapi?color=%23%2300D100)](https://hub.docker.com/r/cezarykluczynski/stapi)

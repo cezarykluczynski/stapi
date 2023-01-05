@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePa
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,18 @@ public class TitleWriter implements ItemWriter<Title> {
 	}
 
 	@Override
-	public void write(List<? extends Title> items) throws Exception {
+	public void write(Chunk<? extends Title> items) throws Exception {
 		titleRepository.saveAll(process(items));
 	}
 
-	private List<Title> process(List<? extends Title> titleList) {
+	private List<Title> process(Chunk<? extends Title> titleList) {
 		List<Title> titleListWithoutExtends = fromExtendsListToTitleList(titleList);
 		return filterDuplicates(titleListWithoutExtends);
 	}
 
-	private List<Title> fromExtendsListToTitleList(List<? extends Title> titleList) {
+	private List<Title> fromExtendsListToTitleList(Chunk<? extends Title> titleList) {
 		return titleList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Title) pageAware)
 				.collect(Collectors.toList());

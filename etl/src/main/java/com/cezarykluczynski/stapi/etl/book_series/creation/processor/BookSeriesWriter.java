@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.book_series.creation.processor;
 
-
 import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.book_series.repository.BookSeriesRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +25,18 @@ public class BookSeriesWriter implements ItemWriter<BookSeries> {
 	}
 
 	@Override
-	public void write(List<? extends BookSeries> items) throws Exception {
+	public void write(Chunk<? extends BookSeries> items) throws Exception {
 		bookSeriesRepository.saveAll(process(items));
 	}
 
-	private List<BookSeries> process(List<? extends BookSeries> bookSeriesList) {
+	private List<BookSeries> process(Chunk<? extends BookSeries> bookSeriesList) {
 		List<BookSeries> bookSeriesListWithoutExtends = fromExtendsListToBookSeriesList(bookSeriesList);
 		return filterDuplicates(bookSeriesListWithoutExtends);
 	}
 
-	private List<BookSeries> fromExtendsListToBookSeriesList(List<? extends BookSeries> bookSeriesList) {
+	private List<BookSeries> fromExtendsListToBookSeriesList(Chunk<? extends BookSeries> bookSeriesList) {
 		return bookSeriesList
+				.getItems()
 				.stream()
 				.map(pageAware -> (BookSeries) pageAware)
 				.collect(Collectors.toList());

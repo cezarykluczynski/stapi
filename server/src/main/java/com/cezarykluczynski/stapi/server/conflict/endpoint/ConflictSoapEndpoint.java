@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.ConflictFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.ConflictFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.ConflictPortType;
 import com.cezarykluczynski.stapi.server.conflict.reader.ConflictSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class ConflictSoapEndpoint implements ConflictPortType {

@@ -8,11 +8,10 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
+import jakarta.persistence.NonUniqueResultException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.NonUniqueResultException;
 
 import java.util.List;
 import java.util.Map;

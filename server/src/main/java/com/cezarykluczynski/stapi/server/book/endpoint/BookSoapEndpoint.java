@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.BookFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.BookFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.BookPortType;
 import com.cezarykluczynski.stapi.server.book.reader.BookSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class BookSoapEndpoint implements BookPortType {

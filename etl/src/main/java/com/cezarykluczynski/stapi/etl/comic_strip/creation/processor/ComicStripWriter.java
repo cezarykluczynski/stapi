@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.comic_strip.creation.processor;
 
-
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comic_strip.repository.ComicStripRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +25,18 @@ public class ComicStripWriter implements ItemWriter<ComicStrip> {
 	}
 
 	@Override
-	public void write(List<? extends ComicStrip> items) throws Exception {
+	public void write(Chunk<? extends ComicStrip> items) throws Exception {
 		comicStripRepository.saveAll(process(items));
 	}
 
-	private List<ComicStrip> process(List<? extends ComicStrip> comicStripList) {
+	private List<ComicStrip> process(Chunk<? extends ComicStrip> comicStripList) {
 		List<ComicStrip> comicStripListWithoutExtends = fromExtendsListToComicStripList(comicStripList);
 		return filterDuplicates(comicStripListWithoutExtends);
 	}
 
-	private List<ComicStrip> fromExtendsListToComicStripList(List<? extends ComicStrip> comicStripList) {
+	private List<ComicStrip> fromExtendsListToComicStripList(Chunk<? extends ComicStrip> comicStripList) {
 		return comicStripList
+				.getItems()
 				.stream()
 				.map(pageAware -> (ComicStrip) pageAware)
 				.collect(Collectors.toList());

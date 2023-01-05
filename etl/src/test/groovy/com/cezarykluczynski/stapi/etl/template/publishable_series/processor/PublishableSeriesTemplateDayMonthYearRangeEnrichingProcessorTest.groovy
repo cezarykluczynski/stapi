@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTempl
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.publishable_series.dto.PublishableSeriesTemplate
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.google.common.collect.Lists
 import org.apache.commons.lang3.tuple.Pair
-import org.assertj.core.util.Lists
 import spock.lang.Specification
 
 class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specification {

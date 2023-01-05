@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.TitleFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.TitleFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.TitlePortType;
 import com.cezarykluczynski.stapi.server.title.reader.TitleSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class TitleSoapEndpoint implements TitlePortType {

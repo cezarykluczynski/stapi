@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.video_game.configuration
 
-import com.cezarykluczynski.stapi.server.video_game.endpoint.VideoGameRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.video_game.endpoint.VideoGameRestEndpoint
 import com.cezarykluczynski.stapi.server.video_game.endpoint.VideoGameSoapEndpoint
 import com.cezarykluczynski.stapi.server.video_game.mapper.VideoGameBaseRestMapper
 import com.cezarykluczynski.stapi.server.video_game.mapper.VideoGameBaseSoapMapper
 import com.cezarykluczynski.stapi.server.video_game.mapper.VideoGameFullRestMapper
 import com.cezarykluczynski.stapi.server.video_game.mapper.VideoGameFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class VideoGameConfigurationTest extends Specification {
 

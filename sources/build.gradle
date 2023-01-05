@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
 	implementation project(':util'), project(':model')
+	implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 	implementation group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
 	implementation group: 'com.afrozaar.wordpress', name: 'wp-api-v2-client-java', version: '2.0-beta15'
 	implementation group: 'org.jsoup', name: 'jsoup', version: '1.10.2'

@@ -15,7 +15,7 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter
 import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
-import javax.xml.ws.Endpoint
+import jakarta.xml.ws.Endpoint
 
 class EndpointFactoryTest extends Specification {
 

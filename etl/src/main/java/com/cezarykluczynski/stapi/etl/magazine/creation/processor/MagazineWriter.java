@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
 import com.cezarykluczynski.stapi.model.magazine.repository.MagazineRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class MagazineWriter implements ItemWriter<Magazine> {
 	}
 
 	@Override
-	public void write(List<? extends Magazine> items) throws Exception {
+	public void write(Chunk<? extends Magazine> items) throws Exception {
 		magazineRepository.saveAll(process(items));
 	}
 
-	private List<Magazine> process(List<? extends Magazine> magazineList) {
+	private List<Magazine> process(Chunk<? extends Magazine> magazineList) {
 		List<Magazine> comicsListWithoutExtends = fromExtendsListToMagazineList(magazineList);
 		return filterDuplicates(comicsListWithoutExtends);
 	}
 
-	private List<Magazine> fromExtendsListToMagazineList(List<? extends Magazine> comicsList) {
+	private List<Magazine> fromExtendsListToMagazineList(Chunk<? extends Magazine> comicsList) {
 		return comicsList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Magazine) pageAware)
 				.collect(Collectors.toList());

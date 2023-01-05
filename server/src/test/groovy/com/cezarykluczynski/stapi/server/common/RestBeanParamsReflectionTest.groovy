@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common
 
+import jakarta.ws.rs.FormParam
 import org.reflections.Reflections
 import org.reflections.scanners.FieldAnnotationsScanner
 import org.reflections.scanners.SubTypesScanner
@@ -8,7 +9,6 @@ import org.reflections.util.ClasspathHelper
 import org.reflections.util.ConfigurationBuilder
 import spock.lang.Specification
 
-import javax.ws.rs.FormParam
 import java.lang.reflect.Field
 import java.util.stream.Collectors
 

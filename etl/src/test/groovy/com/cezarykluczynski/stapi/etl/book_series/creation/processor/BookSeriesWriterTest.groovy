@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
 import com.cezarykluczynski.stapi.model.book_series.repository.BookSeriesRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class BookSeriesWriterTest extends Specification {
@@ -26,7 +27,7 @@ class BookSeriesWriterTest extends Specification {
 		List<BookSeries> bookSeriesList = Lists.newArrayList(bookSeries)
 
 		when:
-		bookSeriesWriterMock.write(bookSeriesList)
+		bookSeriesWriterMock.write(new Chunk(bookSeriesList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, BookSeries) >> { args ->

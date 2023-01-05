@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.species.configuration
 
-import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesV2RestEndpoint
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class SpeciesConfigurationTest extends Specification {
 

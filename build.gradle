@@ -9,7 +9,6 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath group: 'org.zeroturnaround', name: 'zt-zip', version: ztZipVersion
 		classpath group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 		classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.13"
@@ -23,6 +22,7 @@ plugins {
 	id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 	id 'com.yupzip.wsdl2java' version '2.3.2' apply false
 	id "com.github.ben-manes.versions" version "0.44.0"
+	id "io.spring.dependency-management" version "1.1.0"
 }
 
 allprojects {
@@ -64,22 +64,22 @@ allprojects {
 			// version 4.0.0 is compiled with Java 11,
 			// and it generated SOAP classes with Jakarta packages,
 			// so we keep version 3.x for Java 8 client compatibility
-			force "org.apache.cxf:cxf-tools-wsdlto-core:$apacheCxfVersion"
-			force "org.apache.cxf:cxf-tools-wsdlto-frontend-jaxws:$apacheCxfVersion"
-			force "org.apache.cxf:cxf-tools-wsdlto-databinding-jaxb:$apacheCxfVersion"
+			force "org.apache.cxf:cxf-tools-wsdlto-core:$apacheCxfVersionLegacy"
+			force "org.apache.cxf:cxf-tools-wsdlto-frontend-jaxws:$apacheCxfVersionLegacy"
+			force "org.apache.cxf:cxf-tools-wsdlto-databinding-jaxb:$apacheCxfVersionLegacy"
 			// for Java 17 compatibility
 			force group: 'org.apache.ws.xmlschema', name: 'xmlschema-core', version: '2.3.0'
-			// problems with never versions
-			force 'ch.qos.logback:logback-core:1.2.11'
 			// multiple versions
-			force "org.springframework.data:spring-data-jpa:$springBootVersion"
+			force 'ch.qos.logback:logback-core:1.4.5'
+			force 'ch.qos.logback:logback-classic:1.4.5'
+			// multiple versions
+			force "org.springframework.data:spring-data-jpa:$springDataVersion"
 			// multiple versions
 			force "net.bytebuddy:byte-buddy:$byteBuddyVersion"
 		}
 	}
 
 	dependencies {
-		implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 		implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 		implementation group: 'javax.inject', name: 'javax.inject', version: '1'
 
@@ -97,12 +97,10 @@ allprojects {
 		testImplementation group: 'commons-io', name: 'commons-io', version: '2.5'
 		testImplementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.4'
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
-		testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
 		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
-		testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
-		testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 		testImplementation group: 'cglib', name: 'cglib-nodep', version: '3.3.0'
-		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.24.9'
+		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.24.10'
+		testImplementation group: 'org.objenesis', name: 'objenesis', version: '3.3'
 	}
 
 	test {
@@ -161,7 +159,7 @@ class CleanMetamodel extends DefaultTask {
 
 	@TaskAction
 	def cleanMetamodel() {
-		def dir = new File('./model/src/main/java/')
+		def dir = new File('./model/src/main/generated/')
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			if (file.name.endsWith("_.java")) {
 				file.delete()

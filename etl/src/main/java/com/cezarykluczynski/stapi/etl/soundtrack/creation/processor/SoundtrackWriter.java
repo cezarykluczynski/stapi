@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack;
 import com.cezarykluczynski.stapi.model.soundtrack.repository.SoundtrackRepository;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class SoundtrackWriter implements ItemWriter<Soundtrack> {
 	}
 
 	@Override
-	public void write(List<? extends Soundtrack> items) throws Exception {
+	public void write(Chunk<? extends Soundtrack> items) throws Exception {
 		soundtrackRepository.saveAll(process(items));
 	}
 
-	private List<Soundtrack> process(List<? extends Soundtrack> soundtrackList) {
+	private List<Soundtrack> process(Chunk<? extends Soundtrack> soundtrackList) {
 		List<Soundtrack> comicsListWithoutExtends = fromExtendsListToSoundtrackList(soundtrackList);
 		return filterDuplicates(comicsListWithoutExtends);
 	}
 
-	private List<Soundtrack> fromExtendsListToSoundtrackList(List<? extends Soundtrack> soundtracks) {
+	private List<Soundtrack> fromExtendsListToSoundtrackList(Chunk<? extends Soundtrack> soundtracks) {
 		return soundtracks
+				.getItems()
 				.stream()
 				.map(pageAware -> (Soundtrack) pageAware)
 				.collect(Collectors.toList());

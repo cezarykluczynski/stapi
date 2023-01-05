@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.food.configuration
 
-import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint
 import com.cezarykluczynski.stapi.server.food.endpoint.FoodSoapEndpoint
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseRestMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseSoapMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullRestMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class FoodConfigurationTest extends Specification {
 

@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.weapon.creation.processor;
 
-
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.model.weapon.repository.WeaponRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +26,18 @@ public class WeaponWriter implements ItemWriter<Weapon> {
 	}
 
 	@Override
-	public void write(List<? extends Weapon> items) throws Exception {
+	public void write(Chunk<? extends Weapon> items) throws Exception {
 		weaponRepository.saveAll(process(items));
 	}
 
-	private List<Weapon> process(List<? extends Weapon> weaponList) {
+	private List<Weapon> process(Chunk<? extends Weapon> weaponList) {
 		List<Weapon> weaponListWithoutExtends = fromExtendsListToWeaponList(weaponList);
 		return filterDuplicates(weaponListWithoutExtends);
 	}
 
-	private List<Weapon> fromExtendsListToWeaponList(List<? extends Weapon> weaponList) {
+	private List<Weapon> fromExtendsListToWeaponList(Chunk<? extends Weapon> weaponList) {
 		return weaponList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Weapon) pageAware)
 				.collect(Collectors.toList());

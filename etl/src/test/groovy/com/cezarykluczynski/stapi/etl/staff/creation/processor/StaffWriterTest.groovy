@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.page.service.DuplicateReattachingPreSave
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class StaffWriterTest extends Specification {
@@ -31,25 +32,25 @@ class StaffWriterTest extends Specification {
 	void "filters duplicates, then writes all entities using repository"() {
 		given:
 		Staff staff = new Staff(page: new Page(pageId: PAGE_ID))
-		List<Staff> seriesList = Lists.newArrayList(staff)
+		List<Staff> staffList = Lists.newArrayList(staff)
 
 		when:
-		staffWriterMock.write(seriesList)
+		staffWriterMock.write(new Chunk(staffList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Staff) >> { args ->
 			assert args[0][0] == staff
-			seriesList
+			staffList
 		}
 		1 * duplicateReattachingPreSavePageAwareFilterMock.process(_, Staff) >> { args ->
 			assert args[0][0] == staff
-			seriesList
+			staffList
 		}
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Staff) >> { args ->
 			assert args[0][0] == staff
-			seriesList
+			staffList
 		}
-		1 * staffRepositoryMock.saveAll(seriesList)
+		1 * staffRepositoryMock.saveAll(staffList)
 		0 * _
 	}
 

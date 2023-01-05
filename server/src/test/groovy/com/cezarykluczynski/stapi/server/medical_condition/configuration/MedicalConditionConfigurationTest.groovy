@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.medical_condition.configuration
 
-import com.cezarykluczynski.stapi.server.medical_condition.endpoint.MedicalConditionRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.medical_condition.endpoint.MedicalConditionRestEndpoint
 import com.cezarykluczynski.stapi.server.medical_condition.endpoint.MedicalConditionSoapEndpoint
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionBaseRestMapper
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionBaseSoapMapper
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionFullRestMapper
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class MedicalConditionConfigurationTest extends Specification {
 

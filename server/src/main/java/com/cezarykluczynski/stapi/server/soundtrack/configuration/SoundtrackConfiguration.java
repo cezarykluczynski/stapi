@@ -7,13 +7,13 @@ import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackBaseRestMap
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackFullRestMapper;
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackFullSoapMapper;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Inject;
-import javax.xml.ws.Endpoint;
 
 @Configuration
 public class SoundtrackConfiguration {

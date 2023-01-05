@@ -8,13 +8,13 @@ import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Inject;
-import javax.xml.ws.Endpoint;
 
 @Configuration
 public class CompanyConfiguration {

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-@ConditionalOnProperty("etl.enabled")
+@ConditionalOnProperty(value = "spring.batch.job.enabled", havingValue = "true")
 public class EntitySizeNotCachedStatisticsProviderImpl implements EntitySizeStatisticsProvider {
 
 	private final EntitySizeCountingService entitySizeCountingService;

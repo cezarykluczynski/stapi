@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.magazine.configuration
 
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.magazine.endpoint.MagazineRestEndpoint
 import com.cezarykluczynski.stapi.server.magazine.endpoint.MagazineSoapEndpoint
 import com.cezarykluczynski.stapi.server.magazine.mapper.MagazineBaseRestMapper
 import com.cezarykluczynski.stapi.server.magazine.mapper.MagazineBaseSoapMapper
 import com.cezarykluczynski.stapi.server.magazine.mapper.MagazineFullRestMapper
 import com.cezarykluczynski.stapi.server.magazine.mapper.MagazineFullSoapMapper
-import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class MagazineConfigurationTest extends Specification {
 

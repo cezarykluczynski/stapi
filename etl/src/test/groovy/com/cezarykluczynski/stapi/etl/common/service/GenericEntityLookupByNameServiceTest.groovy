@@ -8,10 +8,9 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
+import jakarta.persistence.NonUniqueResultException
 import org.springframework.data.repository.support.Repositories
 import spock.lang.Specification
-
-import javax.persistence.NonUniqueResultException
 
 class GenericEntityLookupByNameServiceTest extends Specification {
 

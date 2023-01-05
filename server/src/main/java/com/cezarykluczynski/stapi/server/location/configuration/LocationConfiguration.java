@@ -8,13 +8,13 @@ import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseRestMapper;
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullRestMapper;
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullSoapMapper;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Inject;
-import javax.xml.ws.Endpoint;
 
 @Configuration
 public class LocationConfiguration {

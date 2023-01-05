@@ -7,13 +7,12 @@ import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.google.common.collect.Lists;
+import jakarta.persistence.NonUniqueResultException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.NonUniqueResultException;
 
 import java.util.List;
 import java.util.Optional;

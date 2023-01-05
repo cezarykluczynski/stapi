@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.model.video_game.repository.VideoGameRepository;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class VideoGameWriter implements ItemWriter<VideoGame> {
 	}
 
 	@Override
-	public void write(List<? extends VideoGame> items) throws Exception {
+	public void write(Chunk<? extends VideoGame> items) throws Exception {
 		videoGameRepository.saveAll(process(items));
 	}
 
-	private List<VideoGame> process(List<? extends VideoGame> videoGameList) {
+	private List<VideoGame> process(Chunk<? extends VideoGame> videoGameList) {
 		List<VideoGame> comicsListWithoutExtends = fromExtendsListToVideoGameList(videoGameList);
 		return filterDuplicates(comicsListWithoutExtends);
 	}
 
-	private List<VideoGame> fromExtendsListToVideoGameList(List<? extends VideoGame> videoGames) {
+	private List<VideoGame> fromExtendsListToVideoGameList(Chunk<? extends VideoGame> videoGames) {
 		return videoGames
+				.getItems()
 				.stream()
 				.map(pageAware -> (VideoGame) pageAware)
 				.collect(Collectors.toList());

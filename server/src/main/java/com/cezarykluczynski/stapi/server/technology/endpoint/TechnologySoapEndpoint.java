@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.TechnologyFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.TechnologyFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.TechnologyPortType;
 import com.cezarykluczynski.stapi.server.technology.reader.TechnologySoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class TechnologySoapEndpoint implements TechnologyPortType {

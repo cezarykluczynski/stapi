@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.character.link.processor
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class CharacterLinkWriterTest extends Specification {
@@ -13,10 +14,10 @@ class CharacterLinkWriterTest extends Specification {
 
 	void "does nothing"() {
 		given:
-		List<Character> characterList = Mock()
+		Chunk<Character> characterChunk = Mock()
 
 		when:
-		characterLinkWriter.write(characterList)
+		characterLinkWriter.write(characterChunk)
 
 		then:
 		0 * _

@@ -20,12 +20,8 @@ blocks:
           commands:
             - sem-version java 17
             - checkout --use-cache
-            - ./gradlew test
+            - ./gradlew checkstyleMain spotbugsMain codenarcTest test
             - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
-        - name: 'lint-jvm'
-          commands:
-            - checkout --use-cache
-            - ./gradlew checkstyleMain spotbugsMain codenarcTest
   - name: 'build-frontend'
     dependencies: ["checkout"]
     task:

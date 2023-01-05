@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.model.food.repository.FoodRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class FoodWriterTest extends Specification {
@@ -26,7 +27,7 @@ class FoodWriterTest extends Specification {
 		List<Food> foodList = Lists.newArrayList(food)
 
 		when:
-		foodWriterMock.write(foodList)
+		foodWriterMock.write(new Chunk(foodList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Food) >> { args ->

@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.trading_card.configuration
 
-import com.cezarykluczynski.stapi.server.trading_card.endpoint.TradingCardRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.trading_card.endpoint.TradingCardRestEndpoint
 import com.cezarykluczynski.stapi.server.trading_card.endpoint.TradingCardSoapEndpoint
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardBaseRestMapper
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardBaseSoapMapper
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardFullRestMapper
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class TradingCardConfigurationTest extends Specification {
 

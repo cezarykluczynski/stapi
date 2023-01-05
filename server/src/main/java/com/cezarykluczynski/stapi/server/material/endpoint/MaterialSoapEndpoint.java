@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.MaterialFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.MaterialFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.MaterialPortType;
 import com.cezarykluczynski.stapi.server.material.reader.MaterialSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class MaterialSoapEndpoint implements MaterialPortType {

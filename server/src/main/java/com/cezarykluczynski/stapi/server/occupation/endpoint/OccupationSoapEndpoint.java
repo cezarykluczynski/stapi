@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.OccupationFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.OccupationFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.OccupationPortType;
 import com.cezarykluczynski.stapi.server.occupation.reader.OccupationSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class OccupationSoapEndpoint implements OccupationPortType {

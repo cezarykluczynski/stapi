@@ -5,10 +5,9 @@ import com.cezarykluczynski.stapi.model.common.repository.PageAwareRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import jakarta.persistence.NonUniqueResultException;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.NonUniqueResultException;
 
 import java.util.Optional;
 

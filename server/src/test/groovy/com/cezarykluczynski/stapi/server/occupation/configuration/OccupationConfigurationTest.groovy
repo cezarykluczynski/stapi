@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.occupation.configuration
 
-import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationRestEndpoint
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationSoapEndpoint
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationV2RestEndpoint
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseRestMapper
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationFullRestMapper
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class OccupationConfigurationTest extends Specification {
 

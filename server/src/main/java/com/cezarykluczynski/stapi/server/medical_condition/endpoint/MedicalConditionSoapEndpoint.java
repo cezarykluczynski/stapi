@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionPortType;
 import com.cezarykluczynski.stapi.server.medical_condition.reader.MedicalConditionSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class MedicalConditionSoapEndpoint implements MedicalConditionPortType {

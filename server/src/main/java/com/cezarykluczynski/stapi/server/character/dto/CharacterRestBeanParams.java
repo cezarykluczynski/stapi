@@ -2,8 +2,7 @@ package com.cezarykluczynski.stapi.server.character.dto;
 
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
-
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 
 public class CharacterRestBeanParams extends PageSortBeanParams {
 

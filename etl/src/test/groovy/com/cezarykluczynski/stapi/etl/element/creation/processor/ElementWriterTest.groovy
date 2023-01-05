@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.element.entity.Element
 import com.cezarykluczynski.stapi.model.element.repository.ElementRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class ElementWriterTest extends Specification {
@@ -26,7 +27,7 @@ class ElementWriterTest extends Specification {
 		List<Element> elementList = Lists.newArrayList(element)
 
 		when:
-		elementWriterMock.write(elementList)
+		elementWriterMock.write(new Chunk(elementList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Element) >> { args ->

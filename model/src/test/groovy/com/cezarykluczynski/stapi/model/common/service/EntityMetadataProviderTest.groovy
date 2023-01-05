@@ -6,16 +6,15 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import com.google.common.collect.Sets
+import jakarta.persistence.EntityManager
+import jakarta.persistence.metamodel.EntityType
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.metadata.ClassMetadata
 import org.hibernate.metamodel.spi.MetamodelImplementor
 import org.hibernate.persister.entity.SingleTableEntityPersister
-import org.hibernate.tuple.entity.EntityTuplizer
+import org.hibernate.type.descriptor.java.JavaType
 import spock.lang.Specification
-
-import javax.persistence.EntityManager
-import javax.persistence.metamodel.EntityType
 
 class EntityMetadataProviderTest extends Specification {
 
@@ -39,27 +38,27 @@ class EntityMetadataProviderTest extends Specification {
 		EntityType characterEntityType = Mock()
 		characterEntityType.javaType >> Character
 		SingleTableEntityPersister characterClassMetadata = Mock()
-		EntityTuplizer characterEntityTuplizer = Mock()
-		characterEntityTuplizer.mappedClass >> Character
-		characterClassMetadata.entityTuplizer >> characterEntityTuplizer
+		JavaType characterJavaType = Mock()
+		characterJavaType.javaTypeClass >> Character
+		characterClassMetadata.mappedJavaType >> characterJavaType
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.character.entity.Character', characterClassMetadata)
 		metamodel.entityPersister('com.cezarykluczynski.stapi.model.character.entity.Character') >> characterClassMetadata
 
 		EntityType seriesEntityType = Mock()
 		seriesEntityType.javaType >> Series
 		SingleTableEntityPersister seriesClassMetadata = Mock()
-		EntityTuplizer seriesEntityTuplizer = Mock()
-		seriesEntityTuplizer.mappedClass >> Series
-		seriesClassMetadata.entityTuplizer >> seriesEntityTuplizer
+		JavaType seriesJavaType = Mock()
+		seriesJavaType.javaTypeClass >> Series
+		seriesClassMetadata.mappedJavaType >> seriesJavaType
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
 		metamodel.entityPersister('com.cezarykluczynski.stapi.model.series.entity.Series') >> seriesClassMetadata
 
 		EntityType comicSeriesEntityType = Mock()
 		comicSeriesEntityType.javaType >> ComicSeries
 		SingleTableEntityPersister comicSeriesClassMetadata = Mock()
-		EntityTuplizer comicSeriesEntityTuplizer = Mock()
-		comicSeriesEntityTuplizer.mappedClass >> ComicSeries
-		comicSeriesClassMetadata.entityTuplizer >> comicSeriesEntityTuplizer
+		JavaType comicSeriesJavaType = Mock()
+		comicSeriesJavaType.javaTypeClass >> ComicSeries
+		comicSeriesClassMetadata.mappedJavaType >> comicSeriesJavaType
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries', comicSeriesClassMetadata)
 		metamodel.entityPersister('com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries') >> comicSeriesClassMetadata
 
@@ -82,9 +81,9 @@ class EntityMetadataProviderTest extends Specification {
 		EntityType charSequenceEntityType = Mock()
 		charSequenceEntityType.javaType >> CharSequence
 		SingleTableEntityPersister charSequenceClassMetadata = Mock()
-		EntityTuplizer charSequenceEntityTuplizer = Mock()
-		charSequenceEntityTuplizer.mappedClass >> CharSequence
-		charSequenceClassMetadata.entityTuplizer >> charSequenceEntityTuplizer
+		JavaType charSequenceJavaType = Mock()
+		charSequenceJavaType.javaTypeClass >> CharSequence
+		charSequenceClassMetadata.mappedJavaType >> charSequenceJavaType
 		entities.add(charSequenceEntityType)
 		metamodel.entityPersister('java.lang.CharSequence') >> charSequenceClassMetadata
 

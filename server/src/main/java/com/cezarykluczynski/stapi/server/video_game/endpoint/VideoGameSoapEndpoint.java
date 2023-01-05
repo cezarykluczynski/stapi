@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoGameFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoGameFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoGamePortType;
 import com.cezarykluczynski.stapi.server.video_game.reader.VideoGameSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class VideoGameSoapEndpoint implements VideoGamePortType {

@@ -7,13 +7,13 @@ import com.cezarykluczynski.stapi.server.material.mapper.MaterialBaseRestMapper;
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialFullRestMapper;
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialFullSoapMapper;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Inject;
-import javax.xml.ws.Endpoint;
 
 @Configuration
 public class MaterialConfiguration {

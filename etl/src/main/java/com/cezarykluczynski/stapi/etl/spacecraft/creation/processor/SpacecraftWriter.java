@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.model.spacecraft.repository.SpacecraftRepository;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class SpacecraftWriter implements ItemWriter<Spacecraft> {
 	}
 
 	@Override
-	public void write(List<? extends Spacecraft> items) throws Exception {
+	public void write(Chunk<? extends Spacecraft> items) throws Exception {
 		spacecraftRepository.saveAll(process(items));
 	}
 
-	private List<Spacecraft> process(List<? extends Spacecraft> planetList) {
-		List<Spacecraft> spacecraftListWithoutExtends = fromExtendsListToSpacecraftList(planetList);
+	private List<Spacecraft> process(Chunk<? extends Spacecraft> spacecraftList) {
+		List<Spacecraft> spacecraftListWithoutExtends = fromExtendsListToSpacecraftList(spacecraftList);
 		return filterDuplicates(spacecraftListWithoutExtends);
 	}
 
-	private List<Spacecraft> fromExtendsListToSpacecraftList(List<? extends Spacecraft> planetList) {
-		return planetList
+	private List<Spacecraft> fromExtendsListToSpacecraftList(Chunk<? extends Spacecraft> spacecraftList) {
+		return spacecraftList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Spacecraft) pageAware)
 				.collect(Collectors.toList());

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class VideoReleaseWriter implements ItemWriter<VideoRelease> {
 	}
 
 	@Override
-	public void write(List<? extends VideoRelease> items) throws Exception {
+	public void write(Chunk<? extends VideoRelease> items) throws Exception {
 		videoReleaseRepository.saveAll(process(items));
 	}
 
-	private List<VideoRelease> process(List<? extends VideoRelease> videoReleaseList) {
+	private List<VideoRelease> process(Chunk<? extends VideoRelease> videoReleaseList) {
 		List<VideoRelease> comicsListWithoutExtends = fromExtendsListToVideoReleaseList(videoReleaseList);
 		return filterDuplicates(comicsListWithoutExtends);
 	}
 
-	private List<VideoRelease> fromExtendsListToVideoReleaseList(List<? extends VideoRelease> videoReleases) {
+	private List<VideoRelease> fromExtendsListToVideoReleaseList(Chunk<? extends VideoRelease> videoReleases) {
 		return videoReleases
+				.getItems()
 				.stream()
 				.map(pageAware -> (VideoRelease) pageAware)
 				.collect(Collectors.toList());

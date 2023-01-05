@@ -2,8 +2,11 @@ package com.cezarykluczynski.stapi.model.common.entity
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType
+import com.google.common.collect.Lists
+import jakarta.persistence.Entity
+import jakarta.persistence.ManyToMany
+import jakarta.persistence.OneToMany
 import org.apache.commons.lang3.StringUtils
-import org.assertj.core.util.Lists
 import org.hibernate.annotations.Cache
 import org.reflections.Reflections
 import org.reflections.scanners.FieldAnnotationsScanner
@@ -12,9 +15,6 @@ import org.reflections.scanners.TypeAnnotationsScanner
 import org.reflections.util.ClasspathHelper
 import org.reflections.util.ConfigurationBuilder
 
-import javax.persistence.Entity
-import javax.persistence.ManyToMany
-import javax.persistence.OneToMany
 import java.lang.reflect.Field
 
 @SuppressWarnings(['ThrowRuntimeException'])

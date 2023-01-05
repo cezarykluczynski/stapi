@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.movie.creation.processor
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.movie.repository.MovieRepository
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class MovieWriterTest extends Specification {
@@ -22,7 +23,7 @@ class MovieWriterTest extends Specification {
 		List<Movie> movieList = Lists.newArrayList(movie)
 
 		when:
-		movieWriter.write(movieList)
+		movieWriter.write(new Chunk(movieList))
 
 		then:
 		1 * movieRepositoryMock.saveAll(movieList)

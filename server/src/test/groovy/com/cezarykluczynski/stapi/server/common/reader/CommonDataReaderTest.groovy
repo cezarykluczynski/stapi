@@ -7,9 +7,8 @@ import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachm
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
+import jakarta.ws.rs.core.Response
 import spock.lang.Specification
-
-import javax.ws.rs.core.Response
 
 class CommonDataReaderTest extends Specification {
 

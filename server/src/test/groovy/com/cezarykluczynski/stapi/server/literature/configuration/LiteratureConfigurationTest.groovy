@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.literature.configuration
 
-import com.cezarykluczynski.stapi.server.literature.endpoint.LiteratureRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.literature.endpoint.LiteratureRestEndpoint
 import com.cezarykluczynski.stapi.server.literature.endpoint.LiteratureSoapEndpoint
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureBaseRestMapper
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureBaseSoapMapper
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureFullRestMapper
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class LiteratureConfigurationTest extends Specification {
 

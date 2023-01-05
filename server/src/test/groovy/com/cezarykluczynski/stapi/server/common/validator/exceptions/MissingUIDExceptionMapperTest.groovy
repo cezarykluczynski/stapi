@@ -1,8 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.validator.exceptions
 
+import jakarta.ws.rs.core.Response
 import spock.lang.Specification
-
-import javax.ws.rs.core.Response
 
 class MissingUIDExceptionMapperTest extends Specification {
 

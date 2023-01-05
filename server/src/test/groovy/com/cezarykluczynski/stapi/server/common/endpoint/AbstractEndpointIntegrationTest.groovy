@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.client.api.StapiRestClient
 import com.cezarykluczynski.stapi.client.api.StapiSoapClient
 import com.cezarykluczynski.stapi.server.Application
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification
@@ -29,7 +29,7 @@ abstract class AbstractEndpointIntegrationTest extends Specification {
 	protected StapiRestClient createRestClient() {
 		synchronized (lock) {
 			if (stapiRestClient == null) {
-				stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/", null)
+				stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/")
 			}
 		}
 	}
@@ -37,7 +37,7 @@ abstract class AbstractEndpointIntegrationTest extends Specification {
 	protected StapiSoapClient createSoapClient() {
 		synchronized (lock) {
 			if (stapiSoapClient == null) {
-				stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/", null)
+				stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/")
 			}
 		}
 	}

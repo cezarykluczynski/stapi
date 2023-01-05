@@ -5,23 +5,22 @@ import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
+import com.cezarykluczynski.stapi.server.common.feature_switch.api.FeatureSwitchApi;
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchesDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.github.model.GitHubDTO;
 import com.cezarykluczynski.stapi.server.github.service.GitHubApi;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
-import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi;
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchesDTO;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 @Service
 @Produces(ContentType.APPLICATION_JSON_CHARSET_UTF8)

@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class PerformerSoapEndpoint implements PerformerPortType {

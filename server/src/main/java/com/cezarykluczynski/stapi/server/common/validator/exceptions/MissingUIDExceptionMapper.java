@@ -1,12 +1,11 @@
 package com.cezarykluczynski.stapi.server.common.validator.exceptions;
 
 import com.cezarykluczynski.stapi.util.constant.ContentType;
-
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 @Produces(ContentType.APPLICATION_JSON_CHARSET_UTF8)

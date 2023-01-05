@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.processor.deck
 
 import com.cezarykluczynski.stapi.util.constant.TagName
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import org.jsoup.nodes.Element
 import spock.lang.Specification
 

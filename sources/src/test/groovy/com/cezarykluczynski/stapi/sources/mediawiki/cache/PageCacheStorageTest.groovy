@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.cache
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class PageCacheStorageTest extends Specification {

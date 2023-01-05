@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesPortType;
 import com.cezarykluczynski.stapi.server.magazine_series.reader.MagazineSeriesSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class MagazineSeriesSoapEndpoint implements MagazineSeriesPortType {

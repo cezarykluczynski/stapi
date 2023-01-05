@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class StaffSoapEndpoint implements StaffPortType {

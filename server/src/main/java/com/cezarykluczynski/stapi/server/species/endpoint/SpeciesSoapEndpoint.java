@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class SpeciesSoapEndpoint implements SpeciesPortType {

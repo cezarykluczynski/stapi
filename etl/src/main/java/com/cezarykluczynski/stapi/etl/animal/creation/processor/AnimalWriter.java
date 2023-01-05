@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.animal.repository.AnimalRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,18 @@ public class AnimalWriter implements ItemWriter<Animal> {
 	}
 
 	@Override
-	public void write(List<? extends Animal> items) throws Exception {
+	public void write(Chunk<? extends Animal> items) throws Exception {
 		animalRepository.saveAll(process(items));
 	}
 
-	private List<Animal> process(List<? extends Animal> animalList) {
+	private List<Animal> process(Chunk<? extends Animal> animalList) {
 		List<Animal> animalListWithoutExtends = fromExtendsListToAnimalList(animalList);
 		return filterDuplicates(animalListWithoutExtends);
 	}
 
-	private List<Animal> fromExtendsListToAnimalList(List<? extends Animal> animalList) {
+	private List<Animal> fromExtendsListToAnimalList(Chunk<? extends Animal> animalList) {
 		return animalList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Animal) pageAware)
 				.collect(Collectors.toList());

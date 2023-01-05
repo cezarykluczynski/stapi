@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.literature.creation.processor;
 
-
 import com.cezarykluczynski.stapi.model.literature.entity.Literature;
 import com.cezarykluczynski.stapi.model.literature.repository.LiteratureRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +27,18 @@ public class LiteratureWriter implements ItemWriter<Literature> {
 	}
 
 	@Override
-	public void write(List<? extends Literature> items) throws Exception {
+	public void write(Chunk<? extends Literature> items) throws Exception {
 		literatureRepository.saveAll(process(items));
 	}
 
-	private List<Literature> process(List<? extends Literature> literatureList) {
+	private List<Literature> process(Chunk<? extends Literature> literatureList) {
 		List<Literature> literatureListWithoutExtends = fromExtendsListToLiteratureList(literatureList);
 		return filterDuplicates(literatureListWithoutExtends);
 	}
 
-	private List<Literature> fromExtendsListToLiteratureList(List<? extends Literature> literatureList) {
+	private List<Literature> fromExtendsListToLiteratureList(Chunk<? extends Literature> literatureList) {
 		return literatureList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Literature) pageAware)
 				.collect(Collectors.toList());

@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.location.creation.processor;
 
-
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +27,18 @@ public class LocationWriter implements ItemWriter<Location> {
 	}
 
 	@Override
-	public void write(List<? extends Location> items) throws Exception {
+	public void write(Chunk<? extends Location> items) throws Exception {
 		locationRepository.saveAll(process(items));
 	}
 
-	private List<Location> process(List<? extends Location> locationList) {
+	private List<Location> process(Chunk<? extends Location> locationList) {
 		List<Location> locationListWithoutExtends = fromExtendsListToLocationList(locationList);
 		return filterDuplicates(locationListWithoutExtends);
 	}
 
-	private List<Location> fromExtendsListToLocationList(List<? extends Location> locationList) {
+	private List<Location> fromExtendsListToLocationList(Chunk<? extends Location> locationList) {
 		return locationList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Location) pageAware)
 				.collect(Collectors.toList());

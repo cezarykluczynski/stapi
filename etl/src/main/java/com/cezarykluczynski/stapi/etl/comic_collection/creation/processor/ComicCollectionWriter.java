@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comic_collection.repository.ComicCollectionRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class ComicCollectionWriter implements ItemWriter<ComicCollection> {
 	}
 
 	@Override
-	public void write(List<? extends ComicCollection> items) throws Exception {
+	public void write(Chunk<? extends ComicCollection> items) throws Exception {
 		comicCollectionRepository.saveAll(process(items));
 	}
 
-	private List<ComicCollection> process(List<? extends ComicCollection> comicCollectionList) {
+	private List<ComicCollection> process(Chunk<? extends ComicCollection> comicCollectionList) {
 		List<ComicCollection> comicCollectionListWithoutExtends = fromExtendsListToComicCollectionList(comicCollectionList);
 		return filterDuplicates(comicCollectionListWithoutExtends);
 	}
 
-	private List<ComicCollection> fromExtendsListToComicCollectionList(List<? extends ComicCollection> comicCollectionList) {
+	private List<ComicCollection> fromExtendsListToComicCollectionList(Chunk<? extends ComicCollection> comicCollectionList) {
 		return comicCollectionList
+				.getItems()
 				.stream()
 				.map(pageAware -> (ComicCollection) pageAware)
 				.collect(Collectors.toList());

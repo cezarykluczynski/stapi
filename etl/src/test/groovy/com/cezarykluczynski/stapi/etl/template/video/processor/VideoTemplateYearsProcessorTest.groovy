@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Yearlin
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class VideoTemplateYearsProcessorTest extends Specification {

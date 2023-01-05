@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.server
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.model.step.SimpleStep
 import com.google.common.collect.Lists
+import jakarta.persistence.EntityManager
+import jakarta.transaction.Transactional
 import liquibase.integration.spring.SpringLiquibase
 import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
@@ -16,9 +18,7 @@ import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
 
 import javax.inject.Inject
-import javax.persistence.EntityManager
 import javax.sql.DataSource
-import javax.transaction.Transactional
 
 class StaticJobCompletenessDecider {
 
@@ -107,8 +107,8 @@ class StaticJobCompletenessDecider {
 				.run(
 						'--server.port=8543',
 						'--spring.profiles.active=default,stapi-custom',
-						'--etl.enabled=false',
-						'--liquibase.enabled=false'
+						'--spring.batch.job.enabled=false',
+						'--spring.liquibase.enabled=false'
 				)
 	}
 

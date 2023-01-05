@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
 import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort as SoapResponseSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponseSortDirectionEnum
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class SortMapperTest extends Specification {

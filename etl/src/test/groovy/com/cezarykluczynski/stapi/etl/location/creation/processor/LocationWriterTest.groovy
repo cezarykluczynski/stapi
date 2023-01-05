@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.model.location.repository.LocationRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class LocationWriterTest extends Specification {
@@ -26,7 +27,7 @@ class LocationWriterTest extends Specification {
 		List<Location> locationList = Lists.newArrayList(location)
 
 		when:
-		locationWriterMock.write(locationList)
+		locationWriterMock.write(new Chunk(locationList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Location) >> { args ->

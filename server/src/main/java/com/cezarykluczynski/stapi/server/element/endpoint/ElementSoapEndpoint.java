@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.ElementFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.ElementFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.ElementPortType;
 import com.cezarykluczynski.stapi.server.element.reader.ElementSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class ElementSoapEndpoint implements ElementPortType {

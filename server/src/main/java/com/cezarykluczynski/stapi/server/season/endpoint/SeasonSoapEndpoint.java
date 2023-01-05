@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeasonFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SeasonFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.SeasonPortType;
 import com.cezarykluczynski.stapi.server.season.reader.SeasonSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class SeasonSoapEndpoint implements SeasonPortType {

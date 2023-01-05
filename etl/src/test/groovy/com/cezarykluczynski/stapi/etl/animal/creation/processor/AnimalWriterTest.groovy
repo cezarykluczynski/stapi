@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.animal.entity.Animal
 import com.cezarykluczynski.stapi.model.animal.repository.AnimalRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class AnimalWriterTest extends Specification {
@@ -26,7 +27,7 @@ class AnimalWriterTest extends Specification {
 		List<Animal> animalList = Lists.newArrayList(animal)
 
 		when:
-		animalWriterMock.write(animalList)
+		animalWriterMock.write(new Chunk(animalList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Animal) >> { args ->

@@ -7,10 +7,9 @@ import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseSoapMapper
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullRestMapper
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class ComicsConfigurationTest extends Specification {
 

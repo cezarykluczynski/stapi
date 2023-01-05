@@ -5,6 +5,10 @@ import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.NodeList
 import com.github.javaparser.ast.expr.NormalAnnotationExpr
 import com.google.common.collect.Sets
+import jakarta.persistence.Entity
+import jakarta.persistence.ManyToMany
+import jakarta.persistence.OneToMany
+import jakarta.persistence.OneToOne
 import org.apache.commons.lang3.StringUtils
 import org.reflections.Reflections
 import org.reflections.scanners.FieldAnnotationsScanner
@@ -13,10 +17,6 @@ import org.reflections.scanners.TypeAnnotationsScanner
 import org.reflections.util.ClasspathHelper
 import org.reflections.util.ConfigurationBuilder
 
-import javax.persistence.Entity
-import javax.persistence.ManyToMany
-import javax.persistence.OneToMany
-import javax.persistence.OneToOne
 import java.lang.reflect.Field
 import java.util.stream.Collectors
 

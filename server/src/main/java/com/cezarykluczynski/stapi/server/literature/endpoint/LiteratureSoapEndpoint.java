@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.LiteratureFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.LiteratureFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.LiteraturePortType;
 import com.cezarykluczynski.stapi.server.literature.reader.LiteratureSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class LiteratureSoapEndpoint implements LiteraturePortType {

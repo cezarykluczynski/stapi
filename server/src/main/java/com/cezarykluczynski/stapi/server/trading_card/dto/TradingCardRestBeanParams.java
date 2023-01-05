@@ -1,8 +1,7 @@
 package com.cezarykluczynski.stapi.server.trading_card.dto;
 
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
-
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 
 public class TradingCardRestBeanParams extends PageSortBeanParams {
 

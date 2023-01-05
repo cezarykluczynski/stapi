@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class CharacterSoapEndpoint implements CharacterPortType {

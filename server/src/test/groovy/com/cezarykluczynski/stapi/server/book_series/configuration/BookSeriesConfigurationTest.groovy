@@ -7,10 +7,9 @@ import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesBaseSoapMa
 import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class BookSeriesConfigurationTest extends Specification {
 

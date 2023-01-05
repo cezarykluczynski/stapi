@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
 import com.cezarykluczynski.stapi.server.organization.reader.OrganizationSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class OrganizationSoapEndpoint implements OrganizationPortType {

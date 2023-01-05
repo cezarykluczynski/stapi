@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.video_release.configuration
 
-import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseRestEndpoint
 import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseSoapEndpoint
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseBaseRestMapper
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseBaseSoapMapper
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseFullRestMapper
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class VideoReleaseConfigurationTest extends Specification {
 

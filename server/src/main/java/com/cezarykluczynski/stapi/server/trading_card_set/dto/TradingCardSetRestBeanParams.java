@@ -2,8 +2,7 @@ package com.cezarykluczynski.stapi.server.trading_card_set.dto;
 
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
-
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 
 public class TradingCardSetRestBeanParams extends PageSortBeanParams {
 

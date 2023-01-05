@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalO
 import com.cezarykluczynski.stapi.model.astronomical_object.repository.AstronomicalObjectRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class AstronomicalObjectWriter implements ItemWriter<AstronomicalObject> 
 	}
 
 	@Override
-	public void write(List<? extends AstronomicalObject> items) throws Exception {
+	public void write(Chunk<? extends AstronomicalObject> items) throws Exception {
 		astronomicalObjectRepository.saveAll(process(items));
 	}
 
-	private List<AstronomicalObject> process(List<? extends AstronomicalObject> planetList) {
-		List<AstronomicalObject> astronomicalObjectListWithoutExtends = fromExtendsListToAstronomicalObjectList(planetList);
+	private List<AstronomicalObject> process(Chunk<? extends AstronomicalObject> astronomicalObjectList) {
+		List<AstronomicalObject> astronomicalObjectListWithoutExtends = fromExtendsListToAstronomicalObjectList(astronomicalObjectList);
 		return filterDuplicates(astronomicalObjectListWithoutExtends);
 	}
 
-	private List<AstronomicalObject> fromExtendsListToAstronomicalObjectList(List<? extends AstronomicalObject> planetList) {
-		return planetList
+	private List<AstronomicalObject> fromExtendsListToAstronomicalObjectList(Chunk<? extends AstronomicalObject> astronomicalObjectList) {
+		return astronomicalObjectList
+				.getItems()
 				.stream()
 				.map(pageAware -> (AstronomicalObject) pageAware)
 				.collect(Collectors.toList());

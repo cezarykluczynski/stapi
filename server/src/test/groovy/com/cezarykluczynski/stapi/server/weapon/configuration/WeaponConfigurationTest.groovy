@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.weapon.configuration
 
-import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponRestEndpoint
 import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponSoapEndpoint
 import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponV2RestEndpoint
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponBaseRestMapper
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponBaseSoapMapper
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponFullRestMapper
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class WeaponConfigurationTest extends Specification {
 

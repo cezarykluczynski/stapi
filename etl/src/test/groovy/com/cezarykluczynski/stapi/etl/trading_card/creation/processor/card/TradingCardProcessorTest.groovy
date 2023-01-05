@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard
 import com.cezarykluczynski.stapi.util.constant.AttributeName
 import com.cezarykluczynski.stapi.util.constant.TagName
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import org.jsoup.nodes.Element
 import spock.lang.Specification
 

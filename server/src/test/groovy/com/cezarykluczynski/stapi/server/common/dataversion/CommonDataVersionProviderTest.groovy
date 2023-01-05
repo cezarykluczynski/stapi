@@ -11,6 +11,9 @@ import org.springframework.context.ApplicationContext
 import org.springframework.core.env.Environment
 import spock.lang.Specification
 
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+
 class CommonDataVersionProviderTest extends Specification {
 
 	private static final String DATA_VERSION = 'DATA_VERSION'
@@ -57,8 +60,8 @@ class CommonDataVersionProviderTest extends Specification {
 		StepExecution stepExecutionLater = new StepExecution('2', null)
 		stepExecutionEarlier.setStatus(BatchStatus.COMPLETED)
 		stepExecutionLater.setStatus(BatchStatus.COMPLETED)
-		stepExecutionEarlier.setEndTime(new Date(1550000000000))
-		stepExecutionLater.setEndTime(new Date(1650000000000))
+		stepExecutionEarlier.setEndTime(LocalDateTime.ofEpochSecond(1550000000L, 0, ZoneOffset.UTC))
+		stepExecutionLater.setEndTime(LocalDateTime.ofEpochSecond(1650000000L, 0, ZoneOffset.UTC))
 
 		when:
 		DataVersionDTO dataVersionDTO = commonDataVersionProvider.provide()

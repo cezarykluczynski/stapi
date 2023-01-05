@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.material.entity.Material
 import com.cezarykluczynski.stapi.model.material.repository.MaterialRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class MaterialWriterTest extends Specification {
@@ -26,7 +27,7 @@ class MaterialWriterTest extends Specification {
 		List<Material> materialList = Lists.newArrayList(material)
 
 		when:
-		materialWriterMock.write(materialList)
+		materialWriterMock.write(new Chunk(materialList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Material) >> { args ->

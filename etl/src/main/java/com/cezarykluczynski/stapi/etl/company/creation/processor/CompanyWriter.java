@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.company.creation.processor;
 
-
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +24,18 @@ public class CompanyWriter implements ItemWriter<Company> {
 	}
 
 	@Override
-	public void write(List<? extends Company> items) throws Exception {
+	public void write(Chunk<? extends Company> items) throws Exception {
 		companyRepository.saveAll(process(items));
 	}
 
-	private List<Company> process(List<? extends Company> companyList) {
+	private List<Company> process(Chunk<? extends Company> companyList) {
 		List<Company> companyListWithoutExtends = fromExtendsListToCompanyList(companyList);
 		return filterDuplicates(companyListWithoutExtends);
 	}
 
-	private List<Company> fromExtendsListToCompanyList(List<? extends Company> companyList) {
+	private List<Company> fromExtendsListToCompanyList(Chunk<? extends Company> companyList) {
 		return companyList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Company) pageAware)
 				.collect(Collectors.toList());

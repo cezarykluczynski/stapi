@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.model.weapon.repository.WeaponRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class WeaponWriterTest extends Specification {
@@ -26,7 +27,7 @@ class WeaponWriterTest extends Specification {
 		List<Weapon> weaponList = Lists.newArrayList(weapon)
 
 		when:
-		weaponWriterMock.write(weaponList)
+		weaponWriterMock.write(new Chunk(weaponList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Weapon) >> { args ->

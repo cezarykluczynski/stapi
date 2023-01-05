@@ -2,11 +2,10 @@ package com.cezarykluczynski.stapi.server.common.documentation.service;
 
 import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import java.io.File;
 

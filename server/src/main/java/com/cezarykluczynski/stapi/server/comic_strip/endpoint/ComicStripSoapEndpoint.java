@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripPortType;
 import com.cezarykluczynski.stapi.server.comic_strip.reader.ComicStripSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class ComicStripSoapEndpoint implements ComicStripPortType {

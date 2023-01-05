@@ -8,11 +8,10 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
 import com.cezarykluczynski.stapi.server.github.model.GitHubDTO
 import com.cezarykluczynski.stapi.server.github.service.GitHubApi
-import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchesDTO
+import com.cezarykluczynski.stapi.server.common.feature_switch.api.FeatureSwitchApi
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchesDTO
+import jakarta.ws.rs.core.Response
 import spock.lang.Specification
-
-import javax.ws.rs.core.Response
 
 class CommonRestEndpointTest extends Specification {
 
@@ -33,7 +32,7 @@ class CommonRestEndpointTest extends Specification {
 
 	void "gets feature switches"() {
 		given:
-		FeatureSwitchesDTO featureSwitchesDTO = Mock()
+		FeatureSwitchesDTO featureSwitchesDTO = FeatureSwitchesDTO.of([])
 
 		when:
 		FeatureSwitchesDTO featureSwitchesDTOOutput = commonRestEndpoint.featureSwitches()

@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.model.common.query
 
-import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
@@ -10,33 +9,34 @@ import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
+import jakarta.persistence.EntityManager
+import jakarta.persistence.TypedQuery
+import jakarta.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaQuery
+import jakarta.persistence.criteria.Expression
+import jakarta.persistence.criteria.Fetch
+import jakarta.persistence.criteria.JoinType
+import jakarta.persistence.criteria.Order
+import jakarta.persistence.criteria.Path
+import jakarta.persistence.criteria.Predicate
+import jakarta.persistence.criteria.Root
+import jakarta.persistence.metamodel.Attribute
+import jakarta.persistence.metamodel.EntityType
+import jakarta.persistence.metamodel.Metamodel
+import jakarta.persistence.metamodel.SetAttribute
+import jakarta.persistence.metamodel.SingularAttribute
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
 
-import javax.persistence.EntityManager
-import javax.persistence.TypedQuery
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.Expression
-import javax.persistence.criteria.Fetch
-import javax.persistence.criteria.JoinType
-import javax.persistence.criteria.Order
-import javax.persistence.criteria.Path
-import javax.persistence.criteria.Predicate
-import javax.persistence.criteria.Root
-import javax.persistence.metamodel.Attribute
-import javax.persistence.metamodel.EntityType
-import javax.persistence.metamodel.Metamodel
-import javax.persistence.metamodel.SetAttribute
-import javax.persistence.metamodel.SingularAttribute
 import java.time.LocalDate
 
 class QueryBuilderTest extends Specification {
 
 	private static final String VALID_VALUE_STRING = 'valid_value_string'
 	private static final String VALID_VALUE_STRING_UPPER_CASE = 'VALID_VALUE_STRING'
+	private static final String UID = 'UID123'
 	private static final Boolean VALID_VALUE_BOOLEAN = RandomUtil.nextBoolean()
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
@@ -50,8 +50,8 @@ class QueryBuilderTest extends Specification {
 	private static final Long VALID_VALUE_LONG = 5L
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
 	private static final Gender VALID_VALUE_GENDER = Gender.F
-	private static final Integer PAGE_SIZE = 50
-	private static final Integer PAGE_NUMBER = 5
+	private static final Integer PAGE_SIZE = 5
+	private static final Integer PAGE_NUMBER = 0
 	private static final Integer FIRST_RESULT = PAGE_SIZE * PAGE_NUMBER
 	private static final String REQUEST_ORDER_CLAUSE_NAME_1 = 'REQUEST_ORDER_CLAUSE_NAME_1'
 	private static final String REQUEST_ORDER_CLAUSE_NAME_2 = 'REQUEST_ORDER_CLAUSE_NAME_2'
@@ -60,8 +60,8 @@ class QueryBuilderTest extends Specification {
 	private static final RequestSortDirectionDTO REQUEST_SORT_DIRECTION_3 = RequestSortDirectionDTO.DESC
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
-	private static final Boolean CACHEABLE = RandomUtil.nextBoolean()
 	private final SingularAttribute<?, String> validKeyString = Mock()
+	private final SingularAttribute<?, String> uidKeyString = Mock()
 	private final SingularAttribute<?, String> validKeyString2 = Mock()
 	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock()
 	private final SingularAttribute<?, Long> validKeyLong = Mock()
@@ -109,11 +109,13 @@ class QueryBuilderTest extends Specification {
 
 	private CriteriaBuilder criteriaBuilder
 
+	private CriteriaBuilder countCriteriaBuilder
+
 	private EntityManager entityManager
 
-	private CachingStrategy cachingStrategy
-
 	private Root<Series> baseRoot
+
+	private Root<Series> countBaseRoot
 
 	private Fetch<?, ?> fetch
 
@@ -139,15 +141,18 @@ class QueryBuilderTest extends Specification {
 
 	private Path path
 
+	private Path uid
+
 	private Long count
 
 	void setup() {
 		baseCriteriaQuery = Mock()
 		countCriteriaQuery = Mock()
 		criteriaBuilder = Mock()
+		countCriteriaBuilder = Mock()
 		entityManager = Mock()
-		cachingStrategy = Mock()
 		baseRoot = Mock()
+		countBaseRoot = Mock()
 		fetch = Mock()
 		countExpression = Mock()
 		metamodel = Mock()
@@ -191,24 +196,32 @@ class QueryBuilderTest extends Specification {
 		predicate = Mock()
 		baseTypedQuery = Mock()
 		countTypedQuery = Mock()
-		baseEntityList = Lists.newArrayList()
+		Series series1 = Mock()
+		Series series2 = Mock()
+		Series series3 = Mock()
+		Series series4 = Mock()
+		Series series5 = Mock()
+		Series series6 = Mock()
+		baseEntityList = Lists.newArrayList(series1, series2, series3, series4, series5, series6)
 		path = Mock()
+		uid = Mock()
 		count = 7L
 	}
 
 	@SuppressWarnings('ExplicitCallToAndMethod')
 	void "query builder is created, preconditions are added, then search is performed"() {
 		when: 'query builder is create'
-		queryBuilder = new QueryBuilder<>(entityManager, cachingStrategy, baseClass, pageable)
+		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
 
 		then: 'query builder is configured'
 		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
+		1 * entityManager.getCriteriaBuilder() >> countCriteriaBuilder
 		1 * criteriaBuilder.createQuery(Series) >> baseCriteriaQuery
 		1 * baseCriteriaQuery.from(Series) >> baseRoot
 		1 * baseCriteriaQuery.select(baseRoot)
-		1 * criteriaBuilder.createQuery(Long) >> countCriteriaQuery
-		1 * countCriteriaQuery.from(baseClass)
-		1 * criteriaBuilder.count(baseRoot) >> countExpression
+		1 * countCriteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		1 * countCriteriaQuery.from(baseClass) >> countBaseRoot
+		1 * countCriteriaBuilder.count(countBaseRoot) >> countExpression
 		1 * countCriteriaQuery.select(countExpression)
 		1 * entityManager.getMetamodel() >> metamodel
 		1 * metamodel.entity(baseClass) >> entityType
@@ -228,6 +241,11 @@ class QueryBuilderTest extends Specification {
 		1 * criteriaBuilder.upper(path) >> path
 		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
 
+		and:
+		1 * countBaseRoot.get(validKeyString) >> path
+		1 * countCriteriaBuilder.upper(path) >> path
+		1 * countCriteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
+
 		when: 'valid string key with secondary key is added for like comparison'
 		queryBuilder.like(validKeyString, validKeyString2, VALID_VALUE_STRING)
 
@@ -237,6 +255,12 @@ class QueryBuilderTest extends Specification {
 		1 * criteriaBuilder.upper(path) >> path
 		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
 
+		and:
+		1 * countBaseRoot.get(validKeyString) >> path
+		1 * path.get(validKeyString2) >> path
+		1 * countCriteriaBuilder.upper(path) >> path
+		1 * countCriteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
+
 		when: 'valid string key is added to equal comparison'
 		queryBuilder.equal(validKeyString, VALID_VALUE_STRING)
 
@@ -244,12 +268,20 @@ class QueryBuilderTest extends Specification {
 		1 * baseRoot.get(validKeyString) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_STRING)
 
+		and:
+		1 * countBaseRoot.get(validKeyString) >> path
+		1 * countCriteriaBuilder.equal(path, VALID_VALUE_STRING)
+
 		when: 'valid boolean key is added'
 		queryBuilder.equal(validKeyBoolean, VALID_VALUE_BOOLEAN)
 
 		then: 'right methods are called'
 		1 * baseRoot.get(validKeyBoolean) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_BOOLEAN)
+
+		and:
+		1 * countBaseRoot.get(validKeyBoolean) >> path
+		1 * countCriteriaBuilder.equal(path, VALID_VALUE_BOOLEAN)
 
 		when: 'valid long key is added'
 		queryBuilder.equal(validKeyLong, validKeyLong2, VALID_VALUE_LONG)
@@ -259,6 +291,11 @@ class QueryBuilderTest extends Specification {
 		1 * path.get(validKeyLong2) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_LONG)
 
+		and:
+		1 * countBaseRoot.get(validKeyLong) >> path
+		1 * path.get(validKeyLong2) >> path
+		1 * countCriteriaBuilder.equal(path, VALID_VALUE_LONG)
+
 		when: 'valid long key with secondary key is added'
 		queryBuilder.equal(validKeyLong, VALID_VALUE_LONG)
 
@@ -266,11 +303,18 @@ class QueryBuilderTest extends Specification {
 		1 * baseRoot.get(validKeyLong) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_LONG)
 
+		and:
+		1 * countBaseRoot.get(validKeyLong) >> path
+		1 * countCriteriaBuilder.equal(path, VALID_VALUE_LONG)
+
 		when: 'valid LocalDate range key is added'
 		queryBuilder.between(validKeyLocalDate, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
+
+		and:
+		1 * countCriteriaBuilder.between(_, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'only start LocalDate is specified'
 		queryBuilder.between(validKeyLocalDate, VALID_VALUE_LOCAL_DATE_FROM, null)
@@ -278,11 +322,17 @@ class QueryBuilderTest extends Specification {
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_FROM)
 
+		and:
+		1 * countCriteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_FROM)
+
 		when: 'only end LocalDate is specified'
 		queryBuilder.between(validKeyLocalDate, null, VALID_VALUE_LOCAL_DATE_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_TO)
+
+		and:
+		1 * countCriteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'valid Integer range key is added'
 		queryBuilder.between(validKeyInteger, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
@@ -290,11 +340,17 @@ class QueryBuilderTest extends Specification {
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
 
+		and:
+		1 * countCriteriaBuilder.between(_, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
+
 		when: 'only start Integer is specified'
 		queryBuilder.between(validKeyInteger, VALID_VALUE_INTEGER_FROM, null)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_INTEGER_FROM)
+
+		and:
+		1 * countCriteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_INTEGER_FROM)
 
 		when: 'only end Integer is specified'
 		queryBuilder.between(validKeyInteger, null, VALID_VALUE_INTEGER_TO)
@@ -302,11 +358,17 @@ class QueryBuilderTest extends Specification {
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_INTEGER_TO)
 
+		and:
+		1 * countCriteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_INTEGER_TO)
+
 		when: 'valid Float range key is added'
 		queryBuilder.between(validKeyFloat, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
+
+		and:
+		1 * countCriteriaBuilder.between(_, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
 
 		when: 'only start Float is specified'
 		queryBuilder.between(validKeyFloat, VALID_VALUE_FLOAT_FROM, null)
@@ -314,11 +376,17 @@ class QueryBuilderTest extends Specification {
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_FLOAT_FROM)
 
+		and:
+		1 * countCriteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_FLOAT_FROM)
+
 		when: 'only end Float is specified'
 		queryBuilder.between(validKeyFloat, null, VALID_VALUE_FLOAT_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_FLOAT_TO)
+
+		and:
+		1 * countCriteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_FLOAT_TO)
 
 		when: 'valid Double range key is added'
 		queryBuilder.between(validKeyDouble, VALID_VALUE_DOUBLE_FROM, VALID_VALUE_DOUBLE_TO)
@@ -326,11 +394,17 @@ class QueryBuilderTest extends Specification {
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_DOUBLE_FROM, VALID_VALUE_DOUBLE_TO)
 
+		and:
+		1 * countCriteriaBuilder.between(_, VALID_VALUE_DOUBLE_FROM, VALID_VALUE_DOUBLE_TO)
+
 		when: 'only start Double is specified'
 		queryBuilder.between(validKeyDouble, VALID_VALUE_DOUBLE_FROM, null)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_DOUBLE_FROM)
+
+		and:
+		1 * countCriteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_DOUBLE_FROM)
 
 		when: 'only end Double is specified'
 		queryBuilder.between(validKeyDouble, null, VALID_VALUE_DOUBLE_TO)
@@ -338,12 +412,19 @@ class QueryBuilderTest extends Specification {
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_DOUBLE_TO)
 
+		and:
+		1 * countCriteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_DOUBLE_TO)
+
 		when: 'valid gender key is added'
 		queryBuilder.equal(validKeyGender, VALID_VALUE_GENDER)
 
 		then: 'right methods are called'
 		1 * baseRoot.get(validKeyGender) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_GENDER)
+
+		and:
+		1 * countBaseRoot.get(validKeyGender) >> path
+		1 * countCriteriaBuilder.equal(path, VALID_VALUE_GENDER)
 
 		when: 'join equals key is added'
 		queryBuilder.joinPageIdsIn(Sets.newHashSet(1L))
@@ -460,22 +541,22 @@ class QueryBuilderTest extends Specification {
 		then: 'queries are built'
 		1 * criteriaBuilder.and(_) >> predicate
 		1 * baseCriteriaQuery.where(predicate)
-		1 * countCriteriaQuery.where(predicate)
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
 		1 * pageable.pageSize >> PAGE_SIZE
 		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
-		1 * pageable.pageSize >> PAGE_SIZE
 		1 * pageable.pageNumber >> PAGE_NUMBER
 		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
-		1 * entityManager.createQuery(countCriteriaQuery) >> countTypedQuery
 
 		then: 'cacheable hint is set'
-		1 * cachingStrategy.isCacheable(_) >> CACHEABLE
-		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, CACHEABLE)
-		1 * countTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, CACHEABLE)
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, false)
 
 		then: 'queries are executed'
 		1 * baseTypedQuery.resultList >> baseEntityList
+
+		and: 'count query is executed'
+		1 * countCriteriaBuilder.and(_) >> predicate
+		1 * countCriteriaQuery.where(predicate)
+		1 * entityManager.createQuery(countCriteriaQuery) >> countTypedQuery
 		1 * countTypedQuery.singleResult >> count
 
 		then: 'pageable is not interacted with in PageImpl constructor'
@@ -489,16 +570,17 @@ class QueryBuilderTest extends Specification {
 
 	void "all results are found"() {
 		when: 'query builder is create'
-		queryBuilder = new QueryBuilder<>(entityManager, cachingStrategy, baseClass, pageable)
+		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
 
 		then: 'query builder is configured'
 		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
+		1 * entityManager.getCriteriaBuilder() >> countCriteriaBuilder
 		1 * criteriaBuilder.createQuery(Series) >> baseCriteriaQuery
 		1 * baseCriteriaQuery.from(Series) >> baseRoot
 		1 * baseCriteriaQuery.select(baseRoot)
-		1 * criteriaBuilder.createQuery(Long) >> countCriteriaQuery
-		1 * countCriteriaQuery.from(baseClass)
-		1 * criteriaBuilder.count(baseRoot) >> countExpression
+		1 * countCriteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		1 * countCriteriaQuery.from(baseClass) >> countBaseRoot
+		1 * countCriteriaBuilder.count(countBaseRoot) >> countExpression
 		1 * countCriteriaQuery.select(countExpression)
 		1 * entityManager.getMetamodel() >> metamodel
 		1 * metamodel.entity(baseClass) >> entityType
@@ -530,16 +612,90 @@ class QueryBuilderTest extends Specification {
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
 		1 * pageable.pageSize >> PAGE_SIZE
 		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
-		1 * pageable.pageSize >> PAGE_SIZE
 		1 * pageable.pageNumber >> PAGE_NUMBER
 		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
 
 		then: 'cacheable hint is set'
-		1 * cachingStrategy.isCacheable(_) >> CACHEABLE
-		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, CACHEABLE)
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, false)
 
 		then: 'query is executed'
 		1 * baseTypedQuery.resultList >> baseEntityList
+
+		and: 'count query is executed'
+		1 * entityManager.createQuery(countCriteriaQuery) >> countTypedQuery
+		1 * countTypedQuery.singleResult >> count
+
+		then: 'pageable is not interacted with in PageImpl constructor'
+		1 * pageable.toOptional() >> Optional.empty()
+
+		then: 'all entities are found'
+		seriesList == baseEntityList
+
+		then: 'no other interactions are expected'
+		0 * _
+	}
+
+	@SuppressWarnings('ExplicitCallToAndMethod')
+	void "single result is found"() {
+		when: 'query builder is create'
+		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
+
+		then: 'query builder is configured'
+		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
+		1 * entityManager.getCriteriaBuilder() >> countCriteriaBuilder
+		1 * criteriaBuilder.createQuery(Series) >> baseCriteriaQuery
+		1 * baseCriteriaQuery.from(Series) >> baseRoot
+		1 * baseCriteriaQuery.select(baseRoot)
+		1 * countCriteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		1 * countCriteriaQuery.from(baseClass) >> countBaseRoot
+		1 * countCriteriaBuilder.count(countBaseRoot) >> countExpression
+		1 * countCriteriaQuery.select(countExpression)
+		1 * entityManager.getMetamodel() >> metamodel
+		1 * metamodel.entity(baseClass) >> entityType
+		1 * entityType.attributes >> attributeSet
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'query builder is returned'
+		queryBuilder != null
+
+		when: 'valid string key is added for like comparison'
+		queryBuilder.equal(uidKeyString, UID)
+
+		then: 'right methods are called'
+		1 * baseRoot.get(uidKeyString) >> uid
+		1 * criteriaBuilder.equal(uid, UID)
+
+		and:
+		1 * countBaseRoot.get(uidKeyString) >> uid
+		1 * countCriteriaBuilder.equal(uid, UID)
+
+		then: 'uid is detected'
+		1 * uidKeyString.name >> 'uid'
+
+		when: 'search is performed'
+		List<Series> seriesList = queryBuilder.findAll()
+
+		then:
+		then: 'queries are built'
+		1 * criteriaBuilder.and(_) >> predicate
+		1 * baseCriteriaQuery.where(predicate)
+		1 * baseCriteriaQuery.orderBy([])
+		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
+		1 * pageable.pageSize >> PAGE_SIZE
+		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
+		1 * pageable.pageNumber >> PAGE_NUMBER
+		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
+
+		then: 'cacheable hint is set'
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, true)
+
+		then: 'query is executed'
+		1 * baseTypedQuery.resultList >> baseEntityList
+
+		then: 'pageable is not interacted with in PageImpl constructor'
+		1 * pageable.toOptional() >> Optional.empty()
 
 		then: 'all entities are found'
 		seriesList == baseEntityList

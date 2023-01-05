@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.organization.configuration
 
-import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint
 import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationSoapEndpoint
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullRestMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class OrganizationConfigurationTest extends Specification {
 

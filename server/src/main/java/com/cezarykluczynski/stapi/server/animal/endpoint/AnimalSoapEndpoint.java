@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.AnimalFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.AnimalFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.AnimalPortType;
 import com.cezarykluczynski.stapi.server.animal.reader.AnimalSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class AnimalSoapEndpoint implements AnimalPortType {

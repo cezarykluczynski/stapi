@@ -1,9 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.dto;
 
-
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
-
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 
 public class SpacecraftClassV2RestBeanParams extends PageSortBeanParams {
 

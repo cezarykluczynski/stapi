@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class TitleWriterTest extends Specification {
@@ -26,7 +27,7 @@ class TitleWriterTest extends Specification {
 		List<Title> titleList = Lists.newArrayList(title)
 
 		when:
-		titleWriterMock.write(titleList)
+		titleWriterMock.write(new Chunk(titleList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Title) >> { args ->

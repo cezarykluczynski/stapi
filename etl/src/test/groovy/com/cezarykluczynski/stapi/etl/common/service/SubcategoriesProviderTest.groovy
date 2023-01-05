@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class SubcategoriesProviderTest extends Specification {

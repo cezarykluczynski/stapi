@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.medical_condition.repository.MedicalCond
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,18 @@ public class MedicalConditionWriter implements ItemWriter<MedicalCondition> {
 	}
 
 	@Override
-	public void write(List<? extends MedicalCondition> items) throws Exception {
+	public void write(Chunk<? extends MedicalCondition> items) throws Exception {
 		medicalConditionRepository.saveAll(process(items));
 	}
 
-	private List<MedicalCondition> process(List<? extends MedicalCondition> medicalConditionList) {
+	private List<MedicalCondition> process(Chunk<? extends MedicalCondition> medicalConditionList) {
 		List<MedicalCondition> medicalConditionListWithoutExtends = fromExtendsListToMedicalConditionList(medicalConditionList);
 		return filterDuplicates(medicalConditionListWithoutExtends);
 	}
 
-	private List<MedicalCondition> fromExtendsListToMedicalConditionList(List<? extends MedicalCondition> medicalConditionList) {
+	private List<MedicalCondition> fromExtendsListToMedicalConditionList(Chunk<? extends MedicalCondition> medicalConditionList) {
 		return medicalConditionList
+				.getItems()
 				.stream()
 				.map(pageAware -> (MedicalCondition) pageAware)
 				.collect(Collectors.toList());

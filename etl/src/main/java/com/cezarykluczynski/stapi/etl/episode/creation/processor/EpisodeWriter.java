@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +24,18 @@ public class EpisodeWriter implements ItemWriter<Episode> {
 	}
 
 	@Override
-	public void write(List<? extends Episode> items) throws Exception {
+	public void write(Chunk<? extends Episode> items) throws Exception {
 		episodeRepository.saveAll(process(items));
 	}
 
-	private List<Episode> process(List<? extends Episode> episodeList) {
+	private List<Episode> process(Chunk<? extends Episode> episodeList) {
 		List<Episode> episodeListWithoutExtends = fromExtendsListToEpisodeList(episodeList);
 		return filterDuplicates(episodeListWithoutExtends);
 	}
 
-	private List<Episode> fromExtendsListToEpisodeList(List<? extends Episode> episodeList) {
+	private List<Episode> fromExtendsListToEpisodeList(Chunk<? extends Episode> episodeList) {
 		return episodeList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Episode) pageAware)
 				.collect(Collectors.toList());

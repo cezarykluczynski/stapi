@@ -7,13 +7,13 @@ import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditi
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionFullRestMapper;
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionFullSoapMapper;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Inject;
-import javax.xml.ws.Endpoint;
 
 @Configuration
 public class MedicalConditionConfiguration {

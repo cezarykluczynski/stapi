@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.company.configuration
 
-import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyV2RestEndpoint
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class CompanyConfigurationTest extends Specification {
 

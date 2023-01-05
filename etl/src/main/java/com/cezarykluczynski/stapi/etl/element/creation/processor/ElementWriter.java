@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.element.repository.ElementRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,18 @@ public class ElementWriter implements ItemWriter<Element> {
 	}
 
 	@Override
-	public void write(List<? extends Element> items) throws Exception {
+	public void write(Chunk<? extends Element> items) throws Exception {
 		elementRepository.saveAll(process(items));
 	}
 
-	private List<Element> process(List<? extends Element> elementList) {
+	private List<Element> process(Chunk<? extends Element> elementList) {
 		List<Element> elementListWithoutExtends = fromExtendsListToElementList(elementList);
 		return filterDuplicates(elementListWithoutExtends);
 	}
 
-	private List<Element> fromExtendsListToElementList(List<? extends Element> elementList) {
+	private List<Element> fromExtendsListToElementList(Chunk<? extends Element> elementList) {
 		return elementList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Element) pageAware)
 				.collect(Collectors.toList());

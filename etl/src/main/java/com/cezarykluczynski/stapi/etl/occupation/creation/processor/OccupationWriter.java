@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.occupation.repository.OccupationReposito
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,18 @@ public class OccupationWriter implements ItemWriter<Occupation> {
 	}
 
 	@Override
-	public void write(List<? extends Occupation> items) throws Exception {
+	public void write(Chunk<? extends Occupation> items) throws Exception {
 		occupationRepository.saveAll(process(items));
 	}
 
-	private List<Occupation> process(List<? extends Occupation> occupationList) {
+	private List<Occupation> process(Chunk<? extends Occupation> occupationList) {
 		List<Occupation> occupationListWithoutExtends = fromExtendsListToOccupationList(occupationList);
 		return filterDuplicates(occupationListWithoutExtends);
 	}
 
-	private List<Occupation> fromExtendsListToOccupationList(List<? extends Occupation> occupationList) {
+	private List<Occupation> fromExtendsListToOccupationList(Chunk<? extends Occupation> occupationList) {
 		return occupationList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Occupation) pageAware)
 				.collect(Collectors.toList());

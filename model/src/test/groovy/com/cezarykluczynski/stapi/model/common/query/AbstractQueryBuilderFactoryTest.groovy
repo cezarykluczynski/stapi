@@ -1,24 +1,23 @@
 package com.cezarykluczynski.stapi.model.common.query
 
-import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
-import javax.persistence.EntityManager
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.metamodel.EntityType
-import javax.persistence.metamodel.Metamodel
+import jakarta.persistence.EntityManager
+import jakarta.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaQuery
+import jakarta.persistence.metamodel.EntityType
+import jakarta.persistence.metamodel.Metamodel
 
 class AbstractQueryBuilderFactoryTest extends Specification {
 
 	private static class ConcreteQueryBuilderFactory extends AbstractQueryBuilderFactory<Series> {
 
-		ConcreteQueryBuilderFactory(JpaContext jpaContext, CachingStrategy cachingStrategy) {
-			super(jpaContext, cachingStrategy, Series)
+		ConcreteQueryBuilderFactory(JpaContext jpaContext) {
+			super(jpaContext, Series)
 		}
 
 	}
@@ -26,21 +25,18 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 	private static class ConcreteWithoutBaseClassQueryBuilderFactory extends AbstractQueryBuilderFactory<Series> {
 
 		ConcreteWithoutBaseClassQueryBuilderFactory(JpaContext jpaContext) {
-			super(jpaContext, null, null)
+			super(jpaContext, null)
 		}
 
 	}
 
 	private JpaContext jpaContextMock
 
-	private CachingStrategy cachingStrategyMock
-
 	private AbstractQueryBuilderFactory abstractQueryBuilderFactory
 
 	void setup() {
 		jpaContextMock = Mock()
-		cachingStrategyMock = Mock()
-		abstractQueryBuilderFactory = new ConcreteQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
+		abstractQueryBuilderFactory = new ConcreteQueryBuilderFactory(jpaContextMock)
 	}
 
 	void "QueryBuilderFactory is created"() {
@@ -88,15 +84,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	void "throws exception when JPA context is not set"() {
 		when:
-		new ConcreteQueryBuilderFactory(null, cachingStrategyMock)
-
-		then:
-		thrown(NullPointerException)
-	}
-
-	void "throws exception when CachingStrategy is not set"() {
-		when:
-		new ConcreteQueryBuilderFactory(jpaContextMock, null)
+		new ConcreteQueryBuilderFactory(null)
 
 		then:
 		thrown(NullPointerException)

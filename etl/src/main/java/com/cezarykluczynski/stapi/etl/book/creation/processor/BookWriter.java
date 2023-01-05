@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book.repository.BookRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +24,18 @@ public class BookWriter implements ItemWriter<Book> {
 	}
 
 	@Override
-	public void write(List<? extends Book> items) throws Exception {
+	public void write(Chunk<? extends Book> items) throws Exception {
 		bookRepository.saveAll(process(items));
 	}
 
-	private List<Book> process(List<? extends Book> bookList) {
+	private List<Book> process(Chunk<? extends Book> bookList) {
 		List<Book> bookListWithoutExtends = fromExtendsListToBookList(bookList);
 		return filterDuplicates(bookListWithoutExtends);
 	}
 
-	private List<Book> fromExtendsListToBookList(List<? extends Book> bookList) {
+	private List<Book> fromExtendsListToBookList(Chunk<? extends Book> bookList) {
 		return bookList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Book) pageAware)
 				.collect(Collectors.toList());

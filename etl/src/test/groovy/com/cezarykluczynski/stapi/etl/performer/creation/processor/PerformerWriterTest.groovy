@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.page.service.DuplicateReattachingPreSave
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class PerformerWriterTest extends Specification {
@@ -34,7 +35,7 @@ class PerformerWriterTest extends Specification {
 		List<Performer> seriesList = Lists.newArrayList(performer)
 
 		when:
-		performerWriterMock.write(seriesList)
+		performerWriterMock.write(new Chunk(seriesList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Performer) >> { args ->

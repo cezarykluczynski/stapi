@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.book.configuration
 
+import com.cezarykluczynski.stapi.server.book.endpoint.BookRestEndpoint
 import com.cezarykluczynski.stapi.server.book.endpoint.BookSoapEndpoint
 import com.cezarykluczynski.stapi.server.book.endpoint.BookV2RestEndpoint
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseSoapMapper
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullRestMapper
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullSoapMapper
-import com.cezarykluczynski.stapi.server.book.endpoint.BookRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class BookConfigurationTest extends Specification {
 

@@ -11,12 +11,11 @@ import com.cezarykluczynski.stapi.model.species.repository.SpeciesRepository
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository
 import com.google.common.collect.Maps
+import jakarta.persistence.EntityManager
+import jakarta.persistence.Query
 import org.springframework.data.jpa.repository.JpaContext
 import org.springframework.data.repository.CrudRepository
 import spock.lang.Specification
-
-import javax.persistence.EntityManager
-import javax.persistence.Query
 
 class EntitySizeCountingServiceTest extends Specification {
 
@@ -90,27 +89,27 @@ class EntitySizeCountingServiceTest extends Specification {
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
 		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_references') >> query
-		1 * query.singleResult >> BigInteger.valueOf(11L)
+		1 * query.singleResult >> 11L
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
 		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_ratings') >> query
-		1 * query.singleResult >> BigInteger.valueOf(13L)
+		1 * query.singleResult >> 13L
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
 		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_languages') >> query
-		1 * query.singleResult >> BigInteger.valueOf(17L)
+		1 * query.singleResult >> 17L
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
 		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_languages_sub') >> query
-		1 * query.singleResult >> BigInteger.valueOf(19L)
+		1 * query.singleResult >> 19L
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
 		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_languages_dub') >> query
-		1 * query.singleResult >> BigInteger.valueOf(23L)
+		1 * query.singleResult >> 23L
 
 		and:
 		0 * _

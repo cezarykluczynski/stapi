@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.trading_card_deck.configuration
 
-import com.cezarykluczynski.stapi.server.trading_card_deck.endpoint.TradingCardDeckRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.trading_card_deck.endpoint.TradingCardDeckRestEndpoint
 import com.cezarykluczynski.stapi.server.trading_card_deck.endpoint.TradingCardDeckSoapEndpoint
 import com.cezarykluczynski.stapi.server.trading_card_deck.mapper.TradingCardDeckBaseRestMapper
 import com.cezarykluczynski.stapi.server.trading_card_deck.mapper.TradingCardDeckBaseSoapMapper
 import com.cezarykluczynski.stapi.server.trading_card_deck.mapper.TradingCardDeckFullRestMapper
 import com.cezarykluczynski.stapi.server.trading_card_deck.mapper.TradingCardDeckFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class TradingCardDeckConfigurationTest extends Specification {
 

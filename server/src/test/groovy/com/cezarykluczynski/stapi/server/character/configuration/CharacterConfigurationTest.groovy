@@ -7,10 +7,9 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class CharacterConfigurationTest extends Specification {
 

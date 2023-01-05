@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.MovieFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.server.movie.reader.MovieSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class MovieSoapEndpoint implements MoviePortType {

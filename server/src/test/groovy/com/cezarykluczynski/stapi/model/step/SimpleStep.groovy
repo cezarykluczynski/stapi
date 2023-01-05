@@ -2,15 +2,14 @@ package com.cezarykluczynski.stapi.model.step
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import org.springframework.batch.core.BatchStatus
 import org.springframework.data.repository.CrudRepository
-
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
-import javax.persistence.Id
-import javax.persistence.Table
 
 @Entity(name = 'SimpleStep')
 @Table(schema = 'stapi', name = 'batch_step_execution')

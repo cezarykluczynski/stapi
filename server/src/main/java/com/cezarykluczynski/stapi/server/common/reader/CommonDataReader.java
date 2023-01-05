@@ -7,9 +7,8 @@ import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachm
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
+import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Service;
-
-import javax.ws.rs.core.Response;
 
 @Service
 public class CommonDataReader {

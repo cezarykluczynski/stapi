@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackPortType;
 import com.cezarykluczynski.stapi.server.soundtrack.reader.SoundtrackSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class SoundtrackSoapEndpoint implements SoundtrackPortType {

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection
 import com.cezarykluczynski.stapi.model.comic_collection.repository.ComicCollectionRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class ComicCollectionWriterTest extends Specification {
@@ -26,7 +27,7 @@ class ComicCollectionWriterTest extends Specification {
 		List<ComicCollection> comicCollectionList = Lists.newArrayList(comicCollection)
 
 		when:
-		comicCollectionWriterMock.write(comicCollectionList)
+		comicCollectionWriterMock.write(new Chunk(comicCollectionList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, ComicCollection) >> { args ->

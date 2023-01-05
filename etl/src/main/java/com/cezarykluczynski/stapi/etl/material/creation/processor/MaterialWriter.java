@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.material.repository.MaterialRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,18 @@ public class MaterialWriter implements ItemWriter<Material> {
 	}
 
 	@Override
-	public void write(List<? extends Material> items) throws Exception {
+	public void write(Chunk<? extends Material> items) throws Exception {
 		materialRepository.saveAll(process(items));
 	}
 
-	private List<Material> process(List<? extends Material> materialList) {
+	private List<Material> process(Chunk<? extends Material> materialList) {
 		List<Material> materialListWithoutExtends = fromExtendsListToMaterialList(materialList);
 		return filterDuplicates(materialListWithoutExtends);
 	}
 
-	private List<Material> fromExtendsListToMaterialList(List<? extends Material> materialList) {
+	private List<Material> fromExtendsListToMaterialList(Chunk<? extends Material> materialList) {
 		return materialList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Material) pageAware)
 				.collect(Collectors.toList());

@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.location.configuration
 
-import com.cezarykluczynski.stapi.server.location.endpoint.LocationRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.location.endpoint.LocationRestEndpoint
 import com.cezarykluczynski.stapi.server.location.endpoint.LocationSoapEndpoint
 import com.cezarykluczynski.stapi.server.location.endpoint.LocationV2RestEndpoint
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseRestMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullRestMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class LocationConfigurationTest extends Specification {
 

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame
 import com.cezarykluczynski.stapi.model.video_game.repository.VideoGameRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class VideoGameWriterTest extends Specification {
@@ -26,7 +27,7 @@ class VideoGameWriterTest extends Specification {
 		List<VideoGame> videoGameList = Lists.newArrayList(videoGame)
 
 		when:
-		videoGameWriter.write(videoGameList)
+		videoGameWriter.write(new Chunk(videoGameList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, VideoGame) >> { args ->

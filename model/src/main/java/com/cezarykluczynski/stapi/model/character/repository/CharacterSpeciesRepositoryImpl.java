@@ -5,13 +5,12 @@ import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies_;
 import com.cezarykluczynski.stapi.model.character.query.CharacterSpeciesQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import jakarta.persistence.EntityManager;
 import org.apache.commons.lang3.math.Fraction;
 import org.hibernate.Session;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
 
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class CharacterSpeciesRepositoryImpl implements CharacterSpeciesRepositor
 
 			EntityManager entityManager = jpaContext.getEntityManagerByManagedType(CharacterSpecies.class);
 			Session session = entityManager.unwrap(Session.class);
-			session.save(characterSpecies);
+			session.persist(characterSpecies);
 
 			return characterSpecies;
 		} else {

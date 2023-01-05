@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.food.repository.FoodRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,18 @@ public class FoodWriter implements ItemWriter<Food> {
 	}
 
 	@Override
-	public void write(List<? extends Food> items) throws Exception {
+	public void write(Chunk<? extends Food> items) throws Exception {
 		foodRepository.saveAll(process(items));
 	}
 
-	private List<Food> process(List<? extends Food> foodList) {
+	private List<Food> process(Chunk<? extends Food> foodList) {
 		List<Food> foodListWithoutExtends = fromExtendsListToFoodList(foodList);
 		return filterDuplicates(foodListWithoutExtends);
 	}
 
-	private List<Food> fromExtendsListToFoodList(List<? extends Food> foodList) {
+	private List<Food> fromExtendsListToFoodList(Chunk<? extends Food> foodList) {
 		return foodList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Food) pageAware)
 				.collect(Collectors.toList());

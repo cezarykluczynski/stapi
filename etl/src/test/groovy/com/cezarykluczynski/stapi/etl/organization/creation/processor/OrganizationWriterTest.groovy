@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.organization.repository.OrganizationRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class OrganizationWriterTest extends Specification {
@@ -26,7 +27,7 @@ class OrganizationWriterTest extends Specification {
 		List<Organization> organizationList = Lists.newArrayList(organization)
 
 		when:
-		organizationWriterMock.write(organizationList)
+		organizationWriterMock.write(new Chunk(organizationList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Organization) >> { args ->

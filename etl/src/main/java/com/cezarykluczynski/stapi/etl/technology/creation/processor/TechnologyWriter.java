@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePa
 import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.technology.repository.TechnologyRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,18 @@ public class TechnologyWriter implements ItemWriter<Technology> {
 	}
 
 	@Override
-	public void write(List<? extends Technology> items) throws Exception {
+	public void write(Chunk<? extends Technology> items) throws Exception {
 		technologyRepository.saveAll(process(items));
 	}
 
-	private List<Technology> process(List<? extends Technology> technologyList) {
+	private List<Technology> process(Chunk<? extends Technology> technologyList) {
 		List<Technology> technologyListWithoutExtends = fromExtendsListToTechnologyList(technologyList);
 		return filterDuplicates(technologyListWithoutExtends);
 	}
 
-	private List<Technology> fromExtendsListToTechnologyList(List<? extends Technology> technologyList) {
+	private List<Technology> fromExtendsListToTechnologyList(Chunk<? extends Technology> technologyList) {
 		return technologyList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Technology) pageAware)
 				.collect(Collectors.toList());

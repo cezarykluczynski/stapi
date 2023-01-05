@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.processor
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class SeriesWriterTest extends Specification {
@@ -22,7 +23,7 @@ class SeriesWriterTest extends Specification {
 		List<Series> seriesList = Lists.newArrayList(series)
 
 		when:
-		seriesWriter.write(seriesList)
+		seriesWriter.write(new Chunk(seriesList))
 
 		then:
 		1 * seriesRepositoryMock.saveAll(seriesList)

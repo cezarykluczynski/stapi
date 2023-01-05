@@ -2,6 +2,12 @@ package com.cezarykluczynski.stapi.model.common.statistics.size;
 
 import com.cezarykluczynski.stapi.model.common.service.RepositoryProvider;
 import com.google.common.collect.Lists;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -9,15 +15,7 @@ import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Query;
-
 import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +83,7 @@ class EntitySizeCountingService {
 			final Optional<JoinColumn> inverseJoinColumnOptional = Arrays.stream(joinTable.inverseJoinColumns()).findFirst();
 			if (joinColumnOptional.isPresent() && inverseJoinColumnOptional.isPresent()) {
 				final Query nativeQuery = entityManager.createNativeQuery(String.format("select count(*) from %s.%s", "stapi", joinTable.name()));
-				final long count = ((BigInteger) nativeQuery.getSingleResult()).longValue();
+				final long count = (long) nativeQuery.getSingleResult();
 				manyToManyCount.addAndGet(count);
 			}
 		});

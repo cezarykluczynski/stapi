@@ -6,13 +6,12 @@ import com.cezarykluczynski.stapi.model.character.query.CharacterSpeciesQueryBui
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.google.common.collect.Lists
+import jakarta.persistence.EntityManager
 import org.apache.commons.lang3.math.Fraction
 import org.hibernate.Session
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
-
-import javax.persistence.EntityManager
 
 class CharacterSpeciesRepositoryImplTest extends Specification {
 
@@ -66,12 +65,11 @@ class CharacterSpeciesRepositoryImplTest extends Specification {
 		given:
 		Fraction fraction = Fraction.getFraction(1, 2)
 		Species species = new Species(id: SPECIES_ID)
-		CharacterSpecies characterSpecies = new CharacterSpecies()
 		EntityManager entityManager = Mock()
 		Session session = Mock()
 
 		when:
-		CharacterSpecies characterSpeciesOutput = characterSpeciesRepositoryImpl.findOrCreate(species, fraction)
+		CharacterSpecies characterSpecies = characterSpeciesRepositoryImpl.findOrCreate(species, fraction)
 
 		then:
 		1 * characterSpeciesQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
@@ -86,11 +84,11 @@ class CharacterSpeciesRepositoryImplTest extends Specification {
 		1 * characterSpeciesQueryBuilder.findAll() >> Lists.newArrayList()
 		1 * jpaContextMock.getEntityManagerByManagedType(CharacterSpecies) >> entityManager
 		1 * entityManager.unwrap(Session) >> session
-		1 * session.save(_ as Object) >> characterSpecies
+		1 * session.persist(_ as Object)
 		0 * _
-		characterSpeciesOutput.numerator == NUMERATOR_LONG
-		characterSpeciesOutput.denominator == DENOMINATOR_LONG
-		characterSpeciesOutput.species == species
+		characterSpecies.numerator == NUMERATOR_LONG
+		characterSpecies.denominator == DENOMINATOR_LONG
+		characterSpecies.species == species
 	}
 
 }

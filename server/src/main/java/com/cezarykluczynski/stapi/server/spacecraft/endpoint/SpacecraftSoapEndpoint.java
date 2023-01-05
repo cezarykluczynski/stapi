@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftPortType;
 import com.cezarykluczynski.stapi.server.spacecraft.reader.SpacecraftSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class SpacecraftSoapEndpoint implements SpacecraftPortType {

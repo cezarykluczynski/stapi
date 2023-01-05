@@ -135,7 +135,6 @@ import org.apache.commons.lang3.RandomUtils
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.StepExecutionListener
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.core.step.builder.SimpleStepBuilder
 import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.core.step.tasklet.TaskletStep
@@ -144,18 +143,21 @@ import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.ItemWriter
 import org.springframework.beans.factory.FactoryBean
 import org.springframework.context.ApplicationContext
+import org.springframework.transaction.PlatformTransactionManager
 import spock.lang.Specification
 
 @SuppressWarnings(['MethodCount', 'ClassSize'])
 class EtlJobConfigurationTest extends Specification {
 
-	private static final Integer STEP_SIZE = RandomUtils.nextInt(10, 20)
+	private static final int CHUNK_SIZE = RandomUtils.nextInt(10, 20)
 
 	private JobBuilder jobBuilderMock
 
 	private ApplicationContext applicationContextMock
 
 	private StepBuilderFactory stepBuilderFactoryMock
+
+	private PlatformTransactionManager platformTransactionManagerMock
 
 	private StepsProperties stepsPropertiesMock
 
@@ -181,11 +183,13 @@ class EtlJobConfigurationTest extends Specification {
 		jobBuilderMock = Mock()
 		applicationContextMock = Mock()
 		stepBuilderFactoryMock = Mock()
+		platformTransactionManagerMock = Mock()
 		stepsPropertiesMock = Mock()
 		etlJobConfiguration = new EtlJobConfiguration(
 				jobBuilder: jobBuilderMock,
 				applicationContext: applicationContextMock,
 				stepBuilderFactory: stepBuilderFactoryMock,
+				platformTransactionManager: platformTransactionManagerMock,
 				stepsProperties: stepsPropertiesMock)
 
 		stepBuilderMock = Mock()
@@ -220,8 +224,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createCompanies >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(CompanyReader) >> itemReaderMock
@@ -253,8 +257,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSeries >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SeriesReader) >> itemReaderMock
@@ -286,8 +290,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSeasons >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SeasonReader) >> itemReaderMock
@@ -319,8 +323,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createPerformers >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(PerformerReader) >> itemReaderMock
@@ -352,8 +356,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createStaff >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(StaffReader) >> itemReaderMock
@@ -385,8 +389,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createAstronomicalObjects >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(AstronomicalObjectReader) >> itemReaderMock
@@ -418,8 +422,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSpecies >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SpeciesReader) >> itemReaderMock
@@ -451,8 +455,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createOrganizations >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(OrganizationReader) >> itemReaderMock
@@ -487,8 +491,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createTitles >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(TitleReader) >> itemReaderMock
@@ -522,8 +526,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createOccupations >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(OccupationReader) >> itemReaderMock
@@ -555,8 +559,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createCharacters >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(CharacterReader) >> itemReaderMock
@@ -588,8 +592,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.linkCharacters >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(CharacterLinkReader) >> itemReaderMock
@@ -621,8 +625,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createEpisodes >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(EpisodeReader) >> itemReaderMock
@@ -654,8 +658,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createMovies >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(MovieReader) >> itemReaderMock
@@ -687,8 +691,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.linkAstronomicalObjects >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(AstronomicalObjectLinkReader) >> itemReaderMock
@@ -720,8 +724,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createComicSeries >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ComicSeriesReader) >> itemReaderMock
@@ -753,8 +757,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.linkComicSeries >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ComicSeriesLinkReader) >> itemReaderMock
@@ -786,8 +790,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createComics >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ComicsReader) >> itemReaderMock
@@ -819,8 +823,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createComicStrips >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ComicStripReader) >> itemReaderMock
@@ -852,8 +856,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createComicCollections >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ComicCollectionReader) >> itemReaderMock
@@ -885,8 +889,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createFoods >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(FoodReader) >> itemReaderMock
@@ -918,8 +922,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createLocations >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(LocationReader) >> itemReaderMock
@@ -951,8 +955,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createBookSeries >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(BookSeriesReader) >> itemReaderMock
@@ -984,8 +988,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.linkBookSeries >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(BookSeriesLinkReader) >> itemReaderMock
@@ -1017,8 +1021,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createBooks >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(BookReader) >> itemReaderMock
@@ -1050,8 +1054,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createBookCollections >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(BookCollectionReader) >> itemReaderMock
@@ -1083,8 +1087,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createMagazines >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(MagazineReader) >> itemReaderMock
@@ -1116,8 +1120,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createMagazineSeries >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(MagazineSeriesReader) >> itemReaderMock
@@ -1149,8 +1153,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createLiterature >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(LiteratureReader) >> itemReaderMock
@@ -1182,8 +1186,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createVideoReleases >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(VideoReleaseReader) >> itemReaderMock
@@ -1215,8 +1219,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createTradingCards >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(TradingCardSetReader) >> itemReaderMock
@@ -1248,8 +1252,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createVideoGames >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(VideoGameReader) >> itemReaderMock
@@ -1281,8 +1285,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSoundtracks >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SoundtrackReader) >> itemReaderMock
@@ -1314,8 +1318,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createWeapons >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(WeaponReader) >> itemReaderMock
@@ -1347,8 +1351,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSpacecraftTypes >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SpacecraftTypeReader) >> itemReaderMock
@@ -1380,8 +1384,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSpacecraftClasses >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SpacecraftClassReader) >> itemReaderMock
@@ -1413,8 +1417,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createSpacecrafts >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SpacecraftReader) >> itemReaderMock
@@ -1446,8 +1450,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createMaterials >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(MaterialReader) >> itemReaderMock
@@ -1479,8 +1483,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createConflicts >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ConflictReader) >> itemReaderMock
@@ -1512,8 +1516,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createAnimals >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(AnimalReader) >> itemReaderMock
@@ -1545,8 +1549,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createElements >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(ElementReader) >> itemReaderMock
@@ -1578,8 +1582,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createMedicalConditions >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(MedicalConditionReader) >> itemReaderMock
@@ -1611,8 +1615,8 @@ class EtlJobConfigurationTest extends Specification {
 
 		then: 'commit interval is configured'
 		1 * stepsPropertiesMock.createTechnology >> stepProperties
-		1 * stepProperties.commitInterval >> STEP_SIZE
-		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+		1 * stepProperties.commitInterval >> CHUNK_SIZE
+		1 * stepBuilderMock.chunk(CHUNK_SIZE, platformTransactionManagerMock) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(TechnologyReader) >> itemReaderMock

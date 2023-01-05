@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_class.repository.SpacecraftClassRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class SpacecraftClassWriterTest extends Specification {
@@ -23,17 +24,17 @@ class SpacecraftClassWriterTest extends Specification {
 	void "filters all entities using pre save processor, then writes all entities using repository"() {
 		given:
 		SpacecraftClass planet = new SpacecraftClass()
-		List<SpacecraftClass> planetList = Lists.newArrayList(planet)
+		List<SpacecraftClass> spacecraftClassList = Lists.newArrayList(planet)
 
 		when:
-		planetWriterMock.write(planetList)
+		planetWriterMock.write(new Chunk(spacecraftClassList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, SpacecraftClass) >> { args ->
 			assert args[0][0] == planet
-			planetList
+			spacecraftClassList
 		}
-		1 * planetRepositoryMock.saveAll(planetList)
+		1 * planetRepositoryMock.saveAll(spacecraftClassList)
 		0 * _
 	}
 

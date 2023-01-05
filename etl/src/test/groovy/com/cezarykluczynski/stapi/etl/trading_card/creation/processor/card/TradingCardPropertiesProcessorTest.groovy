@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor.card
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardProperties
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.common.TradingCardItemsProcessor
 import com.cezarykluczynski.stapi.util.constant.TagName
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
 import spock.lang.Specification

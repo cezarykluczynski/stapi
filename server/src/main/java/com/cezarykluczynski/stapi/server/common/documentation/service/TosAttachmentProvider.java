@@ -1,11 +1,10 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
-import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi;
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchType;
+import com.cezarykluczynski.stapi.server.common.feature_switch.api.FeatureSwitchApi;
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchType;
+import jakarta.ws.rs.core.Response;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-
-import javax.ws.rs.core.Response;
 
 @Service
 public class TosAttachmentProvider {

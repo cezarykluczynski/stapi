@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.series.configuration
 
-import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class SeriesConfigurationTest extends Specification {
 

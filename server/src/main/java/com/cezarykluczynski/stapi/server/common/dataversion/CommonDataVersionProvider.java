@@ -12,14 +12,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 
 @Service
 @SuppressFBWarnings("STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE") // false positive
 public class CommonDataVersionProvider {
 
-	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM");
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM");
 
 	private final Environment environment;
 
@@ -47,8 +47,9 @@ public class CommonDataVersionProvider {
 
 		return new DataVersionDTO(allStepExecutionsProvider.provide(JobName.JOB_CREATE).stream()
 				.filter(stepExecution -> BatchStatus.COMPLETED.equals(stepExecution.getStatus()))
+				.filter(stepExecution -> stepExecution.getEndTime() != null)
 				.max(Comparator.comparing(StepExecution::getEndTime))
-				.map(stepExecution -> SIMPLE_DATE_FORMAT.format(stepExecution.getEndTime()))
+				.map(stepExecution -> stepExecution.getEndTime().format(DATE_TIME_FORMATTER))
 				.orElse(null));
 	}
 

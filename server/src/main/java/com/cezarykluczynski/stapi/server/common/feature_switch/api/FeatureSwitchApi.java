@@ -1,13 +1,12 @@
-package com.cezarykluczynski.stapi.util.feature_switch.api;
+package com.cezarykluczynski.stapi.server.common.feature_switch.api;
 
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchDTO;
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchType;
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchesDTO;
 import com.cezarykluczynski.stapi.util.constant.EnvironmentVariable;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchDTO;
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchType;
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchesDTO;
 import com.google.common.collect.Lists;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +14,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class FeatureSwitchApi {
 
 	private final Environment environment;
+
+	public FeatureSwitchApi(Environment environment) {
+		this.environment = environment;
+	}
 
 	public FeatureSwitchesDTO getAll() {
 		final List<FeatureSwitchDTO> featureSwitches = Lists.newArrayList();

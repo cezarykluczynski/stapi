@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.movie.configuration
 
-import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieSoapEndpoint
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class MovieConfigurationTest extends Specification {
 

@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetPortType;
 import com.cezarykluczynski.stapi.server.trading_card_set.reader.TradingCardSetSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class TradingCardSetSoapEndpoint implements TradingCardSetPortType {

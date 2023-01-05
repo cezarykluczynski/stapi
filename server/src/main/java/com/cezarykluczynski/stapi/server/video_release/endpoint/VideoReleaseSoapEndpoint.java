@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
 import com.cezarykluczynski.stapi.server.video_release.reader.VideoReleaseSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class VideoReleaseSoapEndpoint implements VideoReleasePortType {

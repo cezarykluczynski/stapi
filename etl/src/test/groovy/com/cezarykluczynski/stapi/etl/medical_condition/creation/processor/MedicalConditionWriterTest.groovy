@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalConditio
 import com.cezarykluczynski.stapi.model.medical_condition.repository.MedicalConditionRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class MedicalConditionWriterTest extends Specification {
@@ -26,7 +27,7 @@ class MedicalConditionWriterTest extends Specification {
 		List<MedicalCondition> medicalConditionList = Lists.newArrayList(medicalCondition)
 
 		when:
-		medicalConditionWriterMock.write(medicalConditionList)
+		medicalConditionWriterMock.write(new Chunk(medicalConditionList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, MedicalCondition) >> { args ->

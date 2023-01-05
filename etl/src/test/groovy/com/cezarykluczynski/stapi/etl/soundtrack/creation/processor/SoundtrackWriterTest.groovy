@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePa
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack
 import com.cezarykluczynski.stapi.model.soundtrack.repository.SoundtrackRepository
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class SoundtrackWriterTest extends Specification {
@@ -26,7 +27,7 @@ class SoundtrackWriterTest extends Specification {
 		List<Soundtrack> soundtrackList = Lists.newArrayList(soundtrack)
 
 		when:
-		soundtrackWriter.write(soundtrackList)
+		soundtrackWriter.write(new Chunk(soundtrackList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Soundtrack) >> { args ->

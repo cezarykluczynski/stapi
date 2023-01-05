@@ -173,17 +173,19 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.inject.Inject;
 
 @Configuration
 @EnableConfigurationProperties(StepsProperties.class)
+@ConditionalOnProperty(value = "spring.batch.job.enabled", havingValue = "true")
 @SuppressWarnings("MethodCount")
 public class EtlJobConfiguration {
 
@@ -197,6 +199,9 @@ public class EtlJobConfiguration {
 	private StepBuilderFactory stepBuilderFactory;
 
 	@Inject
+	private PlatformTransactionManager platformTransactionManager;
+
+	@Inject
 	private StepsProperties stepsProperties;
 
 	@Bean
@@ -207,7 +212,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_COMPANIES)
 	public Step stepCreateCompanies() {
 		return stepBuilderFactory.get(StepName.CREATE_COMPANIES)
-				.<PageHeader, Company>chunk(stepsProperties.getCreateCompanies().getCommitInterval())
+				.<PageHeader, Company>chunk(stepsProperties.getCreateCompanies().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(CompanyReader.class))
 				.processor(applicationContext.getBean(CompanyProcessor.class))
 				.writer(applicationContext.getBean(CompanyWriter.class))
@@ -220,7 +225,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SERIES)
 	public Step stepCreateSeries() {
 		return stepBuilderFactory.get(StepName.CREATE_SERIES)
-				.<PageHeader, Series>chunk(stepsProperties.getCreateSeries().getCommitInterval())
+				.<PageHeader, Series>chunk(stepsProperties.getCreateSeries().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SeriesReader.class))
 				.processor(applicationContext.getBean(SeriesProcessor.class))
 				.writer(applicationContext.getBean(SeriesWriter.class))
@@ -233,7 +238,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SEASONS)
 	public Step stepCreateSeasons() {
 		return stepBuilderFactory.get(StepName.CREATE_SEASONS)
-				.<PageHeader, Season>chunk(stepsProperties.getCreateSeasons().getCommitInterval())
+				.<PageHeader, Season>chunk(stepsProperties.getCreateSeasons().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SeasonReader.class))
 				.processor(applicationContext.getBean(SeasonProcessor.class))
 				.writer(applicationContext.getBean(SeasonWriter.class))
@@ -246,7 +251,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_PERFORMERS)
 	public Step stepCreatePerformers() {
 		return stepBuilderFactory.get(StepName.CREATE_PERFORMERS)
-				.<PageHeader, Performer>chunk(stepsProperties.getCreatePerformers().getCommitInterval())
+				.<PageHeader, Performer>chunk(stepsProperties.getCreatePerformers().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(PerformerReader.class))
 				.processor(applicationContext.getBean(PerformerProcessor.class))
 				.writer(applicationContext.getBean(PerformerWriter.class))
@@ -259,7 +264,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_STAFF)
 	public Step stepCreateStaff() {
 		return stepBuilderFactory.get(StepName.CREATE_STAFF)
-				.<PageHeader, Staff>chunk(stepsProperties.getCreateStaff().getCommitInterval())
+				.<PageHeader, Staff>chunk(stepsProperties.getCreateStaff().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(StaffReader.class))
 				.processor(applicationContext.getBean(StaffProcessor.class))
 				.writer(applicationContext.getBean(StaffWriter.class))
@@ -272,7 +277,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_ASTRONOMICAL_OBJECTS)
 	public Step stepCreateAstronomicalObject() {
 		return stepBuilderFactory.get(StepName.CREATE_ASTRONOMICAL_OBJECTS)
-				.<PageHeader, AstronomicalObject>chunk(stepsProperties.getCreateAstronomicalObjects().getCommitInterval())
+				.<PageHeader, AstronomicalObject>chunk(stepsProperties.getCreateAstronomicalObjects().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(AstronomicalObjectReader.class))
 				.processor(applicationContext.getBean(AstronomicalObjectProcessor.class))
 				.writer(applicationContext.getBean(AstronomicalObjectWriter.class))
@@ -285,7 +290,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SPECIES)
 	public Step stepCreateSpecies() {
 		return stepBuilderFactory.get(StepName.CREATE_SPECIES)
-				.<PageHeader, Species>chunk(stepsProperties.getCreateSpecies().getCommitInterval())
+				.<PageHeader, Species>chunk(stepsProperties.getCreateSpecies().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SpeciesReader.class))
 				.processor(applicationContext.getBean(SpeciesProcessor.class))
 				.writer(applicationContext.getBean(SpeciesWriter.class))
@@ -299,7 +304,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_ORGANIZATIONS)
 	public Step stepCreateOrganizations() {
 		return stepBuilderFactory.get(StepName.CREATE_ORGANIZATIONS)
-				.<PageHeader, Organization>chunk(stepsProperties.getCreateOrganizations().getCommitInterval())
+				.<PageHeader, Organization>chunk(stepsProperties.getCreateOrganizations().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(OrganizationReader.class))
 				.processor(applicationContext.getBean(OrganizationProcessor.class))
 				.writer(applicationContext.getBean(OrganizationWriter.class))
@@ -312,7 +317,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_TITLES)
 	public Step stepCreateTitles() {
 		return stepBuilderFactory.get(StepName.CREATE_TITLES)
-				.<PageHeader, Title>chunk(stepsProperties.getCreateTitles().getCommitInterval())
+				.<PageHeader, Title>chunk(stepsProperties.getCreateTitles().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(TitleReader.class))
 				.processor(applicationContext.getBean(TitleProcessor.class))
 				.writer(applicationContext.getBean(TitleWriter.class))
@@ -326,7 +331,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_OCCUPATIONS)
 	public Step stepCreateOccupations() {
 		return stepBuilderFactory.get(StepName.CREATE_OCCUPATIONS)
-				.<PageHeader, Occupation>chunk(stepsProperties.getCreateOccupations().getCommitInterval())
+				.<PageHeader, Occupation>chunk(stepsProperties.getCreateOccupations().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(OccupationReader.class))
 				.processor(applicationContext.getBean(OccupationProcessor.class))
 				.writer(applicationContext.getBean(OccupationWriter.class))
@@ -339,7 +344,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_CHARACTERS)
 	public Step stepCreateCharacters() {
 		return stepBuilderFactory.get(StepName.CREATE_CHARACTERS)
-				.<PageHeader, Character>chunk(stepsProperties.getCreateCharacters().getCommitInterval())
+				.<PageHeader, Character>chunk(stepsProperties.getCreateCharacters().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(CharacterReader.class))
 				.processor(applicationContext.getBean(CharacterProcessor.class))
 				.writer(applicationContext.getBean(CharacterWriter.class))
@@ -352,7 +357,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.LINK_CHARACTERS)
 	public Step stepLinkCharacters() {
 		return stepBuilderFactory.get(StepName.LINK_CHARACTERS)
-				.<PageHeader, Character>chunk(stepsProperties.getLinkCharacters().getCommitInterval())
+				.<PageHeader, Character>chunk(stepsProperties.getLinkCharacters().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(CharacterLinkReader.class))
 				.processor(applicationContext.getBean(CharacterLinkProcessor.class))
 				.writer(applicationContext.getBean(CharacterLinkWriter.class))
@@ -365,7 +370,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_EPISODES)
 	public Step stepCreateEpisodes() {
 		return stepBuilderFactory.get(StepName.CREATE_EPISODES)
-				.<PageHeader, Episode>chunk(stepsProperties.getCreateEpisodes().getCommitInterval())
+				.<PageHeader, Episode>chunk(stepsProperties.getCreateEpisodes().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(EpisodeReader.class))
 				.processor(applicationContext.getBean(EpisodeProcessor.class))
 				.writer(applicationContext.getBean(EpisodeWriter.class))
@@ -378,7 +383,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_MOVIES)
 	public Step stepCreateMovies() {
 		return stepBuilderFactory.get(StepName.CREATE_MOVIES)
-				.<PageHeader, Movie>chunk(stepsProperties.getCreateMovies().getCommitInterval())
+				.<PageHeader, Movie>chunk(stepsProperties.getCreateMovies().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(MovieReader.class))
 				.processor(applicationContext.getBean(MovieProcessor.class))
 				.writer(applicationContext.getBean(MovieWriter.class))
@@ -391,7 +396,8 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.LINK_ASTRONOMICAL_OBJECTS)
 	public Step stepLinkAstronomicalObject() {
 		return stepBuilderFactory.get(StepName.LINK_ASTRONOMICAL_OBJECTS)
-				.<AstronomicalObject, AstronomicalObject>chunk(stepsProperties.getLinkAstronomicalObjects().getCommitInterval())
+				.<AstronomicalObject, AstronomicalObject>chunk(stepsProperties.getLinkAstronomicalObjects().getCommitInterval(),
+						platformTransactionManager)
 				.reader(applicationContext.getBean(AstronomicalObjectLinkReader.class))
 				.processor(applicationContext.getBean(AstronomicalObjectLinkProcessor.class))
 				.writer(applicationContext.getBean(AstronomicalObjectWriter.class))
@@ -404,7 +410,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_COMIC_SERIES)
 	public Step stepCreateComicSeries() {
 		return stepBuilderFactory.get(StepName.CREATE_COMIC_SERIES)
-				.<PageHeader, ComicSeries>chunk(stepsProperties.getCreateComicSeries().getCommitInterval())
+				.<PageHeader, ComicSeries>chunk(stepsProperties.getCreateComicSeries().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ComicSeriesReader.class))
 				.processor(applicationContext.getBean(ComicSeriesProcessor.class))
 				.writer(applicationContext.getBean(ComicSeriesWriter.class))
@@ -417,7 +423,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.LINK_COMIC_SERIES)
 	public Step stepLinkComicSeries() {
 		return stepBuilderFactory.get(StepName.LINK_COMIC_SERIES)
-				.<ComicSeries, ComicSeries>chunk(stepsProperties.getLinkComicSeries().getCommitInterval())
+				.<ComicSeries, ComicSeries>chunk(stepsProperties.getLinkComicSeries().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ComicSeriesLinkReader.class))
 				.processor(applicationContext.getBean(ComicSeriesLinkProcessor.class))
 				.writer(applicationContext.getBean(ComicSeriesWriter.class))
@@ -430,7 +436,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_COMICS)
 	public Step stepCreateComics() {
 		return stepBuilderFactory.get(StepName.CREATE_COMICS)
-				.<PageHeader, Comics>chunk(stepsProperties.getCreateComics().getCommitInterval())
+				.<PageHeader, Comics>chunk(stepsProperties.getCreateComics().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ComicsReader.class))
 				.processor(applicationContext.getBean(ComicsProcessor.class))
 				.writer(applicationContext.getBean(ComicsWriter.class))
@@ -443,7 +449,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_COMIC_STRIPS)
 	public Step stepCreateComicStrips() {
 		return stepBuilderFactory.get(StepName.CREATE_COMIC_STRIPS)
-				.<PageHeader, ComicStrip>chunk(stepsProperties.getCreateComicStrips().getCommitInterval())
+				.<PageHeader, ComicStrip>chunk(stepsProperties.getCreateComicStrips().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ComicStripReader.class))
 				.processor(applicationContext.getBean(ComicStripProcessor.class))
 				.writer(applicationContext.getBean(ComicStripWriter.class))
@@ -456,7 +462,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_COMIC_COLLECTIONS)
 	public Step stepCreateComicCollections() {
 		return stepBuilderFactory.get(StepName.CREATE_COMIC_COLLECTIONS)
-				.<PageHeader, ComicCollection>chunk(stepsProperties.getCreateComicCollections().getCommitInterval())
+				.<PageHeader, ComicCollection>chunk(stepsProperties.getCreateComicCollections().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ComicCollectionReader.class))
 				.processor(applicationContext.getBean(ComicCollectionProcessor.class))
 				.writer(applicationContext.getBean(ComicCollectionWriter.class))
@@ -469,7 +475,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_FOODS)
 	public Step stepCreateFoods() {
 		return stepBuilderFactory.get(StepName.CREATE_FOODS)
-				.<PageHeader, Food>chunk(stepsProperties.getCreateFoods().getCommitInterval())
+				.<PageHeader, Food>chunk(stepsProperties.getCreateFoods().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(FoodReader.class))
 				.processor(applicationContext.getBean(FoodProcessor.class))
 				.writer(applicationContext.getBean(FoodWriter.class))
@@ -482,7 +488,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_LOCATIONS)
 	public Step stepCreateLocations() {
 		return stepBuilderFactory.get(StepName.CREATE_LOCATIONS)
-				.<PageHeader, Location>chunk(stepsProperties.getCreateLocations().getCommitInterval())
+				.<PageHeader, Location>chunk(stepsProperties.getCreateLocations().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(LocationReader.class))
 				.processor(applicationContext.getBean(LocationProcessor.class))
 				.writer(applicationContext.getBean(LocationWriter.class))
@@ -495,7 +501,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_BOOK_SERIES)
 	public Step stepCreateBookSeries() {
 		return stepBuilderFactory.get(StepName.CREATE_BOOK_SERIES)
-				.<PageHeader, BookSeries>chunk(stepsProperties.getCreateBookSeries().getCommitInterval())
+				.<PageHeader, BookSeries>chunk(stepsProperties.getCreateBookSeries().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(BookSeriesReader.class))
 				.processor(applicationContext.getBean(BookSeriesProcessor.class))
 				.writer(applicationContext.getBean(BookSeriesWriter.class))
@@ -508,7 +514,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.LINK_BOOK_SERIES)
 	public Step stepLinkBookSeries() {
 		return stepBuilderFactory.get(StepName.LINK_BOOK_SERIES)
-				.<BookSeries, BookSeries>chunk(stepsProperties.getLinkBookSeries().getCommitInterval())
+				.<BookSeries, BookSeries>chunk(stepsProperties.getLinkBookSeries().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(BookSeriesLinkReader.class))
 				.processor(applicationContext.getBean(BookSeriesLinkProcessor.class))
 				.writer(applicationContext.getBean(BookSeriesWriter.class))
@@ -521,7 +527,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_BOOKS)
 	public Step stepCreateBooks() {
 		return stepBuilderFactory.get(StepName.CREATE_BOOKS)
-				.<PageHeader, Book>chunk(stepsProperties.getCreateBooks().getCommitInterval())
+				.<PageHeader, Book>chunk(stepsProperties.getCreateBooks().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(BookReader.class))
 				.processor(applicationContext.getBean(BookProcessor.class))
 				.writer(applicationContext.getBean(BookWriter.class))
@@ -534,7 +540,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_BOOK_COLLECTIONS)
 	public Step stepCreateBookCollections() {
 		return stepBuilderFactory.get(StepName.CREATE_BOOK_COLLECTIONS)
-				.<PageHeader, BookCollection>chunk(stepsProperties.getCreateBookCollections().getCommitInterval())
+				.<PageHeader, BookCollection>chunk(stepsProperties.getCreateBookCollections().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(BookCollectionReader.class))
 				.processor(applicationContext.getBean(BookCollectionProcessor.class))
 				.writer(applicationContext.getBean(BookCollectionWriter.class))
@@ -547,7 +553,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_MAGAZINE_SERIES)
 	public Step stepCreateMagazineSeries() {
 		return stepBuilderFactory.get(StepName.CREATE_MAGAZINE_SERIES)
-				.<PageHeader, MagazineSeries>chunk(stepsProperties.getCreateMagazineSeries().getCommitInterval())
+				.<PageHeader, MagazineSeries>chunk(stepsProperties.getCreateMagazineSeries().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(MagazineSeriesReader.class))
 				.processor(applicationContext.getBean(MagazineSeriesProcessor.class))
 				.writer(applicationContext.getBean(MagazineSeriesWriter.class))
@@ -560,7 +566,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_MAGAZINES)
 	public Step stepCreateMagazines() {
 		return stepBuilderFactory.get(StepName.CREATE_MAGAZINES)
-				.<PageHeader, Magazine>chunk(stepsProperties.getCreateMagazines().getCommitInterval())
+				.<PageHeader, Magazine>chunk(stepsProperties.getCreateMagazines().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(MagazineReader.class))
 				.processor(applicationContext.getBean(MagazineProcessor.class))
 				.writer(applicationContext.getBean(MagazineWriter.class))
@@ -573,7 +579,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_LITERATURE)
 	public Step stepCreateLiterature() {
 		return stepBuilderFactory.get(StepName.CREATE_LITERATURE)
-				.<PageHeader, Literature>chunk(stepsProperties.getCreateLiterature().getCommitInterval())
+				.<PageHeader, Literature>chunk(stepsProperties.getCreateLiterature().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(LiteratureReader.class))
 				.processor(applicationContext.getBean(LiteratureProcessor.class))
 				.writer(applicationContext.getBean(LiteratureWriter.class))
@@ -586,7 +592,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_VIDEO_RELEASES)
 	public Step stepCreateVideoReleases() {
 		return stepBuilderFactory.get(StepName.CREATE_VIDEO_RELEASES)
-				.<PageHeader, VideoRelease>chunk(stepsProperties.getCreateVideoReleases().getCommitInterval())
+				.<PageHeader, VideoRelease>chunk(stepsProperties.getCreateVideoReleases().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(VideoReleaseReader.class))
 				.processor(applicationContext.getBean(VideoReleaseProcessor.class))
 				.writer(applicationContext.getBean(VideoReleaseWriter.class))
@@ -599,7 +605,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_TRADING_CARDS)
 	public Step stepCreateTradingCards() {
 		return stepBuilderFactory.get(StepName.CREATE_TRADING_CARDS)
-				.<Page, TradingCardSet>chunk(stepsProperties.getCreateTradingCards().getCommitInterval())
+				.<Page, TradingCardSet>chunk(stepsProperties.getCreateTradingCards().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(TradingCardSetReader.class))
 				.processor(applicationContext.getBean(TradingCardSetProcessor.class))
 				.writer(applicationContext.getBean(TradingCardSetWriter.class))
@@ -612,7 +618,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_VIDEO_GAMES)
 	public Step stepCreateVideoGames() {
 		return stepBuilderFactory.get(StepName.CREATE_VIDEO_GAMES)
-				.<PageHeader, VideoGame>chunk(stepsProperties.getCreateVideoGames().getCommitInterval())
+				.<PageHeader, VideoGame>chunk(stepsProperties.getCreateVideoGames().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(VideoGameReader.class))
 				.processor(applicationContext.getBean(VideoGameProcessor.class))
 				.writer(applicationContext.getBean(VideoGameWriter.class))
@@ -625,7 +631,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SOUNDTRACKS)
 	public Step stepCreateSoundtracks() {
 		return stepBuilderFactory.get(StepName.CREATE_SOUNDTRACKS)
-				.<PageHeader, Soundtrack>chunk(stepsProperties.getCreateSoundtracks().getCommitInterval())
+				.<PageHeader, Soundtrack>chunk(stepsProperties.getCreateSoundtracks().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SoundtrackReader.class))
 				.processor(applicationContext.getBean(SoundtrackProcessor.class))
 				.writer(applicationContext.getBean(SoundtrackWriter.class))
@@ -638,7 +644,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_WEAPONS)
 	public Step stepCreateWeapons() {
 		return stepBuilderFactory.get(StepName.CREATE_WEAPONS)
-				.<PageHeader, Weapon>chunk(stepsProperties.getCreateWeapons().getCommitInterval())
+				.<PageHeader, Weapon>chunk(stepsProperties.getCreateWeapons().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(WeaponReader.class))
 				.processor(applicationContext.getBean(WeaponProcessor.class))
 				.writer(applicationContext.getBean(WeaponWriter.class))
@@ -651,7 +657,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SPACECRAFT_TYPES)
 	public Step stepCreateSpacecraftTypes() {
 		return stepBuilderFactory.get(StepName.CREATE_SPACECRAFT_TYPES)
-				.<PageHeader, SpacecraftType>chunk(stepsProperties.getCreateSpacecraftTypes().getCommitInterval())
+				.<PageHeader, SpacecraftType>chunk(stepsProperties.getCreateSpacecraftTypes().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SpacecraftTypeReader.class))
 				.processor(applicationContext.getBean(SpacecraftTypeProcessor.class))
 				.writer(applicationContext.getBean(SpacecraftTypeWriter.class))
@@ -664,7 +670,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SPACECRAFT_CLASSES)
 	public Step stepCreateSpacecraftClasses() {
 		return stepBuilderFactory.get(StepName.CREATE_SPACECRAFT_CLASSES)
-				.<PageHeader, SpacecraftClass>chunk(stepsProperties.getCreateSpacecraftClasses().getCommitInterval())
+				.<PageHeader, SpacecraftClass>chunk(stepsProperties.getCreateSpacecraftClasses().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SpacecraftClassReader.class))
 				.processor(applicationContext.getBean(SpacecraftClassProcessor.class))
 				.writer(applicationContext.getBean(SpacecraftClassWriter.class))
@@ -677,7 +683,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SPACECRAFTS)
 	public Step stepCreateSpacecrafts() {
 		return stepBuilderFactory.get(StepName.CREATE_SPACECRAFTS)
-				.<PageHeader, Spacecraft>chunk(stepsProperties.getCreateSpacecrafts().getCommitInterval())
+				.<PageHeader, Spacecraft>chunk(stepsProperties.getCreateSpacecrafts().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(SpacecraftReader.class))
 				.processor(applicationContext.getBean(SpacecraftProcessor.class))
 				.writer(applicationContext.getBean(SpacecraftWriter.class))
@@ -690,7 +696,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_MATERIALS)
 	public Step stepCreateMaterials() {
 		return stepBuilderFactory.get(StepName.CREATE_MATERIALS)
-				.<PageHeader, Material>chunk(stepsProperties.getCreateMaterials().getCommitInterval())
+				.<PageHeader, Material>chunk(stepsProperties.getCreateMaterials().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(MaterialReader.class))
 				.processor(applicationContext.getBean(MaterialProcessor.class))
 				.writer(applicationContext.getBean(MaterialWriter.class))
@@ -703,7 +709,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_CONFLICTS)
 	public Step stepCreateConflicts() {
 		return stepBuilderFactory.get(StepName.CREATE_CONFLICTS)
-				.<PageHeader, Conflict>chunk(stepsProperties.getCreateConflicts().getCommitInterval())
+				.<PageHeader, Conflict>chunk(stepsProperties.getCreateConflicts().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ConflictReader.class))
 				.processor(applicationContext.getBean(ConflictProcessor.class))
 				.writer(applicationContext.getBean(ConflictWriter.class))
@@ -716,7 +722,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_ANIMALS)
 	public Step stepCreateAnimals() {
 		return stepBuilderFactory.get(StepName.CREATE_ANIMALS)
-				.<PageHeader, Animal>chunk(stepsProperties.getCreateAnimals().getCommitInterval())
+				.<PageHeader, Animal>chunk(stepsProperties.getCreateAnimals().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(AnimalReader.class))
 				.processor(applicationContext.getBean(AnimalProcessor.class))
 				.writer(applicationContext.getBean(AnimalWriter.class))
@@ -729,7 +735,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_ELEMENTS)
 	public Step stepCreateElements() {
 		return stepBuilderFactory.get(StepName.CREATE_ELEMENTS)
-				.<PageHeader, Element>chunk(stepsProperties.getCreateElements().getCommitInterval())
+				.<PageHeader, Element>chunk(stepsProperties.getCreateElements().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(ElementReader.class))
 				.processor(applicationContext.getBean(ElementProcessor.class))
 				.writer(applicationContext.getBean(ElementWriter.class))
@@ -742,7 +748,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_MEDICAL_CONDITIONS)
 	public Step stepCreateMedicalConditions() {
 		return stepBuilderFactory.get(StepName.CREATE_MEDICAL_CONDITIONS)
-				.<PageHeader, MedicalCondition>chunk(stepsProperties.getCreateMedicalConditions().getCommitInterval())
+				.<PageHeader, MedicalCondition>chunk(stepsProperties.getCreateMedicalConditions().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(MedicalConditionReader.class))
 				.processor(applicationContext.getBean(MedicalConditionProcessor.class))
 				.writer(applicationContext.getBean(MedicalConditionWriter.class))
@@ -755,7 +761,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_TECHNOLOGY)
 	public Step stepCreateTechnology() {
 		return stepBuilderFactory.get(StepName.CREATE_TECHNOLOGY)
-				.<PageHeader, Technology>chunk(stepsProperties.getCreateTechnology().getCommitInterval())
+				.<PageHeader, Technology>chunk(stepsProperties.getCreateTechnology().getCommitInterval(), platformTransactionManager)
 				.reader(applicationContext.getBean(TechnologyReader.class))
 				.processor(applicationContext.getBean(TechnologyProcessor.class))
 				.writer(applicationContext.getBean(TechnologyWriter.class))

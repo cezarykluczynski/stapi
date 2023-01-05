@@ -2,10 +2,9 @@ package com.cezarykluczynski.stapi.server.common.documentation.service
 
 import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentDTO
 import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO
+import jakarta.ws.rs.core.Response
 import org.springframework.core.io.ClassPathResource
 import spock.lang.Specification
-
-import javax.ws.rs.core.Response
 
 class DocumentationProviderTest extends Specification {
 

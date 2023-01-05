@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.converter;
 
-import javax.ws.rs.ext.ParamConverter;
-import javax.ws.rs.ext.ParamConverterProvider;
+import jakarta.ws.rs.ext.ParamConverter;
+import jakarta.ws.rs.ext.ParamConverterProvider;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;

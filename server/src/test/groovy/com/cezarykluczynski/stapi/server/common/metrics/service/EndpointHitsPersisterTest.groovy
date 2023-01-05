@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository
 import com.cezarykluczynski.stapi.server.common.metrics.factory.EndpointHitFactory
+import com.google.common.collect.Lists
 import com.google.common.collect.Maps
-import org.assertj.core.util.Lists
 import spock.lang.Specification
 
 class EndpointHitsPersisterTest extends Specification {

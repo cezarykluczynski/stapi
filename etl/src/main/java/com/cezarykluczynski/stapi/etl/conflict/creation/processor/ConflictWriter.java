@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import com.cezarykluczynski.stapi.model.conflict.repository.ConflictRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,18 @@ public class ConflictWriter implements ItemWriter<Conflict> {
 	}
 
 	@Override
-	public void write(List<? extends Conflict> items) throws Exception {
+	public void write(Chunk<? extends Conflict> items) throws Exception {
 		conflictRepository.saveAll(process(items));
 	}
 
-	private List<Conflict> process(List<? extends Conflict> planetList) {
-		List<Conflict> conflictListWithoutExtends = fromExtendsListToConflictList(planetList);
+	private List<Conflict> process(Chunk<? extends Conflict> conflictList) {
+		List<Conflict> conflictListWithoutExtends = fromExtendsListToConflictList(conflictList);
 		return filterDuplicates(conflictListWithoutExtends);
 	}
 
-	private List<Conflict> fromExtendsListToConflictList(List<? extends Conflict> planetList) {
-		return planetList
+	private List<Conflict> fromExtendsListToConflictList(Chunk<? extends Conflict> conflictList) {
+		return conflictList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Conflict) pageAware)
 				.collect(Collectors.toList());

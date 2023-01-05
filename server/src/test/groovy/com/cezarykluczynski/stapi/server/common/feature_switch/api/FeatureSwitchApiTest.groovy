@@ -1,9 +1,9 @@
-package com.cezarykluczynski.stapi.util.feature_switch.api
+package com.cezarykluczynski.stapi.server.common.feature_switch.api
 
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchType
+import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchesDTO
 import com.cezarykluczynski.stapi.util.constant.EnvironmentVariable
 import com.cezarykluczynski.stapi.util.constant.SpringProfile
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchType
-import com.cezarykluczynski.stapi.util.feature_switch.dto.FeatureSwitchesDTO
 import org.springframework.core.env.Environment
 import spock.lang.Specification
 

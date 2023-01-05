@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.util
 
+import com.google.common.collect.Sets
 import org.apache.commons.lang3.RandomUtils
-import org.assertj.core.util.Sets
 import spock.lang.Specification
 
 abstract class AbstractTest extends Specification {

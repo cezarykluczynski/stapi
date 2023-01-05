@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePa
 import com.cezarykluczynski.stapi.model.page.service.DuplicateReattachingPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -29,19 +30,20 @@ public class StaffWriter implements ItemWriter<Staff> {
 	}
 
 	@Override
-	public void write(List<? extends Staff> items) throws Exception {
+	public void write(Chunk<? extends Staff> items) throws Exception {
 		staffRepository.saveAll(process(items));
 	}
 
-	private List<Staff> process(List<? extends Staff> performerList) {
-		List<Staff> staffListWithoutExtends = fromExtendsListToStaffList(performerList);
+	private List<Staff> process(Chunk<? extends Staff> staffList) {
+		List<Staff> staffListWithoutExtends = fromExtendsListToStaffList(staffList);
 		List<Staff> staffListWithoutDuplicates = filterDuplicates(staffListWithoutExtends);
 		List<Staff> staffListWithAttachedPages = reattach(staffListWithoutDuplicates);
 		return filterDuplicates(staffListWithAttachedPages);
 	}
 
-	private List<Staff> fromExtendsListToStaffList(List<? extends Staff> performerList) {
-		return performerList
+	private List<Staff> fromExtendsListToStaffList(Chunk<? extends Staff> staffList) {
+		return staffList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Staff) pageAware)
 				.collect(Collectors.toList());

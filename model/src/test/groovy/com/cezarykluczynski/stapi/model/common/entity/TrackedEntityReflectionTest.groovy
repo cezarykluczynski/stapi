@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.entity
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity
+import jakarta.persistence.Entity
 import org.reflections.Reflections
 import org.reflections.scanners.FieldAnnotationsScanner
 import org.reflections.scanners.SubTypesScanner
@@ -8,8 +9,6 @@ import org.reflections.scanners.TypeAnnotationsScanner
 import org.reflections.util.ClasspathHelper
 import org.reflections.util.ConfigurationBuilder
 import spock.lang.Specification
-
-import javax.persistence.Entity
 
 @SuppressWarnings('ThrowRuntimeException')
 class TrackedEntityReflectionTest extends Specification {

@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.configuration
 
-import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassRestEndpoint
 import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassSoapEndpoint
 import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassV2RestEndpoint
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseRestMapper
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseSoapMapper
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassFullRestMapper
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class SpacecraftClassConfigurationTest extends Specification {
 

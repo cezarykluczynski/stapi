@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class CharacterWriterTest extends Specification {
@@ -26,7 +27,7 @@ class CharacterWriterTest extends Specification {
 		List<Character> characterList = Lists.newArrayList(character)
 
 		when:
-		characterWriterMock.write(characterList)
+		characterWriterMock.write(new Chunk(characterList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Character) >> { args ->

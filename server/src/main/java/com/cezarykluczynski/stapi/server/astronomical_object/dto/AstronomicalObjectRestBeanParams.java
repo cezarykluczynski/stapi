@@ -2,8 +2,7 @@ package com.cezarykluczynski.stapi.server.astronomical_object.dto;
 
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
-
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 
 public class AstronomicalObjectRestBeanParams extends PageSortBeanParams {
 

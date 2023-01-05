@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.magazine.entity.Magazine
 import com.cezarykluczynski.stapi.model.magazine.repository.MagazineRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class MagazineWriterTest extends Specification {
@@ -26,7 +27,7 @@ class MagazineWriterTest extends Specification {
 		List<Magazine> magazineList = Lists.newArrayList(magazine)
 
 		when:
-		magazineWriter.write(magazineList)
+		magazineWriter.write(new Chunk(magazineList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Magazine) >> { args ->

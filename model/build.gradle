@@ -4,22 +4,20 @@ plugins {
 
 dependencies {
 	implementation project(':util')
-	implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.9.2'
-	implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: hibernateVersion
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
-	implementation group: 'org.springframework.data', name: 'spring-data-commons', version: springBootVersion
-	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.14.RELEASE'
+	implementation group: 'org.springframework.data', name: 'spring-data-commons', version: springDataVersion
+	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: springDataVersion
 	implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
 	implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
-	implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+	implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: jakartaPersistenceApiVersion
 	implementation group: 'org.postgresql', name: 'postgresql', version:'42.5.1'
 	annotationProcessor group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
 	testImplementation project(':util').sourceSets.test.output
 }
 
 tasks.withType(JavaCompile) {
-	options.compilerArgs += ['-AaddGenerationDate=true']
+	options.compilerArgs += ['-AaddGenerationDate=false']
 }
 

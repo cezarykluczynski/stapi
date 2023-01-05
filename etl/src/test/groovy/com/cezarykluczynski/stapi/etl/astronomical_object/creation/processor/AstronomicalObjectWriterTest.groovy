@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalO
 import com.cezarykluczynski.stapi.model.astronomical_object.repository.AstronomicalObjectRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class AstronomicalObjectWriterTest extends Specification {
@@ -23,17 +24,17 @@ class AstronomicalObjectWriterTest extends Specification {
 	void "filters all entities using pre save processor, then writes all entities using repository"() {
 		given:
 		AstronomicalObject planet = new AstronomicalObject()
-		List<AstronomicalObject> planetList = Lists.newArrayList(planet)
+		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(planet)
 
 		when:
-		planetWriterMock.write(planetList)
+		planetWriterMock.write(new Chunk(astronomicalObjectList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, AstronomicalObject) >> { args ->
 			assert args[0][0] == planet
-			planetList
+			astronomicalObjectList
 		}
-		1 * planetRepositoryMock.saveAll(planetList)
+		1 * planetRepositoryMock.saveAll(astronomicalObjectList)
 		0 * _
 	}
 

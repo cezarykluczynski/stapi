@@ -4,8 +4,9 @@ import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConv
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper;
 import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContainerResponseFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 import com.google.common.collect.Lists;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
@@ -16,7 +17,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.xml.ws.Endpoint;
 
 @Service
 public class EndpointFactory {

@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class SeriesSoapEndpoint implements SeriesPortType {

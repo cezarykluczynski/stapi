@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.species.repository.SpeciesRepository;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +24,18 @@ public class SpeciesWriter implements ItemWriter<Species> {
 	}
 
 	@Override
-	public void write(List<? extends Species> items) throws Exception {
+	public void write(Chunk<? extends Species> items) throws Exception {
 		speciesRepository.saveAll(process(items));
 	}
 
-	private List<Species> process(List<? extends Species> speciesList) {
+	private List<Species> process(Chunk<? extends Species> speciesList) {
 		List<Species> speciesListWithoutExtends = fromExtendsListToSpeciesList(speciesList);
 		return filterDuplicates(speciesListWithoutExtends);
 	}
 
-	private List<Species> fromExtendsListToSpeciesList(List<? extends Species> speciesList) {
+	private List<Species> fromExtendsListToSpeciesList(Chunk<? extends Species> speciesList) {
 		return speciesList
+				.getItems()
 				.stream()
 				.map(pageAware -> (Species) pageAware)
 				.collect(Collectors.toList());

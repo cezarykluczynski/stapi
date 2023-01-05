@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class VideoReleaseWriterTest extends Specification {
@@ -26,7 +27,7 @@ class VideoReleaseWriterTest extends Specification {
 		List<VideoRelease> videoReleaseList = Lists.newArrayList(videoRelease)
 
 		when:
-		videoReleaseWriter.write(videoReleaseList)
+		videoReleaseWriter.write(new Chunk(videoReleaseList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, VideoRelease) >> { args ->

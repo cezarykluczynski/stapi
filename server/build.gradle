@@ -1,21 +1,35 @@
 import groovy.io.FileType
 import org.zeroturnaround.zip.commons.FileUtils
 
+buildscript {
+	repositories {
+		mavenCentral()
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+		maven {
+			url 'https://repo.spring.io/libs-release'
+		}
+	}
+}
+
 plugins {
-	id 'org.springframework.boot'
+	id 'org.springframework.boot' version "$springBootVersion"
 	id 'war'
 }
 
-springBoot {
-	mainClass = "com.cezarykluczynski.stapi.server.Application"
-}
+//springBoot {
+//	mainClass = "com.cezarykluczynski.stapi.server.Application"
+//}
 
 dependencies {
 	implementation project(':util'), project(':contract'), project(':model'), project(':etl'), project(':client')
+	implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
 	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: springBootVersion
+	implementation group: 'jakarta.platform', name: 'jakarta.jakartaee-web-api', version: '10.0.0'
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
 	implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
 	implementation group: 'org.kohsuke', name: 'github-api', version: '1.313'
@@ -24,7 +38,7 @@ dependencies {
 	implementation group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws', version: apacheCxfVersion
 	implementation group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxrs', version: apacheCxfVersion
 	implementation group: 'org.apache.cxf', name: 'cxf-rt-rs-security-cors', version: apacheCxfVersion
-	implementation group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: jacksonVersion
+	implementation group: 'com.fasterxml.jackson.jakarta.rs', name: 'jackson-jakarta-rs-json-provider', version: jacksonVersion
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
 
 	// Utils
@@ -39,6 +53,9 @@ dependencies {
 	implementation group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
 	implementation group: 'com.sun.xml.ws', name: 'jaxws-ri', version: '2.3.5'
 
+	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 	testImplementation project(':util').sourceSets.test.output
 }
 
@@ -167,6 +184,7 @@ class Dockerize extends DefaultTask {
 }
 
 bootWar {
+	mainClass = 'com.cezarykluczynski.stapi.server.Application'
 	archiveFileName = 'stapi.war'
 	dependsOn(copyResources)
 }

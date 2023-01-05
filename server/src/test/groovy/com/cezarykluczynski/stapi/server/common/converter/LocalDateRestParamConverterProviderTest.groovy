@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.common.converter
 
+import jakarta.ws.rs.ext.ParamConverter
 import spock.lang.Specification
 
-import javax.ws.rs.ext.ParamConverter
 import java.lang.annotation.Annotation
 import java.lang.reflect.Type
 import java.time.LocalDate

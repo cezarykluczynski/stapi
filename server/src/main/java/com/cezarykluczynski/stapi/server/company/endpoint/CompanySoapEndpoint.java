@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class CompanySoapEndpoint implements CompanyPortType {

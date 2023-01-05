@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.sources.configuration;
+package com.cezarykluczynski.stapi.server.common.configuration;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -12,13 +12,14 @@ import java.util.Arrays;
 
 @Configuration
 @EnableCaching
-public class SourcesConfiguration {
+public class CacheConfiguration {
 
 	@Bean
-	public CacheManager cacheManager() {
+	public CacheManager pagesCache() {
 		SimpleCacheManager cacheManager = new SimpleCacheManager();
 		Cache pagesCache = new ConcurrentMapCache("pagesCache");
-		cacheManager.setCaches(Arrays.asList(pagesCache));
+		Cache entitiesCache = new ConcurrentMapCache("entitiesCache");
+		cacheManager.setCaches(Arrays.asList(pagesCache, entitiesCache));
 		cacheManager.afterPropertiesSet();
 		return cacheManager;
 	}

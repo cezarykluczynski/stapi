@@ -9,8 +9,8 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
+import com.google.common.collect.Lists
 import com.google.common.collect.Maps
-import org.assertj.core.util.Lists
 import spock.lang.Specification
 
 class EndpointHitsReaderTest extends Specification {

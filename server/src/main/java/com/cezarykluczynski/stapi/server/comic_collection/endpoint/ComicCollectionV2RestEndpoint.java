@@ -4,14 +4,13 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2FullResp
 import com.cezarykluczynski.stapi.server.comic_collection.reader.ComicCollectionV2RestReader;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 
 @Service
 @Produces(ContentType.APPLICATION_JSON_CHARSET_UTF8)

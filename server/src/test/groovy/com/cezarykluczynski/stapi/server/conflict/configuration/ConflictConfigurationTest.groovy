@@ -1,17 +1,16 @@
 package com.cezarykluczynski.stapi.server.conflict.configuration
 
-import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictRestEndpoint
 import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictSoapEndpoint
 import com.cezarykluczynski.stapi.server.conflict.endpoint.ConflictV2RestEndpoint
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictBaseRestMapper
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictBaseSoapMapper
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictFullRestMapper
 import com.cezarykluczynski.stapi.server.conflict.mapper.ConflictFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class ConflictConfigurationTest extends Specification {
 

@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.material.configuration
 
-import com.cezarykluczynski.stapi.server.material.endpoint.MaterialRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.material.endpoint.MaterialRestEndpoint
 import com.cezarykluczynski.stapi.server.material.endpoint.MaterialSoapEndpoint
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialBaseRestMapper
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialBaseSoapMapper
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialFullRestMapper
 import com.cezarykluczynski.stapi.server.material.mapper.MaterialFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class MaterialConfigurationTest extends Specification {
 

@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesPortType;
 import com.cezarykluczynski.stapi.server.book_series.reader.BookSeriesSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class BookSeriesSoapEndpoint implements BookSeriesPortType {

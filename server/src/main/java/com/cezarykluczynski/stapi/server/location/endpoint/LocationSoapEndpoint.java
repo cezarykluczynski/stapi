@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.LocationFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationPortType;
 import com.cezarykluczynski.stapi.server.location.reader.LocationSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class LocationSoapEndpoint implements LocationPortType {

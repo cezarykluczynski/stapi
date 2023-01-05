@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip
 import com.cezarykluczynski.stapi.model.comic_strip.repository.ComicStripRepository
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
+import org.springframework.batch.item.Chunk
 import spock.lang.Specification
 
 class ComicStripWriterTest extends Specification {
@@ -26,7 +27,7 @@ class ComicStripWriterTest extends Specification {
 		List<ComicStrip> comicStripList = Lists.newArrayList(comicStrip)
 
 		when:
-		comicStripWriterMock.write(comicStripList)
+		comicStripWriterMock.write(new Chunk(comicStripList))
 
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, ComicStrip) >> { args ->

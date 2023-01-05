@@ -6,9 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.server.astronomical_object.reader.AstronomicalObjectSoapReader;
+import jakarta.jws.WebParam;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebParam;
 
 @Service
 public class AstronomicalObjectSoapEndpoint implements AstronomicalObjectPortType {

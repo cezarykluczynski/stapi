@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.server.soundtrack.configuration
 
-import com.cezarykluczynski.stapi.server.soundtrack.endpoint.SoundtrackRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import com.cezarykluczynski.stapi.server.soundtrack.endpoint.SoundtrackRestEndpoint
 import com.cezarykluczynski.stapi.server.soundtrack.endpoint.SoundtrackSoapEndpoint
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackBaseRestMapper
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackBaseSoapMapper
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackFullRestMapper
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackFullSoapMapper
+import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
-
-import javax.xml.ws.Endpoint
 
 class SoundtrackConfigurationTest extends Specification {
 

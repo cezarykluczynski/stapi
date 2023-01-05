@@ -7,9 +7,8 @@ import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.google.common.collect.Lists
+import jakarta.persistence.NonUniqueResultException
 import spock.lang.Specification
-
-import javax.persistence.NonUniqueResultException
 
 class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 
