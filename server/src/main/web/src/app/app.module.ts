@@ -1,21 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { AgGridModule } from 'ag-grid-angular/main';
-import * as hljs from 'highlight.js';
-import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
-import { SimpleNotificationsModule } from 'angular2-notifications';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
-declare var $: any;
-
-export function highlightJsFactory() {
-	return hljs;
-}
-
+import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -25,22 +12,21 @@ import { ApiDocumentationComponent } from './api-documentation/api-documentation
 import { ApiDocumentationApi } from './api-documentation/api-documentation-api.service';
 import { ClientsComponent } from './clients/clients.component';
 import { LicensingComponent } from './licensing/licensing.component';
-import { StatisticsComponent } from './statistics/statistics.component';
 import { StatisticsApi } from './statistics/statistics-api.service';
 import { EntityStatisticsCloudComponent } from './statistics/entity-statistics-cloud.component';
-import { EntityHitsGridComponent } from './statistics/entity-hits-grid.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RestApiService } from './rest-api/rest-api.service';
 import { InitializerService } from './initializer/initializer.service';
 import { RestClientFactoryService } from './rest-api/rest-client-factory.service';
-import { WindowReferenceService } from './window-reference/window-reference.service';
 import { InfoComponent } from './info/info.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
 import { LegalComponent } from './legal/legal.component';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
-import { APP_ROUTES } from './app.routes';
+import { AppRoutingModule } from "./app-routing.module";
 
-export function initConfiguration(initializerService: InitializerService): Function {
+import * as $ from 'jquery';
+
+export function initConfiguration(initializerService: InitializerService) {
 	return () => initializerService.init().then(() => {
 		$('.loader').hide();
 	});
@@ -55,27 +41,19 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		ApiDocumentationComponent,
 		ClientsComponent,
 		LicensingComponent,
-		StatisticsComponent,
 		EntityStatisticsCloudComponent,
-		EntityHitsGridComponent,
 		PageNotFoundComponent,
 		InfoComponent,
 		ApiOverviewComponent,
 		LegalComponent
 	],
 	imports: [
-		RouterModule.forRoot(APP_ROUTES),
 		BrowserModule,
 		BrowserAnimationsModule,
+		AppRoutingModule,
 		FormsModule,
 		ReactiveFormsModule,
-		AgGridModule.withComponents([]),
-		HighlightJsModule.forRoot({
-			provide: HIGHLIGHT_JS,
-			useFactory: highlightJsFactory
-		}),
-		SimpleNotificationsModule.forRoot(),
-		NgbModule.forRoot()
+		HighlightModule
 	],
 	providers: [
 		{
@@ -84,15 +62,25 @@ export function initConfiguration(initializerService: InitializerService): Funct
 			multi: true,
 			deps: [InitializerService]
 		},
+		{
+			provide: HIGHLIGHT_OPTIONS,
+			useValue: {
+				coreLibraryLoader: () => import('highlight.js/lib/core'),
+				languages: {
+					yaml: () => import('highlight.js/lib/languages/yaml'),
+					xml: () => import('highlight.js/lib/languages/xml')
+				},
+			}
+		},
 		InitializerService,
 		ApiBrowserApi,
 		ApiDocumentationApi,
 		RestApiService,
 		StatisticsApi,
 		RestClientFactoryService,
-		WindowReferenceService,
 		FeatureSwitchApi
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,4 +1,4 @@
-import { TestBed, inject, async } from '@angular/core/testing';
+import { TestBed, inject, flushMicrotasks, fakeAsync } from '@angular/core/testing';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { ApiDocumentationApi } from './api-documentation-api.service';
@@ -9,18 +9,18 @@ class RestClientMock {
 }
 
 class RestApiServiceMock {
-	public getApi() {}
+	public getApi(): any {}
 }
 
 describe('ApiDocumentationApi', () => {
 	let restClientMock: RestClientMock;
 	let restApiServiceMock: RestApiServiceMock;
-	let res;
+	let res: any;
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
 		restApiServiceMock = new RestApiServiceMock();
-		spyOn(restApiServiceMock, 'getApi').and.returnValue(restClientMock);
+		spyOn<RestApiServiceMock>(restApiServiceMock, 'getApi').and.returnValue(restClientMock);
 		res = jasmine.createSpy('res').and.callFake(() => {
 			return { res };
 		});
@@ -98,30 +98,27 @@ describe('ApiDocumentationApi', () => {
 			}).not.toThrow();
 		}));
 
-		it('gets documentation', async(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
+		it('gets documentation', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			apiDocumentationApi.loadDocumentation();
 
-			setTimeout(() => {
-				expect(apiDocumentationApi.getDocumentation()).toEqual({
-					documentation: DOCUMENTATION
-				});
+			flushMicrotasks();
+			expect(apiDocumentationApi.getDocumentation()).toEqual({
+				documentation: DOCUMENTATION
 			});
 		})));
 
-		it('gets GitHub project details', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
+		it('gets GitHub project details', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			apiDocumentationApi.loadGitHubProjectDetails();
 
-			setTimeout(() => {
-				expect(apiDocumentationApi.getGitHubStargazersCount()).toEqual(STARGAZERS_COUNT);
-			});
-		}));
+			flushMicrotasks();
+			expect(apiDocumentationApi.getGitHubStargazersCount()).toEqual(STARGAZERS_COUNT);
+		})));
 
-		it('gets data version', async(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
+		it('gets data version', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			apiDocumentationApi.loadDataVersion();
 
-			setTimeout(() => {
-				expect(apiDocumentationApi.getDataVersion()).toEqual(DATA_VERSION);
-			});
+			flushMicrotasks();
+			expect(apiDocumentationApi.getDataVersion()).toEqual(DATA_VERSION);
 		})));
 	});
 });

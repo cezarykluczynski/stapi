@@ -1,15 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import * as hljs from 'highlight.js';
-import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
-
-import { RestApiService } from '../rest-api/rest-api.service';
-import { ApiDocumentationComponent } from './api-documentation.component';
-import { ApiDocumentationApi } from './api-documentation-api.service';
-
-export function highlightJsFactory() {
-	return hljs;
-}
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ApiDocumentationComponent} from './api-documentation.component';
+import {ApiDocumentationApi} from './api-documentation-api.service';
+import {HighlightModule} from 'ngx-highlightjs';
 
 const REST_DOCUMENT_CONTENT = 'REST_DOCUMENT_CONTENT';
 const REST_DOCUMENT_2_CONTENT = 'REST_DOCUMENT_2_CONTENT';
@@ -39,16 +31,13 @@ describe('ApiDocumentationComponent', () => {
 	let fixture: ComponentFixture<ApiDocumentationComponent>;
 	let apiDocumentationApiMock: ApiDocumentationApiMock;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		apiDocumentationApiMock = new ApiDocumentationApiMock();
 
 		TestBed.configureTestingModule({
 			declarations: [ApiDocumentationComponent],
 			imports: [
-				HighlightJsModule.forRoot({
-					provide: HIGHLIGHT_JS,
-					useFactory: highlightJsFactory
-				})
+				HighlightModule
 			],
 			providers: [
 				{
@@ -108,13 +97,13 @@ describe('ApiDocumentationComponent', () => {
 		expect(component.getFileType()).toBe('yaml');
 	});
 
-	it('selects file', () => {
+	it('selects file', waitForAsync(() => {
 		component.selectFile(1);
 
 		fixture.whenStable().then(() => {
 			expect(component.getSelectedFileContents()).toEqual(REST_DOCUMENT_2_CONTENT);
 		});
-	});
+	}));
 
 	it('stops propagation', () => {
 		expect(() => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import RestClient from 'another-rest-client';
+import RestClient from 'another-rest-client/dist/rest-client';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 
@@ -18,13 +18,13 @@ export class ApiBrowserApi {
 	}
 
 	loadDetails() {
-		return this.api.common.details.get().then(response => {
-			response.details.sort((left, right) => {
+		return (<any> this.api).common.details.get().then((response: any) => {
+			response.details.sort((left: any, right: any) => {
 				return left.symbol > right.symbol ? 1 : -1;
 			});
 			this.details = response.details;
-			this.details.forEach((restEndpointDetails) => {
-				const res = {};
+			this.details.forEach((restEndpointDetails: any) => {
+				const res: any = {};
 				res[restEndpointDetails.apiEndpointSuffix] = ['search'];
 				if (restEndpointDetails.version === 'v2') {
 					this.apiV2.res(res);
@@ -39,13 +39,13 @@ export class ApiBrowserApi {
 		return this.details;
 	}
 
-	search(symbol, phrase, single) {
+	search(symbol: string, phrase: string, single: boolean) {
 		const restEndpointDetails = this.findBySymbol(symbol);
 		const searchApi = this.getApi(restEndpointDetails).search;
 		const promise = phrase ? searchApi.post({
 			title: phrase, name: phrase
 		}, 'application/x-www-form-urlencoded') : searchApi.get();
-		return promise.then(response => {
+		return promise.then((response: any) => {
 			return {
 				page: response.page,
 				content: response[this.getContentKey(response)]
@@ -53,10 +53,10 @@ export class ApiBrowserApi {
 		});
 	}
 
-	get(symbol, uid) {
+	get(symbol: string, uid: string) {
 		const restEndpointDetails = this.findBySymbol(symbol);
 		const api = this.getApi(restEndpointDetails);
-		return api.get({uid: uid}).then(response => {
+		return api.get({uid: uid}).then((response: any) => {
 			return {
 				page: null,
 				content: response[this.getContentKey(response)]
@@ -68,7 +68,7 @@ export class ApiBrowserApi {
 		this.api.res('common').res('details');
 	}
 
-	private findBySymbol(symbol) {
+	private findBySymbol(symbol: string) {
 		for (let i = 0; i < this.details.length; i++) {
 			const url = this.details[i];
 			if (url.symbol === symbol) {
@@ -77,7 +77,7 @@ export class ApiBrowserApi {
 		}
 	}
 
-	private getContentKey(response) {
+	private getContentKey(response: any) {
 		for (const key in response) {
 			if (key !== 'page' && key !== 'sort') {
 				return key;
@@ -89,7 +89,7 @@ export class ApiBrowserApi {
 
 	private getApi(restEndpointDetails: any) {
 		const serviceName = restEndpointDetails.apiEndpointSuffix;
-		const api = restEndpointDetails.version === 'v2' ? this.apiV2 : this.api;
+		const api: any = restEndpointDetails.version === 'v2' ? this.apiV2 : this.api;
 		return api[serviceName];
 	}
 

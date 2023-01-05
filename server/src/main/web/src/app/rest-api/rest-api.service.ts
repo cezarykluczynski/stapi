@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import RestClient from 'another-rest-client';
+import RestClient from 'another-rest-client/dist/rest-client';
 
 import { RestClientFactoryService } from './rest-client-factory.service';
 
@@ -15,11 +15,11 @@ export class RestApiService {
 		this.apiV2 = restClientFactoryService.createRestClient(prefix + '/api/v2/rest');
 	}
 
-	public getApi() {
+	public getApi(): RestClient {
 		return this.api;
 	}
 
-	public getApiV2() {
+	public getApiV2(): RestClient {
 		return this.apiV2;
 	}
 

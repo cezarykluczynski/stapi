@@ -1,26 +1,21 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {LegalComponent} from './legal.component';
-import {FeatureSwitchApi} from '../feature-switch/feature-switch-api.service';
-import {Router} from '@angular/router';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { LegalComponent } from './legal.component';
+import { FeatureSwitchApi } from '../feature-switch/feature-switch-api.service';
+import { Router } from '@angular/router';
 
 class FeatureSwitchApiMock {
-	public isEnabled() {}
-}
-
-class RouterMock {
-	public navigate() {}
+	public isEnabled(): any {}
 }
 
 describe('LegalComponent', () => {
 	let component: LegalComponent;
-	let routerMock: RouterMock;
+	let routerMock: jasmine.SpyObj<Router>;
 	let featureSwitchApiMock: FeatureSwitchApiMock;
 	let fixture: ComponentFixture<LegalComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		featureSwitchApiMock = new FeatureSwitchApiMock();
-		routerMock = new RouterMock();
+		routerMock = jasmine.createSpyObj('Router', ['navigate'], ['']);
 
 		TestBed.configureTestingModule({
 			declarations: [LegalComponent],
@@ -68,16 +63,15 @@ describe('LegalComponent', () => {
 	describe('when there is no TOS and PP enabled', () => {
 		beforeEach(() => {
 			spyOn(featureSwitchApiMock, 'isEnabled').and.returnValue(false);
-			spyOn(routerMock, 'navigate');
 			fixture = TestBed.createComponent(LegalComponent);
 			component = fixture.componentInstance;
 			fixture.detectChanges();
 		});
 
-		it('redirects to main page', () => {
+		it('redirects to main page', waitForAsync(() => {
 			fixture.whenStable().then(() => {
 				expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
 			});
-		});
+		}));
 	});
 });

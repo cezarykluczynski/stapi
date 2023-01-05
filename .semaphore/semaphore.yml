@@ -29,7 +29,6 @@ blocks:
         - name: 'build-frontend'
           commands:
             - checkout --use-cache
-            - nvm install 8.7.0
             - cd server/src/main/web && npm i && cd ../../../..
-            - cd server/src/main/web && npm run test-once-cov && npm run lint && cd ../../../..
+            - cd server/src/main/web && npm run lint && npm run test-once-cov && npm run build-prod && cd ../../../..
             - bash <(curl -s https://codecov.io/bash) -f "server/src/main/web/coverage/lcov.info"

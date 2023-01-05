@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntityStatisticsCloudComponent } from './entity-statistics-cloud.component';
 
@@ -36,7 +36,7 @@ describe('EntityStatisticsCloudComponent', () => {
 	let apiBrowserApiMock: ApiBrowserApiMock;
 	let apiDocumentationApiMock: ApiDocumentationApiMock;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		statisticsApiMock = new StatisticsApiMock();
 		apiBrowserApiMock = new ApiBrowserApiMock();
 		apiDocumentationApiMock = new ApiDocumentationApiMock();

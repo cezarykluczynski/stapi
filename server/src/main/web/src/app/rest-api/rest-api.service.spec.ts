@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { RestClientFactoryService } from './rest-client-factory.service';
 import { RestApiService } from './rest-api.service';
+import RestClient from "another-rest-client/dist/rest-client";
 
 class RestClientMock {
 	public res: any;
@@ -11,15 +12,15 @@ class RestClientMock {
 }
 
 class RestClientFactoryServiceMock {
-	createRestClient() {}
+	createRestClient(): any {}
 }
 
 describe('RestApiService', () => {
 	let restClientFactoryServiceMock: RestClientFactoryServiceMock;
-	let restClientMock: RestClientMock;
-	let res;
-	let on;
-	let get;
+	let restClientMock: jasmine.SpyObj<RestClient>;
+	let res: any;
+	let on: any;
+	let get: any;
 
 	beforeEach(() => {
 		restClientFactoryServiceMock = new RestClientFactoryServiceMock();
@@ -28,8 +29,8 @@ describe('RestApiService', () => {
 		});
 		on = jasmine.createSpy('on');
 		get = jasmine.createSpy('get').and.returnValue(Promise.resolve(true));
-		restClientMock = new RestClientMock();
-		restClientMock.res = res;
+		restClientMock = jasmine.createSpyObj('RestClient', [], ['res', 'on', 'common', 'performer']);
+    restClientMock.res = res;
 		restClientMock.on = on;
 		spyOn(restClientFactoryServiceMock, 'createRestClient').and.returnValue(restClientMock);
 

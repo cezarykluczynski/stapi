@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 import { ApiDocumentationApi } from './api-documentation/api-documentation-api.service';
 
@@ -10,12 +9,12 @@ import { ApiDocumentationApi } from './api-documentation/api-documentation-api.s
 })
 export class AppComponent implements OnInit {
 
-	private baseHttpUrl: String = 'stapi.co';
+	private baseUrl = 'stapi.co';
 	private gitHubStargazersCount: any;
-	private dataVersion: String;
+	private dataVersion: string;
 
-	constructor(private domSanitizer: DomSanitizer, private featureSwitchApi: FeatureSwitchApi,
-				private apiDocumentationApi: ApiDocumentationApi) {
+	constructor(private featureSwitchApi: FeatureSwitchApi, private apiDocumentationApi: ApiDocumentationApi) {
+		this.dataVersion = '';
 	}
 
 	ngOnInit() {
@@ -36,11 +35,11 @@ export class AppComponent implements OnInit {
 	}
 
 	hasHttpsNotice() {
-		return location.href.startsWith('http://' + this.baseHttpUrl);
+		return location.href.startsWith('http://' + this.baseUrl);
 	}
 
 	getHttpsVersionUrl() {
-		return location.href.replace('http://' + this.baseHttpUrl, 'https://' + this.baseHttpUrl);
+		return location.href.replace('http://' + this.baseUrl, 'https://' + this.baseUrl);
 	}
 
 }

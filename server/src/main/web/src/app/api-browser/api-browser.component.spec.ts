@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { ApiBrowserComponent } from './api-browser.component';
@@ -8,13 +8,12 @@ import { ApiBrowserApi } from './api-browser-api.service';
 import { RestApiService } from '../rest-api/rest-api.service';
 
 class ApiBrowserApiMock {
-	public getStatistics() {}
-	public getDetails() {}
-	public search() {}
+	public getStatistics(): any {}
+	public getDetails(): any {}
+	public search(): any {}
 }
 
 class RestApiServiceMock {
-	public onLimitUpdate() {}
 }
 
 describe('ApiBrowserComponent', () => {
@@ -33,16 +32,12 @@ describe('ApiBrowserComponent', () => {
 			name: 'Astronomical object'
 		}
 	];
-	let onLimitUpdate;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		restApiServiceMock = new RestApiServiceMock();
 		apiBrowserApiMock = new ApiBrowserApiMock();
 		spyOn(apiBrowserApiMock, 'getStatistics').and.returnValue({});
 		spyOn(apiBrowserApiMock, 'getDetails').and.returnValue(details);
-		spyOn(restApiServiceMock, 'onLimitUpdate').and.callFake((_onLimitUpdate) => {
-			onLimitUpdate = _onLimitUpdate;
-		});
 
 		TestBed.configureTestingModule({
 			imports: [FormsModule],
@@ -59,7 +54,7 @@ describe('ApiBrowserComponent', () => {
 				}
 			]
 		})
-		.compileComponents();
+			.compileComponents();
 	}));
 
 	beforeEach(() => {
@@ -90,23 +85,22 @@ describe('ApiBrowserComponent', () => {
 	});
 
 	it('handles errorous response when searching for entities', () => {
-		const apiBrowserApiMockSearchSpy: jasmine.Spy = spyOn(apiBrowserApiMock, 'search').and
-			.returnValue(new Promise((resolve, reject) => {
-				reject({
-					response: '{"error": true}'
-				});
-			}));
+		spyOn(apiBrowserApiMock, 'search').and.returnValue(new Promise((resolve, reject) => {
+			reject({
+				response: '{"error": true}'
+			});
+		}));
 
 		fixture.debugElement.query(By.css('button[type=submit]')).nativeElement.click();
 		fixture.detectChanges();
 
-		fixture.whenStable().then(() => {
+		return fixture.whenStable().then(() => {
 			expect(component.hasError()).toBeTrue();
 		});
 	});
 
 	describe('when response is received', () => {
-		const respondWith = (response) => {
+		const respondWith = (response: any) => {
 			spyOn(apiBrowserApiMock, 'search').and.returnValue(new Promise((resolve) => {
 				resolve(response);
 			}));
@@ -136,7 +130,7 @@ describe('ApiBrowserComponent', () => {
 
 			expect(component.hasContent()).toBeFalse();
 			expect(component.hasMetadata()).toBeFalse();
-			expect(component.getContent()).toBeEmptyArray();
+			expect(component.getContent()).toEqual([]);
 
 			respondWith({
 				page: {

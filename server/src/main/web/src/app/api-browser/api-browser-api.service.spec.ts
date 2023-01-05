@@ -1,6 +1,4 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-
-import RestClient from 'another-rest-client';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { ApiBrowserApi } from './api-browser-api.service';
@@ -17,16 +15,16 @@ class RestClientV2Mock {
 }
 
 class RestApiServiceMock {
-	public getApi() {}
-	public getApiV2() {}
+	public getApi(): any {}
+	public getApiV2(): any {}
 }
 
 describe('ApiBrowserApi', () => {
 	let restClientMock: RestClientMock;
 	let restClientV2Mock: RestClientV2Mock;
 	let restApiServiceMock: RestApiServiceMock;
-	let res;
-	let resV2;
+	let res: any;
+	let resV2: any;
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
@@ -71,9 +69,6 @@ describe('ApiBrowserApi', () => {
 		const performerContent = {};
 		const bookPage = {};
 		const bookContent = {};
-		const DOCUMENTATION = 'DOCUMENTATION';
-		const OAUTH_URL = 'OAUTH_URL';
-		const CURRENT_USER_NAME = 'CURRENT_USER_NAME';
 
 		beforeEach(() => {
 			detailsPromise = () => {
@@ -108,7 +103,7 @@ describe('ApiBrowserApi', () => {
 						});
 					}
 				},
-				get: ({}) => {
+				get: () => {
 					return Promise.resolve({
 						performer: performerContent
 					});
@@ -150,11 +145,11 @@ describe('ApiBrowserApi', () => {
 			}).not.toThrow();
 		}));
 
-		it('searches for phrase', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+		it('searches for phrase', waitForAsync(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
 			apiBrowserApi.loadDetails();
 
 			setTimeout(() => {
-				apiBrowserApi.search('PE', 'Patrick', false).then((response) => {
+				apiBrowserApi.search('PE', 'Patrick', false).then((response: any) => {
 					expect(response.page).toBe(performerPage);
 					expect(response.content).toBe(performerContent);
 				});
@@ -164,11 +159,11 @@ describe('ApiBrowserApi', () => {
 			});
 		})));
 
-		it('searches for phrase (V2)', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+		it('searches for phrase (V2)', waitForAsync(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
 			apiBrowserApi.loadDetails();
 
 			setTimeout(() => {
-				apiBrowserApi.search('BO', 'Star Trek Encyclopedia', false).then((response) => {
+				apiBrowserApi.search('BO', 'Star Trek Encyclopedia', false).then((response: any) => {
 					expect(response.page).toBe(bookPage);
 					expect(response.content).toBe(bookContent);
 				});
@@ -178,11 +173,11 @@ describe('ApiBrowserApi', () => {
 			});
 		})));
 
-		it('gets all entities', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+		it('gets all entities', waitForAsync(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
 			apiBrowserApi.loadDetails();
 
 			setTimeout(() => {
-				apiBrowserApi.search('PE', '', false).then((response) => {
+				apiBrowserApi.search('PE', '', false).then((response: any) => {
 					expect(response.page).toBe(performerPage);
 					expect(response.content).toBe(performerContent);
 				});
@@ -192,11 +187,11 @@ describe('ApiBrowserApi', () => {
 			});
 		})));
 
-		it('gets all entities (V2)', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+		it('gets all entities (V2)', waitForAsync(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
 			apiBrowserApi.loadDetails();
 
 			setTimeout(() => {
-				apiBrowserApi.search('BO', '', false).then((response) => {
+				apiBrowserApi.search('BO', '', false).then((response: any) => {
 					expect(response.page).toBe(bookPage);
 					expect(response.content).toBe(bookContent);
 				});
@@ -206,11 +201,11 @@ describe('ApiBrowserApi', () => {
 			});
 		})));
 
-		it('gets single entity', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+		it('gets single entity', waitForAsync(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
 			apiBrowserApi.loadDetails();
 
 			setTimeout(() => {
-				apiBrowserApi.get('PE', 'PEMA0000004852').then((response) => {
+				apiBrowserApi.get('PE', 'PEMA0000004852').then((response: any) => {
 					expect(response.content).toBe(performerContent);
 				});
 
@@ -218,11 +213,11 @@ describe('ApiBrowserApi', () => {
 			});
 		})));
 
-		it('gets single entity (V2)', async(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
+		it('gets single entity (V2)', waitForAsync(inject([ApiBrowserApi], (apiBrowserApi: ApiBrowserApi) => {
 			apiBrowserApi.loadDetails();
 
 			setTimeout(() => {
-				apiBrowserApi.get('BO', 'PEMA0000004852').then((response) => {
+				apiBrowserApi.get('BO', 'PEMA0000004852').then((response: any) => {
 					expect(response.content).toBe(bookContent);
 				});
 

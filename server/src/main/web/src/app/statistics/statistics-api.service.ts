@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import RestClient from 'another-rest-client';
+import RestClient from 'another-rest-client/dist/rest-client';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 
@@ -16,10 +16,10 @@ export class StatisticsApi {
 	}
 
 	loadStatistics() {
-		const sorter = (left, right) => {
+		const sorter = (left: any, right: any) => {
 			return left > right ? 1 : left === right ? 0 : -1;
 		};
-		const entitiesStatisticsPromise = this.api.common.statistics.entities.get().then(response => {
+		const entitiesStatisticsPromise = (<any> this.api).common.statistics.entities.get().then((response: any) => {
 			response.statistics.sort(sorter);
 			this.statistics = this.statistics || {};
 			this.statistics.entitiesStatistics = response;

@@ -1,7 +1,10 @@
 module.exports = function(grunt) {
 	var properties = require('properties-parser');
 	var fs = require('fs');
-	var obj = properties.parse(fs.readFileSync('./../resources/application-stapi-custom.properties', 'utf8'));
+	var obj = {};
+	try {
+		obj = properties.parse(fs.readFileSync('./../resources/application-stapi-customk.properties', 'utf8'));
+	} catch (e) {}
 
 	var termsOfService = '';
 	var termsOfServiceTranslation = '';

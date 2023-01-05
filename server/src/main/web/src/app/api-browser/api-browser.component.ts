@@ -15,16 +15,17 @@ export class ApiBrowserComponent implements OnInit {
 	private restApiService: RestApiService;
 	private details: any;
 	private options: Array<any>;
-	private lastUpdateWasError: boolean;
+	private lastUpdateWasError = false;
 	private response: any;
-	private symbol: any;
+	public symbol: any;
 	public phrase: any = '';
 	public latestLookupPhrase: any = '';
-	public loaded: boolean;
+	public loaded = false;
 
 	constructor(apiBrowserApi: ApiBrowserApi, restApiService: RestApiService) {
 		this.apiBrowserApi = apiBrowserApi;
 		this.restApiService = restApiService;
+    this.options = [];
 	}
 
 	ngOnInit() {
@@ -34,17 +35,17 @@ export class ApiBrowserComponent implements OnInit {
 		this.loaded = true;
 	}
 
-	submit($event) {
+	submit($event: any) {
 		$event.preventDefault();
 		this.latestLookupPhrase = this.phrase;
 		this.handleRequest(this.apiBrowserApi.search(this.symbol, this.phrase, false));
 	}
 
-	handleRequest(promise) {
-		promise.then(response => {
+	handleRequest(promise: any) {
+		promise.then((response: any) => {
 			this.lastUpdateWasError = false;
 			this.response = response;
-		}).catch(error => {
+		}).catch((error: any) => {
 			this.lastUpdateWasError = true;
 			this.response = JSON.parse(error.response);
 		});
@@ -74,9 +75,10 @@ export class ApiBrowserComponent implements OnInit {
 		return this.response && this.response.content ? this.response.content : [];
 	}
 
-	getProperties(item) {
+	getProperties(item: any) {
 		const properties:  Array<any> = [];
 		for (const i in item) {
+			/* eslint no-prototype-builtins:0 */
 			if (item.hasOwnProperty(i)) {
 				properties.push({
 					key: i,
@@ -99,11 +101,11 @@ export class ApiBrowserComponent implements OnInit {
 		return this.getTotalResults() > 50;
 	}
 
-	valueIsScalar(value) {
+	valueIsScalar(value: any) {
 		return typeof value !== 'object';
 	}
 
-	isQualifiedItemProperty(property) {
+	isQualifiedItemProperty(property: any) {
 		return !!(property.key !== 'uid' && property.value);
 	}
 

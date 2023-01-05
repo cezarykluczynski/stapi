@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import RestClient from 'another-rest-client';
+import RestClient from 'another-rest-client/dist/rest-client';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 
@@ -16,8 +16,8 @@ export class FeatureSwitchApi {
 	}
 
 	loadFeatureSwitches() {
-		return this.api.common.featureSwitch.get().then((response) => {
-			response.featureSwitches.forEach((value) => {
+		return (<any> this.api).common.featureSwitch.get().then((response: any) => {
+			response.featureSwitches.forEach((value: any) => {
 				this.featureSwitches[value.type] = value.enabled;
 			});
 		});

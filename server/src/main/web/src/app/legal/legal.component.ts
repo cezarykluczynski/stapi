@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FeatureSwitchApi} from '../feature-switch/feature-switch-api.service';
 import {Router} from '@angular/router';
-
-declare var $: any;
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-legal',

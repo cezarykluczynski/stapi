@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 import { ApiDocumentationApi } from './api-documentation-api.service';
-
-declare var $: any;
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-api-documentation',
@@ -20,6 +18,7 @@ export class ApiDocumentationComponent implements OnInit {
 
 	constructor(apiDocumentationApi: ApiDocumentationApi) {
 		this.apiDocumentationApi = apiDocumentationApi;
+		this.selectedDocumentationType = '';
 	}
 
 	ngOnInit() {
@@ -65,15 +64,16 @@ export class ApiDocumentationComponent implements OnInit {
 		return this.selectedDocumentationType === 'REST' ? this.documentation.restDocuments : this.documentation.soapDocuments;
 	}
 
-	stopPropagation(event) {
+	stopPropagation(event: any) {
 		if (event && event.stopPropagation) {
 			event.stopPropagation();
 		}
 	}
 
-	selectFile(index) {
-		const codePreviewScrollTop = $('#api-documentation__code-preview').offset().top;
-		const navbarHeight = $('.navbar').outerHeight();
+	selectFile(index: any) {
+		/* eslint  @typescript-eslint/no-non-null-assertion:0 */
+		const codePreviewScrollTop = $('#api-documentation__code-preview')!.offset()!.top;
+		const navbarHeight = $('.navbar').outerHeight()!;
 		if (window.scrollY > codePreviewScrollTop - navbarHeight) {
 			window.scrollTo(window.scrollX, codePreviewScrollTop - navbarHeight);
 		}

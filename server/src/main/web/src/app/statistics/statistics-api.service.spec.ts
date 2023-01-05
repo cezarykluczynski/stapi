@@ -1,5 +1,4 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import RestClient from 'another-rest-client';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { StatisticsApi } from './statistics-api.service';
@@ -10,13 +9,13 @@ class RestClientMock {
 }
 
 class RestApiServiceMock {
-	public getApi() {}
+	public getApi(): any {}
 }
 
 describe('StatisticsApi', () => {
 	let restClientMock: RestClientMock;
 	let restApiServiceMock: RestApiServiceMock;
-	let res;
+	let res: any;
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
@@ -48,9 +47,6 @@ describe('StatisticsApi', () => {
 		expect(res.calls.argsFor(0)).toEqual(['common']);
 		expect(res.calls.argsFor(1)).toEqual(['statistics']);
 		expect(res.calls.argsFor(2)).toEqual(['entities']);
-		// expect(res.calls.argsFor(3)).toEqual(['common']);
-		// expect(res.calls.argsFor(4)).toEqual(['statistics']);
-		// expect(res.calls.argsFor(5)).toEqual(['hits']);
 	}));
 
 	describe('after initialization', () => {
@@ -77,7 +73,7 @@ describe('StatisticsApi', () => {
 			}).not.toThrow();
 		}));
 
-		it('gets statistics', async(inject([StatisticsApi], (statisticsApi: StatisticsApi) => {
+		it('gets statistics', waitForAsync(inject([StatisticsApi], (statisticsApi: StatisticsApi) => {
 			statisticsApi.loadStatistics();
 
 			setTimeout(() => {
@@ -85,9 +81,6 @@ describe('StatisticsApi', () => {
 					entitiesStatistics: {
 						statistics: []
 					},
-					// hitsStatistics: {
-					// 	statistics: []
-					// },
 					loaded: true
 				});
 			});

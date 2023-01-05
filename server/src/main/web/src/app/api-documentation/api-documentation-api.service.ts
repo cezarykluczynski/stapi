@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import RestClient from 'another-rest-client';
+import RestClient from 'another-rest-client/dist/rest-client';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 
@@ -9,30 +9,32 @@ export class ApiDocumentationApi {
 
 	private api: RestClient;
 	private documentation: any;
-	private dataVersion: String;
-	private stargazersCount: Number;
+	private dataVersion: string;
+	private stargazersCount: number;
 
 	constructor(restApiService: RestApiService) {
 		this.api = restApiService.getApi();
 		this.register();
+    this.dataVersion = '';
+    this.stargazersCount = 0;
 	}
 
 	loadDocumentation() {
-		return this.api.common.documentation.get().then(response => {
+		return (<any> this.api).common.documentation.get().then((response: any) => {
 			this.documentation = response;
 			return this.documentation;
 		});
 	}
 
 	loadDataVersion() {
-		return this.api.common.dataVersion.get().then(response => {
+		return (<any> this.api).common.dataVersion.get().then((response: any) => {
 			this.dataVersion = response.dataVersion;
 			return this.dataVersion;
 		});
 	}
 
 	loadGitHubProjectDetails() {
-		return this.api.common.github.projectDetails.get().then(response => {
+		return (<any> this.api).common.github.projectDetails.get().then((response: any) => {
 			this.stargazersCount = response.stargazersCount;
 			return this.stargazersCount;
 		});
@@ -46,7 +48,7 @@ export class ApiDocumentationApi {
 		return this.documentation;
 	}
 
-	getDataVersion() {
+	getDataVersion(): string {
 		return this.dataVersion;
 	}
 

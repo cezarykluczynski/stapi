@@ -6,7 +6,4 @@ import { Component } from '@angular/core';
 	styleUrls: ['./api-overview.component.sass']
 })
 export class ApiOverviewComponent {
-
-	constructor() {}
-
 }

@@ -45,8 +45,8 @@
 			</div>
 		</div>
 		<div [ngClass]="{'col-md-9': isSoapDocumentation(), 'col-md-7': !isSoapDocumentation()}">
-			<div *ngIf="isRestDocumentation()"><pre><code mwlHighlightJs [source]="getSelectedFileContents()" language="yaml" class="hljs"></code></pre></div>
-			<div *ngIf="isSoapDocumentation()"><pre><code mwlHighlightJs [source]="getSelectedFileContents()" language="xml" class="hljs"></code></pre></div>
+			<div *ngIf="isRestDocumentation()"><pre><code [highlight]="getSelectedFileContents()" language="yaml" class="hljs"></code></pre></div>
+			<div *ngIf="isSoapDocumentation()"><pre><code [highlight]="getSelectedFileContents()" language="xml" class="hljs"></code></pre></div>
 		</div>
 	</div>
 </div>

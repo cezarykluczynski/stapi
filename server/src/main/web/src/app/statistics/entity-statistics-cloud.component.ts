@@ -5,7 +5,7 @@ import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 import {ApiDocumentationApi} from '../api-documentation/api-documentation-api.service';
 
 @Component({
-	selector: 'entity-statistics-cloud',
+	selector: 'app-entity-statistics-cloud',
 	templateUrl: './entity-statistics-cloud.component.html',
 	styleUrls: ['./entity-statistics-cloud.component.sass']
 })
@@ -21,12 +21,16 @@ export class EntityStatisticsCloudComponent implements OnInit {
 	private totalCount: number;
 	private fontSizeMin = 18;
 	private fontSizeMax = 35;
-	private dataVersion: String;
+	private dataVersion: string;
 
 	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi, apiDocumentationApi: ApiDocumentationApi) {
 		this.statisticsApi = statisticsApi;
 		this.apiBrowserApi = apiBrowserApi;
 		this.apiDocumentationApi = apiDocumentationApi;
+    this.fictionalEntities = [];
+    this.realWorldEntities = [];
+    this.totalCount = 0;
+    this.dataVersion = '';
 	}
 
 	ngOnInit() {
@@ -61,19 +65,19 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		return this.statistics.entitiesStatistics.relationsCount;
 	}
 
-	getEntitiesOfType(type) {
+	getEntitiesOfType(type: any) {
 		const entitiesNames = this.details
-			.filter(entity => entity.type === type)
-			.map(entity => entity.name);
+			.filter((entity: any) => entity.type === type)
+			.map((entity: any) => entity.name);
 
-		const entities = this.statistics.entitiesStatistics.statistics.filter((item) => {
+		const entities = this.statistics.entitiesStatistics.statistics.filter((item: any) => {
 			return entitiesNames.includes(item.name);
 		});
 
-		const names = this.getEntityNameToPluralNameMap();
-		const sizes: Array<Number> = [];
+		const names: any = this.getEntityNameToPluralNameMap();
+		const sizes: Array<number> = [];
 
-		entities.sort((left, right) => {
+		entities.sort((left: any, right: any) => {
 			sizes.push(left.count);
 			sizes.push(right.count);
 			return left.count < right.count ? 1 : (left.count === right.count ? 0 : -1);
@@ -82,7 +86,7 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		const min: number = Math.min.apply(null, sizes);
 		const max: number = Math.max.apply(null, sizes);
 
-		return entities.map((entity) => {
+		return entities.map((entity: any) => {
 			return {
 				text: entity.count + ' ' + names[entity.name],
 				weight: entity.count,
@@ -97,10 +101,10 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		return diff * diff2 + this.fontSizeMin;
 	}
 
-	getEntityNameToPluralNameMap() {
-		const names = {};
+	getEntityNameToPluralNameMap(): any {
+		const names: any = {};
 
-		this.details.forEach((detail) => {
+		this.details.forEach((detail: any) => {
 			names[detail.name] = detail.pluralName;
 		});
 

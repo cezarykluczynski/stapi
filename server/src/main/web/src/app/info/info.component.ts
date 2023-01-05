@@ -1,19 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-	/* tslint:disable */
-	selector: 'info',
-	/* tslint:enable */
+	selector: 'app-info',
 	templateUrl: './info.component.html',
 	styleUrls: ['./info.component.sass']
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent {
 
 	@Input() message?: string;
-
-	constructor() {}
-
-	ngOnInit() {}
 
 	getMessage() {
 		return this.message;

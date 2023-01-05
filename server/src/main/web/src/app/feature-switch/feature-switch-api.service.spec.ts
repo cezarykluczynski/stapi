@@ -1,7 +1,4 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-
-import RestClient from 'another-rest-client';
-
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 import { RestApiService } from '../rest-api/rest-api.service';
 import { FeatureSwitchApi } from './feature-switch-api.service';
 
@@ -11,13 +8,14 @@ class RestClientMock {
 }
 
 class RestApiServiceMock {
-	public getApi() {}
+	/* eslint  @typescript-eslint/no-empty-function:0 */
+	public getApi(): any {}
 }
 
 describe('FeatureSwitchApi', () => {
 	let restClientMock: RestClientMock;
 	let restApiServiceMock: RestApiServiceMock;
-	let res;
+	let res: any;
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
@@ -45,7 +43,6 @@ describe('FeatureSwitchApi', () => {
 
 	describe('after initialization', () => {
 		let featureSwitchesPromise;
-		const DOCUMENTATION = 'DOCUMENTATION';
 
 		beforeEach(() => {
 			featureSwitchesPromise = () => {
@@ -72,7 +69,7 @@ describe('FeatureSwitchApi', () => {
 			}).not.toThrow();
 		}));
 
-		it('tells when feature switch is enabled', async(inject([FeatureSwitchApi], (featureSwitchApi: FeatureSwitchApi) => {
+		it('tells when feature switch is enabled', waitForAsync(inject([FeatureSwitchApi], (featureSwitchApi: FeatureSwitchApi) => {
 			featureSwitchApi.loadFeatureSwitches();
 
 			setTimeout(() => {
@@ -80,7 +77,7 @@ describe('FeatureSwitchApi', () => {
 			});
 		})));
 
-		it('tells when feature switch is enabled', async(inject([FeatureSwitchApi], (featureSwitchApi: FeatureSwitchApi) => {
+		it('tells when feature switch is enabled', waitForAsync(inject([FeatureSwitchApi], (featureSwitchApi: FeatureSwitchApi) => {
 			featureSwitchApi.loadFeatureSwitches();
 
 			setTimeout(() => {
