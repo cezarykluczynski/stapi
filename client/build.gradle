@@ -1,11 +1,4 @@
-buildscript {
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0'
-	}
-}
+import java.nio.file.Files
 
 plugins {
 	id 'io.freefair.lombok'
@@ -13,6 +6,7 @@ plugins {
 	id 'maven-publish'
 	id 'signing'
 	id 'com.yupzip.wsdl2java'
+	id 'org.hidetake.swagger.generator' version '2.19.2'
 }
 
 sourceCompatibility = 1.8
@@ -25,6 +19,7 @@ dependencies {
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10'
 	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.5.17'
 	implementation group: 'com.sun.xml.ws', name: 'jaxws-ri', version: '2.3.5'
+	swaggerCodegen group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0'
 	testImplementation project(':util').sourceSets.test.output
 }
 
@@ -238,24 +233,24 @@ wsdl2java {
 
 jar.archiveBaseName = 'stapi-client'
 
-task swaggerGenerate(type: Exec) {
-	File file = project.buildscript.configurations.classpath.find {
-		it.name.startsWith("swagger-codegen-cli-")
+swaggerSources {
+	stapi {
+		inputFile = file('../contract/src/main/resources/v1/swagger/stapi.yaml')
+		code {
+			language = 'java'
+			configFile = file('../contract/src/main/resources/v1/swagger/config.json')
+			wipeOutputDir = false
+			outputDir = file('.')
+		}
 	}
+}
 
-	println 'Using swagger-codegen-cli: ' << file.absolutePath
-
-	workingDir "../"
-
-	commandLine "java", "-jar", "${file.absolutePath}", "generate",
-			"-l", "java",
-			"-i", "contract/src/main/resources/v1/swagger/stapi.yaml",
-			"-c", "contract/src/main/resources/v1/swagger/config.json",
-			"-o", "./client/"
+clean.doFirst {
+	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/v1/"
 }
 
 compileJava {
-	dependsOn(wsdl2javaTask, swaggerGenerate)
+	dependsOn(wsdl2javaTask, swaggerSources.stapi.code)
 }
 
 task javadocJar(type: Jar) {
