@@ -94,7 +94,7 @@ allprojects {
 		implementation group: 'com.github.spotbugs', name: 'spotbugs-annotations', version: '4.7.3'
 
 		// Testing
-		testImplementation group: 'commons-io', name: 'commons-io', version: '2.5'
+		testImplementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 		testImplementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.4'
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
 		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
@@ -142,6 +142,21 @@ allprojects {
 			logger.warn('Custom properties did not exists, empty file created.')
 			file.createNewFile()
 		}
+	}
+}
+
+def isNonStable = { String version ->
+	def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { stableKeyword -> version.toUpperCase().contains(stableKeyword) }
+	if (stableKeyword) {
+		return false
+	}
+	def unstableKeyword = ['-RC', '.CR', '-M', 'BETA'].any { unstableKeyword -> version.toUpperCase().contains(unstableKeyword) }
+	return unstableKeyword
+}
+
+tasks.named("dependencyUpdates").configure {
+	rejectVersionIf {
+		isNonStable(it.candidate.version)
 	}
 }
 

@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
 import com.cezarykluczynski.stapi.util.constant.Package;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
@@ -32,12 +31,6 @@ public class ModelConfiguration {
 
 	@Inject
 	private ApplicationContext applicationContext;
-
-	@Bean(name = "liquibase")
-	@ConditionalOnProperty(name = "spring.liquibase.enabled", havingValue = "false")
-	public Object liquibaseMock() {
-		return new Object();
-	}
 
 	@Bean
 	public Repositories repositories() {

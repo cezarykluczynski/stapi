@@ -48,7 +48,7 @@
 		"@types/jasmine": "4.3.1",
 		"@typescript-eslint/eslint-plugin": "5.44.0",
 		"@typescript-eslint/parser": "5.44.0",
-		"eslint": "^8.28.0",
+		"eslint": "8.31.0",
 		"grunt": "1.0.1",
 		"grunt-contrib-clean": "1.1.0",
 		"grunt-contrib-copy": "1.0.0",
