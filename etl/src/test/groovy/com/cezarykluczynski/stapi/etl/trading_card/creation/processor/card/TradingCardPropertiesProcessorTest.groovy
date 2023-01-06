@@ -62,19 +62,19 @@ class TradingCardPropertiesProcessorTest extends Specification {
 		given:
 		Element a = new Element(TagName.A)
 		a.childNodes = Lists.newArrayList(
-				new TextNode(NUMBER, null),
+				new TextNode(NUMBER),
 				new Element(TagName.BR),
-				new TextNode(NAME, null),
+				new TextNode(NAME),
 				new Element(TagName.BR),
-				new TextNode(MADE_WITHOUT_NUMBER, null),
+				new TextNode(MADE_WITHOUT_NUMBER),
 				new Element(TagName.BR),
-				new TextNode(MADE_WITH_NUMBER, null),
+				new TextNode(MADE_WITH_NUMBER),
 				new Element(TagName.BR),
-				new TextNode(COPYRIGHT, null),
+				new TextNode(COPYRIGHT),
 				new Element(TagName.BR),
-				new TextNode(PRICE, null),
+				new TextNode(PRICE),
 				new Element(TagName.BR),
-				new TextNode('Some text to skip', null))
+				new TextNode('Some text to skip'))
 
 		when:
 		TradingCardProperties tradingCardProperties = tradingCardPropertiesProcessor.process(a)

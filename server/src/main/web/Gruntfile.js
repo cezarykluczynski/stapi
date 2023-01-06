@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	var fs = require('fs');
 	var obj = {};
 	try {
-		obj = properties.parse(fs.readFileSync('./../resources/application-stapi-customk.properties', 'utf8'));
+		obj = properties.parse(fs.readFileSync('./../resources/application-stapi-custom.properties', 'utf8'));
 	} catch (e) {}
 
 	var termsOfService = '';
@@ -60,12 +60,6 @@ module.exports = function(grunt) {
 						dest: '../../../build/resources/main/build'
 					},
 					{
-						expand: true,
-						src: '**',
-						cwd: 'dist',
-						dest: '../../../out/production/resources/build'
-					},
-					{
 						expand: false,
 						src: '../resources/build/index.html',
 						dest: '../resources/build/termsOfService.html',
@@ -78,23 +72,13 @@ module.exports = function(grunt) {
 					{
 						expand: false,
 						src: '../resources/build/index.html',
-						dest: '../../../out/production/resources/build/termsOfService.html',
-					},
-					{
-						expand: false,
-						src: '../resources/build/index.html',
 						dest: '../resources/build/privacyPolicy.html',
 					},
 					{
 						expand: false,
 						src: '../resources/build/index.html',
 						dest: '../../../build/resources/main/build/privacyPolicy.html',
-					},
-					{
-						expand: false,
-						src: '../resources/build/index.html',
-						dest: '../../../out/production/resources/build/privacyPolicy.html',
-					},
+					}
 				],
 				options: {
 					process: function (content, srcpath, targetPath) {
@@ -111,25 +95,9 @@ module.exports = function(grunt) {
 					},
 				},
 			},
-		},
-		watch: {
-			build: {
-				files: ['src/**/*.*'],
-				tasks: ['exec:build'],
-				options: {
-					spawn: false,
-				},
-			},
-		},
-		exec: {
-			build: {
-				command: 'npm run build'
-			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-exec');
-	grunt.loadNpmTasks('grunt-contrib-watch');
 };

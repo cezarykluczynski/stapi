@@ -69,19 +69,6 @@ class CommonRestEndpointTest extends Specification {
 		restEndpointStatisticsDTOOutput == restEndpointStatisticsDTO
 	}
 
-	void "gets hits statistics from CommonDataReader"() {
-		given:
-		RestEndpointStatisticsDTO restEndpointStatisticsDTO = Mock()
-
-		when:
-		RestEndpointStatisticsDTO restEndpointStatisticsDTOOutput = commonRestEndpoint.hitsStatistics()
-
-		then:
-		1 * commonDataReaderMock.hitsStatistics() >> restEndpointStatisticsDTO
-		0 * _
-		restEndpointStatisticsDTOOutput == restEndpointStatisticsDTO
-	}
-
 	void "gets details from CommonDataReader"() {
 		given:
 		RestEndpointDetailsDTO restEndpointDetailsDTO = Mock()

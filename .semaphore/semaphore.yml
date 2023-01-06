@@ -21,7 +21,12 @@ blocks:
             - sem-version java 17
             - checkout --use-cache
             - ./gradlew checkstyleMain spotbugsMain codenarcTest test
+            - npm install -g junit-report-merger@3.0.0 && jrm build/junit-xml-jvm-report.xml "./**/build/test-results/test/TEST-*.xml"
             - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+      epilogue:
+        always:
+          commands:
+            - test-results publish build/junit-xml-jvm-report.xml
   - name: 'build-frontend'
     dependencies: ["checkout"]
     task:
@@ -32,3 +37,13 @@ blocks:
             - cd server/src/main/web && npm i && cd ../../../..
             - cd server/src/main/web && npm run lint && npm run test-once-cov && npm run build-prod && cd ../../../..
             - bash <(curl -s https://codecov.io/bash) -f "server/src/main/web/coverage/lcov.info"
+      epilogue:
+        always:
+          commands:
+            - test-results publish server/src/main/web/junit-results/junit-xml-frontend-report.xml
+after_pipeline:
+  task:
+    jobs:
+      - name: 'publish-results'
+        commands:
+          - test-results gen-pipeline-report

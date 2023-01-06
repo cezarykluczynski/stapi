@@ -17,8 +17,6 @@ public class CommonDataReader {
 
 	private final CommonEntitiesDetailsReader commonEntitiesDetailsReader;
 
-	private final StatisticsReader statisticsReader;
-
 	private final DocumentationProvider documentationProvider;
 
 	private final CommonDataVersionProvider commonDataVersionProvider;
@@ -26,11 +24,10 @@ public class CommonDataReader {
 	private final TosAttachmentProvider tosAttachmentProvider;
 
 	public CommonDataReader(CommonEntitiesStatisticsReader commonEntitiesStatisticsReader, CommonEntitiesDetailsReader commonEntitiesDetailsReader,
-			StatisticsReader statisticsReader, DocumentationProvider documentationProvider, CommonDataVersionProvider commonDataVersionProvider,
+			DocumentationProvider documentationProvider, CommonDataVersionProvider commonDataVersionProvider,
 			TosAttachmentProvider tosAttachmentProvider) {
 		this.commonEntitiesStatisticsReader = commonEntitiesStatisticsReader;
 		this.commonEntitiesDetailsReader = commonEntitiesDetailsReader;
-		this.statisticsReader = statisticsReader;
 		this.documentationProvider = documentationProvider;
 		this.commonDataVersionProvider = commonDataVersionProvider;
 		this.tosAttachmentProvider = tosAttachmentProvider;
@@ -38,10 +35,6 @@ public class CommonDataReader {
 
 	public RestEndpointStatisticsDTO entitiesStatistics() {
 		return commonEntitiesStatisticsReader.entitiesStatistics();
-	}
-
-	public RestEndpointStatisticsDTO hitsStatistics() {
-		return statisticsReader.hitsStatistics();
 	}
 
 	public RestEndpointDetailsDTO details() {

@@ -4,112 +4,80 @@ import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @Profile(SpringProfile.GENDERIZE)
 public class GenderizeClientConnectableImpl implements GenderizeClient {
 
-	private Map<String, NameGenderDTO> nameGenderCache = Maps.newHashMap();
+	private static final long MINIMAL_INTERVAL = 1000L;
+
+	private final Map<String, NameGenderDTO> nameGenderCache = Maps.newHashMap();
 
 	private final String apiUrl;
+
+	private final RestTemplate restTemplate;
 
 	private int callsCount;
 
 	private long lastCallTime;
 
-	private long minimalInterval = 1000L;
-
-	public GenderizeClientConnectableImpl(@Value("${source.genderize.apiUrl}") String apiUrl) {
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
+	public GenderizeClientConnectableImpl(@Value("${source.genderize.apiUrl}") String apiUrl, RestTemplate restTemplate) {
 		Preconditions.checkNotNull(apiUrl);
 		this.apiUrl = apiUrl;
+		this.restTemplate = restTemplate;
 	}
 
+	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 	public synchronized NameGenderDTO getNameGender(String name) {
 		if (nameGenderCache.containsKey(name)) {
 			log.debug("Using name to gender cache for name \"{}\"", name);
-			return nameGenderCache.get(name);
+			final NameGenderDTO nameGenderDTO = nameGenderCache.get(name);
+			if (nameGenderDTO.getGender() == null || nameGenderDTO.getProbability() == null) {
+				return null;
+			}
+			return nameGenderDTO;
 		}
 
 		ensureInterval();
 
 		try {
-			URL url = new URL(apiUrl + "?name=" + name);
-			URLConnection connection = url.openConnection();
-			InputStream inputStream = null;
-			InputStreamReader inputStreamReader = null;
-			BufferedReader bufferedReader = null;
-			String result;
-			try {
-				inputStream = connection.getInputStream();
-				inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-				bufferedReader = new BufferedReader(inputStreamReader);
-				result = bufferedReader.lines().collect(Collectors.joining("\n"));
-			} finally {
-				if (inputStream != null) {
-					inputStream.close();
-				}
-				if (inputStreamReader != null) {
-					inputStreamReader.close();
-				}
-				if (bufferedReader != null) {
-					bufferedReader.close();
-				}
-			}
+			String queryUrl = String.format("%s?name=%s", apiUrl, name);
+			final ResponseEntity<NameGenderDTO> nameGenderDTOResponseEntity = restTemplate
+					.getForEntity(queryUrl, NameGenderDTO.class);
 			callsCount++;
 			log.info("A total of {} calls were made to genderize.io API", callsCount);
-			JSONObject jsonObject = new JSONObject(result);
-			return tryParseResponse(jsonObject, name);
+			if (nameGenderDTOResponseEntity.getStatusCode().is2xxSuccessful()) {
+				final NameGenderDTO nameGenderDTO = nameGenderDTOResponseEntity.getBody();
+				nameGenderCache.put(name, nameGenderDTO);
+				if (nameGenderDTO.getGender() == null || nameGenderDTO.getProbability() == null) {
+					return null;
+				}
+				return nameGenderDTO;
+			}
 		} catch (Exception e) {
-			log.error("Could not get details about name " + name + " from API because of exception", e);
-			return null;
+			// just return null
 		}
-	}
 
-	private NameGenderDTO tryParseResponse(JSONObject jsonObject, String name) {
-		NameGenderDTO nameGenderDTO = new NameGenderDTO();
-		nameGenderDTO.setName(name);
-		try {
-			nameGenderDTO.setGender(jsonObject.getString("gender"));
-		} catch (JSONException e2) {
-			if (!e2.getMessage().contains("JSONObject[\"gender\"] not a string.")) {
-				throw e2;
-			}
-		}
-		try {
-			nameGenderDTO.setProbability((float) jsonObject.getDouble("probability"));
-		} catch (JSONException e2) {
-			if (!e2.getMessage().contains("JSONObject[\"probability\"] not found.")) {
-				throw e2;
-			}
-
-			return null;
-		}
-		nameGenderCache.put(name, nameGenderDTO);
-		return nameGenderDTO;
+		return null;
 	}
 
 	private void ensureInterval() {
 		long diff = System.currentTimeMillis() - lastCallTime;
 
-		if (diff < minimalInterval) {
-			long postpone = minimalInterval - diff;
-			log.info("Postponing call to genderize.io for another {} milliseconds", postpone);
+		if (diff < MINIMAL_INTERVAL) {
+			long postpone = MINIMAL_INTERVAL - diff;
+			log.info("Postponing call to genderize.io for another {} milliseconds.", postpone);
 			try {
 				Thread.sleep(postpone);
 			} catch (InterruptedException e) {
@@ -119,6 +87,5 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 		lastCallTime = System.currentTimeMillis();
 	}
-
 
 }

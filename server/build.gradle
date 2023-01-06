@@ -49,8 +49,8 @@ dependencies {
 
 	// Other
 	implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
-	implementation group: 'javax.json', name: 'javax.json-api', version: '1.0'
-	implementation group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+	implementation group: 'javax.json', name: 'javax.json-api', version:  javaxJsonApiVersion
+	implementation group: 'org.glassfish', name: 'javax.json', version: javaxJsonApiVersion
 	implementation group: 'com.sun.xml.ws', name: 'jaxws-ri', version: '2.3.5'
 
 	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'

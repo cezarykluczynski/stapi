@@ -1,8 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.metrics.service;
 
 import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO;
-import com.cezarykluczynski.stapi.util.constant.SpringProfile;
-import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +11,16 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 
 @Service
-@Profile(SpringProfile.HITS)
 public class EndpointHitsCountingService {
+
+	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(EndpointHitsCountingService.class);
 
 	private final ConcurrentMap<MetricsEndpointKeyDTO, LongAdder> endpointsHits = new ConcurrentHashMap<>();
 
-	private final EndpointHitsPersister endpointHitsPersister;
+	private final EndpointHitsConsoleOutputFormatter endpointHitsConsoleOutputFormatter;
 
-	public EndpointHitsCountingService(EndpointHitsPersister endpointHitsPersister) {
-		this.endpointHitsPersister = endpointHitsPersister;
+	public EndpointHitsCountingService(EndpointHitsConsoleOutputFormatter endpointHitsConsoleOutputFormatter) {
+		this.endpointHitsConsoleOutputFormatter = endpointHitsConsoleOutputFormatter;
 	}
 
 	public void recordEndpointHit(String endpointName, String methodName) {
@@ -30,17 +29,11 @@ public class EndpointHitsCountingService {
 		endpointsHits.get(key).increment();
 	}
 
-	@Scheduled(cron = "${statistics.persist.endpointHit}")
+	@Scheduled(cron = "${statistics.endpointHitsConsolePrintCron}")
 	public void flush() {
-		Map<MetricsEndpointKeyDTO, Long> statisticsToPersist;
-
-		synchronized (this) {
-			statisticsToPersist = endpointsHits.entrySet()
-					.stream()
-					.collect(Collectors.toMap(Map.Entry::getKey, value -> value.getValue().sumThenReset()));
-		}
-
-		endpointHitsPersister.persist(statisticsToPersist);
+		LOG.info("{}", endpointHitsConsoleOutputFormatter.formatForConsolePrint(endpointsHits.entrySet()
+				.stream()
+					.collect(Collectors.toMap(Map.Entry::getKey, value -> value.getValue().sum()))));
 	}
 
 }

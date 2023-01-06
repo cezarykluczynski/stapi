@@ -21,7 +21,6 @@ describe('ApiBrowserComponent', () => {
 	let fixture: ComponentFixture<ApiBrowserComponent>;
 	let apiBrowserApiMock: ApiBrowserApiMock;
 	let restApiServiceMock: RestApiServiceMock;
-	let element: HTMLElement;
 	const details: any[] = [
 		{
 			symbol: 'AN',
@@ -60,7 +59,6 @@ describe('ApiBrowserComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ApiBrowserComponent);
 		component = fixture.componentInstance;
-		element = fixture.nativeElement;
 		fixture.detectChanges();
 	});
 

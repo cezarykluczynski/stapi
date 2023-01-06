@@ -16,14 +16,6 @@ class ModelConfigurationTest extends Specification {
 				applicationContext: applicationContextMock)
 	}
 
-	void "creates SpringLiquibase mock"() {
-		when:
-		Object liquibaseBase = modelConfiguration.liquibaseMock()
-
-		then:
-		liquibaseBase != null
-	}
-
 	void "creates Repositories"() {
 		when:
 		Repositories repositories = modelConfiguration.repositories()

@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-class CommonEntitiesDetailsReader {
+public class CommonEntitiesDetailsReader {
 
 	private final EntityMetadataProvider entityMetadataProvider;
 
@@ -27,7 +27,7 @@ class CommonEntitiesDetailsReader {
 		this.entityMetadataProvider = entityMetadataProvider;
 	}
 
-	RestEndpointDetailsDTO details() {
+	public RestEndpointDetailsDTO details() {
 		init();
 
 		List<RestEndpointDetailDTO> restEndpointDetailsDTOList = classNameToMetadataMap
