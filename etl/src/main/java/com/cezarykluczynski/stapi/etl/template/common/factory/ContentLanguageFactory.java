@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_language.repository.ContentLanguageRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -28,6 +29,10 @@ public class ContentLanguageFactory {
 	}
 
 	public synchronized Optional<ContentLanguage> createForName(String languageName) {
+		if (StringUtils.isBlank(languageName)) {
+			return Optional.empty();
+		}
+
 		Optional<ContentLanguageDTO> contentLanguageDTOOptional = contentLanguageDTOProvider.getByName(languageName);
 
 		if (!contentLanguageDTOOptional.isPresent()) {

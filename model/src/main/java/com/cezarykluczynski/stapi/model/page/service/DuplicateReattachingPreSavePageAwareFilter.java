@@ -26,8 +26,6 @@ public class DuplicateReattachingPreSavePageAwareFilter extends AbstractPreSaveP
 		List<Page> pageList = pageRepository.findByPageIdIn(flattenPages.keySet());
 
 		if (!pageList.isEmpty()) {
-			log.info("Found {} Page entities to be attached: {}", pageList.size(), pageList);
-
 			pageList.forEach(page -> {
 				List<Pair<Page, PageAware>> pairList = flattenPages.get(page.getPageId());
 				pairList.forEach(pair -> pair.getValue().setPage(page));

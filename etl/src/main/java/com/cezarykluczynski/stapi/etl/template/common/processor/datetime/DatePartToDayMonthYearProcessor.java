@@ -28,9 +28,10 @@ public class DatePartToDayMonthYearProcessor implements ItemProcessor<Template.P
 
 	@Override
 	public DayMonthYear process(Template.Part item) throws Exception {
-		List<Template> dayTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.D, TemplateTitle.DATELINK);
-		List<Template> monthTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.M, TemplateTitle.MONTHLINK);
-		List<Template> yearTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.Y, TemplateTitle.YEARLINK);
+		final List<Template> templates = item.getTemplates();
+		List<Template> dayTemplateList = templateFilter.filterByTitle(templates, TemplateTitle.D, TemplateTitle.DATELINK);
+		List<Template> monthTemplateList = templateFilter.filterByTitle(templates, TemplateTitle.M, TemplateTitle.MONTHLINK);
+		List<Template> yearTemplateList = templateFilter.filterByTitle(templates, TemplateTitle.Y, TemplateTitle.YEARLINK);
 
 		DayMonthYear dayMonthYear = null;
 
@@ -39,28 +40,29 @@ public class DatePartToDayMonthYearProcessor implements ItemProcessor<Template.P
 					.map(templateToDayMonthYearParser::parseDayMonthYearCandidate)
 					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
-			if (dayTemplateList.size() > 1) {
-				log.info("More than one datelink template found {}, using the first one", dayMonthYears);
+			if (!dayMonthYears.isEmpty()) {
+				dayMonthYear = dayMonthYears.get(0);
 			}
-			dayMonthYear = dayMonthYears.get(0);
-		} else if (!monthTemplateList.isEmpty()) {
+		}
+
+		if (dayMonthYear == null && !monthTemplateList.isEmpty()) {
 			List<DayMonthYear> dayMonthYears = monthTemplateList.stream()
 					.map(templateToDayMonthYearParser::parseMonthYearCandidate)
 					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
-			if (monthTemplateList.size() > 1) {
-				log.info("More than one monthlink template found {}, using the first one", dayMonthYears);
+			if (!dayMonthYears.isEmpty()) {
+				dayMonthYear = dayMonthYears.get(0);
 			}
-			dayMonthYear = dayMonthYears.get(0);
-		} else if (!yearTemplateList.isEmpty()) {
+		}
+
+		if (dayMonthYear == null && !yearTemplateList.isEmpty()) {
 			final List<DayMonthYear> dayMonthYears = yearTemplateList.stream()
 					.map(templateToDayMonthYearParser::parseYearCandidate)
 					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
-			if (yearTemplateList.size() > 1) {
-				log.info("More than one yearlink template found {}, using the first one", dayMonthYears);
+			if (!dayMonthYears.isEmpty()) {
+				dayMonthYear = dayMonthYears.get(0);
 			}
-			dayMonthYear = dayMonthYears.get(0);
 		}
 
 		return dayMonthYear;

@@ -41,7 +41,6 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 	public synchronized NameGenderDTO getNameGender(String name) {
 		if (nameGenderCache.containsKey(name)) {
-			log.debug("Using name to gender cache for name \"{}\"", name);
 			final NameGenderDTO nameGenderDTO = nameGenderCache.get(name);
 			if (nameGenderDTO.getGender() == null || nameGenderDTO.getProbability() == null) {
 				return null;

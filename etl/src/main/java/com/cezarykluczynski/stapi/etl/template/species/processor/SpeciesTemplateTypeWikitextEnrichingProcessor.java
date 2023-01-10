@@ -45,7 +45,7 @@ public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemWithTe
 		String wikitext = enrichablePair.getInput().getValue();
 		SpeciesTemplate speciesTemplate = enrichablePair.getOutput();
 
-		if (StringUtils.containsIgnoreCase(wikitext, UNKNOWN)) {
+		if (StringUtils.isBlank(wikitext) || StringUtils.containsIgnoreCase(wikitext, UNKNOWN)) {
 			return;
 		}
 

@@ -34,7 +34,7 @@ blocks:
         - name: 'build-frontend'
           commands:
             - checkout --use-cache
-            - cd server/src/main/web && npm i && cd ../../../..
+            - cd server/src/main/web && npm ci && cd ../../../..
             - cd server/src/main/web && npm run lint && npm run test-once-cov && npm run build-prod && cd ../../../..
             - bash <(curl -s https://codecov.io/bash) -f "server/src/main/web/coverage/lcov.info"
       epilogue:

@@ -18,10 +18,6 @@ plugins {
 	id 'war'
 }
 
-//springBoot {
-//	mainClass = "com.cezarykluczynski.stapi.server.Application"
-//}
-
 dependencies {
 	implementation project(':util'), project(':contract'), project(':model'), project(':etl'), project(':client')
 	implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion

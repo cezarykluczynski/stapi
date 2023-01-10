@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.feature_switch.api.FeatureSwitchApi;
 import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchesDTO;
+import com.cezarykluczynski.stapi.server.common.healthcheck.CommonDatabaseStatusValidator;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.github.model.GitHubDTO;
@@ -35,10 +36,14 @@ public class CommonRestEndpoint {
 
 	private final GitHubApi gitHubApi;
 
-	public CommonRestEndpoint(CommonDataReader commonDataReader, FeatureSwitchApi featureSwitchApi, GitHubApi gitHubApi) {
+	private final CommonDatabaseStatusValidator commonDatabaseStatusValidator;
+
+	public CommonRestEndpoint(CommonDataReader commonDataReader, FeatureSwitchApi featureSwitchApi, GitHubApi gitHubApi,
+			CommonDatabaseStatusValidator commonDatabaseStatusValidator) {
 		this.commonDataReader = commonDataReader;
 		this.featureSwitchApi = featureSwitchApi;
 		this.gitHubApi = gitHubApi;
+		this.commonDatabaseStatusValidator = commonDatabaseStatusValidator;
 	}
 
 	@GET
@@ -76,6 +81,7 @@ public class CommonRestEndpoint {
 	@GET
 	@Path("ping")
 	public PongDTO ping() {
+		commonDatabaseStatusValidator.validateDatabaseAccess();
 		return new PongDTO();
 	}
 

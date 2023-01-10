@@ -54,4 +54,18 @@ class SpeciesTemplateTypeWikitextEnrichingProcessorTest extends Specification {
 		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_HUMANOID           | 'humanoidSpecies'      | false | 0
 	}
 
+	@Unroll('empty wikitext \'#wikitext\' is tolerated')
+	void "empty wikitext is tolerated"() {
+		given:
+		SpeciesTemplate speciesTemplate = Mock()
+		Template.Part templatePart = new Template.Part(value: wikitext)
+		0 * _
+
+		expect:
+		speciesTemplateTypeWikitextEnrichingProcessor.enrich(EnrichablePair.of(templatePart, speciesTemplate))
+
+		where:
+		wikitext << [null, '', ' ']
+	}
+
 }

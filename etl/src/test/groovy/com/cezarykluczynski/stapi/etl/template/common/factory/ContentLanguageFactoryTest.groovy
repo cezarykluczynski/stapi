@@ -70,7 +70,16 @@ class ContentLanguageFactoryTest extends Specification {
 		then:
 		1 * contentLanguageDTOProviderMock.getByName(NAME) >> Optional.empty()
 		0 * _
-		!contentLanguageOptional.present
+		contentLanguageOptional.empty
+	}
+
+	void "returns empty optional when language is empty"() {
+		when:
+		Optional<ContentLanguage> contentLanguageOptional = contentLanguageFactory.createForName('')
+
+		then:
+		0 * _
+		contentLanguageOptional.empty
 	}
 
 }

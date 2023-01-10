@@ -131,7 +131,7 @@ class SpeciesTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: SpeciesTemplateParameter.POPULATION,
-				value: '')
+				value: 'Billions')
 		SpeciesTemplate speciesTemplate = Mock()
 
 		when:

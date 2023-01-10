@@ -9,4 +9,9 @@ public class StapiRuntimeException extends RuntimeException {
 	public StapiRuntimeException(Throwable cause) {
 		super(cause);
 	}
+
+	public StapiRuntimeException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
 }

@@ -64,6 +64,27 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 		dayMonthYearOutput == dayMonthYear
 	}
 
+	void "when only null DayMonthYear is found in datelink template part, null is returned"() {
+		given:
+		Template datelinkTemplate1 = Mock()
+		Template datelinkTemplate2 = Mock()
+		List<Template> templateList = Mock()
+		Template.Part templatePart = new Template.Part(templates: templateList)
+
+		when:
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
+
+		then:
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists
+				.newArrayList(datelinkTemplate1, datelinkTemplate2)
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
+		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplate1) >> null
+		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplate2) >> null
+		0 * _
+		dayMonthYearOutput == null
+	}
+
 	void "when one monthlink template is found in template part, it is used to to parse month year"() {
 		given:
 		DayMonthYear dayMonthYear = Mock()
@@ -106,6 +127,27 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 		dayMonthYearOutput == dayMonthYear
 	}
 
+	void "when only null DayMonthYear is found in monthlink template part, null is returned"() {
+		given:
+		Template monthlinkTemplate1 = Mock()
+		Template monthlinkTemplate2 = Mock()
+		List<Template> templateList = Mock()
+		Template.Part templatePart = new Template.Part(templates: templateList)
+
+		when:
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
+
+		then:
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists
+				.newArrayList(monthlinkTemplate1, monthlinkTemplate2)
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
+		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplate1) >> null
+		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplate2) >> null
+		0 * _
+		dayMonthYearOutput == null
+	}
+
 	void "when one yearlink template is found in template part, it is used to to parse year"() {
 		given:
 		DayMonthYear dayMonthYear = Mock()
@@ -146,6 +188,27 @@ class DatePartToDayMonthYearProcessorTest extends Specification {
 		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate2) >> dayMonthYear2
 		0 * _
 		dayMonthYearOutput == dayMonthYear
+	}
+
+	void "when only null DayMonthYear is found in yearlink template part, null is returned"() {
+		given:
+		Template yearlinkTemplate1 = Mock()
+		Template yearlinkTemplate2 = Mock()
+		List<Template> templateList = Mock()
+		Template.Part templatePart = new Template.Part(templates: templateList)
+
+		when:
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
+
+		then:
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists
+				.newArrayList(yearlinkTemplate1, yearlinkTemplate2)
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate1) >> null
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate2) >> null
+		0 * _
+		dayMonthYearOutput == null
 	}
 
 }

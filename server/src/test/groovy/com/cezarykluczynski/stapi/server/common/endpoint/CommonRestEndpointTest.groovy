@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
+import com.cezarykluczynski.stapi.server.common.healthcheck.CommonDatabaseStatusValidator
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
 import com.cezarykluczynski.stapi.server.github.model.GitHubDTO
 import com.cezarykluczynski.stapi.server.github.service.GitHubApi
@@ -21,13 +22,16 @@ class CommonRestEndpointTest extends Specification {
 
 	private GitHubApi gitHubApiMock
 
+	private CommonDatabaseStatusValidator commonDatabaseStatusValidatorMock
+
 	private CommonRestEndpoint commonRestEndpoint
 
 	void setup() {
 		commonDataReaderMock = Mock()
 		featureSwitchApiMock = Mock()
 		gitHubApiMock = Mock()
-		commonRestEndpoint = new CommonRestEndpoint(commonDataReaderMock, featureSwitchApiMock, gitHubApiMock)
+		commonDatabaseStatusValidatorMock = Mock()
+		commonRestEndpoint = new CommonRestEndpoint(commonDataReaderMock, featureSwitchApiMock, gitHubApiMock, commonDatabaseStatusValidatorMock)
 	}
 
 	void "gets feature switches"() {
@@ -100,6 +104,8 @@ class CommonRestEndpointTest extends Specification {
 		PongDTO pongDTO = commonRestEndpoint.ping()
 
 		then:
+		1 * commonDatabaseStatusValidatorMock.validateDatabaseAccess()
+		0 * _
 		pongDTO.pong == 'pong'
 	}
 

@@ -13,7 +13,7 @@
 		"test-once-cov": "ng test --watch=false --code-coverage --karma-config=./karma.conf.js",
 		"lint": "ng lint",
 		"build-prod": "grunt clean && ng build --configuration=production --build-optimizer=false && grunt copy",
-		"install-build": "npm install && npm run build-prod"
+		"install-build": "npm ci && npm run build-prod"
 	},
 	"private": true,
 	"dependencies": {

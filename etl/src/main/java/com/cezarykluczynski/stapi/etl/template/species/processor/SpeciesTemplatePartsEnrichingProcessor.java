@@ -57,7 +57,7 @@ public class SpeciesTemplatePartsEnrichingProcessor implements ItemWithTemplateP
 				case SpeciesTemplateParameter.POPULATION:
 					if (value.equalsIgnoreCase(EXTINCT)) {
 						speciesTemplate.setExtinctSpecies(true);
-					} else {
+					} else if (StringUtils.isNotBlank(value)) {
 						log.info("Skipped population value \"{}\" for species \"{}\"", value, speciesTemplate.getName());
 					}
 					break;

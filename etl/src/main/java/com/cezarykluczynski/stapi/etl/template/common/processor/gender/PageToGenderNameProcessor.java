@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 
 	private static final float MINIMAL_PROBABILITY = (float) 0.95;
+	private static final String MALE = "male";
 
 	private final FullNameToFirstNameProcessor fullNameToFirstNameProcessor;
 
@@ -42,15 +43,16 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 			return null;
 		}
 
-		Gender gender = foundGender.compareToIgnoreCase("male") == 0 ? Gender.M : Gender.F;
+		Gender gender = MALE.equalsIgnoreCase(foundGender) ? Gender.M : Gender.F;
+		final Float probability = nameGenderDTO.getProbability();
 
-		log.info("Gender {} found in external API for \"{}\" with probability {}",
-				gender, item.getTitle(), nameGenderDTO.getProbability());
-
-		if (nameGenderDTO.getProbability() < MINIMAL_PROBABILITY) {
-			log.warn("Probability {} of gender {} found in external API for name \"{}\" lower than required {}.",
-					nameGenderDTO.getProbability(), gender, name, MINIMAL_PROBABILITY);
+		if (probability < MINIMAL_PROBABILITY) {
+			log.info("Probability {} of gender {} found in external API for name \"{}\" lower than required {}.",
+					probability, gender, name, MINIMAL_PROBABILITY);
 			return null;
+		} else if (probability < 1.0f) {
+			log.info("Gender {} found in external API for \"{}\" with probability {}",
+					gender, item.getTitle(), probability);
 		}
 
 		return gender;
