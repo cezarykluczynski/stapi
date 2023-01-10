@@ -7,13 +7,12 @@ import com.cezarykluczynski.stapi.server.season.mapper.SeasonBaseRestMapper;
 import com.cezarykluczynski.stapi.server.season.mapper.SeasonBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.season.mapper.SeasonFullRestMapper;
 import com.cezarykluczynski.stapi.server.season.mapper.SeasonFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class SeasonConfiguration {

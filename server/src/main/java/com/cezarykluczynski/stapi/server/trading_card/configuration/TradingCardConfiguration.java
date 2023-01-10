@@ -7,13 +7,12 @@ import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardBaseRest
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardFullRestMapper;
 import com.cezarykluczynski.stapi.server.trading_card.mapper.TradingCardFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class TradingCardConfiguration {

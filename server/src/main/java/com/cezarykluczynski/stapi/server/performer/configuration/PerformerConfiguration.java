@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMappe
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class PerformerConfiguration {

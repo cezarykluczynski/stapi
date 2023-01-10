@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.model.step.SimpleStep
 import com.google.common.collect.Lists
+import jakarta.inject.Inject
 import jakarta.persistence.EntityManager
 import jakarta.transaction.Transactional
 import liquibase.integration.spring.SpringLiquibase
@@ -17,7 +18,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
 
-import javax.inject.Inject
 import javax.sql.DataSource
 
 class StaticJobCompletenessDecider {

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
+import jakarta.inject.Inject;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.batch.core.repository.JobRepository;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-
-import javax.inject.Inject;
 
 import java.lang.reflect.Field;
 

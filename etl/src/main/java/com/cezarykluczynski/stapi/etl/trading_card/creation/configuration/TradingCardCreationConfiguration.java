@@ -10,12 +10,11 @@ import com.cezarykluczynski.stapi.sources.wordpress.api.WordPressApi;
 import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import com.google.common.collect.Lists;
+import jakarta.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.inject.Inject;
 
 import java.util.List;
 

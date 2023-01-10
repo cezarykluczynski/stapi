@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.server.common.filter
 
 import com.cezarykluczynski.stapi.util.constant.EnvironmentVariable
+import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletRequest
+import jakarta.servlet.ServletResponse
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.core.env.Environment
 import spock.lang.Specification
-
-import javax.servlet.FilterChain
-import javax.servlet.ServletRequest
-import javax.servlet.ServletResponse
-import javax.servlet.http.HttpServletRequest
 
 class CanonicalDomainFilterTest extends Specification {
 

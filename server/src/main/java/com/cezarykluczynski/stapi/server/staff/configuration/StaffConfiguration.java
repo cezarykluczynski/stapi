@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class StaffConfiguration {

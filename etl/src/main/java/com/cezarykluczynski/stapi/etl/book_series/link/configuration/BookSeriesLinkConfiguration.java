@@ -4,11 +4,10 @@ import com.cezarykluczynski.stapi.etl.book_series.link.processor.BookSeriesLinkR
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties;
 import com.cezarykluczynski.stapi.model.book_series.repository.BookSeriesRepository;
 import com.google.common.collect.ImmutableMap;
+import jakarta.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
-
-import javax.inject.Inject;
 
 @Configuration
 public class BookSeriesLinkConfiguration {

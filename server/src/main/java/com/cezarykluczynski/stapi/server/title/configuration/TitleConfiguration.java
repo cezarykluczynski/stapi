@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseRestMapper;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleFullRestMapper;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class TitleConfiguration {

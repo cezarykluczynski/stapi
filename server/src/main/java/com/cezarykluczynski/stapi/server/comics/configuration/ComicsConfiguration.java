@@ -7,13 +7,12 @@ import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullRestMapper;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullSoapMapper;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class ComicsConfiguration {

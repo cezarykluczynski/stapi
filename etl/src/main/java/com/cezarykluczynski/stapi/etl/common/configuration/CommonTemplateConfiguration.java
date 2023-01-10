@@ -4,11 +4,10 @@ import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYear
 import com.cezarykluczynski.stapi.etl.template.common.processor.StardateYearProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.processor.EpisodeTemplateStardateYearFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.movie.processor.MovieTemplateStardateYearFixedValueProvider;
+import jakarta.inject.Inject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class CommonTemplateConfiguration {

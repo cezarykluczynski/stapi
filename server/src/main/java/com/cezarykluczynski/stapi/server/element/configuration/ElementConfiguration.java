@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseRestMapper;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementFullRestMapper;
 import com.cezarykluczynski.stapi.server.element.mapper.ElementFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class ElementConfiguration {

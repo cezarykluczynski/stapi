@@ -80,8 +80,7 @@ allprojects {
 	}
 
 	dependencies {
-		implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-		implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+		implementation group: 'jakarta.platform', name: 'jakarta.jakartaee-web-api', version: '10.0.0'
 
 		// Utils
 		implementation group: 'org.json', name: 'json', version: '20220924'

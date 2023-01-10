@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class SpeciesConfiguration {

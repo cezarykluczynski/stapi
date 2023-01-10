@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContain
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 import com.google.common.collect.Lists;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -15,8 +16,6 @@ import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 @Service
 public class EndpointFactory {

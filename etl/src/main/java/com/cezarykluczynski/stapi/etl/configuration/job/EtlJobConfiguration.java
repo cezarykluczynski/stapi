@@ -171,6 +171,7 @@ import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
+import jakarta.inject.Inject;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.beans.factory.FactoryBean;
@@ -180,8 +181,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.inject.Inject;
 
 @Configuration
 @EnableConfigurationProperties(StepsProperties.class)

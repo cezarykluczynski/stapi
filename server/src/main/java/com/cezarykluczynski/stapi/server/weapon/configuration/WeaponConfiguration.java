@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponBaseRestMapper;
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponFullRestMapper;
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class WeaponConfiguration {

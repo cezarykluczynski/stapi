@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
 import com.cezarykluczynski.stapi.util.constant.Package;
+import jakarta.inject.Inject;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
@@ -14,8 +15,6 @@ import org.springframework.data.repository.support.Repositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.inject.Inject;
 
 @Configuration
 @EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class})

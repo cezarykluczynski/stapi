@@ -3,9 +3,8 @@ package com.cezarykluczynski.stapi.model.character.repository;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation;
 import com.google.common.collect.Sets;
+import jakarta.inject.Inject;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 import java.util.List;
 import java.util.Set;

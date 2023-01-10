@@ -1,21 +1,22 @@
 package com.cezarykluczynski.stapi.server.common.filter;
 
 import com.cezarykluczynski.stapi.util.constant.EnvironmentVariable;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 
 @Service
 public class CanonicalDomainFilter implements Filter {
+
+	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CanonicalDomainFilter.class);
 
 	private final Environment environment;
 
@@ -28,6 +29,9 @@ public class CanonicalDomainFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		canonicalDomainToCheck = environment.getProperty(EnvironmentVariable.STAPI_CANONICAL_DOMAIN);
+		if (canonicalDomainToCheck != null) {
+			LOG.info("Setting canonical domain to {}.", canonicalDomainToCheck);
+		}
 	}
 
 	@Override
@@ -48,4 +52,5 @@ public class CanonicalDomainFilter implements Filter {
 	public void destroy() {
 		// do nothing
 	}
+
 }

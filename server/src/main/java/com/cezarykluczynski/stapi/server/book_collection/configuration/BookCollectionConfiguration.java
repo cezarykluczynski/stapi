@@ -7,13 +7,12 @@ import com.cezarykluczynski.stapi.server.book_collection.mapper.BookCollectionBa
 import com.cezarykluczynski.stapi.server.book_collection.mapper.BookCollectionFullRestMapper;
 import com.cezarykluczynski.stapi.server.book_collection.mapper.BookCollectionFullSoapMapper;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class BookCollectionConfiguration {

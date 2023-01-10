@@ -7,13 +7,12 @@ import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureBaseRestMap
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureFullRestMapper;
 import com.cezarykluczynski.stapi.server.literature.mapper.LiteratureFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class LiteratureConfiguration {

@@ -8,13 +8,12 @@ import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseRestMap
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullRestMapper;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullSoapMapper;
+import jakarta.inject.Inject;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
 
 @Configuration
 public class SpacecraftConfiguration {

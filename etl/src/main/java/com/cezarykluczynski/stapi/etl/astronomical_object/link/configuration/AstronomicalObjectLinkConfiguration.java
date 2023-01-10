@@ -4,11 +4,10 @@ import com.cezarykluczynski.stapi.etl.astronomical_object.link.processor.Astrono
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties;
 import com.cezarykluczynski.stapi.model.astronomical_object.repository.AstronomicalObjectRepository;
 import com.google.common.collect.ImmutableMap;
+import jakarta.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
-
-import javax.inject.Inject;
 
 @Configuration
 public class AstronomicalObjectLinkConfiguration {
