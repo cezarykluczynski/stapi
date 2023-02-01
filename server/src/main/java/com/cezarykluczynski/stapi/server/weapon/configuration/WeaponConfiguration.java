@@ -2,14 +2,10 @@ package com.cezarykluczynski.stapi.server.weapon.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponRestEndpoint;
-import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponSoapEndpoint;
 import com.cezarykluczynski.stapi.server.weapon.endpoint.WeaponV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponBaseRestMapper;
-import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponFullRestMapper;
-import com.cezarykluczynski.stapi.server.weapon.mapper.WeaponFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +18,6 @@ public class WeaponConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint weaponEndpoint() {
-		return endpointFactory.createSoapEndpoint(WeaponSoapEndpoint.class, WeaponSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server weaponServer() {
 		return endpointFactory.createRestEndpoint(WeaponRestEndpoint.class, WeaponRestEndpoint.ADDRESS);
 	}
@@ -34,16 +25,6 @@ public class WeaponConfiguration {
 	@Bean
 	public Server weaponV2Server() {
 		return endpointFactory.createRestEndpoint(WeaponV2RestEndpoint.class, WeaponV2RestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public WeaponBaseSoapMapper weaponBaseSoapMapper() {
-		return Mappers.getMapper(WeaponBaseSoapMapper.class);
-	}
-
-	@Bean
-	public WeaponFullSoapMapper weaponFullSoapMapper() {
-		return Mappers.getMapper(WeaponFullSoapMapper.class);
 	}
 
 	@Bean

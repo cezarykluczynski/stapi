@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.server.common.serializer.RestSortDeserializer;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 
-@Mapper(config = MapstructConfiguration.class, uses = {RequestSortDirectionEnumDTOMapper.class})
+@Mapper(config = MapstructConfiguration.class)
 public interface RequestSortRestMapper {
 
 	default RequestSortDTO mapString(String sort) {

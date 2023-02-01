@@ -7,12 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 import com.google.common.collect.Lists;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
-import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
-import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -22,14 +19,6 @@ public class EndpointFactory {
 
 	@Inject
 	private ApplicationContext applicationContext;
-
-	public Endpoint createSoapEndpoint(Class<?> implementorClass, String address) {
-		Bus bus = applicationContext.getBean(SpringBus.class);
-		Object implementor = applicationContext.getBean(implementorClass);
-		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
-		endpoint.publish(address);
-		return endpoint;
-	}
 
 	public <T> Server createRestEndpoint(Class<T> implementorClass, String address) {
 		JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();

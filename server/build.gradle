@@ -43,7 +43,9 @@ dependencies {
 	implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
 
 	// Other
-	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1' // could be removed along with the SOAP endpoints, probably
+	// required because otherwise Groovy tests cannot be compiled with not found class javax.servlet.ServletContext
+	// probably some problem with Groovy 4.0.x or Spock 2.3, should be checked later
+	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 	implementation group: 'javax.json', name: 'javax.json-api', version:  javaxJsonApiVersion
 	implementation group: 'org.glassfish', name: 'javax.json', version: javaxJsonApiVersion
 	implementation group: 'com.sun.xml.ws', name: 'jaxws-ri', version: '2.3.5'

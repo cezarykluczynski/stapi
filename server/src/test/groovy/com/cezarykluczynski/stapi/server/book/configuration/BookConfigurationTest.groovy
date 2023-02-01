@@ -1,14 +1,10 @@
 package com.cezarykluczynski.stapi.server.book.configuration
 
 import com.cezarykluczynski.stapi.server.book.endpoint.BookRestEndpoint
-import com.cezarykluczynski.stapi.server.book.endpoint.BookSoapEndpoint
 import com.cezarykluczynski.stapi.server.book.endpoint.BookV2RestEndpoint
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper
-import com.cezarykluczynski.stapi.server.book.mapper.BookBaseSoapMapper
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullRestMapper
-import com.cezarykluczynski.stapi.server.book.mapper.BookFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -21,19 +17,6 @@ class BookConfigurationTest extends Specification {
 	void setup() {
 		endpointFactoryMock = Mock()
 		bookConfiguration = new BookConfiguration(endpointFactory: endpointFactoryMock)
-	}
-
-	void "Book SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = bookConfiguration.bookEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(BookSoapEndpoint, BookSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
 	}
 
 	void "Book REST endpoint is created"() {
@@ -60,22 +43,6 @@ class BookConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(BookV2RestEndpoint, BookV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "BookBaseSoapMapper is created"() {
-		when:
-		BookBaseSoapMapper bookBaseSoapMapper = bookConfiguration.bookBaseSoapMapper()
-
-		then:
-		bookBaseSoapMapper != null
-	}
-
-	void "BookFullSoapMapper is created"() {
-		when:
-		BookFullSoapMapper bookFullSoapMapper = bookConfiguration.bookFullSoapMapper()
-
-		then:
-		bookFullSoapMapper != null
 	}
 
 	void "BookBaseRestMapper is created"() {

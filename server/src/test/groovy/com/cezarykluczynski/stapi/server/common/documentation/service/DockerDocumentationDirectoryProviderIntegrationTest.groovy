@@ -20,11 +20,6 @@ class DockerDocumentationDirectoryProviderIntegrationTest extends Specification 
 		warDocumentationDirectoryProvider.swaggerDirectory.replaceAll('\\\\', '/').contains(DockerDocumentationDirectoryProvider.SWAGGER_DIRECTORY)
 	}
 
-	void "provides WSDL directory"() {
-		expect:
-		warDocumentationDirectoryProvider.wsdlDirectory.replaceAll('\\\\', '/').contains(DockerDocumentationDirectoryProvider.WSDL_DIRECTORY)
-	}
-
 	void "provides temporary directory"() {
 		expect:
 		warDocumentationDirectoryProvider.temporaryDirectory.replaceAll('\\\\', '/').contains(DockerDocumentationDirectoryProvider.BUILD_DIRECTORY)

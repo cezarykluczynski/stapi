@@ -14,7 +14,7 @@ class CharacterHeaderRestMapperTest extends AbstractRealWorldPersonMapperTest {
 		characterHeaderRestMapper = Mappers.getMapper(CharacterHeaderRestMapper)
 	}
 
-	void "maps DB entity to SOAP header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Character character = new Character(
 				name: NAME,

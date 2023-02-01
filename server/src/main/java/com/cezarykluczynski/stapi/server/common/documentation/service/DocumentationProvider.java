@@ -13,7 +13,6 @@ import java.io.File;
 public class DocumentationProvider {
 
 	private static final String SWAGGER_ATTACHMENT_NAME = "stapi_swagger_specs.zip";
-	private static final String WSDL_ATTACHMENT_NAME = "stapi_wsdl_contracts.zip";
 
 	private final DocumentationReader documentationReader;
 
@@ -35,20 +34,14 @@ public class DocumentationProvider {
 		if (documentationDTO == null) {
 			documentationDTO = new DocumentationDTO();
 			documentationDTO.setRestDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getSwaggerDirectory()));
-			documentationDTO.setSoapDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getWsdlDirectory()));
 		}
 
 		return documentationDTO;
 	}
 
 	public Response provideRestSpecsZip() {
-		File soapContractsZip = new File(documentationDirectoryProvider.getTemporaryDirectory() + SWAGGER_ATTACHMENT_NAME);
-		return createFromDirectoryOrRead(soapContractsZip, documentationDirectoryProvider.getSwaggerDirectory(), SWAGGER_ATTACHMENT_NAME);
-	}
-
-	public Response provideSoapContractsZip() {
-		File soapContractsZip = new File(documentationDirectoryProvider.getTemporaryDirectory() + WSDL_ATTACHMENT_NAME);
-		return createFromDirectoryOrRead(soapContractsZip, documentationDirectoryProvider.getWsdlDirectory(), WSDL_ATTACHMENT_NAME);
+		File restContractsZip = new File(documentationDirectoryProvider.getTemporaryDirectory() + SWAGGER_ATTACHMENT_NAME);
+		return createFromDirectoryOrRead(restContractsZip, documentationDirectoryProvider.getSwaggerDirectory(), SWAGGER_ATTACHMENT_NAME);
 	}
 
 	public Response provideFile(String path, String name) {

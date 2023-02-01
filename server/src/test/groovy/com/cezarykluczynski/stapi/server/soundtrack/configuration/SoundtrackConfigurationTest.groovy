@@ -2,12 +2,8 @@ package com.cezarykluczynski.stapi.server.soundtrack.configuration
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.soundtrack.endpoint.SoundtrackRestEndpoint
-import com.cezarykluczynski.stapi.server.soundtrack.endpoint.SoundtrackSoapEndpoint
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackBaseRestMapper
-import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackBaseSoapMapper
 import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackFullRestMapper
-import com.cezarykluczynski.stapi.server.soundtrack.mapper.SoundtrackFullSoapMapper
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -22,19 +18,6 @@ class SoundtrackConfigurationTest extends Specification {
 		soundtrackConfiguration = new SoundtrackConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
-	void "Soundtrack SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = soundtrackConfiguration.soundtrackEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(SoundtrackSoapEndpoint, SoundtrackSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
-	}
-
 	void "Soundtrack REST endpoint is created"() {
 		given:
 		Server server = Mock()
@@ -46,22 +29,6 @@ class SoundtrackConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(SoundtrackRestEndpoint, SoundtrackRestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "SoundtrackBaseSoapMapper is created"() {
-		when:
-		SoundtrackBaseSoapMapper soundtrackBaseSoapMapper = soundtrackConfiguration.soundtrackBaseSoapMapper()
-
-		then:
-		soundtrackBaseSoapMapper != null
-	}
-
-	void "SoundtrackFullSoapMapper is created"() {
-		when:
-		SoundtrackFullSoapMapper soundtrackFullSoapMapper = soundtrackConfiguration.soundtrackFullSoapMapper()
-
-		then:
-		soundtrackFullSoapMapper != null
 	}
 
 	void "SoundtrackBaseRestMapper is created"() {

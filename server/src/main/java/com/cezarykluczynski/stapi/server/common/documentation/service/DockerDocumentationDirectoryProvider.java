@@ -12,17 +12,11 @@ import java.io.File;
 public class DockerDocumentationDirectoryProvider implements DocumentationDirectoryProvider {
 
 	private static final String SWAGGER_DIRECTORY = "/contract/src/main/resources/v1/swagger";
-	private static final String WSDL_DIRECTORY = "/contract/src/main/resources/v1/wsdl";
 	private static final String BUILD_DIRECTORY = "/tmp/" + System.currentTimeMillis() + "/";
 
 	@Override
 	public String getSwaggerDirectory() {
 		return SWAGGER_DIRECTORY;
-	}
-
-	@Override
-	public String getWsdlDirectory() {
-		return WSDL_DIRECTORY;
 	}
 
 	@Override

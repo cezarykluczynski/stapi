@@ -4,18 +4,14 @@ import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConv
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper
 import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContainerResponseFilter
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
-import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.cxf.Bus
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.endpoint.Server
 import org.apache.cxf.endpoint.ServerImpl
-import org.apache.cxf.jaxws.EndpointImpl
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter
 import org.springframework.context.ApplicationContext
 import spock.lang.Specification
-
-import jakarta.xml.ws.Endpoint
 
 class EndpointFactoryTest extends Specification {
 
@@ -26,25 +22,6 @@ class EndpointFactoryTest extends Specification {
 	void setup() {
 		applicationContextMock = Mock()
 		endpointFactory = new EndpointFactory(applicationContext: applicationContextMock)
-	}
-
-	void "creates SOAP endpoint"() {
-		given:
-		Bus bus = new SpringBus()
-		Class<SeriesSoapEndpoint> seriesSoapEndpointClass = SeriesSoapEndpoint
-		SeriesSoapEndpoint seriesSoapEndpoint = Mock()
-
-		when:
-		Endpoint seriesSoapEndpointOutput = endpointFactory.createSoapEndpoint(seriesSoapEndpointClass, SeriesSoapEndpoint.ADDRESS)
-
-		then:
-		1 * applicationContextMock.getBean(SpringBus) >> bus
-		1 * applicationContextMock.getBean(seriesSoapEndpointClass) >> seriesSoapEndpoint
-		0 * _
-		seriesSoapEndpointOutput != null
-		((EndpointImpl) seriesSoapEndpointOutput).implementor == seriesSoapEndpoint
-		((EndpointImpl) seriesSoapEndpointOutput).bus == bus
-		seriesSoapEndpointOutput.published
 	}
 
 	@SuppressWarnings(['EmptyCatchBlock', 'CatchException'])

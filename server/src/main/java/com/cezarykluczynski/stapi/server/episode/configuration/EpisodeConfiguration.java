@@ -2,13 +2,9 @@ package com.cezarykluczynski.stapi.server.episode.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint;
-import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper;
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper;
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -21,23 +17,8 @@ public class EpisodeConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint episodeEndpoint() {
-		return endpointFactory.createSoapEndpoint(EpisodeSoapEndpoint.class, EpisodeSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server episodeServer() {
 		return endpointFactory.createRestEndpoint(EpisodeRestEndpoint.class, EpisodeRestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public EpisodeBaseSoapMapper episodeBaseSoapMapper() {
-		return Mappers.getMapper(EpisodeBaseSoapMapper.class);
-	}
-
-	@Bean
-	public EpisodeFullSoapMapper episodeFullSoapMapper() {
-		return Mappers.getMapper(EpisodeFullSoapMapper.class);
 	}
 
 	@Bean

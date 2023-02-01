@@ -25,18 +25,15 @@ public class EndpointHitsConsoleOutputFormatter {
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
 	private static final Set<TrackedEntityType> ENTITY_TYPES = Set.of(TrackedEntityType.FICTIONAL_PRIMARY, TrackedEntityType.REAL_WORLD_PRIMARY);
 	private static final String TOTAL = "Total";
-	private static final String ROW_STRING_TEMPLATE = "%n%s | %s | %s | %s | %s | %s";
+	private static final String ROW_STRING_TEMPLATE = "%n%s | %s | %s | %s";
 	private static final String HEADER_ENTITY = "Entity";
 	private static final String HEADER_REST_HITS = "REST hits";
-	private static final String HEADER_SOAP_HITS = "SOAP hits";
 	private static final String HEADER_TOTAL_HITS = "Total hits";
 	private static final String HEADER_REST_HITS_PERCENTAGE = "REST hits %";
-	private static final String HEADER_SOAP_HITS_PERCENTAGE = "SOAP hits %";
 	private static final String PAD_CHAR = " ";
 	private static final String DASH = "-";
 	private static final String PERCENTAGE = "%";
 	private static final String REST_ENDPOINT = "RestEndpoint";
-	private static final String SOAP_ENDPOINT = "SoapEndpoint";
 
 	private final CommonEntitiesDetailsReader commonEntitiesDetailsReader;
 
@@ -64,30 +61,22 @@ public class EndpointHitsConsoleOutputFormatter {
 
 		endpointsHits.forEach((key, value) -> {
 			final String endpointName = key.getEndpointName();
-			EndpointType endpointType = endpointTypeFromEndpointName(endpointName);
 			String possibleEntityName = toPossiblePrimaryEntityName(endpointName);
 			if (entitiesToReportRows.containsKey(possibleEntityName)) {
 				final ReportRow reportRow = entitiesToReportRows.get(possibleEntityName);
-				if (EndpointType.REST.equals(endpointType)) {
-					reportRow.restHits += value;
-				} else if (EndpointType.SOAP.equals(endpointType)) {
-					reportRow.soapHits += value;
-				}
+				reportRow.restHits += value;
 			}
 		});
 
 		AtomicInteger totalRestHits = new AtomicInteger();
-		AtomicInteger totalSoapHits = new AtomicInteger();
 		entitiesToReportRows.forEach((key, reportRow) -> {
 			totalRestHits.addAndGet(reportRow.restHits);
-			totalSoapHits.addAndGet(reportRow.soapHits);
 		});
 
 		entitiesToReportRows.computeIfAbsent(TOTAL, s -> {
 			ReportRow reportRow = new ReportRow();
 			reportRow.entityName = s;
 			reportRow.restHits = totalRestHits.get();
-			reportRow.soapHits = totalSoapHits.get();
 			return reportRow;
 		});
 
@@ -100,13 +89,11 @@ public class EndpointHitsConsoleOutputFormatter {
 					}
 					final ReportRow reportRow = stringReportRowEntry.getValue();
 					final int restHits = reportRow.restHits;
-					reportRow.totalHits = reportRow.restHits + reportRow.soapHits;
+					reportRow.totalHits = reportRow.restHits;
 					if (reportRow.totalHits > 0) {
 						@SuppressFBWarnings("ICAST_IDIV_CAST_TO_DOUBLE")
 						int restHitsPercentage = 100 * restHits / reportRow.totalHits;
-						int soapHitsPercentage = 100 - restHitsPercentage;
 						reportRow.restHitsPercentage = restHitsPercentage;
-						reportRow.soapHitsPercentage = soapHitsPercentage;
 					}
 				});
 
@@ -116,10 +103,8 @@ public class EndpointHitsConsoleOutputFormatter {
 		stringBuilder.append(String.format(ROW_STRING_TEMPLATE,
 				StringUtils.rightPad(HEADER_ENTITY, entityNameColumnLength.get(), PAD_CHAR),
 				StringUtils.leftPad(HEADER_REST_HITS, HEADER_REST_HITS.length(), PAD_CHAR),
-				StringUtils.leftPad(HEADER_SOAP_HITS, HEADER_SOAP_HITS.length(), PAD_CHAR),
 				StringUtils.leftPad(HEADER_TOTAL_HITS, HEADER_TOTAL_HITS.length(), PAD_CHAR),
-				StringUtils.leftPad(HEADER_REST_HITS_PERCENTAGE, HEADER_REST_HITS_PERCENTAGE.length(), PAD_CHAR),
-				StringUtils.leftPad(HEADER_SOAP_HITS_PERCENTAGE, HEADER_SOAP_HITS_PERCENTAGE.length(), PAD_CHAR)
+				StringUtils.leftPad(HEADER_REST_HITS_PERCENTAGE, HEADER_REST_HITS_PERCENTAGE.length(), PAD_CHAR)
 		));
 		final Map<String, ReportRow> nonEmptyEntitiesToReportRows = entitiesToReportRows.entrySet()
 				.stream()
@@ -150,15 +135,12 @@ public class EndpointHitsConsoleOutputFormatter {
 					final ReportRow reportRow = stringReportRowEntry.getValue();
 					final String entityName = stringReportRowEntry.getKey();
 					final String restHitsPercentage = reportRow.restHitsPercentage == null ? DASH : reportRow.restHitsPercentage + PERCENTAGE;
-					final String soapHitsPercentage = reportRow.soapHitsPercentage == null ? DASH : reportRow.soapHitsPercentage + PERCENTAGE;
 
 					String line = String.format(ROW_STRING_TEMPLATE,
 							StringUtils.rightPad(entityName, entityNameColumnLength.get(), PAD_CHAR),
 							StringUtils.leftPad(String.valueOf(reportRow.restHits), HEADER_REST_HITS.length(), PAD_CHAR),
-							StringUtils.leftPad(String.valueOf(reportRow.soapHits), HEADER_SOAP_HITS.length(), PAD_CHAR),
 							StringUtils.leftPad(String.valueOf(reportRow.totalHits), HEADER_TOTAL_HITS.length(), PAD_CHAR),
-							StringUtils.leftPad(restHitsPercentage, HEADER_REST_HITS_PERCENTAGE.length(), PAD_CHAR),
-							StringUtils.leftPad(soapHitsPercentage, HEADER_SOAP_HITS_PERCENTAGE.length(), PAD_CHAR)
+							StringUtils.leftPad(restHitsPercentage, HEADER_REST_HITS_PERCENTAGE.length(), PAD_CHAR)
 					);
 					stringBuilder.append(line);
 					if (TOTAL.equals(entityName) && nonEmptyEntitiesToReportRows.size() > 1) {
@@ -170,29 +152,17 @@ public class EndpointHitsConsoleOutputFormatter {
 	}
 
 	private String toPossiblePrimaryEntityName(String endpointName) {
-		return endpointName.replace(SOAP_ENDPOINT, "")
+		return endpointName
 				.replace("V2RestEndpoint", "")
 				.replace(REST_ENDPOINT, "");
-	}
-
-	private EndpointType endpointTypeFromEndpointName(String endpointName) {
-		if (endpointName.contains(REST_ENDPOINT)) {
-			return EndpointType.REST;
-		} else if (endpointName.contains(SOAP_ENDPOINT)) {
-			return EndpointType.SOAP;
-		}
-
-		return null;
 	}
 
 	private static class ReportRow {
 
 		String entityName;
 		int restHits;
-		int soapHits;
 		int totalHits;
 		Integer restHitsPercentage;
-		Integer soapHitsPercentage;
 
 	}
 

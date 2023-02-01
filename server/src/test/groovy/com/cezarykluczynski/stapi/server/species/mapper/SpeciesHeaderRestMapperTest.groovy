@@ -14,7 +14,7 @@ class SpeciesHeaderRestMapperTest extends AbstractRealWorldPersonMapperTest {
 		speciesHeaderRestMapper = Mappers.getMapper(SpeciesHeaderRestMapper)
 	}
 
-	void "maps DB entity to SOAP header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Species species = new Species(
 				name: NAME,

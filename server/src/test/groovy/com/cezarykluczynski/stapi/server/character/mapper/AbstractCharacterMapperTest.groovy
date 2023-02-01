@@ -1,8 +1,5 @@
 package com.cezarykluczynski.stapi.server.character.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum
-import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum
-import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
@@ -24,9 +21,6 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 	protected static final MaritalStatus ENTITY_MARITAL_STATUS = MaritalStatus.MARRIED
 	protected static final Integer NUMERATOR = 1
 	protected static final Integer DENOMINATOR = 2
-	protected static final GenderEnum SOAP_GENDER = GenderEnum.F
-	protected static final BloodTypeEnum SOAP_BLOOD_TYPE = BloodTypeEnum.B_NEGATIVE
-	protected static final MaritalStatusEnum SOAP_MARITAL_STATUS = MaritalStatusEnum.MARRIED
 
 	protected Character createCharacter() {
 		new Character(

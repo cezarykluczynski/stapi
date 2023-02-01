@@ -2,13 +2,9 @@ package com.cezarykluczynski.stapi.server.food.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint;
-import com.cezarykluczynski.stapi.server.food.endpoint.FoodSoapEndpoint;
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseRestMapper;
-import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullRestMapper;
-import com.cezarykluczynski.stapi.server.food.mapper.FoodFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -21,23 +17,8 @@ public class FoodConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint foodEndpoint() {
-		return endpointFactory.createSoapEndpoint(FoodSoapEndpoint.class, FoodSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server foodServer() {
 		return endpointFactory.createRestEndpoint(FoodRestEndpoint.class, FoodRestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public FoodBaseSoapMapper foodBaseSoapMapper() {
-		return Mappers.getMapper(FoodBaseSoapMapper.class);
-	}
-
-	@Bean
-	public FoodFullSoapMapper foodFullSoapMapper() {
-		return Mappers.getMapper(FoodFullSoapMapper.class);
 	}
 
 	@Bean

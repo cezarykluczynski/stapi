@@ -4,8 +4,6 @@ public interface DocumentationDirectoryProvider {
 
 	String getSwaggerDirectory();
 
-	String getWsdlDirectory();
-
 	String getTemporaryDirectory();
 
 }

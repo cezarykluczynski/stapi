@@ -1,14 +1,10 @@
 package com.cezarykluczynski.stapi.server.book_series.configuration;
 
 import com.cezarykluczynski.stapi.server.book_series.endpoint.BookSeriesRestEndpoint;
-import com.cezarykluczynski.stapi.server.book_series.endpoint.BookSeriesSoapEndpoint;
 import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesBaseRestMapper;
-import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesFullRestMapper;
-import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -21,23 +17,8 @@ public class BookSeriesConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint bookSeriesEndpoint() {
-		return endpointFactory.createSoapEndpoint(BookSeriesSoapEndpoint.class, BookSeriesSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server bookSeriesServer() {
 		return endpointFactory.createRestEndpoint(BookSeriesRestEndpoint.class, BookSeriesRestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public BookSeriesBaseSoapMapper bookSeriesBaseSoapMapper() {
-		return Mappers.getMapper(BookSeriesBaseSoapMapper.class);
-	}
-
-	@Bean
-	public BookSeriesFullSoapMapper bookSeriesFullSoapMapper() {
-		return Mappers.getMapper(BookSeriesFullSoapMapper.class);
 	}
 
 	@Bean

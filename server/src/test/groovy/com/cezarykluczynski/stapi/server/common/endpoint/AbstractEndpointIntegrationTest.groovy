@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.endpoint
 
 import com.cezarykluczynski.stapi.client.api.StapiRestClient
-import com.cezarykluczynski.stapi.client.api.StapiSoapClient
 import com.cezarykluczynski.stapi.server.Application
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
@@ -24,20 +23,10 @@ abstract class AbstractEndpointIntegrationTest extends Specification {
 
 	protected StapiRestClient stapiRestClient
 
-	protected StapiSoapClient stapiSoapClient
-
 	protected StapiRestClient createRestClient() {
 		synchronized (lock) {
 			if (stapiRestClient == null) {
 				stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/")
-			}
-		}
-	}
-
-	protected StapiSoapClient createSoapClient() {
-		synchronized (lock) {
-			if (stapiSoapClient == null) {
-				stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/")
 			}
 		}
 	}

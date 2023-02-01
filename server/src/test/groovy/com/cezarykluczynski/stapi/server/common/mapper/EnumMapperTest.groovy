@@ -8,13 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMari
 import com.cezarykluczynski.stapi.client.v1.rest.model.ProductionRunUnit as RestProductionRunUnit
 import com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType as RestReferenceType
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFormat as RestVideoReleaseFormat
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum
-import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeEnum
-import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
-import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
-import com.cezarykluczynski.stapi.client.v1.soap.ProductionRunUnitEnum
-import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum as SoapReferenceType
-import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseFormatEnum
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity
@@ -33,20 +26,6 @@ class EnumMapperTest extends Specification {
 		enumMapper = Mappers.getMapper(EnumMapper)
 	}
 
-	void "maps gender entity enum to soap enum"() {
-		expect:
-		enumMapper.mapGenderFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapGenderFromEntityEnumToSoapEnum(GenderEntity.F) == SoapGenderEnum.F
-		enumMapper.mapGenderFromEntityEnumToSoapEnum(GenderEntity.M) == SoapGenderEnum.M
-	}
-
-	void "maps gender soap dto enum to entity enum"() {
-		expect:
-		enumMapper.mapGenderFromSoapEnumToEntityEnum(null) == null
-		enumMapper.mapGenderFromSoapEnumToEntityEnum(SoapGenderEnum.F) == GenderEntity.F
-		enumMapper.mapGenderFromSoapEnumToEntityEnum(SoapGenderEnum.M) == GenderEntity.M
-	}
-
 	void "maps gender entity enum to rest enum"() {
 		expect:
 		enumMapper.mapGenderFromEntityEnumToRestEnum(null) == null
@@ -59,19 +38,6 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapGenderFromRestEnumToEntityEnum(null) == null
 		enumMapper.mapGenderFromRestEnumToEntityEnum(RestGenderEnum.F) == GenderEntity.F
 		enumMapper.mapGenderFromRestEnumToEntityEnum(RestGenderEnum.M) == GenderEntity.M
-	}
-
-	void "maps maritalStatus entity enum to soap enum"() {
-		expect:
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.SINGLE) == SoapMaritalStatusEnum.SINGLE
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.ENGAGED) == SoapMaritalStatusEnum.ENGAGED
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.MARRIED) == SoapMaritalStatusEnum.MARRIED
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.DIVORCED) == SoapMaritalStatusEnum.DIVORCED
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.REMARRIED) == SoapMaritalStatusEnum.REMARRIED
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.SEPARATED) == SoapMaritalStatusEnum.SEPARATED
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.WIDOWED) == SoapMaritalStatusEnum.WIDOWED
-		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.CAPTAINS_WOMAN) == SoapMaritalStatusEnum.CAPTAINS_WOMAN
 	}
 
 	void "maps maritalStatus entity enum to rest enum"() {
@@ -87,88 +53,12 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.CAPTAINS_WOMAN) == RestMaritalStatusEnum.CAPTAINS_WOMAN
 	}
 
-	void "maps blood type entity enum to soap enum"() {
-		expect:
-		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(BloodTypeEntity.B_NEGATIVE) == SoapBloodTypeEnum.B_NEGATIVE
-		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(BloodTypeEntity.O_NEGATIVE) == SoapBloodTypeEnum.O_NEGATIVE
-		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(BloodTypeEntity.T_NEGATIVE) == SoapBloodTypeEnum.T_NEGATIVE
-	}
-
 	void "maps blood type entity enum to rest enum"() {
 		expect:
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(null) == null
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.B_NEGATIVE) == RestBloodTypeEnum.B_NEGATIVE
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.O_NEGATIVE) == RestBloodTypeEnum.O_NEGATIVE
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.T_NEGATIVE) == RestBloodTypeEnum.T_NEGATIVE
-	}
-
-	@SuppressWarnings('LineLength')
-	void "maps astronomical object entity enum to to soap enum"() {
-		expect:
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.PLANET) == AstronomicalObjectTypeEnum.PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.D_CLASS_PLANET) == AstronomicalObjectTypeEnum.D_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.H_CLASS_PLANET) == AstronomicalObjectTypeEnum.H_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.GAS_GIANT_PLANET) == AstronomicalObjectTypeEnum.GAS_GIANT_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.K_CLASS_PLANET) == AstronomicalObjectTypeEnum.K_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.L_CLASS_PLANET) == AstronomicalObjectTypeEnum.L_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.M_CLASS_PLANET) == AstronomicalObjectTypeEnum.M_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.Y_CLASS_PLANET) == AstronomicalObjectTypeEnum.Y_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.ROGUE_PLANET) == AstronomicalObjectTypeEnum.ROGUE_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.ARTIFICIAL_PLANET) == AstronomicalObjectTypeEnum.ARTIFICIAL_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.ASTEROID) == AstronomicalObjectTypeEnum.ASTEROID
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.ASTEROIDAL_MOON) == AstronomicalObjectTypeEnum.ASTEROIDAL_MOON
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.ASTEROID_BELT) == AstronomicalObjectTypeEnum.ASTEROID_BELT
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.BORG_SPATIAL_DESIGNATION) == null
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.CLUSTER) == AstronomicalObjectTypeEnum.CLUSTER
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.COMET) == AstronomicalObjectTypeEnum.COMET
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.CONSTELLATION) == AstronomicalObjectTypeEnum.CONSTELLATION
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.GALAXY) == AstronomicalObjectTypeEnum.GALAXY
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.MOON) == AstronomicalObjectTypeEnum.MOON
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.M_CLASS_MOON) == AstronomicalObjectTypeEnum.M_CLASS_MOON
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.NEBULA) == AstronomicalObjectTypeEnum.NEBULA
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.PLANETOID) == AstronomicalObjectTypeEnum.PLANETOID
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.D_CLASS_PLANETOID) == AstronomicalObjectTypeEnum.D_CLASS_PLANETOID
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.QUADRANT) == null
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.QUASAR) == AstronomicalObjectTypeEnum.QUASAR
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.STAR) == AstronomicalObjectTypeEnum.STAR
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.STAR_SYSTEM) == AstronomicalObjectTypeEnum.STAR_SYSTEM
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.SECTOR) == AstronomicalObjectTypeEnum.SECTOR
-		enumMapper.mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectTypeEntity.REGION) == AstronomicalObjectTypeEnum.REGION
-	}
-
-	@SuppressWarnings('LineLength')
-	void "maps astronomicalObject soap enum to entity enum"() {
-		expect:
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(null) == null
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.PLANET) == AstronomicalObjectTypeEntity.PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.D_CLASS_PLANET) == AstronomicalObjectTypeEntity.D_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.H_CLASS_PLANET) == AstronomicalObjectTypeEntity.H_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.GAS_GIANT_PLANET) == AstronomicalObjectTypeEntity.GAS_GIANT_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.K_CLASS_PLANET) == AstronomicalObjectTypeEntity.K_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.L_CLASS_PLANET) == AstronomicalObjectTypeEntity.L_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.M_CLASS_PLANET) == AstronomicalObjectTypeEntity.M_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.Y_CLASS_PLANET) == AstronomicalObjectTypeEntity.Y_CLASS_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.ROGUE_PLANET) == AstronomicalObjectTypeEntity.ROGUE_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.ARTIFICIAL_PLANET) == AstronomicalObjectTypeEntity.ARTIFICIAL_PLANET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.ASTEROID) == AstronomicalObjectTypeEntity.ASTEROID
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.ASTEROIDAL_MOON) == AstronomicalObjectTypeEntity.ASTEROIDAL_MOON
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.ASTEROID_BELT) == AstronomicalObjectTypeEntity.ASTEROID_BELT
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.CLUSTER) == AstronomicalObjectTypeEntity.CLUSTER
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.COMET) == AstronomicalObjectTypeEntity.COMET
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.CONSTELLATION) == AstronomicalObjectTypeEntity.CONSTELLATION
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.GALAXY) == AstronomicalObjectTypeEntity.GALAXY
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.MOON) == AstronomicalObjectTypeEntity.MOON
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.M_CLASS_MOON) == AstronomicalObjectTypeEntity.M_CLASS_MOON
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.NEBULA) == AstronomicalObjectTypeEntity.NEBULA
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.PLANETOID) == AstronomicalObjectTypeEntity.PLANETOID
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.D_CLASS_PLANETOID) == AstronomicalObjectTypeEntity.D_CLASS_PLANETOID
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.QUASAR) == AstronomicalObjectTypeEntity.QUASAR
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.STAR) == AstronomicalObjectTypeEntity.STAR
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.STAR_SYSTEM) == AstronomicalObjectTypeEntity.STAR_SYSTEM
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.SECTOR) == AstronomicalObjectTypeEntity.SECTOR
-		enumMapper.mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum.REGION) == AstronomicalObjectTypeEntity.REGION
 	}
 
 	@SuppressWarnings('LineLength')
@@ -309,13 +199,6 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapAstronomicalObjectV2TypeFromRestEnumToEntityEnum(RestAstronomicalObjectV2Enum.REGION) == AstronomicalObjectTypeEntity.REGION
 	}
 
-	void "maps reference type entity enum to soap enum"() {
-		expect:
-		enumMapper.mapReferenceTypeFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapReferenceTypeFromEntityEnumToSoapEnum(ModelReferenceType.ASIN) == SoapReferenceType.ASIN
-		enumMapper.mapReferenceTypeFromEntityEnumToSoapEnum(ModelReferenceType.ISBN) == SoapReferenceType.ISBN
-	}
-
 	void "maps reference type entity enum to rest enum"() {
 		expect:
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(null) == null
@@ -323,25 +206,6 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ISBN) == RestReferenceType.ISBN
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.EAN) == RestReferenceType.EAN
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ISRC) == RestReferenceType.ISRC
-	}
-
-	void "maps video release format soap enum to entity enum"() {
-		expect:
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.SUPER_8) == VideoReleaseFormatEnum.SUPER_8
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.BETAMAX) == VideoReleaseFormatEnum.BETAMAX
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VHS) == VideoReleaseFormatEnum.VHS
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.CED) == VideoReleaseFormatEnum.CED
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.LD) == VideoReleaseFormatEnum.LD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VHD) == VideoReleaseFormatEnum.VHD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VCD) == VideoReleaseFormatEnum.VCD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VIDEO_8) == VideoReleaseFormatEnum.VIDEO_8
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.DVD) == VideoReleaseFormatEnum.DVD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.UMD) == VideoReleaseFormatEnum.UMD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.HD_DVD) == VideoReleaseFormatEnum.HD_DVD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.BLU_RAY) == VideoReleaseFormatEnum.BLU_RAY
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.BLU_RAY_4K_UHD) == VideoReleaseFormatEnum.BLU_RAY_4_K_UHD
-		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.DIGITAL_FORMAT) == VideoReleaseFormatEnum.DIGITAL_FORMAT
 	}
 
 	void "maps video release entity enum to rest enum"() {
@@ -361,20 +225,6 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BLU_RAY) == RestVideoReleaseFormat.BLU_RAY
 		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BLU_RAY_4K_UHD) == RestVideoReleaseFormat.BLU_RAY_4K_UHD
 		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.DIGITAL_FORMAT) == RestVideoReleaseFormat.DIGITAL_FORMAT
-	}
-
-	void "maps production run unit entity enum to to soap enum"() {
-		expect:
-		enumMapper.mapProductionRunUnitFromEntityEnumToSoapEnum(null) == null
-		enumMapper.mapProductionRunUnitFromEntityEnumToSoapEnum(ProductionRunUnitEntity.BOX) == ProductionRunUnitEnum.BOX
-		enumMapper.mapProductionRunUnitFromEntityEnumToSoapEnum(ProductionRunUnitEntity.SET) == ProductionRunUnitEnum.SET
-	}
-
-	void "maps production run unit soap enum to entity enum"() {
-		expect:
-		enumMapper.mapProductionRunUnitFromSoapEnumToEntityEnum(null) == null
-		enumMapper.mapProductionRunUnitFromSoapEnumToEntityEnum(ProductionRunUnitEnum.BOX) == ProductionRunUnitEntity.BOX
-		enumMapper.mapProductionRunUnitFromSoapEnumToEntityEnum(ProductionRunUnitEnum.SET) == ProductionRunUnitEntity.SET
 	}
 
 	void "maps production run unit entity enum to rest enum"() {

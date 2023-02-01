@@ -9,7 +9,6 @@ import spock.lang.Specification
 class DocumentationProviderTest extends Specification {
 
 	private static final String SWAGGER_DIRECTORY = 'SWAGGER_DIRECTORY'
-	private static final String WSDL_DIRECTORY = 'WSDL_DIRECTORY'
 	private static final String TEMPORARY_DIRECTORY = 'TEMPORARY_DIRECTORY'
 	private static final String APPLIATION_TEST_PROPERTIES = 'application-test.properties'
 
@@ -31,19 +30,15 @@ class DocumentationProviderTest extends Specification {
 	void "provides DocumentationDTO"() {
 		given:
 		List<DocumentDTO> restDocuments = Mock()
-		List<DocumentDTO> soapDocuments = Mock()
 
 		when: 'documentation is requested'
 		DocumentationDTO documentationDTO = documentationProvider.provideDocumentation()
 
 		then: 'documentation is returned using DocumentationReader'
 		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
-		1 * documentationDirectoryProviderMock.wsdlDirectory >> WSDL_DIRECTORY
 		1 * documentationReaderMock.readDirectory(SWAGGER_DIRECTORY) >> restDocuments
-		1 * documentationReaderMock.readDirectory(WSDL_DIRECTORY) >> soapDocuments
 		0 * _
 		documentationDTO.restDocuments == restDocuments
-		documentationDTO.soapDocuments == soapDocuments
 
 		when: 'documentation is requested'
 		DocumentationDTO documentationDTOCached = documentationProvider.provideDocumentation()
@@ -61,20 +56,6 @@ class DocumentationProviderTest extends Specification {
 		1 * documentationDirectoryProviderMock.temporaryDirectory >> TEMPORARY_DIRECTORY
 		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
 		1 * documentationZipperMock.zipDirectoryToFile(SWAGGER_DIRECTORY, _ as File)
-		0 * _
-		response.status == Response.Status.OK.statusCode
-		response.mediaType.type == 'application'
-		response.mediaType.subtype == 'octet-stream'
-	}
-
-	void "provides zipped SOAP contracts"() {
-		when:
-		Response response = documentationProvider.provideSoapContractsZip()
-
-		then:
-		1 * documentationDirectoryProviderMock.temporaryDirectory >> TEMPORARY_DIRECTORY
-		1 * documentationDirectoryProviderMock.wsdlDirectory >> WSDL_DIRECTORY
-		1 * documentationZipperMock.zipDirectoryToFile(WSDL_DIRECTORY, _ as File)
 		0 * _
 		response.status == Response.Status.OK.statusCode
 		response.mediaType.type == 'application'

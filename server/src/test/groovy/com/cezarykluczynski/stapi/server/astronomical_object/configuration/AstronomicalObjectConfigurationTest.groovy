@@ -1,14 +1,10 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.configuration
 
-import com.cezarykluczynski.stapi.server.astronomical_object.endpoint.AstronomicalObjectSoapEndpoint
+import com.cezarykluczynski.stapi.server.astronomical_object.endpoint.AstronomicalObjectRestEndpoint
 import com.cezarykluczynski.stapi.server.astronomical_object.endpoint.AstronomicalObjectV2RestEndpoint
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectBaseRestMapper
-import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectBaseSoapMapper
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectFullRestMapper
-import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectFullSoapMapper
-import com.cezarykluczynski.stapi.server.astronomical_object.endpoint.AstronomicalObjectRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -21,19 +17,6 @@ class AstronomicalObjectConfigurationTest extends Specification {
 	void setup() {
 		endpointFactoryMock = Mock()
 		astronomicalObjectConfiguration = new AstronomicalObjectConfiguration(endpointFactory: endpointFactoryMock)
-	}
-
-	void "AstronomicalObject SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = astronomicalObjectConfiguration.astronomicalObjectEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(AstronomicalObjectSoapEndpoint, AstronomicalObjectSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
 	}
 
 	void "AstronomicalObject REST endpoint is created"() {
@@ -60,22 +43,6 @@ class AstronomicalObjectConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(AstronomicalObjectV2RestEndpoint, AstronomicalObjectV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "AstronomicalObjectBaseSoapMapper is created"() {
-		when:
-		AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper = astronomicalObjectConfiguration.astronomicalObjectBaseSoapMapper()
-
-		then:
-		astronomicalObjectBaseSoapMapper != null
-	}
-
-	void "AstronomicalObjectFullSoapMapper is created"() {
-		when:
-		AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper = astronomicalObjectConfiguration.astronomicalObjectFullSoapMapper()
-
-		then:
-		astronomicalObjectFullSoapMapper != null
 	}
 
 	void "AstronomicalObjectBaseRestMapper is created"() {

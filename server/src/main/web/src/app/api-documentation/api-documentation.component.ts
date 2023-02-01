@@ -30,16 +30,8 @@ export class ApiDocumentationComponent implements OnInit {
 		return this.getLinkPrefix() + '/api/v1/rest/common/download/zip/rest';
 	}
 
-	getSoapContractsZipLink() {
-		return this.getLinkPrefix() + '/api/v1/rest/common/download/zip/soap';
-	}
-
 	isRestDocumentation() {
-		return this.selectedDocumentationType === 'REST';
-	}
-
-	isSoapDocumentation() {
-		return this.selectedDocumentationType === 'SOAP';
+		return true;
 	}
 
 	selectRest() {
@@ -47,21 +39,8 @@ export class ApiDocumentationComponent implements OnInit {
 		this.selectedFilesIndex = 0;
 	}
 
-	selectSoap() {
-		this.selectedDocumentationType = 'SOAP';
-		this.selectedFilesIndex = 0;
-	}
-
-	getFilesListClass() {
-		return this.isSoapDocumentation() ? 'col-md-3' : 'col-md-5';
-	}
-
-	getFileContentClass() {
-		return this.isSoapDocumentation() ? 'col-md-9' : 'col-md-7';
-	}
-
 	getLinks() {
-		return this.selectedDocumentationType === 'REST' ? this.documentation.restDocuments : this.documentation.soapDocuments;
+		return this.documentation.restDocuments;
 	}
 
 	stopPropagation(event: any) {
@@ -81,12 +60,11 @@ export class ApiDocumentationComponent implements OnInit {
 	}
 
 	getSelectedFileContents() {
-		const documents = this.selectedDocumentationType === 'REST' ? this.documentation.restDocuments : this.documentation.soapDocuments;
-		return documents[this.selectedFilesIndex].content;
+		return this.documentation.restDocuments[this.selectedFilesIndex].content;
 	}
 
 	getFileType() {
-		return this.selectedDocumentationType === 'REST' ? 'yaml' : 'xml';
+		return 'yaml';
 	}
 
 	private getLinkPrefix() {

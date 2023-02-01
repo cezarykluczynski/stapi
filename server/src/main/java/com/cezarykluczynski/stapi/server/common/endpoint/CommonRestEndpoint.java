@@ -94,13 +94,6 @@ public class CommonRestEndpoint {
 	}
 
 	@GET
-	@Path("download/zip/soap")
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response soapContractsZip() {
-		return commonDataReader.soapContractsZip();
-	}
-
-	@GET
 	@Path("download/zip/tosForm")
 	@ResponseBody
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)

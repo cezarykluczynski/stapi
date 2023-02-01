@@ -122,19 +122,6 @@ class CommonRestEndpointTest extends Specification {
 		responseOutput == response
 	}
 
-	void "gets zipped SOAP documentation"() {
-		given:
-		Response response = Mock()
-
-		when:
-		Response responseOutput = commonRestEndpoint.soapContractsZip()
-
-		then:
-		1 * commonDataReaderMock.soapContractsZip() >> response
-		0 * _
-		responseOutput == response
-	}
-
 	void "gets zipped TOS form"() {
 		given:
 		Response response = Mock()

@@ -2,13 +2,9 @@ package com.cezarykluczynski.stapi.server.title.configuration
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.title.endpoint.TitleRestEndpoint
-import com.cezarykluczynski.stapi.server.title.endpoint.TitleSoapEndpoint
 import com.cezarykluczynski.stapi.server.title.endpoint.TitleV2RestEndpoint
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseRestMapper
-import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseSoapMapper
 import com.cezarykluczynski.stapi.server.title.mapper.TitleFullRestMapper
-import com.cezarykluczynski.stapi.server.title.mapper.TitleFullSoapMapper
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -21,19 +17,6 @@ class TitleConfigurationTest extends Specification {
 	void setup() {
 		endpointFactoryMock = Mock()
 		titleConfiguration = new TitleConfiguration(endpointFactory: endpointFactoryMock)
-	}
-
-	void "Title SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = titleConfiguration.titleEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(TitleSoapEndpoint, TitleSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
 	}
 
 	void "Title REST endpoint is created"() {
@@ -60,22 +43,6 @@ class TitleConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(TitleV2RestEndpoint, TitleV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "TitleBaseSoapMapper is created"() {
-		when:
-		TitleBaseSoapMapper titleBaseSoapMapper = titleConfiguration.titleBaseSoapMapper()
-
-		then:
-		titleBaseSoapMapper != null
-	}
-
-	void "TitleFullSoapMapper is created"() {
-		when:
-		TitleFullSoapMapper titleFullSoapMapper = titleConfiguration.titleFullSoapMapper()
-
-		then:
-		titleFullSoapMapper != null
 	}
 
 	void "TitleBaseRestMapper is created"() {

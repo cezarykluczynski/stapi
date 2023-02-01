@@ -45,10 +45,6 @@ public class CommonDataReader {
 		return documentationProvider.provideDocumentation();
 	}
 
-	public Response soapContractsZip() {
-		return documentationProvider.provideSoapContractsZip();
-	}
-
 	public Response restSpecsZip() {
 		return documentationProvider.provideRestSpecsZip();
 	}

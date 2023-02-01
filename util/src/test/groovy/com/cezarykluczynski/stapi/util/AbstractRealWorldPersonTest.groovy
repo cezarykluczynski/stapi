@@ -1,9 +1,7 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import com.cezarykluczynski.stapi.util.tool.TimeUtil
 
-import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
 abstract class AbstractRealWorldPersonTest extends AbstractTest {
@@ -34,14 +32,6 @@ abstract class AbstractRealWorldPersonTest extends AbstractTest {
 	protected static final Integer DATE_OF_DEATH_TO_MONTH = 5
 	protected static final Integer DATE_OF_DEATH_TO_DAY = 19
 
-	protected static final XMLGregorianCalendar DATE_OF_BIRTH_FROM_SOAP = TimeUtil
-			.createXmlGregorianCalendar(DATE_OF_BIRTH_FROM_YEAR, DATE_OF_BIRTH_FROM_MONTH, DATE_OF_BIRTH_FROM_DAY)
-	protected static final XMLGregorianCalendar DATE_OF_BIRTH_TO_SOAP = TimeUtil
-			.createXmlGregorianCalendar(DATE_OF_BIRTH_TO_YEAR, DATE_OF_BIRTH_TO_MONTH, DATE_OF_BIRTH_TO_DAY)
-	protected static final XMLGregorianCalendar DATE_OF_DEATH_FROM_SOAP = TimeUtil
-			.createXmlGregorianCalendar(DATE_OF_DEATH_FROM_YEAR, DATE_OF_DEATH_FROM_MONTH, DATE_OF_DEATH_FROM_DAY)
-	protected static final XMLGregorianCalendar DATE_OF_DEATH_TO_SOAP = TimeUtil
-			.createXmlGregorianCalendar(DATE_OF_DEATH_TO_YEAR, DATE_OF_DEATH_TO_MONTH, DATE_OF_DEATH_TO_DAY)
 	protected static final LocalDate DATE_OF_BIRTH_FROM_DB = LocalDate
 			.of(DATE_OF_BIRTH_FROM_YEAR, DATE_OF_BIRTH_FROM_MONTH, DATE_OF_BIRTH_FROM_DAY)
 	protected static final LocalDate DATE_OF_BIRTH_TO_DB = LocalDate

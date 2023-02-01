@@ -31,19 +31,15 @@ class EndpointHitsConsoleOutputFormatterTest extends Specification {
 		RestEndpointDetailDTO title = new RestEndpointDetailDTO(name: 'Title', type: TrackedEntityType.FICTIONAL_PRIMARY)
 		RestEndpointDetailDTO weapon = new RestEndpointDetailDTO(name: 'Weapon', type: TrackedEntityType.FICTIONAL_PRIMARY)
 		RestEndpointDetailDTO animal = new RestEndpointDetailDTO(name: 'Animal', type: TrackedEntityType.FICTIONAL_PRIMARY)
-		RestEndpointDetailDTO comics = new RestEndpointDetailDTO(name: 'Comics', type: TrackedEntityType.REAL_WORLD_PRIMARY)
-		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon, animal, comics])
+		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon, animal])
 		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
 		endpointsHits.put(MetricsEndpointKeyDTO.of('CommonRestEndpoint', METHOD_NAME), 5L) // invalid, should be skipped
 		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleRestEndpoint', METHOD_NAME), 7L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', METHOD_NAME), 11L)
-		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleSoapEndpoint', METHOD_NAME), 13L)
-		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2SoapEndpoint', METHOD_NAME), 15L) // invalid, should be skipped
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2GrpcEndpoint', METHOD_NAME), 15L) // invalid, should be skipped
 		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponRestEndpoint', METHOD_NAME), 17L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponV2RestEndpoint', METHOD_NAME), 19L)
-		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponSoapEndpoint', METHOD_NAME), 23L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('AnimalRestEndpoint', METHOD_NAME), 29L)
-		endpointsHits.put(MetricsEndpointKeyDTO.of('ComicsSoapEndpoint', METHOD_NAME), 31L)
 
 		when:
 		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits)
@@ -53,13 +49,12 @@ class EndpointHitsConsoleOutputFormatterTest extends Specification {
 		0 * _
 		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
 Reports hits since application startup (0 days ago on ${DATE}):
-Entity | REST hits | SOAP hits | Total hits | REST hits % | SOAP hits %
-Total  |        83 |        67 |        150 |         55% |         45%
------------------------------------------------------------------------
-Weapon |        36 |        23 |         59 |         61% |         39%
-Title  |        18 |        13 |         31 |         58% |         42%
-Comics |         0 |        31 |         31 |          0% |        100%
-Animal |        29 |         0 |         29 |        100% |          0%""")
+Entity | REST hits | Total hits | REST hits %
+Total  |        83 |         83 |        100%
+---------------------------------------------
+Weapon |        36 |         36 |        100%
+Animal |        29 |         29 |        100%
+Title  |        18 |         18 |        100%""")
 	}
 
 	void "formats entities for console print, when there are no stats"() {
@@ -67,8 +62,7 @@ Animal |        29 |         0 |         29 |        100% |          0%""")
 		RestEndpointDetailDTO title = new RestEndpointDetailDTO(name: 'Title', type: TrackedEntityType.FICTIONAL_PRIMARY)
 		RestEndpointDetailDTO weapon = new RestEndpointDetailDTO(name: 'Weapon', type: TrackedEntityType.FICTIONAL_PRIMARY)
 		RestEndpointDetailDTO animal = new RestEndpointDetailDTO(name: 'Animal', type: TrackedEntityType.FICTIONAL_PRIMARY)
-		RestEndpointDetailDTO comics = new RestEndpointDetailDTO(name: 'Comics', type: TrackedEntityType.REAL_WORLD_PRIMARY)
-		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon, animal, comics])
+		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon, animal])
 		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
 
 		when:
@@ -79,8 +73,8 @@ Animal |        29 |         0 |         29 |        100% |          0%""")
 		0 * _
 		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
 Reports hits since application startup (0 days ago on ${DATE}):
-Entity | REST hits | SOAP hits | Total hits | REST hits % | SOAP hits %
-Total  |         0 |         0 |          0 |           - |           -""")
+Entity | REST hits | Total hits | REST hits %
+Total  |         0 |          0 |           -""")
 	}
 
 	private static String normalizeLineEndings(String string) {

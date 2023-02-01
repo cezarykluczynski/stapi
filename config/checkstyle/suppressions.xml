@@ -12,8 +12,6 @@
 	<suppress files=".+CountryDTOProvider\.java" checks="FileLength"/>
 	<suppress files=".+EtlJobConfiguration\.java" checks="FileLength"/>
 	<suppress files=".+StapiRestClient\.java" checks="FileLength"/>
-	<suppress files=".+StapiSoapClient\.java" checks="FileLength|MethodCount"/>
-	<suppress files=".+StapiSoapPortTypesProvider\.java" checks="FileLength|MethodCount"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="FileLength"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="AvoidStaticImport"/>
 	<suppress files=".+ContentLanguageDTOProvider\.java" checks="FileLength"/>

@@ -19,7 +19,7 @@ class ContentRatingRestMapperTest extends Specification {
 		contentRatingRestMapper = Mappers.getMapper(ContentRatingRestMapper)
 	}
 
-	void "maps db entity to SOAP entity"() {
+	void "maps db entity to REST entity"() {
 		given:
 		ContentRating contentRating = new ContentRating(
 				uid: UID,

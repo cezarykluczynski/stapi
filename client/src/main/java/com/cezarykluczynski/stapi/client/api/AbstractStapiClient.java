@@ -6,10 +6,6 @@ abstract class AbstractStapiClient {
 		return serviceUrl.replace(StapiClient.CANONICAL_API_HTTPS_URL, baseUrl);
 	}
 
-	String changeBaseHttpUrl(String baseUrl, String serviceUrl) {
-		return serviceUrl.replace(StapiClient.CANONICAL_API_HTTP_URL, baseUrl);
-	}
-
 	String defaultIfBlank(String string, String defaultString) {
 		return string != null && !string.isEmpty() ? string : defaultString;
 	}

@@ -2,14 +2,10 @@ package com.cezarykluczynski.stapi.server.company.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
-import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +18,6 @@ public class CompanyConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint companyEndpoint() {
-		return endpointFactory.createSoapEndpoint(CompanySoapEndpoint.class, CompanySoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server companyServer() {
 		return endpointFactory.createRestEndpoint(CompanyRestEndpoint.class, CompanyRestEndpoint.ADDRESS);
 	}
@@ -34,16 +25,6 @@ public class CompanyConfiguration {
 	@Bean
 	public Server companyV2Server() {
 		return endpointFactory.createRestEndpoint(CompanyV2RestEndpoint.class, CompanyV2RestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public CompanyBaseSoapMapper companyBaseSoapMapper() {
-		return Mappers.getMapper(CompanyBaseSoapMapper.class);
-	}
-
-	@Bean
-	public CompanyFullSoapMapper companyFullSoapMapper() {
-		return Mappers.getMapper(CompanyFullSoapMapper.class);
 	}
 
 	@Bean

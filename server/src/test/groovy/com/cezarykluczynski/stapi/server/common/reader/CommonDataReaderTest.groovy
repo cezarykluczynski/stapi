@@ -86,20 +86,7 @@ class CommonDataReaderTest extends Specification {
 		responseOutput == response
 	}
 
-	void "gets zipped SOAP documentation from DocumentationProvider"() {
-		given:
-		Response response = Mock()
-
-		when:
-		Response responseOutput = commonDataReader.soapContractsZip()
-
-		then:
-		1 * documentationProviderMock.provideSoapContractsZip() >> response
-		0 * _
-		responseOutput == response
-	}
-
-	void "gets zipped SOAP TOS form from DocumentationProvider"() {
+	void "gets zipped TOS form from DocumentationProvider"() {
 		given:
 		Response response = Mock()
 

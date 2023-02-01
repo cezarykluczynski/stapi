@@ -2,13 +2,9 @@ package com.cezarykluczynski.stapi.server.spacecraft.configuration
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftRestEndpoint
-import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftSoapEndpoint
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftV2RestEndpoint
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseRestMapper
-import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseSoapMapper
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullRestMapper
-import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullSoapMapper
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -21,19 +17,6 @@ class SpacecraftConfigurationTest extends Specification {
 	void setup() {
 		endpointFactoryMock = Mock()
 		spacecraftConfiguration = new SpacecraftConfiguration(endpointFactory: endpointFactoryMock)
-	}
-
-	void "Spacecraft SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = spacecraftConfiguration.spacecraftEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(SpacecraftSoapEndpoint, SpacecraftSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
 	}
 
 	void "Spacecraft REST endpoint is created"() {
@@ -60,22 +43,6 @@ class SpacecraftConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(SpacecraftV2RestEndpoint, SpacecraftV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "SpacecraftBaseSoapMapper is created"() {
-		when:
-		SpacecraftBaseSoapMapper spacecraftBaseSoapMapper = spacecraftConfiguration.spacecraftBaseSoapMapper()
-
-		then:
-		spacecraftBaseSoapMapper != null
-	}
-
-	void "SpacecraftFullSoapMapper is created"() {
-		when:
-		SpacecraftFullSoapMapper spacecraftFullSoapMapper = spacecraftConfiguration.spacecraftFullSoapMapper()
-
-		then:
-		spacecraftFullSoapMapper != null
 	}
 
 	void "SpacecraftBaseRestMapper is created"() {

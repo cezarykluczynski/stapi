@@ -1,14 +1,10 @@
 package com.cezarykluczynski.stapi.server.animal.configuration;
 
 import com.cezarykluczynski.stapi.server.animal.endpoint.AnimalRestEndpoint;
-import com.cezarykluczynski.stapi.server.animal.endpoint.AnimalSoapEndpoint;
 import com.cezarykluczynski.stapi.server.animal.mapper.AnimalBaseRestMapper;
-import com.cezarykluczynski.stapi.server.animal.mapper.AnimalBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.animal.mapper.AnimalFullRestMapper;
-import com.cezarykluczynski.stapi.server.animal.mapper.AnimalFullSoapMapper;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -21,23 +17,8 @@ public class AnimalConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint animalEndpoint() {
-		return endpointFactory.createSoapEndpoint(AnimalSoapEndpoint.class, AnimalSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server animalServer() {
 		return endpointFactory.createRestEndpoint(AnimalRestEndpoint.class, AnimalRestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public AnimalBaseSoapMapper animalBaseSoapMapper() {
-		return Mappers.getMapper(AnimalBaseSoapMapper.class);
-	}
-
-	@Bean
-	public AnimalFullSoapMapper animalFullSoapMapper() {
-		return Mappers.getMapper(AnimalFullSoapMapper.class);
 	}
 
 	@Bean

@@ -2,14 +2,10 @@ package com.cezarykluczynski.stapi.server.spacecraft.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftRestEndpoint;
-import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftSoapEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft.endpoint.SpacecraftV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseRestMapper;
-import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullRestMapper;
-import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +18,6 @@ public class SpacecraftConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint spacecraftEndpoint() {
-		return endpointFactory.createSoapEndpoint(SpacecraftSoapEndpoint.class, SpacecraftSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server spacecraftServer() {
 		return endpointFactory.createRestEndpoint(SpacecraftRestEndpoint.class, SpacecraftRestEndpoint.ADDRESS);
 	}
@@ -34,16 +25,6 @@ public class SpacecraftConfiguration {
 	@Bean
 	public Server spacecraftV2Server() {
 		return endpointFactory.createRestEndpoint(SpacecraftV2RestEndpoint.class, SpacecraftV2RestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public SpacecraftBaseSoapMapper spacecraftBaseSoapMapper() {
-		return Mappers.getMapper(SpacecraftBaseSoapMapper.class);
-	}
-
-	@Bean
-	public SpacecraftFullSoapMapper spacecraftFullSoapMapper() {
-		return Mappers.getMapper(SpacecraftFullSoapMapper.class);
 	}
 
 	@Bean

@@ -2,51 +2,34 @@
 	<div class='alert alert-success'>
 		<span>
 			<ul>
-				<li>This is API documentation, both REST and SOAP.</li>
-				<li>
-					Please be advised that SOAP contracts will no longer be updated with model changes, because far less people used to use
-					SOAP to access STAPI. For the time being, however, it will still return data.
+				<li>This is REST API documentation. It can be <a href="{{getRestSpecsZipLink()}}">downloaded here</a>.
 				</li>
 				<li>
-					Only REST Swagger Specs will be developed further, in a non-breaking fashion, using API versioning.
-				</li>
-				<li>
-					You can <strong>download documentation</strong>: <a href="{{getRestSpecsZipLink()}}">REST</a> and <a
-						href="{{this.getSoapContractsZipLink()}}">SOAP (deprecated)</a>.
-				</li>
-				<li>
-					It is possible to generate clients from both ZIP packages.
-				</li>
-				<li><a href="https://github.com/swagger-api/swagger-codegen">Swagger Code Generator</a> will generate clients for REST Swagger specs.
+					It is possible to generate client from downloaded ZIP package, using
+					<a href="https://github.com/swagger-api/swagger-codegen">Swagger Code Generator</a>.
 				</li>
 				<li>
 					In case of any problems with Swagger specs, please
-					<a href="https://github.com/cezarykluczynski/stapi/issues">report a bug</a>.
+					<a href="https://github.com/cezarykluczynski/stapi/issues/new">report an issue</a>.
 				</li>
 				<li>If you plan on maintaing STAPI client in language other than Java, please <a
 					href="https://github.com/cezarykluczynski/stapi/issues">open an issue</a> and let others now.
 					<a routerLink="/clients">Clients</a> are listed on STAPI website.
 				</li>
+				<li>
+					Listed below are the objects available in the API.
+				</li>
 			</ul>
 		</span>
 	</div>
-	<div class='row'>
-		<div class="btn-group btn-group-justified">
-			<div [ngClass]="{'btn btn-default': true, 'btn-primary': isRestDocumentation(), 'rest-select': true}" (click)="selectRest()">
-				REST documentation (<a [href]="getRestSpecsZipLink()" (click)="stopPropagation($event)">as ZIP</a>)</div>
-			<div [ngClass]="{'btn btn-default': true, 'btn-primary': isSoapDocumentation(), 'soap-select': true}" (click)="selectSoap()">
-				SOAP documentation (<a [href]="getSoapContractsZipLink()" (click)="stopPropagation($event)">as ZIP</a>)</div>
-		</div>
-	</div>
 	<div class='row api-documentation__files-contents'>
-		<div [ngClass]="{'col-md-3': isSoapDocumentation(), 'col-md-5': !isSoapDocumentation()}" id="api-documentation__code-preview">
+		<div class="col-md-5" id="api-documentation__code-preview">
 			<div class='list-group table-of-contents'>
 				<a *ngFor="let file of getLinks(); let i = index" class='list-group-item api-documentation__listed-file'(click)="selectFile(i)">{{file.path}}</a>
 			</div>
 		</div>
-		<div [ngClass]="{'col-md-9': isSoapDocumentation(), 'col-md-7': !isSoapDocumentation()}">
+		<div class="col-md-7">
 			<div *ngIf="isRestDocumentation()"><pre><code [highlight]="getSelectedFileContents()" language="yaml" class="hljs"></code></pre></div>
-			<div *ngIf="isSoapDocumentation()"><pre><code [highlight]="getSelectedFileContents()" language="xml" class="hljs"></code></pre></div>
 		</div>
 	</div>
 </div>

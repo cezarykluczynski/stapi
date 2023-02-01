@@ -2,13 +2,9 @@ package com.cezarykluczynski.stapi.server.organization.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint;
-import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationSoapEndpoint;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper;
-import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullRestMapper;
-import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -21,23 +17,8 @@ public class OrganizationConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint organizationEndpoint() {
-		return endpointFactory.createSoapEndpoint(OrganizationSoapEndpoint.class, OrganizationSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server organizationServer() {
 		return endpointFactory.createRestEndpoint(OrganizationRestEndpoint.class, OrganizationRestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public OrganizationBaseSoapMapper organizationBaseSoapMapper() {
-		return Mappers.getMapper(OrganizationBaseSoapMapper.class);
-	}
-
-	@Bean
-	public OrganizationFullSoapMapper organizationFullSoapMapper() {
-		return Mappers.getMapper(OrganizationFullSoapMapper.class);
 	}
 
 	@Bean

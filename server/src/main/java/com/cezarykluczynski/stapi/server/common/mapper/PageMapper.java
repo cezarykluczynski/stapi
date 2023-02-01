@@ -1,7 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.RequestPage;
-import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.util.PageDefault;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
@@ -12,18 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PageMapper {
-
-	public ResponsePage fromPageToSoapResponsePage(Page pageRequest) {
-		ResponsePage responsePage = new ResponsePage();
-		responsePage.setPageNumber(pageRequest.getNumber());
-		responsePage.setPageSize(pageRequest.getSize());
-		responsePage.setNumberOfElements(pageRequest.getNumberOfElements());
-		responsePage.setTotalPages(pageRequest.getTotalPages());
-		responsePage.setTotalElements(Long.valueOf(pageRequest.getTotalElements()).intValue());
-		responsePage.setFirstPage(pageRequest.isFirst());
-		responsePage.setLastPage(pageRequest.isLast());
-		return responsePage;
-	}
 
 	public com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
 		com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage responsePage
@@ -36,13 +22,6 @@ public class PageMapper {
 		responsePage.setFirstPage(pageRequest.isFirst());
 		responsePage.setLastPage(pageRequest.isLast());
 		return responsePage;
-	}
-
-	public PageRequest fromRequestPageToPageRequest(RequestPage requestPage) {
-		if (requestPage == null) {
-			return PageDefault.PAGE_REQUEST;
-		}
-		return fromPageNumberAndPageSize(requestPage.getPageNumber(), requestPage.getPageSize());
 	}
 
 	public PageRequest fromPageSortBeanParamsToPageRequest(PageSortBeanParams pageSortBeanParams) {

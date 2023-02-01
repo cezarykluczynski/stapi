@@ -7,23 +7,16 @@ task codeGen(type: EndpointScaffoldingGeneratorTask) {}
 class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	private static final String MOVIE_ENTITY_NAME = "Movie"
-	private static final String MOVIE_PACKAGE_NAME = "movie"
 
 	List<String> serverFilesToCopy = [
 			"MovieConfiguration.java",
 			"MovieRestBeanParams.java",
 			"MovieRestEndpoint.java",
-			"MovieSoapEndpoint.java",
 			"MovieHeaderRestMapper.java",
-			"MovieHeaderSoapMapper.java",
 			"MovieBaseRestMapper.java",
 			"MovieFullRestMapper.java",
-			"MovieBaseSoapMapper.java",
-			"MovieFullSoapMapper.java",
 			"MovieRestQuery.java",
-			"MovieSoapQuery.java",
 			"MovieRestReader.java",
-			"MovieSoapReader.java",
 			"MovieCreationConfiguration.java",
 			"MovieProcessor.java",
 			"MovieReader.java",
@@ -40,18 +33,11 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			"MovieRestBeanParamsTest.groovy",
 			"MovieRestEndpointTest.groovy",
 			"MovieRestEndpointIntegrationTest.groovy",
-			"MovieSoapEndpointTest.groovy",
-			"MovieSoapEndpointIntegrationTest.groovy",
 			"MovieHeaderRestMapperTest.groovy",
-			"MovieHeaderSoapMapperTest.groovy",
 			"MovieBaseRestMapperTest.groovy",
 			"MovieFullRestMapperTest.groovy",
-			"MovieBaseSoapMapperTest.groovy",
-			"MovieFullSoapMapperTest.groovy",
 			"MovieRestQueryTest.groovy",
-			"MovieSoapQueryTest.groovy",
 			"MovieRestReaderTest.groovy",
-			"MovieSoapReaderTest.groovy",
 			"MovieCreationConfigurationTest.groovy",
 			"MovieProcessorTest.groovy",
 			"MovieReaderTest.groovy",
@@ -193,7 +179,7 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			content = content.replace("\npublic class", "public class")
 		}
 
-		if (fileName.contains("${targetEntityName}RestMapper") || fileName.contains("${targetEntityName}SoapMapper")) {
+		if (fileName.contains("${targetEntityName}RestMapper")) {
 			boolean isMapper = false
 
 			content = content.readLines().stream().map({ line ->
@@ -202,7 +188,7 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 				if (line.startsWith("import ")) {
 					if (line.contains("server.common.mapper.") || line.contains("mapstruct.Mapping") ||
-							line.contains("HeaderRestMapper") || line.contains("HeaderSoapMapper")) {
+							line.contains("HeaderRestMapper")) {
 						return null
 					}
 				}

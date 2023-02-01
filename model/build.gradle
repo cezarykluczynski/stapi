@@ -13,7 +13,9 @@ dependencies {
 	implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
 	implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: jakartaPersistenceApiVersion
 	implementation group: 'org.postgresql', name: 'postgresql', version:'42.5.1'
-	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1' // could be removed along with the SOAP endpoints, probably
+	// required because otherwise Groovy tests cannot be compiled with not found class javax.servlet.ServletContext
+	// probably some problem with Groovy 4.0.x or Spock 2.3, should be checked later
+	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 	annotationProcessor group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
 	testImplementation project(':util').sourceSets.test.output
 }

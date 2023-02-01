@@ -2,14 +2,10 @@ package com.cezarykluczynski.stapi.server.spacecraft_class.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassRestEndpoint;
-import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassSoapEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseRestMapper;
-import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassFullRestMapper;
-import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassFullSoapMapper;
 import jakarta.inject.Inject;
-import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +18,6 @@ public class SpacecraftClassConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint spacecraftClassEndpoint() {
-		return endpointFactory.createSoapEndpoint(SpacecraftClassSoapEndpoint.class, SpacecraftClassSoapEndpoint.ADDRESS);
-	}
-
-	@Bean
 	public Server spacecraftClassServer() {
 		return endpointFactory.createRestEndpoint(SpacecraftClassRestEndpoint.class, SpacecraftClassRestEndpoint.ADDRESS);
 	}
@@ -34,16 +25,6 @@ public class SpacecraftClassConfiguration {
 	@Bean
 	public Server spacecraftClassV2Server() {
 		return endpointFactory.createRestEndpoint(SpacecraftClassV2RestEndpoint.class, SpacecraftClassV2RestEndpoint.ADDRESS);
-	}
-
-	@Bean
-	public SpacecraftClassBaseSoapMapper spacecraftClassBaseSoapMapper() {
-		return Mappers.getMapper(SpacecraftClassBaseSoapMapper.class);
-	}
-
-	@Bean
-	public SpacecraftClassFullSoapMapper spacecraftClassFullSoapMapper() {
-		return Mappers.getMapper(SpacecraftClassFullSoapMapper.class);
 	}
 
 	@Bean

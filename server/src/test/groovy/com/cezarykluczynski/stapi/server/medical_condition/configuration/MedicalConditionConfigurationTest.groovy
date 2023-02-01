@@ -2,12 +2,8 @@ package com.cezarykluczynski.stapi.server.medical_condition.configuration
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.medical_condition.endpoint.MedicalConditionRestEndpoint
-import com.cezarykluczynski.stapi.server.medical_condition.endpoint.MedicalConditionSoapEndpoint
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionBaseRestMapper
-import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionBaseSoapMapper
 import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionFullRestMapper
-import com.cezarykluczynski.stapi.server.medical_condition.mapper.MedicalConditionFullSoapMapper
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -22,19 +18,6 @@ class MedicalConditionConfigurationTest extends Specification {
 		medicalConditionConfiguration = new MedicalConditionConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
-	void "MedicalCondition SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = medicalConditionConfiguration.medicalConditionEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(MedicalConditionSoapEndpoint, MedicalConditionSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
-	}
-
 	void "MedicalCondition REST endpoint is created"() {
 		given:
 		Server server = Mock()
@@ -46,22 +29,6 @@ class MedicalConditionConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(MedicalConditionRestEndpoint, MedicalConditionRestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "MedicalConditionBaseSoapMapper is created"() {
-		when:
-		MedicalConditionBaseSoapMapper medicalConditionBaseSoapMapper = medicalConditionConfiguration.medicalConditionBaseSoapMapper()
-
-		then:
-		medicalConditionBaseSoapMapper != null
-	}
-
-	void "MedicalConditionFullSoapMapper is created"() {
-		when:
-		MedicalConditionFullSoapMapper medicalConditionFullSoapMapper = medicalConditionConfiguration.medicalConditionFullSoapMapper()
-
-		then:
-		medicalConditionFullSoapMapper != null
 	}
 
 	void "MedicalConditionBaseRestMapper is created"() {

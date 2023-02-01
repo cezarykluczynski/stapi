@@ -2,13 +2,9 @@ package com.cezarykluczynski.stapi.server.occupation.configuration
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationRestEndpoint
-import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationSoapEndpoint
 import com.cezarykluczynski.stapi.server.occupation.endpoint.OccupationV2RestEndpoint
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseRestMapper
-import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationFullRestMapper
-import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationFullSoapMapper
-import jakarta.xml.ws.Endpoint
 import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
@@ -21,19 +17,6 @@ class OccupationConfigurationTest extends Specification {
 	void setup() {
 		endpointFactoryMock = Mock()
 		occupationConfiguration = new OccupationConfiguration(endpointFactory: endpointFactoryMock)
-	}
-
-	void "Occupation SOAP endpoint is created"() {
-		given:
-		Endpoint endpoint = Mock()
-
-		when:
-		Endpoint endpointOutput = occupationConfiguration.occupationEndpoint()
-
-		then:
-		1 * endpointFactoryMock.createSoapEndpoint(OccupationSoapEndpoint, OccupationSoapEndpoint.ADDRESS) >> endpoint
-		0 * _
-		endpointOutput == endpoint
 	}
 
 	void "Occupation REST endpoint is created"() {
@@ -60,22 +43,6 @@ class OccupationConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createRestEndpoint(OccupationV2RestEndpoint, OccupationV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
-	}
-
-	void "OccupationBaseSoapMapper is created"() {
-		when:
-		OccupationBaseSoapMapper occupationBaseSoapMapper = occupationConfiguration.occupationBaseSoapMapper()
-
-		then:
-		occupationBaseSoapMapper != null
-	}
-
-	void "OccupationFullSoapMapper is created"() {
-		when:
-		OccupationFullSoapMapper occupationFullSoapMapper = occupationConfiguration.occupationFullSoapMapper()
-
-		then:
-		occupationFullSoapMapper != null
 	}
 
 	void "OccupationBaseRestMapper is created"() {
