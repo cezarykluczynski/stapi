@@ -101,6 +101,16 @@ describe('EntityStatisticsCloudComponent', () => {
 		]);
 	});
 
+	it('gets statistics for trading cards entities', () => {
+		expect(component.getStatisticsForTradingCardsEntities()).toEqual([
+			{
+				text: '20879 trading cards',
+				weight: 20879,
+				fontSize: 35
+			}
+		]);
+	});
+
 	it('gets total count', () => {
 		expect(component.getTotalCount()).toBe(TOTAL_COUNT);
 	});
@@ -117,7 +127,8 @@ describe('EntityStatisticsCloudComponent', () => {
 			AstronomicalObject: 'astronomical objects',
 			SpacecraftClass: 'spacecraft classes',
 			Performer: 'performers',
-			Episode: 'episodes'
+			Episode: 'episodes',
+			TradingCard: 'trading cards'
 		});
 	});
 

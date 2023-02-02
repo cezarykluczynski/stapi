@@ -18,6 +18,7 @@ export class EntityStatisticsCloudComponent implements OnInit {
 	private details: any;
 	private fictionalEntities: Array<any>;
 	private realWorldEntities: Array<any>;
+	private tradingCardsEntities: Array<any>;
 	private totalCount: number;
 	private fontSizeMin = 18;
 	private fontSizeMax = 35;
@@ -29,6 +30,7 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		this.apiDocumentationApi = apiDocumentationApi;
     this.fictionalEntities = [];
     this.realWorldEntities = [];
+    this.tradingCardsEntities = [];
     this.totalCount = 0;
     this.dataVersion = '';
 	}
@@ -38,15 +40,20 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		this.details = this.apiBrowserApi.getDetails();
 		this.fictionalEntities = this.createStatisticsForFictionalEntities();
 		this.realWorldEntities = this.createStatisticsForRealWorldEntities();
+		this.tradingCardsEntities = this.createStatisticsForTradingCardsEntities();
 		this.dataVersion = this.apiDocumentationApi.getDataVersion();
 	}
 
 	createStatisticsForFictionalEntities() {
-		return this.getEntitiesOfType('FICTIONAL_PRIMARY');
+		return this.getEntitiesOfType('FICTIONAL_PRIMARY', () => true);
 	}
 
 	createStatisticsForRealWorldEntities() {
-		return this.getEntitiesOfType('REAL_WORLD_PRIMARY');
+		return this.getEntitiesOfType('REAL_WORLD_PRIMARY', (entity: any) => entity.name.indexOf('TradingCard') === -1);
+	}
+
+	createStatisticsForTradingCardsEntities() {
+		return this.getEntitiesOfType('REAL_WORLD_PRIMARY', (entity: any) => entity.name.indexOf('TradingCard') > -1);
 	}
 
 	getStatisticsForFictionalEntities() {
@@ -57,6 +64,10 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		return this.realWorldEntities;
 	}
 
+	getStatisticsForTradingCardsEntities() {
+		return this.tradingCardsEntities;
+	}
+
 	getTotalCount() {
 		return this.statistics.entitiesStatistics.totalCount;
 	}
@@ -65,14 +76,19 @@ export class EntityStatisticsCloudComponent implements OnInit {
 		return this.statistics.entitiesStatistics.relationsCount;
 	}
 
-	getEntitiesOfType(type: any) {
+	getEntitiesOfType(type: any, func: (entity: any) => boolean) {
 		const entitiesNames = this.details
 			.filter((entity: any) => entity.type === type)
+			.filter((entity: any) => func(entity))
 			.map((entity: any) => entity.name);
 
 		const entities = this.statistics.entitiesStatistics.statistics.filter((item: any) => {
 			return entitiesNames.includes(item.name);
 		});
+
+		if (entities.length === 0) {
+			return [];
+		}
 
 		const names: any = this.getEntityNameToPluralNameMap();
 		const sizes: Array<number> = [];
@@ -82,6 +98,10 @@ export class EntityStatisticsCloudComponent implements OnInit {
 			sizes.push(right.count);
 			return left.count < right.count ? 1 : (left.count === right.count ? 0 : -1);
 		});
+
+		if (sizes.length === 0) {
+			sizes.push(entities[0].count);
+		}
 
 		const min: number = Math.min.apply(null, sizes);
 		const max: number = Math.max.apply(null, sizes);
@@ -98,6 +118,9 @@ export class EntityStatisticsCloudComponent implements OnInit {
 	calculateFontSize(min: number, current: number, max: number): number {
 		const diff: number = this.fontSizeMax - this.fontSizeMin;
 		const diff2: number = (current - min) / (max - min);
+		if (min === current && max === current) {
+			return this.fontSizeMax;
+		}
 		return diff * diff2 + this.fontSizeMin;
 	}
 

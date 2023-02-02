@@ -1,5 +1,6 @@
 <div className='entity-statistics-cloud'>
 	<div>
+		<hr class="single-column-divider">
 		<h4>Currently serving <strong>{{getTotalCount()}}</strong> entities
 			and <strong>{{getRelationsCount()}}</strong> relations between them,
 			gathered <strong>{{getDataVersion()}}</strong>.</h4>
@@ -11,6 +12,11 @@
 		<hr>
 		<div>
 			<span *ngFor="let statistic of getStatisticsForRealWorldEntities()" class="tag-cloud-tag"
+				[style.font-size]="statistic.fontSize + 'px'">{{statistic.text}}</span>
+		</div>
+		<hr>
+		<div>
+			<span *ngFor="let statistic of getStatisticsForTradingCardsEntities()" class="tag-cloud-tag"
 				[style.font-size]="statistic.fontSize + 'px'">{{statistic.text}}</span>
 		</div>
 	</div>

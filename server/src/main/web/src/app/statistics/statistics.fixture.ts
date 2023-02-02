@@ -17,6 +17,10 @@ STATISTICS = {
 		{
 			'name': 'Episode',
 			'count': 20
+		},
+		{
+			'name': 'TradingCard',
+			'count': 20879
 		}
 	],
 	totalCount: TOTAL_COUNT
@@ -56,6 +60,15 @@ DETAILS = [
 		symbol: 'EP',
 		singularName: 'episode',
 		pluralName: 'episodes',
+		version: 'v1'
+	},
+	{
+		name: 'TradingCard',
+		type: 'REAL_WORLD_PRIMARY',
+		apiEndpointSuffix: 'tradingCard',
+		symbol: 'TC',
+		singularName: 'trading card',
+		pluralName: 'trading cards',
 		version: 'v1'
 	}
 ],
