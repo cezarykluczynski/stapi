@@ -29,6 +29,15 @@ class CategoryApiImplTest extends Specification {
 			</query>
 		</api>
 	'''
+	private static final String VALID_XML_WITH_PAGE = """<?xml version="1.0"?>
+		<api batchcomplete="">
+			<query>
+				<categorymembers>
+					<cm pageid="61470" ns="0" title="${TITLE_1}" />
+				</categorymembers>
+			</query>
+		</api>
+	"""
 	private static final String VALID_XML_WITH_PAGES_AND_CATEGORIES_1 = """<?xml version="1.0"?>
 		<api batchcomplete="">
 			<query>
@@ -106,14 +115,14 @@ class CategoryApiImplTest extends Specification {
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
 			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
-			VALID_XML
+			VALID_XML_WITH_PAGE
 		}
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput
 		0 * _
 		pageHeaderListOutput.contains pageHeader
 	}
 
-	void "gets pages in mutliple categories by category title"() {
+	void "gets pages in multiple categories by category title"() {
 		given:
 		PageHeader pageHeader1 = Mock()
 		PageHeader pageHeader2 = Mock()
@@ -158,7 +167,7 @@ class CategoryApiImplTest extends Specification {
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
 			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
-			VALID_XML
+			VALID_XML_WITH_PAGE
 		}
 		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
@@ -194,7 +203,7 @@ class CategoryApiImplTest extends Specification {
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
 			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
 			assert map.get(ApiParams.KEY_CATEGORY_CONTINIUE) == CM_CONTINUE
-			VALID_XML
+			VALID_XML_WITH_PAGE
 		}
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput
 		0 * _
@@ -342,6 +351,34 @@ class CategoryApiImplTest extends Specification {
 		1 * blikiConnectorMock.getCategories(TITLE_3, MEDIA_WIKI_SOURCE, 1) >> []
 		0 * _
 		categoryHeaders == [categoryHeader, categoryHeader2]
+	}
+
+	void "throws exception when there are no pages in category"() {
+		when:
+		categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
+			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
+			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
+			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
+			VALID_XML
+		}
+		0 * _
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == "Expected pages in category $TITLE_1 (source $MEDIA_WIKI_SOURCE), but none were found."
+	}
+
+	void "throws exception when there are no pages in category, including subcategories"() {
+		when:
+		categoryApiImpl.getPagesIncludingSubcategories([TITLE_1, TITLE_2], 1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML
+		0 * _
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == "Expected pages in categories [$TITLE_1, $TITLE_2] (source $MEDIA_WIKI_SOURCE), but none were found."
 	}
 
 }

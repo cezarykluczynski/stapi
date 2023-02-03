@@ -38,6 +38,7 @@ public class CategoryApiImpl implements CategoryApi {
 	@Override
 	public List<PageHeader> getPages(String title, MediaWikiSource mediaWikiSource) {
 		List<PageInfo> pageInfoList = getPageInfoList(title, mediaWikiSource);
+		assertCategoryNotEmpty(pageInfoList, title, mediaWikiSource);
 		return pageHeaderConverter.fromPageInfoList(pageInfoList, mediaWikiSource);
 	}
 
@@ -63,6 +64,7 @@ public class CategoryApiImpl implements CategoryApi {
 		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(titleList, mediaWikiSource,
 				Lists.newArrayList(titleList), Lists.newArrayList(), 0, 1);
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
+		assertCategoryNotEmpty(pageInfoIncludingSubcategoriesList, titleList, mediaWikiSource);
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
 	}
 
@@ -71,6 +73,7 @@ public class CategoryApiImpl implements CategoryApi {
 		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(titleList, mediaWikiSource,
 				Lists.newArrayList(titleList), Lists.newArrayList(), 0, 1);
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
+		assertCategoryNotEmpty(pageInfoIncludingSubcategoriesList, titleList, mediaWikiSource);
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
 	}
 
@@ -81,6 +84,7 @@ public class CategoryApiImpl implements CategoryApi {
 		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(Lists.newArrayList(title), mediaWikiSource,
 				visitedCategoriesNames, Lists.newArrayList(), 0, 1);
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
+		assertCategoryNotEmpty(pageInfoIncludingSubcategoriesList, title, mediaWikiSource);
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
 	}
 
@@ -92,6 +96,7 @@ public class CategoryApiImpl implements CategoryApi {
 		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(Lists.newArrayList(title), mediaWikiSource,
 				visitedCategoriesNames, excludes, 0, depth);
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
+		assertCategoryNotEmpty(pageInfoIncludingSubcategoriesList, title, mediaWikiSource);
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
 	}
 
@@ -207,6 +212,19 @@ public class CategoryApiImpl implements CategoryApi {
 
 	private String toQueryableCategoryName(String categoryName) {
 		return StringUtils.substringAfter(categoryName.replaceAll(" ", "_"), ":");
+	}
+
+	private void assertCategoryNotEmpty(List<PageInfo> pageInfoList, String title, MediaWikiSource mediaWikiSource) {
+		if (pageInfoList.isEmpty()) {
+			throw new StapiRuntimeException(String.format("Expected pages in category %s (source %s), but none were found.", title, mediaWikiSource));
+		}
+	}
+
+	private void assertCategoryNotEmpty(List<PageInfo> pageInfoList, List<String> titleList, MediaWikiSource mediaWikiSource) {
+		if (pageInfoList.isEmpty()) {
+			throw new StapiRuntimeException(String.format("Expected pages in categories %s (source %s), but none were found.",
+					titleList, mediaWikiSource));
+		}
 	}
 
 }
