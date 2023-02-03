@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 class VideoGamePerformerLifeRangeFixedValueProviderTest extends Specification {
 
-	private static final String EXISTING_TITLE = 'Robert V. Barron'
+	private static final String EXISTING_TITLE = 'Robert Barron'
 	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
 
 	private VideoGamePerformerLifeRangeFixedValueProvider videoGamePerformerLifeRangeFixedValueProvider
