@@ -48,7 +48,9 @@ class VideoReleaseBaseRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseBase.uid == UID
 		videoReleaseBase.title == TITLE
 		videoReleaseBase.series != null
+		videoReleaseBase.series.title == 'SERIES_1'
 		videoReleaseBase.season != null
+		videoReleaseBase.season.title == 'SEASON_1'
 		videoReleaseBase.format.name() == videoRelease.format.name()
 		videoReleaseBase.numberOfEpisodes == NUMBER_OF_EPISODES
 		videoReleaseBase.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES

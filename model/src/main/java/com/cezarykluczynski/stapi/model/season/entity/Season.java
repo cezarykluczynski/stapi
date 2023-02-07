@@ -17,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
@@ -58,7 +59,7 @@ public class Season extends PageAwareEntity implements PageAware {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes = Sets.newHashSet();
 
-	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, targetEntity = VideoRelease.class)
+	@ManyToMany(mappedBy = "seasons")
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<VideoRelease> videoReleases = Sets.newHashSet();
 

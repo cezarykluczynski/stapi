@@ -1,9 +1,7 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import com.cezarykluczynski.stapi.util.tool.TimeUtil
 
-import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
 class AbstractVideoReleaseTest extends AbstractTest {
@@ -25,13 +23,6 @@ class AbstractVideoReleaseTest extends AbstractTest {
 	protected static final LocalDate REGION2_SLIMLINE_RELEASE_DATE = LocalDate.of(2005, 05, 05)
 	protected static final LocalDate REGION4_A_RELEASE_DATE = LocalDate.of(2006, 06, 06)
 	protected static final LocalDate REGION4_SLIMLINE_RELEASE_DATE = LocalDate.of(2007, 07, 07)
-	protected static final XMLGregorianCalendar REGION_FREE_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2001, 01, 01)
-	protected static final XMLGregorianCalendar REGION1_A_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2002, 02, 02,)
-	protected static final XMLGregorianCalendar REGION1_SLIMLINE_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2003, 03, 03)
-	protected static final XMLGregorianCalendar REGION2_B_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2004, 04, 04)
-	protected static final XMLGregorianCalendar REGION2_SLIMLINE_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2005, 05, 05)
-	protected static final XMLGregorianCalendar REGION4_A_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2006, 06, 06)
-	protected static final XMLGregorianCalendar REGION4_SLIMLINE_RELEASE_DATE_XML = TimeUtil.createXmlGregorianCalendar(2007, 07, 07)
 	protected static final boolean AMAZON_DIGITAL_RELEASE = RandomUtil.nextBoolean()
 	protected static final boolean DAILYMOTION_DIGITAL_RELEASE = RandomUtil.nextBoolean()
 	protected static final boolean GOOGLE_PLAY_DIGITAL_RELEASE = RandomUtil.nextBoolean()
@@ -42,5 +33,7 @@ class AbstractVideoReleaseTest extends AbstractTest {
 	protected static final boolean XBOX_SMART_GLASS_DIGITAL = RandomUtil.nextBoolean()
 	protected static final boolean YOU_TUBE_DIGITAL_RELEASE = RandomUtil.nextBoolean()
 	protected static final boolean NETFLIX_DIGITAL_RELEASE = RandomUtil.nextBoolean()
+	protected static final boolean DOCUMENTARY = RandomUtil.nextBoolean()
+	protected static final boolean SPECIAL_FEATURES = RandomUtil.nextBoolean()
 
 }

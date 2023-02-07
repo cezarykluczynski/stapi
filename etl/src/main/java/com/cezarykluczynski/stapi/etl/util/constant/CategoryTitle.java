@@ -482,4 +482,7 @@ public class CategoryTitle {
 	public static final String SPORTS_OCCUPATIONS = "Sports_occupations";
 	public static final String VICTUAL_OCCUPATIONS = "Victual_occupations";
 
+	public static final String DOCUMENTARIES = "Documentaries";
+	public static final String SPECIAL_FEATURES = "Special_features";
+
 }

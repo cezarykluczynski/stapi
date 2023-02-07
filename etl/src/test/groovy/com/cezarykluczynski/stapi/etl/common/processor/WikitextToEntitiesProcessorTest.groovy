@@ -10,11 +10,14 @@ import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import spock.lang.Specification
 
 class WikitextToEntitiesProcessorTest extends Specification {
@@ -25,13 +28,19 @@ class WikitextToEntitiesProcessorTest extends Specification {
 
 	private LinkingTemplatesToEntitiesProcessor linkingTemplatesToEntitiesProcessorMock
 
+	private WikitextApi wikitextApiMock
+
+	private SeriesRepository seriesRepositoryMock
+
 	private WikitextToEntitiesProcessor wikitextToEntitiesProcessor
 
 	void setup() {
 		wikitextToEntitiesGenericProcessorMock = Mock()
 		linkingTemplatesToEntitiesProcessorMock = Mock()
-		wikitextToEntitiesProcessor = new WikitextToEntitiesProcessor(wikitextToEntitiesGenericProcessorMock,
-				linkingTemplatesToEntitiesProcessorMock)
+		wikitextApiMock = Mock()
+		seriesRepositoryMock = Mock()
+		wikitextToEntitiesProcessor = new WikitextToEntitiesProcessor(wikitextToEntitiesGenericProcessorMock, linkingTemplatesToEntitiesProcessorMock,
+				wikitextApiMock, seriesRepositoryMock)
 	}
 
 	void "finds book series"() {
@@ -167,15 +176,24 @@ class WikitextToEntitiesProcessorTest extends Specification {
 
 	void "finds series"() {
 		given:
-		List<Series> seriesList = Mock()
+		Template template = new Template(title: TemplateTitle.S, parts: [
+		        new Template.Part(value: 'TOS-R')
+		])
+		Template.Part templatePart = new Template.Part(value: WIKITEXT, templates: [template])
+		Series tos = Mock()
+		Series tas = Mock()
+		Series tng = Mock()
 
 		when:
-		List<Series> seriesListOutput = wikitextToEntitiesProcessor.findSeries(WIKITEXT)
+		List<Series> seriesListOutput = wikitextToEntitiesProcessor.findSeries(templatePart)
 
 		then:
-		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Series) >> seriesList
+		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Series) >> [tas]
+		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> ['TNG']
+		1 * seriesRepositoryMock.findByAbbreviation('TOS') >> Optional.of(tos)
+		1 * seriesRepositoryMock.findByAbbreviation('TNG') >> Optional.of(tng)
 		0 * _
-		seriesListOutput == seriesList
+		seriesListOutput == [tas, tos, tng]
 	}
 
 	void "finds spacecraft classes"() {

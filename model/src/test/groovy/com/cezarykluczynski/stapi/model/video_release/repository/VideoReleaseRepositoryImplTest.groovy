@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.video_release.repository
 
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
+import com.cezarykluczynski.stapi.model.movie.entity.Movie_
 import com.cezarykluczynski.stapi.model.season.entity.Season_
 import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO
@@ -73,11 +74,13 @@ class VideoReleaseRepositoryImplTest extends AbstractVideoReleaseTest {
 		1 * videoReleaseQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed'
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series)
+		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.productionCompany, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.originalBroadcaster, true)
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.season)
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.season, Season_.series, true)
+		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, true)
+		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, Season_.series, true)
+		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.movies, true)
+		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.movies, Movie_.mainDirector, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.references, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.ratings, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.languages, true)
@@ -109,6 +112,9 @@ class VideoReleaseRepositoryImplTest extends AbstractVideoReleaseTest {
 
 		then: 'proxies are cleared'
 		1 * page.content >> Lists.newArrayList(videoRelease)
+		1 * videoRelease.setSeries(Sets.newHashSet())
+		1 * videoRelease.setSeasons(Sets.newHashSet())
+		1 * videoRelease.setMovies(Sets.newHashSet())
 		1 * videoRelease.setReferences(Sets.newHashSet())
 		1 * videoRelease.setRatings(Sets.newHashSet())
 		1 * videoRelease.setLanguages(Sets.newHashSet())

@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.util.tool;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+
+import java.util.List;
 
 public class NumberUtil {
 
@@ -31,6 +34,17 @@ public class NumberUtil {
 		Preconditions.checkNotNull(max, MAX_CANNOT_BE_NULL);
 
 		return subject >= min && subject <= max;
+	}
+
+	public static List<Integer> inclusiveRangeOf(Integer start, Integer end) {
+		if (start == null || end == null || start > end) {
+			return List.of();
+		}
+		List<Integer> range = Lists.newArrayList();
+		for (int i = start; i <= end; i++) {
+			range.add(i);
+		}
+		return range;
 	}
 
 }

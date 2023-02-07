@@ -28,7 +28,7 @@ class NumberUtilTest extends Specification {
 	}
 
 	@Unroll('returns #result telling if #subject is in range #min-#max')
-	void "tells if number if within range inclusive"() {
+	void "detects if number if within range inclusive"() {
 		expect:
 		result == NumberUtil.inRangeInclusive(subject, min, max)
 
@@ -38,6 +38,22 @@ class NumberUtilTest extends Specification {
 		2       | 3   | 7   | false
 		8       | 3   | 7   | false
 		5       | 3   | 7   | true
+	}
+
+	@Unroll('returns #result when #start and #end are provided')
+	void "creates inclusive range"() {
+		expect:
+		result == NumberUtil.inclusiveRangeOf(start, end)
+
+		where:
+		start | end  | result
+		null  | null | []
+		3     | null | []
+		null  | 2    | []
+		3     | 3    | [3]
+		3     | 2    | []
+		3     | 7    | [3, 4, 5, 6, 7]
+		3     | 4    | [3, 4]
 	}
 
 }

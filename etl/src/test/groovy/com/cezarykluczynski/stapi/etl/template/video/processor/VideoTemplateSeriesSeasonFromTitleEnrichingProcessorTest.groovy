@@ -42,7 +42,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 		1 * seriesRepositoryMock.findAll() >> [series]
 		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		0 * _
-		videoTemplate.series == series
+		videoTemplate.series == Set.of(series)
 	}
 
 	void "sets series when beginning matches"() {
@@ -59,7 +59,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 		1 * seriesRepositoryMock.findAll() >> [series]
 		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		0 * _
-		videoTemplate.series == series
+		videoTemplate.series == Set.of(series)
 	}
 
 	void "sets series when abbreviation matches"() {
@@ -76,7 +76,7 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 		1 * seriesRepositoryMock.findAll() >> [series]
 		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		0 * _
-		videoTemplate.series == series
+		videoTemplate.series == Set.of(series)
 	}
 
 	void "when series is already set, sets season when it could be deducted from title"() {
@@ -95,8 +95,8 @@ class VideoTemplateSeriesSeasonFromTitleEnrichingProcessorTest extends Specifica
 		1 * seriesRepositoryMock.findById(ID) >> Optional.of(series)
 		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(ABBREVIATION, 3) >> season
 		0 * _
-		videoTemplate.series == series
-		videoTemplate.season == season
+		videoTemplate.series == Set.of(series)
+		videoTemplate.seasons == Set.of(season)
 	}
 
 }

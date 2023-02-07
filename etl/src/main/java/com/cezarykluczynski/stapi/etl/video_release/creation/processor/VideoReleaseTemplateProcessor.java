@@ -22,8 +22,9 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setUid(uidGenerator.generateFromPage(item.getPage(), VideoRelease.class));
 		videoRelease.setPage(item.getPage());
 		videoRelease.setTitle(item.getTitle());
-		videoRelease.setSeries(item.getSeries());
-		videoRelease.setSeason(item.getSeason());
+		videoRelease.getSeries().addAll(item.getSeries());
+		videoRelease.getSeasons().addAll(item.getSeasons());
+		videoRelease.getMovies().addAll(item.getMovies());
 		videoRelease.setFormat(item.getFormat());
 		videoRelease.setNumberOfEpisodes(item.getNumberOfEpisodes());
 		videoRelease.setNumberOfFeatureLengthEpisodes(item.getNumberOfFeatureLengthEpisodes());
@@ -48,6 +49,8 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setXboxSmartGlassDigitalRelease(Boolean.TRUE.equals(item.getXboxSmartGlassDigitalRelease()));
 		videoRelease.setYouTubeDigitalRelease(Boolean.TRUE.equals(item.getYouTubeDigitalRelease()));
 		videoRelease.setNetflixDigitalRelease(Boolean.TRUE.equals(item.getNetflixDigitalRelease()));
+		videoRelease.setDocumentary(Boolean.TRUE.equals(item.getDocumentary()));
+		videoRelease.setSpecialFeatures(Boolean.TRUE.equals(item.getSpecialFeatures()));
 		videoRelease.getRatings().addAll(item.getRatings());
 		videoRelease.getReferences().addAll(item.getReferences());
 		videoRelease.getLanguages().addAll(item.getLanguages());

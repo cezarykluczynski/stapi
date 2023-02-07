@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.video_release.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
 import com.cezarykluczynski.stapi.model.season.entity.Season_;
 import com.cezarykluczynski.stapi.model.series.entity.Series_;
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO;
@@ -34,11 +35,13 @@ public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRele
 		videoReleaseQueryBuilder.between(VideoRelease_.yearTo, null, criteria.getYearTo());
 		videoReleaseQueryBuilder.between(VideoRelease_.runTime, criteria.getRunTimeFrom(), criteria.getRunTimeTo());
 		videoReleaseQueryBuilder.setSort(criteria.getSort());
-		videoReleaseQueryBuilder.fetch(VideoRelease_.series);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.productionCompany, true);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.originalBroadcaster, true);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.season);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.season, Season_.series, true);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.series, doFetch);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.productionCompany, doFetch);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.originalBroadcaster, doFetch);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, doFetch);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, Season_.series, doFetch);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.movies, doFetch);
+		videoReleaseQueryBuilder.fetch(VideoRelease_.movies, Movie_.mainDirector, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.references, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.ratings, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.languages, doFetch);
@@ -57,6 +60,9 @@ public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRele
 		}
 
 		page.getContent().forEach(videoRelease -> {
+			videoRelease.setSeries(Sets.newHashSet());
+			videoRelease.setSeasons(Sets.newHashSet());
+			videoRelease.setMovies(Sets.newHashSet());
 			videoRelease.setReferences(Sets.newHashSet());
 			videoRelease.setRatings(Sets.newHashSet());
 			videoRelease.setLanguages(Sets.newHashSet());

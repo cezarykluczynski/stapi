@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 
@@ -37,7 +38,7 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 
 	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
-	private NumberOfPartsProcessor numberOfPartsProcessorMock
+	private VideoReleaseNumberOfDataCarriersProcessor videoReleaseNumberOfDataCarriersProcessorMock
 
 	private VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessorMock
 
@@ -52,14 +53,14 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 	void setup() {
 		videoReleaseFormatProcessorMock = Mock()
 		wikitextToEntitiesProcessorMock = Mock()
-		numberOfPartsProcessorMock = Mock()
+		videoReleaseNumberOfDataCarriersProcessorMock = Mock()
 		videoTemplateEpisodesCountProcessorMock = Mock()
 		videoTemplateYearsProcessorMock = Mock()
 		runTimeProcessorMock = Mock()
 		videoTemplateSeasonProcessorMock = Mock()
 		videoTemplateContentsEnrichingProcessor = new VideoTemplateContentsEnrichingProcessor(videoReleaseFormatProcessorMock,
-				wikitextToEntitiesProcessorMock, numberOfPartsProcessorMock, videoTemplateEpisodesCountProcessorMock, videoTemplateYearsProcessorMock,
-				runTimeProcessorMock, videoTemplateSeasonProcessorMock)
+				wikitextToEntitiesProcessorMock, videoReleaseNumberOfDataCarriersProcessorMock, videoTemplateEpisodesCountProcessorMock,
+				videoTemplateYearsProcessorMock, runTimeProcessorMock, videoTemplateSeasonProcessorMock)
 	}
 
 	void "when format part is found, VideoReleaseFormatProcessor is used to process it"() {
@@ -80,9 +81,10 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 
 	void "when series part is found, WikitextToEntitiesProcessor is used to process it"() {
 		given:
-		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part templatePart = new Template.Part(
 				key: VideoTemplateParameter.SERIES,
-				value: SERIES)))
+				value: SERIES)
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		Series series = Mock()
 		VideoTemplate videoTemplate = new VideoTemplate()
 
@@ -90,41 +92,45 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
-		1 * wikitextToEntitiesProcessorMock.findSeries(SERIES) >> Lists.newArrayList(series)
+		1 * wikitextToEntitiesProcessorMock.findSeries(templatePart) >> Lists.newArrayList(series)
 		0 * _
-		videoTemplate.series == series
+		videoTemplate.series == Set.of(series)
 	}
 
-	void "when series part is found, but series is already set, nothing happens"() {
+	void "when series part is found, but series is already set, another one is added"() {
 		given:
-		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part templatePart = new Template.Part(
 				key: VideoTemplateParameter.SERIES,
-				value: SERIES)))
+				value: SERIES)
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		Series series = Mock()
-		VideoTemplate videoTemplate = new VideoTemplate(series: series)
+		Series series2 = Mock()
+		VideoTemplate videoTemplate = new VideoTemplate(series: Sets.newHashSet(series))
 
 		when:
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
+		1 * wikitextToEntitiesProcessorMock.findSeries(templatePart) >> Lists.newArrayList(series2)
 		0 * _
-		videoTemplate.series == series
+		videoTemplate.series == Set.of(series, series2)
 	}
 
-	void "when WikitextToEntitiesProcessor returns empty list for series, series stays null"() {
+	void "when WikitextToEntitiesProcessor returns empty list for series, series stays empty"() {
 		given:
-		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part templatePart = new Template.Part(
 				key: VideoTemplateParameter.SERIES,
-				value: SERIES)))
+				value: SERIES)
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		VideoTemplate videoTemplate = new VideoTemplate()
 
 		when:
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
-		1 * wikitextToEntitiesProcessorMock.findSeries(SERIES) >> Lists.newArrayList()
+		1 * wikitextToEntitiesProcessorMock.findSeries(templatePart) >> Lists.newArrayList()
 		0 * _
-		videoTemplate.series == null
+		videoTemplate.series.empty
 	}
 
 	void "when discs part is found, NumberOfPartsProcessor is used to process it"() {
@@ -138,7 +144,7 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
-		1 * numberOfPartsProcessorMock.process(DISCS_STRING) >> DISCS_INTEGER
+		1 * videoReleaseNumberOfDataCarriersProcessorMock.process(DISCS_STRING) >> DISCS_INTEGER
 		0 * _
 		videoTemplate.numberOfDataCarriers == DISCS_INTEGER
 	}
@@ -155,25 +161,27 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
-		1 * videoTemplateSeasonProcessorMock.process(Pair.of(videoTemplate, SEASON)) >> season
+		1 * videoTemplateSeasonProcessorMock.process(Pair.of(videoTemplate, SEASON)) >> Set.of(season)
 		0 * _
-		videoTemplate.season == season
+		videoTemplate.seasons == Set.of(season)
 	}
 
-	void "when season part is found, but season is already set, nothing happens"() {
+	void "when season part is found, but season is already set, other season is added"() {
 		given:
 		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: VideoTemplateParameter.SEASON,
 				value: SEASON)))
 		Season season = Mock()
-		VideoTemplate videoTemplate = new VideoTemplate(season: season)
+		Season season2 = Mock()
+		VideoTemplate videoTemplate = new VideoTemplate(seasons: Sets.newHashSet(season))
 
 		when:
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
+		1 * videoTemplateSeasonProcessorMock.process(Pair.of(videoTemplate, SEASON)) >> Set.of(season2)
 		0 * _
-		videoTemplate.season == season
+		videoTemplate.seasons == Set.of(season, season2)
 	}
 
 	void "when episodes part is found, VideoTemplateEpisodesCountProcessor is used to process it"() {

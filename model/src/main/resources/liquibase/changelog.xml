@@ -76,4 +76,5 @@
 	<include file="species/0073_extend_species.xml" relativeToChangelogFile="true"/>
 	<include file="company/0074_extend_company.xml" relativeToChangelogFile="true"/>
 	<include file="comic_collection/0075_extend_comic_collection.xml" relativeToChangelogFile="true"/>
+	<include file="video_release/0076_extend_video_release.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

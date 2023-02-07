@@ -5,10 +5,12 @@ import com.cezarykluczynski.stapi.etl.content_language.service.ContentLanguageDT
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_language.repository.ContentLanguageRepository;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,7 +38,9 @@ public class ContentLanguageFactory {
 		Optional<ContentLanguageDTO> contentLanguageDTOOptional = contentLanguageDTOProvider.getByName(languageName);
 
 		if (!contentLanguageDTOOptional.isPresent()) {
-			log.warn("Could not create ContentLanguage entity for language named: \"{}\"", languageName);
+			if (!StringUtil.startsWithAnyIgnoreCase(languageName, List.of("region", "klingon"))) {
+				log.warn("Could not create ContentLanguage entity for language named: \"{}\"", languageName);
+			}
 			return Optional.empty();
 		}
 

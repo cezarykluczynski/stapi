@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.video_release.mapper
 
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
+import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
@@ -15,8 +16,9 @@ abstract class AbstractVideoReleaseMapperTest extends AbstractVideoReleaseTest {
 		new VideoRelease(
 				uid: UID,
 				title: TITLE,
-				series: new Series(),
-				season: new Season(),
+				series: Set.of(new Series(title: 'SERIES_1'), new Series(title: 'SERIES_2')),
+				seasons: Set.of(new Season(title: 'SEASON_1'), new Season(title: 'SEASON_2')),
+				movies: createSetOfRandomNumberOfMocks(Movie),
 				format: VideoReleaseFormat.BETAMAX,
 				numberOfEpisodes: NUMBER_OF_EPISODES,
 				numberOfFeatureLengthEpisodes: NUMBER_OF_FEATURE_LENGTH_EPISODES,

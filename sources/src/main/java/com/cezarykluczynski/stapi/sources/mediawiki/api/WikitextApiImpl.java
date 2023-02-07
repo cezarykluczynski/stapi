@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,18 +30,37 @@ public class WikitextApiImpl implements WikitextApi {
 	private static final String LEFT_BRACKET = "(";
 	private static final String RIGHT_BRACKET = ")";
 	private static final String SPACE = " ";
-
-	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]");
-	private static final Pattern DIS_LINK = Pattern.compile("\\{\\{dis\\|(.+?)}}");
-	private static final Pattern MU_LINK = Pattern.compile("\\{\\{mu\\|(.+?)}}");
-	private static final Pattern ALT_LINK = Pattern.compile("\\{\\{alt\\|(.+?)}}");
-	private static final Pattern FEDERATION_LINK = Pattern.compile("\\{\\{federation}}");
-
-	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
-	private static final Pattern NO_INCLUDE_PATTERN = Pattern.compile("<noinclude>(.+?)</noinclude>", Pattern.DOTALL);
-
 	private static final String ONE = "1";
 	private static final String TWO = "2";
+
+	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]", Pattern.CASE_INSENSITIVE);
+	private static final Pattern DIS_LINK = Pattern.compile("\\{\\{dis\\|(.+?)}}", Pattern.CASE_INSENSITIVE);
+	private static final Pattern MU_LINK = Pattern.compile("\\{\\{mu\\|(.+?)}}", Pattern.CASE_INSENSITIVE);
+	private static final Pattern ALT_LINK = Pattern.compile("\\{\\{alt\\|(.+?)}}", Pattern.CASE_INSENSITIVE);
+	private static final Pattern S_LINK = Pattern.compile("\\{\\{s\\|(.+?)}}", Pattern.CASE_INSENSITIVE);
+	private static final Pattern E_LINK = Pattern.compile("\\{\\{e\\|(.+?)}}", Pattern.CASE_INSENSITIVE);
+	private static final Pattern FEDERATION_LINK = Pattern.compile("\\{\\{federation}}", Pattern.CASE_INSENSITIVE);
+
+	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
+	private static final Pattern NO_INCLUDE_PATTERN = Pattern.compile("<noinclude>(.+?)</noinclude>", Pattern.DOTALL & Pattern.CASE_INSENSITIVE);
+
+	private static final Map<String, String> VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP = Maps.newLinkedHashMap();
+	private static final Map<Pattern, String> VIDEO_FORMATS_LINKS = Maps.newLinkedHashMap();
+
+	static {
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("bd", " (Blu-ray)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("bm", " (Betamax)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("df", " (digital)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("dvd", " (DVD)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("ldisc", " (LaserDisc)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("uhd", " (4K Ultra HD)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("vcd", " (VCD)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("vhd", " (VHD)");
+		VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.put("vhs", " (VHS)");
+		for (Map.Entry<String, String> entry : VIDEO_FORMATS_TO_PAGE_LINK_SUFFIX_MAP.entrySet()) {
+			VIDEO_FORMATS_LINKS.put(Pattern.compile(String.format("\\{\\{%s\\|(.+?)}}", entry.getKey()), Pattern.CASE_INSENSITIVE), entry.getValue());
+		}
+	}
 
 	@Override
 	public List<String> getPageTitlesFromWikitext(String wikitext) {
@@ -93,6 +114,23 @@ public class WikitextApiImpl implements WikitextApi {
 		allMatches.addAll(extractMatches(wikitext, ALT_LINK, 1, templateParts -> {
 			return templateParts.get(0) + SPACE + LEFT_BRACKET + "alternate reality" + RIGHT_BRACKET;
 		}));
+		allMatches.addAll(extractMatches(wikitext, S_LINK, 1, templateParts -> {
+			return templateParts.get(0);
+		}));
+		allMatches.addAll(extractMatches(wikitext, E_LINK, 1, templateParts -> {
+			return templateParts.get(0);
+		}));
+		for (Map.Entry<Pattern, String> entry : VIDEO_FORMATS_LINKS.entrySet()) {
+			allMatches.addAll(extractMatches(wikitext, entry.getKey(), 1, templateParts -> {
+				String templatePartZero = templateParts.get(0);
+				// there's always this one special case that complicates everything...
+				if ("Star Trek".equals(templatePartZero)) {
+					templatePartZero = "Star Trek (film)";
+				}
+				return templatePartZero + entry.getValue();
+			}));
+		}
+
 		allMatches.addAll(extractMatches(wikitext, FEDERATION_LINK, 0, templateParts -> "United Federation of Planets"));
 
 		return allMatches

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -38,35 +39,42 @@ public class VideoTemplateSeriesSeasonFromTitleEnrichingProcessor implements Ite
 		Page page = enrichablePair.getInput();
 		VideoTemplate videoTemplate = enrichablePair.getOutput();
 		loadSeriesCache();
-		String title = page.getTitle();
-		String normalizedTitle = normalizeTitle(title);
+		String pageTitle = page.getTitle();
+		String normalizedTitle = normalizeTitle(pageTitle);
 		if (titleToSeriesIdMappings.containsKey(normalizedTitle)) {
-			// find a fresh entity to not mess up with Hibernate sessions
-			seriesRepository.findById(titleToSeriesIdMappings.get(normalizedTitle)).ifPresent(videoTemplate::setSeries);
+			seriesRepository.findById(titleToSeriesIdMappings.get(normalizedTitle)).ifPresent(series -> {
+				videoTemplate.getSeries().add(series);
+			});
 		}
-		if (videoTemplate.getSeries() == null) {
+		if (videoTemplate.getSeries().isEmpty()) {
 			for (Map.Entry<String, Long> titleToSeriesEntry : titleToSeriesIdMappings.entrySet()) {
 				if (normalizedTitle.startsWith(titleToSeriesEntry.getKey())) {
-					seriesRepository.findById(titleToSeriesIdMappings.get(titleToSeriesEntry.getKey())).ifPresent(videoTemplate::setSeries);
+					seriesRepository.findById(titleToSeriesIdMappings.get(titleToSeriesEntry.getKey())).ifPresent(series -> {
+						videoTemplate.getSeries().add(series);
+					});
 				}
 			}
 		}
-		if (videoTemplate.getSeries() == null) {
-			String normalizedAbbreviation = normalizeAbbreviation(title);
+		if (videoTemplate.getSeries().isEmpty()) {
+			String normalizedAbbreviation = normalizeAbbreviation(pageTitle);
 			if (abbreviationToSeriesIdMappings.containsKey(normalizedAbbreviation)) {
-				seriesRepository.findById(abbreviationToSeriesIdMappings.get(normalizedAbbreviation)).ifPresent(videoTemplate::setSeries);
+				seriesRepository.findById(abbreviationToSeriesIdMappings.get(normalizedAbbreviation)).ifPresent(series -> {
+					videoTemplate.getSeries().add(series);
+				});
 			}
 		}
 
-		Series series = videoTemplate.getSeries();
-		if (series != null && videoTemplate.getSeason() == null && StringUtils.containsIgnoreCase(title, SEASON)) {
-			if (StringUtils.containsIgnoreCase(title, SEASON)) {
-				String seasonNumber = StringUtils.substringBefore(StringUtils.substringAfter(title, SEASON), " ");
-				Integer seasonNumberInteger = Ints.tryParse(seasonNumber);
-				if (seasonNumberInteger != null && seasonNumberInteger < 10) {
-					Season season = seasonRepository.findBySeriesAbbreviationAndSeasonNumber(series.getAbbreviation(), seasonNumberInteger);
-					if (season != null) {
-						videoTemplate.setSeason(season);
+		Set<Series> seriesSet = videoTemplate.getSeries();
+		for (Series series : seriesSet) {
+			if (series != null && videoTemplate.getSeasons().isEmpty() && StringUtils.containsIgnoreCase(pageTitle, SEASON)) {
+				if (StringUtils.containsIgnoreCase(pageTitle, SEASON)) {
+					String seasonNumber = StringUtils.substringBefore(StringUtils.substringAfter(pageTitle, SEASON), " ");
+					Integer seasonNumberInteger = Ints.tryParse(seasonNumber);
+					if (seasonNumberInteger != null && seasonNumberInteger < 10) {
+						Season season = seasonRepository.findBySeriesAbbreviationAndSeasonNumber(series.getAbbreviation(), seasonNumberInteger);
+						if (season != null) {
+							videoTemplate.getSeasons().add(season);
+						}
 					}
 				}
 			}

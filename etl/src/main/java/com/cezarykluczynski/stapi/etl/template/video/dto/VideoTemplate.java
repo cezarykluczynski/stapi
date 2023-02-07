@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.video.dto;
 
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -20,9 +21,11 @@ public class VideoTemplate {
 
 	private Page page;
 
-	private Series series;
+	private Set<Series> series = Sets.newHashSet();
 
-	private Season season;
+	private Set<Season> seasons = Sets.newHashSet();
+
+	private Set<Movie> movies = Sets.newHashSet();
 
 	private VideoReleaseFormat format;
 
@@ -72,6 +75,10 @@ public class VideoTemplate {
 	private Boolean youTubeDigitalRelease;
 
 	private Boolean netflixDigitalRelease;
+
+	private Boolean documentary;
+
+	private Boolean specialFeatures;
 
 	private Set<Reference> references = Sets.newHashSet();
 

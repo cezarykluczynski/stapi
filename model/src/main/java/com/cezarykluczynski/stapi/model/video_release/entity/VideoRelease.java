@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityTyp
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -24,7 +25,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,8 +38,9 @@ import java.util.Set;
 @Data
 @Entity
 @SuppressWarnings("ClassFanOutComplexity")
-@ToString(callSuper = true, exclude = {"series", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
-@EqualsAndHashCode(callSuper = true, exclude = {"series", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
+@ToString(callSuper = true, exclude = {"series", "seasons", "movies", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
+@EqualsAndHashCode(callSuper = true, exclude = {"series", "seasons", "movies", "references", "ratings", "languages", "languagesSubtitles",
+		"languagesDubbed"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video release",
 		pluralName = "video releases")
@@ -53,15 +54,26 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 
 	private String title;
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_releases_series",
+			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "series_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "series_id")
-	private Series series;
+	private Set<Series> series = Sets.newHashSet();
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_releases_seasons",
+			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "season_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "season_id")
-	private Season season;
+	private Set<Season> seasons = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_releases_movies",
+			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "movie_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Movie> movies = Sets.newHashSet();
 
 	@Enumerated(EnumType.STRING)
 	private VideoReleaseFormat format;
@@ -120,6 +132,10 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	private Boolean youTubeDigitalRelease;
 
 	private Boolean netflixDigitalRelease;
+
+	private Boolean documentary;
+
+	private Boolean specialFeatures;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_references",

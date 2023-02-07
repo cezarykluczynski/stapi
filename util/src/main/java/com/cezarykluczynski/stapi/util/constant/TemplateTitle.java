@@ -47,6 +47,7 @@ public class TemplateTitle {
 	public static final String YEARLINK = "yearlink";
 	public static final String DIS = "dis";
 
+	public static final String S = "s";
 	public static final String E = "e";
 
 	public static final String MBETA = "mbeta";
@@ -90,6 +91,8 @@ public class TemplateTitle {
 
 	public static final String BGINFO = "bginfo";
 	public static final String TYPE = "type";
+
+	public static final String FILM = "film";
 
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";

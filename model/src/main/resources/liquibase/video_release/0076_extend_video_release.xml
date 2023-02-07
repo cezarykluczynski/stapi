@@ -1,0 +1,78 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0076_extend_video_release" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="video_releases_series">
+			<column name="video_release_id" type="bigint"/>
+			<column name="series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_series"
+				baseTableSchemaName="stapi"
+				constraintName="vrser_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="series_id"
+				baseTableName="video_releases_series"
+				baseTableSchemaName="stapi"
+				constraintName="vrser_season_fkey"
+				referencedColumnNames="id"
+				referencedTableName="series"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_seasons">
+			<column name="video_release_id" type="bigint"/>
+			<column name="season_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_seasons"
+				baseTableSchemaName="stapi"
+				constraintName="vrsea_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="season_id"
+				baseTableName="video_releases_seasons"
+				baseTableSchemaName="stapi"
+				constraintName="vrsea_season_fkey"
+				referencedColumnNames="id"
+				referencedTableName="season"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_movies">
+			<column name="video_release_id" type="bigint"/>
+			<column name="movie_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_movies"
+				baseTableSchemaName="stapi"
+				constraintName="vrm_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="video_releases_movies"
+				baseTableSchemaName="stapi"
+				constraintName="vrm_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
+
+		<dropForeignKeyConstraint baseTableName="video_release"
+				baseTableSchemaName="stapi"
+				constraintName="video_release_series_fkey"/>
+		<dropColumn tableName="video_release" columnName="series_id"/>
+
+		<dropForeignKeyConstraint baseTableName="video_release"
+				baseTableSchemaName="stapi"
+				constraintName="video_release_season_fkey"/>
+		<dropColumn tableName="video_release" columnName="season_id"/>
+
+		<addColumn schemaName="stapi" tableName="video_release">
+			<column name="documentary" type="boolean"/>
+			<column name="special_features" type="boolean"/>
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

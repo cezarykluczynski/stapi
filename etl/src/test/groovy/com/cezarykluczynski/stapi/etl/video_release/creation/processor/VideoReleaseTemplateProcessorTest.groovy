@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
+import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.season.entity.Season
@@ -21,8 +22,6 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 	private VideoReleaseTemplateProcessor videoReleaseTemplateProcessor
 
 	private final Page page = Mock()
-	private final Series series = Mock()
-	private final Season season = Mock()
 
 	void setup() {
 		uidGeneratorMock = Mock()
@@ -34,8 +33,9 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		VideoTemplate videoTemplate = new VideoTemplate(
 				page: page,
 				title: TITLE,
-				series: series,
-				season: season,
+				series: createSetOfRandomNumberOfMocks(Series),
+				seasons: createSetOfRandomNumberOfMocks(Season),
+				movies: createSetOfRandomNumberOfMocks(Movie),
 				format: VIDEO_RELEASE_FORMAT,
 				numberOfEpisodes: NUMBER_OF_EPISODES,
 				numberOfFeatureLengthEpisodes: NUMBER_OF_FEATURE_LENGTH_EPISODES,
@@ -60,6 +60,8 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				xboxSmartGlassDigitalRelease: XBOX_SMART_GLASS_DIGITAL,
 				youTubeDigitalRelease: YOU_TUBE_DIGITAL_RELEASE,
 				netflixDigitalRelease: NETFLIX_DIGITAL_RELEASE,
+				documentary: DOCUMENTARY,
+				specialFeatures: SPECIAL_FEATURES,
 				references: createSetOfRandomNumberOfMocks(Reference),
 				ratings: createSetOfRandomNumberOfMocks(ContentRating),
 				languages: createSetOfRandomNumberOfMocks(ContentLanguage),
@@ -75,8 +77,9 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.uid == UID
 		videoRelease.page == page
 		videoRelease.title == TITLE
-		videoRelease.series == series
-		videoRelease.season == season
+		videoRelease.series.size() == videoTemplate.series.size()
+		videoRelease.seasons.size() == videoTemplate.seasons.size()
+		videoRelease.movies.size() == videoTemplate.movies.size()
 		videoRelease.format == VIDEO_RELEASE_FORMAT
 		videoRelease.numberOfEpisodes == NUMBER_OF_EPISODES
 		videoRelease.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES
@@ -101,6 +104,8 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.xboxSmartGlassDigitalRelease == XBOX_SMART_GLASS_DIGITAL
 		videoRelease.youTubeDigitalRelease == YOU_TUBE_DIGITAL_RELEASE
 		videoRelease.netflixDigitalRelease == NETFLIX_DIGITAL_RELEASE
+		videoRelease.documentary == DOCUMENTARY
+		videoRelease.specialFeatures == SPECIAL_FEATURES
 		videoRelease.references.size() == videoTemplate.references.size()
 		videoRelease.ratings.size() == videoTemplate.ratings.size()
 		videoRelease.languages.size() == videoTemplate.languages.size()

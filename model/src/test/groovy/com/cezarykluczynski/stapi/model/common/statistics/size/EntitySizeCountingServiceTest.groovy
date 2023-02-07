@@ -78,13 +78,18 @@ class EntitySizeCountingServiceTest extends Specification {
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
-		1 * entityManager.createQuery('select count(*) from VideoRelease where series is not null') >> query
+		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_series') >> query
 		1 * query.singleResult >> 5L
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
-		1 * entityManager.createQuery('select count(*) from VideoRelease where season is not null') >> query
+		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_seasons') >> query
 		1 * query.singleResult >> 7L
+
+		and:
+		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
+		1 * entityManager.createNativeQuery('select count(*) from stapi.video_releases_movies') >> query
+		1 * query.singleResult >> 9L
 
 		and:
 		1 * jpaContextMock.getEntityManagerByManagedType(VideoRelease) >> entityManager
@@ -113,7 +118,7 @@ class EntitySizeCountingServiceTest extends Specification {
 
 		and:
 		0 * _
-		countRelations == 98L
+		countRelations == 107L
 	}
 
 }
