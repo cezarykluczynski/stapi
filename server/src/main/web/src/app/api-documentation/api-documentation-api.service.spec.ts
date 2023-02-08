@@ -43,23 +43,18 @@ describe('ApiDocumentationApi', () => {
 	it('is created', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 		expect(apiDocumentationApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(7);
+		expect(res.calls.count()).toBe(4);
 		expect(res.calls.argsFor(0)).toEqual(['common']);
 		expect(res.calls.argsFor(1)).toEqual(['documentation']);
 		expect(res.calls.argsFor(2)).toEqual(['common']);
 		expect(res.calls.argsFor(3)).toEqual(['dataVersion']);
-		expect(res.calls.argsFor(4)).toEqual(['common']);
-		expect(res.calls.argsFor(5)).toEqual(['github']);
-		expect(res.calls.argsFor(6)).toEqual(['projectDetails']);
 	}));
 
 	describe('after initialization', () => {
 		let documentationPromise;
 		let dataVersionPromise;
-		let githubProjectDetailsPromise;
 		const DOCUMENTATION = 'DOCUMENTATION';
 		const DATA_VERSION = 'DATA_VERSION';
-		const STARGAZERS_COUNT = 101;
 
 		beforeEach(() => {
 			documentationPromise = () => {
@@ -74,20 +69,9 @@ describe('ApiDocumentationApi', () => {
 				});
 			};
 
-			githubProjectDetailsPromise = () => {
-				return Promise.resolve({
-					stargazersCount: STARGAZERS_COUNT
-				});
-			};
-
 			restClientMock.common = {
 				documentation: { get: documentationPromise },
-				dataVersion: { get: dataVersionPromise },
-				github: {
-					projectDetails: {
-						get: githubProjectDetailsPromise
-					}
-				}
+				dataVersion: { get: dataVersionPromise }
 			};
 		});
 
@@ -105,13 +89,6 @@ describe('ApiDocumentationApi', () => {
 			expect(apiDocumentationApi.getDocumentation()).toEqual({
 				documentation: DOCUMENTATION
 			});
-		})));
-
-		it('gets GitHub project details', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
-			apiDocumentationApi.loadGitHubProjectDetails();
-
-			flushMicrotasks();
-			expect(apiDocumentationApi.getGitHubStargazersCount()).toEqual(STARGAZERS_COUNT);
 		})));
 
 		it('gets data version', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {

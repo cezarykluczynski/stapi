@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import com.cezarykluczynski.stapi.server.common.healthcheck.CommonDatabaseStatusValidator
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
-import com.cezarykluczynski.stapi.server.github.model.GitHubDTO
-import com.cezarykluczynski.stapi.server.github.service.GitHubApi
 import com.cezarykluczynski.stapi.server.common.feature_switch.api.FeatureSwitchApi
 import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitchesDTO
 import jakarta.ws.rs.core.Response
@@ -20,8 +18,6 @@ class CommonRestEndpointTest extends Specification {
 
 	private FeatureSwitchApi featureSwitchApiMock
 
-	private GitHubApi gitHubApiMock
-
 	private CommonDatabaseStatusValidator commonDatabaseStatusValidatorMock
 
 	private CommonRestEndpoint commonRestEndpoint
@@ -29,9 +25,8 @@ class CommonRestEndpointTest extends Specification {
 	void setup() {
 		commonDataReaderMock = Mock()
 		featureSwitchApiMock = Mock()
-		gitHubApiMock = Mock()
 		commonDatabaseStatusValidatorMock = Mock()
-		commonRestEndpoint = new CommonRestEndpoint(commonDataReaderMock, featureSwitchApiMock, gitHubApiMock, commonDatabaseStatusValidatorMock)
+		commonRestEndpoint = new CommonRestEndpoint(commonDataReaderMock, featureSwitchApiMock, commonDatabaseStatusValidatorMock)
 	}
 
 	void "gets feature switches"() {
@@ -45,19 +40,6 @@ class CommonRestEndpointTest extends Specification {
 		1 * featureSwitchApiMock.all >> featureSwitchesDTO
 		0 * _
 		featureSwitchesDTOOutput == featureSwitchesDTO
-	}
-
-	void "gets GitHub project details switches"() {
-		given:
-		GitHubDTO gitHubDTO = Mock()
-
-		when:
-		GitHubDTO gitHubDTOOutput = commonRestEndpoint.gitHubProjectDetails()
-
-		then:
-		1 * gitHubApiMock.projectDetails >> gitHubDTO
-		0 * _
-		gitHubDTOOutput == gitHubDTO
 	}
 
 	void "gets entities statistics from CommonDataReader"() {

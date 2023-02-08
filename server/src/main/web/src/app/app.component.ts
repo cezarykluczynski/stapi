@@ -10,7 +10,6 @@ import { ApiDocumentationApi } from './api-documentation/api-documentation-api.s
 export class AppComponent implements OnInit {
 
 	private baseUrl = 'stapi.co';
-	private gitHubStargazersCount: any;
 	private dataVersion: string;
 
 	constructor(private featureSwitchApi: FeatureSwitchApi, private apiDocumentationApi: ApiDocumentationApi) {
@@ -19,19 +18,10 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.dataVersion = this.apiDocumentationApi.getDataVersion();
-		this.gitHubStargazersCount = this.apiDocumentationApi.getGitHubStargazersCount();
 	}
 
 	hasTocAndPP() {
 		return this.featureSwitchApi.isEnabled('TOS_AND_PP');
-	}
-
-	getGitHubStarsCount() {
-		return this.gitHubStargazersCount;
-	}
-
-	hasGitHubStargazersCount() {
-		return !!this.gitHubStargazersCount;
 	}
 
 	hasHttpsNotice() {

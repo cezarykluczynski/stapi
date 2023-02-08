@@ -16,7 +16,7 @@ describe('InitializerService', () => {
 	beforeEach(() => {
 		apiBrowserApiMock = jasmine.createSpyObj('ApiBrowserApi', ['loadDetails'], ['']);
 		statisticsApiMock = jasmine.createSpyObj('StatisticsApi', ['loadStatistics'], ['']);
-		apiDocumentationApiMock = jasmine.createSpyObj('ApiDocumentationApi', ['loadDocumentation', 'loadDataVersion', 'loadGitHubProjectDetails'], ['']);
+		apiDocumentationApiMock = jasmine.createSpyObj('ApiDocumentationApi', ['loadDocumentation', 'loadDataVersion'], ['']);
 		featureSwitchApiMock = jasmine.createSpyObj('FeatureSwitchApi', ['loadFeatureSwitches'], ['']);
 
 		TestBed.configureTestingModule({
@@ -52,7 +52,6 @@ describe('InitializerService', () => {
 			expect(statisticsApiMock.loadStatistics).toHaveBeenCalled();
 			expect(apiDocumentationApiMock.loadDocumentation).toHaveBeenCalled();
 			expect(apiDocumentationApiMock.loadDataVersion).toHaveBeenCalled();
-			expect(apiDocumentationApiMock.loadGitHubProjectDetails).toHaveBeenCalled();
 			expect(featureSwitchApiMock.loadFeatureSwitches).toHaveBeenCalled();
 		});
 		flushMicrotasks();

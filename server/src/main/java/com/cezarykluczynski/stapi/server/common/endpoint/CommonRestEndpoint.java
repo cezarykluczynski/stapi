@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.server.common.feature_switch.dto.FeatureSwitch
 import com.cezarykluczynski.stapi.server.common.healthcheck.CommonDatabaseStatusValidator;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
-import com.cezarykluczynski.stapi.server.github.model.GitHubDTO;
-import com.cezarykluczynski.stapi.server.github.service.GitHubApi;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -34,15 +32,12 @@ public class CommonRestEndpoint {
 
 	private final FeatureSwitchApi featureSwitchApi;
 
-	private final GitHubApi gitHubApi;
-
 	private final CommonDatabaseStatusValidator commonDatabaseStatusValidator;
 
-	public CommonRestEndpoint(CommonDataReader commonDataReader, FeatureSwitchApi featureSwitchApi, GitHubApi gitHubApi,
+	public CommonRestEndpoint(CommonDataReader commonDataReader, FeatureSwitchApi featureSwitchApi,
 			CommonDatabaseStatusValidator commonDatabaseStatusValidator) {
 		this.commonDataReader = commonDataReader;
 		this.featureSwitchApi = featureSwitchApi;
-		this.gitHubApi = gitHubApi;
 		this.commonDatabaseStatusValidator = commonDatabaseStatusValidator;
 	}
 
@@ -51,13 +46,6 @@ public class CommonRestEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public FeatureSwitchesDTO featureSwitches() {
 		return featureSwitchApi.getAll();
-	}
-
-	@GET
-	@Path("github/projectDetails")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public GitHubDTO gitHubProjectDetails() {
-		return gitHubApi.getProjectDetails();
 	}
 
 	@GET

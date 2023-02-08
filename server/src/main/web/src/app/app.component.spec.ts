@@ -13,10 +13,6 @@ class FeatureSwitchApiMock {
 class ApiDocumentationApiMock {
 	public getDataVersion() {
 	}
-
-	public getGitHubStargazersCount() {
-		return 101;
-	}
 }
 
 describe('AppComponent', () => {
@@ -48,18 +44,5 @@ describe('AppComponent', () => {
 		const fixture = TestBed.createComponent(AppComponent);
 		const app = fixture.debugElement.componentInstance;
 		expect(app).toBeTruthy();
-	}));
-
-	it('load stargazers count from API', waitForAsync(() => {
-		const fixture = TestBed.createComponent(AppComponent);
-		expect(fixture.componentInstance.hasGitHubStargazersCount()).toBeFalse();
-
-		fixture.componentInstance.ngOnInit();
-		fixture.detectChanges();
-
-		fixture.whenStable().then(() => {
-			expect(fixture.componentInstance.hasGitHubStargazersCount()).toBeTrue();
-			expect(fixture.componentInstance.getGitHubStarsCount()).toBe(101);
-		});
 	}));
 });

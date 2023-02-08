@@ -10,13 +10,11 @@ export class ApiDocumentationApi {
 	private api: RestClient;
 	private documentation: any;
 	private dataVersion: string;
-	private stargazersCount: number;
 
 	constructor(restApiService: RestApiService) {
 		this.api = restApiService.getApi();
 		this.register();
     this.dataVersion = '';
-    this.stargazersCount = 0;
 	}
 
 	loadDocumentation() {
@@ -33,17 +31,6 @@ export class ApiDocumentationApi {
 		});
 	}
 
-	loadGitHubProjectDetails() {
-		return (<any> this.api).common.github.projectDetails.get().then((response: any) => {
-			this.stargazersCount = response.stargazersCount;
-			return this.stargazersCount;
-		});
-	}
-
-	getGitHubStargazersCount() {
-		return this.stargazersCount;
-	}
-
 	getDocumentation() {
 		return this.documentation;
 	}
@@ -55,7 +42,6 @@ export class ApiDocumentationApi {
 	private register() {
 		this.api.res('common').res('documentation');
 		this.api.res('common').res('dataVersion');
-		this.api.res('common').res('github').res('projectDetails');
 	}
 
 }

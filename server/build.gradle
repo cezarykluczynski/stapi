@@ -27,7 +27,6 @@ dependencies {
 	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: springBootVersion
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
 	implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
-	implementation group: 'org.kohsuke', name: 'github-api', version: '1.313'
 
 	// CXF
 	implementation group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws', version: apacheCxfVersion

@@ -27,7 +27,6 @@ export class InitializerService {
 			this.statisticsApi.loadStatistics(),
 			this.apiDocumentationApi.loadDocumentation(),
 			this.apiDocumentationApi.loadDataVersion(),
-			this.apiDocumentationApi.loadGitHubProjectDetails(),
 			this.featureSwitchApi.loadFeatureSwitches()
 		]);
 	}
