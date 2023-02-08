@@ -20,7 +20,7 @@ plugins {
 	id 'java'
 	id 'io.freefair.lombok' version '6.6.1' apply false
 	id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
-	id "com.github.ben-manes.versions" version "0.44.0"
+	id "com.github.ben-manes.versions" version "0.45.0"
 	id "io.spring.dependency-management" version "1.1.0"
 }
 
@@ -89,7 +89,7 @@ allprojects {
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
 		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
 		testImplementation group: 'cglib', name: 'cglib-nodep', version: '3.3.0'
-		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.24.10'
+		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.25.0'
 		testImplementation group: 'org.objenesis', name: 'objenesis', version: '3.3'
 	}
 

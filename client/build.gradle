@@ -17,7 +17,6 @@ dependencies {
 	implementation group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.5.17'
-	implementation group: 'com.sun.xml.ws', name: 'jaxws-ri', version: '2.3.5'
 	swaggerCodegen group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0'
 	testImplementation project(':util').sourceSets.test.output
 }
