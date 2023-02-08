@@ -32,9 +32,9 @@ public class StaffRestQuery {
 		return staffRepository.findMatching(staffRequestDTO, pageRequest);
 	}
 
-	public Page<Staff> query(StaffV2RestBeanParams staffRestBeanParams) {
-		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapV2Base(staffRestBeanParams);
-		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(staffRestBeanParams);
+	public Page<Staff> query(StaffV2RestBeanParams staffV2RestBeanParams) {
+		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapV2Base(staffV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(staffV2RestBeanParams);
 		return staffRepository.findMatching(staffRequestDTO, pageRequest);
 	}
 

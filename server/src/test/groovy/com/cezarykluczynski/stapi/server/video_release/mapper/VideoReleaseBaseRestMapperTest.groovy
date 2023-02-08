@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.video_release.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2Base
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseRestBeanParams
+import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseV2RestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
@@ -35,6 +37,32 @@ class VideoReleaseBaseRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseRequestDTO.yearTo == YEAR_TO
 		videoReleaseRequestDTO.runTimeFrom == RUN_TIME_FROM
 		videoReleaseRequestDTO.runTimeTo == RUN_TIME_TO
+	}
+
+	void "maps VideoReleaseV2RestBeanParams to VideoReleaseRequestDTO"() {
+		given:
+		VideoReleaseV2RestBeanParams videoReleaseV2RestBeanParams = new VideoReleaseV2RestBeanParams(
+				uid: UID,
+				title: TITLE,
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO,
+				runTimeFrom: RUN_TIME_FROM,
+				runTimeTo: RUN_TIME_TO,
+				documentary: DOCUMENTARY,
+				specialFeatures: SPECIAL_FEATURES)
+
+		when:
+		VideoReleaseRequestDTO videoReleaseRequestDTO = videoReleaseBaseRestMapper.mapV2Base videoReleaseV2RestBeanParams
+
+		then:
+		videoReleaseRequestDTO.uid == UID
+		videoReleaseRequestDTO.title == TITLE
+		videoReleaseRequestDTO.yearFrom == YEAR_FROM
+		videoReleaseRequestDTO.yearTo == YEAR_TO
+		videoReleaseRequestDTO.runTimeFrom == RUN_TIME_FROM
+		videoReleaseRequestDTO.runTimeTo == RUN_TIME_TO
+		videoReleaseRequestDTO.documentary == DOCUMENTARY
+		videoReleaseRequestDTO.specialFeatures == SPECIAL_FEATURES
 	}
 
 	void "maps DB entity to base REST entity"() {
@@ -75,6 +103,44 @@ class VideoReleaseBaseRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseBase.xboxSmartGlassDigitalRelease == XBOX_SMART_GLASS_DIGITAL
 		videoReleaseBase.youTubeDigitalRelease == YOU_TUBE_DIGITAL_RELEASE
 		videoReleaseBase.netflixDigitalRelease == NETFLIX_DIGITAL_RELEASE
+	}
+
+	void "maps DB entity to base REST V2 entity"() {
+		given:
+		VideoRelease videoRelease = createVideoRelease()
+
+		when:
+		VideoReleaseV2Base videoReleaseV2Base = videoReleaseBaseRestMapper.mapV2Base(Lists.newArrayList(videoRelease))[0]
+
+		then:
+		videoReleaseV2Base.uid == UID
+		videoReleaseV2Base.title == TITLE
+		videoReleaseV2Base.format.name() == videoRelease.format.name()
+		videoReleaseV2Base.numberOfEpisodes == NUMBER_OF_EPISODES
+		videoReleaseV2Base.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES
+		videoReleaseV2Base.numberOfDataCarriers == NUMBER_OF_DATA_CARRIERS
+		videoReleaseV2Base.runTime == RUN_TIME
+		videoReleaseV2Base.yearFrom == YEAR_FROM
+		videoReleaseV2Base.yearTo == YEAR_TO
+		videoReleaseV2Base.regionFreeReleaseDate == REGION_FREE_RELEASE_DATE
+		videoReleaseV2Base.region1AReleaseDate == REGION1_A_RELEASE_DATE
+		videoReleaseV2Base.region1SlimlineReleaseDate == REGION1_SLIMLINE_RELEASE_DATE
+		videoReleaseV2Base.region2BReleaseDate == REGION2_B_RELEASE_DATE
+		videoReleaseV2Base.region2SlimlineReleaseDate == REGION2_SLIMLINE_RELEASE_DATE
+		videoReleaseV2Base.region4AReleaseDate == REGION4_A_RELEASE_DATE
+		videoReleaseV2Base.region4SlimlineReleaseDate == REGION4_SLIMLINE_RELEASE_DATE
+		videoReleaseV2Base.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
+		videoReleaseV2Base.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
+		videoReleaseV2Base.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE
+		videoReleaseV2Base.ITunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
+		videoReleaseV2Base.ultraVioletDigitalRelease == ULTRA_VIOLET_DIGITAL_RELEASE
+		videoReleaseV2Base.vimeoDigitalRelease == VIMEO_DIGITAL_RELEASE
+		videoReleaseV2Base.vuduDigitalRelease == VUDU_DIGITAL_RELEASE
+		videoReleaseV2Base.xboxSmartGlassDigitalRelease == XBOX_SMART_GLASS_DIGITAL
+		videoReleaseV2Base.youTubeDigitalRelease == YOU_TUBE_DIGITAL_RELEASE
+		videoReleaseV2Base.netflixDigitalRelease == NETFLIX_DIGITAL_RELEASE
+		videoReleaseV2Base.documentary == DOCUMENTARY
+		videoReleaseV2Base.specialFeatures == SPECIAL_FEATURES
 	}
 
 }

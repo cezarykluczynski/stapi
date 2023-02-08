@@ -43,7 +43,7 @@ import java.util.Set;
 		"languagesDubbed"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video release",
-		pluralName = "video releases")
+		pluralName = "video releases", restApiVersion = "v2")
 public class VideoRelease extends PageAwareEntity implements PageAware {
 
 	@Id

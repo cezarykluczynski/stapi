@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.video_release.mapper;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseBase;
+import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2Base;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO;
@@ -12,6 +13,7 @@ import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.season.mapper.SeasonHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseRestBeanParams;
+import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseV2RestBeanParams;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,6 +31,8 @@ public interface VideoReleaseBaseRestMapper {
 	@Mapping(target = "series", ignore = true)
 	VideoReleaseBase mapBase(VideoRelease videoRelease);
 
+	@Mapping(target = "documentary", ignore = true)
+	@Mapping(target = "specialFeatures", ignore = true)
 	VideoReleaseRequestDTO mapBase(VideoReleaseRestBeanParams videoReleaseRestBeanParams);
 
 	List<VideoReleaseBase> mapBase(List<VideoRelease> videoReleaseList);
@@ -45,5 +49,12 @@ public interface VideoReleaseBaseRestMapper {
 				.map(series -> Mappers.getMapper(SeriesHeaderRestMapper.class).map(series))
 				.orElse(null));
 	}
+
+	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
+	VideoReleaseV2Base mapV2Base(VideoRelease videoRelease);
+
+	VideoReleaseRequestDTO mapV2Base(VideoReleaseV2RestBeanParams videoReleaseV2RestBeanParams);
+
+	List<VideoReleaseV2Base> mapV2Base(List<VideoRelease> videoReleaseList);
 
 }

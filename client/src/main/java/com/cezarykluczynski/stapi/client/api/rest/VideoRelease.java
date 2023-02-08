@@ -2,10 +2,13 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.VideoReleaseSearchCriteria;
+import com.cezarykluczynski.stapi.client.api.dto.VideoReleaseV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFullResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2BaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class VideoRelease {
@@ -16,8 +19,13 @@ public class VideoRelease {
 		this.videoReleaseApi = videoReleaseApi;
 	}
 
+	@Deprecated
 	public VideoReleaseFullResponse get(String uid) throws ApiException {
 		return videoReleaseApi.v1RestVideoReleaseGet(uid, null);
+	}
+
+	public VideoReleaseV2FullResponse getV2(String uid) throws ApiException {
+		return videoReleaseApi.v2RestVideoReleaseGet(uid, null);
 	}
 
 	@Deprecated
@@ -26,11 +34,20 @@ public class VideoRelease {
 		return videoReleaseApi.v1RestVideoReleaseSearchPost(pageNumber, pageSize, sort, null, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
 	}
 
+	@Deprecated
 	public VideoReleaseBaseResponse search(VideoReleaseSearchCriteria videoReleaseSearchCriteria) throws ApiException {
 		return videoReleaseApi.v1RestVideoReleaseSearchPost(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), null, videoReleaseSearchCriteria.getTitle(),
 				videoReleaseSearchCriteria.getYearFrom(), videoReleaseSearchCriteria.getYearTo(), videoReleaseSearchCriteria.getRunTimeFrom(),
 				videoReleaseSearchCriteria.getRunTimeTo());
+	}
+
+	public VideoReleaseV2BaseResponse searchV2(VideoReleaseV2SearchCriteria videoReleaseSearchCriteria) throws ApiException {
+		return videoReleaseApi.v2RestVideoReleaseSearchPost(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
+				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), null, videoReleaseSearchCriteria.getTitle(),
+				videoReleaseSearchCriteria.getYearFrom(), videoReleaseSearchCriteria.getYearTo(), videoReleaseSearchCriteria.getRunTimeFrom(),
+				videoReleaseSearchCriteria.getRunTimeTo(), videoReleaseSearchCriteria.getDocumentary(),
+				videoReleaseSearchCriteria.getSpecialFeatures());
 	}
 
 }

@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.video_release.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseRestEndpoint;
+import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseBaseRestMapper;
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseFullRestMapper;
 import jakarta.inject.Inject;
@@ -19,6 +20,11 @@ public class VideoReleaseConfiguration {
 	@Bean
 	public Server videoReleaseServer() {
 		return endpointFactory.createRestEndpoint(VideoReleaseRestEndpoint.class, VideoReleaseRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server videoReleaseV2Server() {
+		return endpointFactory.createRestEndpoint(VideoReleaseV2RestEndpoint.class, VideoReleaseV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

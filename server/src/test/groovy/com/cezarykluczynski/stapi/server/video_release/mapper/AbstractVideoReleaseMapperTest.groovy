@@ -43,6 +43,8 @@ abstract class AbstractVideoReleaseMapperTest extends AbstractVideoReleaseTest {
 				xboxSmartGlassDigitalRelease: XBOX_SMART_GLASS_DIGITAL,
 				youTubeDigitalRelease: YOU_TUBE_DIGITAL_RELEASE,
 				netflixDigitalRelease: NETFLIX_DIGITAL_RELEASE,
+				documentary: DOCUMENTARY,
+				specialFeatures: SPECIAL_FEATURES,
 				references: createSetOfRandomNumberOfMocks(Reference),
 				ratings: createSetOfRandomNumberOfMocks(ContentRating),
 				languages: createSetOfRandomNumberOfMocks(ContentLanguage),

@@ -69,6 +69,12 @@ class VideoReleaseRepositoryImplTest extends AbstractVideoReleaseTest {
 		1 * videoReleaseRequestDTO.runTimeTo >> RUN_TIME_TO
 		1 * videoReleaseQueryBuilder.between(VideoRelease_.runTime, RUN_TIME_FROM, RUN_TIME_TO)
 
+		then: 'boolean criteria are set'
+		1 * videoReleaseRequestDTO.documentary >> DOCUMENTARY
+		1 * videoReleaseQueryBuilder.equal(VideoRelease_.documentary, DOCUMENTARY)
+		1 * videoReleaseRequestDTO.specialFeatures >> SPECIAL_FEATURES
+		1 * videoReleaseQueryBuilder.equal(VideoRelease_.specialFeatures, SPECIAL_FEATURES)
+
 		then: 'sort is set'
 		1 * videoReleaseRequestDTO.sort >> SORT
 		1 * videoReleaseQueryBuilder.setSort(SORT)

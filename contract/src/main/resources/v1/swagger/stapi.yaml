@@ -224,6 +224,10 @@ paths:
     $ref: ./video_release/path/videoRelease.path.yaml
   /v1/rest/videoRelease/search:
     $ref: ./video_release/path/videoReleaseSearch.path.yaml
+  /v2/rest/videoRelease:
+    $ref: ./video_release/path/videoReleaseV2.path.yaml
+  /v2/rest/videoRelease/search:
+    $ref: ./video_release/path/videoReleaseV2Search.path.yaml
   /v1/rest/weapon:
     $ref: ./weapon/path/weapon.path.yaml
   /v1/rest/weapon/search:
@@ -783,6 +787,14 @@ definitions:
     $ref: ./video_release/entity/videoReleaseBaseResponse.yaml
   VideoReleaseFullResponse:
     $ref: ./video_release/entity/videoReleaseFullResponse.yaml
+  VideoReleaseV2Base:
+    $ref: ./video_release/entity/videoReleaseV2Base.yaml
+  VideoReleaseV2Full:
+    $ref: ./video_release/entity/videoReleaseV2Full.yaml
+  VideoReleaseV2BaseResponse:
+    $ref: ./video_release/entity/videoReleaseV2BaseResponse.yaml
+  VideoReleaseV2FullResponse:
+    $ref: ./video_release/entity/videoReleaseV2FullResponse.yaml
   WeaponHeader:
     $ref: ./weapon/entity/weaponHeader.yaml
   WeaponBase:

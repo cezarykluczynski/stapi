@@ -34,6 +34,8 @@ public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRele
 		videoReleaseQueryBuilder.between(VideoRelease_.yearFrom, criteria.getYearFrom(), null);
 		videoReleaseQueryBuilder.between(VideoRelease_.yearTo, null, criteria.getYearTo());
 		videoReleaseQueryBuilder.between(VideoRelease_.runTime, criteria.getRunTimeFrom(), criteria.getRunTimeTo());
+		videoReleaseQueryBuilder.equal(VideoRelease_.documentary, criteria.getDocumentary());
+		videoReleaseQueryBuilder.equal(VideoRelease_.specialFeatures, criteria.getSpecialFeatures());
 		videoReleaseQueryBuilder.setSort(criteria.getSort());
 		videoReleaseQueryBuilder.fetch(VideoRelease_.series, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.productionCompany, doFetch);

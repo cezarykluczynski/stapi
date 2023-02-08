@@ -20,6 +20,10 @@ public class VideoReleaseRequestDTO {
 
 	private Integer runTimeTo;
 
+	private Boolean documentary;
+
+	private Boolean specialFeatures;
+
 	private RequestSortDTO sort;
 
 }

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseRestBeanParams
+import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseV2RestBeanParams
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -39,6 +40,23 @@ class VideoReleaseRestQueryTest extends Specification {
 		then:
 		1 * videoReleaseBaseRestMapperMock.mapBase(videoReleaseRestBeanParams) >> videoReleaseRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(videoReleaseRestBeanParams) >> pageRequest
+		1 * videoReleaseRepositoryMock.findMatching(videoReleaseRequestDTO, pageRequest) >> page
+		pageOutput == page
+	}
+
+	void "maps VideoReleaseV2RestBeanParams to VideoReleaseRequestDTO and to PageRequest, then calls repository, then returns result"() {
+		given:
+		PageRequest pageRequest = Mock()
+		VideoReleaseV2RestBeanParams videoReleaseV2RestBeanParams = Mock()
+		VideoReleaseRequestDTO videoReleaseRequestDTO = Mock()
+		Page page = Mock()
+
+		when:
+		Page pageOutput = videoReleaseRestQuery.query(videoReleaseV2RestBeanParams)
+
+		then:
+		1 * videoReleaseBaseRestMapperMock.mapV2Base(videoReleaseV2RestBeanParams) >> videoReleaseRequestDTO
+		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(videoReleaseV2RestBeanParams) >> pageRequest
 		1 * videoReleaseRepositoryMock.findMatching(videoReleaseRequestDTO, pageRequest) >> page
 		pageOutput == page
 	}

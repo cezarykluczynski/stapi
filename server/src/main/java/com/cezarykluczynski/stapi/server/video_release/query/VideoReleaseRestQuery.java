@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseRestBeanParams;
+import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,12 @@ public class VideoReleaseRestQuery {
 	public Page<VideoRelease> query(VideoReleaseRestBeanParams videoReleaseRestBeanParams) {
 		VideoReleaseRequestDTO videoReleaseRequestDTO = videoReleaseBaseRestMapper.mapBase(videoReleaseRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(videoReleaseRestBeanParams);
+		return videoReleaseRepository.findMatching(videoReleaseRequestDTO, pageRequest);
+	}
+
+	public Page<VideoRelease> query(VideoReleaseV2RestBeanParams videoReleaseV2RestBeanParams) {
+		VideoReleaseRequestDTO videoReleaseRequestDTO = videoReleaseBaseRestMapper.mapV2Base(videoReleaseV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(videoReleaseV2RestBeanParams);
 		return videoReleaseRepository.findMatching(videoReleaseRequestDTO, pageRequest);
 	}
 

@@ -1,0 +1,96 @@
+type: object
+description: Base video release, returned in search results (V2)
+properties:
+  uid:
+    type: string
+    required: true
+    description: Video release unique ID
+  title:
+    type: string
+    required: true
+    description: Video release title
+  format:
+    $ref: '#/definitions/VideoReleaseFormat'
+    description: Video release format
+  numberOfEpisodes:
+    type: integer
+    description: Number of episodes
+  numberOfFeatureLengthEpisodes:
+    type: integer
+    description: Number of feature-length episodes
+  numberOfDataCarriers:
+    type: integer
+    description: Number of data carriers (like DVD, VCD, VHS etc.)
+  runTime:
+    type: integer
+    description: Run time, in minutes
+  yearFrom:
+    type: integer
+    description: Starting year of video release story
+  yearTo:
+    type: integer
+    description: Ending year of video release story
+  regionFreeReleaseDate:
+    type: string
+    format: date
+    description: Region free release date
+  region1AReleaseDate:
+    type: string
+    format: date
+    description: Region 1/A release date
+  region1SlimlineReleaseDate:
+    type: string
+    format: date
+    description: Region 1 slimline release date
+  region2BReleaseDate:
+    type: string
+    format: date
+    description: Region 2/B release date
+  region2SlimlineReleaseDate:
+    type: string
+    format: date
+    description: Region 2 slimline release date
+  region4AReleaseDate:
+    type: string
+    format: date
+    description: Region 4 release date
+  region4SlimlineReleaseDate:
+    type: string
+    format: date
+    description: Region 4 slimline release date
+  amazonDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on Amazon.com
+  dailymotionDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on Dailymotion
+  googlePlayDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on Google Play
+  iTunesDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on iTunes
+  ultraVioletDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on UltraViolet
+  vimeoDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on Vimeo
+  vuduDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on VUDU
+  xboxSmartGlassDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on Xbox SmartGlass
+  youTubeDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on YouTube
+  netflixDigitalRelease:
+    type: boolean
+    description: Whether this video has been release on Netflix
+  documentary:
+    type: boolean
+    description: Whether this is a documentary
+  specialFeatures:
+    type: boolean
+    description: Whether this contains special features

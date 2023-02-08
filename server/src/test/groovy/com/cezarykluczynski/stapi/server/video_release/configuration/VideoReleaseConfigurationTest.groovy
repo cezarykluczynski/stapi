@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.video_release.configuration
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseRestEndpoint
+import com.cezarykluczynski.stapi.server.video_release.endpoint.VideoReleaseV2RestEndpoint
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseBaseRestMapper
 import com.cezarykluczynski.stapi.server.video_release.mapper.VideoReleaseFullRestMapper
 import org.apache.cxf.endpoint.Server
@@ -27,6 +28,19 @@ class VideoReleaseConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(VideoReleaseRestEndpoint, VideoReleaseRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "VideoRelease V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = videoReleaseConfiguration.videoReleaseV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(VideoReleaseV2RestEndpoint, VideoReleaseV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.video_release.mapper;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFull;
+import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2Full;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
@@ -40,5 +41,8 @@ public interface VideoReleaseFullRestMapper {
 				.map(series -> Mappers.getMapper(SeriesBaseRestMapper.class).mapBase(series))
 				.orElse(null));
 	}
+
+	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
+	VideoReleaseV2Full mapV2Full(VideoRelease videoRelease);
 
 }
