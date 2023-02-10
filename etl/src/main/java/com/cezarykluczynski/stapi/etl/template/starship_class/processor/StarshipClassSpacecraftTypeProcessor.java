@@ -12,6 +12,7 @@ import com.google.common.collect.Sets;
 import info.bliki.api.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 	}
 
 	@Override
+	@NonNull
 	public Set<SpacecraftType> process(String item) throws Exception {
 		List<String> pageTitleList = wikitextApi.getPageTitlesFromWikitext(item);
 		Set<SpacecraftType> spacecraftTypeSet = Sets.newHashSet();

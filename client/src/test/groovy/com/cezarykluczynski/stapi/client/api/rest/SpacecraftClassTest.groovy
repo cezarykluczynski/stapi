@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassBaseRespon
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2BaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2FullResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3FullResponse
 import com.cezarykluczynski.stapi.util.AbstractSpacecraftClassTest
 
 class SpacecraftClassTest extends AbstractSpacecraftClassTest {
@@ -46,6 +47,19 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassApiMock.v2RestSpacecraftClassGet(UID) >> spacecraftClassV2FullResponse
 		0 * _
 		spacecraftClassV2FullResponse == spacecraftClassV2FullResponseOutput
+	}
+
+	void "gets single entity (V3)"() {
+		given:
+		SpacecraftClassV3FullResponse spacecraftClassV3FullResponse = Mock()
+
+		when:
+		SpacecraftClassV3FullResponse spacecraftClassV3FullResponseOutput = spacecraftClass.getV3(UID)
+
+		then:
+		1 * spacecraftClassApiMock.v3RestSpacecraftClassGet(UID) >> spacecraftClassV3FullResponse
+		0 * _
+		spacecraftClassV3FullResponse == spacecraftClassV3FullResponseOutput
 	}
 
 	void "searches entities"() {

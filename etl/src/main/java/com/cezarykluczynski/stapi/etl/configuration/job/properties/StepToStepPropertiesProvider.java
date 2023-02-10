@@ -60,6 +60,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_VIDEO_GAMES, stepsProperties.getCreateVideoGames());
 		stepPropertiesMap.put(StepName.CREATE_SOUNDTRACKS, stepsProperties.getCreateSoundtracks());
 		stepPropertiesMap.put(StepName.CREATE_WEAPONS, stepsProperties.getCreateWeapons());
+		stepPropertiesMap.put(StepName.CREATE_TECHNOLOGY, stepsProperties.getCreateTechnology());
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_TYPES, stepsProperties.getCreateSpacecraftTypes());
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_CLASSES, stepsProperties.getCreateSpacecraftClasses());
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFTS, stepsProperties.getCreateSpacecrafts());
@@ -68,7 +69,6 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_ANIMALS, stepsProperties.getCreateAnimals());
 		stepPropertiesMap.put(StepName.CREATE_ELEMENTS, stepsProperties.getCreateElements());
 		stepPropertiesMap.put(StepName.CREATE_MEDICAL_CONDITIONS, stepsProperties.getCreateMedicalConditions());
-		stepPropertiesMap.put(StepName.CREATE_TECHNOLOGY, stepsProperties.getCreateTechnology());
 	}
 
 }

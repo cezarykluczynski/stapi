@@ -1,0 +1,18 @@
+get:
+  description: Retrival of a single spacecraft class (V3)
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Spacecraft class unique ID
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SpacecraftClassV3FullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+    - SpacecraftClass

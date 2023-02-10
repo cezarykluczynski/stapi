@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.model.spacecraft_class.repository.SpacecraftClassRepository;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.google.common.collect.Sets;
 import jakarta.persistence.CascadeType;
@@ -34,9 +35,9 @@ import java.util.Set;
 
 @Data
 @Entity
-
-@ToString(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts"})
-@EqualsAndHashCode(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts"})
+@ToString(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts", "defenses"})
+@EqualsAndHashCode(callSuper = true, exclude = {"species", "owners", "operators", "affiliations", "spacecraftTypes", "armaments", "spacecrafts",
+		"defenses"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftClassRepository.class, singularName = "spacecraft class",
 		pluralName = "spacecraft classes", restApiVersion = "v2")
@@ -103,6 +104,13 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "weapon_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Weapon> armaments = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "spacecraft_classes_defenses",
+			joinColumns = @JoinColumn(name = "spacecraft_class_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "technology_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Technology> defenses = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "spacecraftClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

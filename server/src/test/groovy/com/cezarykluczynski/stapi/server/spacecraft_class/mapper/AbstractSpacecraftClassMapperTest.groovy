@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.species.entity.Species
+import com.cezarykluczynski.stapi.model.technology.entity.Technology
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.util.AbstractSpacecraftClassTest
 
@@ -27,6 +28,7 @@ abstract class AbstractSpacecraftClassMapperTest extends AbstractSpacecraftClass
 				affiliations: [new Organization(name: 'affiliation')],
 				spacecraftTypes: createSetOfRandomNumberOfMocks(SpacecraftType),
 				armaments: createSetOfRandomNumberOfMocks(Weapon),
+				defenses: createSetOfRandomNumberOfMocks(Technology),
 				spacecrafts: createSetOfRandomNumberOfMocks(Spacecraft))
 	}
 

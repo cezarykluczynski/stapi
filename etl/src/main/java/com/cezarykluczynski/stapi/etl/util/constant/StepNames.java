@@ -21,6 +21,7 @@ public class StepNames {
 				StepName.CREATE_SPECIES,
 				StepName.CREATE_ORGANIZATIONS,
 				StepName.CREATE_TITLES,
+				StepName.CREATE_OCCUPATIONS,
 				StepName.CREATE_CHARACTERS,
 				StepName.LINK_CHARACTERS,
 				StepName.CREATE_EPISODES,
@@ -45,6 +46,7 @@ public class StepNames {
 				StepName.CREATE_VIDEO_GAMES,
 				StepName.CREATE_SOUNDTRACKS,
 				StepName.CREATE_WEAPONS,
+				StepName.CREATE_TECHNOLOGY,
 				StepName.CREATE_SPACECRAFT_TYPES,
 				StepName.CREATE_SPACECRAFT_CLASSES,
 				StepName.CREATE_SPACECRAFTS,
@@ -52,9 +54,7 @@ public class StepNames {
 				StepName.CREATE_CONFLICTS,
 				StepName.CREATE_ANIMALS,
 				StepName.CREATE_ELEMENTS,
-				StepName.CREATE_MEDICAL_CONDITIONS,
-				StepName.CREATE_TECHNOLOGY,
-				StepName.CREATE_OCCUPATIONS
+				StepName.CREATE_MEDICAL_CONDITIONS
 		));
 	}
 

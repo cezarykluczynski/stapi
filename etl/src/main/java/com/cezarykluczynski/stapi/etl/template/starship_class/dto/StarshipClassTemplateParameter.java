@@ -47,5 +47,11 @@ public class StarshipClassTemplateParameter {
 	public static final String T5ACTIVE = "t5active";
 	public static final String CREW = "crew";
 	public static final String ARMAMENT = "armament";
+	public static final String DEFENSES = "defenses";
+	public static final String T1DEFENSES = "t1defenses";
+	public static final String T2DEFENSES = "t2defenses";
+	public static final String T3DEFENSES = "t3defenses";
+	public static final String T4DEFENSES = "t4defenses";
+	public static final String T5DEFENSES = "t5defenses";
 
 }

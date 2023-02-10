@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassBaseRespon
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFullResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2BaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2FullResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class SpacecraftClass {
@@ -23,8 +24,13 @@ public class SpacecraftClass {
 		return spacecraftClassApi.v1RestSpacecraftClassGet(uid, null);
 	}
 
+	@Deprecated
 	public SpacecraftClassV2FullResponse getV2(String uid) throws ApiException {
 		return spacecraftClassApi.v2RestSpacecraftClassGet(uid);
+	}
+
+	public SpacecraftClassV3FullResponse getV3(String uid) throws ApiException {
+		return spacecraftClassApi.v3RestSpacecraftClassGet(uid);
 	}
 
 	@Deprecated

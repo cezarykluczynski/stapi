@@ -35,6 +35,7 @@ public class StarshipClassTemplateProcessor implements ItemProcessor<StarshipCla
 		spacecraftClass.getAffiliations().addAll(item.getAffiliations());
 		spacecraftClass.getSpacecraftTypes().addAll(item.getSpacecraftTypes());
 		spacecraftClass.getArmaments().addAll(item.getArmaments());
+		spacecraftClass.getDefenses().addAll(item.getDefenses());
 
 		return spacecraftClass;
 	}

@@ -14,6 +14,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
+import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
@@ -111,6 +112,10 @@ public class WikitextToEntitiesProcessor {
 
 	public List<Weapon> findWeapons(String item) {
 		return wikitextToEntitiesGenericProcessor.process(item, Weapon.class);
+	}
+
+	public List<Technology> findTechnology(String item) {
+		return wikitextToEntitiesGenericProcessor.process(item, Technology.class);
 	}
 
 }

@@ -63,6 +63,14 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 				case StarshipClassTemplateParameter.ARMAMENT:
 					starshipClassTemplate.getArmaments().addAll(wikitextToEntitiesProcessor.findWeapons(value));
 					break;
+				case StarshipClassTemplateParameter.DEFENSES:
+				case StarshipClassTemplateParameter.T1DEFENSES:
+				case StarshipClassTemplateParameter.T2DEFENSES:
+				case StarshipClassTemplateParameter.T3DEFENSES:
+				case StarshipClassTemplateParameter.T4DEFENSES:
+				case StarshipClassTemplateParameter.T5DEFENSES:
+					starshipClassTemplate.getDefenses().addAll(wikitextToEntitiesProcessor.findTechnology(value));
+					break;
 				default:
 					break;
 			}

@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.species.entity.Species
+import com.cezarykluczynski.stapi.model.technology.entity.Technology
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.util.AbstractSpacecraftClassTest
 import com.google.common.collect.Sets
@@ -35,6 +36,8 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftClassTest {
 		Organization affiliation2 = Mock()
 		Weapon weapon1 = Mock()
 		Weapon weapon2 = Mock()
+		Technology technology1 = Mock()
+		Technology technology2 = Mock()
 		SpacecraftType spacecraftType1 = Mock()
 		SpacecraftType spacecraftType2 = Mock()
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate(
@@ -45,6 +48,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftClassTest {
 				operators: Sets.newHashSet(operator1, operator2),
 				affiliations: Sets.newHashSet(affiliation1, affiliation2),
 				armaments: Sets.newHashSet(weapon1, weapon2),
+				defenses: Sets.newHashSet(technology1, technology2),
 				spacecraftTypes: Sets.newHashSet(spacecraftType1, spacecraftType2),
 				numberOfDecks: NUMBER_OF_DECKS,
 				crew: CREW,
@@ -78,6 +82,8 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftClassTest {
 		spacecraftClass.affiliations.contains affiliation2
 		spacecraftClass.armaments.contains weapon1
 		spacecraftClass.armaments.contains weapon2
+		spacecraftClass.defenses.contains technology1
+		spacecraftClass.defenses.contains technology2
 		spacecraftClass.spacecraftTypes.contains spacecraftType1
 		spacecraftClass.spacecraftTypes.contains spacecraftType2
 	}

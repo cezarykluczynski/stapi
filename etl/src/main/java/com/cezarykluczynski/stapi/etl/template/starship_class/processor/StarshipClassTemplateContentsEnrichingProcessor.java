@@ -39,9 +39,6 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 				continue;
 			}
 
-			// TODO: As of 2022, there are defenses on 161 pages, but most of the defences are in technology category;
-			// if defenses are to be included here, they need to be moved to Weapon and marked as defensive weapon;
-			// something to consider for the future
 			switch (key) {
 				case StarshipClassTemplateParameter.DECKS:
 				case StarshipClassTemplateParameter.T1DECKS:

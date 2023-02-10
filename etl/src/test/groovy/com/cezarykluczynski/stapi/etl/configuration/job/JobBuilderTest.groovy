@@ -245,6 +245,11 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.enabled >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_TITLES, Step) >> createTitlesStep
 
+		then: 'CREATE_OCCUPATIONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_OCCUPATIONS) >> stepProperties
+		1 * stepProperties.enabled >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_OCCUPATIONS, Step) >> createOccupationsStep
+
 		then: 'CREATE_CHARACTERS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_CHARACTERS) >> stepProperties
 		1 * stepProperties.enabled >> true
@@ -365,6 +370,11 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.enabled >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_WEAPONS, Step) >> createWeaponsStep
 
+		then: 'CREATE_TECHNOLOGY step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_TECHNOLOGY) >> stepProperties
+		1 * stepProperties.enabled >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_TECHNOLOGY, Step) >> createTechnologyStep
+
 		then: 'CREATE_SPACECRAFT_TYPES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_SPACECRAFT_TYPES) >> stepProperties
 		1 * stepProperties.enabled >> true
@@ -404,16 +414,6 @@ class JobBuilderTest extends Specification {
 		1 * stepPropertiesMap.get(StepName.CREATE_MEDICAL_CONDITIONS) >> stepProperties
 		1 * stepProperties.enabled >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_MEDICAL_CONDITIONS, Step) >> createMedicalConditionsStep
-
-		then: 'CREATE_TECHNOLOGY step is retrieved from application context'
-		1 * stepPropertiesMap.get(StepName.CREATE_TECHNOLOGY) >> stepProperties
-		1 * stepProperties.enabled >> true
-		1 * applicationContextMock.getBean(StepName.CREATE_TECHNOLOGY, Step) >> createTechnologyStep
-
-		then: 'CREATE_OCCUPATIONS step is retrieved from application context'
-		1 * stepPropertiesMap.get(StepName.CREATE_OCCUPATIONS) >> stepProperties
-		1 * stepProperties.enabled >> true
-		1 * applicationContextMock.getBean(StepName.CREATE_OCCUPATIONS, Step) >> createOccupationsStep
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(SimpleAsyncTaskExecutor) >> simpleAsyncTaskExecutor

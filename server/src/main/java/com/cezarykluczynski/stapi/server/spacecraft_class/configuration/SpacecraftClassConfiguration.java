@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.spacecraft_class.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassRestEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassV2RestEndpoint;
+import com.cezarykluczynski.stapi.server.spacecraft_class.endpoint.SpacecraftClassV3RestEndpoint;
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassBaseRestMapper;
 import com.cezarykluczynski.stapi.server.spacecraft_class.mapper.SpacecraftClassFullRestMapper;
 import jakarta.inject.Inject;
@@ -25,6 +26,11 @@ public class SpacecraftClassConfiguration {
 	@Bean
 	public Server spacecraftClassV2Server() {
 		return endpointFactory.createRestEndpoint(SpacecraftClassV2RestEndpoint.class, SpacecraftClassV2RestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server spacecraftClassV3Server() {
+		return endpointFactory.createRestEndpoint(SpacecraftClassV3RestEndpoint.class, SpacecraftClassV3RestEndpoint.ADDRESS);
 	}
 
 	@Bean

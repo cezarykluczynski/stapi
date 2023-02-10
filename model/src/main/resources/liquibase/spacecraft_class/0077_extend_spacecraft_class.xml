@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0077_extend_spacecraft_class" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="spacecraft_classes_defenses">
+			<column name="spacecraft_class_id" type="bigint"/>
+			<column name="technology_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="spacecraft_class_id"
+				baseTableName="spacecraft_classes_defenses"
+				baseTableSchemaName="stapi"
+				constraintName="scd_spacecraft_class_fkey"
+				referencedColumnNames="id"
+				referencedTableName="spacecraft_class"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="technology_id"
+				baseTableName="spacecraft_classes_defenses"
+				baseTableSchemaName="stapi"
+				constraintName="scd_technology_fkey"
+				referencedColumnNames="id"
+				referencedTableName="technology"
+				referencedTableSchemaName="stapi"/>
+	</changeSet>
+</databaseChangeLog>

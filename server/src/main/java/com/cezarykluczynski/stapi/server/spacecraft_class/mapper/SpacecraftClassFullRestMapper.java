@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.spacecraft_class.mapper;
 import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationBase;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFull;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2Full;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3Full;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
@@ -56,5 +57,7 @@ public interface SpacecraftClassFullRestMapper {
 	}
 
 	SpacecraftClassV2Full mapV2Full(SpacecraftClass spacecraftClass);
+
+	SpacecraftClassV3Full mapV3Full(SpacecraftClass spacecraftClass);
 
 }

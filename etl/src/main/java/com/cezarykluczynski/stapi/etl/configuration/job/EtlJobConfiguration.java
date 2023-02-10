@@ -653,6 +653,19 @@ public class EtlJobConfiguration {
 				.build();
 	}
 
+	@Bean(name = StepName.CREATE_TECHNOLOGY)
+	public Step stepCreateTechnology() {
+		return stepBuilderFactory.get(StepName.CREATE_TECHNOLOGY)
+				.<PageHeader, Technology>chunk(stepsProperties.getCreateTechnology().getCommitInterval(), platformTransactionManager)
+				.reader(applicationContext.getBean(TechnologyReader.class))
+				.processor(applicationContext.getBean(TechnologyProcessor.class))
+				.writer(applicationContext.getBean(TechnologyWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
 	@Bean(name = StepName.CREATE_SPACECRAFT_TYPES)
 	public Step stepCreateSpacecraftTypes() {
 		return stepBuilderFactory.get(StepName.CREATE_SPACECRAFT_TYPES)
@@ -751,19 +764,6 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MedicalConditionReader.class))
 				.processor(applicationContext.getBean(MedicalConditionProcessor.class))
 				.writer(applicationContext.getBean(MedicalConditionWriter.class))
-				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
-				.startLimit(1)
-				.allowStartIfComplete(false)
-				.build();
-	}
-
-	@Bean(name = StepName.CREATE_TECHNOLOGY)
-	public Step stepCreateTechnology() {
-		return stepBuilderFactory.get(StepName.CREATE_TECHNOLOGY)
-				.<PageHeader, Technology>chunk(stepsProperties.getCreateTechnology().getCommitInterval(), platformTransactionManager)
-				.reader(applicationContext.getBean(TechnologyReader.class))
-				.processor(applicationContext.getBean(TechnologyProcessor.class))
-				.writer(applicationContext.getBean(TechnologyWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

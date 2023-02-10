@@ -1,0 +1,71 @@
+type: object
+description: Full spacecraft class, returned when queried using UID (V3)
+properties:
+  uid:
+    type: string
+    required: true
+    description: Spacecraft class unique ID
+  name:
+    type: string
+    required: true
+    description: Spacecraft class name
+  numberOfDecks:
+    type: integer
+    description: Number of decks
+  crew:
+    type: string
+    description: Crew
+  warpCapable:
+    type: boolean
+    description: Whether it's a warp-capable spacecraft class
+  mirror:
+    type: boolean
+    description: Whether this spacecraft class is from mirror universe
+  alternateReality:
+    type: boolean
+    description: Whether this spacecraft class is from alternate reality
+  activeFrom:
+    type: string
+    description: Starting period when this spacecraft class was in use
+  activeTo:
+    type: string
+    description: Ending period when this spacecraft class was in use
+  species:
+    $ref: '#/definitions/SpeciesBase'
+    description: Main species affiliated
+  owners:
+    type: array
+    items:
+      $ref: '#/definitions/OrganizationBase'
+    description: Owners
+  operators:
+    type: array
+    items:
+      $ref: '#/definitions/OrganizationBase'
+    description: Operators
+  affiliations:
+    type: array
+    items:
+      $ref: '#/definitions/OrganizationBase'
+    description: Affiliations
+  spacecraftTypes:
+    type: array
+    items:
+      $ref: '#/definitions/SpacecraftType'
+    description: Spacecraft types
+  armaments:
+    type: array
+    items:
+      $ref: '#/definitions/WeaponV2Base'
+    description: Armaments
+  defenses:
+    type: array
+    items:
+      $ref: '#/definitions/TechnologyV2Base'
+    description: Defenses
+  spacecrafts:
+    type: array
+    items:
+      $ref: '#/definitions/SpacecraftV2Base'
+    description: Spacecrafts
+

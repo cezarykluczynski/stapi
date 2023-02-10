@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
+import com.cezarykluczynski.stapi.model.technology.entity.Technology
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
@@ -246,6 +247,19 @@ class WikitextToEntitiesProcessorTest extends Specification {
 		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Weapon) >> weaponList
 		0 * _
 		weaponListOutput == weaponList
+	}
+
+	void "finds technologies"() {
+		given:
+		List<Technology> technologyList = Mock()
+
+		when:
+		List<Technology> technologyListOutput = wikitextToEntitiesProcessor.findTechnology(WIKITEXT)
+
+		then:
+		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Technology) >> technologyList
+		0 * _
+		technologyListOutput == technologyList
 	}
 
 }

@@ -42,6 +42,7 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.operator, doFetch);
@@ -63,6 +64,7 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 			spacecraftClass.setAffiliations(Sets.newHashSet());
 			spacecraftClass.setSpacecraftTypes(Sets.newHashSet());
 			spacecraftClass.setArmaments(Sets.newHashSet());
+			spacecraftClass.setDefenses(Sets.newHashSet());
 			spacecraftClass.setSpacecrafts(Sets.newHashSet());
 		});
 	}

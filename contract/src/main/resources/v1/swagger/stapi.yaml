@@ -172,6 +172,8 @@ paths:
     $ref: ./spacecraft_class/path/spacecraftClassV2.path.yaml
   /v2/rest/spacecraftClass/search:
     $ref: ./spacecraft_class/path/spacecraftClassV2Search.path.yaml
+  /v3/rest/spacecraftClass:
+    $ref: ./spacecraft_class/path/spacecraftClassV3.path.yaml
   /v1/rest/species:
     $ref: ./species/path/species.path.yaml
   /v1/rest/species/search:
@@ -661,6 +663,10 @@ definitions:
     $ref: ./spacecraft_class/entity/spacecraftClassV2BaseResponse.yaml
   SpacecraftClassV2FullResponse:
     $ref: ./spacecraft_class/entity/spacecraftClassV2FullResponse.yaml
+  SpacecraftClassV3Full:
+    $ref: ./spacecraft_class/entity/spacecraftClassV3Full.yaml
+  SpacecraftClassV3FullResponse:
+    $ref: ./spacecraft_class/entity/spacecraftClassV3FullResponse.yaml
   SpacecraftType:
     $ref: ./spacecraft_type/entity/spacecraftType.yaml
   SpeciesHeader:

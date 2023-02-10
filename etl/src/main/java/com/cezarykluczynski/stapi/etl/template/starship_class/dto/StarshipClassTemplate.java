@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.google.common.collect.Sets;
 import lombok.Data;
@@ -40,6 +41,8 @@ public class StarshipClassTemplate {
 	private Set<Organization> affiliations = Sets.newHashSet();
 
 	private Set<Weapon> armaments = Sets.newHashSet();
+
+	private Set<Technology> defenses = Sets.newHashSet();
 
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 

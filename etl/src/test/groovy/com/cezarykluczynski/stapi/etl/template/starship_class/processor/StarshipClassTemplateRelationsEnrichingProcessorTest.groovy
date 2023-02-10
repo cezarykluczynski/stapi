@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcess
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
+import com.cezarykluczynski.stapi.model.technology.entity.Technology
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -18,6 +19,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 	private static final String AFFILIATION = 'AFFILIATION'
 	private static final String TYPE = 'TYPE'
 	private static final String ARMAMENT = 'ARMAMENT'
+	private static final String DEFENSES = 'DEFENSES'
 
 	private StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessorMock
 
@@ -120,6 +122,25 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		0 * _
 		starshipClassTemplate.armaments.contains weapon1
 		starshipClassTemplate.armaments.contains weapon2
+	}
+
+	void "when defenses part is found, WikitextToEntitiesProcessor is used to process it"() {
+		given:
+		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+				key: StarshipClassTemplateParameter.DEFENSES,
+				value: DEFENSES)))
+		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
+		Technology technology1 = Mock()
+		Technology technology2 = Mock()
+
+		when:
+		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
+
+		then:
+		1 * wikitextToEntitiesProcessorMock.findTechnology(DEFENSES) >> [technology1, technology2]
+		0 * _
+		starshipClassTemplate.defenses.contains technology1
+		starshipClassTemplate.defenses.contains technology2
 	}
 
 }

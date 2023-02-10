@@ -78,6 +78,7 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operators, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, true)
@@ -113,6 +114,7 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClass.setAffiliations(Sets.newHashSet())
 		1 * spacecraftClass.setSpacecraftTypes(Sets.newHashSet())
 		1 * spacecraftClass.setArmaments(Sets.newHashSet())
+		1 * spacecraftClass.setDefenses(Sets.newHashSet())
 		1 * spacecraftClass.setSpacecrafts(Sets.newHashSet())
 		pageOutput == page
 	}
