@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class EndpointHitsCountingService {
 
+	private static final String TEMPLATE = "{}";
 	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(EndpointHitsCountingService.class);
 
 	private final ConcurrentMap<MetricsEndpointKeyDTO, LongAdder> endpointsHits = new ConcurrentHashMap<>();
@@ -23,17 +24,20 @@ public class EndpointHitsCountingService {
 		this.endpointHitsConsoleOutputFormatter = endpointHitsConsoleOutputFormatter;
 	}
 
-	public void recordEndpointHit(String endpointName, String methodName) {
-		MetricsEndpointKeyDTO key = MetricsEndpointKeyDTO.of(endpointName, methodName);
+	public void recordEndpointHit(String endpointName, String methodName, boolean apiBrowser) {
+		MetricsEndpointKeyDTO key = MetricsEndpointKeyDTO.of(endpointName, methodName, apiBrowser);
 		endpointsHits.putIfAbsent(key, new LongAdder());
 		endpointsHits.get(key).increment();
 	}
 
 	@Scheduled(cron = "${statistics.endpointHitsConsolePrintCron}")
 	public void flush() {
-		LOG.info("{}", endpointHitsConsoleOutputFormatter.formatForConsolePrint(endpointsHits.entrySet()
+		LOG.info(TEMPLATE, endpointHitsConsoleOutputFormatter.formatForConsolePrint(endpointsHits.entrySet()
 				.stream()
-					.collect(Collectors.toMap(Map.Entry::getKey, value -> value.getValue().sum()))));
+					.collect(Collectors.toMap(Map.Entry::getKey, value -> value.getValue().sum())), true));
+		LOG.info(TEMPLATE, endpointHitsConsoleOutputFormatter.formatForConsolePrint(endpointsHits.entrySet()
+				.stream()
+				.collect(Collectors.toMap(Map.Entry::getKey, value -> value.getValue().sum())), false));
 	}
 
 }

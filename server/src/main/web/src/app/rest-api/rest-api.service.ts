@@ -11,8 +11,8 @@ export class RestApiService {
 
 	constructor(restClientFactoryService: RestClientFactoryService) {
 		const prefix = location.href.includes('localhost:4200') ? 'http://localhost:8686' : '';
-		this.api = restClientFactoryService.createRestClient(prefix + '/api/v1/rest');
-		this.apiV2 = restClientFactoryService.createRestClient(prefix + '/api/v2/rest');
+		this.api = this.wrap(restClientFactoryService.createRestClient(prefix + '/api/v1/rest'));
+		this.apiV2 = this.wrap(restClientFactoryService.createRestClient(prefix + '/api/v2/rest'));
 	}
 
 	public getApi(): RestClient {
@@ -21,6 +21,14 @@ export class RestApiService {
 
 	public getApiV2(): RestClient {
 		return this.apiV2;
+	}
+
+	private wrap(restClient: RestClient): RestClient {
+		console.log(restClient);
+		restClient.on('request', (xhr: any) => {
+			xhr.setRequestHeader('X-Api-Browser', 'true')
+		}, null);
+		return restClient;
 	}
 
 }

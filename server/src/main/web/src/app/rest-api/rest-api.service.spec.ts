@@ -4,13 +4,6 @@ import { RestClientFactoryService } from './rest-client-factory.service';
 import { RestApiService } from './rest-api.service';
 import RestClient from "another-rest-client/dist/rest-client";
 
-class RestClientMock {
-	public res: any;
-	public on: any;
-	public common: any;
-	public performer: any;
-}
-
 class RestClientFactoryServiceMock {
 	createRestClient(): any {}
 }
@@ -29,8 +22,8 @@ describe('RestApiService', () => {
 		});
 		on = jasmine.createSpy('on');
 		get = jasmine.createSpy('get').and.returnValue(Promise.resolve(true));
-		restClientMock = jasmine.createSpyObj('RestClient', [], ['res', 'on', 'common', 'performer']);
-    restClientMock.res = res;
+		restClientMock = jasmine.createSpyObj('RestClient', ['on'], ['res', 'common', 'performer']);
+		restClientMock.res = res;
 		restClientMock.on = on;
 		spyOn(restClientFactoryServiceMock, 'createRestClient').and.returnValue(restClientMock);
 

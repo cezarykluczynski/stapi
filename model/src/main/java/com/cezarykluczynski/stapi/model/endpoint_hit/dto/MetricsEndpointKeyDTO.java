@@ -15,4 +15,6 @@ public class MetricsEndpointKeyDTO {
 
 	private String methodName;
 
+	private boolean apiBrowser;
+
 }
