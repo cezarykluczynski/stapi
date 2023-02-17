@@ -2,6 +2,9 @@ package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki
 
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ConnectionConstant
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 
 class BlikiConnectorConfigurationTest extends Specification {
@@ -50,6 +53,16 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 		then:
 		userDecorator.actionUrl == TECHNICAL_HELPER_API_URL
+	}
+
+	void "creates RestTemplate"() {
+		when:
+		RestTemplate restTemplate = blikiConnectorConfiguration.restTemplate()
+
+		then:
+		restTemplate.requestFactory instanceof SimpleClientHttpRequestFactory
+		((SimpleClientHttpRequestFactory) restTemplate.requestFactory).connectTimeout == ConnectionConstant.CONNECTION_TIMEOUT
+		((SimpleClientHttpRequestFactory) restTemplate.requestFactory).readTimeout == ConnectionConstant.SOCKET_TIMEOUT
 	}
 
 }

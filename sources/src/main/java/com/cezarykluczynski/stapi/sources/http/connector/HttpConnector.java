@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.http.connector;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ConnectionConstant;
 import com.google.common.collect.Lists;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,11 @@ public class HttpConnector {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			httpPost.setConfig(RequestConfig.custom()
+					.setConnectionRequestTimeout(5000) // just so it's not indefinite
+					.setConnectTimeout(ConnectionConstant.CONNECTION_TIMEOUT)
+					.setSocketTimeout(ConnectionConstant.SOCKET_TIMEOUT)
+					.build());
 
 			HttpClient httpClient = httpClientFactory.create();
 			HttpResponse httpResponse = httpClient.execute(httpPost);

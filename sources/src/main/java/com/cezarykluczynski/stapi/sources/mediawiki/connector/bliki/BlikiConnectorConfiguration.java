@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ConnectionConstant;
 import jakarta.inject.Inject;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
@@ -41,7 +43,12 @@ public class BlikiConnectorConfiguration {
 
 	@Bean
 	public RestTemplate restTemplate() {
-		return new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
+		SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+		simpleClientHttpRequestFactory.setConnectTimeout(ConnectionConstant.CONNECTION_TIMEOUT);
+		simpleClientHttpRequestFactory.setReadTimeout(ConnectionConstant.SOCKET_TIMEOUT);
+		restTemplate.setRequestFactory(simpleClientHttpRequestFactory);
+		return restTemplate;
 	}
 
 }
