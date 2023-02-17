@@ -12,7 +12,6 @@ import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Page<Episode> findMatching(EpisodeRequestDTO criteria, Pageable pageable) {
 		String uid = criteria.getUid();
 		boolean doFetch = uid != null;

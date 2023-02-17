@@ -14,7 +14,7 @@ import java.util.Set;
 @Service
 public class ComicsPageFilter extends AbstractMediaWikiPageFilter {
 
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.COMICS, PageTitle.PHOTONOVELS);
+	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.COMICS, PageTitle.PHOTONOVELS, "Trial By Fire" /* unpublished */);
 	private static final Set<String> INVALID_CATEGORIES = Sets.newHashSet(CategoryTitle.STAR_TREK_SERIES_MAGAZINES);
 
 	@Getter

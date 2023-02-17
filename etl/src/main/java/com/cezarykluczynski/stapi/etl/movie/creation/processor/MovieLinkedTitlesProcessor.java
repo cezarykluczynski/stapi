@@ -110,7 +110,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<Pair<List<PageS
 			"Additional Special Lighting Effects", "Best Boy", "Second Grip", "Crane Operator", "[[Vulcan language|Vulcan Translation]]",
 			"Matte Photography Assistant", "Model Electronics", "[[Theme from Star Trek|Theme from ''Star Trek'' Television Series]]",
 			"<abbr title=\"Directors Guild of America\">DGA</abbr> Trainee", "Technical Assistants", "Rigging Grips", "Animatic Data Effects by",
-			"<abbr title=\"DGA\">Directors Guild of America</abbr> Trainee"
+			"<abbr title=\"DGA\">Directors Guild of America</abbr> Trainee", "{{abbr|Directors Guild of America|DGA}} Trainee"
 	);
 
 	private static final List<String> STAFF_SECTION_MATCHES_TITLE_LIST = Lists.newArrayList("technician", "klingon and vulcan prosthetics",

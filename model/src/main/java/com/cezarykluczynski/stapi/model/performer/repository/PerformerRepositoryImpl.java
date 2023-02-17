@@ -10,7 +10,6 @@ import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> implements PerformerRepositoryCustom {
@@ -22,7 +21,6 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Page<Performer> findMatching(PerformerRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Performer> performerQueryBuilder = performerQueryBuilderFactory.createQueryBuilder(pageable);
 		String uid = criteria.getUid();

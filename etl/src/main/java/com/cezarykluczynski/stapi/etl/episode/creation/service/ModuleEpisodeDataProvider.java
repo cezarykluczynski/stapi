@@ -191,7 +191,7 @@ public class ModuleEpisodeDataProvider {
 			} else {
 				return Sets.newHashSet();
 			}
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			return Sets.newHashSet();
 		}
 	}

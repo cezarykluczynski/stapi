@@ -14,7 +14,6 @@ import jakarta.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class TradingCardCreationConfiguration {
 
 	@Bean
 	@DependsOn("batchDataSourceInitializer")
-	@Transactional
 	public TradingCardSetReader tradingCardReader() {
 		List<Page> tradingCardList = Lists.newArrayList();
 

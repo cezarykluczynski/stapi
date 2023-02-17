@@ -21,7 +21,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Data
 @Entity
-
 @ToString(exclude = {"source", "target"})
 @EqualsAndHashCode(exclude = {"source", "target"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

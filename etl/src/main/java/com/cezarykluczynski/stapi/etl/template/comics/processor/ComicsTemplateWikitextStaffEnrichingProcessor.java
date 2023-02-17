@@ -24,6 +24,7 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 
 	private static final String BASED_ON = "Based on";
 	private static final String DEDICATED_TO = "Dedicated to ";
+	private static final String CREATED_BY = "}} created by [[";
 	private static final List<String> STAR_TREK_CREATED_BY = Lists.newArrayList("Star Trek", "created by");
 
 	private static final List<String> WRITERS_TITLES = Lists.newArrayList("writer", "original script by");
@@ -31,7 +32,7 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 			"Story by", "Adapted by", "Adaptation written by", "Screenplay by");
 	private static final List<String> ARTISTS_PREFIXES = Lists.newArrayList("Artist", "Cover Art", "Scheduled Artist", "Art Director", "Pencils",
 			"Inks", "Colorists", "Letterers", "Art by", "Interior artist", "Inkers", "Colors by", "Letters by", "Interior art", "Color art",
-			"Letter art", "Cover painted by", "Colorist", "Letters", "Hardcover Cover art by", "Color Assist by", "Additional colors by");
+			"Letter art", "Cover painted by", "Colorist", "Letters", "Hardcover Cover art by", "Color Assist by", "Additional colors by", "Letterer");
 	private static final List<String> EDITORS_PREFIXES = Lists.newArrayList("Editor", "Guest Editor", "Collection Edits", "Collection edited by",
 			"Edits by", "Edited by", "Assistant edits", "Edits", "Original edits", "Photo montage and story by");
 	private static final List<String> STAFF_TITLES = Lists.newArrayList("Publisher", "Published by", "With characters created by",
@@ -39,6 +40,9 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 	private static final List<String> STAFF_PREFIXES = Lists.newArrayList("consultant", "Special thanks", "with thanks to", "concept by",
 			"Klingon Language", "Thanks to", "Production by", "Production Designer", "Introduction by", "Book design by", "Design:", "Designed by",
 			"Collection", "With a big hand to", "IDW Release", "Starship model reference provided by");
+	private static final List<String> IGNORABLE_SECTIONS = Lists.newArrayList(
+			"Created in partnership with the {{el|qualcommtricorderxprize.org|Qualcomm Tricorder Xprize}}",
+			"Celebrating the 20th Anniversary of the extraordinary voyages of the starship ''Enterprise''--");
 
 	private final WikitextListsExtractor wikitextListsExtractor;
 
@@ -79,8 +83,8 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 	}
 
 	private boolean shouldBeIgnored(String wikitextListText) {
-		return STAR_TREK_CREATED_BY.stream().allMatch(wikitextListText::contains) || wikitextListText.contains(BASED_ON)
-				|| wikitextListText.startsWith(DEDICATED_TO);
+		return STAR_TREK_CREATED_BY.stream().allMatch(wikitextListText::contains) || IGNORABLE_SECTIONS.contains(wikitextListText)
+				|| wikitextListText.contains(BASED_ON) || wikitextListText.startsWith(DEDICATED_TO) || wikitextListText.contains(CREATED_BY);
 	}
 
 	private Set<Staff> staffFromWikitextList(WikitextList wikitextList) {
