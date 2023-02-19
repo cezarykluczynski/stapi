@@ -176,7 +176,7 @@ class CleanMetamodel extends DefaultTask {
 apply from: 'testing.gradle'
 
 group 'com.cezarykluczynski.stapi'
-version '0.1.1-SNAPSHOT'
+version '0.1.2'
 
 sourceCompatibility = 17
 targetCompatibility = 17

@@ -67,7 +67,7 @@ publishing {
 		mavenJava(MavenPublication) {
 			group = 'com.cezarykluczynski.stapi'
 			artifactId = 'stapi-client'
-			version = '0.1.1-SNAPSHOT'
+			version = '0.1.2'
 			from components.java
 			versionMapping {
 				usage('java-api') {
