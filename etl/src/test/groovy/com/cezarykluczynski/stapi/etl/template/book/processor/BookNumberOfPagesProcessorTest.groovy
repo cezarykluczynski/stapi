@@ -36,6 +36,9 @@ class BookNumberOfPagesProcessorTest extends Specification {
 		'462; 432 (script pages only)'             | 462
 		'178, plus foldouts'                       | 178
 		'216, 224 (German)'                        | 216
+		'48 &bull; Adventure Book (1st ed.)'       | 48
+		'399 / 368'                                | 399
+		'157 & unnumbered 8-page color insert'     | 157
 	}
 
 }

@@ -21,7 +21,7 @@ public class BookNumberOfPagesProcessor implements ItemProcessor<String, Integer
 			return null;
 		}
 		String valueToParse = value;
-		valueToParse = StringUtil.substringBeforeAll(valueToParse, List.of("+", ", ", "; "," (", "<"));
+		valueToParse = StringUtil.substringBeforeAll(valueToParse, List.of("+", ", ", " &bull;", "; "," (", "<", " / ", " & "));
 		valueToParse = StringUtils.trim(valueToParse);
 		if (valueToParse.length() >= 5 && COMA.equals(valueToParse.substring(1, 2))) {
 			valueToParse = valueToParse.charAt(0) + valueToParse.substring(2);

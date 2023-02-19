@@ -85,4 +85,22 @@ class MagazineReaderTest extends Specification {
 		nextPageHeader == null
 	}
 
+	@SuppressWarnings('BracesForMethod')
+	void """when first read is made, and CREATE_MAGAZINES step is not completed, and MagazineSeriesCandidatePageGatheringService is empty,
+			size is provided using CategoryApi"""() {
+		given:
+		PageHeader pageHeaderFromApi = Mock()
+
+		when:
+		int size = magazineReader.size
+
+		then:
+		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINES) >> false
+		1 * magazineCandidatePageGatheringServiceMock.empty >> true
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				Lists.newArrayList(pageHeaderFromApi)
+		0 * _
+		size == 1
+	}
+
 }

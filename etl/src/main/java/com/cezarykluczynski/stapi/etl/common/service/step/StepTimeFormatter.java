@@ -107,7 +107,7 @@ public class StepTimeFormatter {
 	}
 
 	private String formatDate(LocalDateTime localDateTime) {
-		return localDateTime.format(DateTimeFormatter.ofPattern("dd-MM-YYYY hh:mm:ss"));
+		return localDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
 	}
 
 	@AllArgsConstructor(staticName = "of")

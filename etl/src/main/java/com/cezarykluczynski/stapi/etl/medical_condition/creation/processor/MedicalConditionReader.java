@@ -11,7 +11,7 @@ public class MedicalConditionReader extends ListItemReader<PageHeader> {
 
 	public MedicalConditionReader(List<PageHeader> list) {
 		super(list);
-		log.info("Initial size of medicalCondition list: {}", list.size());
+		log.info("Initial size of medical conditions list: {}", list.size());
 	}
 
 }

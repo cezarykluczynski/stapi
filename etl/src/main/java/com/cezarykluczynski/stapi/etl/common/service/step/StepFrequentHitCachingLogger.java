@@ -1,11 +1,14 @@
 package com.cezarykluczynski.stapi.etl.common.service.step;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelper;
 import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelperDumpFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Order(2)
 @Service
@@ -27,8 +30,11 @@ public class StepFrequentHitCachingLogger implements StepLogger {
 	}
 
 	public void stepEnded(StepExecution stepExecution) {
-		log.info("FrequentHitCachingHelper after step {}: {}", stepExecution.getStepName(),
-				frequentHitCachingHelperDumpFormatter.format(frequentHitCachingHelper.dumpStatisticsAndReset()));
+		final Map<MediaWikiSource, Map<String, Integer>> statisticsDump = frequentHitCachingHelper.dumpStatisticsAndReset();
+		if (!statisticsDump.isEmpty()) {
+			log.info("FrequentHitCachingHelper after step {}: {}", stepExecution.getStepName(),
+					frequentHitCachingHelperDumpFormatter.format(statisticsDump));
+		}
 	}
 
 }

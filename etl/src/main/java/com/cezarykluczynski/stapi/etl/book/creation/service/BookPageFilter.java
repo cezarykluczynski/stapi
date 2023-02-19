@@ -21,7 +21,7 @@ public class BookPageFilter implements MediaWikiPageFilter {
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Schuster & Schuster", "Star Trek Roleplaying Game (Last Unicorn)",
 			"Starlog photo guidebook Special Effects", "The Best of Star Trek (Titan)", "Star Trek: Federation Gift Pak",
 			"To Boldly Go: Rare Photos from the TOS Soundstage", "These Are the Voyages: TOS", "Star Trek Emissary Gift Set",
-			"Captain Sulu Adventures", "The Best of Trek", "Stardate (magazine)");
+			"Captain Sulu Adventures", "The Best of Trek", "Stardate (magazine)", "Undeveloped Star Trek publications");
 
 	private final CategorySortingService categorySortingService;
 

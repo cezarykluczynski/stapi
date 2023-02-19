@@ -24,6 +24,9 @@ public class FrequentHitCachingHelperDumpFormatter {
 		Map<MediaWikiSource, List<Pair<String, Integer>>> sortedTitlesMap = Maps.newHashMap();
 
 		for (MediaWikiSource mediaWikiSource : SOURCES_ORDER) {
+			if (!cacheMap.containsKey(mediaWikiSource)) {
+				continue;
+			}
 			List<Pair<String, Integer>> cachedTitlesPairList = cacheMap.get(mediaWikiSource).entrySet()
 					.stream()
 					.filter(pair -> pair.getValue() >= FrequentHitCachingHelper.CACHE_THRESHOLD)
@@ -44,12 +47,15 @@ public class FrequentHitCachingHelperDumpFormatter {
 		StringBuilder stringBuilder = new StringBuilder(output);
 
 		for (MediaWikiSource mediaWikiSource : SOURCES_ORDER) {
+			List<Pair<String, Integer>> pairList = sortedTitlesMap.get(mediaWikiSource);
+			if (pairList == null) {
+				continue;
+			}
+
 			stringBuilder
 					.append(mediaWikiSource.name())
 					.append(":")
 					.append(NEW_LINE);
-
-			List<Pair<String, Integer>> pairList = sortedTitlesMap.get(mediaWikiSource);
 
 			for (Pair<String, Integer> pair : pairList) {
 				stringBuilder

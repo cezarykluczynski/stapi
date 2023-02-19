@@ -19,14 +19,19 @@ public class FrequentHitCachingHelper {
 
 	public synchronized boolean isCacheable(String title, MediaWikiSource mediaWikiSource) {
 		cacheMap.get(mediaWikiSource).putIfAbsent(title, 0);
-		Integer updatedHitCount = cacheMap.get(mediaWikiSource).get(title) + 1;
+		int updatedHitCount = cacheMap.get(mediaWikiSource).get(title) + 1;
 		cacheMap.get(mediaWikiSource).put(title, updatedHitCount);
 		return updatedHitCount >= CACHE_THRESHOLD;
 	}
 
 	public Map<MediaWikiSource, Map<String, Integer>> dumpStatisticsAndReset() {
 		synchronized (this) {
-			Map<MediaWikiSource, Map<String, Integer>> mapClone = Maps.newHashMap(cacheMap);
+			Map<MediaWikiSource, Map<String, Integer>> mapClone = Maps.newHashMap();
+			cacheMap.forEach((mediaWikiSource, stringIntegerMap) -> {
+				if (!stringIntegerMap.isEmpty()) {
+					mapClone.put(mediaWikiSource, Map.copyOf(stringIntegerMap));
+				}
+			});
 			createNewMap();
 			return mapClone;
 		}

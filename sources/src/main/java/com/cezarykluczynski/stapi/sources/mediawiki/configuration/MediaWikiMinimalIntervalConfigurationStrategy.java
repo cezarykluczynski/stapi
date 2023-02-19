@@ -23,7 +23,7 @@ public class MediaWikiMinimalIntervalConfigurationStrategy {
 
 		boolean isFandom = fandomUrlDetector.isFandomWikiUrl(apiUrl);
 
-		if (minimalInterval == null || "auto".equals(minimalInterval.toLowerCase())) {
+		if (minimalInterval == null || "auto".equalsIgnoreCase(minimalInterval)) {
 			// It's safe to assume that requests to Fandom should not be more frequent than 1 per second
 			return isFandom ? FANDOM_INTERVAL : 0L;
 		}

@@ -34,6 +34,14 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 	private static final String CHAPTERS = "Chapters";
 	private static final String BACKGROUND_INFORMATION = "Background information";
 	private static final String TITLES = "Titles";
+	private static final List<String> PAGES_NO_CONTENTS = Lists.newArrayList(
+			// all fives are comic strips collections
+			"Star Trek: The Classic UK Comics, Volume 1",
+			"Star Trek: The Classic UK Comics, Volume 2",
+			"Star Trek: The Classic UK Comics, Volume 3",
+			"Star Trek: The Newspaper Comics, Volume 1",
+			"Star Trek: The Newspaper Comics, Volume 2"
+	);
 
 	private final PageSectionExtractor pageSectionExtractor;
 
@@ -71,8 +79,9 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 
 		PageSection pageSection = pageSectionList.get(0);
 
+		String pageTitle = item.getTitle();
 		if (pageSectionList.size() > 1) {
-			log.info("Page \"{}\" contains more than one section, using the first one: {}.", item.getTitle(), pageSection.getText());
+			log.info("Page \"{}\" contains more than one section, using the first one: {}.", pageTitle, pageSection.getText());
 		}
 
 		String pageSectionWikitext = pageSection.getWikitext();
@@ -84,7 +93,9 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 		comicCollectionContents.getComics().addAll(extractComics(pageLinkTitles));
 		comicCollectionContents.getComicSeries().addAll(extractComicSeries(pageLinkTitles));
 		if (comicCollectionContents.getComics().isEmpty() && comicCollectionContents.getComicSeries().isEmpty()) {
-			log.info("Could not extract any comic collection contents from page \"{}\" section \"{}\".", item.getTitle(), pageSection.getAnchor());
+			if (!PAGES_NO_CONTENTS.contains(pageTitle)) {
+				log.info("Could not extract any comic collection contents from page \"{}\" section \"{}\".", pageTitle, pageSection.getAnchor());
+			}
 		}
 
 		return comicCollectionContents;

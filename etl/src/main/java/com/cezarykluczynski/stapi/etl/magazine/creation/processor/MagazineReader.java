@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.magazine.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.common.processor.SizeAwareItemReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.magazine.creation.service.MagazineCandidatePageGatheringService;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class MagazineReader implements ItemReader<PageHeader> {
+public class MagazineReader implements ItemReader<PageHeader>, SizeAwareItemReader {
 
 	private final MagazineCandidatePageGatheringService magazineCandidatePageGatheringService;
 
@@ -42,14 +43,23 @@ public class MagazineReader implements ItemReader<PageHeader> {
 
 	@Override
 	public synchronized PageHeader read() throws Exception {
+		initialize();
+		return doRead();
+	}
+
+	@Override
+	public int getSize() {
+		initialize();
+		return pageHeaderList.size();
+	}
+
+	private void initialize() {
 		if (!initialized) {
 			initializeSourceList();
 			log.info("Initial size of magazine list: {}", pageHeaderList.size());
 			createIterator();
 			initialized = true;
 		}
-
-		return doRead();
 	}
 
 	private PageHeader doRead() {
@@ -77,5 +87,4 @@ public class MagazineReader implements ItemReader<PageHeader> {
 
 		pageHeaderList = Lists.newArrayList(Sets.newHashSet(magazineList));
 	}
-
 }

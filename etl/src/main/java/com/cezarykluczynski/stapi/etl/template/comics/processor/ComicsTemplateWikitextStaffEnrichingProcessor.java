@@ -32,7 +32,8 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 			"Story by", "Adapted by", "Adaptation written by", "Screenplay by");
 	private static final List<String> ARTISTS_PREFIXES = Lists.newArrayList("Artist", "Cover Art", "Scheduled Artist", "Art Director", "Pencils",
 			"Inks", "Colorists", "Letterers", "Art by", "Interior artist", "Inkers", "Colors by", "Letters by", "Interior art", "Color art",
-			"Letter art", "Cover painted by", "Colorist", "Letters", "Hardcover Cover art by", "Color Assist by", "Additional colors by", "Letterer");
+			"Letter art", "Cover painted by", "Colorist", "Letters", "Hardcover Cover art by", "Color Assist by", "Additional colors by", "Letterer",
+			"Interior and cover art by");
 	private static final List<String> EDITORS_PREFIXES = Lists.newArrayList("Editor", "Guest Editor", "Collection Edits", "Collection edited by",
 			"Edits by", "Edited by", "Assistant edits", "Edits", "Original edits", "Photo montage and story by");
 	private static final List<String> STAFF_TITLES = Lists.newArrayList("Publisher", "Published by", "With characters created by",

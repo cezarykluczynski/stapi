@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class MedicalConditionPageFilter extends AbstractMediaWikiPageFilter {
 
-	private static final List<String> INVALID_TITLES = Lists.newArrayList("Health");
+	private static final List<String> INVALID_TITLES = Lists.newArrayList("Health", "Carrier");
 
 	@Getter
 	private final CategorySortingService categorySortingService;

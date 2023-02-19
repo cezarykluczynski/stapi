@@ -134,7 +134,6 @@ import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponWriter
 import org.apache.commons.lang3.RandomUtils
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
-import org.springframework.batch.core.StepExecutionListener
 import org.springframework.batch.core.step.builder.SimpleStepBuilder
 import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.core.step.tasklet.TaskletStep
@@ -173,7 +172,7 @@ class EtlJobConfigurationTest extends Specification {
 
 	private ItemWriter itemWriterMock
 
-	private StepExecutionListener stepExecutionListenerMock
+	private CommonStepExecutionListener stepExecutionListenerMock
 
 	private TaskletStep taskletStepMock
 
@@ -235,7 +234,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(CompanyWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -268,7 +267,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -301,7 +300,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SeasonWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -334,7 +333,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(PerformerWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -367,7 +366,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(StaffWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -400,7 +399,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(AstronomicalObjectWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -433,7 +432,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SpeciesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -466,7 +465,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(OrganizationWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -502,7 +501,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(TitleWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(TitleListStepExecutionListener) >> titleListStepExecutionListener
 		1 * simpleStepBuilderMock.listener(titleListStepExecutionListener) >> simpleStepBuilderMock
 
@@ -537,7 +536,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(OccupationWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -570,7 +569,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(CharacterWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -603,7 +602,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(CharacterLinkWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -636,7 +635,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(EpisodeWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -669,7 +668,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(MovieWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -702,7 +701,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(AstronomicalObjectWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -735,7 +734,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicSeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -768,7 +767,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicSeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -801,7 +800,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicsWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -834,7 +833,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicStripWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -867,7 +866,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicCollectionWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -900,7 +899,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(FoodWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -933,7 +932,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(LocationWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -966,7 +965,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(BookSeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -999,7 +998,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(BookSeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1032,7 +1031,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(BookWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1065,7 +1064,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(BookCollectionWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1098,7 +1097,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(MagazineWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1131,7 +1130,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(MagazineSeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1164,7 +1163,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(LiteratureWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1197,7 +1196,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(VideoReleaseWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1230,7 +1229,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(TradingCardSetWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1263,7 +1262,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(VideoGameWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1296,7 +1295,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SoundtrackWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1329,7 +1328,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(WeaponWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1362,7 +1361,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(TechnologyWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1395,7 +1394,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SpacecraftTypeWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1428,7 +1427,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SpacecraftClassWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1461,7 +1460,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SpacecraftWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1494,7 +1493,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(MaterialWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1527,7 +1526,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ConflictWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1560,7 +1559,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(AnimalWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1593,7 +1592,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ElementWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
@@ -1626,7 +1625,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(MedicalConditionWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
-		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		2 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
