@@ -12,15 +12,15 @@ buildscript {
 		classpath group: 'org.zeroturnaround', name: 'zt-zip', version: ztZipVersion
 		classpath group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 		classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.13"
-		classpath group: 'org.apache.groovy', name: 'groovy', version: '4.0.4'
+		classpath group: 'org.apache.groovy', name: 'groovy', version: groovyVersion
 	}
 }
 
 plugins {
 	id 'java'
-	id 'io.freefair.lombok' version '6.6.1' apply false
-	id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
-	id "com.github.ben-manes.versions" version "0.45.0"
+	id 'io.freefair.lombok' version '6.6.3' apply false
+	id "io.github.gradle-nexus.publish-plugin" version "1.2.0"
+	id "com.github.ben-manes.versions" version "0.46.0"
 	id "io.spring.dependency-management" version "1.1.0"
 }
 
@@ -85,7 +85,7 @@ allprojects {
 
 		// Testing
 		testImplementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
-		testImplementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.4'
+		testImplementation group: 'org.apache.groovy', name: 'groovy', version: groovyVersion
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
 		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
 		testImplementation group: 'cglib', name: 'cglib-nodep', version: '3.3.0'

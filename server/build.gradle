@@ -39,7 +39,7 @@ dependencies {
 	implementation "org.mapstruct:mapstruct:$mapstructVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
 	implementation group: 'org.zeroturnaround', name: 'zt-zip', version: ztZipVersion
-	implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
+	implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.19'
 
 	// Other
 	// required because otherwise Groovy tests cannot be compiled with not found class javax.servlet.ServletContext
