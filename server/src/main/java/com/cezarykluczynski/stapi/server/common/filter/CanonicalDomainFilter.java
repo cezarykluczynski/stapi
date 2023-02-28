@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.filter;
 
 import com.cezarykluczynski.stapi.util.constant.EnvironmentVariable;
+import jakarta.annotation.Priority;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+@Priority(1)
 public class CanonicalDomainFilter implements Filter {
 
 	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CanonicalDomainFilter.class);
