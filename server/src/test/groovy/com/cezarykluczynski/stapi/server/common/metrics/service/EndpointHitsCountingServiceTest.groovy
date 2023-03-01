@@ -33,15 +33,11 @@ class EndpointHitsCountingServiceTest extends Specification {
 		endpointHitsCountingService.flush()
 
 		then:
-		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>, true) >> {
-				Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser ->
+		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>) >> {
+				Map<MetricsEndpointKeyDTO, Long> endpointsHits ->
 			assert endpointsHits.size() == 4
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_1_NAME, ENDPOINT_1_METHOD_NAME, true)) == 2
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_2_NAME, ENDPOINT_2_METHOD_NAME, true)) == 1
-		}
-		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>, false) >> {
-				Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser ->
-			assert endpointsHits.size() == 4
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_1_NAME, ENDPOINT_1_METHOD_NAME, false)) == 1
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_2_NAME, ENDPOINT_2_METHOD_NAME, false)) == 1
 		}
@@ -53,15 +49,11 @@ class EndpointHitsCountingServiceTest extends Specification {
 		endpointHitsCountingService.flush()
 
 		then:
-		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>, true) >> {
-				Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser ->
+		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>) >> {
+				Map<MetricsEndpointKeyDTO, Long> endpointsHits ->
 			assert endpointsHits.size() == 4
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_1_NAME, ENDPOINT_1_METHOD_NAME, true)) == 3
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_2_NAME, ENDPOINT_2_METHOD_NAME, true)) == 2
-		}
-		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>, false) >> {
-				Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser ->
-			assert endpointsHits.size() == 4
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_1_NAME, ENDPOINT_1_METHOD_NAME, false)) == 2
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_2_NAME, ENDPOINT_2_METHOD_NAME, false)) == 1
 		}
@@ -76,17 +68,13 @@ class EndpointHitsCountingServiceTest extends Specification {
 		endpointHitsCountingService.flush()
 
 		then:
-		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>, true) >> {
-				Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser ->
+		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>) >> {
+				Map<MetricsEndpointKeyDTO, Long> endpointsHits ->
 			assert endpointsHits.size() == 8
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_1_NAME, ENDPOINT_1_METHOD_NAME, true)) == 3
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_2_NAME, ENDPOINT_2_METHOD_NAME, true)) == 2
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_3_NAME, ENDPOINT_3_METHOD_NAME, true)) == 1
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_4_NAME, ENDPOINT_4_METHOD_NAME, true)) == 2
-		}
-		1 * endpointHitsPersisterMock.formatForConsolePrint(_ as Map<MetricsEndpointKeyDTO, Long>, false) >> {
-				Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser ->
-			assert endpointsHits.size() == 8
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_1_NAME, ENDPOINT_1_METHOD_NAME, false)) == 2
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_2_NAME, ENDPOINT_2_METHOD_NAME, false)) == 1
 			assert endpointsHits.get(MetricsEndpointKeyDTO.of(ENDPOINT_3_NAME, ENDPOINT_3_METHOD_NAME, false)) == 2

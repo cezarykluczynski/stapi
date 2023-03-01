@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonEntitiesDetailsReader;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.primitives.Ints;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -35,9 +37,14 @@ public class EndpointHitsConsoleOutputFormatter {
 	private static final String EMPTY_STRING = "";
 	private static final String SPACE = " ";
 	private static final String DASH = "-";
+	private static final String PIPE = "|";
+	private static final String DOUBLE_PIPE = "||";
 	private static final String REST_ENDPOINT = "RestEndpoint";
 	private static final String TEMPLATE_TWO_STRINGS = "%s%s";
 	private static final String TEMPLATE_THREE_STRINGS = "%s%s%s";
+	private static final String API_BROWSER_HEADER = "Frontend:";
+	private static final String NON_API_BROWSER_HEADER = "Outside the frontend:";
+	private static final String NEW_LINE = "%n";
 
 	private final CommonEntitiesDetailsReader commonEntitiesDetailsReader;
 
@@ -47,12 +54,9 @@ public class EndpointHitsConsoleOutputFormatter {
 		this.commonEntitiesDetailsReader = commonEntitiesDetailsReader;
 	}
 
-	@SuppressWarnings({"NPathComplexity", "CyclomaticComplexity"})
-	public String formatForConsolePrint(Map<MetricsEndpointKeyDTO, Long> endpointsHits, boolean apiBrowser) {
-		Map<MetricsEndpointKeyDTO, Long> filteredEndpointsHits = endpointsHits.entrySet()
-				.stream().filter(metricsEndpointKeyDTOLongEntry -> metricsEndpointKeyDTOLongEntry.getKey().isApiBrowser() == apiBrowser)
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-		List<String> endpointNames = filteredEndpointsHits.entrySet()
+	@SuppressWarnings({"NPathComplexity", "CyclomaticComplexity", "MethodLength", "NestedForDepth"})
+	public String formatForConsolePrint(Map<MetricsEndpointKeyDTO, Long> endpointsHits) {
+		List<String> endpointNames = endpointsHits.entrySet()
 				.stream()
 				.map(metricsEndpointKeyDTOLongEntry -> metricsEndpointKeyDTOLongEntry.getKey().getEndpointName())
 				.map(endpointName -> StringUtils.substringBefore(endpointName, REST_ENDPOINT))
@@ -76,21 +80,36 @@ public class EndpointHitsConsoleOutputFormatter {
 				.map(RestEndpointDetailDTO::getName)
 				.collect(Collectors.toList());
 
-		filteredEndpointsHits = filteredEndpointsHits.entrySet().stream()
-				.filter(entry -> {
-					String endpointName = entry.getKey().getEndpointName();
-					for (String entityName : primaryEntitiesNames) {
-						for (String hitVersion : hitVersions) {
-							boolean matchesV1 = endpointName.equals(String.format(TEMPLATE_TWO_STRINGS, entityName, REST_ENDPOINT));
-							boolean matchesVX = endpointName.equals(String.format(TEMPLATE_THREE_STRINGS, entityName, hitVersion, REST_ENDPOINT));
-							if (matchesV1 || matchesVX) {
-								return true;
-							}
-						}
+		Map<String, List<String>> primaryEntitiesToVersions = Maps.newLinkedHashMap();
+		for (String entityName : primaryEntitiesNames) {
+			List<String> entityVersions = Lists.newArrayList();
+			for (MetricsEndpointKeyDTO metricsEndpointKeyDTO : endpointsHits.keySet()) {
+				String endpointName = metricsEndpointKeyDTO.getEndpointName();
+				boolean matchesV1 = endpointName.equals(String.format(TEMPLATE_TWO_STRINGS, entityName, REST_ENDPOINT));
+				if (matchesV1 && !entityVersions.contains(V1)) {
+					entityVersions.add(V1);
+				}
+				for (String hitVersion : hitVersions) {
+					if (V1.equals(hitVersion)) {
+						continue;
 					}
-					return false;
-				})
+					boolean matchesV = endpointName.equals(String.format(TEMPLATE_THREE_STRINGS, entityName, hitVersion, REST_ENDPOINT));
+					if (matchesV && !entityVersions.contains(hitVersion)) {
+						entityVersions.add(hitVersion);
+					}
+				}
+			}
+			primaryEntitiesToVersions.put(entityName, entityVersions);
+		}
+
+		Map<MetricsEndpointKeyDTO, Long> apiBrowserYes = endpointsHits.entrySet()
+				.stream().filter(metricsEndpointKeyDTOLongEntry -> metricsEndpointKeyDTOLongEntry.getKey().isApiBrowser())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		Map<MetricsEndpointKeyDTO, Long> apiBrowserNo = endpointsHits.entrySet()
+				.stream().filter(metricsEndpointKeyDTOLongEntry -> !metricsEndpointKeyDTOLongEntry.getKey().isApiBrowser())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		apiBrowserYes = applyVersionMatchFilters(apiBrowserYes, primaryEntitiesNames, hitVersions);
+		apiBrowserNo = applyVersionMatchFilters(apiBrowserNo, primaryEntitiesNames, hitVersions);
 
 		List<List<String>> rows = Lists.newArrayList();
 		for (Section section : Section.values()) {
@@ -98,11 +117,21 @@ public class EndpointHitsConsoleOutputFormatter {
 				List<List<String>> sectionRows = Lists.newArrayList();
 				for (SummaryRow summaryRow : SummaryRow.values()) {
 					if (SummaryRow.HEADERS.equals(summaryRow)) {
-						List<String> rowCells = Lists.newArrayList(EMPTY_STRING);
-						for (String hitVersion : hitVersions) {
-							rowCells.add(String.format(HITS_TEMPLATE, hitVersion));
+						List<String> rowCells = Lists.newArrayList();
+						boolean pipeAdded = false;
+						for (boolean apiBrowser : List.of(true, false)) {
+							if (!apiBrowser && !pipeAdded) {
+								rowCells.add(PIPE);
+								pipeAdded = true;
+							}
+							if (!pipeAdded) {
+								rowCells.add(EMPTY_STRING);
+							}
+							for (String hitVersion : hitVersions) {
+								rowCells.add(String.format(HITS_TEMPLATE, hitVersion));
+							}
+							rowCells.add(TOTAL);
 						}
-						rowCells.add(TOTAL);
 						sectionRows.add(rowCells);
 					} else {
 						List<String> rowCells = Lists.newArrayList();
@@ -113,13 +142,21 @@ public class EndpointHitsConsoleOutputFormatter {
 						} else if (SummaryRow.GET.equals(summaryRow)) {
 							rowCells.add(GET);
 						}
-						List<String> localRowCells = Lists.newArrayList();
-						for (String hitVersion : hitVersions) {
-							localRowCells.add(getNumbersFor(filteredEndpointsHits, section, summaryRow, null, hitVersion, hitVersions,
-									primaryEntitiesNames));
+						boolean pipeAdded = false;
+						for (boolean apiBrowser : List.of(true, false)) {
+							List<String> localRowCells = Lists.newArrayList();
+							if (!apiBrowser && !pipeAdded) {
+								localRowCells.add(PIPE);
+								pipeAdded = true;
+							}
+							for (String hitVersion : hitVersions) {
+								localRowCells.add(getNumbersFor(apiBrowser ? apiBrowserYes : apiBrowserNo, section, summaryRow, null, hitVersion,
+										hitVersions, primaryEntitiesNames, primaryEntitiesToVersions));
+							}
+							localRowCells.add(getNumbersFor(apiBrowser ? apiBrowserYes : apiBrowserNo, section, summaryRow, null, TOTAL, hitVersions,
+									primaryEntitiesNames, primaryEntitiesToVersions));
+							rowCells.addAll(localRowCells);
 						}
-						localRowCells.add(getNumbersFor(filteredEndpointsHits, section, summaryRow, null, TOTAL, hitVersions, primaryEntitiesNames));
-						rowCells.addAll(localRowCells);
 						sectionRows.add(rowCells);
 					}
 				}
@@ -132,15 +169,27 @@ public class EndpointHitsConsoleOutputFormatter {
 					String primaryEntityName = primaryEntitiesNames.get(i);
 					cell += primaryEntityName;
 					rowCells.add(cell);
-					List<String> localRowCells = Lists.newArrayList();
-					for (String hitVersion : hitVersions) {
-						localRowCells.add(getNumbersFor(filteredEndpointsHits, section, null, primaryEntityName, hitVersion, hitVersions,
-								primaryEntitiesNames));
+					boolean pipeAdded = false;
+					for (boolean apiBrowser : List.of(true, false)) {
+						List<String> localRowCells = Lists.newArrayList();
+						if (!apiBrowser && !pipeAdded) {
+							localRowCells.add(PIPE);
+							pipeAdded = true;
+						}
+						for (String hitVersion : hitVersions) {
+							localRowCells.add(getNumbersFor(apiBrowser ? apiBrowserYes : apiBrowserNo, section, null, primaryEntityName, hitVersion,
+									hitVersions, primaryEntitiesNames, primaryEntitiesToVersions));
+						}
+						localRowCells.add(getNumbersFor(apiBrowser ? apiBrowserYes : apiBrowserNo, section, null, primaryEntityName, TOTAL,
+								hitVersions, primaryEntitiesNames, primaryEntitiesToVersions));
+						if (localRowCells.stream().anyMatch(s -> {
+							Integer integer = Ints.tryParse(s);
+							return integer != null && integer > 0;
+						}) || rowCells.size() > 1 && pipeAdded) {
+							rowCells.addAll(localRowCells);
+						}
 					}
-					localRowCells.add(getNumbersFor(filteredEndpointsHits, section, null, primaryEntityName, TOTAL, hitVersions,
-							primaryEntitiesNames));
-					if (localRowCells.stream().anyMatch(s -> Ints.tryParse(s) > 0)) {
-						rowCells.addAll(localRowCells);
+					if (rowCells.size() > 1) {
 						sectionRows.add(rowCells);
 					}
 				}
@@ -167,11 +216,9 @@ public class EndpointHitsConsoleOutputFormatter {
 			}
 			paddingsPerColumn.add(maxLength);
 		}
-		String source = apiBrowser ? "from stapi.co frontend" : "outside of the stapi.co frontend";
-		String report = String.format("%nReports hits since application startup (%s days ago on %s, %s):",
-				Duration.between(applicationStartTime, LocalDateTime.now()).toDays(), applicationStartTime.format(DATE_TIME_FORMATTER), source);
-
-		String rowTemplate = "%n" + NumberUtil.inclusiveRangeOf(1, max).stream().map(integer -> "%s").collect(Collectors.joining(" | "));
+		String report = String.format("%nReports hits since application startup (%s days ago on %s):",
+				Duration.between(applicationStartTime, LocalDateTime.now()).toDays(), applicationStartTime.format(DATE_TIME_FORMATTER));
+		String rowTemplate = NEW_LINE + NumberUtil.inclusiveRangeOf(1, max).stream().map(integer -> "%s").collect(Collectors.joining(" | "));
 		for (List<String> rowCells : rows) {
 			if (rowCells.size() > 1) {
 				List<String> paddedRowCells = Lists.newArrayList();
@@ -186,13 +233,51 @@ public class EndpointHitsConsoleOutputFormatter {
 				report += String.format("%n%s", StringUtils.leftPad(DASH, totalLength, DASH));
 			}
 		}
+		report = report.replaceAll("\\| \\| \\|", DOUBLE_PIPE);
+		final List<String> lines = Lists.newArrayList(Arrays.stream(report.split("\\r?\\n|\\r")).toList());
+		final String lineWithSeparator = lines.get(2);
+		int separatorIndex = lineWithSeparator.indexOf(DOUBLE_PIPE);
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			if (i == 2) {
+				String secondHeader = StringUtils.rightPad(API_BROWSER_HEADER, separatorIndex) + DOUBLE_PIPE + SPACE + NON_API_BROWSER_HEADER;
+				lines.add(2, secondHeader);
+			}
+			if (line.length() > 0 && DASH.equals(line.substring(0, 1))) {
+				// 3 is the number of spaces in "\\| \\| \\|"
+				String fixedSeparatorLine = line.substring(0, separatorIndex) + "++" + line.substring(separatorIndex + DOUBLE_PIPE.length() + 3);
+				lines.set(i, fixedSeparatorLine);
+			}
+		}
 
-		return report;
+		return lines.stream().collect(Collectors.joining(String.format(NEW_LINE)));
+	}
+
+	private Map<MetricsEndpointKeyDTO, Long> applyVersionMatchFilters(Map<MetricsEndpointKeyDTO, Long> endpointsHits,
+			List<String> primaryEntitiesNames, List<String> hitVersions) {
+		return endpointsHits.entrySet().stream()
+				.filter(entry -> {
+					String endpointName = entry.getKey().getEndpointName();
+					for (String entityName : primaryEntitiesNames) {
+						for (String hitVersion : hitVersions) {
+							boolean matchesV1 = endpointName.equals(String.format(TEMPLATE_TWO_STRINGS, entityName, REST_ENDPOINT));
+							boolean matchesVX = endpointName.equals(String.format(TEMPLATE_THREE_STRINGS, entityName, hitVersion, REST_ENDPOINT));
+							if (matchesV1 || matchesVX) {
+								return true;
+							}
+						}
+					}
+					return false;
+				})
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
 	@SuppressWarnings({"NPathComplexity", "CyclomaticComplexity", "ParameterNumber"})
 	private String getNumbersFor(Map<MetricsEndpointKeyDTO, Long> endpointsHits, Section section, SummaryRow summaryRow, String entityName,
-			String hitVersion, List<String> hitVersions, List<String> primaryEntitiesNames) {
+			String hitVersion, List<String> hitVersions, List<String> primaryEntitiesNames, Map<String, List<String>> primaryEntitiesToVersions) {
+		if (entityName != null && !primaryEntitiesToVersions.get(entityName).contains(hitVersion) && !TOTAL.equals(hitVersion)) {
+			return DASH;
+		}
 		return String.format("%d", endpointsHits.entrySet().stream()
 				.filter(entry -> {
 					if (SummaryRow.SEARCH.equals(summaryRow) || Section.SEARCH.equals(section)) {
@@ -253,11 +338,12 @@ public class EndpointHitsConsoleOutputFormatter {
 	}
 
 	private static Integer comparator(List<String> rowCells) {
-		Integer integer = Ints.tryParse(rowCells.get(rowCells.size() - 1));
-		if (integer == null) {
-			return Integer.MAX_VALUE;
-		}
-		return integer;
+		return rowCells.stream()
+				.mapToInt(value -> {
+					Integer integer = Ints.tryParse(value);
+					return integer != null ? integer : 0;
+				})
+				.sum();
 	}
 
 	private enum Section {

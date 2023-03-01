@@ -35,11 +35,11 @@ class EndpointHitsConsoleOutputFormatterTest extends Specification {
 		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon, animal])
 		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
 		endpointsHits.put(MetricsEndpointKeyDTO.of('CommonRestEndpoint', GET_METHOD_NAME, true), 5L) // invalid, should be skipped
-		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleRestEndpoint', GET_METHOD_NAME, false), 7L) // not an API Browser data
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleRestEndpoint', GET_METHOD_NAME, false), 7L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleRestEndpoint', GET_METHOD_NAME, true), 8L)
-		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', GET_METHOD_NAME, false), 11L) // not an API Browser data
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', GET_METHOD_NAME, false), 11L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', GET_METHOD_NAME, true), 12L)
-		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', SEARCH_METHOD_NAME, false), 13L) // not an API Browser data
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', SEARCH_METHOD_NAME, false), 13L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', SEARCH_METHOD_NAME, true), 14L)
 		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2GrpcEndpoint', GET_METHOD_NAME, true), 15L) // invalid, should be skipped
 		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponRestEndpoint', GET_METHOD_NAME, true), 17L)
@@ -51,24 +51,25 @@ class EndpointHitsConsoleOutputFormatterTest extends Specification {
 		endpointsHits.put(MetricsEndpointKeyDTO.of('AnimalRestEndpoint', GET_METHOD_NAME, true), 29L)
 
 		when:
-		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits, true)
+		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits)
 
 		then:
 		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
 		0 * _
 		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
-Reports hits since application startup (0 days ago on ${DATE}, from stapi.co frontend):
-                | Hits V1 | Hits V2 | Hits V3 | Total
-          Total |      55 |      70 |      48 |   173
-         Search |       0 |      38 |      26 |    64
-            Get |      55 |      32 |      22 |   109
------------------------------------------------------
-(SEARCH) Weapon |       0 |      24 |      26 |    50
-          Title |       0 |      14 |       0 |    14
------------------------------------------------------
-   (GET) Weapon |      18 |      20 |      22 |    60
-         Animal |      29 |       0 |       0 |    29
-          Title |       8 |      12 |       0 |    20""")
+Reports hits since application startup (0 days ago on ${DATE}):
+Frontend:                                             || Outside the frontend:
+                | Hits V1 | Hits V2 | Hits V3 | Total || Hits V1 | Hits V2 | Hits V3 | Total
+          Total |      55 |      70 |      48 |   173 ||       7 |      24 |       0 |    31
+         Search |       0 |      38 |      26 |    64 ||       0 |      13 |       0 |    13
+            Get |      55 |      32 |      22 |   109 ||       7 |      11 |       0 |    18
+------------------------------------------------------++------------------------------------
+(SEARCH) Weapon |       0 |      24 |      26 |    50 ||       0 |       0 |       0 |     0
+          Title |       0 |      14 |       - |    14 ||       0 |      13 |       - |    13
+------------------------------------------------------++------------------------------------
+   (GET) Weapon |      18 |      20 |      22 |    60 ||       0 |       0 |       0 |     0
+          Title |       8 |      12 |       - |    20 ||       7 |      11 |       - |    18
+         Animal |      29 |       - |       - |    29 ||       0 |       - |       - |     0""")
 	}
 
 	void "formats entities for console print, when there are no stats"() {
@@ -80,17 +81,18 @@ Reports hits since application startup (0 days ago on ${DATE}, from stapi.co fro
 		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
 
 		when:
-		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits, true)
+		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits)
 
 		then:
 		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
 		0 * _
 		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
-Reports hits since application startup (0 days ago on ${DATE}, from stapi.co frontend):
-       | Hits V1 | Total
- Total |       0 |     0
-Search |       0 |     0
-   Get |       0 |     0""")
+Reports hits since application startup (0 days ago on ${DATE}):
+Frontend:                || Outside the frontend:
+       | Hits V1 | Total || Hits V1 | Total
+ Total |       0 |     0 ||       0 |     0
+Search |       0 |     0 ||       0 |     0
+   Get |       0 |     0 ||       0 |     0""")
 	}
 
 	private static String normalizeLineEndings(String string) {
