@@ -11,6 +11,7 @@ import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implement
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Staff> findMatching(StaffRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Staff> staffQueryBuilder = createInitialStaffQueryBuilder(criteria, pageable);
 		boolean doFetch = criteria.getUid() != null;

@@ -10,6 +10,7 @@ import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Movie> findMatching(MovieRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Movie> movieQueryBuilder = createInitialMovieQueryBuilder(criteria, pageable);
 		boolean doFetch = criteria.getUid() != null;
