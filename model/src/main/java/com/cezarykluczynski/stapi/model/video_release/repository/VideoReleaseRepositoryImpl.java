@@ -2,9 +2,6 @@ package com.cezarykluczynski.stapi.model.video_release.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
-import com.cezarykluczynski.stapi.model.season.entity.Season_;
-import com.cezarykluczynski.stapi.model.series.entity.Series_;
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease_;
@@ -38,12 +35,8 @@ public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRele
 		videoReleaseQueryBuilder.equal(VideoRelease_.specialFeatures, criteria.getSpecialFeatures());
 		videoReleaseQueryBuilder.setSort(criteria.getSort());
 		videoReleaseQueryBuilder.fetch(VideoRelease_.series, doFetch);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.productionCompany, doFetch);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.originalBroadcaster, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, doFetch);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, Season_.series, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.movies, doFetch);
-		videoReleaseQueryBuilder.fetch(VideoRelease_.movies, Movie_.mainDirector, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.references, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.ratings, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.languages, doFetch);

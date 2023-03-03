@@ -9,9 +9,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode_
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.season.entity.Season
-import com.cezarykluczynski.stapi.model.season.entity.Season_
 import com.cezarykluczynski.stapi.model.series.entity.Series
-import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
@@ -100,10 +98,7 @@ class EpisodeRepositoryImplTest extends Specification {
 
 		then: 'first fetch is performed'
 		1 * episodeQueryBuilder.fetch(Episode_.series)
-		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, true)
-		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, true)
 		1 * episodeQueryBuilder.fetch(Episode_.season, true)
-		1 * episodeQueryBuilder.fetch(Episode_.season, Season_.series, true)
 
 		then: 'first page is found'
 		1 * episodeQueryBuilder.findPage() >> page1

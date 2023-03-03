@@ -1,6 +1,0 @@
-package com.cezarykluczynski.stapi.server.video_release.endpoint
-
-import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
-
-abstract class AbstractVideoReleaseEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
-}

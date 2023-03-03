@@ -2,12 +2,10 @@ package com.cezarykluczynski.stapi.model.spacecraft_class.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft_;
 import com.cezarykluczynski.stapi.model.spacecraft_class.dto.SpacecraftClassRequestDTO;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass_;
 import com.cezarykluczynski.stapi.model.spacecraft_class.query.SpacecraftClassQueryBuilderFactory;
-import com.cezarykluczynski.stapi.model.species.entity.Species_;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,8 +33,6 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.equal(SpacecraftClass_.alternateReality, criteria.getAlternateReality());
 		spacecraftClassQueryBuilder.setSort(criteria.getSort());
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.homeworld, doFetch);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.quadrant, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owners, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operators, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, doFetch);
@@ -44,8 +40,6 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, doFetch);
-		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.operator, doFetch);
 
 		Page<SpacecraftClass> spacecraftClassPage = spacecraftClassQueryBuilder.findPage();
 		clearProxies(spacecraftClassPage, !doFetch);

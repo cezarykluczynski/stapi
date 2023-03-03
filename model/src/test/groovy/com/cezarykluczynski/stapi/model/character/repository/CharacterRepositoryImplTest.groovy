@@ -3,13 +3,11 @@ package com.cezarykluczynski.stapi.model.character.repository
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
-import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation_
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.character.entity.Character_
 import com.cezarykluczynski.stapi.model.character.query.CharacterInitialQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.movie.entity.Movie_
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.title.entity.Title
@@ -91,7 +89,6 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.performers)
 		1 * characterQueryBuilder.fetch(Character_.episodes)
 		1 * characterQueryBuilder.fetch(Character_.movies)
-		1 * characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector)
 
 		then: 'page is retrieved'
 		1 * characterQueryBuilder.findPage() >> page
@@ -103,8 +100,6 @@ class CharacterRepositoryImplTest extends Specification {
 		then: 'character species and character relations fetch is performed'
 		1 * characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterSpecies)
 		1 * characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterRelations)
-		1 * characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source)
-		1 * characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target)
 
 		then: 'result list is retrieved'
 		1 * characterSpeciesAndRelationsQueryBuilder.findAll() >> Lists.newArrayList(characterSpeciesAndRelationsCharacter)

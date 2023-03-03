@@ -11,6 +11,7 @@ class DocumentationProviderTest extends Specification {
 	private static final String SWAGGER_DIRECTORY = 'SWAGGER_DIRECTORY'
 	private static final String TEMPORARY_DIRECTORY = 'TEMPORARY_DIRECTORY'
 	private static final String APPLIATION_TEST_PROPERTIES = 'application-test.properties'
+	private static final String EMPTY_TEST_RESOURCE = 'empty-test-resource.txt'
 
 	private DocumentationReader documentationReaderMock
 
@@ -79,10 +80,10 @@ class DocumentationProviderTest extends Specification {
 
 	void "provides zipped file using classpath resource"() {
 		given:
-		ClassPathResource classPathResource = new ClassPathResource(APPLIATION_TEST_PROPERTIES)
+		ClassPathResource classPathResource = new ClassPathResource(EMPTY_TEST_RESOURCE)
 
 		when:
-		Response response = documentationProvider.provideFile(classPathResource, APPLIATION_TEST_PROPERTIES)
+		Response response = documentationProvider.provideFile(classPathResource, EMPTY_TEST_RESOURCE)
 
 		then:
 		0 * _

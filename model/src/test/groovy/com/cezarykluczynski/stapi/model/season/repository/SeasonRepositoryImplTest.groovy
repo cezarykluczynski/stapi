@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.model.season.dto.SeasonRequestDTO
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.season.entity.Season_
 import com.cezarykluczynski.stapi.model.season.query.SeasonQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.util.AbstractSeasonTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -68,8 +67,6 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 		1 * seasonQueryBuilder.fetch(Season_.series)
 
 		then: 'fetch is performed with true flag'
-		1 * seasonQueryBuilder.fetch(Season_.series, Series_.originalBroadcaster, true)
-		1 * seasonQueryBuilder.fetch(Season_.series, Series_.productionCompany, true)
 		1 * seasonQueryBuilder.fetch(Season_.episodes, true)
 		1 * seasonQueryBuilder.fetch(Season_.videoReleases, true)
 

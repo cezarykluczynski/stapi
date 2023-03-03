@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.model.season.dto.SeasonRequestDTO;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.season.entity.Season_;
 import com.cezarykluczynski.stapi.model.season.query.SeasonQueryBuilderFactory;
-import com.cezarykluczynski.stapi.model.series.entity.Series_;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,8 +31,6 @@ public class SeasonRepositoryImpl extends AbstractRepositoryImpl<Season> impleme
 		seasonQueryBuilder.between(Season_.numberOfEpisodes, criteria.getNumberOfEpisodesFrom(), criteria.getNumberOfEpisodesTo());
 		seasonQueryBuilder.between(Season_.seasonNumber, criteria.getSeasonNumberFrom(), criteria.getSeasonNumberTo());
 		seasonQueryBuilder.fetch(Season_.series);
-		seasonQueryBuilder.fetch(Season_.series, Series_.originalBroadcaster, doFetch);
-		seasonQueryBuilder.fetch(Season_.series, Series_.productionCompany, doFetch);
 		seasonQueryBuilder.fetch(Season_.episodes, doFetch);
 		seasonQueryBuilder.fetch(Season_.videoReleases, doFetch);
 		seasonQueryBuilder.setSort(criteria.getSort());

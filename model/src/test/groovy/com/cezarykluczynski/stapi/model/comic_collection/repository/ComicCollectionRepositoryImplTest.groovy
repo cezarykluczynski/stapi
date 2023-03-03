@@ -51,6 +51,8 @@ class ComicCollectionRepositoryImplTest extends Specification {
 
 	private Set<ComicSeries> comicSeriesSet
 
+	private Set<ComicSeries> childComicSeriesSet
+
 	private Set<Company> publishersSet
 
 	private Set<Comics> comicsSet
@@ -81,6 +83,7 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		charactersReferencesComicCollection = Mock()
 		staffComicCollection = Mock()
 		comicSeriesSet = Mock()
+		childComicSeriesSet = Mock()
 		publishersSet = Mock()
 		comicsSet = Mock()
 		charactersSet = Mock()
@@ -117,6 +120,7 @@ class ComicCollectionRepositoryImplTest extends Specification {
 
 		then: 'comic series and publishers fetch is performed'
 		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comicSeries)
+		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.childComicSeries)
 		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.publishers)
 		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comics)
 
@@ -126,6 +130,8 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		then: 'comic series and publishers are set to comicCollection'
 		1 * comicSeriesPerformersComicCollection.comicSeries >> comicSeriesSet
 		1 * comicCollection.setComicSeries(comicSeriesSet)
+		1 * comicSeriesPerformersComicCollection.childComicSeries >> childComicSeriesSet
+		1 * comicCollection.setChildComicSeries(childComicSeriesSet)
 		1 * comicSeriesPerformersComicCollection.publishers >> publishersSet
 		1 * comicCollection.setPublishers(publishersSet)
 		1 * comicSeriesPerformersComicCollection.comics >> comicsSet
@@ -182,6 +188,7 @@ class ComicCollectionRepositoryImplTest extends Specification {
 
 		then: 'comic series and publishers fetch is performed'
 		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comicSeries)
+		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.childComicSeries)
 		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.publishers)
 		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comics)
 
@@ -250,6 +257,7 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		then: 'proxies are cleared'
 		1 * page.content >> Lists.newArrayList(comicCollection)
 		comicCollection.setComicSeries(Sets.newHashSet())
+		comicCollection.setChildComicSeries(Sets.newHashSet())
 		comicCollection.setWriters(Sets.newHashSet())
 		comicCollection.setArtists(Sets.newHashSet())
 		comicCollection.setEditors(Sets.newHashSet())

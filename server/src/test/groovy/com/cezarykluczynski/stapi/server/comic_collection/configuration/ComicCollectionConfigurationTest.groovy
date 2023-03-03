@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.comic_collection.configuration
 
 import com.cezarykluczynski.stapi.server.comic_collection.endpoint.ComicCollectionRestEndpoint
+import com.cezarykluczynski.stapi.server.comic_collection.endpoint.ComicCollectionV2RestEndpoint
 import com.cezarykluczynski.stapi.server.comic_collection.mapper.ComicCollectionBaseRestMapper
 import com.cezarykluczynski.stapi.server.comic_collection.mapper.ComicCollectionFullRestMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
@@ -27,6 +28,19 @@ class ComicCollectionConfigurationTest extends Specification {
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(ComicCollectionRestEndpoint, ComicCollectionRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
+	}
+
+	void "ComicCollection V2 REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = comicCollectionConfiguration.comicCollectionV2Server()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(ComicCollectionV2RestEndpoint, ComicCollectionV2RestEndpoint.ADDRESS) >> server
 		0 * _
 		serverOutput == server
 	}

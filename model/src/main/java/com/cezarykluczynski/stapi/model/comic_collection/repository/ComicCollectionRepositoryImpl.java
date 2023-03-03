@@ -49,6 +49,7 @@ public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicC
 					= createInitialComicCollectionQueryBuilder(criteria, pageable);
 
 			comicCollectionComicsSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comicSeries);
+			comicCollectionComicsSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.childComicSeries);
 			comicCollectionComicsSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.publishers);
 			comicCollectionComicsSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comics);
 
@@ -57,6 +58,7 @@ public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicC
 			if (comicCollectionComicSeriesPublishersComicsList.size() == 1) {
 				ComicCollection comicSeriesPublishersComicCollection = comicCollectionComicSeriesPublishersComicsList.get(0);
 				comicCollection.setComicSeries(comicSeriesPublishersComicCollection.getComicSeries());
+				comicCollection.setChildComicSeries(comicSeriesPublishersComicCollection.getChildComicSeries());
 				comicCollection.setPublishers(comicSeriesPublishersComicCollection.getPublishers());
 				comicCollection.setComics(comicSeriesPublishersComicCollection.getComics());
 			}
@@ -88,6 +90,7 @@ public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicC
 
 		page.getContent().forEach(comicCollection -> {
 			comicCollection.setComicSeries(Sets.newHashSet());
+			comicCollection.setChildComicSeries(Sets.newHashSet());
 			comicCollection.setWriters(Sets.newHashSet());
 			comicCollection.setArtists(Sets.newHashSet());
 			comicCollection.setEditors(Sets.newHashSet());

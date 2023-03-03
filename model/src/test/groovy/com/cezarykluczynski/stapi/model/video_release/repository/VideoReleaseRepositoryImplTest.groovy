@@ -2,9 +2,6 @@ package com.cezarykluczynski.stapi.model.video_release.repository
 
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.movie.entity.Movie_
-import com.cezarykluczynski.stapi.model.season.entity.Season_
-import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease_
@@ -81,12 +78,8 @@ class VideoReleaseRepositoryImplTest extends AbstractVideoReleaseTest {
 
 		then: 'fetch is performed'
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series, true)
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.productionCompany, true)
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.series, Series_.originalBroadcaster, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, true)
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, Season_.series, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.movies, true)
-		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.movies, Movie_.mainDirector, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.references, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.ratings, true)
 		1 * videoReleaseQueryBuilder.fetch(VideoRelease_.languages, true)

@@ -18,6 +18,8 @@ plugins {
 	id 'war'
 }
 
+def integrationTest = sourceSets.create('integrationTest')
+
 dependencies {
 	implementation project(':util'), project(':contract'), project(':model'), project(':etl'), project(':client')
 	implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
@@ -49,19 +51,34 @@ dependencies {
 	implementation group: 'org.glassfish', name: 'javax.json', version: javaxJsonApiVersion
 
 	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
-	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 	testImplementation project(':util').sourceSets.test.output
+
+	integrationTestImplementation project(':server').sourceSets.main.output
+	integrationTestImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
+	integrationTestImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+	integrationTestImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 }
 
 apply from: 'codeGen.gradle'
 
 configurations.implementation.exclude group: 'io.swagger'
+configurations[integrationTest.implementationConfigurationName].extendsFrom(configurations.implementation)
+configurations[integrationTest.implementationConfigurationName].extendsFrom(configurations.testImplementation)
+configurations[integrationTest.runtimeOnlyConfigurationName].extendsFrom(configurations.testRuntimeOnly)
 
 task copyDocs(type: CopyDocs) {}
 task copyResources(type: CopyResources) {}
 task dockerize(type: Dockerize) {}
 task npmBuild(type: NpmRunBuild) {}
+
+def integrationTestTask = tasks.register('integrationTest', Test) {
+	description = 'Runs integration tests.'
+	group = 'verification'
+	useJUnitPlatform()
+	testClassesDirs = integrationTest.output.classesDirs
+	classpath = configurations[integrationTest.runtimeClasspathConfigurationName] + integrationTest.output
+}
 
 copyDocs {
 	dependsOn(npmBuild)
