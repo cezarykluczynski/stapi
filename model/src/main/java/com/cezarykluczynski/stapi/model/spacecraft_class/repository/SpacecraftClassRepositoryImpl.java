@@ -36,8 +36,10 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owners, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operators, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, doFetch);
+		spacecraftClassQueryBuilder.divideQueries();
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, doFetch);
+		spacecraftClassQueryBuilder.divideQueries();
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
 

@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -18,11 +19,17 @@ import jakarta.persistence.metamodel.Attribute;
 import jakarta.persistence.metamodel.EntityType;
 import jakarta.persistence.metamodel.SetAttribute;
 import jakarta.persistence.metamodel.SingularAttribute;
+import lombok.SneakyThrows;
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.LazyInitializationException;
+import org.hibernate.query.sqm.tree.SqmCopyContext;
+import org.hibernate.query.sqm.tree.from.SqmRoot;
+import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -31,7 +38,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("ClassFanOutComplexity")
+@SuppressWarnings({"ClassFanOutComplexity", "MethodCount"})
 public class QueryBuilder<T> {
 
 	private static final String PERCENT_SIGN = "%";
@@ -49,19 +56,21 @@ public class QueryBuilder<T> {
 
 	private Root<T> baseRoot;
 
+	private List<Root<T>> baseRoots = Lists.newArrayList();
+
 	private Root<T> countBaseRoot;
 
 	private CriteriaQuery<Long> countCriteriaQuery;
 
 	private CriteriaQuery<T> baseCriteriaQuery;
 
+	private List<CriteriaQuery<T>> baseCriteriaQueries = Lists.newArrayList();
+
 	private List<Predicate> predicateList;
 
 	private List<Predicate> countPredicateList;
 
 	private Set<Attribute<? super T, ?>> attributeSet;
-
-	private TypedQuery<T> baseTypedQuery;
 
 	private TypedQuery<Long> countTypedQuery;
 
@@ -263,6 +272,58 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	// The purpose of this method is to create another query after previously declared fetches,
+	// effectively dealing with Cartesian Product Problem by breaking query into several smaller queries.
+	// However, maybe a better name could be found.
+	public QueryBuilder<T> divideQueries() {
+		return divideQueries(false);
+	}
+
+	@SneakyThrows
+	@SuppressWarnings("NPathComplexity")
+	private QueryBuilder<T> divideQueries(boolean finishingCall) {
+		if (!singleEntitySearch) {
+			return this;
+		}
+		if (finishingCall && baseRoots.isEmpty() && baseCriteriaQueries.isEmpty()) {
+			return this;
+		}
+		SqmCopyContext sqmCopyContext = SqmCopyContext.simpleContext();
+		if (finishingCall) {
+			baseRoots.add(baseRoot);
+			baseCriteriaQueries.add(baseCriteriaQuery);
+			return this;
+		}
+		if (baseRoot instanceof SqmRoot) {
+			final SqmRoot<T> baseRootCopy = ((SqmRoot<T>) baseRoot).copy(sqmCopyContext);
+			try {
+				final Field field = baseRootCopy.getClass().getSuperclass().getDeclaredField("joins");
+				field.setAccessible(true);
+				final List value = (List) field.get(baseRootCopy);
+				if (value == null || value.isEmpty()) {
+					// no more fetches, a legitimate search that should not be split
+					return this;
+				}
+				value.clear();
+			} catch (NoSuchFieldException e) {
+				// ony happen in tests, ignore
+			}
+			baseRoots.add(baseRoot);
+			baseRoot = baseRootCopy;
+			if (baseCriteriaQuery instanceof SqmSelectStatement) {
+				final SqmSelectStatement<T> baseCriteriaQueryCopy = ((SqmSelectStatement<T>) baseCriteriaQuery).copy(sqmCopyContext);
+				baseCriteriaQueryCopy.select(baseRootCopy);
+				baseCriteriaQueries.add(baseCriteriaQuery);
+				baseCriteriaQuery = baseCriteriaQueryCopy;
+			} else {
+				throw new RuntimeException("Wrong implementation! Expected baseCriteriaQuery to be of type SqmSelectStatement.");
+			}
+		} else {
+			throw new RuntimeException("Wrong implementation! Expected baseRoot to be of type SqmRoot.");
+		}
+		return this;
+	}
+
 	public Page<T> findPage() {
 		return findResults();
 	}
@@ -289,21 +350,81 @@ public class QueryBuilder<T> {
 		attributeSet = entityType.getAttributes();
 	}
 
-	@SuppressWarnings("VariableDeclarationUsageDistance")
+	@SneakyThrows
+	@SuppressWarnings({"VariableDeclarationUsageDistance", "CyclomaticComplexity", "HiddenField", "NPathComplexity"})
 	private Page<T> findResults() {
-		if (predicateList.size() > 0) {
-			Predicate predicate = criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
-			baseCriteriaQuery.where(predicate);
+		divideQueries(true);
+		if (baseCriteriaQueries.isEmpty()) {
+			baseCriteriaQueries.add(baseCriteriaQuery);
 		}
+		if (baseRoots.isEmpty()) {
+			baseRoots.add(baseRoot);
+		}
+		int pageSize;
+		int pageNumber;
+		if (singleEntitySearch) {
+			// just to be sure
+			pageSize = 1;
+			pageNumber = 0;
+		} else {
+			pageSize = pageable.getPageSize();
+			pageNumber = pageable.getPageNumber();
+		}
+		List<T> baseEntityList = List.of();
+		for (int i = 0; i < baseCriteriaQueries.size(); i++) {
+			TypedQuery<T> baseTypedQuery;
+			CriteriaQuery<T> baseCriteriaQuery = baseCriteriaQueries.get(i);
+			if (predicateList.size() > 0) {
+				Predicate predicate = criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+				baseCriteriaQuery.where(predicate);
+			}
+			baseCriteriaQuery.orderBy(getOrderByList());
+			baseTypedQuery = entityManager.createQuery(baseCriteriaQuery);
+			baseTypedQuery.setMaxResults(pageSize);
+			baseTypedQuery.setFirstResult(pageSize * pageNumber);
+			baseTypedQuery.setHint(HIBERNATE_CACHEABLE, false); // caching done on CriteriaMatcher interface level
+			List<T> localBaseEntityList = baseTypedQuery.getResultList();
+			if (i == 0) {
+				baseEntityList = localBaseEntityList;
+			} else if (baseEntityList.size() == 1 && singleEntitySearch) {
+				T nextEntity = localBaseEntityList.get(0);
+				T entity = baseEntityList.get(0);
+				final Field[] declaredFields = entity.getClass().getDeclaredFields();
+				for (Field field : declaredFields) {
+					if (Set.class.isAssignableFrom(field.getType())) {
+						field.setAccessible(true);
+						Set entitySet = (Set) field.get(entity);
+						Set nextEntitySet = (Set) field.get(nextEntity);
+						boolean entityError = false;
 
-		int pageSize = pageable.getPageSize();
-		int pageNumber = pageable.getPageNumber();
-		baseCriteriaQuery.orderBy(getOrderByList());
-		baseTypedQuery = entityManager.createQuery(baseCriteriaQuery);
-		baseTypedQuery.setMaxResults(pageSize);
-		baseTypedQuery.setFirstResult(pageSize * pageNumber);
-		baseTypedQuery.setHint(HIBERNATE_CACHEABLE, singleEntitySearch);
-		List<T> baseEntityList = baseTypedQuery.getResultList();
+						int entitySetSize = 0;
+						int nextEntitySetSize = 0;
+						try {
+							entitySetSize = entitySet.size();
+						} catch (LazyInitializationException ignore) {
+							entityError = true;
+						}
+						try {
+							nextEntitySetSize = nextEntitySet.size();
+						} catch (LazyInitializationException ignore) {
+							// do nothing
+						}
+
+						if (nextEntitySetSize > 0 && entitySetSize == 0) {
+							field.set(entity, nextEntitySet);
+						} else if (nextEntitySetSize == 0 && entityError) {
+							field.set(entity, Sets.newHashSet());
+						} else if (nextEntitySetSize > 0 && entitySetSize > 0) {
+							if (nextEntitySetSize == entitySetSize) {
+								throw new RuntimeException("Misconfigured: nextEntitySetSize == entitySetSize, but non-zero.");
+							} else {
+								throw new RuntimeException("Misconfigured: nextEntitySetSize != entitySetSize, but non-zero.");
+							}
+						}
+					}
+				}
+			}
+		}
 
 		Long count;
 		if (pageSize > baseEntityList.size() && pageNumber == 0 || singleEntitySearch) {

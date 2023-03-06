@@ -3,32 +3,24 @@ package com.cezarykluczynski.stapi.model.book.repository
 import com.cezarykluczynski.stapi.model.book.dto.BookRequestDTO
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.book.entity.Book_
-import com.cezarykluczynski.stapi.model.book.query.BookInitialQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection
-import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
-import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.book.query.BookQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.company.entity.Company
-import com.cezarykluczynski.stapi.model.reference.entity.Reference
+import com.cezarykluczynski.stapi.util.AbstractBookTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import spock.lang.Specification
 
-class BookRepositoryImplTest extends Specification {
+class BookRepositoryImplTest extends AbstractBookTest {
 
-	private static final String UID = 'ABCD0123456789'
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
-	private BookInitialQueryBuilderFactory bookInitialQueryBuilderFactory
+	private BookQueryBuilderFactory bookQueryBuilderFactory
 
 	private BookRepositoryImpl bookRepositoryImpl
 
 	private QueryBuilder<Book> bookQueryBuilder
-
-	private QueryBuilder<Book> bookBookSeriesBookCollectionsPublishersQueryBuilder
-
-	private QueryBuilder<Book> bookCharactersReferencesQueryBuilder
 
 	private Pageable pageable
 
@@ -36,51 +28,16 @@ class BookRepositoryImplTest extends Specification {
 
 	private Book book
 
-	private Book bookBookSeriesPublishersBook
-
-	private Book charactersReferencesBook
-
 	private Page page
 
-	private Page performersPage
-
-	private Page charactersPage
-
-	private Set<BookSeries> bookSeriesSet
-
-	private Set<Company> publishersSet
-
-	private Set<Character> charactersSet
-
-	private Set<Reference> referencesSet
-
-	private Set<Reference> audiobookReferencesSet
-
-	private Set<Company> audiobookPublishersSet
-
-	private Set<BookCollection> bookCollectionsSet
-
 	void setup() {
-		bookInitialQueryBuilderFactory = Mock()
-		bookRepositoryImpl = new BookRepositoryImpl(bookInitialQueryBuilderFactory)
+		bookQueryBuilderFactory = Mock()
+		bookRepositoryImpl = new BookRepositoryImpl(bookQueryBuilderFactory)
 		bookQueryBuilder = Mock()
-		bookBookSeriesBookCollectionsPublishersQueryBuilder = Mock()
-		bookCharactersReferencesQueryBuilder = Mock()
 		pageable = Mock()
 		bookRequestDTO = Mock()
 		page = Mock()
-		performersPage = Mock()
-		charactersPage = Mock()
 		book = Mock()
-		bookBookSeriesPublishersBook = Mock()
-		charactersReferencesBook = Mock()
-		bookSeriesSet = Mock()
-		publishersSet = Mock()
-		charactersSet = Mock()
-		referencesSet = Mock()
-		audiobookReferencesSet = Mock()
-		audiobookPublishersSet = Mock()
-		bookCollectionsSet = Mock()
 	}
 
 	void "query is built and performed"() {
@@ -88,140 +45,88 @@ class BookRepositoryImplTest extends Specification {
 		Page pageOutput = bookRepositoryImpl.findMatching(bookRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookQueryBuilder
+		1 * bookQueryBuilderFactory.createQueryBuilder(pageable) >> bookQueryBuilder
 
-		then: 'uid is retrieved, and it is not null'
+		then: 'uid criteria is set'
 		1 * bookRequestDTO.uid >> UID
+		1 * bookQueryBuilder.equal(Book_.uid, UID)
 
-		then: 'staff fetch is performed'
-		1 * bookQueryBuilder.fetch(Book_.authors)
-		1 * bookQueryBuilder.fetch(Book_.artists)
-		1 * bookQueryBuilder.fetch(Book_.editors)
-		1 * bookQueryBuilder.fetch(Book_.audiobookNarrators)
+		then: 'string criteria are set'
+		1 * bookRequestDTO.title >> TITLE
+		1 * bookQueryBuilder.like(Book_.title, TITLE)
+
+		then: 'integer criteria are set'
+		1 * bookRequestDTO.publishedYearFrom >> PUBLISHED_YEAR_FROM
+		1 * bookRequestDTO.publishedYearTo >> PUBLISHED_YEAR_TO
+		1 * bookQueryBuilder.between(Book_.publishedYear, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO)
+		1 * bookRequestDTO.numberOfPagesFrom >> NUMBER_OF_PAGES_FROM
+		1 * bookRequestDTO.numberOfPagesTo >> NUMBER_OF_PAGES_TO
+		1 * bookQueryBuilder.between(Book_.numberOfPages, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO)
+
+		1 * bookRequestDTO.yearFrom >> YEAR_FROM
+		1 * bookQueryBuilder.between(Book_.yearFrom, YEAR_FROM, null)
+		1 * bookRequestDTO.yearTo >> YEAR_TO
+		1 * bookQueryBuilder.between(Book_.yearTo, null, YEAR_TO)
+
+		1 * bookRequestDTO.audiobookPublishedYearFrom >> AUDIOBOOK_PUBLISHED_YEAR_FROM
+		1 * bookRequestDTO.audiobookPublishedYearTo >> AUDIOBOOK_PUBLISHED_YEAR_TO
+		1 * bookQueryBuilder.between(Book_.audiobookPublishedYear, AUDIOBOOK_PUBLISHED_YEAR_FROM, AUDIOBOOK_PUBLISHED_YEAR_TO)
+		1 * bookRequestDTO.audiobookRunTimeFrom >> AUDIOBOOK_RUN_TIME_FROM
+		1 * bookRequestDTO.audiobookRunTimeTo >> AUDIOBOOK_RUN_TIME_TO
+		1 * bookQueryBuilder.between(Book_.audiobookRunTime, AUDIOBOOK_RUN_TIME_FROM, AUDIOBOOK_RUN_TIME_TO)
+
+		then: 'float criteria are set'
+		1 * bookRequestDTO.stardateFrom >> STARDATE_FROM
+		1 * bookQueryBuilder.between(Book_.stardateFrom, STARDATE_FROM, null)
+		1 * bookRequestDTO.stardateTo >> STARDATE_TO
+		1 * bookQueryBuilder.between(Book_.stardateTo, null, STARDATE_TO)
+
+		then: 'boolean criteria are set'
+		1 * bookRequestDTO.novel >> NOVEL
+		1 * bookQueryBuilder.equal(Book_.novel, NOVEL)
+		1 * bookRequestDTO.referenceBook >> REFERENCE_BOOK
+		1 * bookQueryBuilder.equal(Book_.referenceBook, REFERENCE_BOOK)
+		1 * bookRequestDTO.biographyBook >> BIOGRAPHY_BOOK
+		1 * bookQueryBuilder.equal(Book_.biographyBook, BIOGRAPHY_BOOK)
+		1 * bookRequestDTO.rolePlayingBook >> ROLE_PLAYING_BOOK
+		1 * bookQueryBuilder.equal(Book_.rolePlayingBook, ROLE_PLAYING_BOOK)
+		1 * bookRequestDTO.EBook >> E_BOOK
+		1 * bookQueryBuilder.equal(Book_.eBook, E_BOOK)
+		1 * bookRequestDTO.anthology >> ANTHOLOGY
+		1 * bookQueryBuilder.equal(Book_.anthology, ANTHOLOGY)
+		1 * bookRequestDTO.unauthorizedPublication >> UNAUTHORIZED_PUBLICATION
+		1 * bookQueryBuilder.equal(Book_.unauthorizedPublication, UNAUTHORIZED_PUBLICATION)
+		1 * bookRequestDTO.novelization >> NOVELIZATION
+		1 * bookQueryBuilder.equal(Book_.novelization, NOVELIZATION)
+		1 * bookRequestDTO.audiobook >> AUDIOBOOK
+		1 * bookQueryBuilder.equal(Book_.audiobook, AUDIOBOOK)
+		1 * bookRequestDTO.audiobookAbridged >> AUDIOBOOK_ABRIDGED
+		1 * bookQueryBuilder.equal(Book_.audiobookAbridged, AUDIOBOOK_ABRIDGED)
+
+		then: 'sort is set'
+		1 * bookRequestDTO.sort >> SORT
+		1 * bookQueryBuilder.setSort(SORT)
+
+		then: 'fetch is performed'
+		1 * bookQueryBuilder.fetch(Book_.authors, true)
+		1 * bookQueryBuilder.fetch(Book_.artists, true)
+		1 * bookQueryBuilder.divideQueries()
+		1 * bookQueryBuilder.fetch(Book_.editors, true)
+		1 * bookQueryBuilder.fetch(Book_.audiobookNarrators, true)
+		1 * bookQueryBuilder.divideQueries()
+		1 * bookQueryBuilder.fetch(Book_.bookSeries, true)
+		1 * bookQueryBuilder.fetch(Book_.publishers, true)
+		1 * bookQueryBuilder.divideQueries()
+		1 * bookQueryBuilder.fetch(Book_.audiobookPublishers, true)
+		1 * bookQueryBuilder.fetch(Book_.bookCollections, true)
+		1 * bookQueryBuilder.divideQueries()
+		1 * bookQueryBuilder.fetch(Book_.characters, true)
+		1 * bookQueryBuilder.divideQueries()
+		1 * bookQueryBuilder.fetch(Book_.references, true)
+		1 * bookQueryBuilder.fetch(Book_.audiobookReferences, true)
 
 		then: 'page is retrieved'
 		1 * bookQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(book)
-
-		then: 'another criteria builder is retrieved for book series and publishers'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >>
-				bookBookSeriesBookCollectionsPublishersQueryBuilder
-
-		then: 'book series, and publishers fetch is performed'
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookSeries)
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.publishers)
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.audiobookPublishers)
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookCollections)
-
-		then: 'book series and publishers list is retrieved'
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.findAll() >> Lists.newArrayList(bookBookSeriesPublishersBook)
-
-		then: 'book series and publishers are set to book'
-		1 * bookBookSeriesPublishersBook.bookSeries >> bookSeriesSet
-		1 * book.setBookSeries(bookSeriesSet)
-		1 * bookBookSeriesPublishersBook.publishers >> publishersSet
-		1 * book.setPublishers(publishersSet)
-		1 * bookBookSeriesPublishersBook.audiobookPublishers >> audiobookPublishersSet
-		1 * book.setAudiobookPublishers(audiobookPublishersSet)
-		1 * bookBookSeriesPublishersBook.bookCollections >> bookCollectionsSet
-		1 * book.setBookCollections(bookCollectionsSet)
-
-		then: 'another criteria builder is retrieved for characters and references'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookCharactersReferencesQueryBuilder
-
-		then: 'characters and references fetch is performed'
-		1 * bookCharactersReferencesQueryBuilder.fetch(Book_.characters)
-		1 * bookCharactersReferencesQueryBuilder.fetch(Book_.references)
-		1 * bookCharactersReferencesQueryBuilder.fetch(Book_.audiobookReferences)
-
-		then: 'characters and references list is retrieved'
-		1 * bookCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList(charactersReferencesBook)
-
-		then: 'characters and references are set to book'
-		1 * charactersReferencesBook.characters >> charactersSet
-		1 * book.setCharacters(charactersSet)
-		1 * charactersReferencesBook.references >> referencesSet
-		1 * book.setReferences(referencesSet)
-		1 * charactersReferencesBook.audiobookReferences >> audiobookReferencesSet
-		1 * book.setAudiobookReferences(audiobookReferencesSet)
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "query is built and performed without results from additional queries"() {
-		when:
-		Page pageOutput = bookRepositoryImpl.findMatching(bookRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * bookRequestDTO.uid >> UID
-
-		then: 'staff fetch is performed'
-		1 * bookQueryBuilder.fetch(Book_.authors)
-		1 * bookQueryBuilder.fetch(Book_.artists)
-		1 * bookQueryBuilder.fetch(Book_.editors)
-		1 * bookQueryBuilder.fetch(Book_.audiobookNarrators)
-
-		then: 'page is retrieved'
-		1 * bookQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(book)
-
-		then: 'another criteria builder is retrieved for book series and publishers'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >>
-				bookBookSeriesBookCollectionsPublishersQueryBuilder
-
-		then: 'book series and publishers fetch is performed'
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookSeries)
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.publishers)
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.audiobookPublishers)
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookCollections)
-
-		then: 'empty book series and publishers list is retrieved'
-		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'another criteria builder is retrieved for characters and references'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookCharactersReferencesQueryBuilder
-
-		then: 'characters and references fetch is performed'
-		1 * bookCharactersReferencesQueryBuilder.fetch(Book_.characters)
-		1 * bookCharactersReferencesQueryBuilder.fetch(Book_.references)
-		1 * bookCharactersReferencesQueryBuilder.fetch(Book_.audiobookReferences)
-
-		then: 'empty characters and references list is retrieved'
-		1 * bookCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "empty page is returned"() {
-		when:
-		Page pageOutput = bookRepositoryImpl.findMatching(bookRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * bookRequestDTO.uid >> UID
-
-		then: 'staff fetch is performed'
-		1 * bookQueryBuilder.fetch(Book_.authors)
-		1 * bookQueryBuilder.fetch(Book_.artists)
-		1 * bookQueryBuilder.fetch(Book_.editors)
-		1 * bookQueryBuilder.fetch(Book_.audiobookNarrators)
-
-		then: 'page is retrieved'
-		1 * bookQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList()
 
 		then: 'page is returned'
 		pageOutput == page
@@ -235,7 +140,7 @@ class BookRepositoryImplTest extends Specification {
 		Page pageOutput = bookRepositoryImpl.findMatching(bookRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookQueryBuilder
+		1 * bookQueryBuilderFactory.createQueryBuilder(pageable) >> bookQueryBuilder
 
 		then: 'uid criteria is set to null'
 		1 * bookRequestDTO.uid >> null

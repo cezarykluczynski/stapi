@@ -22,6 +22,15 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractEndpointInte
 		astronomicalObjectV2FullResponse.astronomicalObject.name == 'Omicron Ceti III'
 	}
 
+	void "gets Alpha Quadrant by UID"() {
+		when:
+		AstronomicalObjectV2FullResponse astronomicalObjectV2FullResponse = stapiRestClient.astronomicalObject.getV2('ASMA0000025892')
+
+		then:
+		astronomicalObjectV2FullResponse.astronomicalObject.name == 'Alpha Quadrant'
+		astronomicalObjectV2FullResponse.astronomicalObject.astronomicalObjects.size() > 740
+	}
+
 	void "finds Tarok by astronomical object type"() {
 		given:
 		AstronomicalObjectV2SearchCriteria astronomicalObjectV2SearchCriteria = new AstronomicalObjectV2SearchCriteria(

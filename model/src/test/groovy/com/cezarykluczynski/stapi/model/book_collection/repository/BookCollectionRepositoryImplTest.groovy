@@ -1,35 +1,26 @@
 package com.cezarykluczynski.stapi.model.book_collection.repository
 
-import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.book_collection.dto.BookCollectionRequestDTO
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection_
-import com.cezarykluczynski.stapi.model.book_collection.query.BookCollectionInitialQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
-import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.book_collection.query.BookCollectionQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.company.entity.Company
-import com.cezarykluczynski.stapi.model.reference.entity.Reference
-import com.cezarykluczynski.stapi.model.staff.entity.Staff
+import com.cezarykluczynski.stapi.util.AbstractBookCollectionTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import spock.lang.Specification
 
-class BookCollectionRepositoryImplTest extends Specification {
+class BookCollectionRepositoryImplTest extends AbstractBookCollectionTest {
 
-	private static final String UID = 'ABCD0123456789'
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
-	private BookCollectionInitialQueryBuilderFactory bookCollectionInitialQueryBuilderFactory
+	private BookCollectionQueryBuilderFactory bookCollectionQueryBuilderFactory
 
 	private BookCollectionRepositoryImpl bookCollectionRepositoryImpl
 
 	private QueryBuilder<BookCollection> bookCollectionQueryBuilder
-
-	private QueryBuilder<BookCollection> bookCollectionComicSeriesPublishersComicsQueryBuilder
-
-	private QueryBuilder<BookCollection> bookCollectionCharactersReferencesQueryBuilder
 
 	private Pageable pageable
 
@@ -37,57 +28,16 @@ class BookCollectionRepositoryImplTest extends Specification {
 
 	private BookCollection bookCollection
 
-	private BookCollection comicSeriesPerformersBookCollection
-
-	private BookCollection charactersReferencesBookCollection
-
-	private BookCollection staffBookCollection
-
 	private Page page
 
-	private Page performersPage
-
-	private Page charactersPage
-
-	private Set<BookSeries> bookSeriesSet
-
-	private Set<Company> publishersSet
-
-	private Set<Book> booksSet
-
-	private Set<Character> charactersSet
-
-	private Set<Reference> referencesSet
-
-	private Set<Staff> authorsSet
-
-	private Set<Staff> artistsSet
-
-	private Set<Staff> editorsSet
-
 	void setup() {
-		bookCollectionInitialQueryBuilderFactory = Mock()
-		bookCollectionRepositoryImpl = new BookCollectionRepositoryImpl(bookCollectionInitialQueryBuilderFactory)
+		bookCollectionQueryBuilderFactory = Mock()
+		bookCollectionRepositoryImpl = new BookCollectionRepositoryImpl(bookCollectionQueryBuilderFactory)
 		bookCollectionQueryBuilder = Mock()
-		bookCollectionComicSeriesPublishersComicsQueryBuilder = Mock()
-		bookCollectionCharactersReferencesQueryBuilder = Mock()
 		pageable = Mock()
 		bookCollectionRequestDTO = Mock()
 		page = Mock()
-		performersPage = Mock()
-		charactersPage = Mock()
 		bookCollection = Mock()
-		comicSeriesPerformersBookCollection = Mock()
-		charactersReferencesBookCollection = Mock()
-		staffBookCollection = Mock()
-		bookSeriesSet = Mock()
-		publishersSet = Mock()
-		booksSet = Mock()
-		charactersSet = Mock()
-		referencesSet = Mock()
-		authorsSet = Mock()
-		artistsSet = Mock()
-		editorsSet = Mock()
 	}
 
 	void "query is built and performed"() {
@@ -95,134 +45,55 @@ class BookCollectionRepositoryImplTest extends Specification {
 		Page pageOutput = bookCollectionRepositoryImpl.findMatching(bookCollectionRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionQueryBuilder
+		1 * bookCollectionQueryBuilderFactory.createQueryBuilder(pageable) >> bookCollectionQueryBuilder
 
-		then: 'uid is retrieved, and it is not null'
+		then: 'uid criteria is set'
 		1 * bookCollectionRequestDTO.uid >> UID
+		1 * bookCollectionQueryBuilder.equal(BookCollection_.uid, UID)
 
-		then: 'staff fetch is performed'
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.authors)
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.artists)
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.editors)
+		then: 'string criteria are set'
+		1 * bookCollectionRequestDTO.title >> TITLE
+		1 * bookCollectionQueryBuilder.like(BookCollection_.title, TITLE)
+
+		then: 'integer criteria are set'
+		1 * bookCollectionRequestDTO.publishedYearFrom >> PUBLISHED_YEAR_FROM
+		1 * bookCollectionRequestDTO.publishedYearTo >> PUBLISHED_YEAR_TO
+		1 * bookCollectionQueryBuilder.between(BookCollection_.publishedYear, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO)
+		1 * bookCollectionRequestDTO.numberOfPagesFrom >> NUMBER_OF_PAGES_FROM
+		1 * bookCollectionRequestDTO.numberOfPagesTo >> NUMBER_OF_PAGES_TO
+		1 * bookCollectionQueryBuilder.between(BookCollection_.numberOfPages, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO)
+
+		1 * bookCollectionRequestDTO.yearFrom >> YEAR_FROM
+		1 * bookCollectionQueryBuilder.between(BookCollection_.yearFrom, YEAR_FROM, null)
+		1 * bookCollectionRequestDTO.yearTo >> YEAR_TO
+		1 * bookCollectionQueryBuilder.between(BookCollection_.yearTo, null, YEAR_TO)
+
+		then: 'float criteria are set'
+		1 * bookCollectionRequestDTO.stardateFrom >> STARDATE_FROM
+		1 * bookCollectionQueryBuilder.between(BookCollection_.stardateFrom, STARDATE_FROM, null)
+		1 * bookCollectionRequestDTO.stardateTo >> STARDATE_TO
+		1 * bookCollectionQueryBuilder.between(BookCollection_.stardateTo, null, STARDATE_TO)
+
+		then: 'sort is set'
+		1 * bookCollectionRequestDTO.sort >> SORT
+		1 * bookCollectionQueryBuilder.setSort(SORT)
+
+		then: 'fetch is performed'
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.authors, true)
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.artists, true)
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.editors, true)
+		1 * bookCollectionQueryBuilder.divideQueries()
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.bookSeries, true)
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.publishers, true)
+		1 * bookCollectionQueryBuilder.divideQueries()
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.books, true)
+		1 * bookCollectionQueryBuilder.divideQueries()
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.characters, true)
+		1 * bookCollectionQueryBuilder.divideQueries()
+		1 * bookCollectionQueryBuilder.fetch(BookCollection_.references, true)
 
 		then: 'page is retrieved'
 		1 * bookCollectionQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(bookCollection)
-
-		then: 'another criteria builder is retrieved for comic series, publishers, and comics'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionComicSeriesPublishersComicsQueryBuilder
-
-		then: 'comic series and publishers fetch is performed'
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.fetch(BookCollection_.bookSeries)
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.fetch(BookCollection_.publishers)
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.fetch(BookCollection_.books)
-
-		then: 'comic series and publishers list is retrieved'
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.findAll() >> Lists.newArrayList(comicSeriesPerformersBookCollection)
-
-		then: 'comic series and publishers are set to bookCollection'
-		1 * comicSeriesPerformersBookCollection.bookSeries >> bookSeriesSet
-		1 * bookCollection.setBookSeries(bookSeriesSet)
-		1 * comicSeriesPerformersBookCollection.publishers >> publishersSet
-		1 * bookCollection.setPublishers(publishersSet)
-		1 * comicSeriesPerformersBookCollection.books >> booksSet
-		1 * bookCollection.setBooks(booksSet)
-
-		then: 'another criteria builder is retrieved for characters and references'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionCharactersReferencesQueryBuilder
-
-		then: 'characters and references fetch is performed'
-		1 * bookCollectionCharactersReferencesQueryBuilder.fetch(BookCollection_.characters)
-		1 * bookCollectionCharactersReferencesQueryBuilder.fetch(BookCollection_.references)
-
-		then: 'characters and references list is retrieved'
-		1 * bookCollectionCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList(charactersReferencesBookCollection)
-
-		then: 'characters and references are set to bookCollection'
-		1 * charactersReferencesBookCollection.characters >> charactersSet
-		1 * bookCollection.setCharacters(charactersSet)
-		1 * charactersReferencesBookCollection.references >> referencesSet
-		1 * bookCollection.setReferences(referencesSet)
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "query is built and performed without results from additional queries"() {
-		when:
-		Page pageOutput = bookCollectionRepositoryImpl.findMatching(bookCollectionRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * bookCollectionRequestDTO.uid >> UID
-
-		then: 'staff fetch is performed'
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.authors)
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.artists)
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.editors)
-
-		then: 'page is retrieved'
-		1 * bookCollectionQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(bookCollection)
-
-		then: 'another criteria builder is retrieved for comic series and publishers'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionComicSeriesPublishersComicsQueryBuilder
-
-		then: 'comic series and publishers fetch is performed'
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.fetch(BookCollection_.bookSeries)
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.fetch(BookCollection_.publishers)
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.fetch(BookCollection_.books)
-
-		then: 'empty comic series and publishers list is retrieved'
-		1 * bookCollectionComicSeriesPublishersComicsQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'another criteria builder is retrieved for characters and references'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionCharactersReferencesQueryBuilder
-
-		then: 'characters and references fetch is performed'
-		1 * bookCollectionCharactersReferencesQueryBuilder.fetch(BookCollection_.characters)
-		1 * bookCollectionCharactersReferencesQueryBuilder.fetch(BookCollection_.references)
-
-		then: 'empty characters and references list is retrieved'
-		1 * bookCollectionCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "empty page is returned"() {
-		when:
-		Page pageOutput = bookCollectionRepositoryImpl.findMatching(bookCollectionRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >>
-				bookCollectionQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * bookCollectionRequestDTO.uid >> UID
-
-		then: 'staff fetch is performed'
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.authors)
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.artists)
-		1 * bookCollectionQueryBuilder.fetch(BookCollection_.editors)
-
-		then: 'page is retrieved'
-		1 * bookCollectionQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList()
 
 		then: 'page is returned'
 		pageOutput == page
@@ -236,7 +107,7 @@ class BookCollectionRepositoryImplTest extends Specification {
 		Page pageOutput = bookCollectionRepositoryImpl.findMatching(bookCollectionRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * bookCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(bookCollectionRequestDTO, pageable) >> bookCollectionQueryBuilder
+		1 * bookCollectionQueryBuilderFactory.createQueryBuilder(pageable) >> bookCollectionQueryBuilder
 
 		then: 'uid criteria is set to null'
 		1 * bookCollectionRequestDTO.uid >> null
@@ -246,14 +117,14 @@ class BookCollectionRepositoryImplTest extends Specification {
 
 		then: 'proxies are cleared'
 		1 * page.content >> Lists.newArrayList(bookCollection)
-		bookCollection.setBookSeries(Sets.newHashSet())
-		bookCollection.setAuthors(Sets.newHashSet())
-		bookCollection.setArtists(Sets.newHashSet())
-		bookCollection.setEditors(Sets.newHashSet())
-		bookCollection.setPublishers(Sets.newHashSet())
-		bookCollection.setCharacters(Sets.newHashSet())
-		bookCollection.setReferences(Sets.newHashSet())
-		bookCollection.setBooks(Sets.newHashSet())
+		1 * bookCollection.setBookSeries(Sets.newHashSet())
+		1 * bookCollection.setAuthors(Sets.newHashSet())
+		1 * bookCollection.setArtists(Sets.newHashSet())
+		1 * bookCollection.setEditors(Sets.newHashSet())
+		1 * bookCollection.setPublishers(Sets.newHashSet())
+		1 * bookCollection.setCharacters(Sets.newHashSet())
+		1 * bookCollection.setReferences(Sets.newHashSet())
+		1 * bookCollection.setBooks(Sets.newHashSet())
 		pageOutput == page
 	}
 

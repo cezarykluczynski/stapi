@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.model.species.repository;
 
-import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject_;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
@@ -33,6 +32,7 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 	}
 
 	@Override
+	@SuppressWarnings("VariableDeclarationUsageDistance")
 	public Page<Species> findMatching(SpeciesRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Species> speciesQueryBuilder = speciesQueryBuilderFactory.createQueryBuilder(pageable);
 		String uid = criteria.getUid();
@@ -55,9 +55,7 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 		speciesQueryBuilder.equal(Species_.alternateReality, criteria.getAlternateReality());
 		speciesQueryBuilder.setSort(criteria.getSort());
 		speciesQueryBuilder.fetch(Species_.homeworld);
-		speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, doFetch);
 		speciesQueryBuilder.fetch(Species_.quadrant);
-		speciesQueryBuilder.fetch(Species_.quadrant, AstronomicalObject_.location, doFetch);
 
 		Page<Species> performerPage = speciesQueryBuilder.findPage();
 		fetchCharacters(performerPage, doFetch);

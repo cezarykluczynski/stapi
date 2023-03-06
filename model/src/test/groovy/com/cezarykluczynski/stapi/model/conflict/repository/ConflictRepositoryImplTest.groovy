@@ -83,6 +83,7 @@ class ConflictRepositoryImplTest extends AbstractConflictTest {
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideBelligerents, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideLocations, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.firstSideCommanders, true)
+		1 * conflictQueryBuilder.divideQueries()
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideBelligerents, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideLocations, true)
 		1 * conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, true)

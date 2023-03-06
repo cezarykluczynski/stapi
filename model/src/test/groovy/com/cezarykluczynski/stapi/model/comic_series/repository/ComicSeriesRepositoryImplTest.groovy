@@ -91,6 +91,7 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.parentSeries, true)
 		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.childSeries, true)
 		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.publishers, true)
+		1 * comicSeriesQueryBuilder.divideQueries()
 		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.comics, true)
 
 		then: 'page is retrieved'

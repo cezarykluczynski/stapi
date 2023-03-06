@@ -2,7 +2,7 @@
 touch /tmp/postgres.log
 /usr/local/bin/docker-entrypoint.sh postgres > /tmp/postgres.log &
 while true ; do
-  result=$(grep -nE 'ready to accept connections' /tmp/postgres.log)
+  result=$(grep -nE 'PostgreSQL init process complete; ready for start up' /tmp/postgres.log)
   echo "Waiting for DB to start..."
   if [[ "$result" == *"ready"* ]]; then
     echo "DB started."

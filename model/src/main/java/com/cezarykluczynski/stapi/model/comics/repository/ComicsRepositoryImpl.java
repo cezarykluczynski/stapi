@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.model.comics.repository;
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics_;
-import com.cezarykluczynski.stapi.model.comics.query.ComicsInitialQueryBuilderFactory;
+import com.cezarykluczynski.stapi.model.comics.query.ComicsQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.google.common.collect.Sets;
@@ -11,70 +11,47 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> implements ComicsRepositoryCustom {
 
-	private final ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory;
+	private final ComicsQueryBuilderFactory comicsQueryBuilderFactory;
 
-	public ComicsRepositoryImpl(ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory) {
-		this.comicsInitialQueryBuilderFactory = comicsInitialQueryBuilderFactory;
+	public ComicsRepositoryImpl(ComicsQueryBuilderFactory comicsQueryBuilderFactory) {
+		this.comicsQueryBuilderFactory = comicsQueryBuilderFactory;
 	}
 
 	@Override
 	public Page<Comics> findMatching(ComicsRequestDTO criteria, Pageable pageable) {
-		QueryBuilder<Comics> comicsQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
+		QueryBuilder<Comics> comicsQueryBuilder = comicsQueryBuilderFactory.createQueryBuilder(pageable);
 		String uid = criteria.getUid();
 		boolean doFetch = uid != null;
 
-		Page<Comics> comicsPage;
+		comicsQueryBuilder.equal(Comics_.uid, uid);
+		comicsQueryBuilder.like(Comics_.title, criteria.getTitle());
+		comicsQueryBuilder.between(Comics_.publishedYear, criteria.getPublishedYearFrom(), criteria.getPublishedYearTo());
+		comicsQueryBuilder.between(Comics_.numberOfPages, criteria.getNumberOfPagesFrom(), criteria.getNumberOfPagesTo());
+		comicsQueryBuilder.between(Comics_.yearFrom, criteria.getYearFrom(), null);
+		comicsQueryBuilder.between(Comics_.yearTo, null, criteria.getYearTo());
+		comicsQueryBuilder.between(Comics_.stardateFrom, criteria.getStardateFrom(), null);
+		comicsQueryBuilder.between(Comics_.stardateTo, null, criteria.getStardateTo());
+		comicsQueryBuilder.equal(Comics_.photonovel, criteria.getPhotonovel());
+		comicsQueryBuilder.equal(Comics_.adaptation, criteria.getAdaptation());
+		comicsQueryBuilder.setSort(criteria.getSort());
+		comicsQueryBuilder.fetch(Comics_.writers, doFetch);
+		comicsQueryBuilder.fetch(Comics_.artists, doFetch);
+		comicsQueryBuilder.fetch(Comics_.editors, doFetch);
+		comicsQueryBuilder.divideQueries();
+		comicsQueryBuilder.fetch(Comics_.staff, doFetch);
+		comicsQueryBuilder.divideQueries();
+		comicsQueryBuilder.fetch(Comics_.comicSeries, doFetch);
+		comicsQueryBuilder.fetch(Comics_.publishers, doFetch);
+		comicsQueryBuilder.fetch(Comics_.comicCollections, doFetch);
+		comicsQueryBuilder.divideQueries();
+		comicsQueryBuilder.fetch(Comics_.characters, doFetch);
+		comicsQueryBuilder.divideQueries();
+		comicsQueryBuilder.fetch(Comics_.references, doFetch);
 
-		if (doFetch) {
-			comicsQueryBuilder.fetch(Comics_.writers);
-			comicsQueryBuilder.fetch(Comics_.artists);
-			comicsQueryBuilder.fetch(Comics_.editors);
-			comicsQueryBuilder.fetch(Comics_.staff);
-			comicsPage = comicsQueryBuilder.findPage();
-
-			List<Comics> comicsList = comicsPage.getContent();
-
-			if (comicsList.size() == 0) {
-				return comicsPage;
-			}
-
-			Comics comics = comicsList.get(0);
-
-			QueryBuilder<Comics> comicsComicsSeriesPublishersComicCollectionsQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
-
-			comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicSeries);
-			comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.publishers);
-			comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicCollections);
-
-			List<Comics> comicSeriesPublishersComicsList = comicsComicsSeriesPublishersComicCollectionsQueryBuilder.findAll();
-
-			if (comicSeriesPublishersComicsList.size() == 1) {
-				Comics comicSeriesPublishersComicCollectionsComics = comicSeriesPublishersComicsList.get(0);
-				comics.setComicSeries(comicSeriesPublishersComicCollectionsComics.getComicSeries());
-				comics.setPublishers(comicSeriesPublishersComicCollectionsComics.getPublishers());
-				comics.setComicCollections(comicSeriesPublishersComicCollectionsComics.getComicCollections());
-			}
-
-			QueryBuilder<Comics> comicsCharactersReferencesQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
-			comicsCharactersReferencesQueryBuilder.fetch(Comics_.characters);
-			comicsCharactersReferencesQueryBuilder.fetch(Comics_.references);
-
-			List<Comics> charactersReferencesComicsList = comicsCharactersReferencesQueryBuilder.findAll();
-
-			if (charactersReferencesComicsList.size() == 1) {
-				Comics charactersReferencesComics = charactersReferencesComicsList.get(0);
-				comics.setCharacters(charactersReferencesComics.getCharacters());
-				comics.setReferences(charactersReferencesComics.getReferences());
-			}
-		} else {
-			comicsPage = comicsQueryBuilder.findPage();
-		}
-
+		Page<Comics> comicsPage = comicsQueryBuilder.findPage();
 		clearProxies(comicsPage, !doFetch);
 		return comicsPage;
 	}
@@ -96,10 +73,6 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 			comics.setReferences(Sets.newHashSet());
 			comics.setComicCollections(Sets.newHashSet());
 		});
-	}
-
-	private QueryBuilder<Comics> createInitialComicsQueryBuilder(ComicsRequestDTO criteria, Pageable pageable) {
-		return comicsInitialQueryBuilderFactory.createInitialQueryBuilder(criteria, pageable);
 	}
 
 }

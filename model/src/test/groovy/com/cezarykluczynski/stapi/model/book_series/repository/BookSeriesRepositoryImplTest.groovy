@@ -85,6 +85,7 @@ class BookSeriesRepositoryImplTest extends AbstractBookSeriesTest {
 		1 * bookSeriesQueryBuilder.fetch(BookSeries_.parentSeries, true)
 		1 * bookSeriesQueryBuilder.fetch(BookSeries_.childSeries, true)
 		1 * bookSeriesQueryBuilder.fetch(BookSeries_.publishers, true)
+		1 * bookSeriesQueryBuilder.divideQueries()
 		1 * bookSeriesQueryBuilder.fetch(BookSeries_.books, true)
 
 		then: 'page is retrieved'

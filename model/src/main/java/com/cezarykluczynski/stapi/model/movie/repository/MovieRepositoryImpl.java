@@ -5,78 +5,58 @@ import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl
 import com.cezarykluczynski.stapi.model.movie.dto.MovieRequestDTO;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
-import com.cezarykluczynski.stapi.model.movie.query.MovieInitialQueryBuilderFactory;
+import com.cezarykluczynski.stapi.model.movie.query.MovieQueryBuilderFactory;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Repository
 public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implements MovieRepositoryCustom {
 
-	private final MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory;
+	private final MovieQueryBuilderFactory movieQueryBuilderFactory;
 
-	public MovieRepositoryImpl(MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory) {
-		this.movieInitialQueryBuilderFactory = movieInitialQueryBuilderFactory;
+	public MovieRepositoryImpl(MovieQueryBuilderFactory movieQueryBuilderFactory) {
+		this.movieQueryBuilderFactory = movieQueryBuilderFactory;
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Page<Movie> findMatching(MovieRequestDTO criteria, Pageable pageable) {
-		QueryBuilder<Movie> movieQueryBuilder = createInitialMovieQueryBuilder(criteria, pageable);
-		boolean doFetch = criteria.getUid() != null;
+		QueryBuilder<Movie> movieQueryBuilder = movieQueryBuilderFactory.createQueryBuilder(pageable);
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		Page<Movie> moviePage;
-
+		movieQueryBuilder.equal(Movie_.uid, uid);
+		movieQueryBuilder.like(Movie_.title, criteria.getTitle());
+		movieQueryBuilder.between(Movie_.yearFrom, criteria.getYearFrom(), null);
+		movieQueryBuilder.between(Movie_.yearTo, null, criteria.getYearTo());
+		movieQueryBuilder.between(Movie_.stardateFrom, criteria.getStardateFrom(), null);
+		movieQueryBuilder.between(Movie_.stardateTo, null, criteria.getStardateTo());
+		movieQueryBuilder.between(Movie_.usReleaseDate, criteria.getUsReleaseDateFrom(), criteria.getUsReleaseDateTo());
+		movieQueryBuilder.setSort(criteria.getSort());
 		movieQueryBuilder.fetch(Movie_.mainDirector);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.writers, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.screenplayAuthors, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.storyAuthors, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.directors, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.producers, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.staff, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.performers, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.stuntPerformers, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.standInPerformers, doFetch);
+		movieQueryBuilder.divideQueries();
+		movieQueryBuilder.fetch(Movie_.characters, doFetch);
 
-		if (doFetch) {
-			movieQueryBuilder.fetch(Movie_.writers);
-			movieQueryBuilder.fetch(Movie_.screenplayAuthors);
-			movieQueryBuilder.fetch(Movie_.storyAuthors);
-			movieQueryBuilder.fetch(Movie_.directors);
-			movieQueryBuilder.fetch(Movie_.producers);
-			movieQueryBuilder.fetch(Movie_.staff);
-			moviePage = movieQueryBuilder.findPage();
-
-			List<Movie> movieList = moviePage.getContent();
-
-			if (movieList.size() == 0) {
-				return moviePage;
-			}
-
-			Movie movie = movieList.get(0);
-
-			QueryBuilder<Movie> moviePerformersQueryBuilder = createInitialMovieQueryBuilder(criteria, pageable);
-
-			moviePerformersQueryBuilder.fetch(Movie_.performers);
-			moviePerformersQueryBuilder.fetch(Movie_.stuntPerformers);
-			moviePerformersQueryBuilder.fetch(Movie_.standInPerformers);
-
-			List<Movie> performersMovieList = moviePerformersQueryBuilder.findAll();
-
-			if (performersMovieList.size() == 1) {
-				Movie performersMovie = performersMovieList.get(0);
-				movie.setPerformers(performersMovie.getPerformers());
-				movie.setStuntPerformers(performersMovie.getStuntPerformers());
-				movie.setStandInPerformers(performersMovie.getStandInPerformers());
-			}
-
-			QueryBuilder<Movie> movieCharactersQueryBuilder = createInitialMovieQueryBuilder(criteria, pageable);
-			movieCharactersQueryBuilder.fetch(Movie_.characters);
-
-			List<Movie> charactersMovieList = movieCharactersQueryBuilder.findAll();
-
-			if (charactersMovieList.size() == 1) {
-				movie.setCharacters(charactersMovieList.get(0).getCharacters());
-			}
-		} else {
-			moviePage = movieQueryBuilder.findPage();
-		}
-
+		Page<Movie> moviePage = movieQueryBuilder.findPage();
 		clearProxies(moviePage, !doFetch);
 		return moviePage;
 	}
@@ -101,7 +81,4 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 		});
 	}
 
-	private QueryBuilder<Movie> createInitialMovieQueryBuilder(MovieRequestDTO criteria, Pageable pageable) {
-		return movieInitialQueryBuilderFactory.createInitialQueryBuilder(criteria, pageable);
-	}
 }

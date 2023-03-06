@@ -39,6 +39,7 @@ public class BookSeriesRepositoryImpl extends AbstractRepositoryImpl<BookSeries>
 		bookSeriesQueryBuilder.fetch(BookSeries_.parentSeries, doFetch);
 		bookSeriesQueryBuilder.fetch(BookSeries_.childSeries, doFetch);
 		bookSeriesQueryBuilder.fetch(BookSeries_.publishers, doFetch);
+		bookSeriesQueryBuilder.divideQueries();
 		bookSeriesQueryBuilder.fetch(BookSeries_.books, doFetch);
 
 		Page<BookSeries> bookSeriesPage = bookSeriesQueryBuilder.findPage();

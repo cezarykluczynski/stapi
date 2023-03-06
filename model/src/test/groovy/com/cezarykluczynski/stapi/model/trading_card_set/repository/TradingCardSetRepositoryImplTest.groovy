@@ -98,9 +98,11 @@ class TradingCardSetRepositoryImplTest extends AbstractTradingCardSetTest {
 
 		then: 'fetch is performed'
 		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.manufacturers, true)
-		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, true)
-		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, true)
 		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.countriesOfOrigin, true)
+		1 * tradingCardSetQueryBuilder.divideQueries()
+		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, true)
+		1 * tradingCardSetQueryBuilder.divideQueries()
+		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, true)
 
 		then: 'page is retrieved'
 		1 * tradingCardSetQueryBuilder.findPage() >> page

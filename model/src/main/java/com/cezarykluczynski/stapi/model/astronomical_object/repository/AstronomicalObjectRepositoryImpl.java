@@ -31,8 +31,8 @@ public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepos
 		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.astronomicalObjectType, criteria.getAstronomicalObjectType());
 		astronomicalObjectQueryBuilder.setSort(criteria.getSort());
 		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location);
-		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location, AstronomicalObject_.location, doFetch);
-		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, AstronomicalObject_.location, doFetch);
+		astronomicalObjectQueryBuilder.divideQueries();
+		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, doFetch);
 
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectQueryBuilder.findPage();
 		addLocationToChildren(astronomicalObjectPage, doFetch);

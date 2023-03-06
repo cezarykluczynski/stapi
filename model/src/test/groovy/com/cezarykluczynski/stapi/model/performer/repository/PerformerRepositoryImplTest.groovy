@@ -125,11 +125,14 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'fetch is performed with true flag'
 		1 * performerQueryBuilder.fetch(Performer_.episodesPerformances, true)
+		1 * performerQueryBuilder.divideQueries()
 		1 * performerQueryBuilder.fetch(Performer_.episodesStandInPerformances, true)
 		1 * performerQueryBuilder.fetch(Performer_.episodesStuntPerformances, true)
+		1 * performerQueryBuilder.divideQueries()
 		1 * performerQueryBuilder.fetch(Performer_.moviesPerformances, true)
 		1 * performerQueryBuilder.fetch(Performer_.moviesStandInPerformances, true)
 		1 * performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, true)
+		1 * performerQueryBuilder.divideQueries()
 		1 * performerQueryBuilder.fetch(Performer_.characters, true)
 
 		then: 'page is searched for and returned'

@@ -19,7 +19,7 @@ import java.io.IOException;
 @Priority(2)
 public class UpgradeInsecureRequestsHeaderFilter implements Filter {
 
-	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CanonicalDomainFilter.class);
+	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(UpgradeInsecureRequestsHeaderFilter.class);
 	private static final String HEADER_NAME = "Upgrade-Insecure-Requests";
 	private static final String HTTP_PREFIX = "http://";
 

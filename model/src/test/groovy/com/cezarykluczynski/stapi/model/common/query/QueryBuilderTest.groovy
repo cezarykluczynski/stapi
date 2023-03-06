@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
@@ -12,19 +14,19 @@ import com.google.common.collect.Sets
 import jakarta.persistence.EntityManager
 import jakarta.persistence.TypedQuery
 import jakarta.persistence.criteria.CriteriaBuilder
-import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Expression
-import jakarta.persistence.criteria.Fetch
 import jakarta.persistence.criteria.JoinType
 import jakarta.persistence.criteria.Order
-import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
-import jakarta.persistence.criteria.Root
 import jakarta.persistence.metamodel.Attribute
 import jakarta.persistence.metamodel.EntityType
 import jakarta.persistence.metamodel.Metamodel
 import jakarta.persistence.metamodel.SetAttribute
 import jakarta.persistence.metamodel.SingularAttribute
+import org.hibernate.query.sqm.tree.domain.SqmPath
+import org.hibernate.query.sqm.tree.domain.SqmSingularJoin
+import org.hibernate.query.sqm.tree.from.SqmRoot
+import org.hibernate.query.sqm.tree.select.SqmSelectStatement
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
@@ -76,9 +78,9 @@ class QueryBuilderTest extends Specification {
 	private final SingularAttribute<?, ?> keyWithUnknownType = Mock()
 	private final String validKeyPage = 'page'
 	private final String invalidKeyPage = 'notPage'
-	private final Path requestOrderClausePath1 = Mock()
-	private final Path requestOrderClausePath2 = Mock()
-	private final Path requestOrderClausePath3 = Mock()
+	private final SqmPath requestOrderClausePath1 = Mock()
+	private final SqmPath requestOrderClausePath2 = Mock()
+	private final SqmPath requestOrderClausePath3 = Mock()
 	private final Order requestOrderClauseOrder3 = Mock()
 	private final Order requestOrderClauseOrder2 = Mock()
 	private final Order requestOrderClauseOrder1 = Mock()
@@ -103,9 +105,13 @@ class QueryBuilderTest extends Specification {
 
 	private QueryBuilder<Series> queryBuilder
 
-	private CriteriaQuery<Series> baseCriteriaQuery
+	private SqmSelectStatement<Series> baseCriteriaQuery
 
-	private CriteriaQuery<Long> countCriteriaQuery
+	private SqmSelectStatement<Series> baseCriteriaQueryCopy
+
+	private SqmSelectStatement<Series> baseCriteriaQueryCopyEmpty
+
+	private SqmSelectStatement<Long> countCriteriaQuery
 
 	private CriteriaBuilder criteriaBuilder
 
@@ -113,11 +119,15 @@ class QueryBuilderTest extends Specification {
 
 	private EntityManager entityManager
 
-	private Root<Series> baseRoot
+	private SqmRoot<Series> baseRoot
 
-	private Root<Series> countBaseRoot
+	private SqmRoot<Series> baseRootCopy
 
-	private Fetch<?, ?> fetch
+	private SqmRoot<Series> baseRootCopyEmpty
+
+	private SqmRoot<Series> countBaseRoot
+
+	private SqmSingularJoin<?, ?> fetch
 
 	private Expression<Long> countExpression
 
@@ -135,23 +145,31 @@ class QueryBuilderTest extends Specification {
 
 	private TypedQuery<Series> baseTypedQuery
 
+	private TypedQuery<Series> baseTypedQueryCopy
+
 	private TypedQuery<Long> countTypedQuery
 
 	private List<Series> baseEntityList
 
-	private Path path
+	private List<Series> baseEntityListCopy
 
-	private Path uid
+	private SqmPath path
+
+	private SqmPath uid
 
 	private Long count
 
 	void setup() {
 		baseCriteriaQuery = Mock()
+		baseCriteriaQueryCopy = Mock()
+		baseCriteriaQueryCopyEmpty = Mock()
 		countCriteriaQuery = Mock()
 		criteriaBuilder = Mock()
 		countCriteriaBuilder = Mock()
 		entityManager = Mock()
 		baseRoot = Mock()
+		baseRootCopy = Mock()
+		baseRootCopyEmpty = Mock()
 		countBaseRoot = Mock()
 		fetch = Mock()
 		countExpression = Mock()
@@ -195,6 +213,7 @@ class QueryBuilderTest extends Specification {
 		pageable = Mock()
 		predicate = Mock()
 		baseTypedQuery = Mock()
+		baseTypedQueryCopy = Mock()
 		countTypedQuery = Mock()
 		Series series1 = Mock()
 		Series series2 = Mock()
@@ -205,6 +224,7 @@ class QueryBuilderTest extends Specification {
 		baseEntityList = Lists.newArrayList(series1, series2, series3, series4, series5, series6)
 		path = Mock()
 		uid = Mock()
+		uidKeyString.name >> 'uid'
 		count = 7L
 	}
 
@@ -568,6 +588,113 @@ class QueryBuilderTest extends Specification {
 		((PageImpl) seriesPage).pageable == pageable
 	}
 
+	@SuppressWarnings('ExplicitCallToAndMethod')
+	void "fetches are added, divided, then search is performed, and results are combined"() {
+		given:
+		Season season1 = Mock()
+		Season season2 = Mock()
+		Episode episode1 = Mock()
+		Episode episode2 = Mock()
+		Series series1 = new Series(seasons: Sets.newHashSet(season1, season2))
+		Series series2 = new Series(episodes: Sets.newHashSet(episode1, episode2))
+		baseEntityList = [series1]
+		baseEntityListCopy = [series2]
+
+		when: 'query builder is create'
+		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
+
+		then: 'query builder is configured'
+		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
+		1 * entityManager.getCriteriaBuilder() >> countCriteriaBuilder
+		1 * criteriaBuilder.createQuery(Series) >> baseCriteriaQuery
+		1 * baseCriteriaQuery.from(Series) >> baseRoot
+		1 * baseCriteriaQuery.select(baseRoot)
+		1 * countCriteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		1 * countCriteriaQuery.from(baseClass) >> countBaseRoot
+		1 * countCriteriaBuilder.count(countBaseRoot) >> countExpression
+		1 * countCriteriaQuery.select(countExpression)
+		1 * entityManager.getMetamodel() >> metamodel
+		1 * metamodel.entity(baseClass) >> entityType
+		1 * entityType.attributes >> attributeSet
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'query builder is returned'
+		queryBuilder != null
+
+		when: 'valid string key is added for like comparison'
+		queryBuilder.equal(uidKeyString, UID)
+
+		then: 'right methods are called'
+		1 * baseRoot.get(uidKeyString) >> uid
+		1 * criteriaBuilder.equal(uid, UID)
+
+		when: 'fetch is performed'
+		queryBuilder.fetch(fetchSetName)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT)
+
+		when: 'division is performed'
+		queryBuilder.divideQueries()
+
+		then: 'right methods are called'
+		1 * baseRoot.copy(_) >> baseRootCopy
+		1 * baseCriteriaQuery.copy(_) >> baseCriteriaQueryCopy
+		1 * baseCriteriaQueryCopy.select(baseRootCopy)
+
+		when: 'fetch is performed with boolean flag set to true'
+		queryBuilder.fetch(fetchSetName, true)
+
+		then: 'right methods are called'
+		1 * baseRootCopy.fetch(fetchSetName, JoinType.LEFT)
+
+		when: 'order is added and search is performer'
+		queryBuilder.setSort(ORDER_REQUEST)
+		Page<Series> seriesPage = queryBuilder.findPage()
+
+		then: 'queries are built (1st run)'
+		1 * criteriaBuilder.and(_) >> predicate
+		1 * baseCriteriaQuery.where(predicate)
+		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
+		1 * baseTypedQuery.setMaxResults(1)
+		1 * baseTypedQuery.setFirstResult(0)
+
+		then: 'cacheable hint is set (1st run)'
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, false)
+
+		then: 'query is executed (1st run)'
+		1 * baseTypedQuery.resultList >> [series1]
+
+		then: 'queries are built (2nd run)'
+		1 * criteriaBuilder.and(_) >> predicate
+		1 * baseCriteriaQueryCopy.where(predicate)
+		1 * entityManager.createQuery(baseCriteriaQueryCopy) >> baseTypedQueryCopy
+		1 * baseTypedQueryCopy.setMaxResults(1)
+		1 * baseTypedQueryCopy.setFirstResult(0)
+
+		then: 'cacheable hint is set (2nd run)'
+		1 * baseTypedQueryCopy.setHint(QueryBuilder.HIBERNATE_CACHEABLE, false)
+
+		then: 'query is executed (2nd run)'
+		1 * baseTypedQueryCopy.resultList >> [series2]
+
+		then: 'pageable is not interacted with in PageImpl constructor'
+		1 * pageable.toOptional() >> Optional.empty()
+
+		then: 'page is returned'
+		seriesPage.content == baseEntityList
+		seriesPage.totalElements == 1
+		((PageImpl) seriesPage).pageable == pageable
+
+		then: 'results are combined'
+		series1.seasons.contains season1
+		series1.seasons.contains season2
+		series1.episodes.contains episode1
+		series1.episodes.contains episode2
+	}
+
 	void "all results are found"() {
 		when: 'query builder is create'
 		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
@@ -683,13 +810,11 @@ class QueryBuilderTest extends Specification {
 		1 * baseCriteriaQuery.where(predicate)
 		1 * baseCriteriaQuery.orderBy([])
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
-		1 * pageable.pageSize >> PAGE_SIZE
-		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
-		1 * pageable.pageNumber >> PAGE_NUMBER
-		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
+		1 * baseTypedQuery.setMaxResults(1)
+		1 * baseTypedQuery.setFirstResult(0)
 
 		then: 'cacheable hint is set'
-		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, true)
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, false)
 
 		then: 'query is executed'
 		1 * baseTypedQuery.resultList >> baseEntityList

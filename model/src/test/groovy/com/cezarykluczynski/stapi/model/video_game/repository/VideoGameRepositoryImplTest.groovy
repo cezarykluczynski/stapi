@@ -68,8 +68,10 @@ class VideoGameRepositoryImplTest extends AbstractVideoGameTest {
 		then: 'fetch is performed'
 		1 * videoGameQueryBuilder.fetch(VideoGame_.publishers, true)
 		1 * videoGameQueryBuilder.fetch(VideoGame_.developers, true)
+		1 * videoGameQueryBuilder.divideQueries()
 		1 * videoGameQueryBuilder.fetch(VideoGame_.platforms, true)
 		1 * videoGameQueryBuilder.fetch(VideoGame_.genres, true)
+		1 * videoGameQueryBuilder.divideQueries()
 		1 * videoGameQueryBuilder.fetch(VideoGame_.ratings, true)
 		1 * videoGameQueryBuilder.fetch(VideoGame_.references, true)
 

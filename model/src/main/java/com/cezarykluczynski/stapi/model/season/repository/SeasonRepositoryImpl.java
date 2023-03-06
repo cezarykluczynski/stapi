@@ -30,10 +30,12 @@ public class SeasonRepositoryImpl extends AbstractRepositoryImpl<Season> impleme
 		seasonQueryBuilder.like(Season_.title, criteria.getTitle());
 		seasonQueryBuilder.between(Season_.numberOfEpisodes, criteria.getNumberOfEpisodesFrom(), criteria.getNumberOfEpisodesTo());
 		seasonQueryBuilder.between(Season_.seasonNumber, criteria.getSeasonNumberFrom(), criteria.getSeasonNumberTo());
-		seasonQueryBuilder.fetch(Season_.series);
-		seasonQueryBuilder.fetch(Season_.episodes, doFetch);
-		seasonQueryBuilder.fetch(Season_.videoReleases, doFetch);
 		seasonQueryBuilder.setSort(criteria.getSort());
+		seasonQueryBuilder.fetch(Season_.series);
+		seasonQueryBuilder.divideQueries();
+		seasonQueryBuilder.fetch(Season_.episodes, doFetch);
+		seasonQueryBuilder.divideQueries();
+		seasonQueryBuilder.fetch(Season_.videoReleases, doFetch);
 
 		Page<Season> seasonPage = seasonQueryBuilder.findPage();
 		clearProxies(seasonPage, !doFetch);

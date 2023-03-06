@@ -17,6 +17,6 @@ import org.mapstruct.Mapper;
 		PerformerBaseRestMapper.class, TitleBaseRestMapper.class})
 public interface CharacterFullRestMapper {
 
-	CharacterFull mapFull(Character series);
+	CharacterFull mapFull(Character character);
 
 }

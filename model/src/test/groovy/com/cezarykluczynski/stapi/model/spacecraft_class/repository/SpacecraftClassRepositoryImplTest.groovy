@@ -74,9 +74,11 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.owners, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operators, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliations, true)
-		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, true)
-		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, true)
+		1 * spacecraftClassQueryBuilder.divideQueries()
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.armaments, true)
+		1 * spacecraftClassQueryBuilder.divideQueries()
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, true)
 
 		then: 'page is retrieved'

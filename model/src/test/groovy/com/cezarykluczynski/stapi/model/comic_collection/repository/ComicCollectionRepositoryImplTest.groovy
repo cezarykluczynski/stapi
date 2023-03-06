@@ -1,35 +1,26 @@
 package com.cezarykluczynski.stapi.model.comic_collection.repository
 
-import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comic_collection.dto.ComicCollectionRequestDTO
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection_
-import com.cezarykluczynski.stapi.model.comic_collection.query.ComicCollectionInitialQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
-import com.cezarykluczynski.stapi.model.comics.entity.Comics
+import com.cezarykluczynski.stapi.model.comic_collection.query.ComicCollectionQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.company.entity.Company
-import com.cezarykluczynski.stapi.model.reference.entity.Reference
-import com.cezarykluczynski.stapi.model.staff.entity.Staff
+import com.cezarykluczynski.stapi.util.AbstractComicCollectionTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import spock.lang.Specification
 
-class ComicCollectionRepositoryImplTest extends Specification {
+class ComicCollectionRepositoryImplTest extends AbstractComicCollectionTest {
 
-	private static final String UID = 'ABCD0123456789'
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
-	private ComicCollectionInitialQueryBuilderFactory comicCollectionInitialQueryBuilderFactory
+	private ComicCollectionQueryBuilderFactory comicCollectionQueryBuilderFactory
 
 	private ComicCollectionRepositoryImpl comicCollectionRepositoryImpl
 
 	private QueryBuilder<ComicCollection> comicCollectionQueryBuilder
-
-	private QueryBuilder<ComicCollection> comicCollectionComicSeriesPublishersComicsQueryBuilder
-
-	private QueryBuilder<ComicCollection> comicCollectionCharactersReferencesQueryBuilder
 
 	private Pageable pageable
 
@@ -37,60 +28,16 @@ class ComicCollectionRepositoryImplTest extends Specification {
 
 	private ComicCollection comicCollection
 
-	private ComicCollection comicSeriesPerformersComicCollection
-
-	private ComicCollection charactersReferencesComicCollection
-
-	private ComicCollection staffComicCollection
-
 	private Page page
 
-	private Page performersPage
-
-	private Page charactersPage
-
-	private Set<ComicSeries> comicSeriesSet
-
-	private Set<ComicSeries> childComicSeriesSet
-
-	private Set<Company> publishersSet
-
-	private Set<Comics> comicsSet
-
-	private Set<Character> charactersSet
-
-	private Set<Reference> referencesSet
-
-	private Set<Staff> writersSet
-
-	private Set<Staff> artistsSet
-
-	private Set<Staff> editorsSet
-
 	void setup() {
-		comicCollectionInitialQueryBuilderFactory = Mock()
-		comicCollectionRepositoryImpl = new ComicCollectionRepositoryImpl(comicCollectionInitialQueryBuilderFactory)
+		comicCollectionQueryBuilderFactory = Mock()
+		comicCollectionRepositoryImpl = new ComicCollectionRepositoryImpl(comicCollectionQueryBuilderFactory)
 		comicCollectionQueryBuilder = Mock()
-		comicCollectionComicSeriesPublishersComicsQueryBuilder = Mock()
-		comicCollectionCharactersReferencesQueryBuilder = Mock()
 		pageable = Mock()
 		comicCollectionRequestDTO = Mock()
 		page = Mock()
-		performersPage = Mock()
-		charactersPage = Mock()
 		comicCollection = Mock()
-		comicSeriesPerformersComicCollection = Mock()
-		charactersReferencesComicCollection = Mock()
-		staffComicCollection = Mock()
-		comicSeriesSet = Mock()
-		childComicSeriesSet = Mock()
-		publishersSet = Mock()
-		comicsSet = Mock()
-		charactersSet = Mock()
-		referencesSet = Mock()
-		writersSet = Mock()
-		artistsSet = Mock()
-		editorsSet = Mock()
 	}
 
 	void "query is built and performed"() {
@@ -98,141 +45,64 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		Page pageOutput = comicCollectionRepositoryImpl.findMatching(comicCollectionRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionQueryBuilder
+		1 * comicCollectionQueryBuilderFactory.createQueryBuilder(pageable) >> comicCollectionQueryBuilder
 
-		then: 'uid is retrieved, and it is not null'
+		then: 'uid criteria is set'
 		1 * comicCollectionRequestDTO.uid >> UID
+		1 * comicCollectionQueryBuilder.equal(ComicCollection_.uid, UID)
 
-		then: 'staff fetch is performed'
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff)
+		then: 'string criteria are set'
+		1 * comicCollectionRequestDTO.title >> TITLE
+		1 * comicCollectionQueryBuilder.like(ComicCollection_.title, TITLE)
+
+		then: 'integer criteria are set'
+		1 * comicCollectionRequestDTO.publishedYearFrom >> PUBLISHED_YEAR_FROM
+		1 * comicCollectionRequestDTO.publishedYearTo >> PUBLISHED_YEAR_TO
+		1 * comicCollectionQueryBuilder.between(ComicCollection_.publishedYear, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO)
+		1 * comicCollectionRequestDTO.numberOfPagesFrom >> NUMBER_OF_PAGES_FROM
+		1 * comicCollectionRequestDTO.numberOfPagesTo >> NUMBER_OF_PAGES_TO
+		1 * comicCollectionQueryBuilder.between(ComicCollection_.numberOfPages, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO)
+
+		1 * comicCollectionRequestDTO.yearFrom >> YEAR_FROM
+		1 * comicCollectionQueryBuilder.between(ComicCollection_.yearFrom, YEAR_FROM, null)
+		1 * comicCollectionRequestDTO.yearTo >> YEAR_TO
+		1 * comicCollectionQueryBuilder.between(ComicCollection_.yearTo, null, YEAR_TO)
+
+		then: 'float criteria are set'
+		1 * comicCollectionRequestDTO.stardateFrom >> STARDATE_FROM
+		1 * comicCollectionQueryBuilder.between(ComicCollection_.stardateFrom, STARDATE_FROM, null)
+		1 * comicCollectionRequestDTO.stardateTo >> STARDATE_TO
+		1 * comicCollectionQueryBuilder.between(ComicCollection_.stardateTo, null, STARDATE_TO)
+
+		then: 'boolean criteria are set'
+		1 * comicCollectionRequestDTO.photonovel >> PHOTONOVEL
+		1 * comicCollectionQueryBuilder.equal(ComicCollection_.photonovel, PHOTONOVEL)
+
+		then: 'sort is set'
+		1 * comicCollectionRequestDTO.sort >> SORT
+		1 * comicCollectionQueryBuilder.setSort(SORT)
+
+		then: 'fetch is performed'
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers, true)
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries, true)
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.childComicSeries, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.publishers, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comics, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.characters, true)
+		1 * comicCollectionQueryBuilder.divideQueries()
+		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.references, true)
 
 		then: 'page is retrieved'
 		1 * comicCollectionQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(comicCollection)
-
-		then: 'another criteria builder is retrieved for comic series, publishers, and comics'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionComicSeriesPublishersComicsQueryBuilder
-
-		then: 'comic series and publishers fetch is performed'
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comicSeries)
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.childComicSeries)
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.publishers)
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comics)
-
-		then: 'comic series and publishers list is retrieved'
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.findAll() >> Lists.newArrayList(comicSeriesPerformersComicCollection)
-
-		then: 'comic series and publishers are set to comicCollection'
-		1 * comicSeriesPerformersComicCollection.comicSeries >> comicSeriesSet
-		1 * comicCollection.setComicSeries(comicSeriesSet)
-		1 * comicSeriesPerformersComicCollection.childComicSeries >> childComicSeriesSet
-		1 * comicCollection.setChildComicSeries(childComicSeriesSet)
-		1 * comicSeriesPerformersComicCollection.publishers >> publishersSet
-		1 * comicCollection.setPublishers(publishersSet)
-		1 * comicSeriesPerformersComicCollection.comics >> comicsSet
-		1 * comicCollection.setComics(comicsSet)
-
-		then: 'another criteria builder is retrieved for characters and references'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionCharactersReferencesQueryBuilder
-
-		then: 'characters and references fetch is performed'
-		1 * comicCollectionCharactersReferencesQueryBuilder.fetch(ComicCollection_.characters)
-		1 * comicCollectionCharactersReferencesQueryBuilder.fetch(ComicCollection_.references)
-
-		then: 'characters and references list is retrieved'
-		1 * comicCollectionCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList(charactersReferencesComicCollection)
-
-		then: 'characters and references are set to comicCollection'
-		1 * charactersReferencesComicCollection.characters >> charactersSet
-		1 * comicCollection.setCharacters(charactersSet)
-		1 * charactersReferencesComicCollection.references >> referencesSet
-		1 * comicCollection.setReferences(referencesSet)
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "query is built and performed without results from additional queries"() {
-		when:
-		Page pageOutput = comicCollectionRepositoryImpl.findMatching(comicCollectionRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * comicCollectionRequestDTO.uid >> UID
-
-		then: 'staff fetch is performed'
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff)
-
-		then: 'page is retrieved'
-		1 * comicCollectionQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(comicCollection)
-
-		then: 'another criteria builder is retrieved for comic series and publishers'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionComicSeriesPublishersComicsQueryBuilder
-
-		then: 'comic series and publishers fetch is performed'
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comicSeries)
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.childComicSeries)
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.publishers)
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.fetch(ComicCollection_.comics)
-
-		then: 'empty comic series and publishers list is retrieved'
-		1 * comicCollectionComicSeriesPublishersComicsQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'another criteria builder is retrieved for characters and references'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionCharactersReferencesQueryBuilder
-
-		then: 'characters and references fetch is performed'
-		1 * comicCollectionCharactersReferencesQueryBuilder.fetch(ComicCollection_.characters)
-		1 * comicCollectionCharactersReferencesQueryBuilder.fetch(ComicCollection_.references)
-
-		then: 'empty characters and references list is retrieved'
-		1 * comicCollectionCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "empty page is returned"() {
-		when:
-		Page pageOutput = comicCollectionRepositoryImpl.findMatching(comicCollectionRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * comicCollectionRequestDTO.uid >> UID
-
-		then: 'staff fetch is performed'
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff)
-
-		then: 'page is retrieved'
-		1 * comicCollectionQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList()
 
 		then: 'page is returned'
 		pageOutput == page
@@ -246,7 +116,7 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		Page pageOutput = comicCollectionRepositoryImpl.findMatching(comicCollectionRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >> comicCollectionQueryBuilder
+		1 * comicCollectionQueryBuilderFactory.createQueryBuilder(pageable) >> comicCollectionQueryBuilder
 
 		then: 'uid criteria is set to null'
 		1 * comicCollectionRequestDTO.uid >> null

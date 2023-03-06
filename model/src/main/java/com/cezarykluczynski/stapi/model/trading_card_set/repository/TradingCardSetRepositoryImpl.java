@@ -38,8 +38,10 @@ public class TradingCardSetRepositoryImpl extends AbstractRepositoryImpl<Trading
 		tradingCardSetQueryBuilder.equal(TradingCardSet_.productionRunUnit, criteria.getProductionRunUnit());
 		tradingCardSetQueryBuilder.setSort(criteria.getSort());
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.manufacturers, doFetch);
-		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, doFetch);
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.countriesOfOrigin, doFetch);
+		tradingCardSetQueryBuilder.divideQueries();
+		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, doFetch);
+		tradingCardSetQueryBuilder.divideQueries();
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, doFetch);
 
 		Page<TradingCardSet> tradingCardSetPage = tradingCardSetQueryBuilder.findPage();

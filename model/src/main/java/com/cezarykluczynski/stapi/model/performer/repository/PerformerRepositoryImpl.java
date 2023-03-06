@@ -57,11 +57,14 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 		performerQueryBuilder.equal(Performer_.voyPerformer, criteria.getVoyPerformer());
 		performerQueryBuilder.setSort(criteria.getSort());
 		performerQueryBuilder.fetch(Performer_.episodesPerformances, doFetch);
+		performerQueryBuilder.divideQueries();
 		performerQueryBuilder.fetch(Performer_.episodesStandInPerformances, doFetch);
 		performerQueryBuilder.fetch(Performer_.episodesStuntPerformances, doFetch);
+		performerQueryBuilder.divideQueries();
 		performerQueryBuilder.fetch(Performer_.moviesPerformances, doFetch);
 		performerQueryBuilder.fetch(Performer_.moviesStandInPerformances, doFetch);
 		performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, doFetch);
+		performerQueryBuilder.divideQueries();
 		performerQueryBuilder.fetch(Performer_.characters, doFetch);
 
 		Page<Performer> performerPage = performerQueryBuilder.findPage();

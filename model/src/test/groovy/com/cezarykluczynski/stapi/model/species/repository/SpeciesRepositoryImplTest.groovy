@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.model.species.repository
 
-import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject_
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
@@ -106,8 +105,6 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		then: 'fetch is performed'
 		1 * speciesQueryBuilder.fetch(Species_.homeworld)
 		1 * speciesQueryBuilder.fetch(Species_.quadrant)
-		1 * speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, true)
-		1 * speciesQueryBuilder.fetch(Species_.quadrant, AstronomicalObject_.location, true)
 
 		then: 'page is searched for'
 		1 * speciesQueryBuilder.findPage() >> page
@@ -137,10 +134,6 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 
 		then: 'uid criteria is set to null'
 		1 * speciesRequestDTO.uid >> null
-
-		then: 'fetch is performed with false flag'
-		1 * speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, false)
-		1 * speciesQueryBuilder.fetch(Species_.quadrant, AstronomicalObject_.location, false)
 
 		then: 'page is searched for and returned'
 		1 * speciesQueryBuilder.findPage() >> page

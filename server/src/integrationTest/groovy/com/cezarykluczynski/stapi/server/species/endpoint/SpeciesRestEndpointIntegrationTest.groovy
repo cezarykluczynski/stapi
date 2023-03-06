@@ -21,6 +21,15 @@ class SpeciesRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest
 		speciesV2FullResponse.species.name == 'Q'
 	}
 
+	void "gets humans by UID"() {
+		when:
+		SpeciesV2FullResponse speciesV2FullResponse = stapiRestClient.species.getV2('SPMA0000026314')
+
+		then:
+		speciesV2FullResponse.species.name == 'Human'
+		speciesV2FullResponse.species.characters.size() > 1670
+	}
+
 	void "finds Species 8472 by it's properties"() {
 		given:
 		SpeciesV2SearchCriteria speciesV2SearchCriteria = new SpeciesV2SearchCriteria(

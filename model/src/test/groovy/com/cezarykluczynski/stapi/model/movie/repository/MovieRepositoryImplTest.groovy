@@ -1,23 +1,24 @@
 package com.cezarykluczynski.stapi.model.movie.repository
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.movie.dto.MovieRequestDTO
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.movie.entity.Movie_
-import com.cezarykluczynski.stapi.model.movie.query.MovieInitialQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.movie.query.MovieQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.util.AbstractMovieTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import spock.lang.Specification
 
-class MovieRepositoryImplTest extends Specification {
+class MovieRepositoryImplTest extends AbstractMovieTest {
 
-	private static final String UID = 'ABCD0123456789'
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
-	private MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactoryMock
+	private MovieQueryBuilderFactory movieQueryBuilderFactory
 
 	private MovieRepositoryImpl movieRepositoryImpl
 
@@ -52,8 +53,8 @@ class MovieRepositoryImplTest extends Specification {
 	private Set<Character> charactersSet
 
 	void setup() {
-		movieInitialQueryBuilderFactoryMock = Mock()
-		movieRepositoryImpl = new MovieRepositoryImpl(movieInitialQueryBuilderFactoryMock)
+		movieQueryBuilderFactory = Mock()
+		movieRepositoryImpl = new MovieRepositoryImpl(movieQueryBuilderFactory)
 		movieQueryBuilder = Mock()
 		moviePerformersQueryBuilder = Mock()
 		movieCharactersQueryBuilder = Mock()
@@ -76,141 +77,62 @@ class MovieRepositoryImplTest extends Specification {
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
+		1 * movieQueryBuilderFactory.createQueryBuilder(pageable) >> movieQueryBuilder
 
-		then: 'uid is retrieved, and it is not null'
+		then: 'uid criteria is set'
 		1 * movieRequestDTO.uid >> UID
+		1 * movieQueryBuilder.equal(Movie_.uid, UID)
 
-		then: 'main director is fetched'
+		then: 'string criteria are set'
+		1 * movieRequestDTO.title >> TITLE
+		1 * movieQueryBuilder.like(Movie_.title, TITLE)
+
+		then: 'integer criteria are set'
+		1 * movieRequestDTO.yearFrom >> YEAR_FROM
+		1 * movieQueryBuilder.between(Movie_.yearFrom, YEAR_FROM, null)
+		1 * movieRequestDTO.yearTo >> YEAR_TO
+		1 * movieQueryBuilder.between(Movie_.yearTo, null, YEAR_TO)
+
+		then: 'float criteria are set'
+		1 * movieRequestDTO.stardateFrom >> STARDATE_FROM
+		1 * movieQueryBuilder.between(Movie_.stardateFrom, STARDATE_FROM, null)
+		1 * movieRequestDTO.stardateTo >> STARDATE_TO
+		1 * movieQueryBuilder.between(Movie_.stardateTo, null, STARDATE_TO)
+
+		then: 'date criteria are set'
+		1 * movieRequestDTO.usReleaseDateFrom >> US_RELEASE_DATE_FROM
+		1 * movieRequestDTO.usReleaseDateTo >> US_RELEASE_DATE_TO
+		1 * movieQueryBuilder.between(Movie_.usReleaseDate, US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO)
+
+		then: 'sort is set'
+		1 * movieRequestDTO.sort >> SORT
+		1 * movieQueryBuilder.setSort(SORT)
+
+		then: 'fetch is performed'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
-
-		then: 'staff fetch is performed'
-		1 * movieQueryBuilder.fetch(Movie_.writers)
-		1 * movieQueryBuilder.fetch(Movie_.screenplayAuthors)
-		1 * movieQueryBuilder.fetch(Movie_.storyAuthors)
-		1 * movieQueryBuilder.fetch(Movie_.directors)
-		1 * movieQueryBuilder.fetch(Movie_.producers)
-		1 * movieQueryBuilder.fetch(Movie_.staff)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.writers, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.screenplayAuthors, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.storyAuthors, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.directors, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.producers, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.staff, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.performers, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.stuntPerformers, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.standInPerformers, true)
+		1 * movieQueryBuilder.divideQueries()
+		1 * movieQueryBuilder.fetch(Movie_.characters, true)
 
 		then: 'page is retrieved'
 		1 * movieQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(movie)
-
-		then: 'another criteria builder is retrieved for performers'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
-
-		then: 'performers fetch is performed'
-		1 * moviePerformersQueryBuilder.fetch(Movie_.performers)
-		1 * moviePerformersQueryBuilder.fetch(Movie_.stuntPerformers)
-		1 * moviePerformersQueryBuilder.fetch(Movie_.standInPerformers)
-
-		then: 'result list is retrieved'
-		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList(performersMovie)
-
-		then: 'performers from performers movie are set to movie'
-		1 * performersMovie.performers >> performersSet
-		1 * movie.setPerformers(performersSet)
-		1 * performersMovie.stuntPerformers >> stuntPerformersSet
-		1 * movie.setStuntPerformers(stuntPerformersSet)
-		1 * performersMovie.standInPerformers >> standInPerformersSet
-		1 * movie.setStandInPerformers(standInPerformersSet)
-
-		then: 'another criteria builder is retrieved for characters'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
-
-		then: 'characters fetch is performed'
-		1 * movieCharactersQueryBuilder.fetch(Movie_.characters)
-
-		then: 'result list is retrieved'
-		1 * movieCharactersQueryBuilder.findAll() >> Lists.newArrayList(charactersMovie)
-
-		then: 'performers from performers movie are set to movie'
-		1 * charactersMovie.characters >> charactersSet
-		1 * movie.setCharacters(charactersSet)
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "query is built and performed without results from additional queries"() {
-		when:
-		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * movieRequestDTO.uid >> UID
-
-		then: 'main director is fetched'
-		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
-
-		then: 'staff fetch is performed'
-		1 * movieQueryBuilder.fetch(Movie_.writers)
-		1 * movieQueryBuilder.fetch(Movie_.screenplayAuthors)
-		1 * movieQueryBuilder.fetch(Movie_.storyAuthors)
-		1 * movieQueryBuilder.fetch(Movie_.directors)
-		1 * movieQueryBuilder.fetch(Movie_.producers)
-		1 * movieQueryBuilder.fetch(Movie_.staff)
-
-		then: 'page is retrieved'
-		1 * movieQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList(movie)
-
-		then: 'another criteria builder is retrieved for performers'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
-
-		then: 'performers fetch is performed'
-		1 * moviePerformersQueryBuilder.fetch(Movie_.performers)
-		1 * moviePerformersQueryBuilder.fetch(Movie_.stuntPerformers)
-		1 * moviePerformersQueryBuilder.fetch(Movie_.standInPerformers)
-
-		then: 'empty performers list is retrieved'
-		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'another criteria builder is retrieved for characters'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
-
-		then: 'characters fetch is performed'
-		1 * movieCharactersQueryBuilder.fetch(Movie_.characters)
-
-		then: 'empty characters list is retrieved'
-		1 * movieCharactersQueryBuilder.findAll() >> Lists.newArrayList()
-
-		then: 'page is returned'
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "empty page is returned"() {
-		when:
-		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
-
-		then: 'uid is retrieved, and it is not null'
-		1 * movieRequestDTO.uid >> UID
-
-		then: 'main director is fetched'
-		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
-
-		then: 'staff fetch is performed'
-		1 * movieQueryBuilder.fetch(Movie_.writers)
-		1 * movieQueryBuilder.fetch(Movie_.screenplayAuthors)
-		1 * movieQueryBuilder.fetch(Movie_.storyAuthors)
-		1 * movieQueryBuilder.fetch(Movie_.directors)
-		1 * movieQueryBuilder.fetch(Movie_.producers)
-		1 * movieQueryBuilder.fetch(Movie_.staff)
-
-		then: 'page is retrieved'
-		1 * movieQueryBuilder.findPage() >> page
-		1 * page.content >> Lists.newArrayList()
 
 		then: 'page is returned'
 		pageOutput == page
@@ -224,7 +146,7 @@ class MovieRepositoryImplTest extends Specification {
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
+		1 * movieQueryBuilderFactory.createQueryBuilder(pageable) >> movieQueryBuilder
 
 		then: 'uid criteria is set to null'
 		1 * movieRequestDTO.uid >> null

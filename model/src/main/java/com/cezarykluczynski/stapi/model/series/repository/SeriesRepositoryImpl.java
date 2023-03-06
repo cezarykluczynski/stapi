@@ -36,8 +36,9 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 		seriesQueryBuilder.setSort(criteria.getSort());
 		seriesQueryBuilder.fetch(Series_.productionCompany);
 		seriesQueryBuilder.fetch(Series_.originalBroadcaster);
-		seriesQueryBuilder.fetch(Series_.episodes, doFetch);
 		seriesQueryBuilder.fetch(Series_.seasons, doFetch);
+		seriesQueryBuilder.divideQueries();
+		seriesQueryBuilder.fetch(Series_.episodes, doFetch);
 
 		Page<Series> seriesPage = seriesQueryBuilder.findPage();
 		clearProxies(seriesPage, !doFetch);

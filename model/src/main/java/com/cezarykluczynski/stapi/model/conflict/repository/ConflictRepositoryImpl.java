@@ -40,6 +40,7 @@ public class ConflictRepositoryImpl extends AbstractRepositoryImpl<Conflict> imp
 		conflictQueryBuilder.fetch(Conflict_.firstSideBelligerents, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.firstSideLocations, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.firstSideCommanders, doFetch);
+		conflictQueryBuilder.divideQueries();
 		conflictQueryBuilder.fetch(Conflict_.secondSideBelligerents, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.secondSideLocations, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, doFetch);

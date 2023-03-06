@@ -74,8 +74,8 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 
 		then: 'fetch is performed'
 		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location)
-		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location, AstronomicalObject_.location, true)
-		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, AstronomicalObject_.location, true)
+		1 * astronomicalObjectQueryBuilder.divideQueries()
+		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, true)
 
 		then: 'page is searched for'
 		1 * astronomicalObjectQueryBuilder.findPage() >> page

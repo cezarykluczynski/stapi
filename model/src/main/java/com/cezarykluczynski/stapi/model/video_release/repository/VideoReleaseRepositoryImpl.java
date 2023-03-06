@@ -37,8 +37,10 @@ public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRele
 		videoReleaseQueryBuilder.fetch(VideoRelease_.series, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.seasons, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.movies, doFetch);
+		videoReleaseQueryBuilder.divideQueries();
 		videoReleaseQueryBuilder.fetch(VideoRelease_.references, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.ratings, doFetch);
+		videoReleaseQueryBuilder.divideQueries();
 		videoReleaseQueryBuilder.fetch(VideoRelease_.languages, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.languagesSubtitles, doFetch);
 		videoReleaseQueryBuilder.fetch(VideoRelease_.languagesDubbed, doFetch);

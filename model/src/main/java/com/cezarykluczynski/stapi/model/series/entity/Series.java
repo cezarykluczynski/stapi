@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
+import com.google.common.collect.Sets;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -71,10 +72,10 @@ public class Series extends PageAwareEntity implements PageAware {
 
 	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY, targetEntity = Episode.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Episode> episodes;
+	private Set<Episode> episodes = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY, targetEntity = Season.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Season> seasons;
+	private Set<Season> seasons = Sets.newHashSet();
 
 }

@@ -32,8 +32,10 @@ public class VideoGameRepositoryImpl extends AbstractRepositoryImpl<VideoGame> i
 		videoGameQueryBuilder.setSort(criteria.getSort());
 		videoGameQueryBuilder.fetch(VideoGame_.publishers, doFetch);
 		videoGameQueryBuilder.fetch(VideoGame_.developers, doFetch);
+		videoGameQueryBuilder.divideQueries();
 		videoGameQueryBuilder.fetch(VideoGame_.platforms, doFetch);
 		videoGameQueryBuilder.fetch(VideoGame_.genres, doFetch);
+		videoGameQueryBuilder.divideQueries();
 		videoGameQueryBuilder.fetch(VideoGame_.ratings, doFetch);
 		videoGameQueryBuilder.fetch(VideoGame_.references, doFetch);
 

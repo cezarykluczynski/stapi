@@ -41,6 +41,7 @@ public class ComicSeriesRepositoryImpl extends AbstractRepositoryImpl<ComicSerie
 		comicSeriesQueryBuilder.fetch(ComicSeries_.parentSeries, doFetch);
 		comicSeriesQueryBuilder.fetch(ComicSeries_.childSeries, doFetch);
 		comicSeriesQueryBuilder.fetch(ComicSeries_.publishers, doFetch);
+		comicSeriesQueryBuilder.divideQueries();
 		comicSeriesQueryBuilder.fetch(ComicSeries_.comics, doFetch);
 
 		Page<ComicSeries> comicSeriesPage = comicSeriesQueryBuilder.findPage();

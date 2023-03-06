@@ -63,16 +63,18 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 		1 * seasonRequestDTO.seasonNumberTo >> SEASON_NUMBER_TO
 		1 * seasonQueryBuilder.between(Season_.seasonNumber, SEASON_NUMBER_FROM, SEASON_NUMBER_TO)
 
-		then: 'fetch is performed'
-		1 * seasonQueryBuilder.fetch(Season_.series)
-
-		then: 'fetch is performed with true flag'
-		1 * seasonQueryBuilder.fetch(Season_.episodes, true)
-		1 * seasonQueryBuilder.fetch(Season_.videoReleases, true)
-
 		then: 'sort is set'
 		1 * seasonRequestDTO.sort >> SORT
 		1 * seasonQueryBuilder.setSort(SORT)
+
+		then: 'fetch is performed'
+		1 * seasonQueryBuilder.fetch(Season_.series)
+		1 * seasonQueryBuilder.divideQueries()
+
+		then: 'fetch is performed with true flag'
+		1 * seasonQueryBuilder.fetch(Season_.episodes, true)
+		1 * seasonQueryBuilder.divideQueries()
+		1 * seasonQueryBuilder.fetch(Season_.videoReleases, true)
 
 		then: 'page is retrieved'
 		1 * seasonQueryBuilder.findPage() >> page

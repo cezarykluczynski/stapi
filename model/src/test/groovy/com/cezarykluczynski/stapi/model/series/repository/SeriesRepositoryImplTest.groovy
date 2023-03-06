@@ -97,8 +97,9 @@ class SeriesRepositoryImplTest extends Specification {
 		1 * seriesQueryBuilder.fetch(Series_.originalBroadcaster)
 
 		then: 'fetch is performed with true flag'
-		1 * seriesQueryBuilder.fetch(Series_.episodes, true)
 		1 * seriesQueryBuilder.fetch(Series_.seasons, true)
+		1 * seriesQueryBuilder.divideQueries()
+		1 * seriesQueryBuilder.fetch(Series_.episodes, true)
 
 		then: 'page is searched for'
 		1 * seriesQueryBuilder.findPage() >> page
