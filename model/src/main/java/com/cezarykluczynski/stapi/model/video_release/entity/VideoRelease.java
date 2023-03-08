@@ -29,8 +29,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -41,7 +39,6 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"series", "seasons", "movies", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "seasons", "movies", "references", "ratings", "languages", "languagesSubtitles",
 		"languagesDubbed"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video release",
 		pluralName = "video releases", restApiVersion = "v2")
 public class VideoRelease extends PageAwareEntity implements PageAware {
@@ -58,21 +55,18 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "video_releases_series",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "series_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Series> series = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_seasons",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "season_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Season> seasons = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_movies",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "movie_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> movies = Sets.newHashSet();
 
 	@Enumerated(EnumType.STRING)
@@ -141,35 +135,30 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "video_releases_references",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_ratings",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "content_rating_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentRating> ratings = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_languages",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "content_language_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentLanguage> languages = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_languages_sub",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "content_language_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentLanguage> languagesSubtitles = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_languages_dub",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "content_language_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentLanguage> languagesDubbed = Sets.newHashSet();
 
 }

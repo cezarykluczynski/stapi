@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpacecraftClassV3RestReader implements FullReader<String, SpacecraftClassV3FullResponse> {
+public class SpacecraftClassV3RestReader implements FullReader<SpacecraftClassV3FullResponse> {
 
 	private final SpacecraftClassRestQuery spacecraftClassRestQuery;
 

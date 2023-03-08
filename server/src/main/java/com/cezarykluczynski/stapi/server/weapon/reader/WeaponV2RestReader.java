@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WeaponV2RestReader implements BaseReader<WeaponV2RestBeanParams, WeaponV2BaseResponse>,
-		FullReader<String, WeaponV2FullResponse> {
+		FullReader<WeaponV2FullResponse> {
 
 	private final WeaponRestQuery weaponRestQuery;
 

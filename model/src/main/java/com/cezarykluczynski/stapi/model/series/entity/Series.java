@@ -23,8 +23,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -33,7 +31,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes", "seasons"})
 @EqualsAndHashCode(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes", "seasons"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = SeriesRepository.class, singularName = "series", pluralName = "series")
 public class Series extends PageAwareEntity implements PageAware {
 
@@ -71,11 +68,9 @@ public class Series extends PageAwareEntity implements PageAware {
 	private Company originalBroadcaster;
 
 	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY, targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY, targetEntity = Season.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Season> seasons = Sets.newHashSet();
 
 }

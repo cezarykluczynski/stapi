@@ -31,8 +31,6 @@ import java.util.stream.Collectors
 @Testcontainers
 class DockerPerformanceTest extends Specification {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DockerPerformanceTest.class)
-
 	private static GenericContainer stapiContainer
 
 	private static StapiRestClient stapiRestClient
@@ -94,7 +92,7 @@ class DockerPerformanceTest extends Specification {
 			def criteria = Class.forName(searchMethod.parameterTypes[0].name).getConstructors()[0].newInstance()
 			String name = api.getClass().getSimpleName()
 			if (!(criteria instanceof AbstractPageSortBaseCriteria)) {
-				throw new RuntimeException("Criteria not an instance of AbstractPageSortBaseCriteria for " + name)
+				throw new RuntimeException("Criteria not an instance of AbstractPageSortBaseCriteria for $name")
 			} else {
 				criteria.setPageNumber(0)
 				criteria.setPageSize(100)
@@ -143,7 +141,8 @@ class DockerPerformanceTest extends Specification {
 			println("Searching entities took ${testContext.searchElapsedSeconds} s. for entity $testContext.name.")
 		}
 		for (TestContext testContext : contexts) {
-			ExecutorService executorService = Executors.newFixedThreadPool(Math.max(1, Runtime.getRuntime().availableProcessors() - 2))
+			int numberOfCoresToUse = (int) (Runtime.getRuntime().availableProcessors() - 2) / 2
+			ExecutorService executorService = Executors.newFixedThreadPool(Math.max(1, numberOfCoresToUse))
 			AtomicInteger errors = new AtomicInteger()
 			AtomicInteger successes = new AtomicInteger()
 			List<Long> getCallTimes = Collections.synchronizedList(Lists.newArrayList())
@@ -163,7 +162,7 @@ class DockerPerformanceTest extends Specification {
 									throw new RuntimeException()
 								}
 							} catch (Exception e) {
-								println("Failed to get ${testContext.name} with id: ${uid}")
+								println("Failed to get ${testContext.name} with id: $uid")
 								errors.incrementAndGet()
 								throw e
 							}
@@ -202,23 +201,23 @@ class DockerPerformanceTest extends Specification {
 	private static void report(List<TestContext> testContexts, boolean problematic) {
 		if (testContexts.empty) {
 			if (problematic) {
-				println("No performance problems found.")
+				println('No performance problems found.')
 			}
 			return
 		}
 		if (problematic) {
-			println("Found performance problems are:")
+			println('Found performance problems are:')
 		} else {
-			println("All performance results are:")
+			println('All performance results are:')
 
 		}
-		String entityHeader = "Entity"
-		String entityCountHeader = "Entity count"
-		String errorsHeader = "Errors"
-		String failuresHeader = "Failures"
-		String getMaxExecutionTimeHeader = "GET max exec time (s.)"
-		String exampleErrorUidsHeader = "Example failing UIDs"
-		String template = "%s | %s | %s | %s | %s | %s"
+		String entityHeader = 'Entity'
+		String entityCountHeader = 'Entity count'
+		String errorsHeader = 'Errors'
+		String failuresHeader = 'Failures'
+		String getMaxExecutionTimeHeader = 'GET max exec time (s.)'
+		String exampleErrorUidsHeader = 'Example failing UIDs'
+		String template = '%s | %s | %s | %s | %s | %s'
 		Integer entityMaxLength = testContexts.stream().mapToInt() { it.name.length() }.max().getAsInt()
 		Integer entityCountMaxLength = entityCountHeader.length()
 		Integer errorsMaxLength = errorsHeader.length()

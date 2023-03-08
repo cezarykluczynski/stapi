@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SoundtrackRestReader implements BaseReader<SoundtrackRestBeanParams, SoundtrackBaseResponse>,
-		FullReader<String, SoundtrackFullResponse> {
+		FullReader<SoundtrackFullResponse> {
 
 	private final SoundtrackRestQuery soundtrackRestQuery;
 

@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpeciesV2RestReader implements BaseReader<SpeciesV2RestBeanParams, SpeciesV2BaseResponse>, FullReader<String, SpeciesV2FullResponse> {
+public class SpeciesV2RestReader implements BaseReader<SpeciesV2RestBeanParams, SpeciesV2BaseResponse>, FullReader<SpeciesV2FullResponse> {
 
 	private final SpeciesRestQuery speciesRestQuery;
 

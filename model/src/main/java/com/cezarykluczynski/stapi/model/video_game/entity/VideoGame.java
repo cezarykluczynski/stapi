@@ -25,8 +25,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -35,7 +33,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoGameRepository.class, singularName = "video game",
 		pluralName = "video games")
 public class VideoGame extends PageAwareEntity implements PageAware {
@@ -64,42 +61,36 @@ public class VideoGame extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "video_games_publishers",
 			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_games_developers",
 			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> developers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_games_platforms",
 			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "platform_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Platform> platforms = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_games_genres",
 			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "genre_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Genre> genres = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_games_ratings",
 			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "content_rating_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentRating> ratings = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_games_references",
 			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 }

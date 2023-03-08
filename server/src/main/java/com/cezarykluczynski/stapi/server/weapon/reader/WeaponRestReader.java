@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WeaponRestReader implements BaseReader<WeaponRestBeanParams, WeaponBaseResponse>, FullReader<String, WeaponFullResponse> {
+public class WeaponRestReader implements BaseReader<WeaponRestBeanParams, WeaponBaseResponse>, FullReader<WeaponFullResponse> {
 
 	private final WeaponRestQuery weaponRestQuery;
 

@@ -24,8 +24,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -33,7 +31,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"series", "episodes", "videoReleases"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "episodes", "videoReleases"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = SeasonRepository.class, singularName = "season", pluralName = "seasons")
 public class Season extends PageAwareEntity implements PageAware {
 
@@ -46,7 +43,6 @@ public class Season extends PageAwareEntity implements PageAware {
 	@Column(nullable = false)
 	private String title;
 
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "series_id")
 	private Series series;
@@ -56,11 +52,9 @@ public class Season extends PageAwareEntity implements PageAware {
 	private Integer numberOfEpisodes;
 
 	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "seasons")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<VideoRelease> videoReleases = Sets.newHashSet();
 
 }

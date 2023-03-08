@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AstronomicalObjectV2RestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectV2BaseResponse>,
-		FullReader<String, AstronomicalObjectV2FullResponse> {
+		FullReader<AstronomicalObjectV2FullResponse> {
 
 	private final AstronomicalObjectRestQuery astronomicalObjectRestQuery;
 

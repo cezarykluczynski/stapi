@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LiteratureRestReader implements BaseReader<LiteratureRestBeanParams, LiteratureBaseResponse>,
-		FullReader<String, LiteratureFullResponse> {
+		FullReader<LiteratureFullResponse> {
 
 	private final LiteratureRestQuery literatureRestQuery;
 

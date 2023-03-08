@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VideoReleaseV2RestReader implements BaseReader<VideoReleaseV2RestBeanParams, VideoReleaseV2BaseResponse>,
-		FullReader<String, VideoReleaseV2FullResponse> {
+		FullReader<VideoReleaseV2FullResponse> {
 
 	private final VideoReleaseRestQuery videoReleaseRestQuery;
 

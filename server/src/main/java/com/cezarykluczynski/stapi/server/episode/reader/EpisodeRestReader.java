@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, EpisodeBaseResponse>, FullReader<String, EpisodeFullResponse> {
+public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, EpisodeBaseResponse>, FullReader<EpisodeFullResponse> {
 
 	private final EpisodeRestQuery episodeRestQuery;
 

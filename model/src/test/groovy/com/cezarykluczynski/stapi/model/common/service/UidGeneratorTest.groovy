@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
@@ -290,6 +291,19 @@ class UidGeneratorTest extends Specification {
 		null                     | 1                | null
 		new Page(pageId: 11)     | 4                | 'TIMA0000001104'
 		new Page(pageId: 542623) | 53               | 'TIMA0054262353'
+	}
+
+	void "UID is mapped to entity class"() {
+		given:
+		final Map<String, String> classNameToSymbolMap = Map.of('com.cezarykluczynski.stapi.model.title.entity.Title', 'TI')
+
+		when:
+		Class classFromUid = uidGenerator.retrieveEntityClassFromUid('TIMA0000001104')
+
+		then:
+		1 * entityMetadataProvider.provideClassNameToSymbolMap() >> classNameToSymbolMap
+		0 * _
+		classFromUid == Title
 	}
 
 }

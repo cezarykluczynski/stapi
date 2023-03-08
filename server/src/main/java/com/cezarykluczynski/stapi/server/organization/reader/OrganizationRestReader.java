@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrganizationRestReader implements BaseReader<OrganizationRestBeanParams, OrganizationBaseResponse>,
-		FullReader<String, OrganizationFullResponse> {
+		FullReader<OrganizationFullResponse> {
 
 	private final OrganizationRestQuery organizationRestQuery;
 

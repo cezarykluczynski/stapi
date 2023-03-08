@@ -26,8 +26,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -37,7 +35,6 @@ import java.util.Set;
 		"comicCollections"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "references",
 		"comicCollections"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicsRepository.class, singularName = "comics", pluralName = "comics")
 public class Comics extends PageAwareEntity implements PageAware {
 
@@ -80,60 +77,51 @@ public class Comics extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "comics_comics_series",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_writers",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> writers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_artists",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> artists = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_editors",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> editors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_staff",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> staff = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_publishers",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_characters",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_references",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "comics")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicCollection> comicCollections = Sets.newHashSet();
 
 }

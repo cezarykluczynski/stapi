@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBaseResponse>, FullReader<String, MovieFullResponse> {
+public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBaseResponse>, FullReader<MovieFullResponse> {
 
 	private final MovieRestQuery movieRestQuery;
 

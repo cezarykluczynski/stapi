@@ -20,8 +20,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -29,7 +27,6 @@ import java.util.Set;
 @Entity
 @ToString(exclude = {"tradingCardSet", "tradingCards"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCards"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardDeckRepository.class, singularName = "trading card deck",
 		pluralName = "trading card decks")
 public class TradingCardDeck {
@@ -52,7 +49,6 @@ public class TradingCardDeck {
 	private TradingCardSet tradingCardSet;
 
 	@OneToMany(mappedBy = "tradingCardDeck", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCard> tradingCards = Sets.newHashSet();
 
 }

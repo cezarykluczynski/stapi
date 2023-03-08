@@ -14,14 +14,11 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Data
 @Entity
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = TechnologyRepository.class, singularName = "technology",
 		pluralName = "technology pieces", restApiVersion = "v2")
 public class Technology extends PageAwareEntity implements PageAware {

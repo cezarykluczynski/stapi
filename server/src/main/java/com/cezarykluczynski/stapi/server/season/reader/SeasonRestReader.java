@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SeasonRestReader implements BaseReader<SeasonRestBeanParams, SeasonBaseResponse>, FullReader<String, SeasonFullResponse> {
+public class SeasonRestReader implements BaseReader<SeasonRestBeanParams, SeasonBaseResponse>, FullReader<SeasonFullResponse> {
 
 	private final SeasonRestQuery seasonRestQuery;
 

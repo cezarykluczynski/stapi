@@ -17,8 +17,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -28,7 +26,6 @@ import java.util.Set;
 		"writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
 @EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes",
 		"episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = StaffRepository.class, singularName = "staff", pluralName = "staff members",
 		restApiVersion = "v2")
 public class Staff extends RealWorldPerson implements PageAware {
@@ -159,47 +156,36 @@ public class Staff extends RealWorldPerson implements PageAware {
 	private Boolean writer;
 
 	@ManyToMany(mappedBy = "writers", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> writtenEpisodes;
 
 	@ManyToMany(mappedBy = "teleplayAuthors", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> teleplayAuthoredEpisodes;
 
 	@ManyToMany(mappedBy = "storyAuthors", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> storyAuthoredEpisodes;
 
 	@ManyToMany(mappedBy = "directors", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> directedEpisodes;
 
 	@ManyToMany(mappedBy = "staff", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes;
 
 	@ManyToMany(mappedBy = "writers", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> writtenMovies;
 
 	@ManyToMany(mappedBy = "screenplayAuthors", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> screenplayAuthoredMovies;
 
 	@ManyToMany(mappedBy = "storyAuthors", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> storyAuthoredMovies;
 
 	@ManyToMany(mappedBy = "directors", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> directedMovies;
 
 	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> producedMovies;
 
 	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> movies;
 
 }

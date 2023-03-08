@@ -28,6 +28,8 @@ class SpeciesRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest
 		then:
 		speciesV2FullResponse.species.name == 'Human'
 		speciesV2FullResponse.species.characters.size() > 1670
+		speciesV2FullResponse.species.homeworld.name == 'Earth'
+		speciesV2FullResponse.species.quadrant.name == 'Alpha Quadrant'
 	}
 
 	void "finds Species 8472 by it's properties"() {

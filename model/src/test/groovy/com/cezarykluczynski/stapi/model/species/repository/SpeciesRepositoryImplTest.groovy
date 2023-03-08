@@ -102,10 +102,6 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		1 * speciesRequestDTO.sort >> SORT
 		1 * speciesQueryBuilder.setSort(SORT)
 
-		then: 'fetch is performed'
-		1 * speciesQueryBuilder.fetch(Species_.homeworld)
-		1 * speciesQueryBuilder.fetch(Species_.quadrant)
-
 		then: 'page is searched for'
 		1 * speciesQueryBuilder.findPage() >> page
 		0 * page.content

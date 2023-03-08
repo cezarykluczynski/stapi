@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BookV2RestReader implements BaseReader<BookV2RestBeanParams, BookV2BaseResponse>, FullReader<String, BookV2FullResponse> {
+public class BookV2RestReader implements BaseReader<BookV2RestBeanParams, BookV2BaseResponse>, FullReader<BookV2FullResponse> {
 
 	private final BookRestQuery bookRestQuery;
 

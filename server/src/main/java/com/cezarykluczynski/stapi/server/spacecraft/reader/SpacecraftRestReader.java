@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SpacecraftRestReader implements BaseReader<SpacecraftRestBeanParams, SpacecraftBaseResponse>,
-		FullReader<String, SpacecraftFullResponse> {
+		FullReader<SpacecraftFullResponse> {
 
 	private final SpacecraftRestQuery spacecraftRestQuery;
 

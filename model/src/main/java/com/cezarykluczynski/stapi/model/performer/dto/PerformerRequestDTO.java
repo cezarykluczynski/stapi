@@ -1,12 +1,35 @@
 package com.cezarykluczynski.stapi.model.performer.dto;
 
-import com.cezarykluczynski.stapi.model.common.dto.RealWorldPersonRequestDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class PerformerRequestDTO extends RealWorldPersonRequestDTO {
+@EqualsAndHashCode
+public class PerformerRequestDTO {
+
+	private String uid;
+
+	private String name;
+
+	private String birthName;
+
+	private Gender gender;
+
+	private LocalDate dateOfBirthFrom;
+
+	private LocalDate dateOfBirthTo;
+
+	private LocalDate dateOfDeathFrom;
+
+	private LocalDate dateOfDeathTo;
+
+	private String placeOfBirth;
+
+	private String placeOfDeath;
 
 	private Boolean animalPerformer;
 
@@ -49,5 +72,7 @@ public class PerformerRequestDTO extends RealWorldPersonRequestDTO {
 	private Boolean voicePerformer;
 
 	private Boolean voyPerformer;
+
+	private RequestSortDTO sort;
 
 }

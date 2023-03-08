@@ -21,7 +21,8 @@ import java.util.stream.Stream;
 @Service
 public class DocumentationReader {
 
-	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DocumentationReader.class);
+	@SuppressWarnings("ConstantName")
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(DocumentationReader.class);
 
 	List<DocumentDTO> readDirectory(String path) {
 		List<DocumentDTO> documentDTOList = Lists.newArrayList();
@@ -73,7 +74,7 @@ public class DocumentationReader {
 				}
 			});
 		} catch (Exception e) {
-			LOG.error("Exception while reading directory {}, exception was:", path, e);
+			log.error("Exception while reading directory {}, exception was:", path, e);
 		}
 	}
 
@@ -83,7 +84,7 @@ public class DocumentationReader {
 		try {
 			documentDTO.setContent(StringUtils.join(Files.readAllLines(filePath, Charset.forName("UTF-8")), "\n"));
 		} catch (Exception e) {
-			LOG.error("Could not get content for file {}, exception was: {}", filePath.toString(), e);
+			log.error("Could not get content for file {}, exception was: {}", filePath.toString(), e);
 		}
 		try {
 			documentDTO.setPath(rootBasePath.relativize(filePath).toString());

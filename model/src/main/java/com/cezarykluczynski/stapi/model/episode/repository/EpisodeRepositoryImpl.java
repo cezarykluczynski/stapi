@@ -39,10 +39,6 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 		episodeQueryBuilder.between(Episode_.usAirDate, criteria.getUsAirDateFrom(), criteria.getUsAirDateTo());
 		episodeQueryBuilder.between(Episode_.finalScriptDate, criteria.getFinalScriptDateFrom(), criteria.getFinalScriptDateTo());
 		episodeQueryBuilder.setSort(criteria.getSort());
-
-		episodeQueryBuilder.fetch(Episode_.series);
-		episodeQueryBuilder.fetch(Episode_.season);
-		episodeQueryBuilder.divideQueries();
 		episodeQueryBuilder.fetch(Episode_.writers, doFetch);
 		episodeQueryBuilder.fetch(Episode_.teleplayAuthors, doFetch);
 		episodeQueryBuilder.divideQueries();

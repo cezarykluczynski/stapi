@@ -17,8 +17,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -26,7 +24,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"characters"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = OrganizationRepository.class, singularName = "organization",
 		pluralName = "organizations")
 public class Organization extends PageAwareEntity implements PageAware {
@@ -65,7 +62,6 @@ public class Organization extends PageAwareEntity implements PageAware {
 	private Boolean alternateReality;
 
 	@ManyToMany(mappedBy = "organizations", targetEntity = Character.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 }

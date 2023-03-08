@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseResponse>, FullReader<String, FoodFullResponse> {
+public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseResponse>, FullReader<FoodFullResponse> {
 
 	private FoodRestQuery foodRestQuery;
 

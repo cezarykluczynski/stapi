@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TitleRestReader implements BaseReader<TitleRestBeanParams, TitleBaseResponse>, FullReader<String, TitleFullResponse> {
+public class TitleRestReader implements BaseReader<TitleRestBeanParams, TitleBaseResponse>, FullReader<TitleFullResponse> {
 
 	private final TitleRestQuery titleRestQuery;
 

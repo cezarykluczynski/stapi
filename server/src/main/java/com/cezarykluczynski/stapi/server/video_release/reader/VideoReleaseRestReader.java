@@ -16,9 +16,10 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 public class VideoReleaseRestReader implements BaseReader<VideoReleaseRestBeanParams, VideoReleaseBaseResponse>,
-		FullReader<String, VideoReleaseFullResponse> {
+		FullReader<VideoReleaseFullResponse> {
 
 	private final VideoReleaseRestQuery videoReleaseRestQuery;
 

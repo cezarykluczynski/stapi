@@ -20,6 +20,7 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractEndpointInte
 
 		then:
 		astronomicalObjectV2FullResponse.astronomicalObject.name == 'Omicron Ceti III'
+		astronomicalObjectV2FullResponse.astronomicalObject.location != null
 	}
 
 	void "gets Alpha Quadrant by UID"() {

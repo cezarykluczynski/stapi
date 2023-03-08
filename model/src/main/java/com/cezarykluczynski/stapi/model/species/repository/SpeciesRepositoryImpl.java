@@ -54,8 +54,6 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 		speciesQueryBuilder.equal(Species_.unnamedSpecies, criteria.getUnnamedSpecies());
 		speciesQueryBuilder.equal(Species_.alternateReality, criteria.getAlternateReality());
 		speciesQueryBuilder.setSort(criteria.getSort());
-		speciesQueryBuilder.fetch(Species_.homeworld);
-		speciesQueryBuilder.fetch(Species_.quadrant);
 
 		Page<Species> performerPage = speciesQueryBuilder.findPage();
 		fetchCharacters(performerPage, doFetch);

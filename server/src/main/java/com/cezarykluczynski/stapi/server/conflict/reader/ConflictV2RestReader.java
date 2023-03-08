@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConflictV2RestReader implements FullReader<String, ConflictV2FullResponse> {
+public class ConflictV2RestReader implements FullReader<ConflictV2FullResponse> {
 
 	private final ConflictRestQuery conflictRestQuery;
 

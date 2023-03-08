@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OccupationRestReader implements BaseReader<OccupationRestBeanParams, OccupationBaseResponse>,
-		FullReader<String, OccupationFullResponse> {
+		FullReader<OccupationFullResponse> {
 
 	private OccupationRestQuery occupationRestQuery;
 

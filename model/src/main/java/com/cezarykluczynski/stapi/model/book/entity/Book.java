@@ -26,8 +26,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -37,7 +35,6 @@ import java.util.Set;
 		"characters", "references", "audiobookReferences", "bookCollections"})
 @EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers",
 		"audiobookPublishers", "characters", "references", "audiobookReferences", "bookCollections"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookRepository.class, singularName = "book", pluralName = "books",
 		restApiVersion = "v2")
 public class Book extends PageAwareEntity implements PageAware {
@@ -102,74 +99,63 @@ public class Book extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "books_book_series",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<BookSeries> bookSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_authors",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> authors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_artists",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> artists = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_editors",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> editors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "audiobooks_narrators",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> audiobookNarrators = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_publishers",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "audiobooks_publishers",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> audiobookPublishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_characters",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_references",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "audiobooks_references",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> audiobookReferences = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "books")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<BookCollection> bookCollections = Sets.newHashSet();
 
 }

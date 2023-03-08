@@ -16,14 +16,11 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Data
 @Entity
 @ToString(exclude = {"source", "target"})
 @EqualsAndHashCode(exclude = {"source", "target"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_HELPER, repository = CharacterRelationRepository.class, apiEntity = false,
 		singularName = "character relation", pluralName = "character relations")
 public class CharacterRelation {

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TradingCardDeckRestReader implements BaseReader<TradingCardDeckRestBeanParams, TradingCardDeckBaseResponse>,
-		FullReader<String, TradingCardDeckFullResponse> {
+		FullReader<TradingCardDeckFullResponse> {
 
 	private final TradingCardDeckRestQuery tradingCardDeckRestQuery;
 

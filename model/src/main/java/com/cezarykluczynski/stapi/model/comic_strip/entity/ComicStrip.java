@@ -23,17 +23,13 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
 @Data
 @Entity
-
 @ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicStripRepository.class, singularName = "comic strip",
 		pluralName = "comic strips")
 public class ComicStrip extends PageAwareEntity implements PageAware {
@@ -71,28 +67,24 @@ public class ComicStrip extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "comic_strips_comics_series",
 			joinColumns = @JoinColumn(name = "comic_strip_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_strips_writers",
 			joinColumns = @JoinColumn(name = "comic_strip_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> writers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_strips_artists",
 			joinColumns = @JoinColumn(name = "comic_strip_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> artists = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_strips_characters",
 			joinColumns = @JoinColumn(name = "comic_strip_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 }

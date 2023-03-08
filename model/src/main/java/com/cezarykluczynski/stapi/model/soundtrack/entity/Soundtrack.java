@@ -23,8 +23,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -33,7 +31,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = SoundtrackRepository.class, singularName = "soundtrack",
 		pluralName = "soundtracks")
 public class Soundtrack extends PageAwareEntity implements PageAware {
@@ -54,35 +51,30 @@ public class Soundtrack extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "soundtracks_labels",
 			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> labels = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "soundtracks_composers",
 			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> composers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "soundtracks_contributors",
 			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> contributors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "soundtracks_orchestrators",
 			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> orchestrators = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "soundtracks_references",
 			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 }

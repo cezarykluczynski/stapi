@@ -19,7 +19,8 @@ import java.io.IOException;
 @Priority(2)
 public class UpgradeInsecureRequestsHeaderFilter implements Filter {
 
-	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(UpgradeInsecureRequestsHeaderFilter.class);
+	@SuppressWarnings("ConstantName")
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UpgradeInsecureRequestsHeaderFilter.class);
 	private static final String HEADER_NAME = "Upgrade-Insecure-Requests";
 	private static final String HTTP_PREFIX = "http://";
 
@@ -34,7 +35,7 @@ public class UpgradeInsecureRequestsHeaderFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		upgradeInsecureRequestsEnabled = "true".equalsIgnoreCase(environment.getProperty(EnvironmentVariable.STAPI_UPGRADE_INSECURE_REQUESTS));
-		LOG.info("\"{}\" header will be {}.", HEADER_NAME, upgradeInsecureRequestsEnabled ? "respected" : "ignored");
+		log.info("\"{}\" header will be {}.", HEADER_NAME, upgradeInsecureRequestsEnabled ? "respected" : "ignored");
 	}
 
 	@SuppressWarnings("ThrowsCount")

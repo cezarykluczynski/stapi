@@ -112,9 +112,6 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed'
-		1 * episodeQueryBuilder.fetch(Episode_.series)
-		1 * episodeQueryBuilder.fetch(Episode_.season)
-		1 * episodeQueryBuilder.divideQueries()
 		1 * episodeQueryBuilder.fetch(Episode_.writers, true)
 		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, true)
 		1 * episodeQueryBuilder.divideQueries()

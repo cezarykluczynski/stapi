@@ -18,7 +18,8 @@ import java.io.IOException;
 @Priority(1)
 public class CanonicalDomainFilter implements Filter {
 
-	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CanonicalDomainFilter.class);
+	@SuppressWarnings("ConstantName")
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CanonicalDomainFilter.class);
 
 	private final Environment environment;
 
@@ -32,7 +33,7 @@ public class CanonicalDomainFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		canonicalDomainToCheck = environment.getProperty(EnvironmentVariable.STAPI_CANONICAL_DOMAIN);
 		if (canonicalDomainToCheck != null) {
-			LOG.info("Setting canonical domain to {}.", canonicalDomainToCheck);
+			log.info("Setting canonical domain to {}.", canonicalDomainToCheck);
 		}
 	}
 

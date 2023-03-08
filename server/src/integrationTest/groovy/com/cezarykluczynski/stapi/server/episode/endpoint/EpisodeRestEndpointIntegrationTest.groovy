@@ -19,6 +19,8 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest
 
 		then:
 		episodeFullResponse.episode.title == 'All Good Things...'
+		episodeFullResponse.episode.season != null
+		episodeFullResponse.episode.series != null
 	}
 
 	void "episode has stardate and year set"() {

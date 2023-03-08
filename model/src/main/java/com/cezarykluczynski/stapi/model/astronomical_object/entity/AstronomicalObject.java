@@ -22,8 +22,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -31,7 +29,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @EqualsAndHashCode(callSuper = true, exclude = {"location", "astronomicalObjects"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = AstronomicalObjectRepository.class, singularName = "astronomical object",
 		pluralName = "astronomical objects", restApiVersion = "v2")
 public class AstronomicalObject extends PageAwareEntity implements PageAware {
@@ -52,7 +49,6 @@ public class AstronomicalObject extends PageAwareEntity implements PageAware {
 	private AstronomicalObject location;
 
 	@ManyToMany(mappedBy = "location")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<AstronomicalObject> astronomicalObjects;
 
 }

@@ -26,8 +26,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -35,7 +33,6 @@ import java.util.Set;
 @Entity
 @ToString(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
 @EqualsAndHashCode(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardSetRepository.class, singularName = "trading card set",
 		pluralName = "trading card sets")
 public class TradingCardSet {
@@ -76,22 +73,18 @@ public class TradingCardSet {
 	@JoinTable(name = "trading_card_set_manufacturers",
 			joinColumns = @JoinColumn(name = "trading_card_set_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> manufacturers = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCard.class, cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCard> tradingCards = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCardDeck.class, cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCardDeck> tradingCardDecks = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "trading_card_sets_countries",
 			joinColumns = @JoinColumn(name = "trading_card_set_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "country_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
 
 }

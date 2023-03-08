@@ -22,8 +22,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -31,7 +29,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "comics"})
 @EqualsAndHashCode(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "comics"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicSeriesRepository.class, singularName = "comic series",
 		pluralName = "comic series")
 public class ComicSeries extends PageAwareEntity implements PageAware {
@@ -75,25 +72,21 @@ public class ComicSeries extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "comic_series_comic_series",
 			joinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comic_series_parent_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> parentSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_series_comic_series",
 			joinColumns = @JoinColumn(name = "comic_series_parent_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> childSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_series_publishers",
 			joinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "comicSeries")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Comics> comics;
 
 }

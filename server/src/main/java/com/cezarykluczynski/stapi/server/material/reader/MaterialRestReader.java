@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MaterialRestReader implements BaseReader<MaterialRestBeanParams, MaterialBaseResponse>, FullReader<String, MaterialFullResponse> {
+public class MaterialRestReader implements BaseReader<MaterialRestBeanParams, MaterialBaseResponse>, FullReader<MaterialFullResponse> {
 
 	private MaterialRestQuery materialRestQuery;
 

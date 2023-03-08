@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MagazineSeriesRestReader implements BaseReader<MagazineSeriesRestBeanParams, MagazineSeriesBaseResponse>,
-		FullReader<String, MagazineSeriesFullResponse> {
+		FullReader<MagazineSeriesFullResponse> {
 
 	private final MagazineSeriesRestQuery magazineSeriesRestQuery;
 

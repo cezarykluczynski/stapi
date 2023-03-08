@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LocationV2RestReader implements BaseReader<LocationV2RestBeanParams, LocationV2BaseResponse>,
-		FullReader<String, LocationV2FullResponse> {
+		FullReader<LocationV2FullResponse> {
 
 	private final LocationRestQuery locationRestQuery;
 

@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComicsRestReader implements BaseReader<ComicsRestBeanParams, ComicsBaseResponse>, FullReader<String, ComicsFullResponse> {
+public class ComicsRestReader implements BaseReader<ComicsRestBeanParams, ComicsBaseResponse>, FullReader<ComicsFullResponse> {
 
 	private final ComicsRestQuery comicsRestQuery;
 

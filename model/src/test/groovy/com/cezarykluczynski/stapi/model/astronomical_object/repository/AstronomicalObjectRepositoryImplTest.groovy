@@ -73,8 +73,6 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 		1 * astronomicalObjectQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed'
-		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location)
-		1 * astronomicalObjectQueryBuilder.divideQueries()
 		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, true)
 
 		then: 'page is searched for'

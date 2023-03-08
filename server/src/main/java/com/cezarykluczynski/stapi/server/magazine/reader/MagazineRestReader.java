@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MagazineRestReader implements BaseReader<MagazineRestBeanParams, MagazineBaseResponse>, FullReader<String, MagazineFullResponse> {
+public class MagazineRestReader implements BaseReader<MagazineRestBeanParams, MagazineBaseResponse>, FullReader<MagazineFullResponse> {
 
 	private final MagazineRestQuery magazineRestQuery;
 

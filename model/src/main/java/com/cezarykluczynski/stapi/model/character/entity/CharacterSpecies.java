@@ -18,8 +18,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.io.Serializable;
 
@@ -28,7 +26,6 @@ import java.io.Serializable;
 
 @ToString(exclude = {"species"})
 @EqualsAndHashCode(exclude = {"species"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_HELPER, repository = CharacterSpeciesRepository.class, apiEntity = false,
 		singularName = "character species", pluralName = "characters species")
 @SuppressFBWarnings("SE_BAD_FIELD")

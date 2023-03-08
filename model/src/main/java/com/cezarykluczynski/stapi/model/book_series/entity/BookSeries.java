@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.model.book_series.entity;
 
-
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book_series.repository.BookSeriesRepository;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
@@ -23,8 +22,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -32,7 +29,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "books"})
 @EqualsAndHashCode(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "books"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookSeriesRepository.class, singularName = "book series",
 		pluralName = "book series")
 public class BookSeries extends PageAwareEntity implements PageAware {
@@ -69,25 +65,21 @@ public class BookSeries extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "book_series_book_series",
 			joinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "book_series_parent_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<BookSeries> parentSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "book_series_book_series",
 			joinColumns = @JoinColumn(name = "book_series_parent_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<BookSeries> childSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "book_series_publishers",
 			joinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "bookSeries")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Book> books;
 
 }

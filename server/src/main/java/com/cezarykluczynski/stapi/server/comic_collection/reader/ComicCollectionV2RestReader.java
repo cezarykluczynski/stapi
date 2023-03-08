@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComicCollectionV2RestReader implements FullReader<String, ComicCollectionV2FullResponse> {
+public class ComicCollectionV2RestReader implements FullReader<ComicCollectionV2FullResponse> {
 
 	private final ComicCollectionRestQuery comicCollectionRestQuery;
 

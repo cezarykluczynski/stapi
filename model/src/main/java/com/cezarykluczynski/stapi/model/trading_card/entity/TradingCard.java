@@ -18,14 +18,11 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Data
 @Entity
 @ToString(exclude = {"tradingCardSet", "tradingCardDeck"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCardDeck"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardRepository.class, singularName = "trading card",
 		pluralName = "trading cards")
 public class TradingCard {

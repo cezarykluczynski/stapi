@@ -1,12 +1,35 @@
 package com.cezarykluczynski.stapi.model.staff.dto;
 
-import com.cezarykluczynski.stapi.model.common.dto.RealWorldPersonRequestDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class StaffRequestDTO extends RealWorldPersonRequestDTO {
+@EqualsAndHashCode
+public class StaffRequestDTO {
+
+	private String uid;
+
+	private String name;
+
+	private String birthName;
+
+	private Gender gender;
+
+	private LocalDate dateOfBirthFrom;
+
+	private LocalDate dateOfBirthTo;
+
+	private LocalDate dateOfDeathFrom;
+
+	private LocalDate dateOfDeathTo;
+
+	private String placeOfBirth;
+
+	private String placeOfDeath;
 
 	private Boolean artDepartment;
 
@@ -123,5 +146,7 @@ public class StaffRequestDTO extends RealWorldPersonRequestDTO {
 	private Boolean videoGameProductionStaff;
 
 	private Boolean writer;
+
+	private RequestSortDTO sort;
 
 }

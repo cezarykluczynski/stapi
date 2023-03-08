@@ -23,8 +23,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -32,7 +30,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"publishers", "editors", "magazines"})
 @EqualsAndHashCode(callSuper = true, exclude = {"publishers", "editors", "magazines"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = MagazineSeriesRepository.class, singularName = "magazine series",
 		pluralName = "magazine series")
 public class MagazineSeries extends PageAwareEntity implements PageAware {
@@ -60,18 +57,15 @@ public class MagazineSeries extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "magazine_series_publishers",
 			joinColumns = @JoinColumn(name = "magazine_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "magazine_series_editors",
 			joinColumns = @JoinColumn(name = "magazine_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> editors = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "magazineSeries")
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Magazine> magazines;
 
 }

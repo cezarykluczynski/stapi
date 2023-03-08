@@ -23,8 +23,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -34,7 +32,6 @@ import java.util.Set;
 		"moviesStuntPerformances", "moviesStandInPerformances", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances", "episodesStandInPerformances",
 		"moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances", "characters"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = PerformerRepository.class, singularName = "performer",
 		pluralName = "performers", restApiVersion = "v2")
 public class Performer extends RealWorldPerson implements PageAware {
@@ -89,34 +86,27 @@ public class Performer extends RealWorldPerson implements PageAware {
 	private boolean voyPerformer;
 
 	@ManyToMany(mappedBy = "performers", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodesPerformances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "stuntPerformers", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodesStuntPerformances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "standInPerformers", targetEntity = Episode.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodesStandInPerformances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "performers", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> moviesPerformances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "stuntPerformers", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> moviesStuntPerformances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "standInPerformers", targetEntity = Movie.class)
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> moviesStandInPerformances = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "performers_characters",
 			joinColumns = @JoinColumn(name = "performer_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 }

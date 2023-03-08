@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, CharacterBaseResponse>, FullReader<String, CharacterFullResponse> {
+public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, CharacterBaseResponse>, FullReader<CharacterFullResponse> {
 
 	private final CharacterRestQuery characterRestQuery;
 

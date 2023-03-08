@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookCollectionRestReader implements BaseReader<BookCollectionRestBeanParams, BookCollectionBaseResponse>,
-		FullReader<String, BookCollectionFullResponse> {
+		FullReader<BookCollectionFullResponse> {
 
 	private final BookCollectionRestQuery bookCollectionRestQuery;
 

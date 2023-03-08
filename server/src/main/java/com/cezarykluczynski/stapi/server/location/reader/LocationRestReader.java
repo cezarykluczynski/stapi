@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LocationRestReader implements BaseReader<LocationRestBeanParams, LocationBaseResponse>, FullReader<String, LocationFullResponse> {
+public class LocationRestReader implements BaseReader<LocationRestBeanParams, LocationBaseResponse>, FullReader<LocationFullResponse> {
 
 	private final LocationRestQuery locationRestQuery;
 

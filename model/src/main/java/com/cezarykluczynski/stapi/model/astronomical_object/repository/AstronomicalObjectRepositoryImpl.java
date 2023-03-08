@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.model.astronomical_object.repository;
 
-
 import com.cezarykluczynski.stapi.model.astronomical_object.dto.AstronomicalObjectRequestDTO;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject_;
@@ -30,8 +29,6 @@ public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepos
 		astronomicalObjectQueryBuilder.joinPropertyEqual(AstronomicalObject_.location, "uid", criteria.getLocationUid());
 		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.astronomicalObjectType, criteria.getAstronomicalObjectType());
 		astronomicalObjectQueryBuilder.setSort(criteria.getSort());
-		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location);
-		astronomicalObjectQueryBuilder.divideQueries();
 		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, doFetch);
 
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectQueryBuilder.findPage();

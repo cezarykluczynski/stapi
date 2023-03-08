@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MedicalConditionRestReader implements BaseReader<MedicalConditionRestBeanParams, MedicalConditionBaseResponse>,
-		FullReader<String, MedicalConditionFullResponse> {
+		FullReader<MedicalConditionFullResponse> {
 
 	private MedicalConditionRestQuery medicalConditionRestQuery;
 

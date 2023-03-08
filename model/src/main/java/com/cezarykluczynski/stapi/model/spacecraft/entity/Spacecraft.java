@@ -24,8 +24,6 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Set;
 
@@ -33,7 +31,6 @@ import java.util.Set;
 @Entity
 @ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "affiliation", "spacecraftTypes"})
 @EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "affiliation", "spacecraftTypes"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftRepository.class, singularName = "spacecraft",
 		pluralName = "spacecrafts", restApiVersion = "v2")
 public class Spacecraft extends PageAwareEntity implements PageAware {
@@ -73,7 +70,6 @@ public class Spacecraft extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "spacecrafts_spacecraft_types",
 			joinColumns = @JoinColumn(name = "spacecraft_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "spacecraft_type_id", nullable = false, updatable = false))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
 }

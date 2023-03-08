@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PerformerV2RestReader implements BaseReader<PerformerV2RestBeanParams, PerformerV2BaseResponse>,
-		FullReader<String, PerformerV2FullResponse> {
+		FullReader<PerformerV2FullResponse> {
 
 	private final PerformerRestQuery performerRestQuery;
 

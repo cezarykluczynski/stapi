@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class EndpointHitsCountingService {
 
-	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(EndpointHitsCountingService.class);
+	@SuppressWarnings("ConstantName")
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(EndpointHitsCountingService.class);
 
 	private final ConcurrentMap<MetricsEndpointKeyDTO, LongAdder> endpointsHits = new ConcurrentHashMap<>();
 
@@ -31,7 +32,7 @@ public class EndpointHitsCountingService {
 
 	@Scheduled(cron = "${statistics.endpointHitsConsolePrintCron}")
 	public void flush() {
-		LOG.info("{}", endpointHitsConsoleOutputFormatter.formatForConsolePrint(endpointsHits.entrySet()
+		log.info("{}", endpointHitsConsoleOutputFormatter.formatForConsolePrint(endpointsHits.entrySet()
 				.stream()
 					.collect(Collectors.toMap(Map.Entry::getKey, value -> value.getValue().sum()))));
 	}

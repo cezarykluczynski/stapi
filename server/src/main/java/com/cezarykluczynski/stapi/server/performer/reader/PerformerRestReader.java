@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, PerformerBaseResponse>, FullReader<String, PerformerFullResponse> {
+public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, PerformerBaseResponse>, FullReader<PerformerFullResponse> {
 
 	private final PerformerRestQuery performerRestQuery;
 

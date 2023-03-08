@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StaffRestReader implements BaseReader<StaffRestBeanParams, StaffBaseResponse>, FullReader<String, StaffFullResponse> {
+public class StaffRestReader implements BaseReader<StaffRestBeanParams, StaffBaseResponse>, FullReader<StaffFullResponse> {
 
 	private final StaffRestQuery staffRestQuery;
 

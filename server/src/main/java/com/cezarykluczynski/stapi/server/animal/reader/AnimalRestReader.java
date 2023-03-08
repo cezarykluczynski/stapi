@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AnimalRestReader implements BaseReader<AnimalRestBeanParams, AnimalBaseResponse>, FullReader<String, AnimalFullResponse> {
+public class AnimalRestReader implements BaseReader<AnimalRestBeanParams, AnimalBaseResponse>, FullReader<AnimalFullResponse> {
 
 	private AnimalRestQuery animalRestQuery;
 

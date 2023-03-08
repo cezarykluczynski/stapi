@@ -188,6 +188,23 @@ public class UidGenerator {
 
 		return "TIMA" + StringUtils.leftPad(page.getPageId().toString(), 8, ZERO) + StringUtils.leftPad(pageSectionIndex.toString(), 2, ZERO);
 	}
-
+	
+	public Class retrieveEntityClassFromUid(String uid) {
+		if (StringUtils.isBlank(uid)) {
+			throw new RuntimeException(String.format("Invalid UID %s", uid));
+		}
+		String uidEntityCode = uid.substring(0, 2).toUpperCase();
+		final Map<String, String> classNameToSymbolMap = entityMetadataProvider.provideClassNameToSymbolMap();
+		final String className = classNameToSymbolMap.entrySet().stream()
+				.filter(classNameToSymbolEntry -> uidEntityCode.equals(classNameToSymbolEntry.getValue()))
+				.map(Map.Entry::getKey)
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException(String.format("Could not map UID code %s to entity class.", uidEntityCode)));
+		try {
+			return Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(String.format("Could not get entity class from UID %s", uid), e);
+		}
+	}
 
 }

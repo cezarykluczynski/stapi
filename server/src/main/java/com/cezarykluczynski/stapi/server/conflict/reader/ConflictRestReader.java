@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConflictRestReader implements BaseReader<ConflictRestBeanParams, ConflictBaseResponse>,
-		FullReader<String, ConflictFullResponse> {
+		FullReader<ConflictFullResponse> {
 
 	private final ConflictRestQuery conflictRestQuery;
 
