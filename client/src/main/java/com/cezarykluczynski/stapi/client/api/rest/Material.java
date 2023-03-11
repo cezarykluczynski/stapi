@@ -17,20 +17,20 @@ public class Material {
 	}
 
 	public MaterialFullResponse get(String uid) throws ApiException {
-		return materialApi.v1RestMaterialGet(uid, null);
+		return materialApi.v1RestMaterialGet(uid);
 	}
 
 	@Deprecated
 	public MaterialBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean chemicalCompound,
 			Boolean biochemicalCompound, Boolean drug, Boolean poisonousSubstance, Boolean explosive, Boolean gemstone, Boolean alloyOrComposite,
 			Boolean fuel, Boolean mineral, Boolean preciousMaterial) throws ApiException {
-		return materialApi.v1RestMaterialSearchPost(pageNumber, pageSize, sort, null, name, chemicalCompound, biochemicalCompound, drug,
+		return materialApi.v1RestMaterialSearchPost(pageNumber, pageSize, sort, name, chemicalCompound, biochemicalCompound, drug,
 				poisonousSubstance, explosive, gemstone, alloyOrComposite, fuel, mineral, preciousMaterial);
 	}
 
 	public MaterialBaseResponse search(MaterialSearchCriteria materialSearchCriteria) throws ApiException {
 		return materialApi.v1RestMaterialSearchPost(materialSearchCriteria.getPageNumber(), materialSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(materialSearchCriteria.getSort()), null, materialSearchCriteria.getName(),
+				StapiRestSortSerializer.serialize(materialSearchCriteria.getSort()), materialSearchCriteria.getName(),
 				materialSearchCriteria.getChemicalCompound(), materialSearchCriteria.getBiochemicalCompound(), materialSearchCriteria.getDrug(),
 				materialSearchCriteria.getPoisonousSubstance(), materialSearchCriteria.getExplosive(), materialSearchCriteria.getGemstone(),
 				materialSearchCriteria.getAlloyOrComposite(), materialSearchCriteria.getFuel(), materialSearchCriteria.getMineral(),

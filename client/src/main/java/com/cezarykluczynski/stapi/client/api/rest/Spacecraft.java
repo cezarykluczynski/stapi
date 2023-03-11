@@ -19,7 +19,7 @@ public class Spacecraft {
 
 	@Deprecated
 	public SpacecraftFullResponse get(String uid) throws ApiException {
-		return spacecraftApi.v1RestSpacecraftGet(uid, null);
+		return spacecraftApi.v1RestSpacecraftGet(uid);
 	}
 
 	public SpacecraftV2FullResponse getV2(String uid) throws ApiException {
@@ -28,7 +28,7 @@ public class Spacecraft {
 
 	@Deprecated
 	public SpacecraftBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name) throws ApiException {
-		return spacecraftApi.v1RestSpacecraftSearchPost(pageNumber, pageSize, sort, null, name);
+		return spacecraftApi.v1RestSpacecraftSearchPost(pageNumber, pageSize, sort, name);
 	}
 
 	@Deprecated

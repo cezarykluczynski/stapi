@@ -20,7 +20,7 @@ public class Book {
 
 	@Deprecated
 	public BookFullResponse get(String uid) throws ApiException {
-		return bookApi.v1RestBookGet(uid, null);
+		return bookApi.v1RestBookGet(uid);
 	}
 
 	public BookV2FullResponse getV2(String uid) throws ApiException {
@@ -34,7 +34,7 @@ public class Book {
 			Integer yearTo, Boolean novel, Boolean referenceBook, Boolean biographyBook, Boolean rolePlayingBook, Boolean eBook, Boolean anthology,
 			Boolean novelization, Boolean audiobook, Boolean audiobookAbridged, Integer audiobookPublishedYearFrom, Integer audiobookPublishedYearTo,
 			Integer audiobookRunTimeFrom, Integer audiobookRunTimeTo) throws ApiException {
-		return bookApi.v1RestBookSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return bookApi.v1RestBookSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, novel, referenceBook, biographyBook, rolePlayingBook, eBook, anthology,
 				novelization, audiobook, audiobookAbridged, audiobookPublishedYearFrom, audiobookPublishedYearTo, audiobookRunTimeFrom,
 				audiobookRunTimeTo);

@@ -1,6 +1,0 @@
-type: object
-description: Response object for single character query
-properties:
-  character:
-    $ref: '#/definitions/CharacterFull'
-    description: Character, if found

@@ -20,7 +20,7 @@ public class Title {
 
 	@Deprecated
 	public TitleFullResponse get(String uid) throws ApiException {
-		return titleApi.v1RestTitleGet(uid, null);
+		return titleApi.v1RestTitleGet(uid);
 	}
 
 	public TitleV2FullResponse getV2(String uid) throws ApiException {
@@ -30,7 +30,7 @@ public class Title {
 	@Deprecated
 	public TitleBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
 			Boolean religiousTitle, Boolean position, Boolean mirror) throws ApiException {
-		return titleApi.v1RestTitleSearchPost(pageNumber, pageSize, sort, null, name, militaryRank, fleetRank, religiousTitle, position, mirror);
+		return titleApi.v1RestTitleSearchPost(pageNumber, pageSize, sort, name, militaryRank, fleetRank, religiousTitle, position, mirror);
 	}
 
 	@Deprecated

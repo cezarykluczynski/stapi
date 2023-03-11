@@ -1,6 +1,0 @@
-type: object
-description: Response object for single food query
-properties:
-  food:
-    $ref: '#/definitions/FoodFull'
-    description: Food, if found

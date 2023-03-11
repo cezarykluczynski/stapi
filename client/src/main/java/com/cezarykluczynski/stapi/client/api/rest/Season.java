@@ -17,19 +17,19 @@ public class Season {
 	}
 
 	public SeasonFullResponse get(String uid) throws ApiException {
-		return seasonApi.v1RestSeasonGet(uid, null);
+		return seasonApi.v1RestSeasonGet(uid);
 	}
 
 	@Deprecated
 	public SeasonBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer seasonNumberFrom,
 			Integer seasonNumberTo, Integer numberOfEpisodesFrom, Integer numberOfEpisodesTo) throws ApiException {
-		return seasonApi.v1RestSeasonSearchPost(pageNumber, pageSize, sort, null, title, seasonNumberFrom, seasonNumberTo, numberOfEpisodesFrom,
+		return seasonApi.v1RestSeasonSearchPost(pageNumber, pageSize, sort, title, seasonNumberFrom, seasonNumberTo, numberOfEpisodesFrom,
 				numberOfEpisodesTo);
 	}
 
 	public SeasonBaseResponse search(SeasonSearchCriteria seasonSearchCriteria) throws ApiException {
 		return seasonApi.v1RestSeasonSearchPost(seasonSearchCriteria.getPageNumber(), seasonSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(seasonSearchCriteria.getSort()), null, seasonSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(seasonSearchCriteria.getSort()), seasonSearchCriteria.getTitle(),
 				seasonSearchCriteria.getSeasonNumberFrom(), seasonSearchCriteria.getSeasonNumberTo(), seasonSearchCriteria.getNumberOfEpisodesFrom(),
 				seasonSearchCriteria.getNumberOfEpisodesTo());
 	}

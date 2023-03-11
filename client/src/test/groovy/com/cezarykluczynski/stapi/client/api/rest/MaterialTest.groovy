@@ -28,7 +28,7 @@ class MaterialTest extends AbstractMaterialTest {
 		MaterialFullResponse materialFullResponseOutput = material.get(UID)
 
 		then:
-		1 * materialApiMock.v1RestMaterialGet(UID, null) >> materialFullResponse
+		1 * materialApiMock.v1RestMaterialGet(UID) >> materialFullResponse
 		0 * _
 		materialFullResponse == materialFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class MaterialTest extends AbstractMaterialTest {
 				BIOCHEMICAL_COMPOUND, DRUG, POISONOUS_SUBSTANCE, EXPLOSIVE, GEMSTONE, ALLOY_OR_COMPOSITE, FUEL, MINERAL, PRECIOUS_MATERIAL)
 
 		then:
-		1 * materialApiMock.v1RestMaterialSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, CHEMICAL_COMPOUND, BIOCHEMICAL_COMPOUND,
+		1 * materialApiMock.v1RestMaterialSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, CHEMICAL_COMPOUND, BIOCHEMICAL_COMPOUND,
 				DRUG, POISONOUS_SUBSTANCE, EXPLOSIVE, GEMSTONE, ALLOY_OR_COMPOSITE, FUEL, MINERAL, PRECIOUS_MATERIAL) >> materialBaseResponse
 		0 * _
 		materialBaseResponse == materialBaseResponseOutput
@@ -71,7 +71,7 @@ class MaterialTest extends AbstractMaterialTest {
 		MaterialBaseResponse materialBaseResponseOutput = material.search(materialSearchCriteria)
 
 		then:
-		1 * materialApiMock.v1RestMaterialSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, CHEMICAL_COMPOUND, BIOCHEMICAL_COMPOUND,
+		1 * materialApiMock.v1RestMaterialSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, CHEMICAL_COMPOUND, BIOCHEMICAL_COMPOUND,
 				DRUG, POISONOUS_SUBSTANCE, EXPLOSIVE, GEMSTONE, ALLOY_OR_COMPOSITE, FUEL, MINERAL, PRECIOUS_MATERIAL) >> materialBaseResponse
 		0 * _
 		materialBaseResponse == materialBaseResponseOutput

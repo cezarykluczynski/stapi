@@ -20,7 +20,7 @@ public class Technology {
 
 	@Deprecated
 	public TechnologyFullResponse get(String uid) throws ApiException {
-		return technologyApi.v1RestTechnologyGet(uid, null);
+		return technologyApi.v1RestTechnologyGet(uid);
 	}
 
 	public TechnologyV2FullResponse getV2(String uid) throws ApiException {
@@ -33,7 +33,7 @@ public class Technology {
 			Boolean database, Boolean energyTechnology, Boolean fictionalTechnology, Boolean holographicTechnology, Boolean identificationTechnology,
 			Boolean lifeSupportTechnology, Boolean sensorTechnology, Boolean shieldTechnology, Boolean tool, Boolean culinaryTool,
 			Boolean engineeringTool, Boolean householdTool, Boolean medicalEquipment, Boolean transporterTechnology) throws ApiException {
-		return technologyApi.v1RestTechnologySearchPost(pageNumber, pageSize, sort, null, name, borgTechnology, borgComponent,
+		return technologyApi.v1RestTechnologySearchPost(pageNumber, pageSize, sort, name, borgTechnology, borgComponent,
 				communicationsTechnology, computerTechnology, computerProgramming, subroutine, database, energyTechnology, fictionalTechnology,
 				holographicTechnology, identificationTechnology, lifeSupportTechnology, sensorTechnology, shieldTechnology, tool, culinaryTool,
 				engineeringTool, householdTool, medicalEquipment, transporterTechnology);

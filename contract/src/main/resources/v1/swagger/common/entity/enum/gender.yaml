@@ -1,5 +1,0 @@
-type: string
-description: Gender
-enum:
-  - F
-  - M

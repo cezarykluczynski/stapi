@@ -1,6 +1,0 @@
-type: object
-description: Response object for single species query (V2)
-properties:
-  species:
-    $ref: '#/definitions/SpeciesV2Full'
-    description: Species, if found

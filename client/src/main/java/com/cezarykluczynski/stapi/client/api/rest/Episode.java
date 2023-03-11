@@ -19,7 +19,7 @@ public class Episode {
 	}
 
 	public EpisodeFullResponse get(String uid) throws ApiException {
-		return episodeApi.v1RestEpisodeGet(uid, null);
+		return episodeApi.v1RestEpisodeGet(uid);
 	}
 
 	@Deprecated
@@ -27,14 +27,14 @@ public class Episode {
 			Integer seasonNumberTo, Integer episodeNumberFrom, Integer episodeNumberTo, String productionSerialNumber, Boolean featureLength,
 			Float stardateFrom, Float stardateTo, Integer yearFrom, Integer yearTo, LocalDate usAirDateFrom, LocalDate usAirDateTo,
 			LocalDate finalScriptDateFrom, LocalDate finalScriptDateTo) throws ApiException {
-		return episodeApi.v1RestEpisodeSearchPost(pageNumber, pageSize, sort, null, title, seasonNumberFrom, seasonNumberTo, episodeNumberFrom,
+		return episodeApi.v1RestEpisodeSearchPost(pageNumber, pageSize, sort, title, seasonNumberFrom, seasonNumberTo, episodeNumberFrom,
 				episodeNumberTo, productionSerialNumber, featureLength, stardateFrom, stardateTo, yearFrom, yearTo, usAirDateFrom, usAirDateTo,
 				finalScriptDateFrom, finalScriptDateTo);
 	}
 
 	public EpisodeBaseResponse search(EpisodeSearchCriteria episodeSearchCriteria) throws ApiException {
 		return episodeApi.v1RestEpisodeSearchPost(episodeSearchCriteria.getPageNumber(), episodeSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(episodeSearchCriteria.getSort()), null, episodeSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(episodeSearchCriteria.getSort()), episodeSearchCriteria.getTitle(),
 				episodeSearchCriteria.getSeasonNumberFrom(), episodeSearchCriteria.getSeasonNumberTo(), episodeSearchCriteria.getEpisodeNumberFrom(),
 				episodeSearchCriteria.getEpisodeNumberTo(), episodeSearchCriteria.getProductionSerialNumber(),
 				episodeSearchCriteria.getFeatureLength(), episodeSearchCriteria.getStardateFrom(), episodeSearchCriteria.getStardateTo(),

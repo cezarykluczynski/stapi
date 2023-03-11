@@ -31,7 +31,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassFullResponse spacecraftClassFullResponseOutput = spacecraftClass.get(UID)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassGet(UID, null) >> spacecraftClassFullResponse
+		1 * spacecraftClassApiMock.v1RestSpacecraftClassGet(UID) >> spacecraftClassFullResponse
 		0 * _
 		spacecraftClassFullResponse == spacecraftClassFullResponseOutput
 	}
@@ -71,7 +71,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 				WARP_CAPABLE, ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, WARP_CAPABLE,
+		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE,
 				ALTERNATE_REALITY) >> spacecraftClassBaseResponse
 		0 * _
 		spacecraftClassBaseResponse == spacecraftClassBaseResponseOutput

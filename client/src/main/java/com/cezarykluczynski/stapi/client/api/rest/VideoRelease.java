@@ -21,30 +21,30 @@ public class VideoRelease {
 
 	@Deprecated
 	public VideoReleaseFullResponse get(String uid) throws ApiException {
-		return videoReleaseApi.v1RestVideoReleaseGet(uid, null);
+		return videoReleaseApi.v1RestVideoReleaseGet(uid);
 	}
 
 	public VideoReleaseV2FullResponse getV2(String uid) throws ApiException {
-		return videoReleaseApi.v2RestVideoReleaseGet(uid, null);
+		return videoReleaseApi.v2RestVideoReleaseGet(uid);
 	}
 
 	@Deprecated
 	public VideoReleaseBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer yearFrom, Integer yearTo,
 			Integer runTimeFrom, Integer runTimeTo) throws ApiException {
-		return videoReleaseApi.v1RestVideoReleaseSearchPost(pageNumber, pageSize, sort, null, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
+		return videoReleaseApi.v1RestVideoReleaseSearchPost(pageNumber, pageSize, sort, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
 	}
 
 	@Deprecated
 	public VideoReleaseBaseResponse search(VideoReleaseSearchCriteria videoReleaseSearchCriteria) throws ApiException {
 		return videoReleaseApi.v1RestVideoReleaseSearchPost(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), null, videoReleaseSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), videoReleaseSearchCriteria.getTitle(),
 				videoReleaseSearchCriteria.getYearFrom(), videoReleaseSearchCriteria.getYearTo(), videoReleaseSearchCriteria.getRunTimeFrom(),
 				videoReleaseSearchCriteria.getRunTimeTo());
 	}
 
 	public VideoReleaseV2BaseResponse searchV2(VideoReleaseV2SearchCriteria videoReleaseSearchCriteria) throws ApiException {
 		return videoReleaseApi.v2RestVideoReleaseSearchPost(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), null, videoReleaseSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), videoReleaseSearchCriteria.getTitle(),
 				videoReleaseSearchCriteria.getYearFrom(), videoReleaseSearchCriteria.getYearTo(), videoReleaseSearchCriteria.getRunTimeFrom(),
 				videoReleaseSearchCriteria.getRunTimeTo(), videoReleaseSearchCriteria.getDocumentary(),
 				videoReleaseSearchCriteria.getSpecialFeatures());

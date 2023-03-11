@@ -30,7 +30,7 @@ class WeaponTest extends AbstractWeaponTest {
 		WeaponFullResponse weaponFullResponseOutput = weapon.get(UID)
 
 		then:
-		1 * weaponApiMock.v1RestWeaponGet(UID, null) >> weaponFullResponse
+		1 * weaponApiMock.v1RestWeaponGet(UID) >> weaponFullResponse
 		0 * _
 		weaponFullResponse == weaponFullResponseOutput
 	}
@@ -57,7 +57,7 @@ class WeaponTest extends AbstractWeaponTest {
 				PLASMA_TECHNOLOGY, PHOTONIC_TECHNOLOGY, PHASER_TECHNOLOGY, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * weaponApiMock.v1RestWeaponSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
+		1 * weaponApiMock.v1RestWeaponSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
 				PHOTONIC_TECHNOLOGY, PHASER_TECHNOLOGY, MIRROR, ALTERNATE_REALITY) >> weaponBaseResponse
 		0 * _
 		weaponBaseResponse == weaponBaseResponseOutput

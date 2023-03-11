@@ -20,7 +20,7 @@ public class Element {
 
 	@Deprecated
 	public ElementFullResponse get(String uid) throws ApiException {
-		return elementApi.v1RestElementGet(uid, null);
+		return elementApi.v1RestElementGet(uid);
 	}
 
 	public ElementV2FullResponse getV2(String uid) throws ApiException {
@@ -31,7 +31,7 @@ public class Element {
 	public ElementBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String symbol, Boolean transuranium,
 			Boolean gammaSeries, Boolean hypersonicSeries, Boolean megaSeries, Boolean omegaSeries, Boolean transonicSeries, Boolean worldSeries)
 			throws ApiException {
-		return elementApi.v1RestElementSearchPost(pageNumber, pageSize, sort, null, name, symbol, transuranium, gammaSeries, hypersonicSeries,
+		return elementApi.v1RestElementSearchPost(pageNumber, pageSize, sort, name, symbol, transuranium, gammaSeries, hypersonicSeries,
 				megaSeries, omegaSeries, transonicSeries, worldSeries);
 	}
 

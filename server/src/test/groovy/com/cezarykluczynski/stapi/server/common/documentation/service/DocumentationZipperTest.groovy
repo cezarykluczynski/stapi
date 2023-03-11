@@ -9,8 +9,8 @@ import spock.lang.Specification
 })
 class DocumentationZipperTest extends Specification {
 
-	private static final String ROOT_DIRECTORY = '../contract/src/main/resources/v1/swagger/book'
-	private static final String CONTRACT_DIRECTORY = 'contract/src/main/resources/v1/swagger/book'
+	private static final String ROOT_DIRECTORY = '../contract/src/main/resources/v1/swagger'
+	private static final String CONTRACT_DIRECTORY = 'contract/src/main/resources/v1/swagger'
 	private static final String TEMPORARY_TARGET_FILE = 'build/tmp/DocumentationZipperTest_temp_file.zip'
 
 	private DocumentationZipper documentationZipper

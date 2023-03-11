@@ -1,9 +1,0 @@
-type: object
-description: Platform of video games
-properties:
-  uid:
-    type: string
-    description: Platform unique ID
-  name:
-    type: string
-    description: Platform name

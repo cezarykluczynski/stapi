@@ -28,7 +28,7 @@ class AnimalTest extends AbstractAnimalTest {
 		AnimalFullResponse animalFullResponseOutput = animal.get(UID)
 
 		then:
-		1 * animalApiMock.v1RestAnimalGet(UID, null) >> animalFullResponse
+		1 * animalApiMock.v1RestAnimalGet(UID) >> animalFullResponse
 		0 * _
 		animalFullResponse == animalFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class AnimalTest extends AbstractAnimalTest {
 				CANINE, FELINE)
 
 		then:
-		1 * animalApiMock.v1RestAnimalSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, EARTH_ANIMAL, EARTH_INSECT, AVIAN, CANINE,
+		1 * animalApiMock.v1RestAnimalSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTH_ANIMAL, EARTH_INSECT, AVIAN, CANINE,
 				FELINE) >> animalBaseResponse
 		0 * _
 		animalBaseResponse == animalBaseResponseOutput
@@ -66,7 +66,7 @@ class AnimalTest extends AbstractAnimalTest {
 		AnimalBaseResponse animalBaseResponseOutput = animal.search(animalSearchCriteria)
 
 		then:
-		1 * animalApiMock.v1RestAnimalSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, EARTH_ANIMAL, EARTH_INSECT, AVIAN, CANINE,
+		1 * animalApiMock.v1RestAnimalSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTH_ANIMAL, EARTH_INSECT, AVIAN, CANINE,
 				FELINE) >> animalBaseResponse
 		0 * _
 		animalBaseResponse == animalBaseResponseOutput

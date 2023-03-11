@@ -17,20 +17,20 @@ public class Comics {
 	}
 
 	public ComicsFullResponse get(String uid) throws ApiException {
-		return comicsApi.v1RestComicsGet(uid, null);
+		return comicsApi.v1RestComicsGet(uid);
 	}
 
 	@Deprecated
 	public ComicsBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean photonovel, Boolean adaptation) throws ApiException {
-		return comicsApi.v1RestComicsSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return comicsApi.v1RestComicsSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, photonovel, adaptation);
 	}
 
 	public ComicsBaseResponse search(ComicsSearchCriteria comicsSearchCriteria) throws ApiException {
 		return comicsApi.v1RestComicsSearchPost(comicsSearchCriteria.getPageNumber(), comicsSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(comicsSearchCriteria.getSort()), null, comicsSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(comicsSearchCriteria.getSort()), comicsSearchCriteria.getTitle(),
 				comicsSearchCriteria.getPublishedYearFrom(), comicsSearchCriteria.getPublishedYearTo(), comicsSearchCriteria.getNumberOfPagesFrom(),
 				comicsSearchCriteria.getNumberOfPagesTo(), comicsSearchCriteria.getStardateFrom(), comicsSearchCriteria.getStardateTo(),
 				comicsSearchCriteria.getYearFrom(), comicsSearchCriteria.getYearTo(), comicsSearchCriteria.getPhotonovel(),

@@ -1,6 +1,0 @@
-type: object
-description: Response object for single element query (V2)
-properties:
-  element:
-    $ref: '#/definitions/ElementV2Full'
-    description: Element, if found

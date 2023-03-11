@@ -17,19 +17,19 @@ public class Magazine {
 	}
 
 	public MagazineFullResponse get(String uid) throws ApiException {
-		return magazineApi.v1RestMagazineGet(uid, null);
+		return magazineApi.v1RestMagazineGet(uid);
 	}
 
 	@Deprecated
 	public MagazineBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo) throws ApiException {
-		return magazineApi.v1RestMagazineSearchPost(pageNumber, pageSize, sort, null, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return magazineApi.v1RestMagazineSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo);
 	}
 
 	public MagazineBaseResponse search(MagazineSearchCriteria magazineSearchCriteria) throws ApiException {
 		return magazineApi.v1RestMagazineSearchPost(magazineSearchCriteria.getPageNumber(), magazineSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(magazineSearchCriteria.getSort()), null, magazineSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(magazineSearchCriteria.getSort()), magazineSearchCriteria.getTitle(),
 				magazineSearchCriteria.getPublishedYearFrom(), magazineSearchCriteria.getPublishedYearTo(),
 				magazineSearchCriteria.getNumberOfPagesFrom(), magazineSearchCriteria.getNumberOfPagesTo());
 	}

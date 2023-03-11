@@ -28,7 +28,7 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 		SoundtrackFullResponse soundtrackFullResponseOutput = soundtrack.get(UID)
 
 		then:
-		1 * soundtrackApiMock.v1RestSoundtrackGet(UID, null) >> soundtrackFullResponse
+		1 * soundtrackApiMock.v1RestSoundtrackGet(UID) >> soundtrackFullResponse
 		0 * _
 		soundtrackFullResponse == soundtrackFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 				RELEASE_DATE_TO, LENGTH_FROM, LENGTH_TO)
 
 		then:
-		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
+		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
 				LENGTH_FROM, LENGTH_TO) >> soundtrackBaseResponse
 		0 * _
 		soundtrackBaseResponse == soundtrackBaseResponseOutput
@@ -65,7 +65,7 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(soundtrackSearchCriteria)
 
 		then:
-		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
+		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
 				LENGTH_FROM, LENGTH_TO) >> soundtrackBaseResponse
 		0 * _
 		soundtrackBaseResponse == soundtrackBaseResponseOutput

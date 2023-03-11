@@ -1,6 +1,0 @@
-type: object
-description: Response object for single comic collection query (V2)
-properties:
-  comicCollection:
-    $ref: '#/definitions/ComicCollectionV2Full'
-    description: Comic collection, if found

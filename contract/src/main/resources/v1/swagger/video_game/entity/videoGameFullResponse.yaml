@@ -1,6 +1,0 @@
-type: object
-description: Response object for single video game query
-properties:
-  videoGame:
-    $ref: '#/definitions/VideoGameFull'
-    description: Video game, if found

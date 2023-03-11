@@ -29,7 +29,7 @@ class CharacterTest extends AbstractIndividualTest {
 		CharacterFullResponse characterFullResponseOutput = character.get(UID)
 
 		then:
-		1 * characterApiMock.v1RestCharacterGet(UID, null) >> characterFullResponse
+		1 * characterApiMock.v1RestCharacterGet(UID) >> characterFullResponse
 		0 * _
 		characterFullResponse == characterFullResponseOutput
 	}
@@ -43,7 +43,7 @@ class CharacterTest extends AbstractIndividualTest {
 				HOLOGRAM, FICTIONAL_CHARACTER, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * characterApiMock.v1RestCharacterSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, GENDER, DECEASED, HOLOGRAM,
+		1 * characterApiMock.v1RestCharacterSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, GENDER, DECEASED, HOLOGRAM,
 				FICTIONAL_CHARACTER, MIRROR, ALTERNATE_REALITY) >> characterBaseResponse
 		0 * _
 		characterBaseResponse == characterBaseResponseOutput
@@ -68,7 +68,7 @@ class CharacterTest extends AbstractIndividualTest {
 		CharacterBaseResponse characterBaseResponseOutput = character.search(characterSearchCriteria)
 
 		then:
-		1 * characterApiMock.v1RestCharacterSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, GENDER, DECEASED, HOLOGRAM,
+		1 * characterApiMock.v1RestCharacterSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, GENDER, DECEASED, HOLOGRAM,
 				FICTIONAL_CHARACTER, MIRROR, ALTERNATE_REALITY) >> characterBaseResponse
 		0 * _
 		characterBaseResponse == characterBaseResponseOutput

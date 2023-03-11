@@ -1,9 +1,0 @@
-type: object
-description: Header book collection, embedded in other objects
-properties:
-  uid:
-    type: string
-    description: Book collection unique ID
-  title:
-    type: string
-    description: Book collection title

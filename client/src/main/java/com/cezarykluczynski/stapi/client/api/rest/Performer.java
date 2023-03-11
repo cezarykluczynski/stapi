@@ -23,7 +23,7 @@ public class Performer {
 
 	@Deprecated
 	public PerformerFullResponse get(String uid) throws ApiException {
-		return performerApi.v1RestPerformerGet(uid, null);
+		return performerApi.v1RestPerformerGet(uid);
 	}
 
 	public PerformerV2FullResponse getV2(String uid) throws ApiException {
@@ -36,7 +36,7 @@ public class Performer {
 			String placeOfDeath, Boolean animalPerformer, Boolean disPerformer, Boolean ds9Performer, Boolean entPerformer, Boolean filmPerformer,
 			Boolean standInPerformer, Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer,
 			Boolean videoGamePerformer, Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
-		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, null, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, disPerformer, ds9Performer, entPerformer, filmPerformer,
 				standInPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
 	}

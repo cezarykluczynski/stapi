@@ -30,7 +30,7 @@ class ElementTest extends AbstractElementTest {
 		ElementFullResponse elementFullResponseOutput = element.get(UID)
 
 		then:
-		1 * elementApiMock.v1RestElementGet(UID, null) >> elementFullResponse
+		1 * elementApiMock.v1RestElementGet(UID) >> elementFullResponse
 		0 * _
 		elementFullResponse == elementFullResponseOutput
 	}
@@ -57,7 +57,7 @@ class ElementTest extends AbstractElementTest {
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES)
 
 		then:
-		1 * elementApiMock.v1RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
+		1 * elementApiMock.v1RestElementSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
 				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES) >> elementBaseResponse
 		0 * _
 		elementBaseResponse == elementBaseResponseOutput

@@ -1,6 +1,0 @@
-type: object
-description: Response object for single location query
-properties:
-  location:
-    $ref: '#/definitions/LocationFull'
-    description: Location, if found

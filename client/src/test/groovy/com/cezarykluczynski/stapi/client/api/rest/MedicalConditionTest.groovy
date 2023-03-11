@@ -28,7 +28,7 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 		MedicalConditionFullResponse medicalConditionFullResponseOutput = medicalCondition.get(UID)
 
 		then:
-		1 * medicalConditionApiMock.v1RestMedicalConditionGet(UID, null) >> medicalConditionFullResponse
+		1 * medicalConditionApiMock.v1RestMedicalConditionGet(UID) >> medicalConditionFullResponse
 		0 * _
 		medicalConditionFullResponse == medicalConditionFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 				PSYCHOLOGICAL_CONDITION)
 
 		then:
-		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, PSYCHOLOGICAL_CONDITION) >>
+		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, PSYCHOLOGICAL_CONDITION) >>
 				medicalConditionBaseResponse
 		0 * _
 		medicalConditionBaseResponse == medicalConditionBaseResponseOutput
@@ -62,7 +62,7 @@ class MedicalConditionTest extends AbstractMedicalConditionTest {
 		MedicalConditionBaseResponse medicalConditionBaseResponseOutput = medicalCondition.search(medicalConditionSearchCriteria)
 
 		then:
-		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, PSYCHOLOGICAL_CONDITION) >>
+		1 * medicalConditionApiMock.v1RestMedicalConditionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, PSYCHOLOGICAL_CONDITION) >>
 				medicalConditionBaseResponse
 		0 * _
 		medicalConditionBaseResponse == medicalConditionBaseResponseOutput

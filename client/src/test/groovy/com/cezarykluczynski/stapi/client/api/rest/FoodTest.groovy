@@ -28,7 +28,7 @@ class FoodTest extends AbstractFoodTest {
 		FoodFullResponse foodFullResponseOutput = food.get(UID)
 
 		then:
-		1 * foodApiMock.v1RestFoodGet(UID, null) >> foodFullResponse
+		1 * foodApiMock.v1RestFoodGet(UID) >> foodFullResponse
 		0 * _
 		foodFullResponse == foodFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class FoodTest extends AbstractFoodTest {
 				HERB_OR_SPICE, SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA)
 
 		then:
-		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
+		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
 				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
 		0 * _
 		foodBaseResponse == foodBaseResponseOutput
@@ -71,7 +71,7 @@ class FoodTest extends AbstractFoodTest {
 		FoodBaseResponse foodBaseResponseOutput = food.search(foodSearchCriteria)
 
 		then:
-		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
+		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
 				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
 		0 * _
 		foodBaseResponse == foodBaseResponseOutput

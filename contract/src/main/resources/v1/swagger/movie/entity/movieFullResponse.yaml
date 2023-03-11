@@ -1,6 +1,0 @@
-type: object
-description: Response object for single movie query
-properties:
-  movie:
-    $ref: '#/definitions/MovieFull'
-    description: Movie, if found

@@ -12,21 +12,21 @@ class DocumentationReaderTest extends Specification {
 		documentationReader = new DocumentationReader()
 	}
 
-	void "reads directory into list of DocumentDTO, recursively"() {
+	void "reads directory into list of DocumentDTO"() {
 		given:
-		String rootDirectory = '../contract/src/main/resources/v1/swagger/book'
-		String contractDirectory = 'contract/src/main/resources/v1/swagger/book'
+		String rootDirectory = '../contract/src/main/resources/v1/swagger'
+		String contractDirectory = 'contract/src/main/resources/v1/swagger'
 		String directory = new File(rootDirectory).directory ? rootDirectory : contractDirectory
 
 		when:
 		List<DocumentDTO> documentDTOList = documentationReader.readDirectory(directory)
 		DocumentDTO documentDTO = documentationReader.readDirectory(directory).stream()
-					.filter { it.path.endsWith('bookBase.yaml') }
+					.filter { it.path.endsWith('.yaml') }
 					.findFirst().get()
+
 		then:
-		documentDTOList.size() == 13
-		documentDTO.path.endsWith 'bookBase.yaml'
-		documentDTO.content.contains 'rolePlayingBook:'
+		documentDTOList.size() == 2
+		documentDTO.path.endsWith '.yaml'
 		documentDTO.type == DocumentType.YAML
 	}
 

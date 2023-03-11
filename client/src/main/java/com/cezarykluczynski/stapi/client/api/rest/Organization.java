@@ -17,7 +17,7 @@ public class Organization {
 	}
 
 	public OrganizationFullResponse get(String uid) throws ApiException {
-		return organizationApi.v1RestOrganizationGet(uid, null);
+		return organizationApi.v1RestOrganizationGet(uid);
 	}
 
 	@Deprecated
@@ -25,14 +25,14 @@ public class Organization {
 			Boolean intergovernmentalOrganization, Boolean researchOrganization, Boolean sportOrganization, Boolean medicalOrganization,
 			Boolean militaryOrganization, Boolean militaryUnit, Boolean governmentAgency, Boolean lawEnforcementAgency, Boolean prisonOrPenalColony,
 			Boolean mirror, Boolean alternateReality) throws ApiException {
-		return organizationApi.v1RestOrganizationSearchPost(pageNumber, pageSize, sort, null, name, government, intergovernmentalOrganization,
+		return organizationApi.v1RestOrganizationSearchPost(pageNumber, pageSize, sort, name, government, intergovernmentalOrganization,
 				researchOrganization, sportOrganization, medicalOrganization, militaryOrganization, militaryUnit, governmentAgency,
 				lawEnforcementAgency, prisonOrPenalColony, mirror, alternateReality);
 	}
 
 	public OrganizationBaseResponse search(OrganizationSearchCriteria organizationSearchCriteria) throws ApiException {
 		return organizationApi.v1RestOrganizationSearchPost(organizationSearchCriteria.getPageNumber(), organizationSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(organizationSearchCriteria.getSort()), null, organizationSearchCriteria.getName(),
+				StapiRestSortSerializer.serialize(organizationSearchCriteria.getSort()), organizationSearchCriteria.getName(),
 				organizationSearchCriteria.getGovernment(), organizationSearchCriteria.getIntergovernmentalOrganization(),
 				organizationSearchCriteria.getResearchOrganization(), organizationSearchCriteria.getSportOrganization(),
 				organizationSearchCriteria.getMedicalOrganization(), organizationSearchCriteria.getMilitaryOrganization(),

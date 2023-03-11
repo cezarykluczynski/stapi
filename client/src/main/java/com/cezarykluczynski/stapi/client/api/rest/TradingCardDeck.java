@@ -17,18 +17,18 @@ public class TradingCardDeck {
 	}
 
 	public TradingCardDeckFullResponse get(String uid) throws ApiException {
-		return tradingCardDeckApi.v1RestTradingCardDeckGet(uid, null);
+		return tradingCardDeckApi.v1RestTradingCardDeckGet(uid);
 	}
 
 	@Deprecated
 	public TradingCardDeckBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String tradingCardSetUid)
 			throws ApiException {
-		return tradingCardDeckApi.v1RestTradingCardDeckSearchPost(pageNumber, pageSize, sort, null, name, tradingCardSetUid);
+		return tradingCardDeckApi.v1RestTradingCardDeckSearchPost(pageNumber, pageSize, sort, name, tradingCardSetUid);
 	}
 
 	public TradingCardDeckBaseResponse search(TradingCardDeckSearchCriteria tradingCardDeckSearchCriteria) throws ApiException {
 		return tradingCardDeckApi.v1RestTradingCardDeckSearchPost(tradingCardDeckSearchCriteria.getPageNumber(),
-				tradingCardDeckSearchCriteria.getPageSize(), StapiRestSortSerializer.serialize(tradingCardDeckSearchCriteria.getSort()), null,
+				tradingCardDeckSearchCriteria.getPageSize(), StapiRestSortSerializer.serialize(tradingCardDeckSearchCriteria.getSort()),
 				tradingCardDeckSearchCriteria.getName(), tradingCardDeckSearchCriteria.getTradingCardSetUid());
 	}
 

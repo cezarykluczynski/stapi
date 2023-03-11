@@ -1,6 +1,0 @@
-type: object
-description: Response object for single title query (V2)
-properties:
-  title:
-    $ref: '#/definitions/TitleV2Full'
-    description: Title, if found

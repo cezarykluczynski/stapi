@@ -1,6 +1,0 @@
-type: string
-description: Blood type
-enum:
-  - B_NEGATIVE
-  - O_NEGATIVE
-  - T_NEGATIVE

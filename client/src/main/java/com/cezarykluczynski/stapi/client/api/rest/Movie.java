@@ -19,19 +19,19 @@ public class Movie {
 	}
 
 	public MovieFullResponse get(String uid) throws ApiException {
-		return movieApi.v1RestMovieGet(uid, null);
+		return movieApi.v1RestMovieGet(uid);
 	}
 
 	@Deprecated
 	public MovieBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Float stardateFrom, Float stardateTo,
 			Integer yearFrom, Integer yearTo, LocalDate usReleaseDateFrom, LocalDate usReleaseDateTo) throws ApiException {
-		return movieApi.v1RestMovieSearchPost(pageNumber, pageSize, sort, null, title, stardateFrom, stardateTo, yearFrom, yearTo,
+		return movieApi.v1RestMovieSearchPost(pageNumber, pageSize, sort, title, stardateFrom, stardateTo, yearFrom, yearTo,
 				usReleaseDateFrom, usReleaseDateTo);
 	}
 
 	public MovieBaseResponse search(MovieSearchCriteria movieSearchCriteria) throws ApiException {
 		return movieApi.v1RestMovieSearchPost(movieSearchCriteria.getPageNumber(), movieSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(movieSearchCriteria.getSort()), null, movieSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(movieSearchCriteria.getSort()), movieSearchCriteria.getTitle(),
 				movieSearchCriteria.getStardateFrom(), movieSearchCriteria.getStardateTo(), movieSearchCriteria.getYearFrom(),
 				movieSearchCriteria.getYearTo(), movieSearchCriteria.getUsReleaseDateFrom(), movieSearchCriteria.getUsReleaseDateTo());
 	}

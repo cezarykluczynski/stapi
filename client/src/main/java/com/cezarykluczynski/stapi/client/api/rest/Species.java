@@ -20,7 +20,7 @@ public class Species {
 
 	@Deprecated
 	public SpeciesFullResponse get(String uid) throws ApiException {
-		return speciesApi.v1RestSpeciesGet(uid, null);
+		return speciesApi.v1RestSpeciesGet(uid);
 	}
 
 	public SpeciesV2FullResponse getV2(String uid) throws ApiException {
@@ -32,7 +32,7 @@ public class Species {
 			Boolean warpCapableSpecies, Boolean extraGalacticSpecies, Boolean humanoidSpecies, Boolean reptilianSpecies, Boolean nonCorporealSpecies,
 			Boolean shapeshiftingSpecies, Boolean spaceborneSpecies, Boolean telepathicSpecies, Boolean transDimensionalSpecies,
 			Boolean unnamedSpecies, Boolean alternateReality) throws ApiException {
-		return speciesApi.v1RestSpeciesSearchPost(pageNumber, pageSize, sort, null, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
+		return speciesApi.v1RestSpeciesSearchPost(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
 				humanoidSpecies, reptilianSpecies, nonCorporealSpecies, shapeshiftingSpecies, spaceborneSpecies, telepathicSpecies,
 				transDimensionalSpecies, unnamedSpecies, alternateReality);
 	}

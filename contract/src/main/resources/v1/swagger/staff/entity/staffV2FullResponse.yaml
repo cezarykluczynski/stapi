@@ -1,6 +1,0 @@
-type: object
-description: Response object for single staff query (V2)
-properties:
-  staff:
-    $ref: '#/definitions/StaffV2Full'
-    description: Staff, if found

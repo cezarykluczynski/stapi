@@ -23,7 +23,7 @@ public class Staff {
 
 	@Deprecated
 	public StaffFullResponse get(String uid) throws ApiException {
-		return staffApi.v1RestStaffGet(uid, null);
+		return staffApi.v1RestStaffGet(uid);
 	}
 
 	public StaffV2FullResponse getV2(String uid) throws ApiException {
@@ -45,7 +45,7 @@ public class Staff {
 			Boolean publicityArtist, Boolean cbsDigitalStaff, Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor,
 			Boolean studioExecutive, Boolean stuntDepartment, Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer)
 			throws ApiException {
-		return staffApi.v1RestStaffSearchPost(pageNumber, pageSize, sort, null, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return staffApi.v1RestStaffSearchPost(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
 				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
 				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, linguist, locationStaff, makeupStaff, musicDepartment,

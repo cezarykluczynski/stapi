@@ -1,6 +1,0 @@
-type: object
-description: Response object for single book query (V2)
-properties:
-  book:
-    $ref: '#/definitions/BookV2Full'
-    description: Book, if found

@@ -31,7 +31,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		PerformerFullResponse performerFullResponseOutput = performer.get(UID)
 
 		then:
-		1 * performerApiMock.v1RestPerformerGet(UID, null) >> performerFullResponse
+		1 * performerApiMock.v1RestPerformerGet(UID) >> performerFullResponse
 		0 * _
 		performerFullResponse == performerFullResponseOutput
 	}
@@ -60,7 +60,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 				TOS_PERFORMER, VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER)
 
 		then:
-		1 * performerApiMock.v1RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
+		1 * performerApiMock.v1RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ANIMAL_PERFORMER, DIS_PERFORMER,
 				DS9_PERFORMER, ENT_PERFORMER, FILM_PERFORMER, STAND_IN_PERFORMER, STUNT_PERFORMER, TAS_PERFORMER, TNG_PERFORMER, TOS_PERFORMER,
 				VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER) >> performerBaseResponse

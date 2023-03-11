@@ -1,6 +1,0 @@
-type: object
-description: Response object for single series query
-properties:
-  series:
-    $ref: '#/definitions/SeriesFull'
-    description: Series, if found

@@ -1,6 +1,0 @@
-type: object
-description: Response object for single organization query
-properties:
-  organization:
-    $ref: '#/definitions/OrganizationFull'
-    description: Organization, if found

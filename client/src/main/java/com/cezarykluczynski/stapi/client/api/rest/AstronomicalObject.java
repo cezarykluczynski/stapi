@@ -21,7 +21,7 @@ public class AstronomicalObject {
 
 	@Deprecated
 	public AstronomicalObjectFullResponse get(String uid) throws ApiException {
-		return astronomicalObjectApi.v1RestAstronomicalObjectGet(uid, null);
+		return astronomicalObjectApi.v1RestAstronomicalObjectGet(uid);
 	}
 
 	public AstronomicalObjectV2FullResponse getV2(String uid) throws ApiException {
@@ -31,7 +31,7 @@ public class AstronomicalObject {
 	@Deprecated
 	public AstronomicalObjectBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String astronomicalObjectType,
 			String locationUid) throws ApiException {
-		return astronomicalObjectApi.v1RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, null, name, astronomicalObjectType,
+		return astronomicalObjectApi.v1RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, name, astronomicalObjectType,
 				locationUid);
 	}
 

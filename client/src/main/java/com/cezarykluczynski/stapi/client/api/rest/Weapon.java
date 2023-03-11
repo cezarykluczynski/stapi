@@ -20,7 +20,7 @@ public class Weapon {
 
 	@Deprecated
 	public WeaponFullResponse get(String uid) throws ApiException {
-		return weaponApi.v1RestWeaponGet(uid, null);
+		return weaponApi.v1RestWeaponGet(uid);
 	}
 
 	public WeaponV2FullResponse getV2(String uid) throws ApiException {
@@ -31,7 +31,7 @@ public class Weapon {
 	public WeaponBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean handHeldWeapon, Boolean laserTechnology,
 			Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean mirror, Boolean alternateReality)
 			throws ApiException {
-		return weaponApi.v1RestWeaponSearchPost(pageNumber, pageSize, sort, null, name, handHeldWeapon, laserTechnology, plasmaTechnology,
+		return weaponApi.v1RestWeaponSearchPost(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
 				photonicTechnology, phaserTechnology, mirror, alternateReality);
 	}
 

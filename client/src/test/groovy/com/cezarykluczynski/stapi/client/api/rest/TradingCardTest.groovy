@@ -28,7 +28,7 @@ class TradingCardTest extends AbstractTradingCardTest {
 		TradingCardFullResponse tradingCardFullResponseOutput = tradingCard.get(UID)
 
 		then:
-		1 * tradingCardApiMock.v1RestTradingCardGet(UID, null) >> tradingCardFullResponse
+		1 * tradingCardApiMock.v1RestTradingCardGet(UID) >> tradingCardFullResponse
 		0 * _
 		tradingCardFullResponse == tradingCardFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class TradingCardTest extends AbstractTradingCardTest {
 				TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID)
 
 		then:
-		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, TRADING_CARD_DECK_UID,
+		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, TRADING_CARD_DECK_UID,
 				TRADING_CARD_SET_UID) >> tradingCardBaseResponse
 		0 * _
 		tradingCardBaseResponse == tradingCardBaseResponseOutput
@@ -64,7 +64,7 @@ class TradingCardTest extends AbstractTradingCardTest {
 				TRADING_CARD_DECK_UID, TRADING_CARD_SET_UID)
 
 		then:
-		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, TRADING_CARD_DECK_UID,
+		1 * tradingCardApiMock.v1RestTradingCardSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, TRADING_CARD_DECK_UID,
 				TRADING_CARD_SET_UID) >> tradingCardBaseResponse
 		0 * _
 		tradingCardBaseResponse == tradingCardBaseResponseOutput

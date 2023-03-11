@@ -20,7 +20,7 @@ public class Occupation {
 
 	@Deprecated
 	public OccupationFullResponse get(String uid) throws ApiException {
-		return occupationApi.v1RestOccupationGet(uid, null);
+		return occupationApi.v1RestOccupationGet(uid);
 	}
 
 	public OccupationV2FullResponse getV2(String uid) throws ApiException {
@@ -30,7 +30,7 @@ public class Occupation {
 	@Deprecated
 	public OccupationBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean legalOccupation,
 			Boolean medicalOccupation, Boolean scientificOccupation) throws ApiException {
-		return occupationApi.v1RestOccupationSearchPost(pageNumber, pageSize, sort, null, name, legalOccupation, medicalOccupation,
+		return occupationApi.v1RestOccupationSearchPost(pageNumber, pageSize, sort, name, legalOccupation, medicalOccupation,
 				scientificOccupation);
 	}
 

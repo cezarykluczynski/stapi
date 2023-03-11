@@ -1,6 +1,0 @@
-type: object
-description: Response object for single video release query (V2)
-properties:
-  videoRelease:
-    $ref: '#/definitions/VideoReleaseV2Full'
-    description: Video release, if found

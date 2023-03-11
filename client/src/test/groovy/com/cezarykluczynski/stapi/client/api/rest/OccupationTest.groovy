@@ -30,7 +30,7 @@ class OccupationTest extends AbstractOccupationTest {
 		OccupationFullResponse occupationFullResponseOutput = occupation.get(UID)
 
 		then:
-		1 * occupationApiMock.v1RestOccupationGet(UID, null) >> occupationFullResponse
+		1 * occupationApiMock.v1RestOccupationGet(UID) >> occupationFullResponse
 		0 * _
 		occupationFullResponse == occupationFullResponseOutput
 	}
@@ -57,7 +57,7 @@ class OccupationTest extends AbstractOccupationTest {
 				MEDICAL_OCCUPATION, SCIENTIFIC_OCCUPATION)
 
 		then:
-		1 * occupationApiMock.v1RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, null, NAME, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
+		1 * occupationApiMock.v1RestOccupationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, LEGAL_OCCUPATION, MEDICAL_OCCUPATION,
 				SCIENTIFIC_OCCUPATION) >> occupationBaseResponse
 		0 * _
 		occupationBaseResponse == occupationBaseResponseOutput

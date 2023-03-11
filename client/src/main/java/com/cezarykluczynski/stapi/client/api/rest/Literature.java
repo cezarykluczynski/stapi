@@ -17,20 +17,20 @@ public class Literature {
 	}
 
 	public LiteratureFullResponse get(String uid) throws ApiException {
-		return literatureApi.v1RestLiteratureGet(uid, null);
+		return literatureApi.v1RestLiteratureGet(uid);
 	}
 
 	@Deprecated
 	public LiteratureBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Boolean earthlyOrigin,
 			Boolean shakespeareanWork, Boolean report, Boolean scientificLiterature, Boolean technicalManual, Boolean religiousLiterature)
 			throws ApiException {
-		return literatureApi.v1RestLiteratureSearchPost(pageNumber, pageSize, sort, null, title, earthlyOrigin, shakespeareanWork, report,
+		return literatureApi.v1RestLiteratureSearchPost(pageNumber, pageSize, sort, title, earthlyOrigin, shakespeareanWork, report,
 				scientificLiterature, technicalManual, religiousLiterature);
 	}
 
 	public LiteratureBaseResponse search(LiteratureSearchCriteria literatureSearchCriteria) throws ApiException {
 		return literatureApi.v1RestLiteratureSearchPost(literatureSearchCriteria.getPageNumber(), literatureSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(literatureSearchCriteria.getSort()), null, literatureSearchCriteria.getTitle(),
+				StapiRestSortSerializer.serialize(literatureSearchCriteria.getSort()), literatureSearchCriteria.getTitle(),
 				literatureSearchCriteria.getEarthlyOrigin(), literatureSearchCriteria.getShakespeareanWork(), literatureSearchCriteria.getReport(),
 				literatureSearchCriteria.getScientificLiterature(), literatureSearchCriteria.getTechnicalManual(),
 				literatureSearchCriteria.getReligiousLiterature());

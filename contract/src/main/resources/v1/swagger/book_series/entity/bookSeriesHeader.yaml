@@ -1,9 +1,0 @@
-type: object
-description: Header book series, embedded in other objects
-properties:
-  uid:
-    type: string
-    description: Book series unique ID
-  title:
-    type: string
-    description: Book series title

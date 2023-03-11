@@ -1,6 +1,0 @@
-type: object
-description: Response object for single animal query
-properties:
-  animal:
-    $ref: '#/definitions/AnimalFull'
-    description: Animal, if found

@@ -19,19 +19,19 @@ public class Character {
 	}
 
 	public CharacterFullResponse get(String uid) throws ApiException {
-		return characterApi.v1RestCharacterGet(uid, null);
+		return characterApi.v1RestCharacterGet(uid);
 	}
 
 	@Deprecated
 	public CharacterBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String gender, Boolean deceased,
 			Boolean hologram, Boolean fictionalCharacter, Boolean mirror, Boolean alternateReality) throws ApiException {
-		return characterApi.v1RestCharacterSearchPost(pageNumber, pageSize, sort, null, name, gender, deceased, hologram, fictionalCharacter,
+		return characterApi.v1RestCharacterSearchPost(pageNumber, pageSize, sort, name, gender, deceased, hologram, fictionalCharacter,
 				mirror, alternateReality);
 	}
 
 	public CharacterBaseResponse search(CharacterSearchCriteria characterSearchCriteria) throws ApiException {
 		return characterApi.v1RestCharacterSearchPost(characterSearchCriteria.getPageNumber(), characterSearchCriteria.getPageSize(),
-				StapiRestSortSerializer.serialize(characterSearchCriteria.getSort()), null, characterSearchCriteria.getName(),
+				StapiRestSortSerializer.serialize(characterSearchCriteria.getSort()), characterSearchCriteria.getName(),
 				nameIfPresent(characterSearchCriteria.getGender()), characterSearchCriteria.getDeceased(), characterSearchCriteria.getHologram(),
 				characterSearchCriteria.getFictionalCharacter(), characterSearchCriteria.getMirror(), characterSearchCriteria.getAlternateReality());
 	}

@@ -1,6 +1,0 @@
-type: object
-description: Response object for single company query
-properties:
-  company:
-    $ref: '#/definitions/CompanyFull'
-    description: Company, if found
