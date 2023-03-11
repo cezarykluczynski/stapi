@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.magazine.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineHeader
+import com.cezarykluczynski.stapi.client.rest.model.MagazineHeader
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

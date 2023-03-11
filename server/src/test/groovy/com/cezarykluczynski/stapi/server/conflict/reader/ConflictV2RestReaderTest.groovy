@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.conflict.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2Full
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ConflictV2Full
+import com.cezarykluczynski.stapi.client.rest.model.ConflictV2FullResponse
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.conflict.dto.ConflictRestBeanParams

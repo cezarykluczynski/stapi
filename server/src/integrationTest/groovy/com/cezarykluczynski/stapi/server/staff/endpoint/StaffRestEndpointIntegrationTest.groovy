@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.server.staff.endpoint
 import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
 import com.cezarykluczynski.stapi.client.api.dto.StaffV2SearchCriteria
 import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2FullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

@@ -4,10 +4,10 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.SpeciesV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.SpeciesApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.api.SpeciesApi
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2BaseResponse
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
 
 class SpeciesTest extends AbstractSpeciesTest {

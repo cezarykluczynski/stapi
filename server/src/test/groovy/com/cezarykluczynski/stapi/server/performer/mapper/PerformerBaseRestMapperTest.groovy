@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2Base
+import com.cezarykluczynski.stapi.client.rest.model.PerformerBase
+import com.cezarykluczynski.stapi.client.rest.model.PerformerV2Base
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams

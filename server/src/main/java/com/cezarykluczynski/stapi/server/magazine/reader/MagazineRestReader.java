@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.magazine.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MagazineBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MagazineFullResponse;
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.LiteratureSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.LiteratureApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.LiteratureApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Literature {

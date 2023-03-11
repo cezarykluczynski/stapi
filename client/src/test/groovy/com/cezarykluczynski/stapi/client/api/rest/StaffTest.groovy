@@ -4,12 +4,12 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.StaffV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.StaffApi
+import com.cezarykluczynski.stapi.client.rest.model.Gender
+import com.cezarykluczynski.stapi.client.rest.model.StaffBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 
 class StaffTest extends AbstractRealWorldPersonTest {

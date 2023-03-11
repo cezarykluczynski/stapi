@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.magazine.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.MagazineBase
+import com.cezarykluczynski.stapi.client.rest.model.MagazineBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MagazineFull
+import com.cezarykluczynski.stapi.client.rest.model.MagazineFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine
 import com.cezarykluczynski.stapi.server.magazine.dto.MagazineRestBeanParams
 import com.cezarykluczynski.stapi.server.magazine.mapper.MagazineBaseRestMapper

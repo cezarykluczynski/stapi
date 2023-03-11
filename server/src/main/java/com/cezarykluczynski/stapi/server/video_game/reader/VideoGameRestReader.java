@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.video_game.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameFullResponse;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

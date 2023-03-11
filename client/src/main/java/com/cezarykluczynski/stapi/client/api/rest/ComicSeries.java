@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.ComicSeriesSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.ComicSeriesApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.ComicSeriesApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class ComicSeries {

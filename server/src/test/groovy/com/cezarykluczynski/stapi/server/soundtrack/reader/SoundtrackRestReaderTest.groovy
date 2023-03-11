@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.soundtrack.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBase
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFull
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFullResponse
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

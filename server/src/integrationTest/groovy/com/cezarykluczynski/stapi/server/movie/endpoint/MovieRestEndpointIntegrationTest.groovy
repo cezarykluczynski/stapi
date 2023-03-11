@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.server.movie.endpoint
 import com.cezarykluczynski.stapi.client.api.dto.MovieSearchCriteria
 import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
 import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

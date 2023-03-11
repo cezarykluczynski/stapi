@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.technology.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.technology.dto.TechnologyRestBeanParams

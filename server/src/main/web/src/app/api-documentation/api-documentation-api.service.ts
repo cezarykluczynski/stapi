@@ -17,13 +17,6 @@ export class ApiDocumentationApi {
     this.dataVersion = '';
 	}
 
-	loadDocumentation() {
-		return (<any> this.api).common.documentation.get().then((response: any) => {
-			this.documentation = response;
-			return this.documentation;
-		});
-	}
-
 	loadDataVersion() {
 		return (<any> this.api).common.dataVersion.get().then((response: any) => {
 			this.dataVersion = response.dataVersion;
@@ -40,7 +33,6 @@ export class ApiDocumentationApi {
 	}
 
 	private register() {
-		this.api.res('common').res('documentation');
 		this.api.res('common').res('dataVersion');
 	}
 

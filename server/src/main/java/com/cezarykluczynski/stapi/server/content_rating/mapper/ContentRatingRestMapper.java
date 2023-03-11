@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface ContentRatingRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.ContentRating map(ContentRating contentRating);
+	com.cezarykluczynski.stapi.client.rest.model.ContentRating map(ContentRating contentRating);
 
 }

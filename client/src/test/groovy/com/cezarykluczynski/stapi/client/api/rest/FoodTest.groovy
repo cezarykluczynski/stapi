@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.FoodSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.FoodApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.FoodApi
+import com.cezarykluczynski.stapi.client.rest.model.FoodBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.FoodFullResponse
 import com.cezarykluczynski.stapi.util.AbstractFoodTest
 
 class FoodTest extends AbstractFoodTest {

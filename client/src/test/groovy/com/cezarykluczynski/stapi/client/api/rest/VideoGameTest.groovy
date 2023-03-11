@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.VideoGameSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.VideoGameApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.VideoGameApi
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameFullResponse
 import com.cezarykluczynski.stapi.util.AbstractVideoGameTest
 
 class VideoGameTest extends AbstractVideoGameTest {

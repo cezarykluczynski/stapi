@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.EpisodeSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.EpisodeApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.EpisodeApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeFullResponse;
 
 import java.time.LocalDate;
 

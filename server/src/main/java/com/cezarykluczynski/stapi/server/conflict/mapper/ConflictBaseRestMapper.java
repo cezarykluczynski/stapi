@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.conflict.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBase;
+import com.cezarykluczynski.stapi.client.rest.model.ConflictBase;
 import com.cezarykluczynski.stapi.model.conflict.dto.ConflictRequestDTO;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;

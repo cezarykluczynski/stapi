@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.movie.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.MovieBase
+import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieFull
+import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

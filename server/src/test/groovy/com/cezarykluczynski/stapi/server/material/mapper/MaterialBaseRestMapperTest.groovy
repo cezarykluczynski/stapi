@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.material.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialBase
+import com.cezarykluczynski.stapi.client.rest.model.MaterialBase
 import com.cezarykluczynski.stapi.model.material.dto.MaterialRequestDTO
 import com.cezarykluczynski.stapi.model.material.entity.Material
 import com.cezarykluczynski.stapi.server.material.dto.MaterialRestBeanParams

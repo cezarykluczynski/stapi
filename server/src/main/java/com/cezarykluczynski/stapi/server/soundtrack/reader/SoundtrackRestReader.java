@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.soundtrack.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFullResponse;
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

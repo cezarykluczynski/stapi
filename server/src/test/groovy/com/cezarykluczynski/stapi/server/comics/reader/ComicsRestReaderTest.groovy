@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.comics.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.ComicsBase
+import com.cezarykluczynski.stapi.client.rest.model.ComicsBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicsFull
+import com.cezarykluczynski.stapi.client.rest.model.ComicsFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseRestMapper

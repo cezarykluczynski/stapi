@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftFullResponse;
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

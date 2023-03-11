@@ -1,7 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.springframework.core.io.ClassPathResource;
@@ -14,29 +12,13 @@ public class DocumentationProvider {
 
 	private static final String SWAGGER_ATTACHMENT_NAME = "stapi_swagger_specs.zip";
 
-	private final DocumentationReader documentationReader;
-
 	private final DocumentationZipper documentationZipper;
 
 	private final DocumentationDirectoryProvider documentationDirectoryProvider;
 
-	private DocumentationDTO documentationDTO;
-
-	public DocumentationProvider(DocumentationReader documentationReader, DocumentationZipper documentationZipper,
-			DocumentationDirectoryProvider documentationDirectoryProvider) {
-		this.documentationReader = documentationReader;
+	public DocumentationProvider(DocumentationZipper documentationZipper, DocumentationDirectoryProvider documentationDirectoryProvider) {
 		this.documentationZipper = documentationZipper;
 		this.documentationDirectoryProvider = documentationDirectoryProvider;
-	}
-
-	@SuppressFBWarnings("EI_EXPOSE_REP")
-	public synchronized DocumentationDTO provideDocumentation() {
-		if (documentationDTO == null) {
-			documentationDTO = new DocumentationDTO();
-			documentationDTO.setRestDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getSwaggerDirectory()));
-		}
-
-		return documentationDTO;
 	}
 
 	public Response provideRestSpecsZip() {
@@ -54,6 +36,22 @@ public class DocumentationProvider {
 			return toResponse(resource.getInputStream(), name);
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	@SuppressWarnings("MultipleStringLiterals")
+	public Response provideStapiYaml() {
+		try {
+			return Response.ok(new ClassPathResource("swagger/stapi.yaml").getInputStream())
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "*")
+					.header("Access-Control-Allow-Methods", "GET")
+					.header("Access-Control-Allow-Credentials", "true")
+					.header("Content-Type", "text/plain") // "text/yaml" or "text/vnd.yaml" makes Firefox download the file
+					.header("Content-Disposition", "inline; filename=stapi.yaml")
+					.build();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 

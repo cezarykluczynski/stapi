@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.WeaponV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.WeaponApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.WeaponApi
+import com.cezarykluczynski.stapi.client.rest.model.WeaponBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.WeaponFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractWeaponTest
 
 class WeaponTest extends AbstractWeaponTest {

@@ -4,10 +4,10 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.CharacterSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.CharacterApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender
+import com.cezarykluczynski.stapi.client.rest.api.CharacterApi
+import com.cezarykluczynski.stapi.client.rest.model.CharacterBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.CharacterFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.Gender
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 
 class CharacterTest extends AbstractIndividualTest {

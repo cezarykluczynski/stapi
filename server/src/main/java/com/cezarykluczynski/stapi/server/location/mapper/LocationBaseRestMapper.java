@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.location.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationBase;
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationV2Base;
+import com.cezarykluczynski.stapi.client.rest.model.LocationBase;
+import com.cezarykluczynski.stapi.client.rest.model.LocationV2Base;
 import com.cezarykluczynski.stapi.model.location.dto.LocationRequestDTO;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;

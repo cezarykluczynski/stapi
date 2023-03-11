@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.food.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.FoodBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.FoodFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.food.dto.FoodRestBeanParams;

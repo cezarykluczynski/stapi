@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.trading_card_set.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardSetHeader;
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardSetHeader;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

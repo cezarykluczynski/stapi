@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.species.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2Base
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2Full
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2Base
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2Full
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2FullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

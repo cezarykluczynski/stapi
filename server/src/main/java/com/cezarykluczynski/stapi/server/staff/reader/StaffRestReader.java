@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffFullResponse;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

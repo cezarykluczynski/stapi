@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.character.mapper;
 
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterHeader;
+import com.cezarykluczynski.stapi.client.rest.model.CharacterHeader;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

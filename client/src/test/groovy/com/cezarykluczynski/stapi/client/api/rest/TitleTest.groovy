@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.TitleV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.TitleApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.TitleApi
+import com.cezarykluczynski.stapi.client.rest.model.TitleBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TitleFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TitleV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TitleV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractTitleTest
 
 class TitleTest extends AbstractTitleTest {

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.technology.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyBase;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2Base;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyBase;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2Base;
 import com.cezarykluczynski.stapi.model.technology.dto.TechnologyRequestDTO;
 import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;

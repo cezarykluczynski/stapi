@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.MagazineSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.MagazineApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.MagazineBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MagazineFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Magazine {

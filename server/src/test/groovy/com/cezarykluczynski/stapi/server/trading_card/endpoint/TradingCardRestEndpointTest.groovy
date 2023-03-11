@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.trading_card.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.trading_card.dto.TradingCardRestBeanParams

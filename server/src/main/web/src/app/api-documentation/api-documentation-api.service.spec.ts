@@ -43,11 +43,9 @@ describe('ApiDocumentationApi', () => {
 	it('is created', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 		expect(apiDocumentationApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(4);
+		expect(res.calls.count()).toBe(2);
 		expect(res.calls.argsFor(0)).toEqual(['common']);
-		expect(res.calls.argsFor(1)).toEqual(['documentation']);
-		expect(res.calls.argsFor(2)).toEqual(['common']);
-		expect(res.calls.argsFor(3)).toEqual(['dataVersion']);
+		expect(res.calls.argsFor(1)).toEqual(['dataVersion']);
 	}));
 
 	describe('after initialization', () => {
@@ -77,19 +75,9 @@ describe('ApiDocumentationApi', () => {
 
 		it('does not throw error', inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			expect(() => {
-				apiDocumentationApi.loadDocumentation();
 				apiDocumentationApi.loadDataVersion();
 			}).not.toThrow();
 		}));
-
-		it('gets documentation', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
-			apiDocumentationApi.loadDocumentation();
-
-			flushMicrotasks();
-			expect(apiDocumentationApi.getDocumentation()).toEqual({
-				documentation: DOCUMENTATION
-			});
-		})));
 
 		it('gets data version', fakeAsync(inject([ApiDocumentationApi], (apiDocumentationApi: ApiDocumentationApi) => {
 			apiDocumentationApi.loadDataVersion();

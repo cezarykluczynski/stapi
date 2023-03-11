@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.client.api.dto;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender;
+import com.cezarykluczynski.stapi.client.rest.model.Gender;
 
 public class CharacterSearchCriteria extends AbstractPageSortBaseCriteria {
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.organization.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.OrganizationBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.OrganizationFullResponse;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

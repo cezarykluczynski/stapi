@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comics.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBase;
+import com.cezarykluczynski.stapi.client.rest.model.ComicsBase;
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams;

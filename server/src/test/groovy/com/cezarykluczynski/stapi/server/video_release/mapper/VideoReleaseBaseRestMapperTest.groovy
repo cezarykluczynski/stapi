@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.video_release.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2Base
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseBase
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseV2Base
 import com.cezarykluczynski.stapi.model.video_release.dto.VideoReleaseRequestDTO
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.server.video_release.dto.VideoReleaseRestBeanParams

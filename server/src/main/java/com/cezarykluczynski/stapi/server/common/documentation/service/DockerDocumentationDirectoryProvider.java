@@ -11,7 +11,7 @@ import java.io.File;
 @Profile(SpringProfile.DOCKER)
 public class DockerDocumentationDirectoryProvider implements DocumentationDirectoryProvider {
 
-	private static final String SWAGGER_DIRECTORY = "/contract/src/main/resources/v1/swagger";
+	private static final String SWAGGER_DIRECTORY = "/contract/src/main/resources/swagger";
 	private static final String BUILD_DIRECTORY = "/tmp/" + System.currentTimeMillis() + "/";
 
 	@Override

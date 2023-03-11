@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.reader;
 
 import com.cezarykluczynski.stapi.server.common.dataversion.CommonDataVersionProvider;
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO;
 import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider;
 import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachmentProvider;
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
@@ -41,12 +40,12 @@ public class CommonDataReader {
 		return commonEntitiesDetailsReader.details();
 	}
 
-	public DocumentationDTO documentation() {
-		return documentationProvider.provideDocumentation();
-	}
-
 	public Response restSpecsZip() {
 		return documentationProvider.provideRestSpecsZip();
+	}
+
+	public Response stapiYaml() {
+		return documentationProvider.provideStapiYaml();
 	}
 
 	public Response tosFormZip() {

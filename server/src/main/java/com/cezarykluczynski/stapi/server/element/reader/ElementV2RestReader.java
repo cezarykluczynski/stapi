@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.element.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2FullResponse;
 import com.cezarykluczynski.stapi.model.element.entity.Element;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

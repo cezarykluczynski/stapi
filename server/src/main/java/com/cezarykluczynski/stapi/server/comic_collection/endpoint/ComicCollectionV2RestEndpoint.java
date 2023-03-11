@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comic_collection.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionV2FullResponse;
 import com.cezarykluczynski.stapi.server.comic_collection.reader.ComicCollectionV2RestReader;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;

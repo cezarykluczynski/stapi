@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.occupation.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.OccupationBase
+import com.cezarykluczynski.stapi.client.rest.model.OccupationBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.OccupationFull
+import com.cezarykluczynski.stapi.client.rest.model.OccupationFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

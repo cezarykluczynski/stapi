@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.spacecraft.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftHeader;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftHeader;
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

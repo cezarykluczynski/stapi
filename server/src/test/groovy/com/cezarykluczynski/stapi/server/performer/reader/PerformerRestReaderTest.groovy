@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.performer.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.PerformerBase
+import com.cezarykluczynski.stapi.client.rest.model.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerFull
+import com.cezarykluczynski.stapi.client.rest.model.PerformerFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

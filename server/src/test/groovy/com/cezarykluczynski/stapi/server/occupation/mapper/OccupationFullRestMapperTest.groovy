@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.occupation.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationV2Full
+import com.cezarykluczynski.stapi.client.rest.model.OccupationFull
+import com.cezarykluczynski.stapi.client.rest.model.OccupationV2Full
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import org.mapstruct.factory.Mappers
 

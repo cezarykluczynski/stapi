@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.literature.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.literature.dto.LiteratureRestBeanParams;

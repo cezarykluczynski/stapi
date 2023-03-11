@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.technology.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2FullResponse;
 import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

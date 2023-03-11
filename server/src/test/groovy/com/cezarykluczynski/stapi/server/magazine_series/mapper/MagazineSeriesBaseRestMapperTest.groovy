@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.magazine_series.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesBase as MagazineSeriesBase
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesBase as MagazineSeriesBase
 import com.cezarykluczynski.stapi.model.magazine_series.dto.MagazineSeriesRequestDTO
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries as MagazineSeries
 import com.cezarykluczynski.stapi.server.magazine_series.dto.MagazineSeriesRestBeanParams

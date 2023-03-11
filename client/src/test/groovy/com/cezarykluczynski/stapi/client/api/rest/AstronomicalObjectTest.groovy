@@ -4,12 +4,12 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.AstronomicalObjectV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.AstronomicalObjectApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.AstronomicalObjectApi
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectType
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractAstronomicalObjectTest
 
 class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {

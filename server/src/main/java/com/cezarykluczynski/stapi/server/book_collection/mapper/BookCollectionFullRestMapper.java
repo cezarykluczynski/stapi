@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.book_collection.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookCollectionFull;
+import com.cezarykluczynski.stapi.client.rest.model.BookCollectionFull;
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper;
 import com.cezarykluczynski.stapi.server.book_series.mapper.BookSeriesBaseRestMapper;

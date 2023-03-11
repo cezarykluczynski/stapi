@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.species.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams

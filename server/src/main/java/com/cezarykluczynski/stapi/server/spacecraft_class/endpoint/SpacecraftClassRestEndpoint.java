@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.spacecraft_class.dto.SpacecraftClassRestBeanParams;

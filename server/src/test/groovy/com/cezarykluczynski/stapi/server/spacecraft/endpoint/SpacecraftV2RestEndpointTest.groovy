@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2FullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.spacecraft.dto.SpacecraftV2RestBeanParams

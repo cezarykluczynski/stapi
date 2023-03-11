@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.comic_collection.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionFullResponse;
 import com.cezarykluczynski.stapi.server.comic_collection.dto.ComicCollectionRestBeanParams;
 import com.cezarykluczynski.stapi.server.comic_collection.reader.ComicCollectionRestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.weapon.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2FullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.weapon.dto.WeaponV2RestBeanParams;

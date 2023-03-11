@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.occupation.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.OccupationBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.OccupationFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.occupation.dto.OccupationRestBeanParams;

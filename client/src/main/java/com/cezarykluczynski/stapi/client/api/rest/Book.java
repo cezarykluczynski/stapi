@@ -2,12 +2,12 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.BookV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.BookApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.BookApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.BookBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Book {

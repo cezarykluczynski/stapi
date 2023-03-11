@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.MedicalConditionSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.MedicalConditionApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.MedicalConditionApi
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionFullResponse
 import com.cezarykluczynski.stapi.util.AbstractMedicalConditionTest
 
 class MedicalConditionTest extends AbstractMedicalConditionTest {

@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.VideoGameSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.VideoGameApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.VideoGameApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameFullResponse;
 
 import java.time.LocalDate;
 

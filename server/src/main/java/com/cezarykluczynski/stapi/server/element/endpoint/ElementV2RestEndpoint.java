@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.element.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2FullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.element.dto.ElementV2RestBeanParams;

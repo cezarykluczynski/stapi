@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.comic_strip.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripFullResponse;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.server.comic_strip.dto.ComicStripRestBeanParams;
 import com.cezarykluczynski.stapi.server.comic_strip.mapper.ComicStripBaseRestMapper;

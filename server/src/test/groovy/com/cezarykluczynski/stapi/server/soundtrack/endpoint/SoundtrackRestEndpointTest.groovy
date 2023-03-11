@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.soundtrack.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.soundtrack.dto.SoundtrackRestBeanParams

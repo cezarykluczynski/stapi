@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.soundtrack.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBase
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBase
 import com.cezarykluczynski.stapi.model.soundtrack.dto.SoundtrackRequestDTO
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack
 import com.cezarykluczynski.stapi.server.soundtrack.dto.SoundtrackRestBeanParams

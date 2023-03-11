@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.element.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementHeader
+import com.cezarykluczynski.stapi.client.rest.model.ElementHeader
 import com.cezarykluczynski.stapi.model.element.entity.Element
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

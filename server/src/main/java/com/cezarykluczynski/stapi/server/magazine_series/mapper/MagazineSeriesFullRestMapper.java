@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.magazine_series.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesFull;
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesFull;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;

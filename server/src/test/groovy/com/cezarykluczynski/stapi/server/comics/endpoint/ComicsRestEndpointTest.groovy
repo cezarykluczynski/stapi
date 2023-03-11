@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.comics.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicsBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicsFullResponse
 import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams
 import com.cezarykluczynski.stapi.server.comics.reader.ComicsRestReader
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams

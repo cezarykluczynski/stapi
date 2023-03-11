@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.character.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterRelation as RestCharacterRelation
+import com.cezarykluczynski.stapi.client.rest.model.CharacterRelation as RestCharacterRelation
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
 import org.mapstruct.factory.Mappers

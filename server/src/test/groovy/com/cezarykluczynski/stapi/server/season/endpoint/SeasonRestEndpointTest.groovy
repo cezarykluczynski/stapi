@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.season.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeasonFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.season.dto.SeasonRestBeanParams

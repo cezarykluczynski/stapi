@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.SeasonSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.SeasonApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.SeasonApi
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeasonFullResponse
 import com.cezarykluczynski.stapi.util.AbstractSeasonTest
 
 class SeasonTest extends AbstractSeasonTest {

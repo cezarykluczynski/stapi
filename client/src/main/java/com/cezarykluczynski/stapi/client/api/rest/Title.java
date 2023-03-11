@@ -2,12 +2,12 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.TitleV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.TitleApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.TitleApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.TitleBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TitleFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TitleV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TitleV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Title {

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyV2Full
+import com.cezarykluczynski.stapi.client.rest.model.CompanyFull
+import com.cezarykluczynski.stapi.client.rest.model.CompanyV2Full
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import org.mapstruct.factory.Mappers
 

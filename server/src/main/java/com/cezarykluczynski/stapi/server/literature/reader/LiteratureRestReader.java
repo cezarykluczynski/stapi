@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.literature.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFullResponse;
 import com.cezarykluczynski.stapi.model.literature.entity.Literature;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

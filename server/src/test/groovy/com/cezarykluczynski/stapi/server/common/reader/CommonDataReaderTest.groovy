@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.reader
 
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO
 import com.cezarykluczynski.stapi.server.common.dataversion.CommonDataVersionProvider
 import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider
 import com.cezarykluczynski.stapi.server.common.documentation.service.TosAttachmentProvider
@@ -60,19 +59,6 @@ class CommonDataReaderTest extends Specification {
 		restEndpointDetailsDTOOutput == restEndpointDetailsDTO
 	}
 
-	void "gets documentation from DocumentationProvider"() {
-		given:
-		DocumentationDTO documentationDTO = Mock()
-
-		when:
-		DocumentationDTO documentationDTOOutput = commonDataReader.documentation()
-
-		then:
-		1 * documentationProviderMock.provideDocumentation() >> documentationDTO
-		0 * _
-		documentationDTOOutput == documentationDTO
-	}
-
 	void "gets zipped REST documentation from DocumentationProvider"() {
 		given:
 		Response response = Mock()
@@ -95,6 +81,19 @@ class CommonDataReaderTest extends Specification {
 
 		then:
 		1 * tosAttachmentProviderMock.provide('form.docx') >> response
+		0 * _
+		responseOutput == response
+	}
+
+	void "gets stapi.yaml"() {
+		given:
+		Response response = Mock()
+
+		when:
+		Response responseOutput = commonDataReader.stapiYaml()
+
+		then:
+		1 * documentationProviderMock.provideStapiYaml() >> response
 		0 * _
 		responseOutput == response
 	}

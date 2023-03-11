@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as GenderEnumRest
+import com.cezarykluczynski.stapi.client.rest.model.Gender as GenderEnumRest
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 

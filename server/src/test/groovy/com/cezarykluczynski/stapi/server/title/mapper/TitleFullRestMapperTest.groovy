@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.title.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleV2Full
+import com.cezarykluczynski.stapi.client.rest.model.TitleFull
+import com.cezarykluczynski.stapi.client.rest.model.TitleV2Full
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import org.mapstruct.factory.Mappers
 

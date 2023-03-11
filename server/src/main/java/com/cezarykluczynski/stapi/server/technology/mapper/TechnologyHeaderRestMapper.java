@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.technology.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyHeader;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyHeader;
 import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

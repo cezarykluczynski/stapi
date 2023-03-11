@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.ElementV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.ElementApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.ElementApi
+import com.cezarykluczynski.stapi.client.rest.model.ElementBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ElementFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractElementTest
 
 class ElementTest extends AbstractElementTest {

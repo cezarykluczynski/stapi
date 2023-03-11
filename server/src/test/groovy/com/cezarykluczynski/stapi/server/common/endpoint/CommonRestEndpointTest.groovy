@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.endpoint
 
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
@@ -68,19 +67,6 @@ class CommonRestEndpointTest extends Specification {
 		restEndpointDetailsDTOOutput == restEndpointDetailsDTO
 	}
 
-	void "gets documentation from CommonDataReader"() {
-		given:
-		DocumentationDTO documentationDTO = Mock()
-
-		when:
-		DocumentationDTO documentationDTOOutput = commonRestEndpoint.documentation()
-
-		then:
-		1 * commonDataReaderMock.documentation() >> documentationDTO
-		0 * _
-		documentationDTOOutput == documentationDTO
-	}
-
 	void "responds to ping"() {
 		when:
 		PongDTO pongDTO = commonRestEndpoint.ping()
@@ -113,6 +99,19 @@ class CommonRestEndpointTest extends Specification {
 
 		then:
 		1 * commonDataReaderMock.tosFormZip() >> response
+		0 * _
+		responseOutput == response
+	}
+
+	void "gets stapi.yaml"() {
+		given:
+		Response response = Mock()
+
+		when:
+		Response responseOutput = commonRestEndpoint.stapiYaml()
+
+		then:
+		1 * commonDataReaderMock.stapiYaml() >> response
 		0 * _
 		responseOutput == response
 	}

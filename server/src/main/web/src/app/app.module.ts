@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -52,8 +51,7 @@ export function initConfiguration(initializerService: InitializerService) {
 		BrowserAnimationsModule,
 		AppRoutingModule,
 		FormsModule,
-		ReactiveFormsModule,
-		HighlightModule
+		ReactiveFormsModule
 	],
 	providers: [
 		{
@@ -61,16 +59,6 @@ export function initConfiguration(initializerService: InitializerService) {
 			useFactory: initConfiguration,
 			multi: true,
 			deps: [InitializerService]
-		},
-		{
-			provide: HIGHLIGHT_OPTIONS,
-			useValue: {
-				coreLibraryLoader: () => import('highlight.js/lib/core'),
-				languages: {
-					yaml: () => import('highlight.js/lib/languages/yaml'),
-					xml: () => import('highlight.js/lib/languages/xml')
-				},
-			}
 		},
 		InitializerService,
 		ApiBrowserApi,

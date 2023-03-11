@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.medical_condition.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionBase
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionFull
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalCondition
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

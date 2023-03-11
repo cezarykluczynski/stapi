@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.SeasonSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.SeasonApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.SeasonApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SeasonFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Season {

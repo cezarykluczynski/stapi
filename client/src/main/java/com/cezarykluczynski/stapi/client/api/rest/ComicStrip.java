@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.ComicStripSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.ComicStripApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.ComicStripApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class ComicStrip {

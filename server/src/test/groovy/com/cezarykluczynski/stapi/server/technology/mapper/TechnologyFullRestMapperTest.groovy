@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.technology.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2Full
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyFull
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2Full
 import com.cezarykluczynski.stapi.model.technology.entity.Technology
 import org.mapstruct.factory.Mappers
 

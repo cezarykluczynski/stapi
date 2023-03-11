@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.episode.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeHeader
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeHeader
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

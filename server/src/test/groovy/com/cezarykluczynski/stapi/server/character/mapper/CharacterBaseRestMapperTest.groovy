@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.character.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodType
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGender
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatus
+import com.cezarykluczynski.stapi.client.rest.model.BloodType as RestBloodType
+import com.cezarykluczynski.stapi.client.rest.model.CharacterBase
+import com.cezarykluczynski.stapi.client.rest.model.Gender as RestGender
+import com.cezarykluczynski.stapi.client.rest.model.MaritalStatus as RestMaritalStatus
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyV2Base
+import com.cezarykluczynski.stapi.client.rest.model.CompanyBase
+import com.cezarykluczynski.stapi.client.rest.model.CompanyV2Base
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams

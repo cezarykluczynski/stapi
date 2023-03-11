@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassHeader
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassHeader
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

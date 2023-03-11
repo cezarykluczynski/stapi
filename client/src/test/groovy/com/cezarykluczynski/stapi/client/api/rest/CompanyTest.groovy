@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.CompanyV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.CompanyApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.CompanyApi
+import com.cezarykluczynski.stapi.client.rest.model.CompanyBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.CompanyFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.CompanyV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.CompanyV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractCompanyTest
 
 class CompanyTest extends AbstractCompanyTest {

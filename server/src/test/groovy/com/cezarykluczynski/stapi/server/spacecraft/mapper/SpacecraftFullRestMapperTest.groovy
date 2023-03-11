@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2Full
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftFull
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2Full
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft
 import org.mapstruct.factory.Mappers
 

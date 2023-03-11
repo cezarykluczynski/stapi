@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.element.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ElementBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ElementFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.element.dto.ElementRestBeanParams

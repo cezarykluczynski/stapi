@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.title.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleHeader;
+import com.cezarykluczynski.stapi.client.rest.model.TitleHeader;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

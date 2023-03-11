@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.magazine_series.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesFullResponse
 import com.cezarykluczynski.stapi.server.magazine_series.dto.MagazineSeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.magazine_series.reader.MagazineSeriesRestReader
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams

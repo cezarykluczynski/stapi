@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.video_game.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameHeader;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameHeader;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.season.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonHeader
+import com.cezarykluczynski.stapi.client.rest.model.SeasonHeader
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

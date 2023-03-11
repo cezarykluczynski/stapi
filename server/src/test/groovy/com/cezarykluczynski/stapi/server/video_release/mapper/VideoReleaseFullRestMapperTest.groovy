@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.video_release.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2Full
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseFull
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseV2Full
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import org.mapstruct.factory.Mappers
 

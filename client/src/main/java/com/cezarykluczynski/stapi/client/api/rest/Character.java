@@ -2,11 +2,11 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.CharacterSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.CharacterApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender;
+import com.cezarykluczynski.stapi.client.rest.api.CharacterApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.CharacterBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.CharacterFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.Gender;
 
 @SuppressWarnings("ParameterNumber")
 public class Character {

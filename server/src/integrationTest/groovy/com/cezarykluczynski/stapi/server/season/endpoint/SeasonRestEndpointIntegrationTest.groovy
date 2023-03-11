@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.season.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.SeasonSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeasonFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBaseResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

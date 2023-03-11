@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.trading_card.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.TradingCardSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

@@ -2,11 +2,11 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.ConflictSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.ConflictApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.ConflictApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.ConflictBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ConflictFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ConflictV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Conflict {

@@ -4,12 +4,12 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.PerformerV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.PerformerApi
+import com.cezarykluczynski.stapi.client.rest.model.Gender
+import com.cezarykluczynski.stapi.client.rest.model.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 
 class PerformerTest extends AbstractRealWorldPersonTest {

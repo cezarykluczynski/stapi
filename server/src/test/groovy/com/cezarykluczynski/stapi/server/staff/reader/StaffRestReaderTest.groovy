@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.staff.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.StaffBase
+import com.cezarykluczynski.stapi.client.rest.model.StaffBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffFull
+import com.cezarykluczynski.stapi.client.rest.model.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

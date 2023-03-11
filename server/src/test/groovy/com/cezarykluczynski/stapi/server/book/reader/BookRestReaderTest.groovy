@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.book.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.BookBase
+import com.cezarykluczynski.stapi.client.rest.model.BookBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.BookFull
+import com.cezarykluczynski.stapi.client.rest.model.BookFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.server.book.dto.BookRestBeanParams
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper

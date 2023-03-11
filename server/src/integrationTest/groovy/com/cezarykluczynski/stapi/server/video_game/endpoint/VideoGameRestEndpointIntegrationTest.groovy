@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.video_game.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.VideoGameSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

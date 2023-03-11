@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.client.api.dto;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ProductionRunUnit;
+import com.cezarykluczynski.stapi.client.rest.model.ProductionRunUnit;
 
 @SuppressWarnings("MethodCount")
 public class TradingCardSetSearchCriteria extends AbstractPageSortBaseCriteria {

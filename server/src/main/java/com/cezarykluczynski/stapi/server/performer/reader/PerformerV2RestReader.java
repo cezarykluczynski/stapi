@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.PerformerV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.PerformerV2FullResponse;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

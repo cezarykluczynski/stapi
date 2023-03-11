@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.season.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBase;
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBase;
 import com.cezarykluczynski.stapi.model.season.dto.SeasonRequestDTO;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;

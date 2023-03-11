@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType as RestAstronomicalObjectType
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2Type as RestAstronomicalObjectV2Type
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectType as RestAstronomicalObjectType
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2Type as RestAstronomicalObjectV2Type
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType
 import com.cezarykluczynski.stapi.util.AbstractAstronomicalObjectTest

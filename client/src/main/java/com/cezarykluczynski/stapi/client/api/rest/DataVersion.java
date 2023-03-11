@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
-import com.cezarykluczynski.stapi.client.v1.rest.api.DataVersionApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.api.DataVersionApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 
 public class DataVersion {
 
@@ -11,7 +11,7 @@ public class DataVersion {
 		this.dataVersionApi = dataVersionApi;
 	}
 
-	public com.cezarykluczynski.stapi.client.v1.rest.model.DataVersion getDataVersion() throws ApiException {
+	public com.cezarykluczynski.stapi.client.rest.model.DataVersion getDataVersion() throws ApiException {
 		return dataVersionApi.v1RestCommonDataVersionGet();
 	}
 

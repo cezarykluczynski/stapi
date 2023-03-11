@@ -1,7 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service
 
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentDTO
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO
 import jakarta.ws.rs.core.Response
 import org.springframework.core.io.ClassPathResource
 import spock.lang.Specification
@@ -13,8 +11,6 @@ class DocumentationProviderTest extends Specification {
 	private static final String APPLIATION_TEST_PROPERTIES = 'application-test.properties'
 	private static final String EMPTY_TEST_RESOURCE = 'empty-test-resource.txt'
 
-	private DocumentationReader documentationReaderMock
-
 	private DocumentationZipper documentationZipperMock
 
 	private DocumentationDirectoryProvider documentationDirectoryProviderMock
@@ -22,31 +18,9 @@ class DocumentationProviderTest extends Specification {
 	private DocumentationProvider documentationProvider
 
 	void setup() {
-		documentationReaderMock = Mock()
 		documentationZipperMock = Mock()
 		documentationDirectoryProviderMock = Mock()
-		documentationProvider = new DocumentationProvider(documentationReaderMock, documentationZipperMock, documentationDirectoryProviderMock)
-	}
-
-	void "provides DocumentationDTO"() {
-		given:
-		List<DocumentDTO> restDocuments = Mock()
-
-		when: 'documentation is requested'
-		DocumentationDTO documentationDTO = documentationProvider.provideDocumentation()
-
-		then: 'documentation is returned using DocumentationReader'
-		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
-		1 * documentationReaderMock.readDirectory(SWAGGER_DIRECTORY) >> restDocuments
-		0 * _
-		documentationDTO.restDocuments == restDocuments
-
-		when: 'documentation is requested'
-		DocumentationDTO documentationDTOCached = documentationProvider.provideDocumentation()
-
-		then: 'cached documentation is returned'
-		0 * _
-		documentationDTOCached == documentationDTO
+		documentationProvider = new DocumentationProvider(documentationZipperMock, documentationDirectoryProviderMock)
 	}
 
 	void "provides zipped REST specs"() {
@@ -90,6 +64,21 @@ class DocumentationProviderTest extends Specification {
 		response.status == Response.Status.OK.statusCode
 		response.mediaType.type == 'application'
 		response.mediaType.subtype == 'octet-stream'
+	}
+
+	void "provides stapi.yaml response"() {
+		when:
+		Response response = documentationProvider.provideStapiYaml()
+
+		then:
+		response.status == Response.Status.OK.statusCode
+		response.mediaType.type == 'text'
+		response.mediaType.subtype == 'plain'
+		response.headers.get('Access-Control-Allow-Origin')[0] == '*'
+		response.headers.get('Access-Control-Allow-Headers')[0] == '*'
+		response.headers.get('Access-Control-Allow-Methods')[0] == 'GET'
+		response.headers.get('Access-Control-Allow-Credentials')[0] == 'true'
+		response.headers.get('Content-Disposition')[0] == 'inline; filename=stapi.yaml'
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.trading_card_deck.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.trading_card_deck.dto.TradingCardDeckRestBeanParams;

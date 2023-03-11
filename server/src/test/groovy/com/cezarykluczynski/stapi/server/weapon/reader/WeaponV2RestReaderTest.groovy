@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.weapon.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2Base
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2Full
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2Base
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2Full
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2FullResponse
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.book_series.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookSeriesBase as BookSeriesBase
+import com.cezarykluczynski.stapi.client.rest.model.BookSeriesBase as BookSeriesBase
 import com.cezarykluczynski.stapi.model.book_series.dto.BookSeriesRequestDTO
 import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries as BookSeries
 import com.cezarykluczynski.stapi.server.book_series.dto.BookSeriesRestBeanParams

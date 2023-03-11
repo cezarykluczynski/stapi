@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeriesBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams

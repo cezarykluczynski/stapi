@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
-import com.cezarykluczynski.stapi.server.common.documentation.dto.DocumentationDTO;
 import com.cezarykluczynski.stapi.server.common.dto.DataVersionDTO;
 import com.cezarykluczynski.stapi.server.common.dto.PongDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
@@ -61,18 +60,13 @@ public class CommonRestEndpoint {
 	}
 
 	@GET
-	@Path("documentation")
-	public DocumentationDTO documentation() {
-		return commonDataReader.documentation();
-	}
-
-	@GET
 	@Path("ping")
 	public PongDTO ping() {
 		commonDatabaseStatusValidator.validateDatabaseAccess();
 		return new PongDTO();
 	}
 
+	@Deprecated
 	@GET
 	@Path("download/zip/rest")
 	@ResponseBody
@@ -87,6 +81,13 @@ public class CommonRestEndpoint {
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Response tosFormZip() {
 		return commonDataReader.tosFormZip();
+	}
+
+	@GET
+	@Path("download/stapi.yaml")
+	@ResponseBody
+	public Response stapiYaml() {
+		return commonDataReader.stapiYaml();
 	}
 
 	@GET

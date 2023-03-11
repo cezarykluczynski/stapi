@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.species.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2Full
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesFull
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2Full
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import org.mapstruct.factory.Mappers
 

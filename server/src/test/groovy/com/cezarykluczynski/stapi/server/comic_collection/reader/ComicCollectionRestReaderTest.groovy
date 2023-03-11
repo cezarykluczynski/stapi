@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.comic_collection.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionBase
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionFull
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection
 import com.cezarykluczynski.stapi.server.comic_collection.dto.ComicCollectionRestBeanParams
 import com.cezarykluczynski.stapi.server.comic_collection.mapper.ComicCollectionBaseRestMapper

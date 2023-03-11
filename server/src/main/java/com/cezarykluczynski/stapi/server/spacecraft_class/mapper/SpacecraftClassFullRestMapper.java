@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationBase;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFull;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2Full;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3Full;
+import com.cezarykluczynski.stapi.client.rest.model.OrganizationBase;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassFull;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV2Full;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV3Full;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;

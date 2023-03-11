@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFull
+import com.cezarykluczynski.stapi.client.rest.model.SeriesFull
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import org.mapstruct.factory.Mappers
 

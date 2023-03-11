@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.SoundtrackSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.SoundtrackApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.SoundtrackApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFullResponse;
 
 import java.time.LocalDate;
 

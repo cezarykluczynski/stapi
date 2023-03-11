@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.OccupationV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.OccupationApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.OccupationApi
+import com.cezarykluczynski.stapi.client.rest.model.OccupationBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.OccupationFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.OccupationV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.OccupationV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractOccupationTest
 
 class OccupationTest extends AbstractOccupationTest {

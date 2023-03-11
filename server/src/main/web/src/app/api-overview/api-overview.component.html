@@ -3,8 +3,8 @@
 		<div class="col-md-offset-2 col-md-8">
 			<p>
 				This pages describes how to quickly start using STAPI, without caring much for contracts. If you plan on integrating STAPI
-				into a larger codebase, it would be best to use contracts to generate your client, or to use one of the existing
-				<a routerLink="/clients">clients</a>.
+				into a larger codebase, it would be best to use contracts to <a routerLink="/api-documentation">generate your client</a>,
+				or to use one of the existing <a routerLink="/clients">clients</a>.
 			</p>
 			<h3>Limits</h3>
 			<p>
@@ -15,15 +15,14 @@
 			<h3>API keys</h3>
 			<p>
 				API keys were supported in the past, but support for them was dropped. If your client expects them, just use null or empty string.
-				Non-null API keys will be ignored anyway.
+				All API keys will be ignored anyway.
 			</p>
 
 			<h3>API layout</h3>
 			<p>For people just wanting to quick jump into using STAPI, REST version is the best choice.
 				Every entity in the API has two REST endpoints per version (V1 or V2),
 				one for searching and one for retrieving an entire entity, along with entities related to it.
-				Available endpoints are listed on <a href="/api/">this page</a> on the bottom,
-				in <em>Available RESTful services</em> section.
+				Available endpoints are listed on <a href="/api/">this page</a>.
 			</p>
 
 			<h3>Example requests</h3>

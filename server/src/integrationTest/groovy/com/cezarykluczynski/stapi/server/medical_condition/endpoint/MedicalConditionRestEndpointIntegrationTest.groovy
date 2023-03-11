@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.medical_condition.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.MedicalConditionSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

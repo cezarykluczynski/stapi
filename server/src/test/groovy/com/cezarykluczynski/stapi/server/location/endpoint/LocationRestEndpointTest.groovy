@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.location.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.LocationBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.LocationFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.location.dto.LocationRestBeanParams

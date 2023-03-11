@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2Full;
+import com.cezarykluczynski.stapi.client.rest.model.StaffFull;
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2Full;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;

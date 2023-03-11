@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.comic_collection.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2Full
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionFull
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionV2Full
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection
 import org.mapstruct.factory.Mappers
 

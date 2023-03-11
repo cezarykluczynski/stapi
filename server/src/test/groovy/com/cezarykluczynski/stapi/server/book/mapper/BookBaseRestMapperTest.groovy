@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.book.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2Base
+import com.cezarykluczynski.stapi.client.rest.model.BookBase
+import com.cezarykluczynski.stapi.client.rest.model.BookV2Base
 import com.cezarykluczynski.stapi.model.book.dto.BookRequestDTO
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.server.book.dto.BookRestBeanParams

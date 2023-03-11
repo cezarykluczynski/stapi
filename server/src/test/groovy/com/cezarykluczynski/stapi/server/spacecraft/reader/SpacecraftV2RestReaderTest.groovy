@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.spacecraft.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2Base
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2Full
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2Base
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2Full
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2FullResponse
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

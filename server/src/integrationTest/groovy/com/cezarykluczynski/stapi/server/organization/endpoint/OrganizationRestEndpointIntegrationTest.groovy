@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.organization.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.OrganizationSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.OrganizationBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.OrganizationFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

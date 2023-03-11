@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.CompanyBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.CompanyFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
 import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader;

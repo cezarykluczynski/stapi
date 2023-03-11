@@ -2,13 +2,13 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.StaffV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.StaffApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.Gender;
+import com.cezarykluczynski.stapi.client.rest.model.StaffBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2FullResponse;
 
 import java.time.LocalDate;
 

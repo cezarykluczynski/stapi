@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.food.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.FoodBase
+import com.cezarykluczynski.stapi.client.rest.model.FoodBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.FoodFull
+import com.cezarykluczynski.stapi.client.rest.model.FoodFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

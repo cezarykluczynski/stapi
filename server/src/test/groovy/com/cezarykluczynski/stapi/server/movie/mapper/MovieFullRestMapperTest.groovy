@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.movie.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFull
+import com.cezarykluczynski.stapi.client.rest.model.MovieFull
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import org.mapstruct.factory.Mappers
 

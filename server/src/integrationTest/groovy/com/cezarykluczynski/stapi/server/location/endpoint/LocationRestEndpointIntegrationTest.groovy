@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.location.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.LocationV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.LocationV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.LocationV2FullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

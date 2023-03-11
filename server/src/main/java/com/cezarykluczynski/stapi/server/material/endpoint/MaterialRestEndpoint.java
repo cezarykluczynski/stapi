@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.material.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MaterialBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MaterialFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.material.dto.MaterialRestBeanParams;

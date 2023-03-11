@@ -2,13 +2,13 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.SpacecraftClassV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.SpacecraftClassApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV2FullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.SpacecraftClassApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV3FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class SpacecraftClass {

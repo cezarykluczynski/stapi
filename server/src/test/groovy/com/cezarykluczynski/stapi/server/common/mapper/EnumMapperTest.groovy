@@ -1,13 +1,13 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType as RestAstronomicalObjectEnum
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2Type as RestAstronomicalObjectV2Enum
-import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTypeEnum
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGenderEnum
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatusEnum
-import com.cezarykluczynski.stapi.client.v1.rest.model.ProductionRunUnit as RestProductionRunUnit
-import com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType as RestReferenceType
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFormat as RestVideoReleaseFormat
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectType as RestAstronomicalObjectEnum
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2Type as RestAstronomicalObjectV2Enum
+import com.cezarykluczynski.stapi.client.rest.model.BloodType as RestBloodTypeEnum
+import com.cezarykluczynski.stapi.client.rest.model.Gender as RestGenderEnum
+import com.cezarykluczynski.stapi.client.rest.model.MaritalStatus as RestMaritalStatusEnum
+import com.cezarykluczynski.stapi.client.rest.model.ProductionRunUnit as RestProductionRunUnit
+import com.cezarykluczynski.stapi.client.rest.model.ReferenceType as RestReferenceType
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseFormat as RestVideoReleaseFormat
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity

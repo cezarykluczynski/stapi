@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface ReferenceRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.Reference map(Reference reference);
+	com.cezarykluczynski.stapi.client.rest.model.Reference map(Reference reference);
 
 }

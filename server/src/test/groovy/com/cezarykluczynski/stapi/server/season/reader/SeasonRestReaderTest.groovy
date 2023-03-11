@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.season.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeasonFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBase
+import com.cezarykluczynski.stapi.client.rest.model.SeasonBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeasonFull
+import com.cezarykluczynski.stapi.client.rest.model.SeasonFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

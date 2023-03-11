@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV3FullResponse;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.spacecraft_class.reader.SpacecraftClassV3RestReader;
 import com.cezarykluczynski.stapi.util.constant.ContentType;

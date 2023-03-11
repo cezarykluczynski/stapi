@@ -2,12 +2,12 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.SpeciesV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.SpeciesApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.SpeciesApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Species {

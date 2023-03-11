@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.book_series.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.BookSeriesSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookSeriesBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookSeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.BookSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.BookSeriesFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

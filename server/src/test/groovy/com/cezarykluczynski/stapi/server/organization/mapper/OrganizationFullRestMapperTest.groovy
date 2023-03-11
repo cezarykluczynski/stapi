@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.organization.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFull
+import com.cezarykluczynski.stapi.client.rest.model.OrganizationFull
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import org.mapstruct.factory.Mappers
 

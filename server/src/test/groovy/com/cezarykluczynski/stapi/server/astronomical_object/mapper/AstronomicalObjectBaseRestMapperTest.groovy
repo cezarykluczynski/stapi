@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2Base
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectBase
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2Base
 import com.cezarykluczynski.stapi.model.astronomical_object.dto.AstronomicalObjectRequestDTO
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams

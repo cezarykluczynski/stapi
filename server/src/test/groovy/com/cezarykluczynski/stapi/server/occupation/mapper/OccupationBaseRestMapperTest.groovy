@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.occupation.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationV2Base
+import com.cezarykluczynski.stapi.client.rest.model.OccupationBase
+import com.cezarykluczynski.stapi.client.rest.model.OccupationV2Base
 import com.cezarykluczynski.stapi.model.occupation.dto.OccupationRequestDTO
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.server.occupation.dto.OccupationRestBeanParams

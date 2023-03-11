@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.TradingCardSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.TradingCardApi
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardFullResponse
 import com.cezarykluczynski.stapi.util.AbstractTradingCardTest
 
 class TradingCardTest extends AbstractTradingCardTest {

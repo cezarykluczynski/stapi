@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.medical_condition.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionHeader;
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionHeader;
 import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalCondition;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

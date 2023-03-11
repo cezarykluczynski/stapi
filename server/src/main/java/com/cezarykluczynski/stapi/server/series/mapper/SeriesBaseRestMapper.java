@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBase;
+import com.cezarykluczynski.stapi.client.rest.model.SeriesBase;
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;

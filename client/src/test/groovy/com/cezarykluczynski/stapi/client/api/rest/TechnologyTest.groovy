@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.TechnologyV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.TechnologyApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.TechnologyApi
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractTechnologyTest
 
 class TechnologyTest extends AbstractTechnologyTest {

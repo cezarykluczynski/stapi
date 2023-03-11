@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.movie.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams

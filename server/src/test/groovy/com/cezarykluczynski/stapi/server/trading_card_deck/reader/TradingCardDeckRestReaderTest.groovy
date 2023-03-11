@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.trading_card_deck.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckBase
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckFull
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckFullResponse
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

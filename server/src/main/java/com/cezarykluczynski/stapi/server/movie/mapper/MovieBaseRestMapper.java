@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.movie.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBase;
+import com.cezarykluczynski.stapi.client.rest.model.MovieBase;
 import com.cezarykluczynski.stapi.model.movie.dto.MovieRequestDTO;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;

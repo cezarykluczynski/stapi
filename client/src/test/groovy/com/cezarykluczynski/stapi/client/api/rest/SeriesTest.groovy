@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.SeriesSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.SeriesApi
+import com.cezarykluczynski.stapi.client.rest.model.SeriesBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.util.AbstractSeriesTest
 
 class SeriesTest extends AbstractSeriesTest {

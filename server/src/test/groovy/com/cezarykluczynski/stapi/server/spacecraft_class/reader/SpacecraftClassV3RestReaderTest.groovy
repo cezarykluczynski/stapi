@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3Full
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftClassV3FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV3Full
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV3FullResponse
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.spacecraft_class.dto.SpacecraftClassV2RestBeanParams

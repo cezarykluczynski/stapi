@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.conflict.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictHeader
+import com.cezarykluczynski.stapi.client.rest.model.ConflictHeader
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

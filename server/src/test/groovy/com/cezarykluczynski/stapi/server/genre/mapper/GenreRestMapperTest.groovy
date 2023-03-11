@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.genre.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Genre as RestGenre
+import com.cezarykluczynski.stapi.client.rest.model.Genre as RestGenre
 import com.cezarykluczynski.stapi.model.genre.entity.Genre
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification

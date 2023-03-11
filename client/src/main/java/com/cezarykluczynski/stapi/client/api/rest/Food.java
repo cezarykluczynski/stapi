@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.FoodSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.FoodApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.FoodApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.FoodBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.FoodFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Food {

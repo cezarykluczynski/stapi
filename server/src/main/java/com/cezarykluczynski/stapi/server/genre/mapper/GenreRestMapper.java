@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class)
 public interface GenreRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.Genre map(Genre genre);
+	com.cezarykluczynski.stapi.client.rest.model.Genre map(Genre genre);
 
 }
 

@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.MagazineSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.MagazineApi
+import com.cezarykluczynski.stapi.client.rest.model.MagazineBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MagazineFullResponse
 import com.cezarykluczynski.stapi.util.AbstractMagazineTest
 
 class MagazineTest extends AbstractMagazineTest {

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftBase;
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2Base;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftBase;
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2Base;
 import com.cezarykluczynski.stapi.model.spacecraft.dto.SpacecraftRequestDTO;
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;

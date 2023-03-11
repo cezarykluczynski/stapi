@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.occupation.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.OccupationV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.OccupationV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.OccupationV2FullResponse;
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

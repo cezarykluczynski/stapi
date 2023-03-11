@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.MovieSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.MovieApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.MovieApi
+import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.util.AbstractMovieTest
 
 class MovieTest extends AbstractMovieTest {

@@ -1,0 +1,7 @@
+{
+	"modelPackage": "com.cezarykluczynski.stapi.client.rest.model",
+	"invokerPackage": "com.cezarykluczynski.stapi.client.rest.invoker",
+	"apiPackage": "com.cezarykluczynski.stapi.client.rest.api",
+	"dateLibrary": "java8",
+	"hideGenerationTimestamp": true
+}

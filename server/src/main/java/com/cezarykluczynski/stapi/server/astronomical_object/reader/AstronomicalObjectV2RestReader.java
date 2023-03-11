@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2FullResponse;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams;
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectBaseRestMapper;

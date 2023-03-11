@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.conflict.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ConflictV2FullResponse;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.conflict.reader.ConflictV2RestReader;
 import com.cezarykluczynski.stapi.util.constant.ContentType;

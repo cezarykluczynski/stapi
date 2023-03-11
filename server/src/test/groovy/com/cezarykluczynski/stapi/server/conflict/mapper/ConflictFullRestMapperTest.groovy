@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.conflict.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictV2Full
+import com.cezarykluczynski.stapi.client.rest.model.ConflictFull
+import com.cezarykluczynski.stapi.client.rest.model.ConflictV2Full
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
 import org.mapstruct.factory.Mappers
 

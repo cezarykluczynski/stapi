@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {ApiDocumentationComponent} from './api-documentation.component';
 import {ApiDocumentationApi} from './api-documentation-api.service';
-import {HighlightModule} from 'ngx-highlightjs';
 
 const REST_DOCUMENT_CONTENT = 'REST_DOCUMENT_CONTENT';
 const REST_DOCUMENT_2_CONTENT = 'REST_DOCUMENT_2_CONTENT';
@@ -31,9 +30,7 @@ describe('ApiDocumentationComponent', () => {
 
 		TestBed.configureTestingModule({
 			declarations: [ApiDocumentationComponent],
-			imports: [
-				HighlightModule
-			],
+			imports: [],
 			providers: [
 				{
 					provide: ApiDocumentationApi,
@@ -52,30 +49,5 @@ describe('ApiDocumentationComponent', () => {
 
 	it('creates', () => {
 		expect(component).toBeTruthy();
-	});
-
-	it('gets REST specs zip link', () => {
-		expect(component.getRestSpecsZipLink()).toContain('common/download/zip/rest');
-	});
-
-	it('selects file', waitForAsync(() => {
-		component.selectFile(1);
-
-		fixture.whenStable().then(() => {
-			expect(component.getSelectedFileContents()).toEqual(REST_DOCUMENT_2_CONTENT);
-		});
-	}));
-
-	it('stops propagation', () => {
-		expect(() => {
-			component.stopPropagation(undefined);
-		}).not.toThrow();
-
-		const event = {
-			stopPropagation: jasmine.createSpy('stopPropagation')
-		};
-		component.stopPropagation(event);
-
-		expect(event.stopPropagation).toHaveBeenCalled();
 	});
 });

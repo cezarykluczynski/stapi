@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comic_collection.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionV2FullResponse;
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.server.comic_collection.dto.ComicCollectionRestBeanParams;
 import com.cezarykluczynski.stapi.server.comic_collection.mapper.ComicCollectionFullRestMapper;

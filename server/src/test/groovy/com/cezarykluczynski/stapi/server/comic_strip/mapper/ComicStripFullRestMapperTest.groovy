@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comic_strip.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripFull
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripFull
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip
 import org.mapstruct.factory.Mappers
 

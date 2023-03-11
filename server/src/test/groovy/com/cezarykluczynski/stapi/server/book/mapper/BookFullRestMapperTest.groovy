@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.book.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2Full
+import com.cezarykluczynski.stapi.client.rest.model.BookFull
+import com.cezarykluczynski.stapi.client.rest.model.BookV2Full
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import org.mapstruct.factory.Mappers
 

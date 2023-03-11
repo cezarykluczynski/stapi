@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.species.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBase as SpeciesBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesV2Base
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesBase as SpeciesBase
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2Base
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO
 import com.cezarykluczynski.stapi.model.species.entity.Species as Species
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams

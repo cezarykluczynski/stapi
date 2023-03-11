@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.weapon.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.WeaponFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.WeaponBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.WeaponFullResponse;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

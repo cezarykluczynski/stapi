@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.literature.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureHeader;
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureHeader;
 import com.cezarykluczynski.stapi.model.literature.entity.Literature;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

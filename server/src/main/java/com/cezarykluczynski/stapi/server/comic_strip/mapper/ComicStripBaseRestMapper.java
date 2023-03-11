@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comic_strip.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripBase;
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripBase;
 import com.cezarykluczynski.stapi.model.comic_strip.dto.ComicStripRequestDTO;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.server.comic_strip.dto.ComicStripRestBeanParams;

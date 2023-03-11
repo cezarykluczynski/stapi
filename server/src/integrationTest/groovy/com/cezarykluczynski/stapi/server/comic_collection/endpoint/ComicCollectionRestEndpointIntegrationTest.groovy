@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.comic_collection.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.ComicCollectionSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicCollectionV2FullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

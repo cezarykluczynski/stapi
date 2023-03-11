@@ -25,10 +25,10 @@ jar.archiveBaseName = 'stapi-client'
 
 swaggerSources {
 	stapi {
-		inputFile = file('../contract/src/main/resources/v1/swagger/stapi.yaml')
+		inputFile = file('../contract/src/main/resources/swagger/stapi.yaml')
 		code {
 			language = 'java'
-			configFile = file('../contract/src/main/resources/v1/swagger/config.json')
+			configFile = file('../contract/src/main/resources/swagger/config.json')
 			wipeOutputDir = false
 			outputDir = file('.')
 		}
@@ -36,7 +36,7 @@ swaggerSources {
 }
 
 clean.doFirst {
-	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/v1/"
+	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/"
 }
 
 compileJava {

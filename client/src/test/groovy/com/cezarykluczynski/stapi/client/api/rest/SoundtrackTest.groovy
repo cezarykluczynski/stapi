@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.SoundtrackSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.SoundtrackApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.SoundtrackApi
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFullResponse
 import com.cezarykluczynski.stapi.util.AbstractSoundtrackTest
 
 class SoundtrackTest extends AbstractSoundtrackTest {

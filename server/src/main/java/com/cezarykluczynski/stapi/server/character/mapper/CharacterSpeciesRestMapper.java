@@ -11,6 +11,6 @@ public interface CharacterSpeciesRestMapper {
 
 	@Mapping(target = "uid", source = "species.uid")
 	@Mapping(target = "name", source = "species.name")
-	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterSpecies map(CharacterSpecies characterSpecies);
+	com.cezarykluczynski.stapi.client.rest.model.CharacterSpecies map(CharacterSpecies characterSpecies);
 
 }

@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.technology.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2Base
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2Full
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2Base
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2Full
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2FullResponse
 import com.cezarykluczynski.stapi.model.technology.entity.Technology
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

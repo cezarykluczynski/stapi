@@ -4,11 +4,11 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.SpacecraftV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.SpacecraftApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.api.SpacecraftApi
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractSpacecraftTest
 
 class SpacecraftTest extends AbstractSpacecraftTest {

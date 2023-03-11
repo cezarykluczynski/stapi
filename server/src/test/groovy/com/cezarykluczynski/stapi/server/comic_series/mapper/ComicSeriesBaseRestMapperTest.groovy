@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comic_series.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBase as ComicSeriesBase
+import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesBase as ComicSeriesBase
 import com.cezarykluczynski.stapi.model.comic_series.dto.ComicSeriesRequestDTO
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries as ComicSeries
 import com.cezarykluczynski.stapi.server.comic_series.dto.ComicSeriesRestBeanParams

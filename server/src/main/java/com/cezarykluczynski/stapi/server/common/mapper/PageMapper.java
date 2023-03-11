@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PageMapper {
 
-	public com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
-		com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage responsePage
-				= new com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage();
+	public com.cezarykluczynski.stapi.client.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
+		com.cezarykluczynski.stapi.client.rest.model.ResponsePage responsePage
+				= new com.cezarykluczynski.stapi.client.rest.model.ResponsePage();
 		responsePage.setPageNumber(pageRequest.getNumber());
 		responsePage.setPageSize(pageRequest.getSize());
 		responsePage.setNumberOfElements(pageRequest.getNumberOfElements());

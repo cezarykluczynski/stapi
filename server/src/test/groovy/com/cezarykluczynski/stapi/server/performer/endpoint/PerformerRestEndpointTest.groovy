@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams

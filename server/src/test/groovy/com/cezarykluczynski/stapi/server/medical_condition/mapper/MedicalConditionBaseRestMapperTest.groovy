@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.medical_condition.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBase
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionBase
 import com.cezarykluczynski.stapi.model.medical_condition.dto.MedicalConditionRequestDTO
 import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalCondition
 import com.cezarykluczynski.stapi.server.medical_condition.dto.MedicalConditionRestBeanParams

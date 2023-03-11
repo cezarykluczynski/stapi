@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.animal.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.AnimalBase
+import com.cezarykluczynski.stapi.client.rest.model.AnimalBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.AnimalFull
+import com.cezarykluczynski.stapi.client.rest.model.AnimalFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.animal.entity.Animal
 import com.cezarykluczynski.stapi.server.animal.dto.AnimalRestBeanParams
 import com.cezarykluczynski.stapi.server.animal.mapper.AnimalBaseRestMapper

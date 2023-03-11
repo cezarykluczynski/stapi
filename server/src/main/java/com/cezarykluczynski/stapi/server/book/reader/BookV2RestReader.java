@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.book.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookV2FullResponse;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.server.book.dto.BookV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper;

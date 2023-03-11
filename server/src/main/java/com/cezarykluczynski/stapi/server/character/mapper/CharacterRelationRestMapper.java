@@ -8,6 +8,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {CharacterHeaderRestMapper.class})
 public interface CharacterRelationRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterRelation map(CharacterRelation characterRelation);
+	com.cezarykluczynski.stapi.client.rest.model.CharacterRelation map(CharacterRelation characterRelation);
 
 }

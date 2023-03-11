@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.spacecraft_type.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftType as RestSpacecraftType
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftType as RestSpacecraftType
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification

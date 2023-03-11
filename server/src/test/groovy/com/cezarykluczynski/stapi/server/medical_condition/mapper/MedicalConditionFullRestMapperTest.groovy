@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.medical_condition.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFull
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionFull
 import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalCondition
 import org.mapstruct.factory.Mappers
 

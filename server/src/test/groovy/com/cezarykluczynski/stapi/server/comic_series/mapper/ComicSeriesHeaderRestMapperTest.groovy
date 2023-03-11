@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.comic_series.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesHeader
+import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesHeader
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.client.api.rest
 
-import com.cezarykluczynski.stapi.client.v1.rest.api.DataVersionApi
+import com.cezarykluczynski.stapi.client.rest.api.DataVersionApi
 import spock.lang.Specification
 
 class DataVersionTest extends Specification {
@@ -16,10 +16,10 @@ class DataVersionTest extends Specification {
 
 	void "gets data version"() {
 		given:
-		com.cezarykluczynski.stapi.client.v1.rest.model.DataVersion dataVersionResponse = Mock()
+		com.cezarykluczynski.stapi.client.rest.model.DataVersion dataVersionResponse = Mock()
 
 		when:
-		com.cezarykluczynski.stapi.client.v1.rest.model.DataVersion dataVersionOutput = dataVersion.getDataVersion()
+		com.cezarykluczynski.stapi.client.rest.model.DataVersion dataVersionOutput = dataVersion.getDataVersion()
 
 		then:
 		1 * dataVersionApiMock.v1RestCommonDataVersionGet() >> dataVersionResponse

@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface SpacecraftTypeRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftType map(SpacecraftType spacecraftType);
+	com.cezarykluczynski.stapi.client.rest.model.SpacecraftType map(SpacecraftType spacecraftType);
 
 }

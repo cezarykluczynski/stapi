@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.location.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LocationHeader;
+import com.cezarykluczynski.stapi.client.rest.model.LocationHeader;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

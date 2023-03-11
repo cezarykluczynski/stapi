@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.MaterialSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.MaterialApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.MaterialApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.MaterialBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MaterialFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Material {

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.soundtrack.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SoundtrackHeader
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackHeader
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

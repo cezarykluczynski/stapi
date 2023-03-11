@@ -29,9 +29,7 @@
 		"another-rest-client": "0.7.0",
 		"bootstrap": "3.4.1",
 		"bootswatch": "3.4.1",
-		"highlight.js": "11.7.0",
 		"jquery": "3.6.3",
-		"ngx-highlightjs": "8.0.0",
 		"rxjs": "7.8.0",
 		"tslib": "2.5.0",
 		"zone.js": "0.12.0"

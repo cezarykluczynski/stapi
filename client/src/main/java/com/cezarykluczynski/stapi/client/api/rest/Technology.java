@@ -2,12 +2,12 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.TechnologyV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.TechnologyApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TechnologyV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.TechnologyApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class Technology {

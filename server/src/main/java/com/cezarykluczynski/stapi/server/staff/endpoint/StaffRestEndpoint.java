@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.StaffFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams;

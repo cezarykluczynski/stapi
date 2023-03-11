@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.animal.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.AnimalBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.AnimalFullResponse;
 import com.cezarykluczynski.stapi.model.animal.entity.Animal;
 import com.cezarykluczynski.stapi.server.animal.dto.AnimalRestBeanParams;
 import com.cezarykluczynski.stapi.server.animal.mapper.AnimalBaseRestMapper;

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSortDirection
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSortDirection
 import spock.lang.Specification
 
 class SortMapperTest extends Specification {

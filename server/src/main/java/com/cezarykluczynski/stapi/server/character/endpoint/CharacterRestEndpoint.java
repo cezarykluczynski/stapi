@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.character.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.CharacterBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.CharacterFullResponse;
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;

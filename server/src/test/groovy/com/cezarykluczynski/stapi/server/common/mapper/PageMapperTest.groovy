@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage as RESTResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage as RESTResponsePage
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.util.PageDefault
 import org.springframework.data.domain.Page

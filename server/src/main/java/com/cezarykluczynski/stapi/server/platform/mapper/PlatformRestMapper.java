@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class)
 public interface PlatformRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.Platform map(Platform platform);
+	com.cezarykluczynski.stapi.client.rest.model.Platform map(Platform platform);
 
 }
 

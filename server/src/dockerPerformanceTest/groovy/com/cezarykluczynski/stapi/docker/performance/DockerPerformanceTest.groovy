@@ -5,7 +5,7 @@ import static org.codehaus.groovy.runtime.StringGroovyMethods.padRight
 
 import com.cezarykluczynski.stapi.client.api.StapiRestClient
 import com.cezarykluczynski.stapi.client.api.dto.AbstractPageSortBaseCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
 import com.google.common.base.Stopwatch
 import com.google.common.collect.Lists
 import org.slf4j.Logger

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.video_game.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoGameFull;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameFull;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;

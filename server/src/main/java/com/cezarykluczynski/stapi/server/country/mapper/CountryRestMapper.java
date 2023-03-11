@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface CountryRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.Country map(Country country);
+	com.cezarykluczynski.stapi.client.rest.model.Country map(Country country);
 
 }

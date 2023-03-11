@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.video_release.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseFullResponse;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

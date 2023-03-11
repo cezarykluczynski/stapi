@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.element.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.ElementV2Full
+import com.cezarykluczynski.stapi.client.rest.model.ElementFull
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2Full
 import com.cezarykluczynski.stapi.model.element.entity.Element
 import org.mapstruct.factory.Mappers
 

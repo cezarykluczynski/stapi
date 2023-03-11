@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface ContentLanguageRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.ContentLanguage map(ContentLanguage contentLanguage);
+	com.cezarykluczynski.stapi.client.rest.model.ContentLanguage map(ContentLanguage contentLanguage);
 
 }

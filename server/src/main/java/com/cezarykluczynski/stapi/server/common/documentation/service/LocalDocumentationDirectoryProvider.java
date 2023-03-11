@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Profile(SpringProfile.DOCKER_NOT)
 public class LocalDocumentationDirectoryProvider implements DocumentationDirectoryProvider {
 
-	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/v1/swagger";
+	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/swagger";
 	private static final String BUILD_DIRECTORY = "./build/";
 
 	@Override

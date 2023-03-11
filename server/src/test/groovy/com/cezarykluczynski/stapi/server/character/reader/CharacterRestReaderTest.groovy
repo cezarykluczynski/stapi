@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.character.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.CharacterBase
+import com.cezarykluczynski.stapi.client.rest.model.CharacterBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.CharacterFull
+import com.cezarykluczynski.stapi.client.rest.model.CharacterFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper

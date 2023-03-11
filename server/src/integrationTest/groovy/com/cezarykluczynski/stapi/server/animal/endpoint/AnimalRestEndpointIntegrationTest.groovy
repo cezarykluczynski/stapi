@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.animal.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.AnimalSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.AnimalBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.AnimalFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

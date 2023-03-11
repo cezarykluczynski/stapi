@@ -14,8 +14,8 @@ public interface MagazineBaseRestMapper {
 
 	MagazineRequestDTO mapBase(MagazineRestBeanParams magazineRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBase mapBase(Magazine magazine);
+	com.cezarykluczynski.stapi.client.rest.model.MagazineBase mapBase(Magazine magazine);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.MagazineBase> mapBase(List<Magazine> magazineList);
+	List<com.cezarykluczynski.stapi.client.rest.model.MagazineBase> mapBase(List<Magazine> magazineList);
 
 }

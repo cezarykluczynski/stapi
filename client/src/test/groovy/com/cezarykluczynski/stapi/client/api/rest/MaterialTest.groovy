@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.MaterialSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.MaterialApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaterialFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.MaterialApi
+import com.cezarykluczynski.stapi.client.rest.model.MaterialBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.MaterialFullResponse
 import com.cezarykluczynski.stapi.util.AbstractMaterialTest
 
 class MaterialTest extends AbstractMaterialTest {

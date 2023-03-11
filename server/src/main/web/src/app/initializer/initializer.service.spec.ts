@@ -16,7 +16,7 @@ describe('InitializerService', () => {
 	beforeEach(() => {
 		apiBrowserApiMock = jasmine.createSpyObj('ApiBrowserApi', ['loadDetails'], ['']);
 		statisticsApiMock = jasmine.createSpyObj('StatisticsApi', ['loadStatistics'], ['']);
-		apiDocumentationApiMock = jasmine.createSpyObj('ApiDocumentationApi', ['loadDocumentation', 'loadDataVersion'], ['']);
+		apiDocumentationApiMock = jasmine.createSpyObj('ApiDocumentationApi', ['loadDataVersion'], ['']);
 		featureSwitchApiMock = jasmine.createSpyObj('FeatureSwitchApi', ['loadFeatureSwitches'], ['']);
 
 		TestBed.configureTestingModule({
@@ -50,7 +50,6 @@ describe('InitializerService', () => {
 		initializerService.init().then(() => {
 			expect(apiBrowserApiMock.loadDetails).toHaveBeenCalled();
 			expect(statisticsApiMock.loadStatistics).toHaveBeenCalled();
-			expect(apiDocumentationApiMock.loadDocumentation).toHaveBeenCalled();
 			expect(apiDocumentationApiMock.loadDataVersion).toHaveBeenCalled();
 			expect(featureSwitchApiMock.loadFeatureSwitches).toHaveBeenCalled();
 		});

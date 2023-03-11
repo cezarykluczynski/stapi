@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.client.api.dto;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType;
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectType;
 
 public class AstronomicalObjectV2SearchCriteria extends AbstractPageSortBaseCriteria {
 

@@ -2,11 +2,11 @@ package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.TradingCardSetSearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardSetApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.ProductionRunUnit;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardSetBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardSetFullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.TradingCardSetApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.ProductionRunUnit;
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardSetBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardSetFullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class TradingCardSet {

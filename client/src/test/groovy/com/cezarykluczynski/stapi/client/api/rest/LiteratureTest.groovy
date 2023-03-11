@@ -4,9 +4,9 @@ import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
 import com.cezarykluczynski.stapi.client.api.dto.LiteratureSearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.api.LiteratureApi
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFullResponse
+import com.cezarykluczynski.stapi.client.rest.api.LiteratureApi
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFullResponse
 import com.cezarykluczynski.stapi.util.AbstractLiteratureTest
 
 class LiteratureTest extends AbstractLiteratureTest {

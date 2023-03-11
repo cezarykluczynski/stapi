@@ -3,12 +3,12 @@ package com.cezarykluczynski.stapi.client.api.rest;
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
 import com.cezarykluczynski.stapi.client.api.dto.VideoReleaseSearchCriteria;
 import com.cezarykluczynski.stapi.client.api.dto.VideoReleaseV2SearchCriteria;
-import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
-import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFullResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2BaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.api.VideoReleaseApi;
+import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseV2BaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.VideoReleaseV2FullResponse;
 
 @SuppressWarnings("ParameterNumber")
 public class VideoRelease {

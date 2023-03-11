@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.food.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFull
+import com.cezarykluczynski.stapi.client.rest.model.FoodFull
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import org.mapstruct.factory.Mappers
 

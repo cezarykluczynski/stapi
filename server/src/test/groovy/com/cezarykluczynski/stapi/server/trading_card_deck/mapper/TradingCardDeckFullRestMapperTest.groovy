@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.trading_card_deck.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TradingCardDeckFull
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckFull
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck
 import org.mapstruct.factory.Mappers
 

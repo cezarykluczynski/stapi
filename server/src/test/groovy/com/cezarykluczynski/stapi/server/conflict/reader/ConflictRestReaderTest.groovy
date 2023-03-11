@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.conflict.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.ConflictFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.ConflictBase
+import com.cezarykluczynski.stapi.client.rest.model.ConflictBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ConflictFull
+import com.cezarykluczynski.stapi.client.rest.model.ConflictFullResponse
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

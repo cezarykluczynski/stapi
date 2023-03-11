@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.title.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.TitleFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TitleBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TitleFullResponse;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;

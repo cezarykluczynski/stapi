@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectHeader
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectHeader
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

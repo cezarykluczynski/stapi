@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.spacecraft.endpoint
 
 import com.cezarykluczynski.stapi.client.api.dto.SpacecraftV2SearchCriteria
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2BaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpacecraftV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftV2FullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

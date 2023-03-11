@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.animal.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AnimalFull
+import com.cezarykluczynski.stapi.client.rest.model.AnimalFull
 import com.cezarykluczynski.stapi.model.animal.entity.Animal
 import org.mapstruct.factory.Mappers
 

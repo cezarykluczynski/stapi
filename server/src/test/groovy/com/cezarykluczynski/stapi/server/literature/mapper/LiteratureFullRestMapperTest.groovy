@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.literature.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFull
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFull
 import com.cezarykluczynski.stapi.model.literature.entity.Literature
 import org.mapstruct.factory.Mappers
 

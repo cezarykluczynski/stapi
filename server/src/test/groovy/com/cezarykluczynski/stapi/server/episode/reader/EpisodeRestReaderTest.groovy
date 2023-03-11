@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.episode.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeBase
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeFull
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

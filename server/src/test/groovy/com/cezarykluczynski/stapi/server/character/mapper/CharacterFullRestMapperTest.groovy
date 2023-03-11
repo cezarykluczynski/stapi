@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.character.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType
-import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.Gender
-import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus
+import com.cezarykluczynski.stapi.client.rest.model.BloodType
+import com.cezarykluczynski.stapi.client.rest.model.CharacterFull
+import com.cezarykluczynski.stapi.client.rest.model.Gender
+import com.cezarykluczynski.stapi.client.rest.model.MaritalStatus
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import org.mapstruct.factory.Mappers
 

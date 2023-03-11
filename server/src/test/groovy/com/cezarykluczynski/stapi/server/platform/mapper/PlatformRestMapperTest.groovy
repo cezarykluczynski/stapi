@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.platform.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Platform as RestPlatform
+import com.cezarykluczynski.stapi.client.rest.model.Platform as RestPlatform
 import com.cezarykluczynski.stapi.model.platform.entity.Platform
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification

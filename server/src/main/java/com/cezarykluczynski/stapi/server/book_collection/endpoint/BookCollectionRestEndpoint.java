@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.book_collection.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookCollectionBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.BookCollectionFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookCollectionBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookCollectionFullResponse;
 import com.cezarykluczynski.stapi.server.book_collection.dto.BookCollectionRestBeanParams;
 import com.cezarykluczynski.stapi.server.book_collection.reader.BookCollectionRestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;

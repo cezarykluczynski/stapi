@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.literature.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureBaseResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFull
-import com.cezarykluczynski.stapi.client.v1.rest.model.LiteratureFullResponse
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureBase
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFull
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.literature.entity.Literature
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper

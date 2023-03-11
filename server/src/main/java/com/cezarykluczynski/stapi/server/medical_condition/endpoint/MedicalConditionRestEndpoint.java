@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.medical_condition.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionBaseResponse;
-import com.cezarykluczynski.stapi.client.v1.rest.model.MedicalConditionFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionBaseResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MedicalConditionFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.medical_condition.dto.MedicalConditionRestBeanParams;
