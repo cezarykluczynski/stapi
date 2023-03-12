@@ -9,10 +9,9 @@ import java.time.YearMonth
 class MonthYearCandidateToYearMonthProcessorTest extends Specification {
 
 	private static final String MONTH_STRING = 'April'
-	private static final String YEAR_STRING = '1920'
+	private static final Integer YEAR = 1920
 	private static final Month MONTH = Month.APRIL
 	private static final Integer YEAR_INTEGER = 1920
-	private static final String INVALID_YEAR = 'INVALID_YEAR'
 
 	private MonthNameToMonthProcessor monthNameToMonthProcessorMock
 
@@ -25,7 +24,7 @@ class MonthYearCandidateToYearMonthProcessorTest extends Specification {
 
 	void "returns valid YearMonth"() {
 		given:
-		MonthYearCandidate monthYearCandidate = MonthYearCandidate.of(MONTH_STRING, YEAR_STRING)
+		MonthYearCandidate monthYearCandidate = MonthYearCandidate.of(MONTH_STRING, YEAR)
 
 		when:
 		YearMonth yearMonth = monthYearCandidateToYearMonthProcessor.process(monthYearCandidate)
@@ -38,7 +37,7 @@ class MonthYearCandidateToYearMonthProcessorTest extends Specification {
 
 	void "returns null when year is invalid"() {
 		given:
-		MonthYearCandidate monthYearCandidate = MonthYearCandidate.of(MONTH_STRING, INVALID_YEAR)
+		MonthYearCandidate monthYearCandidate = MonthYearCandidate.of(MONTH_STRING, null)
 
 		when:
 		YearMonth yearMonth = monthYearCandidateToYearMonthProcessor.process(monthYearCandidate)
@@ -50,7 +49,7 @@ class MonthYearCandidateToYearMonthProcessorTest extends Specification {
 
 	void "returns null when month is null"() {
 		given:
-		MonthYearCandidate monthYearCandidate = MonthYearCandidate.of(MONTH_STRING, YEAR_STRING)
+		MonthYearCandidate monthYearCandidate = MonthYearCandidate.of(MONTH_STRING, YEAR)
 
 		when:
 		YearMonth yearMonth = monthYearCandidateToYearMonthProcessor.process(monthYearCandidate)

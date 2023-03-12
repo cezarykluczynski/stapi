@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearCand
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class MonthlinkTemplateToMonthYearCandiateProcessor implements ItemProces
 		}
 
 		String month = null;
-		String year = null;
+		Integer year = null;
 
 		for (Template.Part part : item.getParts()) {
 			String key = part.getKey();
@@ -32,7 +33,7 @@ public class MonthlinkTemplateToMonthYearCandiateProcessor implements ItemProces
 			}
 
 			if (key.equals(TemplateParam.SECOND)) {
-				year = value;
+				year = Ints.tryParse(value);
 			}
 		}
 

@@ -40,7 +40,7 @@ class MonthlinkTemplateToMonthYearCandiateProcessorTest extends Specification {
 
 		then:
 		monthYearCandidate.month == MONTH_STRING
-		monthYearCandidate.year == YEAR_STRING
+		monthYearCandidate.year == YEAR
 	}
 
 	void "valid template with title 'monthlink' passed findings to DayMonthYearProcessor"() {
@@ -52,7 +52,7 @@ class MonthlinkTemplateToMonthYearCandiateProcessorTest extends Specification {
 
 		then:
 		monthYearCandidate.month == MONTH_STRING
-		monthYearCandidate.year == YEAR_STRING
+		monthYearCandidate.year == YEAR
 	}
 
 	void "template of different title produces null LocalDate"() {

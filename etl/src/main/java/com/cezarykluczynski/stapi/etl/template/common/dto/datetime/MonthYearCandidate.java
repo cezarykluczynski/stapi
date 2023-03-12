@@ -9,6 +9,6 @@ public class MonthYearCandidate {
 
 	private final String month;
 
-	private final String year;
+	private final Integer year;
 
 }
