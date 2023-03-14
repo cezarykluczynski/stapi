@@ -76,6 +76,8 @@ public class QueryBuilder<T> {
 
 	private boolean singleEntitySearch;
 
+	private boolean usingDefaultSort;
+
 	private List<RequestSortClauseDTO> requestSortClauseDTOList = Lists.newArrayList();
 
 	QueryBuilder(EntityManager entityManager, Class baseClass, Pageable pageable) {
@@ -87,6 +89,7 @@ public class QueryBuilder<T> {
 		this.baseClass = baseClass;
 		this.pageable = pageable;
 		this.prepare();
+		this.setDefaultSort();
 	}
 
 	public QueryBuilder<T> like(SingularAttribute<? super T, String> key, String value) {
@@ -268,6 +271,11 @@ public class QueryBuilder<T> {
 			return this;
 		}
 
+		if (usingDefaultSort) {
+			usingDefaultSort = false;
+			requestSortClauseDTOList.clear();
+		}
+
 		requestSortClauseDTOList.addAll(requestSortDTO.getClauses());
 		return this;
 	}
@@ -348,6 +356,14 @@ public class QueryBuilder<T> {
 
 		EntityType<T> entityType = entityManager.getMetamodel().entity(baseClass);
 		attributeSet = entityType.getAttributes();
+	}
+
+	private void setDefaultSort() {
+		this.usingDefaultSort = true;
+		RequestSortClauseDTO requestSortClauseDTO = new RequestSortClauseDTO();
+		requestSortClauseDTO.setName("id");
+		requestSortClauseDTO.setDirection(RequestSortDirectionDTO.ASC);
+		requestSortClauseDTOList.add(requestSortClauseDTO);
 	}
 
 	@SneakyThrows

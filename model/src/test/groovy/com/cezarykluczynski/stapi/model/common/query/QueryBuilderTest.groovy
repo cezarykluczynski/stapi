@@ -804,11 +804,14 @@ class QueryBuilderTest extends Specification {
 		when: 'search is performed'
 		List<Series> seriesList = queryBuilder.findAll()
 
-		then:
 		then: 'queries are built'
 		1 * criteriaBuilder.and(_) >> predicate
 		1 * baseCriteriaQuery.where(predicate)
-		1 * baseCriteriaQuery.orderBy([])
+
+		1 * baseRoot.get('id') >> _
+		1 * criteriaBuilder.asc(_)
+		1 * baseCriteriaQuery.orderBy(_)
+
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
 		1 * baseTypedQuery.setMaxResults(1)
 		1 * baseTypedQuery.setFirstResult(0)
