@@ -55,7 +55,9 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 			final ResponseEntity<NameGenderDTO> nameGenderDTOResponseEntity = restTemplate
 					.getForEntity(queryUrl, NameGenderDTO.class);
 			callsCount++;
-			log.info("A total of {} calls were made to genderize.io API", callsCount);
+			if (callsCount % 10 == 0) {
+				log.info("A total of {} calls were made to genderize.io API", callsCount);
+			}
 			if (nameGenderDTOResponseEntity.getStatusCode().is2xxSuccessful()) {
 				final NameGenderDTO nameGenderDTO = nameGenderDTOResponseEntity.getBody();
 				nameGenderCache.put(name, nameGenderDTO);

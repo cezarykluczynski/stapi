@@ -36,19 +36,19 @@ public class PageToGenderPronounProcessor implements ItemProcessor<Page, Gender>
 		int maleFindings = countFindings(MALE.matcher(firstParagraphs));
 		int femaleFindings = countFindings(FEMALE.matcher(firstParagraphs));
 
-		if (maleFindings > 0 && maleFindings > femaleFindings) {
-			if (femaleFindings >= 1 && (float) femaleFindings / (float) maleFindings >= .5) {
+		if (maleFindings > femaleFindings) {
+			if (maleFindings > 2 && maleFindings + 1 == femaleFindings) {
 				log.info("Determined gender {} of \"{}\" based on {} male pronouns, but {} female pronoun{} present too",
 						Gender.M, item.getTitle(), maleFindings, femaleFindings, femaleFindings == 1 ? WAS : WERE);
 			}
 			return Gender.M;
-		} else if (femaleFindings > 0 && femaleFindings > maleFindings) {
-			if (maleFindings >= 1 && (float) maleFindings / (float) femaleFindings >= .5) {
+		} else if (femaleFindings > maleFindings) {
+			if (femaleFindings > 2 && femaleFindings + 1 == maleFindings) {
 				log.info("Determined gender {} of \"{}\" based on {} female pronouns, but {} male pronoun{} present too",
 						Gender.F, item.getTitle(), femaleFindings, maleFindings, maleFindings == 1 ? WAS : WERE);
 			}
 			return Gender.F;
-		} else if (femaleFindings == maleFindings && maleFindings > 0) {
+		} else if (maleFindings > 0) {
 			log.info("Could not determine gender of \"{}\", because equal number of male and female pronouns found ({})",
 					item.getTitle(), maleFindings);
 			return null;

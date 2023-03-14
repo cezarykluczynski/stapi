@@ -1,15 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
-import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
-import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
@@ -19,7 +15,6 @@ import spock.lang.Specification
 class PageToGenderRoleProcessorTest extends Specification {
 
 	private static final String TITLE = 'Title'
-	private static final String CATEGORY = 'CATEGORY'
 	private static final String VALID_WIKITEXT = 'played frisbee for fun'
 	private static final Gender GENDER = Gender.F
 
@@ -31,10 +26,6 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	private IndividualTemplatePartsGenderProcessor individualTemplatePartsGenderProcessorMock
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
-
-	private SubcategoriesProvider performerCategoriesProviderMock
-
 	private PageToGenderRoleProcessor pageToGenderRoleProcessor
 
 	void setup() {
@@ -42,11 +33,8 @@ class PageToGenderRoleProcessorTest extends Specification {
 		wikitextApiMock = Mock()
 		templateFinderMock = Mock()
 		individualTemplatePartsGenderProcessorMock = Mock()
-		categoryTitlesExtractingProcessorMock = Mock()
-		performerCategoriesProviderMock = Mock()
 		pageToGenderRoleProcessor = new PageToGenderRoleProcessor(pageApiMock, wikitextApiMock, templateFinderMock,
-				individualTemplatePartsGenderProcessorMock, categoryTitlesExtractingProcessorMock,
-				performerCategoriesProviderMock)
+				individualTemplatePartsGenderProcessorMock)
 	}
 
 	void "returns null when wikitext does not contain 'played' word"() {
@@ -54,38 +42,6 @@ class PageToGenderRoleProcessorTest extends Specification {
 		Gender gender = pageToGenderRoleProcessor.process(new Page())
 
 		then:
-		0 * _
-		gender == null
-	}
-
-	void "logs that no roles were found when page is a performer page"() {
-		given:
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CATEGORY))
-		Page page = new Page(
-				title: TITLE,
-				categories: categoryHeaderList)
-
-		when:
-		Gender gender = pageToGenderRoleProcessor.process(page)
-
-		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CATEGORY)
-		1 * performerCategoriesProviderMock.provideSubcategories(CategoryTitle.PERFORMERS) >> Lists.newArrayList(CATEGORY)
-		0 * _
-		gender == null
-	}
-
-	void "does not log that no roles were found when page is not a performer page"() {
-		given:
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CATEGORY))
-		Page page = new Page(categories: categoryHeaderList)
-
-		when:
-		Gender gender = pageToGenderRoleProcessor.process(page)
-
-		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CATEGORY)
-		1 * performerCategoriesProviderMock.provideSubcategories(CategoryTitle.PERFORMERS) >> Lists.newArrayList('SOME OTHER CATEGORY')
 		0 * _
 		gender == null
 	}
@@ -132,10 +88,6 @@ class PageToGenderRoleProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(subpage, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		0 * _
 		gender == null
-
-		then: 'titles are used for logging'
-		2 * page.title
-		2 * subpage.title
 	}
 
 	void "returns gender when individual template does contain it"() {

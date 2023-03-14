@@ -29,7 +29,8 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 
 	@Override
 	public Gender process(Page item) throws Exception {
-		FixedValueHolder<Gender> fixedValueHolder = genderFixedValueProvider.getSearchedValue(item.getTitle());
+		String pageTitle = item.getTitle();
+		FixedValueHolder<Gender> fixedValueHolder = genderFixedValueProvider.getSearchedValue(pageTitle);
 
 		if (fixedValueHolder.isFound()) {
 			return fixedValueHolder.getValue();
@@ -55,6 +56,7 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 			return genderFromName;
 		}
 
+		log.info("Could not determine gender of \"{}\".", pageTitle);
 		return null;
 	}
 

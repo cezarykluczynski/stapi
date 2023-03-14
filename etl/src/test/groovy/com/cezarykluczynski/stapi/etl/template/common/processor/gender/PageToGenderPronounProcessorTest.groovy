@@ -33,7 +33,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 	void "returns F is there is more female than male pronouns, but logs the fact that difference was not too big"() {
 		given:
 		Page page = Mock()
-		page.wikitext >> 'Is she a real she or is she a he - and how about him then?'
+		page.wikitext >> 'Is she is a real she or is she is a he - and how about him then?'
 
 		when:
 		Gender gender = pageToGenderPronounProcessor.process(page)
@@ -41,9 +41,6 @@ class PageToGenderPronounProcessorTest extends Specification {
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == FEMALE
-
-		then: 'title is used for logging'
-		1 * page.title
 	}
 
 	void "returns M is there is more male than female pronouns"() {
@@ -59,7 +56,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 	void "returns M is there is more male than female pronouns, but logs the fact that difference was not too big"() {
 		given:
 		Page page = Mock()
-		page.wikitext >> 'Is he a real he or is he a she - and how about her then?'
+		page.wikitext >> 'Is he is a real he or is he a she - and how about her then?'
 
 		when:
 		Gender gender = pageToGenderPronounProcessor.process(page)
@@ -67,9 +64,6 @@ class PageToGenderPronounProcessorTest extends Specification {
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == MALE
-
-		then: 'title is used for logging'
-		1 * page.title
 	}
 
 	void "returns null when there was equal number of findings"() {
