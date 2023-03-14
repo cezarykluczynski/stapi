@@ -13,6 +13,7 @@
 	<suppress files=".+EtlJobConfiguration\.java" checks="FileLength"/>
 	<suppress files=".+StapiRestClient\.java" checks="FileLength"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="FileLength"/>
+	<suppress files=".+BlikiConnector\.java" checks="FileLength"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="AvoidStaticImport"/>
 	<suppress files=".+ContentLanguageDTOProvider\.java" checks="FileLength"/>
 	<suppress files=".+EndpointHitsConsoleOutputFormatter\.java" checks="FileLength"/>

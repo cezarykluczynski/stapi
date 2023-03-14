@@ -40,7 +40,7 @@ class BlikiConnectorTest extends Specification {
 			'<div class=\\"CategoryTreeItem\\"><span class=\\"CategoryTreeEmptyBullet\\"></span> ' +
 			'<a href=\\"/wiki/Category:Audiobook_performers\\" title=\\"Category:Audiobook performers\\">Audiobook performers</a></div>' +
 			'</div>"}}'
-	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProviderMock
+	private BlikiUserDecoratorFactory blikiUserDecoratorFactoryMock
 
 	private FandomWikisDetector fandomWikisDetector
 
@@ -62,7 +62,7 @@ class BlikiConnectorTest extends Specification {
 	private BlikiConnector blikiConnector
 
 	void setup() {
-		blikiUserDecoratorBeanMapProviderMock = Mock()
+		blikiUserDecoratorFactoryMock = Mock()
 		fandomWikisDetector = Mock()
 		mediaWikiMinimalIntervalProviderMock = Mock()
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
@@ -97,7 +97,7 @@ class BlikiConnectorTest extends Specification {
 
 		restTemplateMock = Mock()
 
-		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, fandomWikisDetector, mediaWikiMinimalIntervalProviderMock,
+		blikiConnector = new BlikiConnector(blikiUserDecoratorFactoryMock, fandomWikisDetector, mediaWikiMinimalIntervalProviderMock,
 				mediaWikiSourcesProperties, restTemplateMock)
 	}
 
@@ -106,8 +106,6 @@ class BlikiConnectorTest extends Specification {
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
 		UserDecorator userDecorator = Mock()
-		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
-		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
 		when: 'page is requested'
 		String xml = blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
@@ -115,7 +113,7 @@ class BlikiConnectorTest extends Specification {
 		then: 'page is returned'
 		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
@@ -127,7 +125,7 @@ class BlikiConnectorTest extends Specification {
 		then: 'another page is returned,  but call is postponed'
 		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
@@ -139,15 +137,13 @@ class BlikiConnectorTest extends Specification {
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
 		UserDecorator userDecorator = Mock()
-		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
-		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
 		when: 'xml is requested'
 		String xml = blikiConnector.readXML(Maps.newHashMap(), MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then: 'xml is returned'
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
@@ -158,7 +154,7 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'another xml is returned, but call is postponed'
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
@@ -170,8 +166,6 @@ class BlikiConnectorTest extends Specification {
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
 		UserDecorator userDecorator = Mock()
-		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
-		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_BETA_EN, userDecorator)
 
 		when: 'page is requested'
 		String xml = blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
@@ -179,7 +173,7 @@ class BlikiConnectorTest extends Specification {
 		then: 'page is returned'
 		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_BETA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
@@ -191,7 +185,7 @@ class BlikiConnectorTest extends Specification {
 		then: 'another page is returned, but call is postponed'
 		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_BETA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
@@ -203,15 +197,13 @@ class BlikiConnectorTest extends Specification {
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
 		UserDecorator userDecorator = Mock()
-		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
-		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_BETA_EN, userDecorator)
 
 		when: 'xml is requested'
 		String xml = blikiConnector.readXML(Maps.newHashMap(), MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
 
 		then: 'xml is returned'
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_BETA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
@@ -223,7 +215,7 @@ class BlikiConnectorTest extends Specification {
 		then: 'another xml is returned, but call is postponed'
 		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_BETA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
@@ -236,13 +228,11 @@ class BlikiConnectorTest extends Specification {
 		httpClientBuilderMock = Mock()
 		httpClientBuilderMock.build() >> closeableHttpClient
 
-		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, fandomWikisDetector, mediaWikiMinimalIntervalProviderMock,
+		blikiConnector = new BlikiConnector(blikiUserDecoratorFactoryMock, fandomWikisDetector, mediaWikiMinimalIntervalProviderMock,
 				mediaWikiSourcesProperties, restTemplateMock)
 
 		Connector connector = new Connector(httpClientBuilderMock)
 		UserDecorator userDecorator = Mock()
-		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
-		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
 		when: 'page is requested'
 		blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
@@ -250,7 +240,7 @@ class BlikiConnectorTest extends Specification {
 		then: "page is returned, and URL is not Fandom's wiki"
 		1 * fandomWikisDetector.isFandomWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		1 * closeableHttpClient.execute(_ as HttpGet) >> { HttpGet httpGet ->
 			assert httpGet.URI.query.contains('parsetree')
@@ -264,7 +254,7 @@ class BlikiConnectorTest extends Specification {
 		then: "page is returned, and URL is Fandom's wiki"
 		1 * fandomWikisDetector.isFandomWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> true
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		1 * closeableHttpClient.execute(_ as HttpGet) >> { HttpGet httpGet ->
 			assert !httpGet.URI.query.contains('parsetree')
@@ -285,7 +275,7 @@ class BlikiConnectorTest extends Specification {
 
 		then:
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * blikiUserDecoratorFactoryMock.createFor(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> userDecorator
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
@@ -328,8 +318,6 @@ class BlikiConnectorTest extends Specification {
 		Connector connector = Mock()
 		UserDecorator userDecorator = Mock()
 		userDecorator.connector >> connector
-		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
-		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
 		when:
 		blikiConnector.readXML(Maps.newHashMap(), MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)

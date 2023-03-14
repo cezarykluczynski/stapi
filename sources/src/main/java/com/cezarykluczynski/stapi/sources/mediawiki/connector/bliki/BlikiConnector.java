@@ -30,6 +30,13 @@ import org.springframework.web.client.RestTemplate;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
 @Service
@@ -39,17 +46,17 @@ public class BlikiConnector {
 
 	private static final List<Long> NETWORK_TROUBLE_POSTPONES_TIMES = Lists.newArrayList(10000L, 30000L, 60000L);
 
-	private Map<MediaWikiSource, Long> lastCallTimes = Maps.newHashMap();
+	private final Map<MediaWikiSource, Long> lastCallTimes = Maps.newHashMap();
 
-	private Map<MediaWikiSource, String> names = Maps.newHashMap();
+	private final Map<MediaWikiSource, String> names = Maps.newHashMap();
 
-	private Map<MediaWikiSource, Boolean> logPostpones = Maps.newHashMap();
+	private final Map<MediaWikiSource, Boolean> logPostpones = Maps.newHashMap();
 
-	private Map<MediaWikiSource, IntervalCalculationStrategy> intervalCalculationStrategies = Maps.newHashMap();
+	private final Map<MediaWikiSource, IntervalCalculationStrategy> intervalCalculationStrategies = Maps.newHashMap();
 
 	private Integer lastNetworkTroublePostponeIndex = 0;
 
-	private final BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
+	private final BlikiUserDecoratorFactory blikiUserDecoratorFactory;
 
 	private final FandomWikisDetector fandomWikisDetector;
 
@@ -60,10 +67,10 @@ public class BlikiConnector {
 	private final RestTemplate restTemplate;
 
 	@SuppressFBWarnings("EI_EXPOSE_REP2")
-	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, FandomWikisDetector fandomWikisDetector,
+	public BlikiConnector(BlikiUserDecoratorFactory blikiUserDecoratorFactory, FandomWikisDetector fandomWikisDetector,
 			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties,
 			RestTemplate restTemplate) {
-		this.blikiUserDecoratorBeanMapProvider = blikiUserDecoratorBeanMapProvider;
+		this.blikiUserDecoratorFactory = blikiUserDecoratorFactory;
 		this.fandomWikisDetector = fandomWikisDetector;
 		this.mediaWikiMinimalIntervalProvider = mediaWikiMinimalIntervalProvider;
 		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
@@ -207,6 +214,7 @@ public class BlikiConnector {
 				mediaWikiMinimalIntervalProvider.getMemoryBetaEnInterval(), supplier);
 	}
 
+	@SuppressWarnings("NPathComplexity")
 	@SuppressFBWarnings("SWL_SLEEP_WITH_LOCK_HELD")
 	private String synchronizedDoQuery(MediaWikiSource mediaWikiSource, Long interval, Supplier<String> supplier) {
 		long startTime = System.currentTimeMillis();
@@ -225,7 +233,17 @@ public class BlikiConnector {
 			}
 		}
 
-		String result = supplier.get();
+		String result = null;
+		boolean finishedWithException;
+		do {
+			try {
+				result = supplier.get();
+				finishedWithException = false;
+			} catch (FutureException futureException) {
+				finishedWithException = true;
+				log.info("Future for source {} ended with exception, retrying.", mediaWikiSource);
+			}
+		} while (finishedWithException);
 
 		long lastCallTime = IntervalCalculationStrategy.FROM_AFTER_RECEIVED
 				.equals(intervalCalculationStrategies.get(mediaWikiSource)) ? System.currentTimeMillis() : startTime;
@@ -253,10 +271,27 @@ public class BlikiConnector {
 	}
 
 	private String doQuery(RequestBuilder requestBuilder, MediaWikiSource mediaWikiSource) {
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		Callable<Object> task = () -> doQueryUnwrapped(requestBuilder, mediaWikiSource);
+		Future<Object> future = executor.submit(task);
+		try {
+			// due to some hard to diagnose problems in JDK, that causes HTTP-related executions to hang indefinitely,
+			// let's try to mitigate with a Future with a timeout.
+			return (String) future.get(60, TimeUnit.SECONDS);
+		} catch (TimeoutException e) {
+			throw new FutureException(e);
+		} catch (ExecutionException | InterruptedException e) {
+			throw new StapiRuntimeException(e);
+		} finally {
+			future.cancel(true);
+		}
+	}
+
+	private String doQueryUnwrapped(RequestBuilder requestBuilder, MediaWikiSource mediaWikiSource) {
 		// TODO: remove private method call once this PR is merged and published in Maven Central
 		// https://bitbucket.org/axelclk/info.bliki.wiki/pull-requests/10/connector-sendxml-should-be-public/diff
 		try {
-			UserDecorator userDecorator = blikiUserDecoratorBeanMapProvider.getUserEnumMap().get(mediaWikiSource);
+			UserDecorator userDecorator = blikiUserDecoratorFactory.createFor(mediaWikiSource);
 			Connector connector = userDecorator.getConnector();
 			Method method = connector.getClass().getDeclaredMethod("sendXML", User.class, RequestBuilder.class);
 			method.setAccessible(true);
@@ -274,6 +309,14 @@ public class BlikiConnector {
 		long networkTroublePostpone = NETWORK_TROUBLE_POSTPONES_TIMES.get(lastNetworkTroublePostponeIndex);
 		lastNetworkTroublePostponeIndex = Math.min(lastNetworkTroublePostponeIndex + 1, NETWORK_TROUBLE_POSTPONES_TIMES.size() - 1);
 		return networkTroublePostpone;
+	}
+
+	static class FutureException extends RuntimeException {
+
+		FutureException(Throwable cause) {
+			super(cause);
+		}
+
 	}
 
 }
