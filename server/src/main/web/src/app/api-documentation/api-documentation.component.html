@@ -3,9 +3,15 @@
 		<div class="col-md-offset-2 col-md-8">
 			<p>
 				API documentation is a single Swagger spec, accessible <a href="{{ getSwaggerSpecFullUrl() }}">here</a>.
-				You can try opening it in <a href="https://editor-next.swagger.io/?url={{ getSwaggerSpecFullUrl() }}">Swagger Editor</a> directly,
-				and if that doesn't work, because you're running STAPI locally or HTTPS is not available,
-				then just copy contract content to editor window. In the editor, clients can be generated for variety of programming languages.
+				You can open it in <a href="https://editor-next.swagger.io/?url={{ getSwaggerSpecFullUrl() }}">Swagger Editor</a> directly.
+			</p>
+			<p *ngIf="isNotStapiOverHttps()">
+				If that doesn't work, because you're running STAPI locally or HTTPS is not available,
+				then just copy <a href="{{ getSwaggerSpecFullUrl() }}">contract content</a>
+				to <a href="https://editor-next.swagger.io/">editor window</a>.
+			</p>
+			<p>
+				In the editor, clients can be generated for variety of programming languages.
 			</p>
 			<p>
 				In case of any problems with Swagger specs, please
