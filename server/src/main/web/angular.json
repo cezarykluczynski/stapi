@@ -31,7 +31,6 @@
             ],
             "styles": [
               "src/assets/bootswatch.darkly.min.css",
-              "node_modules/highlight.js/styles/base16/atelier-savanna.css",
               "src/styles.sass"
             ],
             "scripts": [
