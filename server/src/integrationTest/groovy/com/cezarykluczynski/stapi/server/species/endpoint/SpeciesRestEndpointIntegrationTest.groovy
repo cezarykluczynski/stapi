@@ -21,6 +21,9 @@ class SpeciesRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest
 		speciesV2FullResponse.species.name == 'Q'
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_CHARACTERS)
+	})
 	void "gets humans by UID"() {
 		when:
 		SpeciesV2FullResponse speciesV2FullResponse = stapiRestClient.species.getV2('SPMA0000026314')

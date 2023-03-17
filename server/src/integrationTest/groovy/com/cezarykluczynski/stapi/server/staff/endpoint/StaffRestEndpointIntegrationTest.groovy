@@ -15,6 +15,9 @@ import spock.lang.Requires
 })
 class StaffRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_MOVIES)
+	})
 	void "gets staff with movie experience by UID"() {
 		when:
 		StaffV2FullResponse staffV2FullResponse = stapiRestClient.staff.getV2('STMA0000104646')
@@ -44,6 +47,9 @@ class StaffRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 		staffV2Response.staff.size() == pageSize
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
+	})
 	void "gets staff with series experience by UID"() {
 		when:
 		StaffV2FullResponse staffV2FullResponse = stapiRestClient.staff.getV2('STMA0000001846')

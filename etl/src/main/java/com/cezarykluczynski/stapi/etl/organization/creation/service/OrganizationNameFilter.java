@@ -69,7 +69,7 @@ public class OrganizationNameFilter {
 			"Federation of State Medical Boards", "Freecloud Institute of Entertainment Robotics", "Immigration and Customs Enforcement",
 			"Kelpien and Ba'ul Alliance", "Kyrian forces", "MARDET", "METI", "Royal Family of Hysperia", "Search for Extra Terrestrial Intelligence",
 			"Supreme Court of the United States", "United Earth and Titan", "United States military", "Vaskan forces", "House of Duras",
-			"House of Duras (mirror)", "Romulan underground movement", "V'draysh");
+			"House of Duras (mirror)", "Romulan underground movement", "V'draysh", "Mariposas");
 
 	public Match isAnOrganization(String organizationName) {
 		if (NOT_ORGANIZATIONS.contains(organizationName)) {

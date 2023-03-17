@@ -131,7 +131,7 @@ class CopyDocs extends DefaultTask {
 
 	@TaskAction
 	def copy() {
-		def dir = new File('./contract/src/main/resources/v1/')
+		def dir = new File('./contract/src/main/resources/')
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			File destination = new File(project.rootDir, 'server/build/resources/main/' + file.getPath().substring(2))
 			destination.parentFile.mkdirs()

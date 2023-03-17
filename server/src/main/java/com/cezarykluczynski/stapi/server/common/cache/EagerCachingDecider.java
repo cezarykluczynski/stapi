@@ -15,7 +15,7 @@ public class EagerCachingDecider {
 
 	public EagerCachingDecider(Environment environment, @Value("${cache.eagerCachingEnabled}") Boolean eagerCachingEnabledProperty) {
 		boolean isStapiCoCanonicalDomain = "stapi.co".equals(environment.getProperty(EnvironmentVariable.STAPI_CANONICAL_DOMAIN));
-		boolean isEagerCachingEnabledEnv = "true".equalsIgnoreCase(environment.getProperty(EnvironmentVariable.STAPI_EAGER_CACHING_ENABLED));
+		boolean isEagerCachingEnabledEnv = "true".equalsIgnoreCase(environment.getProperty(EnvironmentVariable.STAPI_EAGER_CACHING));
 		eagerCachingEnabled = isStapiCoCanonicalDomain || isEagerCachingEnabledEnv || Boolean.TRUE.equals(eagerCachingEnabledProperty);
 		log.info("Eager caching is {}.", eagerCachingEnabled ? "enabled" : "disabled");
 	}

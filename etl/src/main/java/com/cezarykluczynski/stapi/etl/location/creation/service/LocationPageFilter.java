@@ -16,7 +16,8 @@ import java.util.List;
 @Service
 public class LocationPageFilter extends AbstractMediaWikiPageFilter {
 
-	private static final List<String> INVALID_LOCATIONS = Lists.newArrayList("Baldwin", "Door", "Geography", "San Francisco locations", "Flood");
+	private static final List<String> INVALID_LOCATIONS = Lists.newArrayList("Baldwin", "Door", "Geography", "San Francisco locations", "Flood",
+			"Address");
 	private static final List<String> INVALID_CATEGORIES = Lists.newArrayList(CategoryTitle.LISTS);
 
 	static {

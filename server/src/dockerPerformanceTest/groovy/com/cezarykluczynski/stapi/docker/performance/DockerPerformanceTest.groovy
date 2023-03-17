@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.client.api.dto.AbstractPageSortBaseCriteria
 import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
 import com.google.common.base.Stopwatch
 import com.google.common.collect.Lists
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.retry.backoff.NoBackOffPolicy
 import org.springframework.retry.policy.SimpleRetryPolicy
 import org.springframework.retry.support.RetryTemplate
 import org.springframework.retry.support.RetryTemplateBuilder
 import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.output.Slf4jLogConsumer
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy
 import org.testcontainers.spock.Testcontainers
 import spock.lang.Specification
@@ -44,12 +41,12 @@ class DockerPerformanceTest extends Specification {
 		if (stapiContainer == null) {
 			stapiContainer = new GenericContainer<>("cezarykluczynski/stapi:latest")
 					.withExposedPorts(8686)
-					.withLogConsumer(new Slf4jLogConsumer(LOG))
+					.withEnv("STAPI_EAGER_CACHING", "true")
 					.waitingFor(new HttpWaitStrategy().forPath("/api/v1/rest/common/ping").withStartupTimeout(Duration.ofMinutes(3L)))
 			stapiContainer.start()
 			String address = stapiContainer.host
 			Integer port = stapiContainer.firstMappedPort
-			stapiRestClient = new StapiRestClient("http://" + address + ":" + port + "/")
+			stapiRestClient = new StapiRestClient("http://$address:$port/")
 		}
 	}
 
