@@ -18,17 +18,14 @@ STAPI can be accessed freely and without the need of API keys.
 
 [API overview](https://stapi.co/api-overview) describes key API concepts.
 
-[API documentation](https://stapi.co/api-documentation) offers detailed model description.
-
-Swagger specs can be downloaded from [API documentation](https://stapi.co/api-documentation),
-and clients for other languages can be generated using [Swagger Codegen](https://swagger.io/tools/swagger-codegen/).
+[Swagger editor with STAPI specs loaded](https://editor.swagger.io/?url=https://stapi.co/api/v1/rest/common/download/stapi.yaml) can also be used to browser the API.
 
 ## Clients
 Available clients are:
 * [Java client](https://github.com/cezarykluczynski/stapi/wiki/Java-client) available in [Maven Central](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
 * [Python client](https://github.com/mklucz/stapi-python) available in [pip](https://pypi.org/project/stapi/)
 * [Ruby client](https://github.com/jjuliano/tricorder) available in [RubyGems](https://rubygems.org/gems/tricorder/versions/0.1.0)
-
+* Other clients can be generated in [Swagger editor with STAPI specs loaded](https://editor.swagger.io/?url=https://stapi.co/api/v1/rest/common/download/stapi.yaml).
 ## Contributing
 
 Contributions to STAPI are most welcome. [Contributing guildlines](https://github.com/cezarykluczynski/stapi/wiki/Contributing) are available.
