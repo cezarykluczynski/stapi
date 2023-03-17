@@ -2,28 +2,28 @@ package com.cezarykluczynski.stapi.etl.common.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.common.dto.ImageTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.enums.StardateYearSource;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.StardateYearCandidateDTO;
 import com.cezarykluczynski.stapi.etl.template.common.processor.StardateYearProcessor;
+import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.episode.processor.EpisodeTemplateStardateYearFixedValueProvider;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-public class ImageTemplateStardateYearEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<ImageTemplate> {
+@Service
+public class EpisodeTemplateStardateYearEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<ImageTemplate> {
 
-	private static final String TITLE = "title";
-	private static final String DATE = "date";
-
-	private final FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider;
+	private final EpisodeTemplateStardateYearFixedValueProvider episodeTemplateStardateYearFixedValueProvider;
 
 	private final StardateYearProcessor stardateYearProcessor;
 
-	public ImageTemplateStardateYearEnrichingProcessor(FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider,
+	public EpisodeTemplateStardateYearEnrichingProcessor(EpisodeTemplateStardateYearFixedValueProvider episodeTemplateStardateYearFixedValueProvider,
 			StardateYearProcessor stardateYearProcessor) {
-		this.stardateYearDTOFixedValueProvider = stardateYearDTOFixedValueProvider;
+		this.episodeTemplateStardateYearFixedValueProvider = episodeTemplateStardateYearFixedValueProvider;
 		this.stardateYearProcessor = stardateYearProcessor;
 	}
 
@@ -45,15 +45,15 @@ public class ImageTemplateStardateYearEnrichingProcessor implements ItemWithTemp
 			}
 
 			switch (key) {
-				case TITLE:
+				case EpisodeTemplateParameter.TITLE:
 					title = value;
-					FixedValueHolder<StardateYearDTO> fixedValueHolder = stardateYearDTOFixedValueProvider.getSearchedValue(value);
+					FixedValueHolder<StardateYearDTO> fixedValueHolder = episodeTemplateStardateYearFixedValueProvider.getSearchedValue(value);
 					stardateFixedValueFound = fixedValueHolder.isFound();
 					if (stardateFixedValueFound) {
 						stardateYearDTO = fixedValueHolder.getValue();
 					}
 					break;
-				case DATE:
+				case EpisodeTemplateParameter.DATE:
 					if (!stardateFixedValueFound) {
 						stardateYearDTO = stardateYearProcessor.process(StardateYearCandidateDTO.of(value, title, StardateYearSource.EPISODE));
 					}

@@ -40,6 +40,8 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 
 	private final ModuleMovieDataEnrichingProcessor moduleMovieDataEnrichingProcessor;
 
+	private final MovieDateEnrichingProcessor movieDateEnrichingProcessor;
+
 	@Override
 	public MovieTemplate process(Page item) throws Exception {
 		if (moviePageFilter.shouldBeFilteredOut(item)) {
@@ -48,10 +50,10 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 		String title = item.getTitle();
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_FILM);
 		if (!templateOptional.isPresent()) {
-			log.info("Template {} not found in page {}, skipping.", TemplateTitle.SIDEBAR_FILM, title);
+			log.info("Template \"{}\" not found in page \"{}\", skipping.", TemplateTitle.SIDEBAR_FILM, title);
 			return null;
 		}
-		log.info("Processing movie: {}", item.getTitle());
+		log.info("Processing movie \"{}\".", item.getTitle());
 
 		MovieTemplate movieTemplate = movieTemplateProcessor.process(templateOptional.get());
 		movieTemplate.setTitle(TitleUtil.getNameFromTitle(title));
@@ -61,10 +63,11 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 		if (moduleEpisodeData != null) {
 			moduleMovieDataEnrichingProcessor.enrich(EnrichablePair.of(moduleEpisodeData, movieTemplate));
 		} else {
-			log.info("No ModuleEpisodeData found for {}", title);
+			log.info("No ModuleEpisodeData found for \"{}\".", title);
 		}
 
 		movieTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, movieTemplate));
+		movieDateEnrichingProcessor.enrich(EnrichablePair.of(item, movieTemplate));
 		movieRealPeopleLinkingWorkerComposite.link(item, movieTemplate.getMovieStub());
 
 		return movieTemplate;

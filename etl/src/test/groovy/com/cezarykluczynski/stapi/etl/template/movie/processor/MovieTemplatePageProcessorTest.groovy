@@ -37,6 +37,8 @@ class MovieTemplatePageProcessorTest extends Specification {
 
 	private ModuleMovieDataEnrichingProcessor moduleMovieDataEnrichingProcessorMock
 
+	MovieDateEnrichingProcessor movieDateEnrichingProcessorMock
+
 	private MovieTemplatePageProcessor movieTemplatePageProcessor
 
 	void setup() {
@@ -48,9 +50,10 @@ class MovieTemplatePageProcessorTest extends Specification {
 		moviePerformancesLinkingWorkerMock = Mock()
 		moduleEpisodeDataProviderMock = Mock()
 		moduleMovieDataEnrichingProcessorMock = Mock()
+		movieDateEnrichingProcessorMock = Mock()
 		movieTemplatePageProcessor = new MovieTemplatePageProcessor(moviePageFilterMock, movieTemplateProcessorMock, templateFinderMock,
 				pageBindingServiceMock, movieTemplateTitleLanguagesEnrichingProcessorMock, moviePerformancesLinkingWorkerMock,
-				moduleEpisodeDataProviderMock, moduleMovieDataEnrichingProcessorMock)
+				moduleEpisodeDataProviderMock, moduleMovieDataEnrichingProcessorMock, movieDateEnrichingProcessorMock)
 	}
 
 	void "does not interact with dependencies the MoviePageFilter returns true"() {
@@ -103,6 +106,10 @@ class MovieTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.output == movieTemplate
 		}
 		1 * movieTemplateTitleLanguagesEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, MovieTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output == movieTemplate
+		}
+		1 * movieDateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, MovieTemplate> enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output == movieTemplate
 		}

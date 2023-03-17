@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
-import com.cezarykluczynski.stapi.etl.common.configuration.CommonTemplateConfiguration;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.EpisodeTemplateStardateYearEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
@@ -18,9 +17,9 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.base.Preconditions;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +27,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @SuppressWarnings("ParameterNumber")
 public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTemplate> {
 
@@ -43,29 +43,11 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private final ModuleEpisodeDataEnrichingProcessor moduleEpisodeDataEnrichingProcessor;
 
-	private final ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
+	private final EpisodeTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessor;
 
 	private final ModuleEpisodeDataProvider moduleEpisodeDataProvider;
 
-	public ToEpisodeTemplateProcessor(EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite, PageBindingService pageBindingService,
-			EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite, TemplateFinder templateFinder,
-			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
-			ModuleEpisodeDataEnrichingProcessor moduleEpisodeDataEnrichingProcessor,
-			@Qualifier(CommonTemplateConfiguration.EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
-			ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,
-			ModuleEpisodeDataProvider moduleEpisodeDataProvider) {
-		this.episodeLinkingWorkerComposite = episodeLinkingWorkerComposite;
-		this.pageBindingService = pageBindingService;
-		this.episodeTemplateEnrichingProcessorComposite = episodeTemplateEnrichingProcessorComposite;
-		this.templateFinder = templateFinder;
-		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-		this.moduleEpisodeDataEnrichingProcessor = moduleEpisodeDataEnrichingProcessor;
-		this.imageTemplateStardateYearEnrichingProcessor = imageTemplateStardateYearEnrichingProcessor;
-		this.moduleEpisodeDataProvider = moduleEpisodeDataProvider;
-	}
-
 	@Override
-	// @SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
 	public EpisodeTemplate process(Page item) throws Exception {
 		List<String> categoryHeaderList = categoryTitlesExtractingProcessor.process(item.getCategories());
 		boolean isEpisodePage = isEpisodePage(categoryHeaderList);
@@ -80,7 +62,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		episodeTemplate.setEpisodeStub(new Episode());
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_EPISODE);
 		if (templateOptional.isPresent()) {
-			imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get(), episodeTemplate));
+			episodeTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get(), episodeTemplate));
 		}
 		setTemplateValuesFromPage(episodeTemplate, item);
 		final ModuleEpisodeData moduleEpisodeData = moduleEpisodeDataProvider.provideDataFor(item.getTitle());

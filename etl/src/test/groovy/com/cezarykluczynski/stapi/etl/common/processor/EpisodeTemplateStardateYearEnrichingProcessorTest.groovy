@@ -7,11 +7,12 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearD
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.enums.StardateYearSource
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.StardateYearCandidateDTO
 import com.cezarykluczynski.stapi.etl.template.common.processor.StardateYearProcessor
+import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.episode.processor.EpisodeTemplateStardateYearFixedValueProvider
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 
-class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplateProcessorTest {
+class EpisodeTemplateStardateYearEnrichingProcessorTest extends AbstractTemplateProcessorTest {
 
 	private static final String TITLE = 'TITLE'
 	private static final Integer YEAR_INTEGER_FROM = 2368
@@ -26,12 +27,12 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 
 	private StardateYearProcessor stardateYearProcessorMock
 
-	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor
+	private EpisodeTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessor
 
 	void setup() {
 		episodeTemplateStardateYearFixedValueProviderMock = Mock()
 		stardateYearProcessorMock = Mock()
-		imageTemplateStardateYearEnrichingProcessor = new ImageTemplateStardateYearEnrichingProcessor(
+		episodeTemplateStardateYearEnrichingProcessor = new EpisodeTemplateStardateYearEnrichingProcessor(
 				episodeTemplateStardateYearFixedValueProviderMock, stardateYearProcessorMock)
 	}
 
@@ -39,7 +40,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.DATE, WS_DATE),
+						createTemplatePart(EpisodeTemplateParameter.DATE, WS_DATE),
 				)
 		)
 		ImageTemplate imageTemplate = new ImageTemplate()
@@ -50,7 +51,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 				yearTo: YEAR_INTEGER_TO)
 
 		when:
-		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(template, imageTemplate))
+		episodeTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(template, imageTemplate))
 
 		then:
 		1 * stardateYearProcessorMock.process(StardateYearCandidateDTO.of(WS_DATE, null, StardateYearSource.EPISODE)) >> stardateYearDTO
@@ -63,14 +64,14 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 	void "when title is found, and then FixedValueHolder holds value"() {
 		given:
 		ImageTemplate imageTemplate = new ImageTemplate()
-		StardateYearDTO stardateYear = new StardateYearDTO(STARDATE_FROM, STARDATE_TO, YEAR_INTEGER_FROM, YEAR_INTEGER_TO)
+		StardateYearDTO stardateYear = StardateYearDTO.of(STARDATE_FROM, STARDATE_TO, YEAR_INTEGER_FROM, YEAR_INTEGER_TO)
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = FixedValueHolder.found(stardateYear)
 
 		when:
-		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(new Template(
+		episodeTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.TITLE, TITLE),
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.DATE, WS_DATE_INVALID_1)
+						createTemplatePart(EpisodeTemplateParameter.TITLE, TITLE),
+						createTemplatePart(EpisodeTemplateParameter.DATE, WS_DATE_INVALID_1)
 				)
 		), imageTemplate))
 
@@ -98,10 +99,10 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 				yearTo: YEAR_INTEGER_TO)
 
 		when:
-		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(new Template(
+		episodeTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.TITLE, TITLE),
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.DATE, WS_DATE)
+						createTemplatePart(EpisodeTemplateParameter.TITLE, TITLE),
+						createTemplatePart(EpisodeTemplateParameter.DATE, WS_DATE)
 				)
 		), imageTemplate))
 
@@ -127,7 +128,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		ImageTemplate imageTemplate = new ImageTemplate()
 
 		when:
-		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(template, imageTemplate))
+		episodeTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(template, imageTemplate))
 
 		then:
 		notThrown(Exception)

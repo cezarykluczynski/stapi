@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 class MovieTemplateStardateYearFixedValueProviderTest extends Specification {
 
-	private static final String EXISTING_TITLE = 'Star Trek'
+	private static final String EXISTING_TITLE = 'Star Trek (film)'
 	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
 
 	private MovieTemplateStardateYearFixedValueProvider movieTemplateStardateYearFixedValueProvider

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
-import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.EpisodeTemplateStardateYearEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData
 import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider
@@ -41,7 +41,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	private ModuleEpisodeDataEnrichingProcessor moduleEpisodeDataEnrichingProcessorMock
 
-	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessorMock
+	private EpisodeTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessorMock
 
 	private ModuleEpisodeDataProvider moduleEpisodeDataProviderMock
 
@@ -54,12 +54,12 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		moduleEpisodeDataEnrichingProcessorMock = Mock()
-		imageTemplateStardateYearEnrichingProcessorMock = Mock()
+		episodeTemplateStardateYearEnrichingProcessorMock = Mock()
 		moduleEpisodeDataProviderMock = Mock()
 		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeLinkingWorkerCompositeMock,
 				pageBindingServiceMock, episodeTemplateEnrichingProcessorCompositeMock, templateFinderMock,
 				categoryTitlesExtractingProcessorMock, moduleEpisodeDataEnrichingProcessorMock,
-				imageTemplateStardateYearEnrichingProcessorMock, moduleEpisodeDataProviderMock)
+				episodeTemplateStardateYearEnrichingProcessorMock, moduleEpisodeDataProviderMock)
 	}
 
 	void "does not interact with dependencies other than TemplateFinder when page does not have episode category"() {
@@ -113,7 +113,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(
 				CategoryTitle.TOS_EPISODES, CategoryTitle.DOUBLE_LENGTH_EPISODES)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
-		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * episodeTemplateStardateYearEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		1 * moduleEpisodeDataProviderMock.provideDataFor(PAGE_TITLE) >> moduleEpisodeData
 		1 * moduleEpisodeDataEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<ModuleEpisodeData, EpisodeTemplate> enrichablePair ->
