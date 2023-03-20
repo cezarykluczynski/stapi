@@ -59,11 +59,10 @@ class UpgradeInsecureRequestsHeaderFilterTest extends Specification {
 
 		then:
 		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.HEADER_NAME) >> '1'
-		1 * request.requestURL >> new StringBuffer('http://stapi.co/')
-		1 * response.setHeader('Location', 'https://stapi.co/')
+		1 * request.scheme >> 'http'
+		1 * request.requestURL >> new StringBuffer('http://stapi.co/about')
 		1 * response.setHeader('Vary', UpgradeInsecureRequestsHeaderFilter.HEADER_NAME)
-		1 * response.setStatus(302)
-		1 * chain.doFilter(request, response)
+		1 * response.sendRedirect('https://stapi.co/about')
 		0 * _
 	}
 
@@ -85,7 +84,7 @@ class UpgradeInsecureRequestsHeaderFilterTest extends Specification {
 
 		then:
 		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.HEADER_NAME) >> '1'
-		1 * request.requestURL >> new StringBuffer('https://stapi.co/')
+		1 * request.scheme >> 'https'
 		1 * chain.doFilter(request, response)
 		0 * _
 	}

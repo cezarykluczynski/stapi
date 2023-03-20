@@ -22,7 +22,6 @@ public class UpgradeInsecureRequestsHeaderFilter implements Filter {
 	@SuppressWarnings("ConstantName")
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UpgradeInsecureRequestsHeaderFilter.class);
 	private static final String HEADER_NAME = "Upgrade-Insecure-Requests";
-	private static final String HTTP_PREFIX = "http://";
 
 	private final Environment environment;
 
@@ -44,12 +43,9 @@ public class UpgradeInsecureRequestsHeaderFilter implements Filter {
 		if (upgradeInsecureRequestsEnabled && servletRequest instanceof HttpServletRequest request) {
 			String upgradeInsecureRequestsHeaderValue = request.getHeader(HEADER_NAME);
 			if ("1".equals(upgradeInsecureRequestsHeaderValue)) {
-				String url = request.getRequestURL().toString();
-				if (url.startsWith(HTTP_PREFIX) && servletResponse instanceof HttpServletResponse response) {
-					response.setHeader("Location", "https://" + url.substring(HTTP_PREFIX.length()));
-					response.setHeader("Vary", HEADER_NAME);
-					response.setStatus(302);
-					filterChain.doFilter(request, response);
+				if (servletResponse instanceof HttpServletResponse httpServletResponse && "http".equals(servletRequest.getScheme())) {
+					httpServletResponse.setHeader("Vary", HEADER_NAME);
+					httpServletResponse.sendRedirect("https://" + request.getRequestURL().toString().substring("http://".length()));
 					return;
 				}
 			}
