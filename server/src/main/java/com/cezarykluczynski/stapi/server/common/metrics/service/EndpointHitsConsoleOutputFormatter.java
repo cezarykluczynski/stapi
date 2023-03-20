@@ -62,16 +62,23 @@ public class EndpointHitsConsoleOutputFormatter {
 				.map(endpointName -> StringUtils.substringBefore(endpointName, REST_ENDPOINT))
 				.collect(Collectors.toList());
 
-		List<String> hitVersions = Lists.newArrayList(V1);
+		List<Integer> versionsRangeCandidate = Lists.newArrayList(1);
 		final List<Integer> versionCandidates = NumberUtil.inclusiveRangeOf(2, 100);
 		for (int versionCandidate : versionCandidates) {
 			for (String endpointName : endpointNames) {
 				String versionCandidateEndpointNamePart = V + versionCandidate;
 				if (endpointName.endsWith(versionCandidateEndpointNamePart)) {
-					hitVersions.add(versionCandidateEndpointNamePart);
+					versionsRangeCandidate.add(versionCandidate);
 					break;
 				}
 			}
+		}
+
+		Integer maxVersion = versionsRangeCandidate.stream().mapToInt(value -> value).max().getAsInt();
+		List<String> hitVersions = Lists.newArrayList();
+		List<Integer> versions = NumberUtil.inclusiveRangeOf(1, maxVersion);
+		for (Integer version : versions) {
+			hitVersions.add(V + version);
 		}
 
 		List<String> primaryEntitiesNames = commonEntitiesDetailsReader.details().getDetails()
@@ -182,18 +189,19 @@ public class EndpointHitsConsoleOutputFormatter {
 						}
 						localRowCells.add(getNumbersFor(apiBrowser ? apiBrowserYes : apiBrowserNo, section, null, primaryEntityName, TOTAL,
 								hitVersions, primaryEntitiesNames, primaryEntitiesToVersions));
-						if (localRowCells.stream().anyMatch(s -> {
-							Integer integer = Ints.tryParse(s);
-							return integer != null && integer > 0;
-						}) || rowCells.size() > 1 && pipeAdded) {
-							rowCells.addAll(localRowCells);
-						}
+						rowCells.addAll(localRowCells);
 					}
 					if (rowCells.size() > 1) {
 						sectionRows.add(rowCells);
 					}
 				}
 				sectionRows = sectionRows.stream()
+						.filter(rowCells -> {
+							return rowCells.stream().anyMatch(s -> {
+								Integer integer = Ints.tryParse(s);
+								return integer != null && integer > 0;
+							});
+						})
 						.sorted(Comparator.comparing(EndpointHitsConsoleOutputFormatter::comparator).reversed())
 						.collect(Collectors.toList());
 				if (!sectionRows.isEmpty()) {

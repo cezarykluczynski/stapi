@@ -72,6 +72,88 @@ Frontend:                                             || Outside the frontend:
          Animal |      29 |       - |       - |    29 ||       0 |       - |       - |     0""")
 	}
 
+	void "formats entities for console print, only versions higher than 1, only from API browser"() {
+		given:
+		RestEndpointDetailDTO title = new RestEndpointDetailDTO(name: 'Title', type: TrackedEntityType.FICTIONAL_PRIMARY)
+		RestEndpointDetailDTO weapon = new RestEndpointDetailDTO(name: 'Weapon', type: TrackedEntityType.FICTIONAL_PRIMARY)
+		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon])
+		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleV2RestEndpoint', SEARCH_METHOD_NAME, true), 14L)
+		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponV3RestEndpoint', SEARCH_METHOD_NAME, true), 26L)
+
+		when:
+		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits)
+
+		then:
+		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
+		0 * _
+		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
+Reports hits since application startup (0 days ago on ${DATE}):
+Frontend:                                             || Outside the frontend:
+                | Hits V1 | Hits V2 | Hits V3 | Total || Hits V1 | Hits V2 | Hits V3 | Total
+          Total |       0 |      14 |      26 |    40 ||       0 |       0 |       0 |     0
+         Search |       0 |      14 |      26 |    40 ||       0 |       0 |       0 |     0
+            Get |       0 |       0 |       0 |     0 ||       0 |       0 |       0 |     0
+------------------------------------------------------++------------------------------------
+(SEARCH) Weapon |       - |       - |      26 |    26 ||       - |       - |       0 |     0
+          Title |       - |      14 |       - |    14 ||       - |       0 |       - |     0""")
+	}
+
+	void "formats entities for console print, without version 2, only not from API browser, with V3 search"() {
+		given:
+		RestEndpointDetailDTO title = new RestEndpointDetailDTO(name: 'Title', type: TrackedEntityType.FICTIONAL_PRIMARY)
+		RestEndpointDetailDTO weapon = new RestEndpointDetailDTO(name: 'Weapon', type: TrackedEntityType.FICTIONAL_PRIMARY)
+		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon])
+		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleRestEndpoint', SEARCH_METHOD_NAME, false), 14L)
+		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponV3RestEndpoint', SEARCH_METHOD_NAME, false), 26L)
+
+		when:
+		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits)
+
+		then:
+		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
+		0 * _
+		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
+Reports hits since application startup (0 days ago on ${DATE}):
+Frontend:                                             || Outside the frontend:
+                | Hits V1 | Hits V2 | Hits V3 | Total || Hits V1 | Hits V2 | Hits V3 | Total
+          Total |       0 |       0 |       0 |     0 ||      14 |       0 |      26 |    40
+         Search |       0 |       0 |       0 |     0 ||      14 |       0 |      26 |    40
+            Get |       0 |       0 |       0 |     0 ||       0 |       0 |       0 |     0
+------------------------------------------------------++------------------------------------
+(SEARCH) Weapon |       - |       - |       0 |     0 ||       - |       - |      26 |    26
+          Title |       0 |       - |       - |     0 ||      14 |       - |       - |    14""")
+	}
+
+	void "formats entities for console print, without version 2, only from API browser, with V3 GET"() {
+		given:
+		RestEndpointDetailDTO title = new RestEndpointDetailDTO(name: 'Title', type: TrackedEntityType.FICTIONAL_PRIMARY)
+		RestEndpointDetailDTO weapon = new RestEndpointDetailDTO(name: 'Weapon', type: TrackedEntityType.FICTIONAL_PRIMARY)
+		RestEndpointDetailsDTO restEndpointDetailsDTO = new RestEndpointDetailsDTO([title, weapon])
+		Map<MetricsEndpointKeyDTO, Long> endpointsHits = Maps.newHashMap()
+		endpointsHits.put(MetricsEndpointKeyDTO.of('TitleRestEndpoint', SEARCH_METHOD_NAME, true), 14L)
+		endpointsHits.put(MetricsEndpointKeyDTO.of('WeaponV3RestEndpoint', GET_METHOD_NAME, true), 26L)
+
+		when:
+		String consoleOutput = endpointHitsPersister.formatForConsolePrint(endpointsHits)
+
+		then:
+		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
+		0 * _
+		normalizeLineEndings(consoleOutput) == normalizeLineEndings("""
+Reports hits since application startup (0 days ago on ${DATE}):
+Frontend:                                            || Outside the frontend:
+               | Hits V1 | Hits V2 | Hits V3 | Total || Hits V1 | Hits V2 | Hits V3 | Total
+         Total |      14 |       0 |      26 |    40 ||       0 |       0 |       0 |     0
+        Search |      14 |       0 |       0 |    14 ||       0 |       0 |       0 |     0
+           Get |       0 |       0 |      26 |    26 ||       0 |       0 |       0 |     0
+-----------------------------------------------------++------------------------------------
+(SEARCH) Title |      14 |       - |       - |    14 ||       0 |       - |       - |     0
+-----------------------------------------------------++------------------------------------
+  (GET) Weapon |       - |       - |      26 |    26 ||       - |       - |       0 |     0""")
+	}
+
 	void "formats entities for console print, when there are no stats"() {
 		given:
 		RestEndpointDetailDTO title = new RestEndpointDetailDTO(name: 'Title', type: TrackedEntityType.FICTIONAL_PRIMARY)

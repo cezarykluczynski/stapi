@@ -24,7 +24,6 @@ export class RestApiService {
 	}
 
 	private wrap(restClient: RestClient): RestClient {
-		console.log(restClient);
 		restClient.on('request', (xhr: any) => {
 			xhr.setRequestHeader('X-Api-Browser', 'true')
 		}, null);
