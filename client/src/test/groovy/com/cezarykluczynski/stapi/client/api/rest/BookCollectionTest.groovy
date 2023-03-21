@@ -28,7 +28,7 @@ class BookCollectionTest extends AbstractBookCollectionTest {
 		BookCollectionFullResponse bookCollectionFullResponseOutput = bookCollection.get(UID)
 
 		then:
-		1 * bookCollectionApiMock.v1RestBookCollectionGet(UID) >> bookCollectionFullResponse
+		1 * bookCollectionApiMock.v1Get(UID) >> bookCollectionFullResponse
 		0 * _
 		bookCollectionFullResponse == bookCollectionFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class BookCollectionTest extends AbstractBookCollectionTest {
 				PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO)
 
 		then:
-		1 * bookCollectionApiMock.v1RestBookCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
+		1 * bookCollectionApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO) >>
 				bookCollectionBaseResponse
 		0 * _
@@ -70,7 +70,7 @@ class BookCollectionTest extends AbstractBookCollectionTest {
 		BookCollectionBaseResponse bookCollectionBaseResponseOutput = bookCollection.search(bookCollectionSearchCriteria)
 
 		then:
-		1 * bookCollectionApiMock.v1RestBookCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
+		1 * bookCollectionApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO) >>
 				bookCollectionBaseResponse
 		0 * _

@@ -29,7 +29,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 		SpeciesFullResponse speciesFullResponseOutput = species.get(UID)
 
 		then:
-		1 * speciesApiMock.v1RestSpeciesGet(UID) >> speciesFullResponse
+		1 * speciesApiMock.v1Get(UID) >> speciesFullResponse
 		0 * _
 		speciesFullResponse == speciesFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 		SpeciesFullResponse speciesFullResponseOutput = species.get(UID)
 
 		then:
-		1 * speciesApiMock.v1RestSpeciesGet(UID) >> speciesFullResponse
+		1 * speciesApiMock.v1Get(UID) >> speciesFullResponse
 		0 * _
 		speciesFullResponse == speciesFullResponseOutput
 	}
@@ -57,7 +57,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 				TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY)
 
 		then:
-		1 * speciesApiMock.v1RestSpeciesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
+		1 * speciesApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
 				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES, SPACEBORNE_SPECIES,
 				TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY) >> speciesBaseResponse
 		0 * _
@@ -74,7 +74,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 				SHAPESHIFTING_SPECIES, SPACEBORNE_SPECIES, TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY)
 
 		then:
-		1 * speciesApiMock.v2RestSpeciesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
+		1 * speciesApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
 				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, AVIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES,
 				SPACEBORNE_SPECIES, TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY) >> speciesV2BaseResponse
 		0 * _
@@ -107,7 +107,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 		SpeciesV2BaseResponse speciesV2BaseResponseOutput = species.searchV2(speciesV2SearchCriteria)
 
 		then:
-		1 * speciesApiMock.v2RestSpeciesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
+		1 * speciesApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
 				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, AVIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES,
 				SPACEBORNE_SPECIES, TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY) >> speciesV2BaseResponse
 		0 * _

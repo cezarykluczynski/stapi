@@ -12,7 +12,7 @@ public class DataVersion {
 	}
 
 	public com.cezarykluczynski.stapi.client.rest.model.DataVersion getDataVersion() throws ApiException {
-		return dataVersionApi.v1RestCommonDataVersionGet();
+		return dataVersionApi.v1Get();
 	}
 
 }

@@ -20,18 +20,17 @@ public class Occupation {
 
 	@Deprecated
 	public OccupationFullResponse get(String uid) throws ApiException {
-		return occupationApi.v1RestOccupationGet(uid);
+		return occupationApi.v1Get(uid);
 	}
 
 	public OccupationV2FullResponse getV2(String uid) throws ApiException {
-		return occupationApi.v2RestOccupationGet(uid);
+		return occupationApi.v2Get(uid);
 	}
 
 	@Deprecated
 	public OccupationBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean legalOccupation,
 			Boolean medicalOccupation, Boolean scientificOccupation) throws ApiException {
-		return occupationApi.v1RestOccupationSearchPost(pageNumber, pageSize, sort, name, legalOccupation, medicalOccupation,
-				scientificOccupation);
+		return occupationApi.v1Search(pageNumber, pageSize, sort, name, legalOccupation, medicalOccupation, scientificOccupation);
 	}
 
 	@Deprecated
@@ -39,13 +38,13 @@ public class Occupation {
 			Boolean communicationOccupation, Boolean economicOccupation, Boolean educationOccupation, Boolean entertainmentOccupation,
 			Boolean illegalOccupation, Boolean legalOccupation, Boolean medicalOccupation, Boolean scientificOccupation, Boolean sportsOccupation,
 			Boolean victualOccupation) throws ApiException {
-		return occupationApi.v2RestOccupationSearchPost(pageNumber, pageSize, sort, name, artsOccupation, communicationOccupation,
+		return occupationApi.v2Search(pageNumber, pageSize, sort, name, artsOccupation, communicationOccupation,
 				economicOccupation, educationOccupation, entertainmentOccupation, illegalOccupation, legalOccupation, medicalOccupation,
 				scientificOccupation, sportsOccupation, victualOccupation);
 	}
 
 	public OccupationV2BaseResponse searchV2(OccupationV2SearchCriteria occupationV2SearchCriteria) throws ApiException {
-		return occupationApi.v2RestOccupationSearchPost(occupationV2SearchCriteria.getPageNumber(), occupationV2SearchCriteria.getPageSize(),
+		return occupationApi.v2Search(occupationV2SearchCriteria.getPageNumber(), occupationV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(occupationV2SearchCriteria.getSort()), occupationV2SearchCriteria.getName(),
 				occupationV2SearchCriteria.getArtsOccupation(), occupationV2SearchCriteria.getCommunicationOccupation(),
 				occupationV2SearchCriteria.getEconomicOccupation(), occupationV2SearchCriteria.getEducationOccupation(),

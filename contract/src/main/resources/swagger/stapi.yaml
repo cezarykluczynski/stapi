@@ -13,6 +13,7 @@ paths:
   /v1/rest/animal:
     get:
       description: Retrival of a single animal
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -33,6 +34,7 @@ paths:
   /v1/rest/animal/search:
     get:
       description: Pagination over animals
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -57,6 +59,7 @@ paths:
         - Animal
     post:
       description: Searching animals
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -110,6 +113,7 @@ paths:
   /v1/rest/astronomicalObject:
     get:
       description: Retrival of a single astronomical object
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -130,6 +134,7 @@ paths:
   /v1/rest/astronomicalObject/search:
     get:
       description: Pagination over astronomical objects
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -154,6 +159,7 @@ paths:
         - AstronomicalObject
     post:
       description: Searching astronomical objects
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -195,6 +201,7 @@ paths:
   /v2/rest/astronomicalObject:
     get:
       description: Retrival of a single astronomical object (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -215,6 +222,7 @@ paths:
   /v2/rest/astronomicalObject/search:
     get:
       description: Pagination over astronomical objects (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -239,6 +247,7 @@ paths:
         - AstronomicalObject
     post:
       description: Searching astronomical objects (v2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -280,6 +289,7 @@ paths:
   /v1/rest/book:
     get:
       description: Retrival of a single book
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -300,6 +310,7 @@ paths:
   /v1/rest/book/search:
     get:
       description: Pagination over books
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -324,6 +335,7 @@ paths:
         - Book
     post:
       description: Searching books
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -453,6 +465,7 @@ paths:
   /v2/rest/book:
     get:
       description: Retrival of a single book (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -473,6 +486,7 @@ paths:
   /v2/rest/book/search:
     get:
       description: Pagination over books (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -497,6 +511,7 @@ paths:
         - Book
     post:
       description: Searching books (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -630,6 +645,7 @@ paths:
   /v1/rest/bookCollection:
     get:
       description: Retrival of a single book collection
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -650,6 +666,7 @@ paths:
   /v1/rest/bookCollection/search:
     get:
       description: Pagination over book collections
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -674,6 +691,7 @@ paths:
         - BookCollection
     post:
       description: Searching book collections
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -747,6 +765,7 @@ paths:
   /v1/rest/bookSeries:
     get:
       description: Retrival of a single book series
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -767,6 +786,7 @@ paths:
   /v1/rest/bookSeries/search:
     get:
       description: Pagination over book series
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -791,6 +811,7 @@ paths:
         - BookSeries
     post:
       description: Searching book series
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -862,6 +883,7 @@ paths:
   /v1/rest/character:
     get:
       description: Retrival of a single character
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -882,6 +904,7 @@ paths:
   /v1/rest/character/search:
     get:
       description: Pagination over characters
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -906,6 +929,7 @@ paths:
         - Character
     post:
       description: Searching characters
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -963,6 +987,7 @@ paths:
   /v1/rest/comics:
     get:
       description: Retrival of a single comics
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -983,6 +1008,7 @@ paths:
   /v1/rest/comics/search:
     get:
       description: Pagination over comics
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1007,6 +1033,7 @@ paths:
         - Comics
     post:
       description: Searching comics
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1088,6 +1115,7 @@ paths:
   /v1/rest/comicCollection:
     get:
       description: Retrival of a single comic collection
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -1108,6 +1136,7 @@ paths:
   /v1/rest/comicCollection/search:
     get:
       description: Pagination over comic collections
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1132,6 +1161,7 @@ paths:
         - ComicCollection
     post:
       description: Searching comic collections
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1209,6 +1239,7 @@ paths:
   /v2/rest/comicCollection:
     get:
       description: Retrival of a single comic collection (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -1229,6 +1260,7 @@ paths:
   /v1/rest/comicSeries:
     get:
       description: Retrival of a single comic series
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -1249,6 +1281,7 @@ paths:
   /v1/rest/comicSeries/search:
     get:
       description: Pagination over comic series
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1273,6 +1306,7 @@ paths:
         - ComicSeries
     post:
       description: Searching comic series
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1354,6 +1388,7 @@ paths:
   /v1/rest/comicStrip:
     get:
       description: Retrival of a single comic strip
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -1374,6 +1409,7 @@ paths:
   /v1/rest/comicStrip/search:
     get:
       description: Pagination over comic strips
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1398,6 +1434,7 @@ paths:
         - ComicStrip
     post:
       description: Searching comic strips
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1461,6 +1498,7 @@ paths:
   /v1/rest/company:
     get:
       description: Retrival of a single company
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -1481,6 +1519,7 @@ paths:
   /v1/rest/company/search:
     get:
       description: Pagination over companies
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1505,6 +1544,7 @@ paths:
         - Company
     post:
       description: Searching companies
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1606,6 +1646,7 @@ paths:
   /v2/rest/company:
     get:
       description: Retrival of a single company (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -1626,6 +1667,7 @@ paths:
   /v2/rest/company/search:
     get:
       description: Pagination over companies (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -1650,6 +1692,7 @@ paths:
         - Company
     post:
       description: Searching companies (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1767,6 +1810,7 @@ paths:
   /v1/rest/conflict:
     get:
       description: Retrival of a single conflict
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -1787,6 +1831,7 @@ paths:
   /v1/rest/conflict/search:
     get:
       description: Pagination over conflicts
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1811,6 +1856,7 @@ paths:
         - Conflict
     post:
       description: Searching conflicts
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -1874,6 +1920,7 @@ paths:
   /v2/rest/conflict:
     get:
       description: Retrival of a single conflict (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -1894,6 +1941,7 @@ paths:
   /v1/rest/common/dataVersion:
     get:
       description: Retrival of a data version
+      operationId: v1Get
       responses:
         200:
           description: OK
@@ -1908,6 +1956,7 @@ paths:
   /v1/rest/element:
     get:
       description: Retrival of a single element
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -1928,6 +1977,7 @@ paths:
   /v1/rest/element/search:
     get:
       description: Pagination over elements
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -1952,6 +2002,7 @@ paths:
         - Element
     post:
       description: Searching elements
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2017,6 +2068,7 @@ paths:
   /v2/rest/element:
     get:
       description: Retrival of a single element (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -2037,6 +2089,7 @@ paths:
   /v2/rest/element/search:
     get:
       description: Pagination over elements (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -2061,6 +2114,7 @@ paths:
         - Element
     post:
       description: Searching elements (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2126,6 +2180,7 @@ paths:
   /v1/rest/episode:
     get:
       description: Retrival of a single episode
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -2146,6 +2201,7 @@ paths:
   /v1/rest/episode/search:
     get:
       description: Pagination over episodes
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -2170,6 +2226,7 @@ paths:
         - Episode
     post:
       description: Searching episodes
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2271,6 +2328,7 @@ paths:
   /v1/rest/food:
     get:
       description: Retrival of a single food
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -2291,6 +2349,7 @@ paths:
   /v1/rest/food/search:
     get:
       description: Pagination over foods
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -2315,6 +2374,7 @@ paths:
         - Food
     post:
       description: Searching foods
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2388,6 +2448,7 @@ paths:
   /v1/rest/literature:
     get:
       description: Retrival of a single literature
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -2408,6 +2469,7 @@ paths:
   /v1/rest/literature/search:
     get:
       description: Pagination over literature
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -2432,6 +2494,7 @@ paths:
         - Literature
     post:
       description: Searching literature
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2489,6 +2552,7 @@ paths:
   /v1/rest/location:
     get:
       description: Retrival of a single location
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -2509,6 +2573,7 @@ paths:
   /v1/rest/location/search:
     get:
       description: Pagination over locations
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -2533,6 +2598,7 @@ paths:
         - Location
     post:
       description: Searching locations
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2658,6 +2724,7 @@ paths:
   /v2/rest/location:
     get:
       description: Retrival of a single location (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -2678,6 +2745,7 @@ paths:
   /v2/rest/location/search:
     get:
       description: Pagination over locations (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -2702,6 +2770,7 @@ paths:
         - Location
     post:
       description: Searching locations (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2839,6 +2908,7 @@ paths:
   /v1/rest/magazine:
     get:
       description: Retrival of a single magazine
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -2859,6 +2929,7 @@ paths:
   /v1/rest/magazine/search:
     get:
       description: Pagination over magazines
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -2883,6 +2954,7 @@ paths:
         - Magazine
     post:
       description: Searching magazines
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -2936,6 +3008,7 @@ paths:
   /v1/rest/magazineSeries:
     get:
       description: Retrival of a single magazine series
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -2956,6 +3029,7 @@ paths:
   /v1/rest/magazineSeries/search:
     get:
       description: Pagination over magazine series
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -2980,6 +3054,7 @@ paths:
         - MagazineSeries
     post:
       description: Searching magazine series
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3033,6 +3108,7 @@ paths:
   /v1/rest/material:
     get:
       description: Retrival of a single material
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -3053,6 +3129,7 @@ paths:
   /v1/rest/material/search:
     get:
       description: Pagination over materials
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -3077,6 +3154,7 @@ paths:
         - Material
     post:
       description: Searching materials
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3150,6 +3228,7 @@ paths:
   /v1/rest/medicalCondition:
     get:
       description: Retrival of a single medical condition
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -3170,6 +3249,7 @@ paths:
   /v1/rest/medicalCondition/search:
     get:
       description: Pagination over medical conditions
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -3194,6 +3274,7 @@ paths:
         - MedicalCondition
     post:
       description: Searching medical conditions
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3231,6 +3312,7 @@ paths:
   /v1/rest/movie:
     get:
       description: Retrival of a single movie
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -3251,6 +3333,7 @@ paths:
   /v1/rest/movie/search:
     get:
       description: Pagination over movies
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -3275,6 +3358,7 @@ paths:
         - Movie
     post:
       description: Searching movies
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3338,6 +3422,7 @@ paths:
   /v1/rest/occupation:
     get:
       description: Retrival of a single occupation
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -3358,6 +3443,7 @@ paths:
   /v1/rest/occupation/search:
     get:
       description: Pagination over occupations
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -3382,6 +3468,7 @@ paths:
         - Occupation
     post:
       description: Searching occupations
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3427,6 +3514,7 @@ paths:
   /v2/rest/occupation:
     get:
       description: Retrival of a single occupation (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -3447,6 +3535,7 @@ paths:
   /v2/rest/occupation/search:
     get:
       description: Pagination over occupations (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -3471,6 +3560,7 @@ paths:
         - Occupation
     post:
       description: Searching occupations (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3548,6 +3638,7 @@ paths:
   /v1/rest/organization:
     get:
       description: Retrival of a single organization
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -3568,6 +3659,7 @@ paths:
   /v1/rest/organization/search:
     get:
       description: Pagination over organizations
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -3592,6 +3684,7 @@ paths:
         - Organization
     post:
       description: Searching organizations
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3673,6 +3766,7 @@ paths:
   /v1/rest/performer:
     get:
       description: Retrival of a single performer
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -3693,6 +3787,7 @@ paths:
   /v1/rest/performer/search:
     get:
       description: Pagination over performers
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -3717,6 +3812,7 @@ paths:
         - Performer
     post:
       description: Searching performers
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -3838,6 +3934,7 @@ paths:
   /v2/rest/performer:
     get:
       description: Retrival of a single performer (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -3858,6 +3955,7 @@ paths:
   /v2/rest/performer/search:
     get:
       description: Pagination over performers (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -3882,6 +3980,7 @@ paths:
         - Performer
     post:
       description: Searching performers (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4035,6 +4134,7 @@ paths:
   /v1/rest/season:
     get:
       description: Retrival of a single season
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4055,6 +4155,7 @@ paths:
   /v1/rest/season/search:
     get:
       description: Pagination over seasons
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -4079,6 +4180,7 @@ paths:
         - Season
     post:
       description: Searching seasons
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4132,6 +4234,7 @@ paths:
   /v1/rest/series:
     get:
       description: Retrival of a single series
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4152,6 +4255,7 @@ paths:
   /v1/rest/series/search:
     get:
       description: Pagination over series
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -4176,6 +4280,7 @@ paths:
         - Series
     post:
       description: Searching series
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4253,6 +4358,7 @@ paths:
   /v1/rest/soundtrack:
     get:
       description: Retrival of a single soundtrack
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4273,6 +4379,7 @@ paths:
   /v1/rest/soundtrack/search:
     get:
       description: Pagination over soundtracks
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -4297,6 +4404,7 @@ paths:
         - Soundtrack
     post:
       description: Searching soundtracks
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4350,6 +4458,7 @@ paths:
   /v1/rest/spacecraft:
     get:
       description: Retrival of a single spacecraft
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4370,6 +4479,7 @@ paths:
   /v1/rest/spacecraft/search:
     get:
       description: Pagination over spacecrafts
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -4394,6 +4504,7 @@ paths:
         - Spacecraft
     post:
       description: Searching spacecrafts
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4427,6 +4538,7 @@ paths:
   /v2/rest/spacecraft:
     get:
       description: Retrival of a single spacecraft (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -4447,6 +4559,7 @@ paths:
   /v2/rest/spacecraft/search:
     get:
       description: Pagination over spacecrafts (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -4471,6 +4584,7 @@ paths:
         - Spacecraft
     post:
       description: Searching spacecrafts (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4512,6 +4626,7 @@ paths:
   /v1/rest/spacecraftClass:
     get:
       description: Retrival of a single spacecraft class
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4532,6 +4647,7 @@ paths:
   /v1/rest/spacecraftClass/search:
     get:
       description: Pagination over spacecraft classes
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -4556,6 +4672,7 @@ paths:
         - SpacecraftClass
     post:
       description: Searching spacecraft classes
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4597,6 +4714,7 @@ paths:
   /v2/rest/spacecraftClass:
     get:
       description: Retrival of a single spacecraft class (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -4617,6 +4735,7 @@ paths:
   /v2/rest/spacecraftClass/search:
     get:
       description: Pagination over spacecraft classes (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -4641,6 +4760,7 @@ paths:
         - SpacecraftClass
     post:
       description: Searching spacecraft classes (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4686,6 +4806,7 @@ paths:
   /v3/rest/spacecraftClass:
     get:
       description: Retrival of a single spacecraft class (V3)
+      operationId: v3Get
       parameters:
         - name: uid
           in: query
@@ -4706,6 +4827,7 @@ paths:
   /v1/rest/species:
     get:
       description: Retrival of a single species
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4726,6 +4848,7 @@ paths:
   /v1/rest/species/search:
     get:
       description: Pagination over species
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -4750,6 +4873,7 @@ paths:
         - Species
     post:
       description: Searching species
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4831,6 +4955,7 @@ paths:
   /v2/rest/species:
     get:
       description: Retrival of a single species (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -4851,6 +4976,7 @@ paths:
   /v2/rest/species/search:
     get:
       description: Pagination over species (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -4875,6 +5001,7 @@ paths:
         - Species
     post:
       description: Searching species (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -4959,7 +5086,8 @@ paths:
         - Species
   /v1/rest/staff:
     get:
-      description: Retrival of a single staff
+      description: Retrival of a single staff member
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -4979,7 +5107,8 @@ paths:
         - Staff
   /v1/rest/staff/search:
     get:
-      description: Pagination over staff
+      description: Pagination over staff members
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -5003,7 +5132,8 @@ paths:
       tags:
         - Staff
     post:
-      description: Searching staff
+      description: Searching staff members
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -5292,7 +5422,8 @@ paths:
         - Staff
   /v2/rest/staff:
     get:
-      description: Retrival of a single staff (V2)
+      description: Retrival of a single staff member (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -5312,7 +5443,8 @@ paths:
         - Staff
   /v2/rest/staff/search:
     get:
-      description: Pagination over staff (V2)
+      description: Pagination over staff members (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -5336,7 +5468,8 @@ paths:
       tags:
         - Staff
     post:
-      description: Searching staff (v2)
+      description: Searching staff members (v2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -5637,7 +5770,8 @@ paths:
         - Staff
   /v1/rest/technology:
     get:
-      description: Retrival of a single technology
+      description: Retrival of a single technology piece
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -5657,7 +5791,8 @@ paths:
         - Technology
   /v1/rest/technology/search:
     get:
-      description: Pagination over technology
+      description: Pagination over technology pieces
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -5681,7 +5816,8 @@ paths:
       tags:
         - Technology
     post:
-      description: Searching technology
+      description: Searching technology pieces
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -5794,7 +5930,8 @@ paths:
         - Technology
   /v2/rest/technology:
     get:
-      description: Retrival of a single technology (V2)
+      description: Retrival of a single technology piece (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -5814,7 +5951,8 @@ paths:
         - Technology
   /v2/rest/technology/search:
     get:
-      description: Pagination over technology
+      description: Pagination over technology pieces (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -5838,7 +5976,8 @@ paths:
       tags:
         - Technology
     post:
-      description: Searching technology
+      description: Searching technology pieces (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -5996,6 +6135,7 @@ paths:
   /v1/rest/title:
     get:
       description: Retrival of a single title
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6016,6 +6156,7 @@ paths:
   /v1/rest/title/search:
     get:
       description: Pagination over titles
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6040,6 +6181,7 @@ paths:
         - Title
     post:
       description: Searching titles
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6093,6 +6235,7 @@ paths:
   /v2/rest/title:
     get:
       description: Retrival of a single title (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -6113,6 +6256,7 @@ paths:
   /v2/rest/title/search:
     get:
       description: Pagination over titles (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -6137,6 +6281,7 @@ paths:
         - Title
     post:
       description: Searching titles (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6190,6 +6335,7 @@ paths:
   /v1/rest/tradingCard:
     get:
       description: Retrival of a single trading card
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6210,6 +6356,7 @@ paths:
   /v1/rest/tradingCard/search:
     get:
       description: Pagination over trading cards
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6234,6 +6381,7 @@ paths:
         - TradingCard
     post:
       description: Searching trading cards
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6275,6 +6423,7 @@ paths:
   /v1/rest/tradingCardDeck:
     get:
       description: Retrival of a single trading card deck
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6295,6 +6444,7 @@ paths:
   /v1/rest/tradingCardDeck/search:
     get:
       description: Pagination over trading card decks
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6319,6 +6469,7 @@ paths:
         - TradingCardDeck
     post:
       description: Searching trading card decks
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6356,6 +6507,7 @@ paths:
   /v1/rest/tradingCardSet:
     get:
       description: Retrival of a single trading card set
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6376,6 +6528,7 @@ paths:
   /v1/rest/tradingCardSet/search:
     get:
       description: Pagination over trading card sets
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6400,6 +6553,7 @@ paths:
         - TradingCardSet
     post:
       description: Searching trading card sets
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6507,6 +6661,7 @@ paths:
   /v1/rest/videoGame:
     get:
       description: Retrival of a single video game
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6527,6 +6682,7 @@ paths:
   /v1/rest/videoGame/search:
     get:
       description: Pagination over video games
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6551,6 +6707,7 @@ paths:
         - VideoGame
     post:
       description: Searching video games
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6594,6 +6751,7 @@ paths:
   /v1/rest/videoRelease:
     get:
       description: Retrival of a single video release
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6614,6 +6772,7 @@ paths:
   /v1/rest/videoRelease/search:
     get:
       description: Pagination over video releases
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6638,6 +6797,7 @@ paths:
         - VideoRelease
     post:
       description: Searching video releases
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6691,6 +6851,7 @@ paths:
   /v2/rest/videoRelease:
     get:
       description: Retrival of a single video release (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -6711,6 +6872,7 @@ paths:
   /v2/rest/videoRelease/search:
     get:
       description: Pagination over video releases (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -6735,6 +6897,7 @@ paths:
         - VideoRelease
     post:
       description: Searching video releases (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6796,6 +6959,7 @@ paths:
   /v1/rest/weapon:
     get:
       description: Retrival of a single weapon
+      operationId: v1Get
       parameters:
         - name: uid
           in: query
@@ -6816,6 +6980,7 @@ paths:
   /v1/rest/weapon/search:
     get:
       description: Pagination over weapons
+      operationId: v1Page
       parameters:
         - name: pageNumber
           in: query
@@ -6840,6 +7005,7 @@ paths:
         - Weapon
     post:
       description: Searching weapons
+      operationId: v1Search
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -6901,6 +7067,7 @@ paths:
   /v2/rest/weapon:
     get:
       description: Retrival of a single weapon (V2)
+      operationId: v2Get
       parameters:
         - name: uid
           in: query
@@ -6921,6 +7088,7 @@ paths:
   /v2/rest/weapon/search:
     get:
       description: Pagination over weapons (V2)
+      operationId: v2Page
       parameters:
         - name: pageNumber
           in: query
@@ -6945,6 +7113,7 @@ paths:
         - Weapon
     post:
       description: Searching weapons (V2)
+      operationId: v2Search
       consumes:
         - application/x-www-form-urlencoded
       produces:

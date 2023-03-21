@@ -20,11 +20,11 @@ public class Book {
 
 	@Deprecated
 	public BookFullResponse get(String uid) throws ApiException {
-		return bookApi.v1RestBookGet(uid);
+		return bookApi.v1Get(uid);
 	}
 
 	public BookV2FullResponse getV2(String uid) throws ApiException {
-		return bookApi.v2RestBookGet(uid);
+		return bookApi.v2Get(uid);
 	}
 
 	@SuppressWarnings("ParameterName")
@@ -34,7 +34,7 @@ public class Book {
 			Integer yearTo, Boolean novel, Boolean referenceBook, Boolean biographyBook, Boolean rolePlayingBook, Boolean eBook, Boolean anthology,
 			Boolean novelization, Boolean audiobook, Boolean audiobookAbridged, Integer audiobookPublishedYearFrom, Integer audiobookPublishedYearTo,
 			Integer audiobookRunTimeFrom, Integer audiobookRunTimeTo) throws ApiException {
-		return bookApi.v1RestBookSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return bookApi.v1Search(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, novel, referenceBook, biographyBook, rolePlayingBook, eBook, anthology,
 				novelization, audiobook, audiobookAbridged, audiobookPublishedYearFrom, audiobookPublishedYearTo, audiobookRunTimeFrom,
 				audiobookRunTimeTo);
@@ -47,7 +47,7 @@ public class Book {
 			Integer yearTo, Boolean novel, Boolean referenceBook, Boolean biographyBook, Boolean rolePlayingBook, Boolean eBook, Boolean anthology,
 			Boolean novelization, Boolean unauthorizedPublication, Boolean audiobook, Boolean audiobookAbridged, Integer audiobookPublishedYearFrom,
 			Integer audiobookPublishedYearTo, Integer audiobookRunTimeFrom, Integer audiobookRunTimeTo) throws ApiException {
-		return bookApi.v2RestBookSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return bookApi.v2Search(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, novel, referenceBook, biographyBook, rolePlayingBook, eBook, anthology,
 				novelization, unauthorizedPublication, audiobook, audiobookAbridged, audiobookPublishedYearFrom, audiobookPublishedYearTo,
 				audiobookRunTimeFrom, audiobookRunTimeTo);
@@ -55,7 +55,7 @@ public class Book {
 
 	@SuppressWarnings("ParameterName")
 	public BookV2BaseResponse searchV2(BookV2SearchCriteria bookV2SearchCriteria) throws ApiException {
-		return bookApi.v2RestBookSearchPost(bookV2SearchCriteria.getPageNumber(), bookV2SearchCriteria.getPageSize(),
+		return bookApi.v2Search(bookV2SearchCriteria.getPageNumber(), bookV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(bookV2SearchCriteria.getSort()), bookV2SearchCriteria.getTitle(),
 				bookV2SearchCriteria.getPublishedYearFrom(), bookV2SearchCriteria.getPublishedYearTo(), bookV2SearchCriteria.getNumberOfPagesFrom(),
 				bookV2SearchCriteria.getNumberOfPagesTo(), bookV2SearchCriteria.getStardateFrom(), bookV2SearchCriteria.getStardateTo(),

@@ -31,7 +31,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		PerformerFullResponse performerFullResponseOutput = performer.get(UID)
 
 		then:
-		1 * performerApiMock.v1RestPerformerGet(UID) >> performerFullResponse
+		1 * performerApiMock.v1Get(UID) >> performerFullResponse
 		0 * _
 		performerFullResponse == performerFullResponseOutput
 	}
@@ -44,7 +44,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		PerformerV2FullResponse performerV2FullResponseOutput = performer.getV2(UID)
 
 		then:
-		1 * performerApiMock.v2RestPerformerGet(UID) >> performerV2FullResponse
+		1 * performerApiMock.v2Get(UID) >> performerV2FullResponse
 		0 * _
 		performerV2FullResponse == performerV2FullResponseOutput
 	}
@@ -60,7 +60,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 				TOS_PERFORMER, VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER)
 
 		then:
-		1 * performerApiMock.v1RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
+		1 * performerApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ANIMAL_PERFORMER, DIS_PERFORMER,
 				DS9_PERFORMER, ENT_PERFORMER, FILM_PERFORMER, STAND_IN_PERFORMER, STUNT_PERFORMER, TAS_PERFORMER, TNG_PERFORMER, TOS_PERFORMER,
 				VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER) >> performerBaseResponse
@@ -80,7 +80,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 				TOS_PERFORMER, VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER)
 
 		then:
-		1 * performerApiMock.v2RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
+		1 * performerApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ANIMAL_PERFORMER, AUDIOBOOK_PERFORMER,
 				CUT_PERFORMER, DIS_PERFORMER, DS9_PERFORMER, ENT_PERFORMER, FILM_PERFORMER, LD_PERFORMER, PIC_PERFORMER, PRO_PERFORMER, PUPPETEER,
 				SNW_PERFORMER, STAND_IN_PERFORMER, ST_PERFORMER, STUNT_PERFORMER, TAS_PERFORMER, TNG_PERFORMER, TOS_PERFORMER, VIDEO_GAME_PERFORMER,
@@ -131,7 +131,7 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		PerformerV2BaseResponse performerV2BaseResponseOutput = performer.searchV2(performerV2SearchCriteria)
 
 		then:
-		1 * performerApiMock.v2RestPerformerSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
+		1 * performerApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BIRTH_NAME, GENDER, DATE_OF_BIRTH_FROM,
 				DATE_OF_BIRTH_TO, PLACE_OF_BIRTH, DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO, PLACE_OF_DEATH, ANIMAL_PERFORMER, AUDIOBOOK_PERFORMER,
 				CUT_PERFORMER, DIS_PERFORMER, DS9_PERFORMER, ENT_PERFORMER, FILM_PERFORMER, LD_PERFORMER, PIC_PERFORMER, PRO_PERFORMER, PUPPETEER,
 				SNW_PERFORMER, STAND_IN_PERFORMER, ST_PERFORMER, STUNT_PERFORMER, TAS_PERFORMER, TNG_PERFORMER, TOS_PERFORMER, VIDEO_GAME_PERFORMER,

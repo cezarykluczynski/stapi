@@ -17,19 +17,19 @@ public class BookSeries {
 	}
 
 	public BookSeriesFullResponse get(String uid) throws ApiException {
-		return bookSeriesApi.v1RestBookSeriesGet(uid);
+		return bookSeriesApi.v1Get(uid);
 	}
 
 	@Deprecated
 	public BookSeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfBooksFrom, Integer numberOfBooksTo, Integer yearFrom, Integer yearTo, Boolean miniseries,
 			@SuppressWarnings("ParameterName") Boolean eBookSeries) throws ApiException {
-		return bookSeriesApi.v1RestBookSeriesSearchPost(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
+		return bookSeriesApi.v1Search(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
 				numberOfBooksFrom, numberOfBooksTo, yearFrom, yearTo, miniseries, eBookSeries);
 	}
 
 	public BookSeriesBaseResponse search(BookSeriesSearchCriteria bookSeriesSearchCriteria) throws ApiException {
-		return bookSeriesApi.v1RestBookSeriesSearchPost(bookSeriesSearchCriteria.getPageNumber(), bookSeriesSearchCriteria.getPageSize(),
+		return bookSeriesApi.v1Search(bookSeriesSearchCriteria.getPageNumber(), bookSeriesSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(bookSeriesSearchCriteria.getSort()), bookSeriesSearchCriteria.getTitle(),
 				bookSeriesSearchCriteria.getPublishedYearFrom(), bookSeriesSearchCriteria.getPublishedYearTo(),
 				bookSeriesSearchCriteria.getNumberOfBooksFrom(), bookSeriesSearchCriteria.getNumberOfBooksTo(),

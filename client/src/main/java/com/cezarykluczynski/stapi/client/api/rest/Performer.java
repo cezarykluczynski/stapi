@@ -23,11 +23,11 @@ public class Performer {
 
 	@Deprecated
 	public PerformerFullResponse get(String uid) throws ApiException {
-		return performerApi.v1RestPerformerGet(uid);
+		return performerApi.v1Get(uid);
 	}
 
 	public PerformerV2FullResponse getV2(String uid) throws ApiException {
-		return performerApi.v2RestPerformerGet(uid);
+		return performerApi.v2Get(uid);
 	}
 
 	@Deprecated
@@ -36,7 +36,7 @@ public class Performer {
 			String placeOfDeath, Boolean animalPerformer, Boolean disPerformer, Boolean ds9Performer, Boolean entPerformer, Boolean filmPerformer,
 			Boolean standInPerformer, Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer,
 			Boolean videoGamePerformer, Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
-		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return performerApi.v1Search(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, disPerformer, ds9Performer, entPerformer, filmPerformer,
 				standInPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
 	}
@@ -49,14 +49,14 @@ public class Performer {
 			Boolean proPerformer, Boolean puppeteer, Boolean snwPerformer, Boolean standInPerformer, Boolean stPerformer,
 			Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer, Boolean videoGamePerformer,
 			Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
-		return performerApi.v2RestPerformerSearchPost(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return performerApi.v2Search(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, audiobookPerformer, cutPerformer, disPerformer,
 				ds9Performer, entPerformer, filmPerformer, ldPerformer, picPerformer, proPerformer, puppeteer, snwPerformer, standInPerformer,
 				stPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
 	}
 
 	public PerformerV2BaseResponse searchV2(PerformerV2SearchCriteria performerV2SearchCriteria) throws ApiException {
-		return performerApi.v2RestPerformerSearchPost(performerV2SearchCriteria.getPageNumber(), performerV2SearchCriteria.getPageSize(),
+		return performerApi.v2Search(performerV2SearchCriteria.getPageNumber(), performerV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(performerV2SearchCriteria.getSort()), performerV2SearchCriteria.getName(),
 				performerV2SearchCriteria.getBirthName(), nameIfPresent(performerV2SearchCriteria.getGender()),
 				performerV2SearchCriteria.getDateOfBirthFrom(), performerV2SearchCriteria.getDateOfBirthTo(),

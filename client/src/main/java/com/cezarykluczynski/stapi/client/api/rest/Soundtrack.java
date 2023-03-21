@@ -19,17 +19,16 @@ public class Soundtrack {
 	}
 
 	public SoundtrackFullResponse get(String uid) throws ApiException {
-		return soundtrackApi.v1RestSoundtrackGet(uid);
+		return soundtrackApi.v1Get(uid);
 	}
 
 	public SoundtrackBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, LocalDate releaseDateFrom,
 			LocalDate releaseDateTo, Integer lengthFrom, Integer lengthTo) throws ApiException {
-		return soundtrackApi.v1RestSoundtrackSearchPost(pageNumber, pageSize, sort, title, releaseDateFrom, releaseDateTo, lengthFrom,
-				lengthTo);
+		return soundtrackApi.v1Search(pageNumber, pageSize, sort, title, releaseDateFrom, releaseDateTo, lengthFrom, lengthTo);
 	}
 
 	public SoundtrackBaseResponse search(SoundtrackSearchCriteria soundtrackSearchCriteria) throws ApiException {
-		return soundtrackApi.v1RestSoundtrackSearchPost(soundtrackSearchCriteria.getPageNumber(), soundtrackSearchCriteria.getPageSize(),
+		return soundtrackApi.v1Search(soundtrackSearchCriteria.getPageNumber(), soundtrackSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(soundtrackSearchCriteria.getSort()), soundtrackSearchCriteria.getTitle(),
 				soundtrackSearchCriteria.getReleaseDateFrom(), soundtrackSearchCriteria.getReleaseDateTo(), soundtrackSearchCriteria.getLengthFrom(),
 				soundtrackSearchCriteria.getLengthTo());

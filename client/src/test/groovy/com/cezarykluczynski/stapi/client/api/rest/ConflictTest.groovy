@@ -29,7 +29,7 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictFullResponse conflictFullResponseOutput = conflict.get(UID)
 
 		then:
-		1 * conflictApiMock.v1RestConflictGet(UID) >> conflictFullResponse
+		1 * conflictApiMock.v1Get(UID) >> conflictFullResponse
 		0 * _
 		conflictFullResponse == conflictFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictV2FullResponse conflictV2FullResponseOutput = conflict.getV2(UID)
 
 		then:
-		1 * conflictApiMock.v2RestConflictGet(UID) >> conflictV2FullResponse
+		1 * conflictApiMock.v2Get(UID) >> conflictV2FullResponse
 		0 * _
 		conflictV2FullResponse == conflictV2FullResponseOutput
 	}
@@ -56,7 +56,7 @@ class ConflictTest extends AbstractConflictTest {
 				EARTH_CONFLICT, FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY)
 
 		then:
-		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
+		1 * conflictApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
 				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
 		0 * _
 		conflictBaseResponse == conflictBaseResponseOutput
@@ -82,7 +82,7 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(conflictSearchCriteria)
 
 		then:
-		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
+		1 * conflictApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
 				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
 		0 * _
 		conflictBaseResponse == conflictBaseResponseOutput

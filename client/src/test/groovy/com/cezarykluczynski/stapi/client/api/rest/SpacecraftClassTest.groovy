@@ -31,7 +31,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassFullResponse spacecraftClassFullResponseOutput = spacecraftClass.get(UID)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassGet(UID) >> spacecraftClassFullResponse
+		1 * spacecraftClassApiMock.v1Get(UID) >> spacecraftClassFullResponse
 		0 * _
 		spacecraftClassFullResponse == spacecraftClassFullResponseOutput
 	}
@@ -44,7 +44,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassV2FullResponse spacecraftClassV2FullResponseOutput = spacecraftClass.getV2(UID)
 
 		then:
-		1 * spacecraftClassApiMock.v2RestSpacecraftClassGet(UID) >> spacecraftClassV2FullResponse
+		1 * spacecraftClassApiMock.v2Get(UID) >> spacecraftClassV2FullResponse
 		0 * _
 		spacecraftClassV2FullResponse == spacecraftClassV2FullResponseOutput
 	}
@@ -57,7 +57,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassV3FullResponse spacecraftClassV3FullResponseOutput = spacecraftClass.getV3(UID)
 
 		then:
-		1 * spacecraftClassApiMock.v3RestSpacecraftClassGet(UID) >> spacecraftClassV3FullResponse
+		1 * spacecraftClassApiMock.v3Get(UID) >> spacecraftClassV3FullResponse
 		0 * _
 		spacecraftClassV3FullResponse == spacecraftClassV3FullResponseOutput
 	}
@@ -71,7 +71,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 				WARP_CAPABLE, ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v1RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE,
+		1 * spacecraftClassApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE,
 				ALTERNATE_REALITY) >> spacecraftClassBaseResponse
 		0 * _
 		spacecraftClassBaseResponse == spacecraftClassBaseResponseOutput
@@ -86,7 +86,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 				WARP_CAPABLE, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE, MIRROR,
+		1 * spacecraftClassApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE, MIRROR,
 				ALTERNATE_REALITY) >> spacecraftClassV2BaseResponse
 		0 * _
 		spacecraftClassV2BaseResponse == spacecraftClassV2BaseResponseOutput
@@ -108,7 +108,7 @@ class SpacecraftClassTest extends AbstractSpacecraftClassTest {
 		SpacecraftClassV2BaseResponse spacecraftClassV2BaseResponseOutput = spacecraftClass.searchV2(spacecraftClassV2SearchCriteria)
 
 		then:
-		1 * spacecraftClassApiMock.v2RestSpacecraftClassSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE, MIRROR,
+		1 * spacecraftClassApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, WARP_CAPABLE, MIRROR,
 				ALTERNATE_REALITY) >> spacecraftClassV2BaseResponse
 		0 * _
 		spacecraftClassV2BaseResponse == spacecraftClassV2BaseResponseOutput

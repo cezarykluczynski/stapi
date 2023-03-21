@@ -20,27 +20,27 @@ public class Title {
 
 	@Deprecated
 	public TitleFullResponse get(String uid) throws ApiException {
-		return titleApi.v1RestTitleGet(uid);
+		return titleApi.v1Get(uid);
 	}
 
 	public TitleV2FullResponse getV2(String uid) throws ApiException {
-		return titleApi.v2RestTitleGet(uid);
+		return titleApi.v2Get(uid);
 	}
 
 	@Deprecated
 	public TitleBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
 			Boolean religiousTitle, Boolean position, Boolean mirror) throws ApiException {
-		return titleApi.v1RestTitleSearchPost(pageNumber, pageSize, sort, name, militaryRank, fleetRank, religiousTitle, position, mirror);
+		return titleApi.v1Search(pageNumber, pageSize, sort, name, militaryRank, fleetRank, religiousTitle, position, mirror);
 	}
 
 	@Deprecated
 	public TitleV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
 			Boolean religiousTitle, Boolean educationTitle, Boolean mirror) throws ApiException {
-		return titleApi.v2RestTitleSearchPost(pageNumber, pageSize, sort, name, militaryRank, fleetRank, religiousTitle, educationTitle, mirror);
+		return titleApi.v2Search(pageNumber, pageSize, sort, name, militaryRank, fleetRank, religiousTitle, educationTitle, mirror);
 	}
 
 	public TitleV2BaseResponse searchV2(TitleV2SearchCriteria titleV2SearchCriteria) throws ApiException {
-		return titleApi.v2RestTitleSearchPost(titleV2SearchCriteria.getPageNumber(), titleV2SearchCriteria.getPageSize(),
+		return titleApi.v2Search(titleV2SearchCriteria.getPageNumber(), titleV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(titleV2SearchCriteria.getSort()), titleV2SearchCriteria.getName(),
 				titleV2SearchCriteria.getMilitaryRank(), titleV2SearchCriteria.getFleetRank(), titleV2SearchCriteria.getReligiousTitle(),
 				titleV2SearchCriteria.getEducationTitle(), titleV2SearchCriteria.getMirror());

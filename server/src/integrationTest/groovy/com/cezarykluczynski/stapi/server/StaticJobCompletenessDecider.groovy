@@ -51,7 +51,7 @@ class StaticJobCompletenessDecider {
 				simpleStepList = applicationContext.getBean(MockJobCompletenessDecider).steps
 			} catch (BeansException e) {
 				simpleStepList = Lists.newArrayList()
-		}
+			}
 			applicationContext.close()
 		}
 	}

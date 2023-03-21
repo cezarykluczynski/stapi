@@ -18,7 +18,7 @@ public class TradingCardSet {
 	}
 
 	public TradingCardSetFullResponse get(String uid) throws ApiException {
-		return tradingCardSetApi.v1RestTradingCardSetGet(uid);
+		return tradingCardSetApi.v1Get(uid);
 	}
 
 	@Deprecated
@@ -26,13 +26,13 @@ public class TradingCardSet {
 			Integer releaseYearTo, Integer cardsPerPackFrom, Integer cardsPerPackTo, Integer packsPerBoxFrom, Integer packsPerBoxTo,
 			Integer boxesPerCaseFrom, Integer boxesPerCaseTo, Integer productionRunFrom, Integer productionRunTo, String productionRunUnit,
 			Double cardWidthFrom, Double cardWidthTo, Double cardHeightFrom, Double cardHeightTo) throws ApiException {
-		return tradingCardSetApi.v1RestTradingCardSetSearchPost(pageNumber, pageSize, sort, name, releaseYearFrom, releaseYearTo,
+		return tradingCardSetApi.v1Search(pageNumber, pageSize, sort, name, releaseYearFrom, releaseYearTo,
 				cardsPerPackFrom, cardsPerPackTo, packsPerBoxFrom, packsPerBoxTo, boxesPerCaseFrom, boxesPerCaseTo, productionRunFrom,
 				productionRunTo, productionRunUnit, cardWidthFrom, cardWidthTo, cardHeightFrom, cardHeightTo);
 	}
 
 	public TradingCardSetBaseResponse search(TradingCardSetSearchCriteria tradingCardSetSearchCriteria) throws ApiException {
-		return tradingCardSetApi.v1RestTradingCardSetSearchPost(tradingCardSetSearchCriteria.getPageNumber(),
+		return tradingCardSetApi.v1Search(tradingCardSetSearchCriteria.getPageNumber(),
 				tradingCardSetSearchCriteria.getPageSize(), StapiRestSortSerializer.serialize(tradingCardSetSearchCriteria.getSort()),
 				tradingCardSetSearchCriteria.getName(), tradingCardSetSearchCriteria.getReleaseYearFrom(),
 				tradingCardSetSearchCriteria.getReleaseYearTo(), tradingCardSetSearchCriteria.getCardsPerPackFrom(),

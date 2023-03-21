@@ -30,7 +30,7 @@ class WeaponTest extends AbstractWeaponTest {
 		WeaponFullResponse weaponFullResponseOutput = weapon.get(UID)
 
 		then:
-		1 * weaponApiMock.v1RestWeaponGet(UID) >> weaponFullResponse
+		1 * weaponApiMock.v1Get(UID) >> weaponFullResponse
 		0 * _
 		weaponFullResponse == weaponFullResponseOutput
 	}
@@ -43,7 +43,7 @@ class WeaponTest extends AbstractWeaponTest {
 		WeaponV2FullResponse weaponV2FullResponseOutput = weapon.getV2(UID)
 
 		then:
-		1 * weaponApiMock.v2RestWeaponGet(UID) >> weaponV2FullResponse
+		1 * weaponApiMock.v2Get(UID) >> weaponV2FullResponse
 		0 * _
 		weaponV2FullResponse == weaponV2FullResponseOutput
 	}
@@ -57,7 +57,7 @@ class WeaponTest extends AbstractWeaponTest {
 				PLASMA_TECHNOLOGY, PHOTONIC_TECHNOLOGY, PHASER_TECHNOLOGY, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * weaponApiMock.v1RestWeaponSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
+		1 * weaponApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
 				PHOTONIC_TECHNOLOGY, PHASER_TECHNOLOGY, MIRROR, ALTERNATE_REALITY) >> weaponBaseResponse
 		0 * _
 		weaponBaseResponse == weaponBaseResponseOutput
@@ -73,7 +73,7 @@ class WeaponTest extends AbstractWeaponTest {
 				FICTIONAL_WEAPON, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * weaponApiMock.v2RestWeaponSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
+		1 * weaponApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
 				PHOTONIC_TECHNOLOGY, PHASER_TECHNOLOGY, DIRECTED_ENERGY_WEAPON, EXPLOSIVE_WEAPON, PROJECTILE_WEAPON, FICTIONAL_WEAPON, MIRROR,
 				ALTERNATE_REALITY) >> weaponV2BaseResponse
 		0 * _
@@ -104,7 +104,7 @@ class WeaponTest extends AbstractWeaponTest {
 		WeaponV2BaseResponse weaponV2BaseResponseOutput = weapon.searchV2(weaponV2SearchCriteria)
 
 		then:
-		1 * weaponApiMock.v2RestWeaponSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
+		1 * weaponApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, HAND_HELD_WEAPON, LASER_TECHNOLOGY, PLASMA_TECHNOLOGY,
 				PHOTONIC_TECHNOLOGY, PHASER_TECHNOLOGY, DIRECTED_ENERGY_WEAPON, EXPLOSIVE_WEAPON, PROJECTILE_WEAPON, FICTIONAL_WEAPON, MIRROR,
 				ALTERNATE_REALITY) >> weaponV2BaseResponse
 		0 * _

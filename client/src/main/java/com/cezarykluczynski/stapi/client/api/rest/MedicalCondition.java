@@ -16,17 +16,17 @@ public class MedicalCondition {
 	}
 
 	public MedicalConditionFullResponse get(String uid) throws ApiException {
-		return medicalConditionApi.v1RestMedicalConditionGet(uid);
+		return medicalConditionApi.v1Get(uid);
 	}
 
 	@Deprecated
 	public MedicalConditionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean psychologicalCondition)
 			throws ApiException {
-		return medicalConditionApi.v1RestMedicalConditionSearchPost(pageNumber, pageSize, sort, name, psychologicalCondition);
+		return medicalConditionApi.v1Search(pageNumber, pageSize, sort, name, psychologicalCondition);
 	}
 
 	public MedicalConditionBaseResponse search(MedicalConditionSearchCriteria medicalConditionSearchCriteria) throws ApiException {
-		return medicalConditionApi.v1RestMedicalConditionSearchPost(medicalConditionSearchCriteria.getPageNumber(),
+		return medicalConditionApi.v1Search(medicalConditionSearchCriteria.getPageNumber(),
 				medicalConditionSearchCriteria.getPageSize(), StapiRestSortSerializer.serialize(medicalConditionSearchCriteria.getSort()),
 				medicalConditionSearchCriteria.getName(), medicalConditionSearchCriteria.getPsychologicalCondition());
 	}

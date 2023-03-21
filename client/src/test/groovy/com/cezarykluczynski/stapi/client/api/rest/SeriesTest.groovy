@@ -28,7 +28,7 @@ class SeriesTest extends AbstractSeriesTest {
 		SeriesFullResponse seriesFullResponseOutput = series.get(UID)
 
 		then:
-		1 * seriesApiMock.v1RestSeriesGet(UID) >> seriesFullResponse
+		1 * seriesApiMock.v1Get(UID) >> seriesFullResponse
 		0 * _
 		seriesFullResponse == seriesFullResponseOutput
 	}
@@ -43,7 +43,7 @@ class SeriesTest extends AbstractSeriesTest {
 				ORIGINAL_RUN_START_DATE_FROM_DB, ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB)
 
 		then:
-		1 * seriesApiMock.v1RestSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
+		1 * seriesApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
 				PRODUCTION_START_YEAR_TO, PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO, ORIGINAL_RUN_START_DATE_FROM_DB,
 				ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB) >> seriesBaseResponse
 		0 * _
@@ -72,7 +72,7 @@ class SeriesTest extends AbstractSeriesTest {
 		SeriesBaseResponse seriesBaseResponseOutput = series.search(seriesSearchCriteria)
 
 		then:
-		1 * seriesApiMock.v1RestSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
+		1 * seriesApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
 				PRODUCTION_START_YEAR_TO, PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO, ORIGINAL_RUN_START_DATE_FROM_DB,
 				ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB) >> seriesBaseResponse
 		0 * _
