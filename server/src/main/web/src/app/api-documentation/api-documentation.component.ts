@@ -15,7 +15,7 @@ export class ApiDocumentationComponent {
 		this.apiDocumentationApi = apiDocumentationApi;
 	}
 
-	getSwaggerSpecFullUrl() {
+	getOpenApiSpecFullUrl() {
 		return location.origin + "/api/v1/rest/common/download/stapi.yaml";
 	}
 

@@ -59,19 +59,6 @@ class CommonDataReaderTest extends Specification {
 		restEndpointDetailsDTOOutput == restEndpointDetailsDTO
 	}
 
-	void "gets zipped REST documentation from DocumentationProvider"() {
-		given:
-		Response response = Mock()
-
-		when:
-		Response responseOutput = commonDataReader.restSpecsZip()
-
-		then:
-		1 * documentationProviderMock.provideRestSpecsZip() >> response
-		0 * _
-		responseOutput == response
-	}
-
 	void "gets zipped TOS form from DocumentationProvider"() {
 		given:
 		Response response = Mock()

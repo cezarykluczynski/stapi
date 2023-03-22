@@ -2,19 +2,19 @@
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8">
 			<p>
-				API documentation is a single Swagger spec, accessible <a href="{{ getSwaggerSpecFullUrl() }}">here</a>.
-				You can open it in <a href="https://editor.swagger.io/?url={{ getSwaggerSpecFullUrl() }}">Swagger Editor</a> directly.
+				API documentation is a single OpenAPI specification, accessible <a href="{{ getOpenApiSpecFullUrl() }}">here</a>.
+				You can open it in <a href="https://editor.swagger.io/?url={{ getOpenApiSpecFullUrl() }}">Swagger Editor</a> directly.
 			</p>
 			<p *ngIf="isNotStapiOverHttps()">
 				If that doesn't work, because you're running STAPI locally or HTTPS is not available,
-				then just copy <a href="{{ getSwaggerSpecFullUrl() }}">contract content</a>
+				then just copy <a href="{{ getOpenApiSpecFullUrl() }}">contract content</a>
 				to <a href="https://editor.swagger.io/">editor window</a>.
 			</p>
 			<p>
 				In the editor, clients can be generated for variety of programming languages.
 			</p>
 			<p>
-				In case of any problems with Swagger specs, please
+				In case of any problems with OpenAPI specs, please
 				<a href="https://github.com/cezarykluczynski/stapi/issues/new">report an issue</a>.
 			</p>
 			<p>If you plan on maintaing STAPI client in language other than Java, please <a

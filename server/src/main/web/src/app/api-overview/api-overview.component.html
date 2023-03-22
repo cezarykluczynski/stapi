@@ -20,9 +20,10 @@
 
 			<h3>API layout</h3>
 			<p>For people just wanting to quick jump into using STAPI, REST version is the best choice.
-				Every entity in the API has two REST endpoints per version (V1 or V2),
+				Every entity in the API has two REST endpoints per version, or more (V1, V2, V3 etc.),
 				one for searching and one for retrieving an entire entity, along with entities related to it.
-				Available endpoints are listed on <a href="/api/">this page</a>.
+				Available endpoints are listed on <a href="/api/">this page</a>, but it's best to use OpenAPI specs available
+				<a routerLink="/api-documentation">here</a>.
 			</p>
 
 			<h3>Example requests</h3>
@@ -36,8 +37,7 @@
 			<p>
 				Similar to listing entities, sending POST request to the same URL,
 				<a href="/api/v1/rest/season/search">/api/v1/rest/season/search</a>,
-				allows searching for entities using predefined criteria. Criteria that can be used for searching can be found in
-				<a routerLink="/api-documentation">API documentation</a>.
+				allows searching for entities using predefined criteria.
 			</p>
 
 			<p>

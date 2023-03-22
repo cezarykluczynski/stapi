@@ -31,7 +31,7 @@ openApiGenerate {
 	generateModelDocumentation = false
 	generateApiTests = false
 	generateApiDocumentation = false
-	inputSpec = "$rootDir/contract/src/main/resources/swagger/stapi.yaml".toString()
+	inputSpec = "$rootDir/contract/src/main/resources/openapi/stapi.yaml".toString()
 	outputDir = "$rootDir/client/".toString()
 	apiPackage = "com.cezarykluczynski.stapi.client.rest.api"
 	invokerPackage = "com.cezarykluczynski.stapi.client.rest.invoker"
@@ -39,7 +39,7 @@ openApiGenerate {
 	configOptions = [
 			dateLibrary: "java8"
 	]
-	httpUserAgent = "STAPI/java/${project.version}"
+	httpUserAgent = "STAPI/java/$stapiVersion"
 }
 
 clean.doFirst {
@@ -74,7 +74,7 @@ publishing {
 		mavenJava(MavenPublication) {
 			group = 'com.cezarykluczynski.stapi'
 			artifactId = 'stapi-client'
-			version = '0.1.2-SNAPSHOT'
+			version = "$stapiVersion"
 			from components.java
 			versionMapping {
 				usage('java-api') {

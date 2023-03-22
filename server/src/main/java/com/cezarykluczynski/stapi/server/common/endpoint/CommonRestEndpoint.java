@@ -66,15 +66,6 @@ public class CommonRestEndpoint {
 		return new PongDTO();
 	}
 
-	@Deprecated
-	@GET
-	@Path("download/zip/rest")
-	@ResponseBody
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response restSpecsZip() {
-		return commonDataReader.restSpecsZip();
-	}
-
 	@GET
 	@Path("download/zip/tosForm")
 	@ResponseBody

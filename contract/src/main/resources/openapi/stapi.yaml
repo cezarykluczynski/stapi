@@ -125,6 +125,7 @@ paths:
         - AstronomicalObject
       description: Retrival of a single astronomical object
       operationId: v1GetAstronomicalObject
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -151,6 +152,7 @@ paths:
         - AstronomicalObject
       description: Pagination over astronomical objects
       operationId: v1PageAstronomicalObjects
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -182,6 +184,7 @@ paths:
         - AstronomicalObject
       description: Searching astronomical objects
       operationId: v1SearchAstronomicalObjects
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -331,6 +334,7 @@ paths:
         - Book
       description: Retrival of a single book
       operationId: v1GetBook
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -357,6 +361,7 @@ paths:
         - Book
       description: Pagination over books
       operationId: v1PageBooks
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -388,6 +393,7 @@ paths:
         - Book
       description: Searching books
       operationId: v1SearchBooks
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -1180,6 +1186,7 @@ paths:
         - ComicCollection
       description: Retrival of a single comic collection
       operationId: v1GetComicCollection
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -1591,6 +1598,7 @@ paths:
         - Company
       description: Retrival of a single company
       operationId: v1GetCompany
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -1617,6 +1625,7 @@ paths:
         - Company
       description: Pagination over companies
       operationId: v1PageCompanies
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -1648,6 +1657,7 @@ paths:
         - Company
       description: Searching companies
       operationId: v1SearchCompanies
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -1899,6 +1909,7 @@ paths:
         - Conflict
       description: Retrival of a single conflict
       operationId: v1GetConflict
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -2065,6 +2076,7 @@ paths:
         - Element
       description: Retrival of a single element
       operationId: v1GetElement
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -2091,6 +2103,7 @@ paths:
         - Element
       description: Pagination over elements
       operationId: v1PageElements
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -2122,6 +2135,7 @@ paths:
         - Element
       description: Searching elements
       operationId: v1SearchElements
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -2697,6 +2711,7 @@ paths:
         - Location
       description: Retrival of a single location
       operationId: v1GetLocation
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -2723,6 +2738,7 @@ paths:
         - Location
       description: Pagination over locations
       operationId: v1PageLocations
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -2754,6 +2770,7 @@ paths:
         - Location
       description: Searching locations
       operationId: v1SearchLocations
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -3607,6 +3624,7 @@ paths:
         - Occupation
       description: Retrival of a single occupation
       operationId: v1GetOccupation
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -3633,6 +3651,7 @@ paths:
         - Occupation
       description: Pagination over occupations
       operationId: v1PageOccupations
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -3664,6 +3683,7 @@ paths:
         - Occupation
       description: Searching occupations
       operationId: v1SearchOccupations
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -3974,6 +3994,7 @@ paths:
         - Performer
       description: Retrival of a single performer
       operationId: v1GetPerformer
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -4000,6 +4021,7 @@ paths:
         - Performer
       description: Pagination over performers
       operationId: v1PagePerformers
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -4031,6 +4053,7 @@ paths:
         - Performer
       description: Searching performers
       operationId: v1SearchPerformers
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -4700,6 +4723,7 @@ paths:
         - Spacecraft
       description: Retrival of a single spacecraft
       operationId: v1GetSpacecraft
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -4726,6 +4750,7 @@ paths:
         - Spacecraft
       description: Pagination over spacecrafts
       operationId: v1PageSpacecrafts
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -4757,6 +4782,7 @@ paths:
         - Spacecraft
       description: Searching spacecrafts
       operationId: v1SearchSpacecrafts
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -4898,6 +4924,7 @@ paths:
         - SpacecraftClass
       description: Retrival of a single spacecraft class
       operationId: v1GetSpacecraftClass
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -4924,6 +4951,7 @@ paths:
         - SpacecraftClass
       description: Pagination over spacecraft classes
       operationId: v1PageSpacecraftClasses
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -4955,6 +4983,7 @@ paths:
         - SpacecraftClass
       description: Searching spacecraft classes
       operationId: v1SearchSpacecraftClasses
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -5001,6 +5030,7 @@ paths:
         - SpacecraftClass
       description: Retrival of a single spacecraft class (V2)
       operationId: v2GetSpacecraftClass
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -5134,6 +5164,7 @@ paths:
         - Species
       description: Retrival of a single species
       operationId: v1GetSpecies
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -5160,6 +5191,7 @@ paths:
         - Species
       description: Pagination over species
       operationId: v1PageSpecies
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -5191,6 +5223,7 @@ paths:
         - Species
       description: Searching species
       operationId: v1SearchSpecies
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -5401,6 +5434,7 @@ paths:
         - Staff
       description: Retrival of a single staff member
       operationId: v1GetStaff
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -5427,6 +5461,7 @@ paths:
         - Staff
       description: Pagination over staff members
       operationId: v1PageStaff
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -5458,6 +5493,7 @@ paths:
         - Staff
       description: Searching staff members
       operationId: v1SearchStaff
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -6001,6 +6037,7 @@ paths:
         - Technology
       description: Retrival of a single technology piece
       operationId: v1GetTechnology
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -6027,6 +6064,7 @@ paths:
         - Technology
       description: Pagination over technology pieces
       operationId: v1PageTechnology
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -6058,6 +6096,7 @@ paths:
         - Technology
       description: Searching technology pieces
       operationId: v1SearchTechnology
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -6348,6 +6387,7 @@ paths:
         - Title
       description: Retrival of a single title
       operationId: v1GetTitle
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -6374,6 +6414,7 @@ paths:
         - Title
       description: Pagination over titles
       operationId: v1PageTitles
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -6405,6 +6446,7 @@ paths:
         - Title
       description: Searching titles
       operationId: v1SearchTitles
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -7030,6 +7072,7 @@ paths:
         - VideoRelease
       description: Retrival of a single video release
       operationId: v1GetVideoRelease
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -7056,6 +7099,7 @@ paths:
         - VideoRelease
       description: Pagination over video releases
       operationId: v1PageVideoReleases
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -7087,6 +7131,7 @@ paths:
         - VideoRelease
       description: Searching video releases
       operationId: v1SearchVideoReleases
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -7260,6 +7305,7 @@ paths:
         - Weapon
       description: Retrival of a single weapon
       operationId: v1GetWeapon
+      deprecated: true
       parameters:
         - name: uid
           in: query
@@ -7286,6 +7332,7 @@ paths:
         - Weapon
       description: Pagination over weapons
       operationId: v1PageWeapons
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query
@@ -7317,6 +7364,7 @@ paths:
         - Weapon
       description: Searching weapons
       operationId: v1SearchWeapons
+      deprecated: true
       parameters:
         - name: pageNumber
           in: query

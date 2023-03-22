@@ -6,35 +6,13 @@ import spock.lang.Specification
 
 class DocumentationProviderTest extends Specification {
 
-	private static final String SWAGGER_DIRECTORY = 'SWAGGER_DIRECTORY'
-	private static final String TEMPORARY_DIRECTORY = 'TEMPORARY_DIRECTORY'
 	private static final String APPLIATION_TEST_PROPERTIES = 'application-test.properties'
 	private static final String EMPTY_TEST_RESOURCE = 'empty-test-resource.txt'
-
-	private DocumentationZipper documentationZipperMock
-
-	private DocumentationDirectoryProvider documentationDirectoryProviderMock
 
 	private DocumentationProvider documentationProvider
 
 	void setup() {
-		documentationZipperMock = Mock()
-		documentationDirectoryProviderMock = Mock()
-		documentationProvider = new DocumentationProvider(documentationZipperMock, documentationDirectoryProviderMock)
-	}
-
-	void "provides zipped REST specs"() {
-		when:
-		Response response = documentationProvider.provideRestSpecsZip()
-
-		then:
-		1 * documentationDirectoryProviderMock.temporaryDirectory >> TEMPORARY_DIRECTORY
-		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
-		1 * documentationZipperMock.zipDirectoryToFile(SWAGGER_DIRECTORY, _ as File)
-		0 * _
-		response.status == Response.Status.OK.statusCode
-		response.mediaType.type == 'application'
-		response.mediaType.subtype == 'octet-stream'
+		documentationProvider = new DocumentationProvider()
 	}
 
 	void "provides zipped file using path"() {

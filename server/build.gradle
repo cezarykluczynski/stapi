@@ -63,13 +63,10 @@ dependencies {
 	dockerPerformanceTestImplementation project(':server').sourceSets.main.output
 	dockerPerformanceTestImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
 	dockerPerformanceTestImplementation "org.testcontainers:spock:1.17.6"
-//	dockerPerformanceTestImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
-//	dockerPerformanceTestImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 }
 
 apply from: 'codeGen.gradle'
 
-configurations.implementation.exclude group: 'io.swagger'
 configurations[integrationTest.implementationConfigurationName].extendsFrom(configurations.implementation)
 configurations[integrationTest.implementationConfigurationName].extendsFrom(configurations.testImplementation)
 configurations[integrationTest.runtimeOnlyConfigurationName].extendsFrom(configurations.testRuntimeOnly)

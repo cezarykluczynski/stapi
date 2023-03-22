@@ -40,10 +40,6 @@ public class CommonDataReader {
 		return commonEntitiesDetailsReader.details();
 	}
 
-	public Response restSpecsZip() {
-		return documentationProvider.provideRestSpecsZip();
-	}
-
 	public Response stapiYaml() {
 		return documentationProvider.provideStapiYaml();
 	}

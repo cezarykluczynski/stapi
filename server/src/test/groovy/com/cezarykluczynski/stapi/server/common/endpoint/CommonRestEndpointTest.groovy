@@ -77,19 +77,6 @@ class CommonRestEndpointTest extends Specification {
 		pongDTO.pong == 'pong'
 	}
 
-	void "gets zipped REST documentation"() {
-		given:
-		Response response = Mock()
-
-		when:
-		Response responseOutput = commonRestEndpoint.restSpecsZip()
-
-		then:
-		1 * commonDataReaderMock.restSpecsZip() >> response
-		0 * _
-		responseOutput == response
-	}
-
 	void "gets zipped TOS form"() {
 		given:
 		Response response = Mock()
