@@ -28,7 +28,7 @@ class TradingCardSetTest extends AbstractTradingCardSetTest {
 		TradingCardSetFullResponse tradingCardSetFullResponseOutput = tradingCardSet.get(UID)
 
 		then:
-		1 * tradingCardSetApiMock.v1Get(UID) >> tradingCardSetFullResponse
+		1 * tradingCardSetApiMock.v1GetTradingCardSet(UID) >> tradingCardSetFullResponse
 		0 * _
 		tradingCardSetFullResponse == tradingCardSetFullResponseOutput
 	}
@@ -44,7 +44,7 @@ class TradingCardSetTest extends AbstractTradingCardSetTest {
 				CARD_HEIGHT_TO)
 
 		then:
-		1 * tradingCardSetApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, RELEASE_YEAR_FROM,
+		1 * tradingCardSetApiMock.v1SearchTradingCardSets(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, RELEASE_YEAR_FROM,
 				RELEASE_YEAR_TO, CARDS_PER_PACK_FROM, CARDS_PER_PACK_TO, PACKS_PER_BOX_FROM, PACKS_PER_BOX_TO, BOXES_PER_CASE_FROM, BOXES_PER_CASE_TO,
 				PRODUCTION_RUN_FROM, PRODUCTION_RUN_TO, PRODUCTION_RUN_UNIT, CARD_WIDTH_FROM, CARD_WIDTH_TO, CARD_HEIGHT_FROM, CARD_HEIGHT_TO) >>
 				tradingCardSetBaseResponse
@@ -80,7 +80,7 @@ class TradingCardSetTest extends AbstractTradingCardSetTest {
 		TradingCardSetBaseResponse tradingCardSetBaseResponseOutput = tradingCardSet.search(tradingCardSetSearchCriteria)
 
 		then:
-		1 * tradingCardSetApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, RELEASE_YEAR_FROM,
+		1 * tradingCardSetApiMock.v1SearchTradingCardSets(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, RELEASE_YEAR_FROM,
 				RELEASE_YEAR_TO, CARDS_PER_PACK_FROM, CARDS_PER_PACK_TO, PACKS_PER_BOX_FROM, PACKS_PER_BOX_TO, BOXES_PER_CASE_FROM, BOXES_PER_CASE_TO,
 				PRODUCTION_RUN_FROM, PRODUCTION_RUN_TO, PRODUCTION_RUN_UNIT, CARD_WIDTH_FROM, CARD_WIDTH_TO, CARD_HEIGHT_FROM, CARD_HEIGHT_TO) >>
 				tradingCardSetBaseResponse

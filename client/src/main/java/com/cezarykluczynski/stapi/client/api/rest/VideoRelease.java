@@ -21,29 +21,29 @@ public class VideoRelease {
 
 	@Deprecated
 	public VideoReleaseFullResponse get(String uid) throws ApiException {
-		return videoReleaseApi.v1Get(uid);
+		return videoReleaseApi.v1GetVideoRelease(uid);
 	}
 
 	public VideoReleaseV2FullResponse getV2(String uid) throws ApiException {
-		return videoReleaseApi.v2Get(uid);
+		return videoReleaseApi.v2GetVideoRelease(uid);
 	}
 
 	@Deprecated
 	public VideoReleaseBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer yearFrom, Integer yearTo,
 			Integer runTimeFrom, Integer runTimeTo) throws ApiException {
-		return videoReleaseApi.v1Search(pageNumber, pageSize, sort, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
+		return videoReleaseApi.v1SearchVideoReleases(pageNumber, pageSize, sort, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
 	}
 
 	@Deprecated
 	public VideoReleaseBaseResponse search(VideoReleaseSearchCriteria videoReleaseSearchCriteria) throws ApiException {
-		return videoReleaseApi.v1Search(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
+		return videoReleaseApi.v1SearchVideoReleases(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), videoReleaseSearchCriteria.getTitle(),
 				videoReleaseSearchCriteria.getYearFrom(), videoReleaseSearchCriteria.getYearTo(), videoReleaseSearchCriteria.getRunTimeFrom(),
 				videoReleaseSearchCriteria.getRunTimeTo());
 	}
 
 	public VideoReleaseV2BaseResponse searchV2(VideoReleaseV2SearchCriteria videoReleaseSearchCriteria) throws ApiException {
-		return videoReleaseApi.v2Search(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
+		return videoReleaseApi.v2SearchVideoReleases(videoReleaseSearchCriteria.getPageNumber(), videoReleaseSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(videoReleaseSearchCriteria.getSort()), videoReleaseSearchCriteria.getTitle(),
 				videoReleaseSearchCriteria.getYearFrom(), videoReleaseSearchCriteria.getYearTo(), videoReleaseSearchCriteria.getRunTimeFrom(),
 				videoReleaseSearchCriteria.getRunTimeTo(), videoReleaseSearchCriteria.getDocumentary(),

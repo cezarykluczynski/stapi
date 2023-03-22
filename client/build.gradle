@@ -1,11 +1,9 @@
-import java.nio.file.Files
-
 plugins {
 	id 'io.freefair.lombok'
 	id 'java-library'
 	id 'maven-publish'
 	id 'signing'
-	id 'org.hidetake.swagger.generator' version '2.19.2'
+	id("org.openapi.generator") version "6.4.0"
 }
 
 sourceCompatibility = 1.8
@@ -13,34 +11,43 @@ targetCompatibility = 1.8
 
 dependencies {
 	implementation project(':contract')
-	implementation group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
-	implementation group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
+	implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.10.0'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
-	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.6.9'
-	swaggerCodegen group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0'
+	implementation group: 'io.gsonfire', name: 'gson-fire', version: '1.8.5'
+	implementation group: 'javax.ws.rs', name: 'jsr311-api', version: '1.1.1'
+	implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+	implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
 	testImplementation project(':util').sourceSets.test.output
 }
 
+apply plugin: 'org.openapi.generator'
+
 jar.archiveBaseName = 'stapi-client'
 
-swaggerSources {
-	stapi {
-		inputFile = file('../contract/src/main/resources/swagger/stapi.yaml')
-		code {
-			language = 'java'
-			configFile = file('../contract/src/main/resources/swagger/config.json')
-			wipeOutputDir = false
-			outputDir = file('.')
-		}
-	}
+openApiGenerate {
+	generatorName = "java"
+	generateModelTests = false
+	generateModelDocumentation = false
+	generateApiTests = false
+	generateApiDocumentation = false
+	inputSpec = "$rootDir/contract/src/main/resources/swagger/stapi.yaml".toString()
+	outputDir = "$rootDir/client/".toString()
+	apiPackage = "com.cezarykluczynski.stapi.client.rest.api"
+	invokerPackage = "com.cezarykluczynski.stapi.client.rest.invoker"
+	modelPackage = "com.cezarykluczynski.stapi.client.rest.model"
+	configOptions = [
+			dateLibrary: "java8"
+	]
+	httpUserAgent = "STAPI/java/${project.version}"
 }
 
 clean.doFirst {
-	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/"
+	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/rest/"
 }
 
 compileJava {
-	dependsOn(swaggerSources.stapi.code)
+	dependsOn('openApiGenerate')
 }
 
 task javadocJar(type: Jar) {
@@ -113,7 +120,7 @@ publishing {
 							String subChildName = (String) subChild.name()
 							if (subChildName.endsWith('artifactId')) {
 								String value = (String) subChild.value()
-								if (value.contains('okhttp') && !value.contains('logging-interceptor') || value.contains('gson')) {
+								if (value.contains('okhttp') && !value.contains('logging-interceptor') || value.contains('gson') || value.contains('javax')) {
 									doDelete = false
 								}
 							}

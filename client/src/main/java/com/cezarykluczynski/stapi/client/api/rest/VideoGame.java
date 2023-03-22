@@ -18,17 +18,17 @@ public class VideoGame {
 	}
 
 	public VideoGameFullResponse get(String uid) throws ApiException {
-		return videoGameApi.v1Get(uid);
+		return videoGameApi.v1GetVideoGame(uid);
 	}
 
 	@Deprecated
 	public VideoGameBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, LocalDate releaseDateFrom,
 			LocalDate releaseDateTo) throws ApiException {
-		return videoGameApi.v1Search(pageNumber, pageSize, sort, title, releaseDateFrom, releaseDateTo);
+		return videoGameApi.v1SearchVideoGames(pageNumber, pageSize, sort, title, releaseDateFrom, releaseDateTo);
 	}
 
 	public VideoGameBaseResponse search(VideoGameSearchCriteria videoGameSearchCriteria) throws ApiException {
-		return videoGameApi.v1Search(videoGameSearchCriteria.getPageNumber(), videoGameSearchCriteria.getPageSize(),
+		return videoGameApi.v1SearchVideoGames(videoGameSearchCriteria.getPageNumber(), videoGameSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(videoGameSearchCriteria.getSort()), videoGameSearchCriteria.getTitle(),
 				videoGameSearchCriteria.getReleaseDateFrom(), videoGameSearchCriteria.getReleaseDateTo());
 	}

@@ -35,7 +35,7 @@ class BookFullRestMapperTest extends AbstractBookMapperTest {
 		bookFull.referenceBook == REFERENCE_BOOK
 		bookFull.biographyBook == BIOGRAPHY_BOOK
 		bookFull.rolePlayingBook == ROLE_PLAYING_BOOK
-		bookFull.EBook == E_BOOK
+		bookFull.eBook == E_BOOK
 		bookFull.anthology == ANTHOLOGY
 		bookFull.novelization == NOVELIZATION
 		bookFull.audiobook == AUDIOBOOK
@@ -80,7 +80,7 @@ class BookFullRestMapperTest extends AbstractBookMapperTest {
 		bookV2Full.referenceBook == REFERENCE_BOOK
 		bookV2Full.biographyBook == BIOGRAPHY_BOOK
 		bookV2Full.rolePlayingBook == ROLE_PLAYING_BOOK
-		bookV2Full.EBook == E_BOOK
+		bookV2Full.eBook == E_BOOK
 		bookV2Full.anthology == ANTHOLOGY
 		bookV2Full.novelization == NOVELIZATION
 		bookV2Full.unauthorizedPublication == UNAUTHORIZED_PUBLICATION

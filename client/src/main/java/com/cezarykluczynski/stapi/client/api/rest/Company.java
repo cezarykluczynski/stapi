@@ -19,11 +19,11 @@ public class Company {
 	}
 
 	public CompanyFullResponse get(String uid) throws ApiException {
-		return companyApi.v1Get(uid);
+		return companyApi.v1GetCompany(uid);
 	}
 
 	public CompanyV2FullResponse getV2(String uid) throws ApiException {
-		return companyApi.v2Get(uid);
+		return companyApi.v2GetCompany(uid);
 	}
 
 	@Deprecated
@@ -32,7 +32,7 @@ public class Company {
 			Boolean filmEquipmentCompany, Boolean makeUpEffectsStudio, Boolean mattePaintingCompany, Boolean modelAndMiniatureEffectsCompany,
 			Boolean postProductionCompany, Boolean productionCompany, Boolean propCompany, Boolean recordLabel, Boolean specialEffectsCompany,
 			Boolean tvAndFilmProductionCompany, Boolean videoGameCompany) throws ApiException {
-		return companyApi.v1Search(pageNumber, pageSize, sort, name, broadcaster, collectibleCompany, conglomerate,
+		return companyApi.v1SearchCompanies(pageNumber, pageSize, sort, name, broadcaster, collectibleCompany, conglomerate,
 				digitalVisualEffectsCompany, distributor, gameCompany, filmEquipmentCompany, makeUpEffectsStudio, mattePaintingCompany,
 				modelAndMiniatureEffectsCompany, postProductionCompany, productionCompany, propCompany, recordLabel, specialEffectsCompany,
 				tvAndFilmProductionCompany, videoGameCompany);
@@ -45,14 +45,14 @@ public class Company {
 			Boolean mattePaintingCompany, Boolean modelAndMiniatureEffectsCompany, Boolean postProductionCompany, Boolean productionCompany,
 			Boolean propCompany, Boolean recordLabel, Boolean specialEffectsCompany, Boolean tvAndFilmProductionCompany, Boolean videoGameCompany,
 			Boolean publisher, Boolean publicationArtStudio) throws ApiException {
-		return companyApi.v2Search(pageNumber, pageSize, sort, name, broadcaster, streamingService, collectibleCompany,
+		return companyApi.v2SearchCompanies(pageNumber, pageSize, sort, name, broadcaster, streamingService, collectibleCompany,
 				conglomerate, visualEffectsCompany, digitalVisualEffectsCompany, distributor, gameCompany, filmEquipmentCompany, makeUpEffectsStudio,
 				mattePaintingCompany, modelAndMiniatureEffectsCompany, postProductionCompany, productionCompany, propCompany, recordLabel,
 				specialEffectsCompany, tvAndFilmProductionCompany, videoGameCompany, publisher, publicationArtStudio);
 	}
 
 	public CompanyV2BaseResponse searchV2(CompanyV2SearchCriteria companyV2SearchCriteria) throws ApiException {
-		return companyApi.v2Search(companyV2SearchCriteria.getPageNumber(), companyV2SearchCriteria.getPageSize(),
+		return companyApi.v2SearchCompanies(companyV2SearchCriteria.getPageNumber(), companyV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(companyV2SearchCriteria.getSort()), companyV2SearchCriteria.getName(),
 				companyV2SearchCriteria.getBroadcaster(), companyV2SearchCriteria.getStreamingService(),
 				companyV2SearchCriteria.getCollectibleCompany(), companyV2SearchCriteria.getConglomerate(),

@@ -19,23 +19,23 @@ public class Conflict {
 
 	@Deprecated
 	public ConflictFullResponse get(String uid) throws ApiException {
-		return conflictApi.v1Get(uid);
+		return conflictApi.v1GetConflict(uid);
 	}
 
 	public ConflictV2FullResponse getV2(String uid) throws ApiException {
-		return conflictApi.v2Get(uid);
+		return conflictApi.v2GetConflict(uid);
 	}
 
 	@Deprecated
 	public ConflictBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Integer yearFrom, Integer yearTo,
 			Boolean earthConflict, Boolean federationWar, Boolean klingonWar, Boolean dominionWarBattle, Boolean alternateReality)
 			throws ApiException {
-		return conflictApi.v1Search(pageNumber, pageSize, sort, name, yearFrom, yearTo, earthConflict, federationWar,
+		return conflictApi.v1SearchConflicts(pageNumber, pageSize, sort, name, yearFrom, yearTo, earthConflict, federationWar,
 				klingonWar, dominionWarBattle, alternateReality);
 	}
 
 	public ConflictBaseResponse search(ConflictSearchCriteria conflictSearchCriteria) throws ApiException {
-		return conflictApi.v1Search(conflictSearchCriteria.getPageNumber(), conflictSearchCriteria.getPageSize(),
+		return conflictApi.v1SearchConflicts(conflictSearchCriteria.getPageNumber(), conflictSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(conflictSearchCriteria.getSort()), conflictSearchCriteria.getName(),
 				conflictSearchCriteria.getYearFrom(), conflictSearchCriteria.getYearTo(), conflictSearchCriteria.getEarthConflict(),
 				conflictSearchCriteria.getFederationWar(), conflictSearchCriteria.getKlingonWar(), conflictSearchCriteria.getDominionWarBattle(),

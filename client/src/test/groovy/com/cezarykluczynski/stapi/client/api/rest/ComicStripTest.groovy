@@ -28,7 +28,7 @@ class ComicStripTest extends AbstractComicStripTest {
 		ComicStripFullResponse comicStripFullResponseOutput = comicStrip.get(UID)
 
 		then:
-		1 * comicStripApiMock.v1Get(UID) >> comicStripFullResponse
+		1 * comicStripApiMock.v1GetComicStrip(UID) >> comicStripFullResponse
 		0 * _
 		comicStripFullResponse == comicStripFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class ComicStripTest extends AbstractComicStripTest {
 		PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, YEAR_FROM, YEAR_TO)
 
 		then:
-		1 * comicStripApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicStripApiMock.v1SearchComicStrips(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, YEAR_FROM, YEAR_TO) >> comicStripBaseResponse
 		0 * _
 		comicStripBaseResponse == comicStripBaseResponseOutput
@@ -67,7 +67,7 @@ class ComicStripTest extends AbstractComicStripTest {
 		ComicStripBaseResponse comicStripBaseResponseOutput = comicStrip.search(comicStripSearchCriteria)
 
 		then:
-		1 * comicStripApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicStripApiMock.v1SearchComicStrips(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, YEAR_FROM, YEAR_TO) >> comicStripBaseResponse
 		0 * _
 		comicStripBaseResponse == comicStripBaseResponseOutput

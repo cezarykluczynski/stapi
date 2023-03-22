@@ -17,18 +17,18 @@ public class ComicStrip {
 	}
 
 	public ComicStripFullResponse get(String uid) throws ApiException {
-		return comicStripApi.v1Get(uid);
+		return comicStripApi.v1GetComicStrip(uid);
 	}
 
 	@Deprecated
 	public ComicStripBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Integer yearFrom, Integer yearTo) throws ApiException {
-		return comicStripApi.v1Search(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
+		return comicStripApi.v1SearchComicStrips(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, yearFrom, yearTo);
 	}
 
 	public ComicStripBaseResponse search(ComicStripSearchCriteria comicStripSearchCriteria) throws ApiException {
-		return comicStripApi.v1Search(comicStripSearchCriteria.getPageNumber(), comicStripSearchCriteria.getPageSize(),
+		return comicStripApi.v1SearchComicStrips(comicStripSearchCriteria.getPageNumber(), comicStripSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(comicStripSearchCriteria.getSort()), comicStripSearchCriteria.getTitle(),
 				comicStripSearchCriteria.getPublishedYearFrom(), comicStripSearchCriteria.getPublishedYearTo(),
 				comicStripSearchCriteria.getNumberOfPagesFrom(), comicStripSearchCriteria.getNumberOfPagesTo(),

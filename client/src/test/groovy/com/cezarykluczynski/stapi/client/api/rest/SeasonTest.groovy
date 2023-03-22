@@ -28,7 +28,7 @@ class SeasonTest extends AbstractSeasonTest {
 		SeasonFullResponse seasonFullResponseOutput = season.get(UID)
 
 		then:
-		1 * seasonApiMock.v1Get(UID) >> seasonFullResponse
+		1 * seasonApiMock.v1GetSeason(UID) >> seasonFullResponse
 		0 * _
 		seasonFullResponse == seasonFullResponseOutput
 	}
@@ -38,11 +38,11 @@ class SeasonTest extends AbstractSeasonTest {
 		SeasonBaseResponse seasonBaseResponse = Mock()
 
 		when:
-		SeasonBaseResponse seasonBaseResponseOutput = season.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
-				NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO)
+		SeasonBaseResponse seasonBaseResponseOutput = season.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM,
+				SEASON_NUMBER_TO, NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO)
 
 		then:
-		1 * seasonApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
+		1 * seasonApiMock.v1SearchSeasons(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
 				NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO) >> seasonBaseResponse
 		0 * _
 		seasonBaseResponse == seasonBaseResponseOutput
@@ -65,7 +65,7 @@ class SeasonTest extends AbstractSeasonTest {
 		SeasonBaseResponse seasonBaseResponseOutput = season.search(seasonSearchCriteria)
 
 		then:
-		1 * seasonApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
+		1 * seasonApiMock.v1SearchSeasons(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
 				NUMBER_OF_EPISODES_FROM, NUMBER_OF_EPISODES_TO) >> seasonBaseResponse
 		0 * _
 		seasonBaseResponse == seasonBaseResponseOutput

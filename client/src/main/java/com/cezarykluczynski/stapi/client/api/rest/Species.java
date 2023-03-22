@@ -20,11 +20,11 @@ public class Species {
 
 	@Deprecated
 	public SpeciesFullResponse get(String uid) throws ApiException {
-		return speciesApi.v1Get(uid);
+		return speciesApi.v1GetSpecies(uid);
 	}
 
 	public SpeciesV2FullResponse getV2(String uid) throws ApiException {
-		return speciesApi.v2Get(uid);
+		return speciesApi.v2GetSpecies(uid);
 	}
 
 	@Deprecated
@@ -32,7 +32,7 @@ public class Species {
 			Boolean warpCapableSpecies, Boolean extraGalacticSpecies, Boolean humanoidSpecies, Boolean reptilianSpecies, Boolean nonCorporealSpecies,
 			Boolean shapeshiftingSpecies, Boolean spaceborneSpecies, Boolean telepathicSpecies, Boolean transDimensionalSpecies,
 			Boolean unnamedSpecies, Boolean alternateReality) throws ApiException {
-		return speciesApi.v1Search(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
+		return speciesApi.v1SearchSpecies(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
 				humanoidSpecies, reptilianSpecies, nonCorporealSpecies, shapeshiftingSpecies, spaceborneSpecies, telepathicSpecies,
 				transDimensionalSpecies, unnamedSpecies, alternateReality);
 	}
@@ -42,13 +42,13 @@ public class Species {
 			Boolean warpCapableSpecies, Boolean extraGalacticSpecies, Boolean humanoidSpecies, Boolean reptilianSpecies, Boolean avianSpecies,
 			Boolean nonCorporealSpecies, Boolean shapeshiftingSpecies, Boolean spaceborneSpecies, Boolean telepathicSpecies,
 			Boolean transDimensionalSpecies, Boolean unnamedSpecies, Boolean alternateReality) throws ApiException {
-		return speciesApi.v2Search(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
+		return speciesApi.v2SearchSpecies(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
 				humanoidSpecies, reptilianSpecies, avianSpecies, nonCorporealSpecies, shapeshiftingSpecies, spaceborneSpecies, telepathicSpecies,
 				transDimensionalSpecies, unnamedSpecies, alternateReality);
 	}
 
 	public SpeciesV2BaseResponse searchV2(SpeciesV2SearchCriteria speciesV2SearchCriteria) throws ApiException {
-		return speciesApi.v2Search(speciesV2SearchCriteria.getPageNumber(), speciesV2SearchCriteria.getPageSize(),
+		return speciesApi.v2SearchSpecies(speciesV2SearchCriteria.getPageNumber(), speciesV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(speciesV2SearchCriteria.getSort()), speciesV2SearchCriteria.getName(),
 				speciesV2SearchCriteria.getExtinctSpecies(), speciesV2SearchCriteria.getWarpCapableSpecies(),
 				speciesV2SearchCriteria.getExtraGalacticSpecies(), speciesV2SearchCriteria.getHumanoidSpecies(),

@@ -30,7 +30,7 @@ class BookSeriesFullRestMapperTest extends AbstractBookSeriesMapperTest {
 		bookSeriesFull.yearFrom == YEAR_FROM
 		bookSeriesFull.yearTo == YEAR_TO
 		bookSeriesFull.miniseries == MINISERIES
-		bookSeriesFull.EBookSeries == E_BOOK_SERIES
+		bookSeriesFull.eBookSeries == E_BOOK_SERIES
 		bookSeriesFull.parentSeries.size() == bookSeries.parentSeries.size()
 		bookSeriesFull.childSeries.size() == bookSeries.childSeries.size()
 		bookSeriesFull.publishers.size() == bookSeries.publishers.size()

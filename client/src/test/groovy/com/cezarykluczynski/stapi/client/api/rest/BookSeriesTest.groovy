@@ -28,7 +28,7 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 		BookSeriesFullResponse bookSeriesFullResponseOutput = bookSeries.get(UID)
 
 		then:
-		1 * bookSeriesApiMock.v1Get(UID) >> bookSeriesFullResponse
+		1 * bookSeriesApiMock.v1GetBookSeries(UID) >> bookSeriesFullResponse
 		0 * _
 		bookSeriesFullResponse == bookSeriesFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 				PUBLISHED_YEAR_TO, NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES)
 
 		then:
-		1 * bookSeriesApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookSeriesApiMock.v1SearchBookSeries(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES) >> bookSeriesBaseResponse
 		0 * _
 		bookSeriesBaseResponse == bookSeriesBaseResponseOutput
@@ -69,7 +69,7 @@ class BookSeriesTest extends AbstractBookSeriesTest {
 		BookSeriesBaseResponse bookSeriesBaseResponseOutput = bookSeries.search(bookSeriesSearchCriteria)
 
 		then:
-		1 * bookSeriesApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookSeriesApiMock.v1SearchBookSeries(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_BOOKS_FROM, NUMBER_OF_BOOKS_TO, YEAR_FROM, YEAR_TO, MINISERIES, E_BOOK_SERIES) >> bookSeriesBaseResponse
 		0 * _
 		bookSeriesBaseResponse == bookSeriesBaseResponseOutput

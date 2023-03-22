@@ -28,7 +28,7 @@ class LiteratureTest extends AbstractLiteratureTest {
 		LiteratureFullResponse literatureFullResponseOutput = literature.get(UID)
 
 		then:
-		1 * literatureApiMock.v1Get(UID) >> literatureFullResponse
+		1 * literatureApiMock.v1GetLiterature(UID) >> literatureFullResponse
 		0 * _
 		literatureFullResponse == literatureFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class LiteratureTest extends AbstractLiteratureTest {
 				SHAKESPEAREAN_WORK, REPORT, SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE)
 
 		then:
-		1 * literatureApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK, REPORT,
+		1 * literatureApiMock.v1SearchLiterature(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK, REPORT,
 				SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE) >> literatureBaseResponse
 		0 * _
 		literatureBaseResponse == literatureBaseResponseOutput
@@ -67,7 +67,7 @@ class LiteratureTest extends AbstractLiteratureTest {
 		LiteratureBaseResponse literatureBaseResponseOutput = literature.search(literatureSearchCriteria)
 
 		then:
-		1 * literatureApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK,
+		1 * literatureApiMock.v1SearchLiterature(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, EARTHLY_ORIGIN, SHAKESPEAREAN_WORK,
 				REPORT, SCIENTIFIC_LITERATURE, TECHNICAL_MANUAL, RELIGIOUS_LITERATURE) >> literatureBaseResponse
 		0 * _
 		literatureBaseResponse == literatureBaseResponseOutput

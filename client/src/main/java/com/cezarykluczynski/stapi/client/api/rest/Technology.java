@@ -20,11 +20,11 @@ public class Technology {
 
 	@Deprecated
 	public TechnologyFullResponse get(String uid) throws ApiException {
-		return technologyApi.v1Get(uid);
+		return technologyApi.v1GetTechnology(uid);
 	}
 
 	public TechnologyV2FullResponse getV2(String uid) throws ApiException {
-		return technologyApi.v2Get(uid);
+		return technologyApi.v2GetTechnology(uid);
 	}
 
 	@Deprecated
@@ -33,7 +33,7 @@ public class Technology {
 			Boolean database, Boolean energyTechnology, Boolean fictionalTechnology, Boolean holographicTechnology, Boolean identificationTechnology,
 			Boolean lifeSupportTechnology, Boolean sensorTechnology, Boolean shieldTechnology, Boolean tool, Boolean culinaryTool,
 			Boolean engineeringTool, Boolean householdTool, Boolean medicalEquipment, Boolean transporterTechnology) throws ApiException {
-		return technologyApi.v1Search(pageNumber, pageSize, sort, name, borgTechnology, borgComponent,
+		return technologyApi.v1SearchTechnology(pageNumber, pageSize, sort, name, borgTechnology, borgComponent,
 				communicationsTechnology, computerTechnology, computerProgramming, subroutine, database, energyTechnology, fictionalTechnology,
 				holographicTechnology, identificationTechnology, lifeSupportTechnology, sensorTechnology, shieldTechnology, tool, culinaryTool,
 				engineeringTool, householdTool, medicalEquipment, transporterTechnology);
@@ -48,7 +48,7 @@ public class Technology {
 			Boolean timeTravelTechnology, Boolean militaryTechnology, Boolean victualTechnology, Boolean tool, Boolean culinaryTool,
 			Boolean engineeringTool, Boolean householdTool, Boolean medicalEquipment, Boolean transporterTechnology,
 			Boolean transportationTechnology, Boolean weaponComponent, Boolean artificialLifeformComponent) throws ApiException {
-		return technologyApi.v2Search(pageNumber, pageSize, sort, name, borgTechnology, borgComponent,
+		return technologyApi.v2SearchTechnology(pageNumber, pageSize, sort, name, borgTechnology, borgComponent,
 				communicationsTechnology, computerTechnology, computerProgramming, subroutine, database, energyTechnology, fictionalTechnology,
 				holographicTechnology, identificationTechnology, lifeSupportTechnology, sensorTechnology, shieldTechnology, securityTechnology,
 				propulsionTechnology, spacecraftComponent, warpTechnology, transwarpTechnology, timeTravelTechnology, militaryTechnology,
@@ -57,7 +57,7 @@ public class Technology {
 	}
 
 	public TechnologyV2BaseResponse searchV2(TechnologyV2SearchCriteria technologyV2SearchCriteria) throws ApiException {
-		return technologyApi.v2Search(technologyV2SearchCriteria.getPageNumber(), technologyV2SearchCriteria.getPageSize(),
+		return technologyApi.v2SearchTechnology(technologyV2SearchCriteria.getPageNumber(), technologyV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(technologyV2SearchCriteria.getSort()), technologyV2SearchCriteria.getName(),
 				technologyV2SearchCriteria.getBorgTechnology(), technologyV2SearchCriteria.getBorgComponent(),
 				technologyV2SearchCriteria.getCommunicationsTechnology(), technologyV2SearchCriteria.getComputerTechnology(),

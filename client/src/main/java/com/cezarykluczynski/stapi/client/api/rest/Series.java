@@ -19,7 +19,7 @@ public class Series {
 	}
 
 	public SeriesFullResponse get(String uid) throws ApiException {
-		return seriesApi.v1Get(uid);
+		return seriesApi.v1GetSeries(uid);
 	}
 
 	@Deprecated
@@ -27,13 +27,13 @@ public class Series {
 			Integer productionStartYearFrom, Integer productionStartYearTo, Integer productionEndYearFrom, Integer productionEndYearTo,
 			LocalDate originalRunStartDateFrom, LocalDate originalRunStartDateTo, LocalDate originalRunEndDateFrom, LocalDate originalRunEndDateTo)
 			throws ApiException {
-		return seriesApi.v1Search(pageNumber, pageSize, sort, title, abbreviation, productionStartYearFrom,
+		return seriesApi.v1SearchSeries(pageNumber, pageSize, sort, title, abbreviation, productionStartYearFrom,
 				productionStartYearTo, productionEndYearFrom, productionEndYearTo, originalRunStartDateFrom, originalRunStartDateTo,
 				originalRunEndDateFrom, originalRunEndDateTo);
 	}
 
 	public SeriesBaseResponse search(SeriesSearchCriteria seriesSearchCriteria) throws ApiException {
-		return seriesApi.v1Search(seriesSearchCriteria.getPageNumber(), seriesSearchCriteria.getPageSize(),
+		return seriesApi.v1SearchSeries(seriesSearchCriteria.getPageNumber(), seriesSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(seriesSearchCriteria.getSort()), seriesSearchCriteria.getTitle(),
 				seriesSearchCriteria.getAbbreviation(), seriesSearchCriteria.getProductionStartYearFrom(),
 				seriesSearchCriteria.getProductionStartYearTo(), seriesSearchCriteria.getProductionEndYearFrom(),

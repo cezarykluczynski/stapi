@@ -17,17 +17,17 @@ public class Animal {
 	}
 
 	public AnimalFullResponse get(String uid) throws ApiException {
-		return animalApi.v1Get(uid);
+		return animalApi.v1GetAnimal(uid);
 	}
 
 	@Deprecated
 	public AnimalBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthAnimal, Boolean earthInsect,
 			Boolean avian, Boolean canine, Boolean feline) throws ApiException {
-		return animalApi.v1Search(pageNumber, pageSize, sort, name, earthAnimal, earthInsect, avian, canine, feline);
+		return animalApi.v1SearchAnimals(pageNumber, pageSize, sort, name, earthAnimal, earthInsect, avian, canine, feline);
 	}
 
 	public AnimalBaseResponse search(AnimalSearchCriteria animalSearchCriteria) throws ApiException {
-		return animalApi.v1Search(animalSearchCriteria.getPageNumber(), animalSearchCriteria.getPageSize(),
+		return animalApi.v1SearchAnimals(animalSearchCriteria.getPageNumber(), animalSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(animalSearchCriteria.getSort()), animalSearchCriteria.getName(),
 						animalSearchCriteria.getEarthAnimal(), animalSearchCriteria.getEarthInsect(), animalSearchCriteria.getAvian(),
 						animalSearchCriteria.getCanine(), animalSearchCriteria.getFeline());

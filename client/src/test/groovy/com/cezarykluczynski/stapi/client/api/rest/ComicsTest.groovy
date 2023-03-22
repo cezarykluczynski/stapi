@@ -28,7 +28,7 @@ class ComicsTest extends AbstractComicsTest {
 		ComicsFullResponse comicsFullResponseOutput = comics.get(UID)
 
 		then:
-		1 * comicsApiMock.v1Get(UID) >> comicsFullResponse
+		1 * comicsApiMock.v1GetComics(UID) >> comicsFullResponse
 		0 * _
 		comicsFullResponse == comicsFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class ComicsTest extends AbstractComicsTest {
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL, ADAPTATION)
 
 		then:
-		1 * comicsApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicsApiMock.v1SearchComics(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL, ADAPTATION) >>
 				comicsBaseResponse
 		0 * _
@@ -72,7 +72,7 @@ class ComicsTest extends AbstractComicsTest {
 		ComicsBaseResponse comicsBaseResponseOutput = comics.search(comicsSearchCriteria)
 
 		then:
-		1 * comicsApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicsApiMock.v1SearchComics(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL, ADAPTATION) >>
 				comicsBaseResponse
 		0 * _

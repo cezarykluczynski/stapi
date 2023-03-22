@@ -23,11 +23,11 @@ public class Staff {
 
 	@Deprecated
 	public StaffFullResponse get(String uid) throws ApiException {
-		return staffApi.v1Get(uid);
+		return staffApi.v1GetStaff(uid);
 	}
 
 	public StaffV2FullResponse getV2(String uid) throws ApiException {
-		return staffApi.v2Get(uid);
+		return staffApi.v2GetStaff(uid);
 	}
 
 	@Deprecated
@@ -45,7 +45,7 @@ public class Staff {
 			Boolean publicityArtist, Boolean cbsDigitalStaff, Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor,
 			Boolean studioExecutive, Boolean stuntDepartment, Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer)
 			throws ApiException {
-		return staffApi.v1Search(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return staffApi.v1SearchStaff(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
 				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
 				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, linguist, locationStaff, makeupStaff, musicDepartment,
@@ -72,7 +72,7 @@ public class Staff {
 			Boolean publicationArtist, Boolean publicationDesigner, Boolean publicationEditor, Boolean publicityArtist, Boolean cbsDigitalStaff,
 			Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor, Boolean studioExecutive, Boolean stuntDepartment,
 			Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer) throws ApiException {
-		return staffApi.v2Search(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return staffApi.v2SearchStaff(pageNumber, pageSize, sort, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
 				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
 				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, filmationProductionStaff, linguist, locationStaff, makeupStaff,
@@ -85,7 +85,7 @@ public class Staff {
 	}
 
 	public StaffV2BaseResponse searchV2(StaffV2SearchCriteria staffV2SearchCriteria) throws ApiException {
-		return staffApi.v2Search(staffV2SearchCriteria.getPageNumber(), staffV2SearchCriteria.getPageSize(),
+		return staffApi.v2SearchStaff(staffV2SearchCriteria.getPageNumber(), staffV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(staffV2SearchCriteria.getSort()), staffV2SearchCriteria.getName(),
 				staffV2SearchCriteria.getBirthName(), nameIfPresent(staffV2SearchCriteria.getGender()), staffV2SearchCriteria.getDateOfBirthFrom(),
 				staffV2SearchCriteria.getDateOfBirthTo(), staffV2SearchCriteria.getPlaceOfBirth(), staffV2SearchCriteria.getDateOfDeathFrom(),

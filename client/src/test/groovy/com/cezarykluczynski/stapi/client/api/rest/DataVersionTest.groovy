@@ -22,7 +22,7 @@ class DataVersionTest extends Specification {
 		com.cezarykluczynski.stapi.client.rest.model.DataVersion dataVersionOutput = dataVersion.getDataVersion()
 
 		then:
-		1 * dataVersionApiMock.v1Get() >> dataVersionResponse
+		1 * dataVersionApiMock.v1GetDataVersion() >> dataVersionResponse
 		0 * _
 		dataVersionOutput == dataVersionResponse
 	}

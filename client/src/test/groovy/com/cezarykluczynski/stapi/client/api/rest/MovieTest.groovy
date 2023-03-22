@@ -28,7 +28,7 @@ class MovieTest extends AbstractMovieTest {
 		MovieFullResponse movieFullResponseOutput = movie.get(UID)
 
 		then:
-		1 * movieApiMock.v1Get(UID) >> movieFullResponse
+		1 * movieApiMock.v1GetMovie(UID) >> movieFullResponse
 		0 * _
 		movieFullResponse == movieFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class MovieTest extends AbstractMovieTest {
 				YEAR_FROM, YEAR_TO, US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO)
 
 		then:
-		1 * movieApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
+		1 * movieApiMock.v1SearchMovies(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
 				US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO) >> movieBaseResponse
 		0 * _
 		movieBaseResponse == movieBaseResponseOutput
@@ -67,7 +67,7 @@ class MovieTest extends AbstractMovieTest {
 		MovieBaseResponse movieBaseResponseOutput = movie.search(movieSearchCriteria)
 
 		then:
-		1 * movieApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
+		1 * movieApiMock.v1SearchMovies(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
 				US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO) >> movieBaseResponse
 		0 * _
 		movieBaseResponse == movieBaseResponseOutput

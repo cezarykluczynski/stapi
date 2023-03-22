@@ -28,7 +28,7 @@ class VideoGameTest extends AbstractVideoGameTest {
 		VideoGameFullResponse videoGameFullResponseOutput = videoGame.get(UID)
 
 		then:
-		1 * videoGameApiMock.v1Get(UID) >> videoGameFullResponse
+		1 * videoGameApiMock.v1GetVideoGame(UID) >> videoGameFullResponse
 		0 * _
 		videoGameFullResponse == videoGameFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class VideoGameTest extends AbstractVideoGameTest {
 				RELEASE_DATE_TO)
 
 		then:
-		1 * videoGameApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO) >>
+		1 * videoGameApiMock.v1SearchVideoGames(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO) >>
 				videoGameBaseResponse
 		0 * _
 		videoGameBaseResponse == videoGameBaseResponseOutput
@@ -63,7 +63,7 @@ class VideoGameTest extends AbstractVideoGameTest {
 		VideoGameBaseResponse videoGameBaseResponseOutput = videoGame.search(videoGameSearchCriteria)
 
 		then:
-		1 * videoGameApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO) >>
+		1 * videoGameApiMock.v1SearchVideoGames(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO) >>
 				videoGameBaseResponse
 		0 * _
 		videoGameBaseResponse == videoGameBaseResponseOutput

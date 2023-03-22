@@ -17,19 +17,19 @@ public class BookCollection {
 	}
 
 	public BookCollectionFullResponse get(String uid) throws ApiException {
-		return bookCollectionApi.v1Get(uid);
+		return bookCollectionApi.v1GetBookCollection(uid);
 	}
 
 	@Deprecated
 	public BookCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo) throws ApiException {
-		return bookCollectionApi.v1Search(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
+		return bookCollectionApi.v1SearchBookCollections(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo);
 	}
 
 	public BookCollectionBaseResponse search(BookCollectionSearchCriteria bookCollectionSearchCriteria) throws ApiException {
-		return bookCollectionApi.v1Search(bookCollectionSearchCriteria.getPageNumber(),
+		return bookCollectionApi.v1SearchBookCollections(bookCollectionSearchCriteria.getPageNumber(),
 				bookCollectionSearchCriteria.getPageSize(), StapiRestSortSerializer.serialize(bookCollectionSearchCriteria.getSort()),
 				bookCollectionSearchCriteria.getTitle(), bookCollectionSearchCriteria.getPublishedYearFrom(),
 				bookCollectionSearchCriteria.getPublishedYearTo(), bookCollectionSearchCriteria.getNumberOfPagesFrom(),

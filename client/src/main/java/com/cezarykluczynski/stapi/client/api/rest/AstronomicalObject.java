@@ -21,29 +21,29 @@ public class AstronomicalObject {
 
 	@Deprecated
 	public AstronomicalObjectFullResponse get(String uid) throws ApiException {
-		return astronomicalObjectApi.v1Get(uid);
+		return astronomicalObjectApi.v1GetAstronomicalObject(uid);
 	}
 
 	public AstronomicalObjectV2FullResponse getV2(String uid) throws ApiException {
-		return astronomicalObjectApi.v2Get(uid);
+		return astronomicalObjectApi.v2GetAstronomicalObject(uid);
 	}
 
 	@Deprecated
 	public AstronomicalObjectBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String astronomicalObjectType,
 			String locationUid) throws ApiException {
-		return astronomicalObjectApi.v1Search(pageNumber, pageSize, sort, name, astronomicalObjectType,
+		return astronomicalObjectApi.v1SearchAstronomicalObjects(pageNumber, pageSize, sort, name, astronomicalObjectType,
 				locationUid);
 	}
 
 	@Deprecated
 	public AstronomicalObjectV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String astronomicalObjectType,
 			String locationUid) throws ApiException {
-		return astronomicalObjectApi.v2Search(pageNumber, pageSize, sort, name, astronomicalObjectType,
+		return astronomicalObjectApi.v2SearchAstronomicalObjects(pageNumber, pageSize, sort, name, astronomicalObjectType,
 				locationUid);
 	}
 
 	public AstronomicalObjectV2BaseResponse searchV2(AstronomicalObjectV2SearchCriteria astronomicalObjectV2SearchCriteria) throws ApiException {
-		return astronomicalObjectApi.v2Search(astronomicalObjectV2SearchCriteria.getPageNumber(),
+		return astronomicalObjectApi.v2SearchAstronomicalObjects(astronomicalObjectV2SearchCriteria.getPageNumber(),
 				astronomicalObjectV2SearchCriteria.getPageSize(), StapiRestSortSerializer.serialize(astronomicalObjectV2SearchCriteria.getSort()),
 				astronomicalObjectV2SearchCriteria.getName(), nameIfPresent(astronomicalObjectV2SearchCriteria.getAstronomicalObjectType()),
 				astronomicalObjectV2SearchCriteria.getLocationUid());

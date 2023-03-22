@@ -28,7 +28,7 @@ class MagazineTest extends AbstractMagazineTest {
 		MagazineFullResponse magazineFullResponseOutput = magazine.get(UID)
 
 		then:
-		1 * magazineApiMock.v1Get(UID) >> magazineFullResponse
+		1 * magazineApiMock.v1GetMagazine(UID) >> magazineFullResponse
 		0 * _
 		magazineFullResponse == magazineFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class MagazineTest extends AbstractMagazineTest {
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO)
 
 		then:
-		1 * magazineApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * magazineApiMock.v1SearchMagazines(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO) >> magazineBaseResponse
 		0 * _
 		magazineBaseResponse == magazineBaseResponseOutput
@@ -65,7 +65,7 @@ class MagazineTest extends AbstractMagazineTest {
 		MagazineBaseResponse magazineBaseResponseOutput = magazine.search(magazineSearchCriteria)
 
 		then:
-		1 * magazineApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * magazineApiMock.v1SearchMagazines(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO) >> magazineBaseResponse
 		0 * _
 		magazineBaseResponse == magazineBaseResponseOutput

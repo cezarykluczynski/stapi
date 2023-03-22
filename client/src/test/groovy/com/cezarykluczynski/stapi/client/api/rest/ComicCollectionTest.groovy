@@ -29,7 +29,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		ComicCollectionFullResponse comicCollectionFullResponseOutput = comicCollection.get(UID)
 
 		then:
-		1 * comicCollectionApiMock.v1Get(UID) >> comicCollectionFullResponse
+		1 * comicCollectionApiMock.v1GetComicCollection(UID) >> comicCollectionFullResponse
 		0 * _
 		comicCollectionFullResponse == comicCollectionFullResponseOutput
 	}
@@ -42,7 +42,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		ComicCollectionV2FullResponse comicCollectionV2FullResponseOutput = comicCollection.getV2(UID)
 
 		then:
-		1 * comicCollectionApiMock.v2Get(UID) >> comicCollectionV2FullResponse
+		1 * comicCollectionApiMock.v2GetComicCollection(UID) >> comicCollectionV2FullResponse
 		0 * _
 		comicCollectionV2FullResponse == comicCollectionV2FullResponseOutput
 	}
@@ -57,7 +57,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 				PHOTONOVEL)
 
 		then:
-		1 * comicCollectionApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
+		1 * comicCollectionApiMock.v1SearchComicCollections(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL) >>
 				comicCollectionBaseResponse
 		0 * _
@@ -86,7 +86,7 @@ class ComicCollectionTest extends AbstractComicCollectionTest {
 		ComicCollectionBaseResponse comicCollectionBaseResponseOutput = comicCollection.search(comicCollectionSearchCriteria)
 
 		then:
-		1 * comicCollectionApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
+		1 * comicCollectionApiMock.v1SearchComicCollections(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL) >>
 				comicCollectionBaseResponse
 		0 * _

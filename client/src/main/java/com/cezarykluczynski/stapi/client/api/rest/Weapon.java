@@ -20,18 +20,18 @@ public class Weapon {
 
 	@Deprecated
 	public WeaponFullResponse get(String uid) throws ApiException {
-		return weaponApi.v1Get(uid);
+		return weaponApi.v1GetWeapon(uid);
 	}
 
 	public WeaponV2FullResponse getV2(String uid) throws ApiException {
-		return weaponApi.v2Get(uid);
+		return weaponApi.v2GetWeapon(uid);
 	}
 
 	@Deprecated
 	public WeaponBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean handHeldWeapon, Boolean laserTechnology,
 			Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean mirror, Boolean alternateReality)
 			throws ApiException {
-		return weaponApi.v1Search(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
+		return weaponApi.v1SearchWeapons(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
 				photonicTechnology, phaserTechnology, mirror, alternateReality);
 	}
 
@@ -40,13 +40,13 @@ public class Weapon {
 			Boolean laserTechnology, Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean directedEnergyWeapon,
 			Boolean explosiveWeapon, Boolean projectileWeapon, Boolean fictionalWeapon, Boolean mirror, Boolean alternateReality)
 			throws ApiException {
-		return weaponApi.v2Search(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
+		return weaponApi.v2SearchWeapons(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
 				photonicTechnology, phaserTechnology, directedEnergyWeapon, explosiveWeapon, projectileWeapon, fictionalWeapon, mirror,
 				alternateReality);
 	}
 
 	public WeaponV2BaseResponse searchV2(WeaponV2SearchCriteria weaponV2SearchCriteria) throws ApiException {
-		return weaponApi.v2Search(weaponV2SearchCriteria.getPageNumber(), weaponV2SearchCriteria.getPageSize(),
+		return weaponApi.v2SearchWeapons(weaponV2SearchCriteria.getPageNumber(), weaponV2SearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(weaponV2SearchCriteria.getSort()), weaponV2SearchCriteria.getName(),
 				weaponV2SearchCriteria.getHandHeldWeapon(), weaponV2SearchCriteria.getLaserTechnology(), weaponV2SearchCriteria.getPlasmaTechnology(),
 				weaponV2SearchCriteria.getPhotonicTechnology(), weaponV2SearchCriteria.getPhaserTechnology(),

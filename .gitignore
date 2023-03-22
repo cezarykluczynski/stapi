@@ -4,11 +4,12 @@ data/
 build/
 out/
 logs/
-server/src/main/resources/application-stapi-custom.properties
-server/src/integrationTest/resources/application-test.properties
 node_modules
 model/**/*_.java
 stapi.iml
 **/lombok.config
-server/src/main/generated/com/cezarykluczynski/stapi/server/
 docker/build.log
+server/src/main/resources/application-stapi-custom.properties
+server/src/integrationTest/resources/application-test.properties
+server/src/main/generated/com/cezarykluczynski/stapi/server/
+client/.openapi-generator/

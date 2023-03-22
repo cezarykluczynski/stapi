@@ -31,7 +31,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 		VideoReleaseFullResponse videoReleaseFullResponseOutput = videoRelease.get(UID)
 
 		then:
-		1 * videoReleaseApiMock.v1Get(UID) >> videoReleaseFullResponse
+		1 * videoReleaseApiMock.v1GetVideoRelease(UID) >> videoReleaseFullResponse
 		0 * _
 		videoReleaseFullResponse == videoReleaseFullResponseOutput
 	}
@@ -44,7 +44,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 		VideoReleaseV2FullResponse videoReleaseV2FullResponseOutput = videoRelease.getV2(UID)
 
 		then:
-		1 * videoReleaseApiMock.v2Get(UID) >> videoReleaseV2FullResponse
+		1 * videoReleaseApiMock.v2GetVideoRelease(UID) >> videoReleaseV2FullResponse
 		0 * _
 		videoReleaseV2FullResponse == videoReleaseV2FullResponseOutput
 	}
@@ -58,7 +58,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 				RUN_TIME_FROM, RUN_TIME_TO)
 
 		then:
-		1 * videoReleaseApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
+		1 * videoReleaseApiMock.v1SearchVideoReleases(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
 				RUN_TIME_TO) >> videoReleaseBaseResponse
 		0 * _
 		videoReleaseBaseResponse == videoReleaseBaseResponseOutput
@@ -82,7 +82,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 		VideoReleaseBaseResponse videoReleaseBaseResponseOutput = videoRelease.search(videoReleaseSearchCriteria)
 
 		then:
-		1 * videoReleaseApiMock.v1Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
+		1 * videoReleaseApiMock.v1SearchVideoReleases(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
 				RUN_TIME_TO) >> videoReleaseBaseResponse
 		0 * _
 		videoReleaseBaseResponse == videoReleaseBaseResponseOutput
@@ -108,7 +108,7 @@ class VideoReleaseTest extends AbstractVideoReleaseTest {
 		VideoReleaseV2BaseResponse videoReleaseBaseResponseOutput = videoRelease.searchV2(videoReleaseSearchCriteria)
 
 		then:
-		1 * videoReleaseApiMock.v2Search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
+		1 * videoReleaseApiMock.v2SearchVideoReleases(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, YEAR_FROM, YEAR_TO, RUN_TIME_FROM,
 				RUN_TIME_TO, DOCUMENTARY, SPECIAL_FEATURES) >> videoReleaseV2BaseResponse
 		0 * _
 		videoReleaseV2BaseResponse == videoReleaseBaseResponseOutput

@@ -44,7 +44,7 @@ class VideoReleaseFullRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseFull.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
 		videoReleaseFull.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
 		videoReleaseFull.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE
-		videoReleaseFull.ITunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
+		videoReleaseFull.iTunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
 		videoReleaseFull.ultraVioletDigitalRelease == ULTRA_VIOLET_DIGITAL_RELEASE
 		videoReleaseFull.vimeoDigitalRelease == VIMEO_DIGITAL_RELEASE
 		videoReleaseFull.vuduDigitalRelease == VUDU_DIGITAL_RELEASE
@@ -88,7 +88,7 @@ class VideoReleaseFullRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseV2Full.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
 		videoReleaseV2Full.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
 		videoReleaseV2Full.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE
-		videoReleaseV2Full.ITunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
+		videoReleaseV2Full.iTunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
 		videoReleaseV2Full.ultraVioletDigitalRelease == ULTRA_VIOLET_DIGITAL_RELEASE
 		videoReleaseV2Full.vimeoDigitalRelease == VIMEO_DIGITAL_RELEASE
 		videoReleaseV2Full.vuduDigitalRelease == VUDU_DIGITAL_RELEASE

@@ -17,19 +17,19 @@ public class ComicSeries {
 	}
 
 	public ComicSeriesFullResponse get(String uid) throws ApiException {
-		return comicSeriesApi.v1Get(uid);
+		return comicSeriesApi.v1GetComicSeries(uid);
 	}
 
 	@Deprecated
 	public ComicSeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfIssuesFrom, Integer numberOfIssuesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean miniseries, Boolean photonovelSeries) throws ApiException {
-		return comicSeriesApi.v1Search(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
+		return comicSeriesApi.v1SearchComicSeries(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
 				numberOfIssuesFrom, numberOfIssuesTo, stardateFrom, stardateTo, yearFrom, yearTo, miniseries, photonovelSeries);
 	}
 
 	public ComicSeriesBaseResponse search(ComicSeriesSearchCriteria comicSeriesSearchCriteria) throws ApiException {
-		return comicSeriesApi.v1Search(comicSeriesSearchCriteria.getPageNumber(), comicSeriesSearchCriteria.getPageSize(),
+		return comicSeriesApi.v1SearchComicSeries(comicSeriesSearchCriteria.getPageNumber(), comicSeriesSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(comicSeriesSearchCriteria.getSort()), comicSeriesSearchCriteria.getTitle(),
 				comicSeriesSearchCriteria.getPublishedYearFrom(), comicSeriesSearchCriteria.getPublishedYearTo(),
 				comicSeriesSearchCriteria.getNumberOfIssuesFrom(), comicSeriesSearchCriteria.getNumberOfIssuesTo(),

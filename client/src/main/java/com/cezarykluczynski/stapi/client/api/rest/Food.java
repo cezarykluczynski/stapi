@@ -17,19 +17,19 @@ public class Food {
 	}
 
 	public FoodFullResponse get(String uid) throws ApiException {
-		return foodApi.v1Get(uid);
+		return foodApi.v1GetFood(uid);
 	}
 
 	@Deprecated
 	public FoodBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthlyOrigin, Boolean dessert,
 			Boolean fruit, Boolean herbOrSpice, Boolean sauce, Boolean soup, Boolean beverage, Boolean alcoholicBeverage, Boolean juice, Boolean tea)
 			throws ApiException {
-		return foodApi.v1Search(pageNumber, pageSize, sort, name, earthlyOrigin, dessert, fruit, herbOrSpice, sauce, soup,
+		return foodApi.v1SearchFoods(pageNumber, pageSize, sort, name, earthlyOrigin, dessert, fruit, herbOrSpice, sauce, soup,
 				beverage, alcoholicBeverage, juice, tea);
 	}
 
 	public FoodBaseResponse search(FoodSearchCriteria foodSearchCriteria) throws ApiException {
-		return foodApi.v1Search(foodSearchCriteria.getPageNumber(), foodSearchCriteria.getPageSize(),
+		return foodApi.v1SearchFoods(foodSearchCriteria.getPageNumber(), foodSearchCriteria.getPageSize(),
 				StapiRestSortSerializer.serialize(foodSearchCriteria.getSort()), foodSearchCriteria.getName(),
 				foodSearchCriteria.getEarthlyOrigin(), foodSearchCriteria.getDessert(), foodSearchCriteria.getFruit(),
 				foodSearchCriteria.getHerbOrSpice(), foodSearchCriteria.getSauce(), foodSearchCriteria.getSoup(), foodSearchCriteria.getBeverage(),
