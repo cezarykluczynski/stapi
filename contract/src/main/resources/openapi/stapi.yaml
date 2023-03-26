@@ -1,6 +1,7 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
   title: STAPI
+  description: STAPI, a Star Trek API
   version: 0.1.2-SNAPSHOT
 servers:
   - url: https://stapi.co/api
@@ -3979,8 +3980,7 @@ paths:
                   description: Whether this organization should be from mirror universe
                 alternateReality:
                   type: boolean
-                  description: Whether this organization should be from alternate
-                    reality
+                  description: Whether this organization should be from alternate reality
       responses:
         200:
           description: OK
@@ -4290,61 +4290,50 @@ paths:
                   description: Whether it should be a cut performer
                 disPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Discovery'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Discovery'
                 ds9Performer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Deep Space Nine'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Deep Space Nine'
                 entPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Enterprise'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Enterprise'
                 filmPerformer:
                   type: boolean
                   description: Whether it should be a performer that appeared in a
                     Star Trek movie
                 ldPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Lower Decks'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Lower Decks'
                 picPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Picard'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Picard'
                 proPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Prodigy'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Prodigy'
                 puppeteer:
                   type: boolean
                   description: Whether it should be a puppeteer
                 snwPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Strange New Worlds'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Strange New Worlds'
                 standInPerformer:
                   type: boolean
                   description: Whether it should be a stand-in performer
                 stPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Short Treks'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Short Treks'
                 stuntPerformer:
                   type: boolean
                   description: Whether it should be a stunt performer
                 tasPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: The Animated Series'
+                  description: 'Whether it should be a performer that appeared in Star Trek: The Animated Series'
                 tngPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: The Next Generation'
+                  description: 'Whether it should be a performer that appeared in Star Trek: The Next Generation'
                 tosPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: The Original Series'
+                  description: 'Whether it should be a performer that appeared in Star Trek: The Original Series'
                 videoGamePerformer:
                   type: boolean
                   description: Whether it should be a video game performer
@@ -4353,8 +4342,7 @@ paths:
                   description: Whether it should be a voice performer
                 voyPerformer:
                   type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Voyager'
+                  description: 'Whether it should be a performer that appeared in Star Trek: Voyager'
       responses:
         200:
           description: OK
@@ -5119,12 +5107,10 @@ paths:
                   description: Whether it should be a warp-capable spacecraft class
                 mirror:
                   type: boolean
-                  description: Whether this spacecraft class should be from mirror
-                    universe
+                  description: Whether this spacecraft class should be from mirror universe
                 alternateReality:
                   type: boolean
-                  description: Whether this spacecraft class should be from alternate
-                    reality
+                  description: Whether this spacecraft class should be from alternate reality
       responses:
         200:
           description: OK
@@ -5578,8 +5564,7 @@ paths:
                   description: Whether this person should be a director
                 assistantOrSecondUnitDirector:
                   type: boolean
-                  description: Whether this person should be an assistant or secound
-                    unit director director
+                  description: Whether this person should be an assistant or second unit director director
                 exhibitAndAttractionStaff:
                   type: boolean
                   description: Whether this person should be an exhibit and attraction
@@ -5873,8 +5858,7 @@ paths:
                   description: Whether this person should be a director
                 assistantOrSecondUnitDirector:
                   type: boolean
-                  description: Whether this person should be an assistant or secound
-                    unit director director
+                  description: Whether this person should be an assistant or second unit director director
                 exhibitAndAttractionStaff:
                   type: boolean
                   description: Whether this person should be an exhibit and attraction
@@ -6137,8 +6121,7 @@ paths:
                   description: Whether it should be a computer technology
                 computerProgramming:
                   type: boolean
-                  description: Whether it should be a technology related to computer
-                    programming
+                  description: Whether it should be a technology related to computer programming
                 subroutine:
                   type: boolean
                   description: Whether it should be a subroutine
@@ -6294,8 +6277,7 @@ paths:
                   description: Whether it should be a computer technology
                 computerProgramming:
                   type: boolean
-                  description: Whether it should be a technology related to computer
-                    programming
+                  description: Whether it should be a technology related to computer programming
                 subroutine:
                   type: boolean
                   description: Whether it should be a subroutine
@@ -7550,6 +7532,38 @@ paths:
                 $ref: '#/components/schemas/WeaponV2BaseResponse'
 components:
   schemas:
+    AnimalSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Animal name
+        earthAnimal:
+          type: boolean
+          description: Whether it should be an earth animal
+        earthInsect:
+          type: boolean
+          description: Whether it should be an earth insect
+        avian:
+          type: boolean
+          description: Whether it should be an avian
+        canine:
+          type: boolean
+          description: Whether it should be a canine
+        feline:
+          type: boolean
+          description: Whether it should be a feline
     AnimalHeader:
       required:
         - name
@@ -7760,6 +7774,28 @@ components:
         location:
           $ref: '#/components/schemas/AstronomicalObjectHeader'
       description: Base astronomical object, returned in search results (V2)
+    AstronomicalObjectV2SearchCriteria:
+      type: object
+      description: Astronomical object search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Astronomical object name
+        astronomicalObjectType:
+          $ref: '#/components/schemas/AstronomicalObjectV2Type'
+        locationUid:
+          type: string
+          description: Astronomical object's location unique ID
     AstronomicalObjectV2Full:
       required:
         - astronomicalObjectType
@@ -7862,7 +7898,7 @@ components:
         - audiobook
         - audiobookAbridged
         - biographyBook
-        - eBook
+        - ebook
         - novel
         - novelization
         - referenceBook
@@ -7915,9 +7951,9 @@ components:
         rolePlayingBook:
           type: boolean
           description: Whether it's a role playing book
-        eBook:
+        ebook:
           type: boolean
-          description: Whether it's an eBook
+          description: Whether it's an e-book
         anthology:
           type: boolean
           description: Whether it's an anthology
@@ -7953,7 +7989,7 @@ components:
         - audiobook
         - audiobookAbridged
         - biographyBook
-        - eBook
+        - ebook
         - novel
         - novelization
         - referenceBook
@@ -8006,9 +8042,9 @@ components:
         rolePlayingBook:
           type: boolean
           description: Whether it's a role playing book
-        eBook:
+        ebook:
           type: boolean
-          description: Whether it's an eBook
+          description: Whether it's an e-book
         anthology:
           type: boolean
           description: Whether it's an anthology
@@ -8112,13 +8148,108 @@ components:
         book:
           $ref: '#/components/schemas/BookFull'
       description: Response object for single book query
+    BookV2SearchCriteria:
+      type: object
+      description: Book search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Book title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the book was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the book was published
+          format: int32
+        numberOfPagesFrom:
+          type: integer
+          description: Minimal number of pages
+          format: int32
+        numberOfPagesTo:
+          type: integer
+          description: Maximal number of pages
+          format: int32
+        stardateFrom:
+          type: number
+          description: Starting stardate of book story
+          format: float
+        stardateTo:
+          type: number
+          description: Ending stardate of book story
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of book story
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of book story
+          format: int32
+        novel:
+          type: boolean
+          description: Whether it should be a novel
+        referenceBook:
+          type: boolean
+          description: Whether it should be a reference book
+        biographyBook:
+          type: boolean
+          description: Whether it should be a biography book
+        rolePlayingBook:
+          type: boolean
+          description: Whether it should be a role playing book
+        unauthorizedPublication:
+          type: boolean
+          description: Whether it should be an unauthorized publication
+        ebook:
+          type: boolean
+          description: Whether it should be an e-book
+        anthology:
+          type: boolean
+          description: Whether it should be an anthology
+        novelization:
+          type: boolean
+          description: Whether it should be novelization
+        audiobook:
+          type: boolean
+          description: Whether it should be an audiobook
+        audiobookAbridged:
+          type: boolean
+          description: Whether it should be an audiobook, abridged
+        audiobookPublishedYearFrom:
+          type: integer
+          description: Starting year the audiobook was published
+          format: int32
+        audiobookPublishedYearTo:
+          type: integer
+          description: Ending year the audiobook was published
+          format: int32
+        audiobookRunTimeFrom:
+          type: integer
+          description: Minimal audiobook run time, in minutes
+          format: int32
+        audiobookRunTimeTo:
+          type: integer
+          description: Maximal audiobook run time, in minutes
+          format: int32
     BookV2Base:
       required:
         - anthology
         - audiobook
         - audiobookAbridged
         - biographyBook
-        - eBook
+        - ebook
         - novel
         - novelization
         - referenceBook
@@ -8172,9 +8303,9 @@ components:
         rolePlayingBook:
           type: boolean
           description: Whether it's a role playing book
-        eBook:
+        ebook:
           type: boolean
-          description: Whether it's an eBook
+          description: Whether it's an e-book # In V3 it should be eBook
         anthology:
           type: boolean
           description: Whether it's an anthology
@@ -8213,7 +8344,7 @@ components:
         - audiobook
         - audiobookAbridged
         - biographyBook
-        - eBook
+        - ebook
         - novel
         - novelization
         - referenceBook
@@ -8267,9 +8398,9 @@ components:
         rolePlayingBook:
           type: boolean
           description: Whether it's a role playing book
-        eBook:
+        ebook:
           type: boolean
-          description: Whether it's an e-book
+          description: Whether it's an e-book  # In V3 it should be eBook
         anthology:
           type: boolean
           description: Whether it's an anthology
@@ -8376,6 +8507,55 @@ components:
         book:
           $ref: '#/components/schemas/BookV2Full'
       description: Response object for single book query (V2)
+    BookCollectionSearchCriteria:
+      type: object
+      description: Book collection search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Book collection title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the book collection was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the book collection was published
+          format: int32
+        numberOfPagesFrom:
+          type: integer
+          description: Minimal number of pages
+          format: int32
+        numberOfPagesTo:
+          type: integer
+          description: Maximal number of pages
+          format: int32
+        stardateFrom:
+          type: number
+          description: Starting stardate of book collection stories
+          format: float
+        stardateTo:
+          type: number
+          description: Ending stardate of book collections stories
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of book collection stories
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of book collections stories
+          format: int32
     BookCollectionHeader:
       type: object
       properties:
@@ -8517,6 +8697,53 @@ components:
         bookCollection:
           $ref: '#/components/schemas/BookCollectionFull'
       description: Response object for single book collection query
+    BookSeriesSearchCriteria:
+      type: object
+      description: Book series search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Book series title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the book series was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the book series was published
+          format: int32
+        numberOfBooksFrom:
+          type: integer
+          description: Minimal number of books
+          format: int32
+        numberOfBooksTo:
+          type: integer
+          description: Maximal number of books
+          format: int32
+        yearFrom:
+          type: integer
+          description: Starting year of book series stories
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of book series stories
+          format: int32
+        miniseries:
+          type: boolean
+          description: Whether it should be a miniseries
+        ebookSeries:
+          type: boolean
+          description: Whether it should be an e-book series
     BookSeriesHeader:
       type: object
       properties:
@@ -8563,9 +8790,9 @@ components:
         miniseries:
           type: boolean
           description: Whether it's a miniseries
-        eBookSeries:
+        ebookSeries:
           type: boolean
-          description: Whether it's a e-book series
+          description: Whether it's a e-book series # In V2 it should be eBookSeries
       description: Base book series, returned in search results
     BookSeriesFull:
       required:
@@ -8603,9 +8830,9 @@ components:
         miniseries:
           type: boolean
           description: Whether it's a miniseries
-        eBookSeries:
+        ebookSeries:
           type: boolean
-          description: Whether it's a e-book series
+          description: Whether it's a e-book series  # In V2 it should be eBookSeries
         parentSeries:
           type: array
           description: Book series this book series is included in
@@ -8646,6 +8873,41 @@ components:
         bookSeries:
           $ref: '#/components/schemas/BookSeriesFull'
       description: Response object for single book series query
+    CharacterSearchCriteria:
+      type: object
+      description: Character search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Character name
+        gender:
+          type: string
+          description: Character gender
+        deceased:
+          type: boolean
+          description: Whether it should be a deceased character
+        hologram:
+          type: boolean
+          description: Whether it should be a hologram
+        fictionalCharacter:
+          type: boolean
+          description: Whether it should be a fictional character (from universe point of view)
+        mirror:
+          type: boolean
+          description: Whether it should be a mirror universe character
+        alternateReality:
+          type: boolean
+          description: Whether it should be a alternate reality character
     CharacterHeader:
       required:
         - name
@@ -8899,6 +9161,61 @@ components:
           type: integer
           description: Denominator
       description: Species a character belongs to
+    ComicsSearchCriteria:
+      type: object
+      description: Comics search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Comics title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the comics was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the comics was published
+          format: int32
+        numberOfPagesFrom:
+          type: integer
+          description: Minimal number of pages
+          format: int32
+        numberOfPagesTo:
+          type: integer
+          description: Maximal number of pages
+          format: int32
+        stardateFrom:
+          type: number
+          description: Starting stardate of comics story
+          format: float
+        stardateTo:
+          type: number
+          description: Ending stardate of comics story
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of comics story
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of comics story
+          format: int32
+        photonovel:
+          type: boolean
+          description: Whether it should be a photonovel
+        adaptation:
+          type: boolean
+          description: Whether it should be an adaptation of an episode or a movie
     ComicsHeader:
       required:
         - title
@@ -9084,6 +9401,58 @@ components:
         comics:
           $ref: '#/components/schemas/ComicsFull'
       description: Response object for single comics query
+    ComicCollectionSearchCriteria:
+      type: object
+      description: Comic collection search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Comic collection title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the comic collection was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the comic collection was published
+          format: int32
+        numberOfPagesFrom:
+          type: integer
+          description: Minimal number of pages
+          format: int32
+        numberOfPagesTo:
+          type: integer
+          description: Maximal number of pages
+          format: int32
+        stardateFrom:
+          type: number
+          description: Starting stardate of comic collection stories
+          format: float
+        stardateTo:
+          type: number
+          description: Ending stardate of comic collections stories
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of comic collection stories
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of comic collections stories
+          format: int32
+        photonovel:
+          type: boolean
+          description: Whether it should be an photonovel collection
     ComicCollectionHeader:
       required:
         - title
@@ -9370,6 +9739,61 @@ components:
         comicCollection:
           $ref: '#/components/schemas/ComicCollectionV2Full'
       description: Response object for single comic collection query (V2)
+    ComicSeriesSearchCriteria:
+      type: object
+      description: Comic series search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Comic series title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the comic series was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the comic series was published
+          format: int32
+        numberOfIssuesFrom:
+          type: integer
+          description: Minimal number of issues
+          format: int32
+        numberOfIssuesTo:
+          type: integer
+          description: Maximal number of issues
+          format: int32
+        stardateFrom:
+          type: number
+          description: Starting stardate of comic series stories
+          format: float
+        stardateTo:
+          type: number
+          description: Starting stardate of comic series stories
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of comic series stories
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of comic series stories
+          format: int32
+        miniseries:
+          type: boolean
+          description: Whether it should be a miniseries
+        photonovelSeries:
+          type: boolean
+          description: Whether it should be photonovel series
     ComicSeriesHeader:
       required:
         - title
@@ -9530,6 +9954,47 @@ components:
         comicSeries:
           $ref: '#/components/schemas/ComicSeriesFull'
       description: Response object for single comic series query
+    ComicStripSearchCriteria:
+      type: object
+      description: Comic strip search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Comic strip title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the comic strip was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the comic strip was published
+          format: int32
+        numberOfPagesFrom:
+          type: integer
+          description: Minimal number of pages
+          format: int32
+        numberOfPagesTo:
+          type: integer
+          description: Maximal number of pages
+          format: int32
+        yearFrom:
+          type: integer
+          description: Starting year of comic strip story
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of comic strip story
+          format: int32
     ComicStripHeader:
       required:
         - title
@@ -9668,6 +10133,87 @@ components:
         comicStrip:
           $ref: '#/components/schemas/ComicStripFull'
       description: Response object for single comic strip query
+    CompanyV2SearchCriteria:
+      type: object
+      description: Company search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Company name
+        broadcaster:
+          type: boolean
+          description: Whether it should be a broadcaster
+        streamingService:
+          type: boolean
+          description: Whether it should be a streaming service
+        collectibleCompany:
+          type: boolean
+          description: Whether it should be a collectible company
+        conglomerate:
+          type: boolean
+          description: Whether it should be a conglomerate
+        visualEffectsCompany:
+          type: boolean
+          description: Whether it should be a visual effects company
+        digitalVisualEffectsCompany:
+          type: boolean
+          description: Whether it should be a digital visual effects company
+        distributor:
+          type: boolean
+          description: Whether it should be a distributor
+        gameCompany:
+          type: boolean
+          description: Whether it should be a game company
+        filmEquipmentCompany:
+          type: boolean
+          description: Whether it should be a film equipment company
+        makeUpEffectsStudio:
+          type: boolean
+          description: Whether it should be a make-up effects studio
+        mattePaintingCompany:
+          type: boolean
+          description: Whether it should be a matte painting company
+        modelAndMiniatureEffectsCompany:
+          type: boolean
+          description: Whether it should be a model and miniature effects
+            company
+        postProductionCompany:
+          type: boolean
+          description: Whether it should be a post-production company
+        productionCompany:
+          type: boolean
+          description: Whether it should be a production company
+        propCompany:
+          type: boolean
+          description: Whether it should be a prop company
+        recordLabel:
+          type: boolean
+          description: Whether it should be a record label
+        specialEffectsCompany:
+          type: boolean
+          description: Whether it should be a special effects company
+        tvAndFilmProductionCompany:
+          type: boolean
+          description: Whether it should be a TV and film production company
+        videoGameCompany:
+          type: boolean
+          description: Whether it should be a video game company
+        publisher:
+          type: boolean
+          description: Whether it should be a publisher
+        publicationArtStudio:
+          type: boolean
+          description: Whether it should be a publication art studio
     CompanyHeader:
       required:
         - name
@@ -9999,6 +10545,48 @@ components:
         company:
           $ref: '#/components/schemas/CompanyV2Full'
       description: Response object for single company query (V2)
+    ConflictSearchCriteria:
+      type: object
+      description: Conflict search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Conflict name
+        yearFrom:
+          type: integer
+          description: Starting year of the conflict
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of the conflict
+          format: int32
+        earthConflict:
+          type: boolean
+          description: Whether it should be an Earth conflict
+        federationWar:
+          type: boolean
+          description: Whether this conflict should be a part of war involving
+            Federation
+        klingonWar:
+          type: boolean
+          description: Whether this conflict should be a part of war involving
+            the Klingons
+        dominionWarBattle:
+          type: boolean
+          description: Whether this conflict should be a Dominion war battle
+        alternateReality:
+          type: boolean
+          description: Whether this conflict should be from alternate reality
     ConflictHeader:
       required:
         - name
@@ -10437,6 +11025,47 @@ components:
           type: boolean
           description: Whether it belongs to World series
       description: Base element, returned in search results (v2)
+    ElementV2SearchCriteria:
+      type: object
+      description: Element search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Element name
+        symbol:
+          type: string
+          description: Element symbol
+        transuranic:
+          type: boolean
+          description: Whether it should be a transuranic
+        gammaSeries:
+          type: boolean
+          description: Whether it should belong to Gamma series
+        hypersonicSeries:
+          type: boolean
+          description: Whether it should belong to Hypersonic series
+        megaSeries:
+          type: boolean
+          description: Whether it should belong to Mega series
+        omegaSeries:
+          type: boolean
+          description: Whether it should belong to Omega series
+        transonicSeries:
+          type: boolean
+          description: Whether it should belong to Transonic series
+        worldSeries:
+          type: boolean
+          description: Whether it should belong to World series
     ElementV2Full:
       required:
         - name
@@ -10499,6 +11128,79 @@ components:
         element:
           $ref: '#/components/schemas/ElementV2Full'
       description: Response object for single element query (V2)
+    EpisodeSearchCriteria:
+      type: object
+      description: Episode search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Episode title
+        seasonNumberFrom:
+          type: integer
+          description: Minimal season number
+          format: int32
+        seasonNumberTo:
+          type: integer
+          description: Maximal season number
+          format: int32
+        episodeNumberFrom:
+          type: integer
+          description: Minimal episode number in season
+          format: int32
+        episodeNumberTo:
+          type: integer
+          description: Maximal episode number in season
+          format: int32
+        productionSerialNumber:
+          type: string
+          description: Production serial number
+        featureLength:
+          type: boolean
+          description: Whether it should be a feature length episode
+        stardateFrom:
+          type: number
+          description: Starting stardate of episode story
+          format: float
+        stardateTo:
+          type: number
+          description: Ending stardate of episode story
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of episode story
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of episode story
+          format: int32
+        usAirDateFrom:
+          type: string
+          description: Minimal date the episode was first aired in the United
+            States
+          format: date
+        usAirDateTo:
+          type: string
+          description: Maximal date the episode was first aired in the United
+            States
+          format: date
+        finalScriptDateFrom:
+          type: string
+          description: Minimal date the episode script was completed
+          format: date
+        finalScriptDateTo:
+          type: string
+          description: Maximal date the episode script was completed
+          format: date
     EpisodeHeader:
       required:
         - title
@@ -10701,6 +11403,53 @@ components:
           type: string
           description: Error message
       description: Error object
+    FoodSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Food name
+        earthlyOrigin:
+          type: boolean
+          description: Whether it should be of earthly origin
+        dessert:
+          type: boolean
+          description: Whether it should be a dessert
+        fruit:
+          type: boolean
+          description: Whether it should be a fruit
+        herbOrSpice:
+          type: boolean
+          description: Whether it should be an herb or a spice
+        sauce:
+          type: boolean
+          description: Whether it should be a sauce
+        soup:
+          type: boolean
+          description: Whether it should be a soup
+        beverage:
+          type: boolean
+          description: Whether it should be a beverage
+        alcoholicBeverage:
+          type: boolean
+          description: Whether it should be an alcoholic beverage
+        juice:
+          type: boolean
+          description: Whether it should be a juice
+        tea:
+          type: boolean
+          description: Whether it should be a tea
     FoodHeader:
       required:
         - name
@@ -10835,6 +11584,41 @@ components:
           type: string
           description: Genre name
       description: Genre of video games
+    LiteratureSearchCriteria:
+      type: object
+      description: Literature search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Literature title
+        earthlyOrigin:
+          type: boolean
+          description: Whether it should be of earthly origin
+        shakespeareanWork:
+          type: boolean
+          description: Whether it should be a Shakespearean work
+        report:
+          type: boolean
+          description: Whether it should be a report
+        scientificLiterature:
+          type: boolean
+          description: Whether it should be a scientific literature
+        technicalManual:
+          type: boolean
+          description: Whether it should be a technical manual
+        religiousLiterature:
+          type: boolean
+          description: Whether it should be a religious literature
     LiteratureHeader:
       required:
         - title
@@ -11125,6 +11909,101 @@ components:
         location:
           $ref: '#/components/schemas/LocationFull'
       description: Response object for single location query
+    LocationV2SearchCriteria:
+      type: object
+      description: Location search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Location name
+        earthlyLocation:
+          type: boolean
+          description: Whether it should be an earthly location
+        qonosLocation:
+          type: boolean
+          description: Whether it should be a Qo'nos location
+        fictionalLocation:
+          type: boolean
+          description: Whether it should be a fictional location
+        mythologicalLocation:
+          type: boolean
+          description: Whether it should be a mythological location
+        religiousLocation:
+          type: boolean
+          description: Whether it should be a religious location
+        geographicalLocation:
+          type: boolean
+          description: Whether it should be a geographical location
+        bodyOfWater:
+          type: boolean
+          description: Whether it should be a body of water
+        country:
+          type: boolean
+          description: Whether it should be a country
+        subnationalEntity:
+          type: boolean
+          description: Whether it should be a subnational entity
+        settlement:
+          type: boolean
+          description: Whether it should be a settlement
+        usSettlement:
+          type: boolean
+          description: Whether it should be a US settlement
+        bajoranSettlement:
+          type: boolean
+          description: Whether it should be a Bajoran settlement
+        colony:
+          type: boolean
+          description: Whether it should be a colony
+        landform:
+          type: boolean
+          description: Whether it should be a landform
+        road:
+          type: boolean
+          description: Whether it should be a road
+        structure:
+          type: boolean
+          description: Whether it should be a structure
+        shipyard:
+          type: boolean
+          description: Whether it should be a shipyard
+        buildingInterior:
+          type: boolean
+          description: Whether it should be a building interior
+        establishment:
+          type: boolean
+          description: Whether it should be a establishment
+        medicalEstablishment:
+          type: boolean
+          description: Whether it should be a medical establishment
+        ds9Establishment:
+          type: boolean
+          description: Whether it should be a DS9 establishment
+        school:
+          type: boolean
+          description: Whether it should be a school
+        restaurant:
+          type: boolean
+          description: Whether it should be a restaurant
+        residence:
+          type: boolean
+          description: Whether it should be a residence
+        mirror:
+          type: boolean
+          description: Whether this location should be from mirror universe
+        alternateReality:
+          type: boolean
+          description: Whether this location should be from alternate reality
     LocationV2Base:
       required:
         - name
@@ -11326,6 +12205,39 @@ components:
         location:
           $ref: '#/components/schemas/LocationV2Full'
       description: Response object for single location query (V2)
+    MagazineSearchCriteria:
+      type: object
+      description: Magazine search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Magazine title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the magazine was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the magazine was published
+          format: int32
+        numberOfPagesFrom:
+          type: integer
+          description: Minimal number of pages
+          format: int32
+        numberOfPagesTo:
+          type: integer
+          description: Maximal number of pages
+          format: int32
     MagazineHeader:
       required:
         - title
@@ -11447,6 +12359,39 @@ components:
         magazine:
           $ref: '#/components/schemas/MagazineFull'
       description: Response object for single magazine query
+    MagazineSeriesSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Magazine series title
+        publishedYearFrom:
+          type: integer
+          description: Starting year the magazine series was published
+          format: int32
+        publishedYearTo:
+          type: integer
+          description: Ending year the magazine series was published
+          format: int32
+        numberOfIssuesFrom:
+          type: integer
+          description: Minimal number of issues
+          format: int32
+        numberOfIssuesTo:
+          type: integer
+          description: Maximal number of issues
+          format: int32
     MagazineSeriesHeader:
       required:
         - title
@@ -11562,6 +12507,53 @@ components:
         - SEPARATED
         - WIDOWED
         - CAPTAINS_WOMAN
+    MaterialSearchCriteria:
+      type: object
+      description: Material search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Material name
+        chemicalCompound:
+          type: boolean
+          description: Whether it should be a chemical compound
+        biochemicalCompound:
+          type: boolean
+          description: Whether it should be a biochemical compound
+        drug:
+          type: boolean
+          description: Whether it should be a drug
+        poisonousSubstance:
+          type: boolean
+          description: Whether it should be a poisonous substance
+        explosive:
+          type: boolean
+          description: Whether it should be an explosive
+        gemstone:
+          type: boolean
+          description: Whether it should be a gemstone
+        alloyOrComposite:
+          type: boolean
+          description: Whether it should be an alloy or a composite
+        fuel:
+          type: boolean
+          description: Whether it should be a fuel
+        mineral:
+          type: boolean
+          description: Whether it should be a mineral
+        preciousMaterial:
+          type: boolean
+          description: Whether it should be a precious material
     MaterialHeader:
       required:
         - name
@@ -11680,6 +12672,26 @@ components:
         material:
           $ref: '#/components/schemas/MaterialFull'
       description: Response object for single material query
+    MedicalConditionSearchCriteria:
+      type: object
+      description: Medical condition search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Medical condition name
+        psychologicalCondition:
+          type: boolean
+          description: Whether it should be a psychological condition
     MedicalConditionHeader:
       required:
         - name
@@ -11744,6 +12756,49 @@ components:
         medicalCondition:
           $ref: '#/components/schemas/MedicalConditionFull'
       description: Response object for single medical condition query
+    MovieSearchCriteria:
+      type: object
+      description: Movie search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Movie title
+        stardateFrom:
+          type: number
+          description: Starting stardate of movie story
+          format: float
+        stardateTo:
+          type: number
+          description: Ending stardate of movie story
+          format: float
+        yearFrom:
+          type: integer
+          description: Starting year of movie story
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of movie story
+          format: int32
+        usReleaseDateFrom:
+          type: string
+          description: Minimal date the movie was first released in the United
+            States
+          format: date
+        usReleaseDateTo:
+          type: string
+          description: Maximal date the movie was first released in the United
+            States
+          format: date
     MovieHeader:
       required:
         - title
@@ -12033,6 +13088,56 @@ components:
         occupation:
           $ref: '#/components/schemas/OccupationFull'
       description: Response object for single occupation query
+    OccupationV2SearchCriteria:
+      type: object
+      description: Occupation search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Occupation name
+        artsOccupation:
+          type: boolean
+          description: Whether it should be an arts occupation
+        communicationOccupation:
+          type: boolean
+          description: Whether it should be a communication occupation
+        economicOccupation:
+          type: boolean
+          description: Whether it should be an economic occupation
+        educationOccupation:
+          type: boolean
+          description: Whether it should be an education occupation
+        entertainmentOccupation:
+          type: boolean
+          description: Whether it should be an entertainment occupation
+        illegalOccupation:
+          type: boolean
+          description: Whether it should be an illegal occupation
+        legalOccupation:
+          type: boolean
+          description: Whether it should be a legal occupation
+        medicalOccupation:
+          type: boolean
+          description: Whether it should be a medical occupation
+        scientificOccupation:
+          type: boolean
+          description: Whether it should be a scientific occupation
+        sportsOccupation:
+          type: boolean
+          description: Whether it should be a sports occupation
+        victualOccupation:
+          type: boolean
+          description: Whether it should be a victual occupation
     OccupationV2Base:
       required:
         - name
@@ -12149,6 +13254,59 @@ components:
         occupation:
           $ref: '#/components/schemas/OccupationV2Full'
       description: Response object for single occupation query (V2)
+    OrganizationSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Organization name
+        government:
+          type: boolean
+          description: Whether it should be a government
+        intergovernmentalOrganization:
+          type: boolean
+          description: Whether it should be an intergovernmental organization
+        researchOrganization:
+          type: boolean
+          description: Whether it should be a research organization
+        sportOrganization:
+          type: boolean
+          description: Whether it should be a sport organization
+        medicalOrganization:
+          type: boolean
+          description: Whether it should be a medical organization
+        militaryOrganization:
+          type: boolean
+          description: Whether it should be a military organization
+        militaryUnit:
+          type: boolean
+          description: Whether it should be a military unit
+        governmentAgency:
+          type: boolean
+          description: Whether it should be a government agency
+        lawEnforcementAgency:
+          type: boolean
+          description: Whether it should be a law enforcement agency
+        prisonOrPenalColony:
+          type: boolean
+          description: Whether it should be a prison or penal colony
+        mirror:
+          type: boolean
+          description: Whether this organization should be from mirror universe
+        alternateReality:
+          type: boolean
+          description: Whether this organization should be from alternate reality
     OrganizationHeader:
       required:
         - name
@@ -12501,6 +13659,115 @@ components:
         performer:
           $ref: '#/components/schemas/PerformerFull'
       description: Response object for single performer query
+    PerformerV2SearchCriteria:
+      type: object
+      description: Performer search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Performer name
+        birthName:
+          type: string
+          description: Performer birth name
+        gender:
+          type: string
+          description: Performer gender
+        dateOfBirthFrom:
+          type: string
+          description: Minimal date the performer was born
+          format: date
+        dateOfBirthTo:
+          type: string
+          description: Maximal date the performer was born
+          format: date
+        placeOfBirth:
+          type: string
+          description: Place the performer was born
+        dateOfDeathFrom:
+          type: string
+          description: Minimal date the performer died
+          format: date
+        dateOfDeathTo:
+          type: string
+          description: Maximal date the performer died
+          format: date
+        placeOfDeath:
+          type: string
+          description: Place the performer died
+        animalPerformer:
+          type: boolean
+          description: Whether it should be an animal performer
+        audiobookPerformer:
+          type: boolean
+          description: Whether it should be an audiobook performer
+        cutPerformer:
+          type: boolean
+          description: Whether it should be a cut performer
+        disPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Discovery'
+        ds9Performer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Deep Space Nine'
+        entPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Enterprise'
+        filmPerformer:
+          type: boolean
+          description: Whether it should be a performer that appeared in a
+            Star Trek movie
+        ldPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Lower Decks'
+        picPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Picard'
+        proPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Prodigy'
+        puppeteer:
+          type: boolean
+          description: Whether it should be a puppeteer
+        snwPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Strange New Worlds'
+        standInPerformer:
+          type: boolean
+          description: Whether it should be a stand-in performer
+        stPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Short Treks'
+        stuntPerformer:
+          type: boolean
+          description: Whether it should be a stunt performer
+        tasPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: The Animated Series'
+        tngPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: The Next Generation'
+        tosPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: The Original Series'
+        videoGamePerformer:
+          type: boolean
+          description: Whether it should be a video game performer
+        voicePerformer:
+          type: boolean
+          description: Whether it should be a voice performer
+        voyPerformer:
+          type: boolean
+          description: 'Whether it should be a performer that appeared in Star Trek: Voyager'
     PerformerV2Base:
       required:
         - name
@@ -12856,6 +14123,70 @@ components:
       enum:
         - ASC
         - DESC
+    RequestSort:
+      type: object
+      properties:
+        clauses:
+          type: array
+          description: List of request sort rules
+          items:
+            $ref: '#/components/schemas/RequestSortClause'
+      description: Request sort
+    RequestSortClause:
+      required:
+        - clauseOrder
+        - direction
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name results are sorted by
+        direction:
+          $ref: '#/components/schemas/RequestSortDirection'
+        clauseOrder:
+          type: integer
+          description: Order in which this clause was applied
+      description: Single request sort clause
+    RequestSortDirection:
+      type: string
+      description: Sort direction
+      enum:
+        - ASC
+        - DESC
+    SeasonSearchCriteria:
+      type: object
+      description: Season search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Season title
+        seasonNumberFrom:
+          type: integer
+          description: Minimal season number
+          format: int32
+        seasonNumberTo:
+          type: integer
+          description: Maximal season number
+          format: int32
+        numberOfEpisodesFrom:
+          type: integer
+          description: Minimal number of episodes in season
+          format: int32
+        numberOfEpisodesTo:
+          type: integer
+          description: Maximal number of episodes in season
+          format: int32
     SeasonHeader:
       required:
         - title
@@ -12935,6 +14266,58 @@ components:
         season:
           $ref: '#/components/schemas/SeasonFull'
       description: Response object for single season query
+    SeriesSearchCriteria:
+      type: object
+      description: Series search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Series title
+        abbreviation:
+          type: string
+          description: Series abbreviation
+        productionStartYearFrom:
+          type: integer
+          description: Minimal year the series production started
+          format: int32
+        productionStartYearTo:
+          type: integer
+          description: Maximal year the series production started
+          format: int32
+        productionEndYearFrom:
+          type: integer
+          description: Minimal year the series production ended
+          format: int32
+        productionEndYearTo:
+          type: integer
+          description: Maximal year the series production ended
+          format: int32
+        originalRunStartDateFrom:
+          type: string
+          description: Minimal date the series originally ran from
+          format: date
+        originalRunStartDateTo:
+          type: string
+          description: Maximal date the series originally ran from
+          format: date
+        originalRunEndDateFrom:
+          type: string
+          description: Minimal date the series originally ran to
+          format: date
+        originalRunEndDateTo:
+          type: string
+          description: Maximal date the series originally ran to
+          format: date
     SeriesHeader:
       required:
         - title
@@ -13064,6 +14447,39 @@ components:
         series:
           $ref: '#/components/schemas/SeriesFull'
       description: Response object for single series query
+    SoundtrackSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Soundtrack title
+        releaseDateFrom:
+          type: string
+          description: Minimal release date
+          format: date
+        releaseDateTo:
+          type: string
+          description: Maximal release date
+          format: date
+        lengthFrom:
+          type: integer
+          description: Minimal length, in seconds
+          format: int32
+        lengthTo:
+          type: integer
+          description: Maximal length, in seconds
+          format: int32
     SoundtrackHeader:
       required:
         - title
@@ -13256,6 +14672,29 @@ components:
         spacecraft:
           $ref: '#/components/schemas/SpacecraftFull'
       description: Response object for single spacecraft query
+    SpacecraftV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Spacecraft name
+        registry:
+          type: string
+          description: Spacecraft registry
+        status:
+          type: string
+          description: Spacecraft status
     SpacecraftV2Base:
       required:
         - name
@@ -13456,6 +14895,32 @@ components:
         spacecraftClass:
           $ref: '#/components/schemas/SpacecraftClassFull'
       description: Response object for single spacecraft class query
+    SpacecraftClassV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Spacecraft class name
+        warpCapableSpecies:
+          type: boolean
+          description: Whether it should be a warp-capable spacecraft class
+        mirror:
+          type: boolean
+          description: Whether this spacecraft class should be from mirror universe
+        alternateReality:
+          type: boolean
+          description: Whether this spacecraft class should be from alternate reality
     SpacecraftClassV2Base:
       required:
         - name
@@ -13807,6 +15272,62 @@ components:
         species:
           $ref: '#/components/schemas/SpeciesFull'
       description: Response object for single species query
+    SpeciesV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Species name
+        extinctSpecies:
+          type: boolean
+          description: Whether it should be an extinct species
+        warpCapableSpecies:
+          type: boolean
+          description: Whether it should be a warp-capable species
+        extraGalacticSpecies:
+          type: boolean
+          description: Whether it should be an extra-galactic species
+        humanoidSpecies:
+          type: boolean
+          description: Whether it should be a humanoid species
+        reptilianSpecies:
+          type: boolean
+          description: Whether it should be a reptilian species
+        avianSpecies:
+          type: boolean
+          description: Whether it should be an avian species
+        nonCorporealSpecies:
+          type: boolean
+          description: Whether it should be a non-corporeal species
+        shapeshiftingSpecies:
+          type: boolean
+          description: Whether it should be a shapeshifting species
+        spaceborneSpecies:
+          type: boolean
+          description: Whether it should be a spaceborne species
+        telepathicSpecies:
+          type: boolean
+          description: Whether it should be a telepathic species
+        transDimensionalSpecies:
+          type: boolean
+          description: Whether it should be a trans-dimensional species
+        unnamedSpecies:
+          type: boolean
+          description: Whether it should be a unnamed species
+        alternateReality:
+          type: boolean
+          description: Whether this species should be from alternate reality
     SpeciesV2Base:
       required:
         - name
@@ -14016,7 +15537,7 @@ components:
           description: Whether this person is a director
         assistantOrSecondUnitDirector:
           type: boolean
-          description: Whether this person is an assistant or secound unit director
+          description: Whether this person is an assistant or second unit director
             director
         exhibitAndAttractionStaff:
           type: boolean
@@ -14214,7 +15735,7 @@ components:
           description: Whether this person is a director
         assistantOrSecondUnitDirector:
           type: boolean
-          description: Whether this person is an assistant or secound unit director
+          description: Whether this person is an assistant or second unit director
             director
         exhibitAndAttractionStaff:
           type: boolean
@@ -14426,6 +15947,231 @@ components:
         staff:
           $ref: '#/components/schemas/StaffFull'
       description: Response object for single staff query
+    StaffV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Staff name
+        birthName:
+          type: string
+          description: Staff birth name
+        gender:
+          type: string
+          description: Staff gender
+        dateOfBirthFrom:
+          type: string
+          description: Minimal date the staff was born
+          format: date
+        dateOfBirthTo:
+          type: string
+          description: Maximal date the staff was born
+          format: date
+        placeOfBirth:
+          type: string
+          description: Place the staff was born
+        dateOfDeathFrom:
+          type: string
+          description: Minimal date the staff died
+          format: date
+        dateOfDeathTo:
+          type: string
+          description: Maximal date the staff died
+          format: date
+        placeOfDeath:
+          type: string
+          description: Place the staff died
+        artDepartment:
+          type: boolean
+          description: Whether this person should be from art department
+        artDirector:
+          type: boolean
+          description: Whether this person should be an art director
+        productionDesigner:
+          type: boolean
+          description: Whether this person should be a production designer
+        cameraAndElectricalDepartment:
+          type: boolean
+          description: Whether this person should be from camera and electrical
+            department
+        cinematographer:
+          type: boolean
+          description: Whether this person should be a cinematographer
+        castingDepartment:
+          type: boolean
+          description: Whether this person should be from casting department
+        costumeDepartment:
+          type: boolean
+          description: Whether this person should be from costume department
+        costumeDesigner:
+          type: boolean
+          description: Whether this person should be a custume designer
+        director:
+          type: boolean
+          description: Whether this person should be a director
+        assistantOrSecondUnitDirector:
+          type: boolean
+          description: Whether this person should be an assistant or second unit director director
+        exhibitAndAttractionStaff:
+          type: boolean
+          description: Whether this person should be an exhibit and attraction
+            staff
+        filmEditor:
+          type: boolean
+          description: Whether this person should be a film editor
+        filmationProductionStaff:
+          type: boolean
+          description: Whether this person should be a part of Filmation production
+            staff
+        linguist:
+          type: boolean
+          description: Whether this person should be a linguist
+        locationStaff:
+          type: boolean
+          description: Whether this person should be a location staff
+        makeupStaff:
+          type: boolean
+          description: Whether this person should be a make-up staff
+        merchandiseStaff:
+          type: boolean
+          description: Whether this person should be a merchandise staff
+        musicDepartment:
+          type: boolean
+          description: Whether this person should be from music department
+        composer:
+          type: boolean
+          description: Whether this person should be a composer
+        personalAssistant:
+          type: boolean
+          description: Whether this person should be a personal assistant
+        producer:
+          type: boolean
+          description: Whether this person should be a producer
+        productionAssociate:
+          type: boolean
+          description: Whether this person should be a production associate
+        productionStaff:
+          type: boolean
+          description: Whether this person should be a production staff
+        publicationStaff:
+          type: boolean
+          description: Whether this person should be a publication staff
+        scienceConsultant:
+          type: boolean
+          description: Whether this person should be a science consultant
+        soundDepartment:
+          type: boolean
+          description: Whether this person should be from sound department
+        specialAndVisualEffectsStaff:
+          type: boolean
+          description: Whether this person should be a special and visual
+            effects staff
+        author:
+          type: boolean
+          description: Whether this person should be an author
+        audioAuthor:
+          type: boolean
+          description: Whether this person should be an audio author
+        calendarArtist:
+          type: boolean
+          description: Whether this person should be a calendar artist
+        comicArtist:
+          type: boolean
+          description: Whether this person should be a comic artist
+        comicAuthor:
+          type: boolean
+          description: Whether this person should be a comic author
+        comicColorArtist:
+          type: boolean
+          description: Whether this person should be a comic color artist
+        comicCoverArtist:
+          type: boolean
+          description: Whether this person should be a comic cover artist
+        comicInteriorArtist:
+          type: boolean
+          description: Whether this person should be a comic interior artist
+        comicInkArtist:
+          type: boolean
+          description: Whether this person should be a comic ink artist
+        comicPencilArtist:
+          type: boolean
+          description: Whether this person should be a comic pencil artist
+        comicLetterArtist:
+          type: boolean
+          description: Whether this person should be a comic letter artist
+        comicStripArtist:
+          type: boolean
+          description: Whether this person should be a comic strip artist
+        gameArtist:
+          type: boolean
+          description: Whether this person should be a game artist
+        gameAuthor:
+          type: boolean
+          description: Whether this person should be a game author
+        novelArtist:
+          type: boolean
+          description: Whether this person should be a novel artist
+        novelAuthor:
+          type: boolean
+          description: Whether this person should be a novel author
+        referenceArtist:
+          type: boolean
+          description: Whether this person should be a reference artist
+        referenceAuthor:
+          type: boolean
+          description: Whether this person should be a reference author
+        publicationArtist:
+          type: boolean
+          description: Whether this person should be a publication artist
+        publicationDesigner:
+          type: boolean
+          description: Whether this person should be a publication designer
+        publicationEditor:
+          type: boolean
+          description: Whether this person should be a publication editor
+        publicityArtist:
+          type: boolean
+          description: Whether this person should be a publicity artist
+        cbsDigitalStaff:
+          type: boolean
+          description: Whether this person should be a part of CBS digital
+            staff
+        ilmProductionStaff:
+          type: boolean
+          description: Whether this person should be a part of ILM production
+            staff
+        specialFeaturesStaff:
+          type: boolean
+          description: Whether this person should be a special features artist
+        storyEditor:
+          type: boolean
+          description: Whether this person should be a story editor
+        studioExecutive:
+          type: boolean
+          description: Whether this person should be a studio executive
+        stuntDepartment:
+          type: boolean
+          description: Whether this person should be from stunt department
+        transportationDepartment:
+          type: boolean
+          description: Whether this person should be from transportation department
+        videoGameProductionStaff:
+          type: boolean
+          description: Whether this person is video game production staff
+        writer:
+          type: boolean
+          description: Whether this person should be a writer
     StaffV2Base:
       required:
         - name
@@ -14486,7 +16232,7 @@ components:
           description: Whether this person is a director
         assistantOrSecondUnitDirector:
           type: boolean
-          description: Whether this person is an assistant or secound unit director
+          description: Whether this person is an assistant or second unit director
             director
         exhibitAndAttractionStaff:
           type: boolean
@@ -14693,7 +16439,7 @@ components:
           description: Whether this person is a director
         assistantOrSecondUnitDirector:
           type: boolean
-          description: Whether this person is an assistant or secound unit director
+          description: Whether this person is an assistant or second unit director
             director
         exhibitAndAttractionStaff:
           type: boolean
@@ -15092,6 +16838,116 @@ components:
         technology:
           $ref: '#/components/schemas/TechnologyFull'
       description: Response object for single technology query
+    TechnologyV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Technology name
+        borgTechnology:
+          type: boolean
+          description: Whether it should be a Borg technology
+        borgComponent:
+          type: boolean
+          description: Whether it should be a Borg component
+        communicationsTechnology:
+          type: boolean
+          description: Whether it should be a communications technology
+        computerTechnology:
+          type: boolean
+          description: Whether it should be a computer technology
+        computerProgramming:
+          type: boolean
+          description: Whether it should be a technology related to computer programming
+        subroutine:
+          type: boolean
+          description: Whether it should be a subroutine
+        database:
+          type: boolean
+          description: Whether it should be a database
+        energyTechnology:
+          type: boolean
+          description: Whether it should be a energy technology
+        fictionalTechnology:
+          type: boolean
+          description: Whether it should be a fictional technology
+        holographicTechnology:
+          type: boolean
+          description: Whether it should be a holographic technology
+        identificationTechnology:
+          type: boolean
+          description: Whether it should be a identification technology
+        lifeSupportTechnology:
+          type: boolean
+          description: Whether it should be a life support technology
+        sensorTechnology:
+          type: boolean
+          description: Whether it should be a sensor technology
+        shieldTechnology:
+          type: boolean
+          description: Whether it should be a shield technology
+        securityTechnology:
+          type: boolean
+          description: Whether it should be a security technology
+        propulsionTechnology:
+          type: boolean
+          description: Whether it should be a propulsion technology
+        spacecraftComponent:
+          type: boolean
+          description: Whether it should be a spacecraft component
+        warpTechnology:
+          type: boolean
+          description: Whether it should be a warp technology
+        transwarpTechnology:
+          type: boolean
+          description: Whether it should be a transwarp technology
+        timeTravelTechnology:
+          type: boolean
+          description: Whether it should be a time travel technology
+        militaryTechnology:
+          type: boolean
+          description: Whether it should be a military technology
+        victualTechnology:
+          type: boolean
+          description: Whether it should be a victual technology
+        tool:
+          type: boolean
+          description: Whether it should be a tool
+        culinaryTool:
+          type: boolean
+          description: Whether it should be a culinary tool
+        engineeringTool:
+          type: boolean
+          description: Whether it should be a engineering tool
+        householdTool:
+          type: boolean
+          description: Whether it should be a household tool
+        medicalEquipment:
+          type: boolean
+          description: Whether it should be a medical equipment
+        transporterTechnology:
+          type: boolean
+          description: Whether it's a transporter technology
+        transportationTechnology:
+          type: boolean
+          description: Whether it's a transportation technology
+        weaponComponent:
+          type: boolean
+          description: Whether it's a weapon component
+        artificialLifeformComponent:
+          type: boolean
+          description: Whether it's an artificial lifeform component
     TechnologyV2Base:
       required:
         - name
@@ -15416,6 +17272,38 @@ components:
         title:
           $ref: '#/components/schemas/TitleFull'
       description: Response object for single title query
+    TitleV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Title name
+        militaryRank:
+          type: boolean
+          description: Whether it should be a military rank
+        fleetRank:
+          type: boolean
+          description: Whether it should be a fleet rank
+        religiousTitle:
+          type: boolean
+          description: Whether it should be a religious title
+        educationTitle:
+          type: boolean
+          description: Whether it should be a education title
+        mirror:
+          type: boolean
+          description: Whether this title should be from mirror universe
     TitleV2Base:
       required:
         - name
@@ -15496,6 +17384,29 @@ components:
         title:
           $ref: '#/components/schemas/TitleV2Full'
       description: Response object for single title query (V2)
+    TradingCardSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Trading card name
+        tradingCardDeckUid:
+          type: string
+          description: UID of trading card deck
+        tradingCardSetUid:
+          type: string
+          description: UID of trading card set
     TradingCardHeader:
       required:
         - name
@@ -15582,6 +17493,26 @@ components:
         tradingCard:
           $ref: '#/components/schemas/TradingCardFull'
       description: Response object for single trading card query
+    TradingCardDeckSearchCriteria:
+      type: object
+      description: Trading card deck search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Trading card deck name
+        tradingCardSetUid:
+          type: string
+          description: UID of trading card set
     TradingCardDeckHeader:
       required:
         - name
@@ -15655,6 +17586,82 @@ components:
         tradingCardDeck:
           $ref: '#/components/schemas/TradingCardDeckFull'
       description: Response object for single trading card deck query
+    TradingCardSetSearchCriteria:
+      type: object
+      description: Trading card set search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Trading card set name
+        releaseYearFrom:
+          type: integer
+          description: Starting year the trading card set was released
+          format: int32
+        releaseYearTo:
+          type: integer
+          description: Ending year the trading card set was released
+          format: int32
+        cardsPerPackFrom:
+          type: integer
+          description: Minimal number of cards per deck
+          format: int32
+        cardsPerPackTo:
+          type: integer
+          description: Minimal number of cards per deck
+          format: int32
+        packsPerBoxFrom:
+          type: integer
+          description: Minimal number of packs per box
+          format: int32
+        packsPerBoxTo:
+          type: integer
+          description: Minimal number of packs per box
+          format: int32
+        boxesPerCaseFrom:
+          type: integer
+          description: Minimal number of boxes per case
+          format: int32
+        boxesPerCaseTo:
+          type: integer
+          description: Minimal number of boxes per case
+          format: int32
+        productionRunFrom:
+          type: integer
+          description: Minimal production run
+          format: int32
+        productionRunTo:
+          type: integer
+          description: Minimal production run
+          format: int32
+        productionRunUnit:
+          type: string
+          description: Production run unit
+        cardWidthFrom:
+          type: number
+          description: Minimal card width, in inches
+          format: double
+        cardWidthTo:
+          type: number
+          description: Minimal card width, in inches
+          format: double
+        cardHeightFrom:
+          type: number
+          description: Minimal card height, in inches
+          format: double
+        cardHeightTo:
+          type: number
+          description: Minimal card height, in inches
+          format: double
     TradingCardSetHeader:
       required:
         - name
@@ -15795,6 +17802,31 @@ components:
         tradingCardSet:
           $ref: '#/components/schemas/TradingCardSetFull'
       description: Response object for single trading card set query
+    VideoGameSearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Video game title
+        releaseDateFrom:
+          type: string
+          description: Minimal date the video game was first released
+          format: date
+        releaseDateTo:
+          type: string
+          description: Minimal date the video game was first released
+          format: date
     VideoGameHeader:
       required:
         - title
@@ -16011,7 +18043,7 @@ components:
         googlePlayDigitalRelease:
           type: boolean
           description: Whether this video has been release on Google Play
-        iTunesDigitalRelease:
+        itunesDigitalRelease:
           type: boolean
           description: Whether this video has been release on iTunes
         ultraVioletDigitalRelease:
@@ -16124,7 +18156,7 @@ components:
         googlePlayDigitalRelease:
           type: boolean
           description: Whether this video has been release on Google Play
-        iTunesDigitalRelease:
+        itunesDigitalRelease:
           type: boolean
           description: Whether this video has been release on iTunes
         ultraVioletDigitalRelease:
@@ -16190,6 +18222,45 @@ components:
         videoRelease:
           $ref: '#/components/schemas/VideoReleaseFull'
       description: Response object for single video release query
+    VideoReleaseV2SearchCriteria:
+      type: object
+      description: Video release search criteria (V2)
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        title:
+          type: string
+          description: Video release title
+        yearFrom:
+          type: integer
+          description: Starting year of video release story
+          format: int32
+        yearTo:
+          type: integer
+          description: Ending year of video release story
+          format: int32
+        runTimeFrom:
+          type: integer
+          description: Minimal run time, in minutes
+          format: int32
+        runTimeTo:
+          type: integer
+          description: Minimal run time, in minutes
+          format: int32
+        documentary:
+          type: boolean
+          description: Whether it should be a documentary
+        specialFeatures:
+          type: boolean
+          description: Whether it should contain special features
     VideoReleaseV2Base:
       required:
         - title
@@ -16259,9 +18330,9 @@ components:
         googlePlayDigitalRelease:
           type: boolean
           description: Whether this video has been release on Google Play
-        iTunesDigitalRelease:
+        itunesDigitalRelease:
           type: boolean
-          description: Whether this video has been release on iTunes
+          description: Whether this video has been release on iTunes # In V3 it should be iTunesDigitalRelease
         ultraVioletDigitalRelease:
           type: boolean
           description: Whether this video has been release on UltraViolet
@@ -16374,9 +18445,9 @@ components:
         googlePlayDigitalRelease:
           type: boolean
           description: Whether this video has been release on Google Play
-        iTunesDigitalRelease:
+        itunesDigitalRelease:
           type: boolean
-          description: Whether this video has been release on iTunes
+          description: Whether this video has been release on iTunes # In V3 it should be iTunesDigitalRelease
         ultraVioletDigitalRelease:
           type: boolean
           description: Whether this video has been release on UltraViolet
@@ -16546,6 +18617,56 @@ components:
         weapon:
           $ref: '#/components/schemas/WeaponFull'
       description: Response object for single weapon query
+    WeaponV2SearchCriteria:
+      type: object
+      description: Animal search criteria
+      properties:
+        pageNumber:
+          type: integer
+          description: Zero-based page number
+          format: int32
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+        sort:
+          $ref: '#/components/schemas/RequestSort'
+        name:
+          type: string
+          description: Weapon name
+        handHeldWeapon:
+          type: boolean
+          description: Whether it should be a hand-help weapon
+        laserTechnology:
+          type: boolean
+          description: Whether it should be a laser technology
+        plasmaTechnology:
+          type: boolean
+          description: Whether it should be a plasma technology
+        photonicTechnology:
+          type: boolean
+          description: Whether it should be a photonic technology
+        phaserTechnology:
+          type: boolean
+          description: Whether it should be a phaser technology
+        directedEnergyWeapon:
+          type: boolean
+          description: Whether it should be a directed energy weapon
+        explosiveWeapon:
+          type: boolean
+          description: Whether it should be an explosive weapon
+        projectileWeapon:
+          type: boolean
+          description: Whether it should be a projectile weapon
+        fictionalWeapon:
+          type: boolean
+          description: Whether it should be a fictional weapon
+        mirror:
+          type: boolean
+          description: Whether this weapon should be from mirror universe
+        alternateReality:
+          type: boolean
+          description: Whether this weapon should be from alternate reality
     WeaponV2Base:
       required:
         - name

@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.ComicsSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.ComicsApi
 import com.cezarykluczynski.stapi.client.rest.model.ComicsBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.ComicsFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicsSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractComicsTest
 
 class ComicsTest extends AbstractComicsTest {
@@ -33,22 +33,6 @@ class ComicsTest extends AbstractComicsTest {
 		comicsFullResponse == comicsFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		ComicsBaseResponse comicsBaseResponse = Mock()
-
-		when:
-		ComicsBaseResponse comicsBaseResponseOutput = comics.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
-				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL, ADAPTATION)
-
-		then:
-		1 * comicsApiMock.v1SearchComics(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
-				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, PHOTONOVEL, ADAPTATION) >>
-				comicsBaseResponse
-		0 * _
-		comicsBaseResponse == comicsBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		ComicsBaseResponse comicsBaseResponse = Mock()
@@ -66,7 +50,7 @@ class ComicsTest extends AbstractComicsTest {
 				yearTo: YEAR_TO,
 				photonovel: PHOTONOVEL,
 				adaptation: ADAPTATION)
-		comicsSearchCriteria.sort.addAll(SORT)
+		comicsSearchCriteria.sort = SORT
 
 		when:
 		ComicsBaseResponse comicsBaseResponseOutput = comics.search(comicsSearchCriteria)

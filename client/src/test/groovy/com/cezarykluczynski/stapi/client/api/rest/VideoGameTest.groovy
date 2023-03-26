@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.VideoGameSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.VideoGameApi
 import com.cezarykluczynski.stapi.client.rest.model.VideoGameBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.VideoGameFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractVideoGameTest
 
 class VideoGameTest extends AbstractVideoGameTest {
@@ -33,21 +33,6 @@ class VideoGameTest extends AbstractVideoGameTest {
 		videoGameFullResponse == videoGameFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		VideoGameBaseResponse videoGameBaseResponse = Mock()
-
-		when:
-		VideoGameBaseResponse videoGameBaseResponseOutput = videoGame.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM,
-				RELEASE_DATE_TO)
-
-		then:
-		1 * videoGameApiMock.v1SearchVideoGames(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO) >>
-				videoGameBaseResponse
-		0 * _
-		videoGameBaseResponse == videoGameBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		VideoGameBaseResponse videoGameBaseResponse = Mock()
@@ -57,7 +42,7 @@ class VideoGameTest extends AbstractVideoGameTest {
 				title: TITLE,
 				releaseDateFrom: RELEASE_DATE_FROM,
 				releaseDateTo: RELEASE_DATE_TO)
-		videoGameSearchCriteria.sort.addAll(SORT)
+		videoGameSearchCriteria.sort = SORT
 
 		when:
 		VideoGameBaseResponse videoGameBaseResponseOutput = videoGame.search(videoGameSearchCriteria)

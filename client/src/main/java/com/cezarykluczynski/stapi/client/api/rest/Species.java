@@ -1,15 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.SpeciesV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.SpeciesApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.rest.model.SpeciesBaseResponse;
-import com.cezarykluczynski.stapi.client.rest.model.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2BaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2SearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Species {
 
 	private final SpeciesApi speciesApi;
@@ -18,33 +15,8 @@ public class Species {
 		this.speciesApi = speciesApi;
 	}
 
-	@Deprecated
-	public SpeciesFullResponse get(String uid) throws ApiException {
-		return speciesApi.v1GetSpecies(uid);
-	}
-
 	public SpeciesV2FullResponse getV2(String uid) throws ApiException {
 		return speciesApi.v2GetSpecies(uid);
-	}
-
-	@Deprecated
-	public SpeciesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean extinctSpecies,
-			Boolean warpCapableSpecies, Boolean extraGalacticSpecies, Boolean humanoidSpecies, Boolean reptilianSpecies, Boolean nonCorporealSpecies,
-			Boolean shapeshiftingSpecies, Boolean spaceborneSpecies, Boolean telepathicSpecies, Boolean transDimensionalSpecies,
-			Boolean unnamedSpecies, Boolean alternateReality) throws ApiException {
-		return speciesApi.v1SearchSpecies(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
-				humanoidSpecies, reptilianSpecies, nonCorporealSpecies, shapeshiftingSpecies, spaceborneSpecies, telepathicSpecies,
-				transDimensionalSpecies, unnamedSpecies, alternateReality);
-	}
-
-	@Deprecated
-	public SpeciesV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean extinctSpecies,
-			Boolean warpCapableSpecies, Boolean extraGalacticSpecies, Boolean humanoidSpecies, Boolean reptilianSpecies, Boolean avianSpecies,
-			Boolean nonCorporealSpecies, Boolean shapeshiftingSpecies, Boolean spaceborneSpecies, Boolean telepathicSpecies,
-			Boolean transDimensionalSpecies, Boolean unnamedSpecies, Boolean alternateReality) throws ApiException {
-		return speciesApi.v2SearchSpecies(pageNumber, pageSize, sort, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
-				humanoidSpecies, reptilianSpecies, avianSpecies, nonCorporealSpecies, shapeshiftingSpecies, spaceborneSpecies, telepathicSpecies,
-				transDimensionalSpecies, unnamedSpecies, alternateReality);
 	}
 
 	public SpeciesV2BaseResponse searchV2(SpeciesV2SearchCriteria speciesV2SearchCriteria) throws ApiException {

@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.BookCollectionSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.BookCollectionApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.BookCollectionBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.BookCollectionFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.BookCollectionSearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class BookCollection {
 
 	private final BookCollectionApi bookCollectionApi;
@@ -18,14 +17,6 @@ public class BookCollection {
 
 	public BookCollectionFullResponse get(String uid) throws ApiException {
 		return bookCollectionApi.v1GetBookCollection(uid);
-	}
-
-	@Deprecated
-	public BookCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
-			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
-			Integer yearTo) throws ApiException {
-		return bookCollectionApi.v1SearchBookCollections(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
-				numberOfPagesFrom, numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo);
 	}
 
 	public BookCollectionBaseResponse search(BookCollectionSearchCriteria bookCollectionSearchCriteria) throws ApiException {

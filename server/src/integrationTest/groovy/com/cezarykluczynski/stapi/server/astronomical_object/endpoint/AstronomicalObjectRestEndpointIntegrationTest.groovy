@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.astronomical_object.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.AstronomicalObjectV2SearchCriteria
-import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectType
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2SearchCriteria
+import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2Type
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -35,7 +35,7 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractEndpointInte
 	void "finds Tarok by astronomical object type"() {
 		given:
 		AstronomicalObjectV2SearchCriteria astronomicalObjectV2SearchCriteria = new AstronomicalObjectV2SearchCriteria(
-				astronomicalObjectType: AstronomicalObjectType.M_CLASS_MOON
+				astronomicalObjectType: AstronomicalObjectV2Type.M_CLASS_MOON
 		)
 
 		when:
@@ -44,6 +44,21 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractEndpointInte
 		then:
 		astronomicalObjectResponse.astronomicalObjects.stream()
 				.anyMatch { it -> it.name == 'Tarok' }
+	}
+
+	void "finds Borg spatial designations"() {
+		given:
+		AstronomicalObjectV2SearchCriteria astronomicalObjectV2SearchCriteria = new AstronomicalObjectV2SearchCriteria(
+				astronomicalObjectType: AstronomicalObjectV2Type.BORG_SPATIAL_DESIGNATION
+		)
+
+		when:
+		AstronomicalObjectV2BaseResponse astronomicalObjectResponse = stapiRestClient.astronomicalObject.searchV2(astronomicalObjectV2SearchCriteria)
+
+		then:
+		astronomicalObjectResponse.astronomicalObjects.any { it.name.startsWith('Galactic Cluster ') }
+		astronomicalObjectResponse.astronomicalObjects.any { it.name.startsWith('Grid ') }
+		astronomicalObjectResponse.astronomicalObjects.any { it.name.startsWith('Unimatrix ') }
 	}
 
 }

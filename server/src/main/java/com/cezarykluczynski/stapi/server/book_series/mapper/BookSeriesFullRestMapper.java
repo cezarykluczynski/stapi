@@ -13,7 +13,7 @@ import org.mapstruct.Mapping;
 		BookBaseRestMapper.class})
 public interface BookSeriesFullRestMapper {
 
-	@Mapping(source = "EBookSeries", target = "eBookSeries")
+	@Mapping(source = "EBookSeries", target = "ebookSeries")
 	BookSeriesFull mapFull(BookSeries bookSeries);
 
 }

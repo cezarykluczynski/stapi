@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.food.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.FoodSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.FoodBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.FoodFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.FoodSearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

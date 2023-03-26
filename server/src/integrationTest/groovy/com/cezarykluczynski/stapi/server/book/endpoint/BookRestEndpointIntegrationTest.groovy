@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.book.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.BookV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.BookV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.BookV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.BookV2SearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -24,7 +24,7 @@ class BookRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 	void "Fatal Error is among eBooks published in or before 2000"() {
 		given:
 		BookV2SearchCriteria bookV2SearchCriteria = new BookV2SearchCriteria()
-		bookV2SearchCriteria.setEBook(true)
+		bookV2SearchCriteria.setEbook(true)
 		bookV2SearchCriteria.setPublishedYearTo(2000)
 
 		when:

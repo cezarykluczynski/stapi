@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.AnimalSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.AnimalApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.AnimalBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.AnimalFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.AnimalSearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Animal {
 
 	private final AnimalApi animalApi;
@@ -18,12 +17,6 @@ public class Animal {
 
 	public AnimalFullResponse get(String uid) throws ApiException {
 		return animalApi.v1GetAnimal(uid);
-	}
-
-	@Deprecated
-	public AnimalBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthAnimal, Boolean earthInsect,
-			Boolean avian, Boolean canine, Boolean feline) throws ApiException {
-		return animalApi.v1SearchAnimals(pageNumber, pageSize, sort, name, earthAnimal, earthInsect, avian, canine, feline);
 	}
 
 	public AnimalBaseResponse search(AnimalSearchCriteria animalSearchCriteria) throws ApiException {

@@ -17,7 +17,7 @@ abstract class AbstractSpacecraftClassMapperTest extends AbstractSpacecraftClass
 				name: NAME,
 				numberOfDecks: NUMBER_OF_DECKS,
 				crew: CREW,
-				warpCapable: WARP_CAPABLE,
+				warpCapable: WARP_CAPABLE_SPECIES,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY,
 				activeFrom: ACTIVE_FROM,

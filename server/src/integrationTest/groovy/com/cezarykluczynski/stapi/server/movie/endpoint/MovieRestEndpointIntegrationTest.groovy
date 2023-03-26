@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.server.movie.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.MovieSearchCriteria
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
 import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieSearchCriteria
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortClause
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortDirection
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -31,7 +32,8 @@ class MovieRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 				usReleaseDateFrom: LocalDate.of(1991, 1, 1),
 				usReleaseDateTo: LocalDate.of(2000, 12, 30)
 		)
-		movieSearchCriteria.getSort().add(new RestSortClause(name: 'usReleaseDate', direction: RestSortDirection.ASC))
+		movieSearchCriteria.setSort(new RequestSort().addClausesItem(new RequestSortClause(
+						name: 'usReleaseDate', direction: RequestSortDirection.ASC, clauseOrder: 0)))
 
 		when:
 		MovieBaseResponse movieBaseResponse = stapiRestClient.movie.search(movieSearchCriteria)

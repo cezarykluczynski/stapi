@@ -1,12 +1,13 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.PerformerV2SearchCriteria
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
 import com.cezarykluczynski.stapi.client.rest.model.EpisodeBase
 import com.cezarykluczynski.stapi.client.rest.model.PerformerV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.PerformerV2Full
 import com.cezarykluczynski.stapi.client.rest.model.PerformerV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.PerformerV2SearchCriteria
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortClause
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortDirection
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -74,7 +75,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractEndpointIntegrationTe
 	void "gets performers sorted by name"() {
 		given:
 		PerformerV2SearchCriteria performerV2SearchCriteria = new PerformerV2SearchCriteria()
-		performerV2SearchCriteria.getSort().add(new RestSortClause(name: 'name', direction: RestSortDirection.ASC))
+		performerV2SearchCriteria.setSort(new RequestSort().addClausesItem(new RequestSortClause(
+				name: 'name', direction: RequestSortDirection.ASC, clauseOrder: 0)))
 
 		when:
 		PerformerV2BaseResponse performerV2Response = stapiRestClient.performer.searchV2(performerV2SearchCriteria)

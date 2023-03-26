@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.SeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.SeriesApi
 import com.cezarykluczynski.stapi.client.rest.model.SeriesBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.SeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeriesSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractSeriesTest
 
 class SeriesTest extends AbstractSeriesTest {
@@ -33,23 +33,6 @@ class SeriesTest extends AbstractSeriesTest {
 		seriesFullResponse == seriesFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		SeriesBaseResponse seriesBaseResponse = Mock()
-
-		when:
-		SeriesBaseResponse seriesBaseResponseOutput = series.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, ABBREVIATION,
-				PRODUCTION_START_YEAR_FROM, PRODUCTION_START_YEAR_TO, PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO,
-				ORIGINAL_RUN_START_DATE_FROM_DB, ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB)
-
-		then:
-		1 * seriesApiMock.v1SearchSeries(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, ABBREVIATION, PRODUCTION_START_YEAR_FROM,
-				PRODUCTION_START_YEAR_TO, PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO, ORIGINAL_RUN_START_DATE_FROM_DB,
-				ORIGINAL_RUN_START_DATE_TO_DB, ORIGINAL_RUN_END_DATE_FROM_DB, ORIGINAL_RUN_END_DATE_TO_DB) >> seriesBaseResponse
-		0 * _
-		seriesBaseResponse == seriesBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		SeriesBaseResponse seriesBaseResponse = Mock()
@@ -66,7 +49,7 @@ class SeriesTest extends AbstractSeriesTest {
 				originalRunStartDateTo: ORIGINAL_RUN_START_DATE_TO_DB,
 				originalRunEndDateFrom: ORIGINAL_RUN_END_DATE_FROM_DB,
 				originalRunEndDateTo: ORIGINAL_RUN_END_DATE_TO_DB)
-		seriesSearchCriteria.sort.addAll(SORT)
+		seriesSearchCriteria.sort = SORT
 
 		when:
 		SeriesBaseResponse seriesBaseResponseOutput = series.search(seriesSearchCriteria)

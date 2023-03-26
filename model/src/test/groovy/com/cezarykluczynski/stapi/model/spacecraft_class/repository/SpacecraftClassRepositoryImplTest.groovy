@@ -58,8 +58,8 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassQueryBuilder.like(SpacecraftClass_.name, NAME)
 
 		then: 'boolean criteria are set'
-		1 * spacecraftClassRequestDTO.warpCapable >> WARP_CAPABLE
-		1 * spacecraftClassQueryBuilder.equal(SpacecraftClass_.warpCapable, WARP_CAPABLE)
+		1 * spacecraftClassRequestDTO.warpCapable >> WARP_CAPABLE_SPECIES
+		1 * spacecraftClassQueryBuilder.equal(SpacecraftClass_.warpCapable, WARP_CAPABLE_SPECIES)
 		1 * spacecraftClassRequestDTO.mirror >> MIRROR
 		1 * spacecraftClassQueryBuilder.equal(SpacecraftClass_.mirror, MIRROR)
 		1 * spacecraftClassRequestDTO.alternateReality >> ALTERNATE_REALITY

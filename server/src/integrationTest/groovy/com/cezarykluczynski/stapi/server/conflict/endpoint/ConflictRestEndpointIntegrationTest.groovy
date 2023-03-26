@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.conflict.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.ConflictSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.ConflictBaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.ConflictSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.ConflictV2FullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider

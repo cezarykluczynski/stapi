@@ -3,12 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.TechnologyV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.TechnologyApi
-import com.cezarykluczynski.stapi.client.rest.model.TechnologyBaseResponse
-import com.cezarykluczynski.stapi.client.rest.model.TechnologyFullResponse
 import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2SearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractTechnologyTest
 
 class TechnologyTest extends AbstractTechnologyTest {
@@ -22,19 +20,6 @@ class TechnologyTest extends AbstractTechnologyTest {
 		technology = new Technology(technologyApiMock)
 	}
 
-	void "gets single entity"() {
-		given:
-		TechnologyFullResponse technologyFullResponse = Mock()
-
-		when:
-		TechnologyFullResponse technologyFullResponseOutput = technology.get(UID)
-
-		then:
-		1 * technologyApiMock.v1GetTechnology(UID) >> technologyFullResponse
-		0 * _
-		technologyFullResponse == technologyFullResponseOutput
-	}
-
 	void "gets single entity (V2)"() {
 		given:
 		TechnologyV2FullResponse technologyV2FullResponse = Mock()
@@ -46,48 +31,6 @@ class TechnologyTest extends AbstractTechnologyTest {
 		1 * technologyApiMock.v2GetTechnology(UID) >> technologyV2FullResponse
 		0 * _
 		technologyV2FullResponse == technologyV2FullResponseOutput
-	}
-
-	void "searches entities"() {
-		given:
-		TechnologyBaseResponse technologyBaseResponse = Mock()
-
-		when:
-		TechnologyBaseResponse technologyBaseResponseOutput = technology.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BORG_TECHNOLOGY,
-				BORG_COMPONENT, COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY,
-				FICTIONAL_TECHNOLOGY, HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY,
-				SHIELD_TECHNOLOGY, TOOL, CULINARY_TOOL, ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY)
-
-		then:
-		1 * technologyApiMock.v1SearchTechnology(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
-				COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY, FICTIONAL_TECHNOLOGY,
-				HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY, SHIELD_TECHNOLOGY, TOOL, CULINARY_TOOL,
-				ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY) >> technologyBaseResponse
-		0 * _
-		technologyBaseResponse == technologyBaseResponseOutput
-	}
-
-	void "searches entities (V2)"() {
-		given:
-		TechnologyV2BaseResponse technologyV2BaseResponse = Mock()
-
-		when:
-		TechnologyV2BaseResponse technologyV2BaseResponseOutput = technology.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BORG_TECHNOLOGY,
-				BORG_COMPONENT, COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY,
-				FICTIONAL_TECHNOLOGY, HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY,
-				SHIELD_TECHNOLOGY, SECURITY_TECHNOLOGY, PROPULSION_TECHNOLOGY, SPACECRAFT_COMPONENT, WARP_TECHNOLOGY, TRANSWARP_TECHNOLOGY,
-				TIME_TRAVEL_TECHNOLOGY, MILITARY_TECHNOLOGY, VICTUAL_TECHNOLOGY, TOOL, CULINARY_TOOL, ENGINEERING_TOOL, HOUSEHOLD_TOOL,
-				MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY, TRANSPORTATION_TECHNOLOGY, WEAPON_COMPONENT, ARTIFICIAL_LIFEFORM_COMPONENT)
-
-		then:
-		1 * technologyApiMock.v2SearchTechnology(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
-				COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY, FICTIONAL_TECHNOLOGY,
-				HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY, SHIELD_TECHNOLOGY,
-				SECURITY_TECHNOLOGY, PROPULSION_TECHNOLOGY, SPACECRAFT_COMPONENT, WARP_TECHNOLOGY, TRANSWARP_TECHNOLOGY, TIME_TRAVEL_TECHNOLOGY,
-				MILITARY_TECHNOLOGY, VICTUAL_TECHNOLOGY, TOOL, CULINARY_TOOL, ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT,
-				TRANSPORTER_TECHNOLOGY, TRANSPORTATION_TECHNOLOGY, WEAPON_COMPONENT, ARTIFICIAL_LIFEFORM_COMPONENT) >> technologyV2BaseResponse
-		0 * _
-		technologyV2BaseResponse == technologyV2BaseResponseOutput
 	}
 
 	void "searches entities with criteria (V2)"() {
@@ -128,7 +71,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 				transportationTechnology: TRANSPORTATION_TECHNOLOGY,
 				weaponComponent: WEAPON_COMPONENT,
 				artificialLifeformComponent: ARTIFICIAL_LIFEFORM_COMPONENT)
-		technologyV2SearchCriteria.sort.addAll(SORT)
+		technologyV2SearchCriteria.sort = SORT
 
 		when:
 		TechnologyV2BaseResponse technologyV2BaseResponseOutput = technology.searchV2(technologyV2SearchCriteria)

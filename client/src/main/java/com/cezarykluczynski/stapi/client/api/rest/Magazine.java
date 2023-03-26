@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.MagazineSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.MagazineApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.MagazineBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.MagazineFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Magazine {
 
 	private final MagazineApi magazineApi;
@@ -18,13 +17,6 @@ public class Magazine {
 
 	public MagazineFullResponse get(String uid) throws ApiException {
 		return magazineApi.v1GetMagazine(uid);
-	}
-
-	@Deprecated
-	public MagazineBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
-			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo) throws ApiException {
-		return magazineApi.v1SearchMagazines(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
-				numberOfPagesTo);
 	}
 
 	public MagazineBaseResponse search(MagazineSearchCriteria magazineSearchCriteria) throws ApiException {

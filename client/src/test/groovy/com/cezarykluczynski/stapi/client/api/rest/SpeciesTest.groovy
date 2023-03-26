@@ -3,11 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.SpeciesV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.SpeciesApi
-import com.cezarykluczynski.stapi.client.rest.model.SpeciesBaseResponse
-import com.cezarykluczynski.stapi.client.rest.model.SpeciesFullResponse
 import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpeciesV2SearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
 
 class SpeciesTest extends AbstractSpeciesTest {
@@ -21,64 +20,17 @@ class SpeciesTest extends AbstractSpeciesTest {
 		species = new Species(speciesApiMock)
 	}
 
-	void "gets single entity"() {
-		given:
-		SpeciesFullResponse speciesFullResponse = Mock()
-
-		when:
-		SpeciesFullResponse speciesFullResponseOutput = species.get(UID)
-
-		then:
-		1 * speciesApiMock.v1GetSpecies(UID) >> speciesFullResponse
-		0 * _
-		speciesFullResponse == speciesFullResponseOutput
-	}
-
 	void "gets single entity (V2)"() {
 		given:
-		SpeciesFullResponse speciesFullResponse = Mock()
+		SpeciesV2FullResponse speciesV2FullResponse = Mock()
 
 		when:
-		SpeciesFullResponse speciesFullResponseOutput = species.get(UID)
+		SpeciesV2FullResponse speciesV2FullResponseOutput = species.getV2(UID)
 
 		then:
-		1 * speciesApiMock.v1GetSpecies(UID) >> speciesFullResponse
+		1 * speciesApiMock.v2GetSpecies(UID) >> speciesV2FullResponse
 		0 * _
-		speciesFullResponse == speciesFullResponseOutput
-	}
-
-	void "searches entities"() {
-		given:
-		SpeciesBaseResponse speciesBaseResponse = Mock()
-
-		when:
-		SpeciesBaseResponse speciesBaseResponseOutput = species.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
-				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES, SPACEBORNE_SPECIES,
-				TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY)
-
-		then:
-		1 * speciesApiMock.v1SearchSpecies(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
-				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES, SPACEBORNE_SPECIES,
-				TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY) >> speciesBaseResponse
-		0 * _
-		speciesBaseResponse == speciesBaseResponseOutput
-	}
-
-	void "searches entities (V2)"() {
-		given:
-		SpeciesV2BaseResponse speciesV2BaseResponse = Mock()
-
-		when:
-		SpeciesV2BaseResponse speciesV2BaseResponseOutput = species.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES,
-				WARP_CAPABLE_SPECIES, EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, AVIAN_SPECIES, NON_CORPOREAL_SPECIES,
-				SHAPESHIFTING_SPECIES, SPACEBORNE_SPECIES, TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY)
-
-		then:
-		1 * speciesApiMock.v2SearchSpecies(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
-				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, AVIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES,
-				SPACEBORNE_SPECIES, TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY) >> speciesV2BaseResponse
-		0 * _
-		speciesV2BaseResponse == speciesV2BaseResponseOutput
+		speciesV2FullResponse == speciesV2FullResponseOutput
 	}
 
 	void "searches entities with criteria (V2)"() {
@@ -101,7 +53,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 				transDimensionalSpecies: TRANS_DIMENSIONAL_SPECIES,
 				unnamedSpecies: UNNAMED_SPECIES,
 				alternateReality: ALTERNATE_REALITY)
-		speciesV2SearchCriteria.sort.addAll(SORT)
+		speciesV2SearchCriteria.sort = SORT
 
 		when:
 		SpeciesV2BaseResponse speciesV2BaseResponseOutput = species.searchV2(speciesV2SearchCriteria)

@@ -26,7 +26,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortRestMapper.class})
 public interface VideoReleaseBaseRestMapper {
 
-	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
+	@Mapping(source = "ITunesDigitalRelease", target = "itunesDigitalRelease")
 	@Mapping(target = "season", ignore = true)
 	@Mapping(target = "series", ignore = true)
 	VideoReleaseBase mapBase(VideoRelease videoRelease);
@@ -50,7 +50,7 @@ public interface VideoReleaseBaseRestMapper {
 				.orElse(null));
 	}
 
-	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
+	@Mapping(source = "ITunesDigitalRelease", target = "itunesDigitalRelease")
 	VideoReleaseV2Base mapV2Base(VideoRelease videoRelease);
 
 	VideoReleaseRequestDTO mapV2Base(VideoReleaseV2RestBeanParams videoReleaseV2RestBeanParams);

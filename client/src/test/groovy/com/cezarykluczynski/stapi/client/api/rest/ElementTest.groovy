@@ -3,12 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.ElementV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.ElementApi
-import com.cezarykluczynski.stapi.client.rest.model.ElementBaseResponse
-import com.cezarykluczynski.stapi.client.rest.model.ElementFullResponse
 import com.cezarykluczynski.stapi.client.rest.model.ElementV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.ElementV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2SearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractElementTest
 
 class ElementTest extends AbstractElementTest {
@@ -22,19 +20,6 @@ class ElementTest extends AbstractElementTest {
 		element = new Element(elementApiMock)
 	}
 
-	void "gets single entity"() {
-		given:
-		ElementFullResponse elementFullResponse = Mock()
-
-		when:
-		ElementFullResponse elementFullResponseOutput = element.get(UID)
-
-		then:
-		1 * elementApiMock.v1GetElement(UID) >> elementFullResponse
-		0 * _
-		elementFullResponse == elementFullResponseOutput
-	}
-
 	void "gets single entity (V2)"() {
 		given:
 		ElementV2FullResponse elementV2FullResponse = Mock()
@@ -46,36 +31,6 @@ class ElementTest extends AbstractElementTest {
 		1 * elementApiMock.v2GetElement(UID) >> elementV2FullResponse
 		0 * _
 		elementV2FullResponse == elementFullResponseOutput
-	}
-
-	void "searches entities"() {
-		given:
-		ElementBaseResponse elementBaseResponse = Mock()
-
-		when:
-		ElementBaseResponse elementBaseResponseOutput = element.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
-				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES)
-
-		then:
-		1 * elementApiMock.v1SearchElements(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
-				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES) >> elementBaseResponse
-		0 * _
-		elementBaseResponse == elementBaseResponseOutput
-	}
-
-	void "searches entities (V2)"() {
-		given:
-		ElementV2BaseResponse elementBaseResponse = Mock()
-
-		when:
-		ElementV2BaseResponse elementBaseResponseOutput = element.searchV2(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
-				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES)
-
-		then:
-		1 * elementApiMock.v2SearchElements(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, SYMBOL, TRANSURANIC, GAMMA_SERIES,
-				HYPERSONIC_SERIES, MEGA_SERIES, OMEGA_SERIES, TRANSONIC_SERIES, WORLD_SERIES) >> elementBaseResponse
-		0 * _
-		elementBaseResponse == elementBaseResponseOutput
 	}
 
 	void "searches entities with criteria (V2)"() {
@@ -93,7 +48,7 @@ class ElementTest extends AbstractElementTest {
 				omegaSeries: OMEGA_SERIES,
 				transonicSeries: TRANSONIC_SERIES,
 				worldSeries: WORLD_SERIES)
-		elementV2SearchCriteria.sort.addAll(SORT)
+		elementV2SearchCriteria.sort = SORT
 
 		when:
 		ElementV2BaseResponse elementBaseResponseOutput = element.searchV2(elementV2SearchCriteria)

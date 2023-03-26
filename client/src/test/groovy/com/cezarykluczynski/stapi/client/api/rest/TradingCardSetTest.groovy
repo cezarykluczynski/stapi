@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.TradingCardSetSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.TradingCardSetApi
 import com.cezarykluczynski.stapi.client.rest.model.TradingCardSetBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.TradingCardSetFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardSetSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractTradingCardSetTest
 
 class TradingCardSetTest extends AbstractTradingCardSetTest {
@@ -33,25 +33,6 @@ class TradingCardSetTest extends AbstractTradingCardSetTest {
 		tradingCardSetFullResponse == tradingCardSetFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		TradingCardSetBaseResponse tradingCardSetBaseResponse = Mock()
-
-		when:
-		TradingCardSetBaseResponse tradingCardSetBaseResponseOutput = tradingCardSet.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
-				RELEASE_YEAR_FROM, RELEASE_YEAR_TO, CARDS_PER_PACK_FROM, CARDS_PER_PACK_TO, PACKS_PER_BOX_FROM, PACKS_PER_BOX_TO, BOXES_PER_CASE_FROM,
-				BOXES_PER_CASE_TO, PRODUCTION_RUN_FROM, PRODUCTION_RUN_TO, PRODUCTION_RUN_UNIT, CARD_WIDTH_FROM, CARD_WIDTH_TO, CARD_HEIGHT_FROM,
-				CARD_HEIGHT_TO)
-
-		then:
-		1 * tradingCardSetApiMock.v1SearchTradingCardSets(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, RELEASE_YEAR_FROM,
-				RELEASE_YEAR_TO, CARDS_PER_PACK_FROM, CARDS_PER_PACK_TO, PACKS_PER_BOX_FROM, PACKS_PER_BOX_TO, BOXES_PER_CASE_FROM, BOXES_PER_CASE_TO,
-				PRODUCTION_RUN_FROM, PRODUCTION_RUN_TO, PRODUCTION_RUN_UNIT, CARD_WIDTH_FROM, CARD_WIDTH_TO, CARD_HEIGHT_FROM, CARD_HEIGHT_TO) >>
-				tradingCardSetBaseResponse
-		0 * _
-		tradingCardSetBaseResponse == tradingCardSetBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		TradingCardSetBaseResponse tradingCardSetBaseResponse = Mock()
@@ -74,7 +55,7 @@ class TradingCardSetTest extends AbstractTradingCardSetTest {
 				cardWidthTo: CARD_WIDTH_TO,
 				cardHeightFrom: CARD_HEIGHT_FROM,
 				cardHeightTo: CARD_HEIGHT_TO)
-		tradingCardSetSearchCriteria.sort.addAll(SORT)
+		tradingCardSetSearchCriteria.sort = SORT
 
 		when:
 		TradingCardSetBaseResponse tradingCardSetBaseResponseOutput = tradingCardSet.search(tradingCardSetSearchCriteria)

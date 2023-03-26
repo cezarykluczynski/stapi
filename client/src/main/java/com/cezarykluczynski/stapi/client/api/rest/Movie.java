@@ -1,15 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.MovieSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.MovieApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MovieSearchCriteria;
 
-import java.time.LocalDate;
-
-@SuppressWarnings("ParameterNumber")
 public class Movie {
 
 	private final MovieApi movieApi;
@@ -20,13 +17,6 @@ public class Movie {
 
 	public MovieFullResponse get(String uid) throws ApiException {
 		return movieApi.v1GetMovie(uid);
-	}
-
-	@Deprecated
-	public MovieBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Float stardateFrom, Float stardateTo,
-			Integer yearFrom, Integer yearTo, LocalDate usReleaseDateFrom, LocalDate usReleaseDateTo) throws ApiException {
-		return movieApi.v1SearchMovies(pageNumber, pageSize, sort, title, stardateFrom, stardateTo, yearFrom, yearTo,
-				usReleaseDateFrom, usReleaseDateTo);
 	}
 
 	public MovieBaseResponse search(MovieSearchCriteria movieSearchCriteria) throws ApiException {

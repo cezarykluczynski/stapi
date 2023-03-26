@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.MagazineSeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.MagazineSeriesApi
 import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractMagazineSeriesTest
 
 class MagazineSeriesTest extends AbstractMagazineSeriesTest {
@@ -33,21 +33,6 @@ class MagazineSeriesTest extends AbstractMagazineSeriesTest {
 		magazineSeriesFullResponse == magazineSeriesFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		MagazineSeriesBaseResponse magazineSeriesBaseResponse = Mock()
-
-		when:
-		MagazineSeriesBaseResponse magazineSeriesBaseResponseOutput = magazineSeries.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE,
-				PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO)
-
-		then:
-		1 * magazineSeriesApiMock.v1SearchMagazineSeries(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
-				PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO) >> magazineSeriesBaseResponse
-		0 * _
-		magazineSeriesBaseResponse == magazineSeriesBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		MagazineSeriesBaseResponse magazineSeriesBaseResponse = Mock()
@@ -59,7 +44,7 @@ class MagazineSeriesTest extends AbstractMagazineSeriesTest {
 				publishedYearTo: PUBLISHED_YEAR_TO,
 				numberOfIssuesFrom: NUMBER_OF_ISSUES_FROM,
 				numberOfIssuesTo: NUMBER_OF_ISSUES_TO)
-		magazineSeriesSearchCriteria.sort.addAll(SORT)
+		magazineSeriesSearchCriteria.sort = SORT
 
 		when:
 		MagazineSeriesBaseResponse magazineSeriesBaseResponseOutput = magazineSeries.search(magazineSeriesSearchCriteria)

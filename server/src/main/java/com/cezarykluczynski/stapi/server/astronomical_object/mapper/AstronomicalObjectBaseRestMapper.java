@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2Base;
 import com.cezarykluczynski.stapi.model.astronomical_object.dto.AstronomicalObjectRequestDTO;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams;
+import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
@@ -20,6 +21,8 @@ public interface AstronomicalObjectBaseRestMapper {
 	AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);
 
 	List<AstronomicalObjectBase> mapBase(List<AstronomicalObject> astronomicalObjectList);
+
+	AstronomicalObjectRequestDTO mapV2Base(AstronomicalObjectV2RestBeanParams astronomicalObjectV2RestBeanParams);
 
 	AstronomicalObjectV2Base mapV2Base(AstronomicalObject astronomicalObject);
 

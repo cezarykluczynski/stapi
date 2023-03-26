@@ -1,13 +1,11 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.VideoGameSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.VideoGameApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.VideoGameBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.VideoGameFullResponse;
-
-import java.time.LocalDate;
+import com.cezarykluczynski.stapi.client.rest.model.VideoGameSearchCriteria;
 
 public class VideoGame {
 
@@ -19,12 +17,6 @@ public class VideoGame {
 
 	public VideoGameFullResponse get(String uid) throws ApiException {
 		return videoGameApi.v1GetVideoGame(uid);
-	}
-
-	@Deprecated
-	public VideoGameBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, LocalDate releaseDateFrom,
-			LocalDate releaseDateTo) throws ApiException {
-		return videoGameApi.v1SearchVideoGames(pageNumber, pageSize, sort, title, releaseDateFrom, releaseDateTo);
 	}
 
 	public VideoGameBaseResponse search(VideoGameSearchCriteria videoGameSearchCriteria) throws ApiException {

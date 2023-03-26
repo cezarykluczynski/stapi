@@ -96,7 +96,7 @@ class VideoReleaseBaseRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseBase.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
 		videoReleaseBase.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
 		videoReleaseBase.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE
-		videoReleaseBase.iTunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
+		videoReleaseBase.itunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
 		videoReleaseBase.ultraVioletDigitalRelease == ULTRA_VIOLET_DIGITAL_RELEASE
 		videoReleaseBase.vimeoDigitalRelease == VIMEO_DIGITAL_RELEASE
 		videoReleaseBase.vuduDigitalRelease == VUDU_DIGITAL_RELEASE
@@ -132,7 +132,7 @@ class VideoReleaseBaseRestMapperTest extends AbstractVideoReleaseMapperTest {
 		videoReleaseV2Base.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
 		videoReleaseV2Base.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
 		videoReleaseV2Base.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE
-		videoReleaseV2Base.iTunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
+		videoReleaseV2Base.itunesDigitalRelease == I_TUNES_DIGITAL_RELEASE
 		videoReleaseV2Base.ultraVioletDigitalRelease == ULTRA_VIOLET_DIGITAL_RELEASE
 		videoReleaseV2Base.vimeoDigitalRelease == VIMEO_DIGITAL_RELEASE
 		videoReleaseV2Base.vuduDigitalRelease == VUDU_DIGITAL_RELEASE

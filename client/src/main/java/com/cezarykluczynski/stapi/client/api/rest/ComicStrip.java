@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.ComicStripSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.ComicStripApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.ComicStripBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.ComicStripFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripSearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class ComicStrip {
 
-	private ComicStripApi comicStripApi;
+	private final ComicStripApi comicStripApi;
 
 	public ComicStrip(ComicStripApi comicStripApi) {
 		this.comicStripApi = comicStripApi;
@@ -18,13 +17,6 @@ public class ComicStrip {
 
 	public ComicStripFullResponse get(String uid) throws ApiException {
 		return comicStripApi.v1GetComicStrip(uid);
-	}
-
-	@Deprecated
-	public ComicStripBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
-			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Integer yearFrom, Integer yearTo) throws ApiException {
-		return comicStripApi.v1SearchComicStrips(pageNumber, pageSize, sort, title, publishedYearFrom, publishedYearTo,
-				numberOfPagesFrom, numberOfPagesTo, yearFrom, yearTo);
 	}
 
 	public ComicStripBaseResponse search(ComicStripSearchCriteria comicStripSearchCriteria) throws ApiException {

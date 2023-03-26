@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.EpisodeSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.EpisodeApi
 import com.cezarykluczynski.stapi.client.rest.model.EpisodeBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.EpisodeFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.EpisodeSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractEpisodeTest
 
 class EpisodeTest extends AbstractEpisodeTest {
@@ -33,23 +33,6 @@ class EpisodeTest extends AbstractEpisodeTest {
 		episodeFullResponse == episodeFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		EpisodeBaseResponse episodeBaseResponse = Mock()
-
-		when:
-		EpisodeBaseResponse episodeBaseResponseOutput = episode.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM,
-				SEASON_NUMBER_TO, EPISODE_NUMBER_FROM, EPISODE_NUMBER_TO, PRODUCTION_SERIAL_NUMBER, FEATURE_LENGTH, STARDATE_FROM, STARDATE_TO,
-				YEAR_FROM, YEAR_TO, US_AIR_DATE_FROM, US_AIR_DATE_TO, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO)
-
-		then:
-		1 * episodeApiMock.v1SearchEpisodes(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO,
-				EPISODE_NUMBER_FROM, EPISODE_NUMBER_TO, PRODUCTION_SERIAL_NUMBER, FEATURE_LENGTH, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
-				US_AIR_DATE_FROM, US_AIR_DATE_TO, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO) >> episodeBaseResponse
-		0 * _
-		episodeBaseResponse == episodeBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		EpisodeBaseResponse episodeBaseResponse = Mock()
@@ -71,7 +54,7 @@ class EpisodeTest extends AbstractEpisodeTest {
 				usAirDateTo: US_AIR_DATE_TO,
 				finalScriptDateFrom: FINAL_SCRIPT_DATE_FROM,
 				finalScriptDateTo: FINAL_SCRIPT_DATE_TO)
-		episodeSearchCriteria.sort.addAll(SORT)
+		episodeSearchCriteria.sort = SORT
 
 		when:
 		EpisodeBaseResponse episodeBaseResponseOutput = episode.search(episodeSearchCriteria)

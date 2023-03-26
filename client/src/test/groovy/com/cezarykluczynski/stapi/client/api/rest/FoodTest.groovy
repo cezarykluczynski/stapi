@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.FoodSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.FoodApi
 import com.cezarykluczynski.stapi.client.rest.model.FoodBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.FoodFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.FoodSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractFoodTest
 
 class FoodTest extends AbstractFoodTest {
@@ -33,21 +33,6 @@ class FoodTest extends AbstractFoodTest {
 		foodFullResponse == foodFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		FoodBaseResponse foodBaseResponse = Mock()
-
-		when:
-		FoodBaseResponse foodBaseResponseOutput = food.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT,
-				HERB_OR_SPICE, SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA)
-
-		then:
-		1 * foodApiMock.v1SearchFoods(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE,
-				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
-		0 * _
-		foodBaseResponse == foodBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		FoodBaseResponse foodBaseResponse = Mock()
@@ -65,7 +50,7 @@ class FoodTest extends AbstractFoodTest {
 				alcoholicBeverage: ALCOHOLIC_BEVERAGE,
 				juice: JUICE,
 				tea: TEA)
-		foodSearchCriteria.sort.addAll(SORT)
+		foodSearchCriteria.sort = SORT
 
 		when:
 		FoodBaseResponse foodBaseResponseOutput = food.search(foodSearchCriteria)

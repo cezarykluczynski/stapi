@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.technology.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.TechnologyV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TechnologyV2SearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.SpacecraftClassV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV2BaseResponse
+import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV2SearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.SpacecraftClassV3FullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider

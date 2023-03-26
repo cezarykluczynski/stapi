@@ -59,6 +59,7 @@ dependencies {
 	integrationTestImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
 	integrationTestImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	integrationTestImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
+	integrationTestImplementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 
 	dockerPerformanceTestImplementation project(':server').sourceSets.main.output
 	dockerPerformanceTestImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'

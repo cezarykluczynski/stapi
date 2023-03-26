@@ -24,7 +24,7 @@ import java.util.Comparator;
 		EnumMapper.class, SeriesBaseRestMapper.class, SeriesBaseRestMapper.class})
 public interface VideoReleaseFullRestMapper {
 
-	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
+	@Mapping(source = "ITunesDigitalRelease", target = "itunesDigitalRelease")
 	@Mapping(target = "season", ignore = true)
 	@Mapping(target = "series", ignore = true)
 	VideoReleaseFull mapFull(VideoRelease videoRelease);
@@ -42,7 +42,7 @@ public interface VideoReleaseFullRestMapper {
 				.orElse(null));
 	}
 
-	@Mapping(source = "ITunesDigitalRelease", target = "iTunesDigitalRelease")
+	@Mapping(source = "ITunesDigitalRelease", target = "itunesDigitalRelease")
 	VideoReleaseV2Full mapV2Full(VideoRelease videoRelease);
 
 }

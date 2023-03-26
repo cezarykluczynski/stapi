@@ -63,7 +63,7 @@ class BookSeriesBaseRestMapperTest extends AbstractBookSeriesMapperTest {
 		restBookSeries.yearFrom == YEAR_FROM
 		restBookSeries.yearTo == YEAR_TO
 		restBookSeries.miniseries == MINISERIES
-		restBookSeries.eBookSeries == E_BOOK_SERIES
+		restBookSeries.ebookSeries == E_BOOK_SERIES
 	}
 
 }

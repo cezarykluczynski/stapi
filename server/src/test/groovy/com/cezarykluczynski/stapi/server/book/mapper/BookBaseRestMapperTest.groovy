@@ -149,7 +149,7 @@ class BookBaseRestMapperTest extends AbstractBookMapperTest {
 		bookBase.referenceBook == REFERENCE_BOOK
 		bookBase.biographyBook == BIOGRAPHY_BOOK
 		bookBase.rolePlayingBook == ROLE_PLAYING_BOOK
-		bookBase.eBook == E_BOOK
+		bookBase.ebook == E_BOOK
 		bookBase.anthology == ANTHOLOGY
 		bookBase.novelization == NOVELIZATION
 		bookBase.audiobook == AUDIOBOOK
@@ -183,7 +183,7 @@ class BookBaseRestMapperTest extends AbstractBookMapperTest {
 		bookV2Base.referenceBook == REFERENCE_BOOK
 		bookV2Base.biographyBook == BIOGRAPHY_BOOK
 		bookV2Base.rolePlayingBook == ROLE_PLAYING_BOOK
-		bookV2Base.eBook == E_BOOK
+		bookV2Base.ebook == E_BOOK
 		bookV2Base.anthology == ANTHOLOGY
 		bookV2Base.novelization == NOVELIZATION
 		bookV2Base.unauthorizedPublication == UNAUTHORIZED_PUBLICATION

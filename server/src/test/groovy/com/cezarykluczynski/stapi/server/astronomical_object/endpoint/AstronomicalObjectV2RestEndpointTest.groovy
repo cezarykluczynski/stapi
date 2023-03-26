@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.astronomical_object.endpoint
 
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2FullResponse
-import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams
+import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectV2RestBeanParams
 import com.cezarykluczynski.stapi.server.astronomical_object.reader.AstronomicalObjectV2RestReader
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
@@ -45,8 +45,8 @@ class AstronomicalObjectV2RestEndpointTest extends AbstractRestEndpointTest {
 				.searchAstronomicalObject(pageAwareBeanParams)
 
 		then:
-		1 * astronomicalObjectV2RestReaderMock.readBase(_ as AstronomicalObjectRestBeanParams) >> {
-				AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams ->
+		1 * astronomicalObjectV2RestReaderMock.readBase(_ as AstronomicalObjectV2RestBeanParams) >> {
+				AstronomicalObjectV2RestBeanParams astronomicalObjectV2RestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			astronomicalObjectV2Response
@@ -56,7 +56,7 @@ class AstronomicalObjectV2RestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search post call to AstronomicalObjectRestReader"() {
 		given:
-		AstronomicalObjectRestBeanParams astronomicalObjectV2RestBeanParams = new AstronomicalObjectRestBeanParams(name: NAME)
+		AstronomicalObjectV2RestBeanParams astronomicalObjectV2RestBeanParams = new AstronomicalObjectV2RestBeanParams(name: NAME)
 		AstronomicalObjectV2BaseResponse astronomicalObjectV2Response = Mock()
 
 		when:
@@ -64,8 +64,8 @@ class AstronomicalObjectV2RestEndpointTest extends AbstractRestEndpointTest {
 				.searchAstronomicalObject(astronomicalObjectV2RestBeanParams)
 
 		then:
-		1 * astronomicalObjectV2RestReaderMock.readBase(astronomicalObjectV2RestBeanParams as AstronomicalObjectRestBeanParams) >> {
-				AstronomicalObjectRestBeanParams params ->
+		1 * astronomicalObjectV2RestReaderMock.readBase(astronomicalObjectV2RestBeanParams as AstronomicalObjectV2RestBeanParams) >> {
+				AstronomicalObjectV2RestBeanParams params ->
 			assert params.name == NAME
 			astronomicalObjectV2Response
 		}

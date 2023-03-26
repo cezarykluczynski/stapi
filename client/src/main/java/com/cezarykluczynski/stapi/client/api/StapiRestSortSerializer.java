@@ -1,22 +1,18 @@
 package com.cezarykluczynski.stapi.client.api;
 
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause;
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection;
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class StapiRestSortSerializer {
 
-	public static String serialize(List<RestSortClause> restSortClauseList) {
-		restSortClauseList.forEach(restSortClause -> {
-			if (restSortClause.getDirection() == null) {
-				restSortClause.setDirection(RestSortDirection.ASC);
-			}
-		});
+	public static String serialize(RequestSort requestSort) {
+		if (requestSort == null) {
+			return "";
+		}
 
-		return String.join(";", restSortClauseList.stream().map(restSortClause ->
-						restSortClause.getName() + "," + restSortClause.getDirection().name())
+		return String.join(";", requestSort.getClauses().stream().map(requestSortClause ->
+						requestSortClause.getName() + "," + requestSortClause.getDirection().name())
 				.collect(Collectors.toList()));
 	}
 

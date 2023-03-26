@@ -19,10 +19,10 @@ import org.mapstruct.Mapping;
 		BookSeriesBaseRestMapper.class})
 public interface BookFullRestMapper {
 
-	@Mapping(source = "EBook", target = "eBook")
+	@Mapping(source = "EBook", target = "ebook")
 	BookFull mapFull(Book book);
 
-	@Mapping(source = "EBook", target = "eBook")
+	@Mapping(source = "EBook", target = "ebook")
 	BookV2Full mapV2Full(Book book);
 
 }

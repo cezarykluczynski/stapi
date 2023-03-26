@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2BaseResp
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2FullResponse;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams;
+import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectBaseRestMapper;
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectFullRestMapper;
 import com.cezarykluczynski.stapi.server.astronomical_object.query.AstronomicalObjectRestQuery;
@@ -17,7 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AstronomicalObjectV2RestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectV2BaseResponse>,
+public class AstronomicalObjectV2RestReader implements BaseReader<AstronomicalObjectV2RestBeanParams, AstronomicalObjectV2BaseResponse>,
 		FullReader<AstronomicalObjectV2FullResponse> {
 
 	private final AstronomicalObjectRestQuery astronomicalObjectRestQuery;
@@ -41,7 +42,7 @@ public class AstronomicalObjectV2RestReader implements BaseReader<AstronomicalOb
 	}
 
 	@Override
-	public AstronomicalObjectV2BaseResponse readBase(AstronomicalObjectRestBeanParams input) {
+	public AstronomicalObjectV2BaseResponse readBase(AstronomicalObjectV2RestBeanParams input) {
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(input);
 		AstronomicalObjectV2BaseResponse astronomicalObjectResponse = new AstronomicalObjectV2BaseResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToRestResponsePage(astronomicalObjectPage));

@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.TradingCardSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.TradingCardApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.TradingCardBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.TradingCardFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardSearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class TradingCard {
 
 	private final TradingCardApi tradingCardApi;
@@ -18,12 +17,6 @@ public class TradingCard {
 
 	public TradingCardFullResponse get(String uid) throws ApiException {
 		return tradingCardApi.v1GetTradingCard(uid);
-	}
-
-	@Deprecated
-	public TradingCardBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String tradingCardDeckUid,
-			String tradingCardSetUid) throws ApiException {
-		return tradingCardApi.v1SearchTradingCards(pageNumber, pageSize, sort, name, tradingCardDeckUid, tradingCardSetUid);
 	}
 
 	public TradingCardBaseResponse search(TradingCardSearchCriteria tradingCardSearchCriteria) throws ApiException {

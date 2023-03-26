@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.magazine_series.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.MagazineSeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MagazineSeriesSearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.book_series.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.BookSeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.BookSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.BookSeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.BookSeriesSearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -36,6 +36,21 @@ class BookSeriesRestEndpointIntegrationTest extends AbstractEndpointIntegrationT
 		then:
 		bookSeriesBaseResponse.bookSeries.stream()
 				.anyMatch { it.title == 'Which Way Books' }
+	}
+
+	void "gets e-book series only"() {
+		given:
+		BookSeriesSearchCriteria bookSeriesSearchCriteria = new BookSeriesSearchCriteria(
+				ebookSeries: true
+		)
+
+		when:
+		BookSeriesBaseResponse bookSeriesBaseResponse = stapiRestClient.bookSeries.search(bookSeriesSearchCriteria)
+
+		then:
+		bookSeriesBaseResponse.bookSeries.size() >= 3
+		bookSeriesBaseResponse.bookSeries.stream()
+				.allMatch { it.ebookSeries }
 	}
 
 }

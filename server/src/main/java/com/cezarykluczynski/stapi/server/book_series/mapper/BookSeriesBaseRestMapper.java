@@ -16,7 +16,7 @@ public interface BookSeriesBaseRestMapper {
 
 	BookSeriesRequestDTO mapBase(BookSeriesRestBeanParams bookSeriesRestBeanParams);
 
-	@Mapping(source = "EBookSeries", target = "eBookSeries")
+	@Mapping(source = "EBookSeries", target = "ebookSeries")
 	BookSeriesBase mapBase(BookSeries bookSeries);
 
 	List<BookSeriesBase> mapBase(List<BookSeries> bookSeriesList);

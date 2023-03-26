@@ -22,7 +22,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		SpacecraftClassRestBeanParams spacecraftClassRestBeanParams = new SpacecraftClassRestBeanParams(
 				uid: UID,
 				name: NAME,
-				warpCapable: WARP_CAPABLE,
+				warpCapable: WARP_CAPABLE_SPECIES,
 				alternateReality: ALTERNATE_REALITY)
 
 		when:
@@ -31,7 +31,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		then:
 		spacecraftClassRequestDTO.uid == UID
 		spacecraftClassRequestDTO.name == NAME
-		spacecraftClassRequestDTO.warpCapable == WARP_CAPABLE
+		spacecraftClassRequestDTO.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
@@ -40,7 +40,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		SpacecraftClassV2RestBeanParams spacecraftClassV2RestBeanParams = new SpacecraftClassV2RestBeanParams(
 				uid: UID,
 				name: NAME,
-				warpCapable: WARP_CAPABLE,
+				warpCapable: WARP_CAPABLE_SPECIES,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 
@@ -50,7 +50,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		then:
 		spacecraftClassRequestDTO.uid == UID
 		spacecraftClassRequestDTO.name == NAME
-		spacecraftClassRequestDTO.warpCapable == WARP_CAPABLE
+		spacecraftClassRequestDTO.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
@@ -65,7 +65,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassBase.uid == UID
 		spacecraftClassBase.name == NAME
 		spacecraftClassBase.numberOfDecks == NUMBER_OF_DECKS
-		spacecraftClassBase.warpCapable == WARP_CAPABLE
+		spacecraftClassBase.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassBase.alternateReality == ALTERNATE_REALITY
 		spacecraftClassBase.activeFrom == ACTIVE_FROM
 		spacecraftClassBase.activeTo == ACTIVE_TO
@@ -87,7 +87,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassBase.name == NAME
 		spacecraftClassBase.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClassBase.crew == CREW
-		spacecraftClassBase.warpCapable == WARP_CAPABLE
+		spacecraftClassBase.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassBase.mirror == MIRROR
 		spacecraftClassBase.alternateReality == ALTERNATE_REALITY
 		spacecraftClassBase.activeFrom == ACTIVE_FROM

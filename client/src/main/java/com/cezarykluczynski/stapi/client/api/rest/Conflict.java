@@ -1,14 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.ConflictSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.ConflictApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.ConflictBaseResponse;
-import com.cezarykluczynski.stapi.client.rest.model.ConflictFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ConflictSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.model.ConflictV2FullResponse;
 
-@SuppressWarnings("ParameterNumber")
 public class Conflict {
 
 	private final ConflictApi conflictApi;
@@ -17,21 +15,8 @@ public class Conflict {
 		this.conflictApi = conflictApi;
 	}
 
-	@Deprecated
-	public ConflictFullResponse get(String uid) throws ApiException {
-		return conflictApi.v1GetConflict(uid);
-	}
-
 	public ConflictV2FullResponse getV2(String uid) throws ApiException {
 		return conflictApi.v2GetConflict(uid);
-	}
-
-	@Deprecated
-	public ConflictBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Integer yearFrom, Integer yearTo,
-			Boolean earthConflict, Boolean federationWar, Boolean klingonWar, Boolean dominionWarBattle, Boolean alternateReality)
-			throws ApiException {
-		return conflictApi.v1SearchConflicts(pageNumber, pageSize, sort, name, yearFrom, yearTo, earthConflict, federationWar,
-				klingonWar, dominionWarBattle, alternateReality);
 	}
 
 	public ConflictBaseResponse search(ConflictSearchCriteria conflictSearchCriteria) throws ApiException {

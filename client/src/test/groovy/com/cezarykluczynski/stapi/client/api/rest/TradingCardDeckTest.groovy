@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.TradingCardDeckSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.TradingCardDeckApi
 import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.TradingCardDeckSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractTradingCardDeckTest
 
 class TradingCardDeckTest extends AbstractTradingCardDeckTest {
@@ -33,21 +33,6 @@ class TradingCardDeckTest extends AbstractTradingCardDeckTest {
 		tradingCardDeckFullResponse == tradingCardDeckFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		TradingCardDeckBaseResponse tradingCardDeckBaseResponse = Mock()
-
-		when:
-		TradingCardDeckBaseResponse tradingCardDeckBaseResponseOutput = tradingCardDeck.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME,
-				TRADING_CARD_SET_UID)
-
-		then:
-		1 * tradingCardDeckApiMock.v1SearchTradingCardDecks(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, TRADING_CARD_SET_UID) >>
-				tradingCardDeckBaseResponse
-		0 * _
-		tradingCardDeckBaseResponse == tradingCardDeckBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		TradingCardDeckBaseResponse tradingCardDeckBaseResponse = Mock()
@@ -56,7 +41,7 @@ class TradingCardDeckTest extends AbstractTradingCardDeckTest {
 				pageSize: PAGE_SIZE,
 				name: NAME,
 				tradingCardSetUid: TRADING_CARD_SET_UID)
-		tradingCardDeckSearchCriteria.sort.addAll(SORT)
+		tradingCardDeckSearchCriteria.sort = SORT
 
 		when:
 		TradingCardDeckBaseResponse tradingCardDeckBaseResponseOutput = tradingCardDeck.search(tradingCardDeckSearchCriteria)

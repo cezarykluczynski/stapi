@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.client.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams
+import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectV2RestBeanParams
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectBaseRestMapper
 import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectFullRestMapper
 import com.cezarykluczynski.stapi.server.astronomical_object.query.AstronomicalObjectRestQuery
@@ -49,7 +50,7 @@ class AstronomicalObjectV2RestReaderTest extends Specification {
 		given:
 		AstronomicalObjectV2Base astronomicalObjectV2Base = Mock()
 		AstronomicalObject astronomicalObject = Mock()
-		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = Mock()
+		AstronomicalObjectV2RestBeanParams astronomicalObjectV2RestBeanParams = Mock()
 		List<AstronomicalObjectV2Base> restAstronomicalObjectList = Lists.newArrayList(astronomicalObjectV2Base)
 		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(astronomicalObject)
 		Page<AstronomicalObject> astronomicalObjectPage = Mock()
@@ -57,12 +58,12 @@ class AstronomicalObjectV2RestReaderTest extends Specification {
 		ResponseSort responseSort = Mock()
 
 		when:
-		AstronomicalObjectV2BaseResponse astronomicalObjectV2ResponseOutput = astronomicalObjectV2RestReader.readBase(astronomicalObjectRestBeanParams)
+		AstronomicalObjectV2BaseResponse astronomicalObjectV2ResponseOutput = astronomicalObjectV2RestReader.readBase(astronomicalObjectV2RestBeanParams)
 
 		then:
-		1 * astronomicalObjectRestQueryBuilderMock.query(astronomicalObjectRestBeanParams) >> astronomicalObjectPage
+		1 * astronomicalObjectRestQueryBuilderMock.query(astronomicalObjectV2RestBeanParams) >> astronomicalObjectPage
 		1 * pageMapperMock.fromPageToRestResponsePage(astronomicalObjectPage) >> responsePage
-		1 * astronomicalObjectRestBeanParams.sort >> SORT
+		1 * astronomicalObjectV2RestBeanParams.sort >> SORT
 		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * astronomicalObjectPage.content >> astronomicalObjectList
 		1 * astronomicalObjectBaseRestMapperMock.mapV2Base(astronomicalObjectList) >> restAstronomicalObjectList

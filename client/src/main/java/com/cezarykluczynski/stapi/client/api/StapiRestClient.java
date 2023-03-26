@@ -85,265 +85,267 @@ import com.cezarykluczynski.stapi.client.rest.api.WeaponApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiClient;
 import lombok.Getter;
 
-public class StapiRestClient extends AbstractStapiClient implements StapiClient {
+public class StapiRestClient {
+
+	public static String CANONICAL_API_HTTPS_URL = "https://stapi.co/";
 
 	@Getter
-	private String apiUrl;
+	private final String apiUrl;
+
+	@Getter
+	private final AnimalApi animalApi;
+
+	@Getter
+	private final AstronomicalObjectApi astronomicalObjectApi;
+
+	@Getter
+	private final BookApi bookApi;
+
+	@Getter
+	private final BookCollectionApi bookCollectionApi;
+
+	@Getter
+	private final BookSeriesApi bookSeriesApi;
+
+	@Getter
+	private final CharacterApi characterApi;
+
+	@Getter
+	private final ComicCollectionApi comicCollectionApi;
+
+	@Getter
+	private final ComicsApi comicsApi;
+
+	@Getter
+	private final ComicSeriesApi comicSeriesApi;
+
+	@Getter
+	private final ComicStripApi comicStripApi;
+
+	@Getter
+	private final CompanyApi companyApi;
+
+	@Getter
+	private final ConflictApi conflictApi;
+
+	@Getter
+	private final DataVersionApi dataVersionApi;
+
+	@Getter
+	private final ElementApi elementApi;
+
+	@Getter
+	private final EpisodeApi episodeApi;
+
+	@Getter
+	private final FoodApi foodApi;
+
+	@Getter
+	private final LiteratureApi literatureApi;
+
+	@Getter
+	private final LocationApi locationApi;
+
+	@Getter
+	private final MagazineApi magazineApi;
+
+	@Getter
+	private final MagazineSeriesApi magazineSeriesApi;
+
+	@Getter
+	private final MaterialApi materialApi;
+
+	@Getter
+	private final MedicalConditionApi medicalConditionApi;
+
+	@Getter
+	private final MovieApi movieApi;
+
+	@Getter
+	private final OccupationApi occupationApi;
+
+	@Getter
+	private final OrganizationApi organizationApi;
+
+	@Getter
+	private final PerformerApi performerApi;
+
+	@Getter
+	private final SeasonApi seasonApi;
+
+	@Getter
+	private final SeriesApi seriesApi;
+
+	@Getter
+	private final SoundtrackApi soundtrackApi;
+
+	@Getter
+	private final SpacecraftApi spacecraftApi;
+
+	@Getter
+	private final SpacecraftClassApi spacecraftClassApi;
+
+	@Getter
+	private final SpeciesApi speciesApi;
+
+	@Getter
+	private final StaffApi staffApi;
+
+	@Getter
+	private final TechnologyApi technologyApi;
+
+	@Getter
+	private final TitleApi titleApi;
+
+	@Getter
+	private final TradingCardApi tradingCardApi;
+
+	@Getter
+	private final TradingCardDeckApi tradingCardDeckApi;
+
+	@Getter
+	private final TradingCardSetApi tradingCardSetApi;
+
+	@Getter
+	private final VideoGameApi videoGameApi;
+
+	@Getter
+	private final VideoReleaseApi videoReleaseApi;
+
+	@Getter
+	private final WeaponApi weaponApi;
+
+	@Getter
+	private final Animal animal;
+
+	@Getter
+	private final AstronomicalObject astronomicalObject;
+
+	@Getter
+	private final Book book;
+
+	@Getter
+	private final BookCollection bookCollection;
+
+	@Getter
+	private final BookSeries bookSeries;
+
+	@Getter
+	private final Character character;
+
+	@Getter
+	private final ComicCollection comicCollection;
+
+	@Getter
+	private final Comics comics;
+
+	@Getter
+	private final ComicSeries comicSeries;
+
+	@Getter
+	private final ComicStrip comicStrip;
+
+	@Getter
+	private final Company company;
+
+	@Getter
+	private final Conflict conflict;
+
+	@Getter
+	private final DataVersion dataVersion;
+
+	@Getter
+	private final Element element;
+
+	@Getter
+	private final Episode episode;
+
+	@Getter
+	private final Food food;
+
+	@Getter
+	private final Literature literature;
+
+	@Getter
+	private final Location location;
+
+	@Getter
+	private final Magazine magazine;
+
+	@Getter
+	private final MagazineSeries magazineSeries;
+
+	@Getter
+	private final Material material;
+
+	@Getter
+	private final MedicalCondition medicalCondition;
+
+	@Getter
+	private final Movie movie;
+
+	@Getter
+	private final Occupation occupation;
+
+	@Getter
+	private final Organization organization;
+
+	@Getter
+	private final Performer performer;
+
+	@Getter
+	private final Season season;
+
+	@Getter
+	private final Series series;
+
+	@Getter
+	private final Soundtrack soundtrack;
+
+	@Getter
+	private final Spacecraft spacecraft;
+
+	@Getter
+	private final SpacecraftClass spacecraftClass;
+
+	@Getter
+	private final Species species;
+
+	@Getter
+	private final Staff staff;
+
+	@Getter
+	private final Technology technology;
+
+	@Getter
+	private final Title title;
+
+	@Getter
+	private final TradingCard tradingCard;
+
+	@Getter
+	private final TradingCardDeck tradingCardDeck;
+
+	@Getter
+	private final TradingCardSet tradingCardSet;
+
+	@Getter
+	private final VideoGame videoGame;
+
+	@Getter
+	private final VideoRelease videoRelease;
+
+	@Getter
+	private final Weapon weapon;
 
 	private ApiClient apiClient;
-
-	@Getter
-	private AnimalApi animalApi;
-
-	@Getter
-	private AstronomicalObjectApi astronomicalObjectApi;
-
-	@Getter
-	private BookApi bookApi;
-
-	@Getter
-	private BookCollectionApi bookCollectionApi;
-
-	@Getter
-	private BookSeriesApi bookSeriesApi;
-
-	@Getter
-	private CharacterApi characterApi;
-
-	@Getter
-	private ComicCollectionApi comicCollectionApi;
-
-	@Getter
-	private ComicsApi comicsApi;
-
-	@Getter
-	private ComicSeriesApi comicSeriesApi;
-
-	@Getter
-	private ComicStripApi comicStripApi;
-
-	@Getter
-	private CompanyApi companyApi;
-
-	@Getter
-	private ConflictApi conflictApi;
-
-	@Getter
-	private DataVersionApi dataVersionApi;
-
-	@Getter
-	private ElementApi elementApi;
-
-	@Getter
-	private EpisodeApi episodeApi;
-
-	@Getter
-	private FoodApi foodApi;
-
-	@Getter
-	private LiteratureApi literatureApi;
-
-	@Getter
-	private LocationApi locationApi;
-
-	@Getter
-	private MagazineApi magazineApi;
-
-	@Getter
-	private MagazineSeriesApi magazineSeriesApi;
-
-	@Getter
-	private MaterialApi materialApi;
-
-	@Getter
-	private MedicalConditionApi medicalConditionApi;
-
-	@Getter
-	private MovieApi movieApi;
-
-	@Getter
-	private OccupationApi occupationApi;
-
-	@Getter
-	private OrganizationApi organizationApi;
-
-	@Getter
-	private PerformerApi performerApi;
-
-	@Getter
-	private SeasonApi seasonApi;
-
-	@Getter
-	private SeriesApi seriesApi;
-
-	@Getter
-	private SoundtrackApi soundtrackApi;
-
-	@Getter
-	private SpacecraftApi spacecraftApi;
-
-	@Getter
-	private SpacecraftClassApi spacecraftClassApi;
-
-	@Getter
-	private SpeciesApi speciesApi;
-
-	@Getter
-	private StaffApi staffApi;
-
-	@Getter
-	private TechnologyApi technologyApi;
-
-	@Getter
-	private TitleApi titleApi;
-
-	@Getter
-	private TradingCardApi tradingCardApi;
-
-	@Getter
-	private TradingCardDeckApi tradingCardDeckApi;
-
-	@Getter
-	private TradingCardSetApi tradingCardSetApi;
-
-	@Getter
-	private VideoGameApi videoGameApi;
-
-	@Getter
-	private VideoReleaseApi videoReleaseApi;
-
-	@Getter
-	private WeaponApi weaponApi;
-
-	@Getter
-	private Animal animal;
-
-	@Getter
-	private AstronomicalObject astronomicalObject;
-
-	@Getter
-	private Book book;
-
-	@Getter
-	private BookCollection bookCollection;
-
-	@Getter
-	private BookSeries bookSeries;
-
-	@Getter
-	private Character character;
-
-	@Getter
-	private ComicCollection comicCollection;
-
-	@Getter
-	private Comics comics;
-
-	@Getter
-	private ComicSeries comicSeries;
-
-	@Getter
-	private ComicStrip comicStrip;
-
-	@Getter
-	private Company company;
-
-	@Getter
-	private Conflict conflict;
-
-	@Getter
-	private DataVersion dataVersion;
-
-	@Getter
-	private Element element;
-
-	@Getter
-	private Episode episode;
-
-	@Getter
-	private Food food;
-
-	@Getter
-	private Literature literature;
-
-	@Getter
-	private Location location;
-
-	@Getter
-	private Magazine magazine;
-
-	@Getter
-	private MagazineSeries magazineSeries;
-
-	@Getter
-	private Material material;
-
-	@Getter
-	private MedicalCondition medicalCondition;
-
-	@Getter
-	private Movie movie;
-
-	@Getter
-	private Occupation occupation;
-
-	@Getter
-	private Organization organization;
-
-	@Getter
-	private Performer performer;
-
-	@Getter
-	private Season season;
-
-	@Getter
-	private Series series;
-
-	@Getter
-	private Soundtrack soundtrack;
-
-	@Getter
-	private Spacecraft spacecraft;
-
-	@Getter
-	private SpacecraftClass spacecraftClass;
-
-	@Getter
-	private Species species;
-
-	@Getter
-	private Staff staff;
-
-	@Getter
-	private Technology technology;
-
-	@Getter
-	private Title title;
-
-	@Getter
-	private TradingCard tradingCard;
-
-	@Getter
-	private TradingCardDeck tradingCardDeck;
-
-	@Getter
-	private TradingCardSet tradingCardSet;
-
-	@Getter
-	private VideoGame videoGame;
-
-	@Getter
-	private VideoRelease videoRelease;
-
-	@Getter
-	private Weapon weapon;
 
 	public StapiRestClient() {
 		this(null);
 	}
 
 	public StapiRestClient(String apiUrl) {
-		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_HTTPS_URL));
+		this.apiUrl = validateUrl(defaultIfBlank(apiUrl));
 		createApiClient();
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
 		animalApi = new AnimalApi(apiClient);
@@ -435,6 +437,26 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 			apiClient.setBasePath(changeBaseHttpsUrl(apiUrl, apiClient.getBasePath()));
 		}
 		apiClient.setConnectTimeout(10000);
+	}
+
+	private String changeBaseHttpsUrl(String baseUrl, String serviceUrl) {
+		return serviceUrl.replace(CANONICAL_API_HTTPS_URL, baseUrl);
+	}
+
+	private String defaultIfBlank(String string) {
+		return string != null && !string.isEmpty() ? string : CANONICAL_API_HTTPS_URL;
+	}
+
+	private String validateUrl(String url) {
+		if (!url.startsWith("http")) {
+			throw new IllegalArgumentException(String.format("URL %s must start with \"http\" or \"https\"", url));
+		}
+
+		if (!url.endsWith("/")) {
+			throw new IllegalArgumentException(String.format("URL %s must end with slash", url));
+		}
+
+		return url;
 	}
 
 }

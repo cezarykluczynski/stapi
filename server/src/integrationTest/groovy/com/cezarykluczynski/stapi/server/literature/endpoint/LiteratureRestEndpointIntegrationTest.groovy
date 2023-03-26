@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.literature.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.LiteratureSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.LiteratureBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.LiteratureFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.LiteratureSearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

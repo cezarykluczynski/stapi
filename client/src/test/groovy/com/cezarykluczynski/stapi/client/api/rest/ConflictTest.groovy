@@ -3,10 +3,9 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.ConflictSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.ConflictApi
 import com.cezarykluczynski.stapi.client.rest.model.ConflictBaseResponse
-import com.cezarykluczynski.stapi.client.rest.model.ConflictFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ConflictSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.ConflictV2FullResponse
 import com.cezarykluczynski.stapi.util.AbstractConflictTest
 
@@ -21,19 +20,6 @@ class ConflictTest extends AbstractConflictTest {
 		conflict = new Conflict(conflictApiMock)
 	}
 
-	void "gets single entity"() {
-		given:
-		ConflictFullResponse conflictFullResponse = Mock()
-
-		when:
-		ConflictFullResponse conflictFullResponseOutput = conflict.get(UID)
-
-		then:
-		1 * conflictApiMock.v1GetConflict(UID) >> conflictFullResponse
-		0 * _
-		conflictFullResponse == conflictFullResponseOutput
-	}
-
 	void "gets single entity (V2)"() {
 		given:
 		ConflictV2FullResponse conflictV2FullResponse = Mock()
@@ -45,21 +31,6 @@ class ConflictTest extends AbstractConflictTest {
 		1 * conflictApiMock.v2GetConflict(UID) >> conflictV2FullResponse
 		0 * _
 		conflictV2FullResponse == conflictV2FullResponseOutput
-	}
-
-	void "searches entities"() {
-		given:
-		ConflictBaseResponse conflictBaseResponse = Mock()
-
-		when:
-		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO,
-				EARTH_CONFLICT, FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY)
-
-		then:
-		1 * conflictApiMock.v1SearchConflicts(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT,
-				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
-		0 * _
-		conflictBaseResponse == conflictBaseResponseOutput
 	}
 
 	void "searches entities with criteria"() {
@@ -76,7 +47,7 @@ class ConflictTest extends AbstractConflictTest {
 				klingonWar: KLINGON_WAR,
 				dominionWarBattle: DOMINION_WAR_BATTLE,
 				alternateReality: ALTERNATE_REALITY)
-		conflictSearchCriteria.sort.addAll(SORT)
+		conflictSearchCriteria.sort = SORT
 
 		when:
 		ConflictBaseResponse conflictBaseResponseOutput = conflict.search(conflictSearchCriteria)

@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.MaterialSearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.MaterialApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.MaterialBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.MaterialFullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.MaterialSearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Material {
 
 	private final MaterialApi materialApi;
@@ -18,14 +17,6 @@ public class Material {
 
 	public MaterialFullResponse get(String uid) throws ApiException {
 		return materialApi.v1GetMaterial(uid);
-	}
-
-	@Deprecated
-	public MaterialBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean chemicalCompound,
-			Boolean biochemicalCompound, Boolean drug, Boolean poisonousSubstance, Boolean explosive, Boolean gemstone, Boolean alloyOrComposite,
-			Boolean fuel, Boolean mineral, Boolean preciousMaterial) throws ApiException {
-		return materialApi.v1SearchMaterials(pageNumber, pageSize, sort, name, chemicalCompound, biochemicalCompound, drug,
-				poisonousSubstance, explosive, gemstone, alloyOrComposite, fuel, mineral, preciousMaterial);
 	}
 
 	public MaterialBaseResponse search(MaterialSearchCriteria materialSearchCriteria) throws ApiException {

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.astronomical_object.endpoint;
 
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2BaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.AstronomicalObjectV2FullResponse;
-import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectRestBeanParams;
+import com.cezarykluczynski.stapi.server.astronomical_object.dto.AstronomicalObjectV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.astronomical_object.reader.AstronomicalObjectV2RestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
@@ -41,14 +41,15 @@ public class AstronomicalObjectV2RestEndpoint {
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public AstronomicalObjectV2BaseResponse searchAstronomicalObject(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return astronomicalObjectV2RestReader.readBase(AstronomicalObjectRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return astronomicalObjectV2RestReader.readBase(AstronomicalObjectV2RestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public AstronomicalObjectV2BaseResponse searchAstronomicalObject(@BeanParam AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams) {
-		return astronomicalObjectV2RestReader.readBase(astronomicalObjectRestBeanParams);
+	public AstronomicalObjectV2BaseResponse searchAstronomicalObject(
+			@BeanParam AstronomicalObjectV2RestBeanParams astronomicalObjectV2RestBeanParams) {
+		return astronomicalObjectV2RestReader.readBase(astronomicalObjectV2RestBeanParams);
 	}
 
 }

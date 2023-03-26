@@ -4,7 +4,6 @@ import static org.codehaus.groovy.runtime.StringGroovyMethods.padLeft
 import static org.codehaus.groovy.runtime.StringGroovyMethods.padRight
 
 import com.cezarykluczynski.stapi.client.api.StapiRestClient
-import com.cezarykluczynski.stapi.client.api.dto.AbstractPageSortBaseCriteria
 import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
 import com.google.common.base.Stopwatch
 import com.google.common.collect.Lists
@@ -88,18 +87,14 @@ class DockerPerformanceTest extends Specification {
 
 			def criteria = Class.forName(searchMethod.parameterTypes[0].name).getConstructors()[0].newInstance()
 			String name = api.getClass().getSimpleName()
-			if (!(criteria instanceof AbstractPageSortBaseCriteria)) {
-				throw new RuntimeException("Criteria not an instance of AbstractPageSortBaseCriteria for $name")
-			} else {
-				criteria.setPageNumber(0)
-				criteria.setPageSize(100)
-			}
+			setFieldValue(criteria, "pageNumber", 0)
+			setFieldValue(criteria, "pageSize", 100)
 			TestContext testContext = new TestContext()
 			testContext.name = name
 			testContext.api = api
 			testContext.searchMethod = searchMethod
 			testContext.getMethod = getMethod
-			testContext.criteria = (AbstractPageSortBaseCriteria) criteria
+			testContext.criteria = criteria
 			testContext
 			contexts.add(testContext)
 		}
@@ -108,6 +103,7 @@ class DockerPerformanceTest extends Specification {
 			def criteria = testContext.getCriteria()
 			boolean hasNext = true
 			def results = []
+			Integer pageNumber = 0
 			while (hasNext) {
 				Object baseResponse
 				try {
@@ -130,7 +126,8 @@ class DockerPerformanceTest extends Specification {
 						results.addAll((List) candidate)
 					}
 				}
-				criteria.setPageNumber(criteria.pageNumber + 1)
+				pageNumber++
+				setFieldValue(criteria, "pageNumber", pageNumber)
 			}
 			testContext.results = results
 			stopwatchGets.stop()
@@ -248,13 +245,19 @@ class DockerPerformanceTest extends Specification {
 		return trimmedList.stream().collect(Collectors.joining(", "))
 	}
 
+	static void setFieldValue(Object subject, String fieldName, Object value) {
+		def field = subject.class.getDeclaredField(fieldName)
+		field.setAccessible(true)
+		field.set(subject, value)
+	}
+
 	static class TestContext {
 
 		String name
 		Object api
 		Method searchMethod
 		Method getMethod
-		AbstractPageSortBaseCriteria criteria
+		Object criteria
 		List results
 		List<String> failures
 		Long searchElapsedSeconds

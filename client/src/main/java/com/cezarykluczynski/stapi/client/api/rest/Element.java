@@ -1,15 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.ElementV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.ElementApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.rest.model.ElementBaseResponse;
-import com.cezarykluczynski.stapi.client.rest.model.ElementFullResponse;
 import com.cezarykluczynski.stapi.client.rest.model.ElementV2BaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.ElementV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.ElementV2SearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Element {
 
 	private final ElementApi elementApi;
@@ -18,29 +15,8 @@ public class Element {
 		this.elementApi = elementApi;
 	}
 
-	@Deprecated
-	public ElementFullResponse get(String uid) throws ApiException {
-		return elementApi.v1GetElement(uid);
-	}
-
 	public ElementV2FullResponse getV2(String uid) throws ApiException {
 		return elementApi.v2GetElement(uid);
-	}
-
-	@Deprecated
-	public ElementBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String symbol, Boolean transuranium,
-			Boolean gammaSeries, Boolean hypersonicSeries, Boolean megaSeries, Boolean omegaSeries, Boolean transonicSeries, Boolean worldSeries)
-			throws ApiException {
-		return elementApi.v1SearchElements(pageNumber, pageSize, sort, name, symbol, transuranium, gammaSeries, hypersonicSeries,
-				megaSeries, omegaSeries, transonicSeries, worldSeries);
-	}
-
-	@Deprecated
-	public ElementV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String symbol, Boolean transuranic,
-			Boolean gammaSeries, Boolean hypersonicSeries, Boolean megaSeries, Boolean omegaSeries, Boolean transonicSeries, Boolean worldSeries)
-			throws ApiException {
-		return elementApi.v2SearchElements(pageNumber, pageSize, sort, name, symbol, transuranic, gammaSeries, hypersonicSeries,
-				megaSeries, omegaSeries, transonicSeries, worldSeries);
 	}
 
 	public ElementV2BaseResponse searchV2(ElementV2SearchCriteria elementV2SearchCriteria) throws ApiException {

@@ -25,7 +25,7 @@ class SpacecraftClassFullRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassFull.uid == UID
 		spacecraftClassFull.name == NAME
 		spacecraftClassFull.numberOfDecks == NUMBER_OF_DECKS
-		spacecraftClassFull.warpCapable == WARP_CAPABLE
+		spacecraftClassFull.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassFull.alternateReality == ALTERNATE_REALITY
 		spacecraftClassFull.activeFrom == ACTIVE_FROM
 		spacecraftClassFull.activeTo == ACTIVE_TO
@@ -49,7 +49,7 @@ class SpacecraftClassFullRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassV2Full.name == NAME
 		spacecraftClassV2Full.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClassV2Full.crew == CREW
-		spacecraftClassV2Full.warpCapable == WARP_CAPABLE
+		spacecraftClassV2Full.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassV2Full.mirror == MIRROR
 		spacecraftClassV2Full.alternateReality == ALTERNATE_REALITY
 		spacecraftClassV2Full.activeFrom == ACTIVE_FROM
@@ -75,7 +75,7 @@ class SpacecraftClassFullRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassV3Full.name == NAME
 		spacecraftClassV3Full.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClassV3Full.crew == CREW
-		spacecraftClassV3Full.warpCapable == WARP_CAPABLE
+		spacecraftClassV3Full.warpCapable == WARP_CAPABLE_SPECIES
 		spacecraftClassV3Full.mirror == MIRROR
 		spacecraftClassV3Full.alternateReality == ALTERNATE_REALITY
 		spacecraftClassV3Full.activeFrom == ACTIVE_FROM

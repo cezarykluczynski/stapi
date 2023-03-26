@@ -1,15 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.CompanyV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.CompanyApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.rest.model.CompanyBaseResponse;
-import com.cezarykluczynski.stapi.client.rest.model.CompanyFullResponse;
 import com.cezarykluczynski.stapi.client.rest.model.CompanyV2BaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.CompanyV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.CompanyV2SearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Company {
 
 	private final CompanyApi companyApi;
@@ -18,37 +15,8 @@ public class Company {
 		this.companyApi = companyApi;
 	}
 
-	public CompanyFullResponse get(String uid) throws ApiException {
-		return companyApi.v1GetCompany(uid);
-	}
-
 	public CompanyV2FullResponse getV2(String uid) throws ApiException {
 		return companyApi.v2GetCompany(uid);
-	}
-
-	@Deprecated
-	public CompanyBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean broadcaster,
-			Boolean collectibleCompany, Boolean conglomerate, Boolean digitalVisualEffectsCompany, Boolean distributor, Boolean gameCompany,
-			Boolean filmEquipmentCompany, Boolean makeUpEffectsStudio, Boolean mattePaintingCompany, Boolean modelAndMiniatureEffectsCompany,
-			Boolean postProductionCompany, Boolean productionCompany, Boolean propCompany, Boolean recordLabel, Boolean specialEffectsCompany,
-			Boolean tvAndFilmProductionCompany, Boolean videoGameCompany) throws ApiException {
-		return companyApi.v1SearchCompanies(pageNumber, pageSize, sort, name, broadcaster, collectibleCompany, conglomerate,
-				digitalVisualEffectsCompany, distributor, gameCompany, filmEquipmentCompany, makeUpEffectsStudio, mattePaintingCompany,
-				modelAndMiniatureEffectsCompany, postProductionCompany, productionCompany, propCompany, recordLabel, specialEffectsCompany,
-				tvAndFilmProductionCompany, videoGameCompany);
-	}
-
-	@Deprecated
-	public CompanyV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean broadcaster,
-			Boolean streamingService, Boolean collectibleCompany, Boolean conglomerate, Boolean visualEffectsCompany,
-			Boolean digitalVisualEffectsCompany, Boolean distributor, Boolean gameCompany, Boolean filmEquipmentCompany, Boolean makeUpEffectsStudio,
-			Boolean mattePaintingCompany, Boolean modelAndMiniatureEffectsCompany, Boolean postProductionCompany, Boolean productionCompany,
-			Boolean propCompany, Boolean recordLabel, Boolean specialEffectsCompany, Boolean tvAndFilmProductionCompany, Boolean videoGameCompany,
-			Boolean publisher, Boolean publicationArtStudio) throws ApiException {
-		return companyApi.v2SearchCompanies(pageNumber, pageSize, sort, name, broadcaster, streamingService, collectibleCompany,
-				conglomerate, visualEffectsCompany, digitalVisualEffectsCompany, distributor, gameCompany, filmEquipmentCompany, makeUpEffectsStudio,
-				mattePaintingCompany, modelAndMiniatureEffectsCompany, postProductionCompany, productionCompany, propCompany, recordLabel,
-				specialEffectsCompany, tvAndFilmProductionCompany, videoGameCompany, publisher, publicationArtStudio);
 	}
 
 	public CompanyV2BaseResponse searchV2(CompanyV2SearchCriteria companyV2SearchCriteria) throws ApiException {

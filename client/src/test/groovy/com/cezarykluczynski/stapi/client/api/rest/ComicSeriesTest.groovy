@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.ComicSeriesSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.ComicSeriesApi
 import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicSeriesSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractComicSeriesTest
 
 class ComicSeriesTest extends AbstractComicSeriesTest {
@@ -33,23 +33,6 @@ class ComicSeriesTest extends AbstractComicSeriesTest {
 		comicSeriesFullResponse == comicSeriesFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		ComicSeriesBaseResponse comicSeriesBaseResponse = Mock()
-
-		when:
-		ComicSeriesBaseResponse comicSeriesBaseResponseOutput = comicSeries.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM,
-				PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO, STARDATE_FROM, STARDATE_FROM, YEAR_FROM, YEAR_TO, MINISERIES,
-				PHOTONOVEL_SERIES)
-
-		then:
-		1 * comicSeriesApiMock.v1SearchComicSeries(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
-				NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO, STARDATE_FROM, STARDATE_FROM, YEAR_FROM, YEAR_TO, MINISERIES, PHOTONOVEL_SERIES) >>
-				comicSeriesBaseResponse
-		0 * _
-		comicSeriesBaseResponse == comicSeriesBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		ComicSeriesBaseResponse comicSeriesBaseResponse = Mock()
@@ -67,7 +50,7 @@ class ComicSeriesTest extends AbstractComicSeriesTest {
 				yearTo: YEAR_TO,
 				miniseries: MINISERIES,
 				photonovelSeries: PHOTONOVEL_SERIES)
-		comicSeriesSearchCriteria.sort.addAll(SORT)
+		comicSeriesSearchCriteria.sort = SORT
 
 		when:
 		ComicSeriesBaseResponse comicSeriesBaseResponseOutput = comicSeries.search(comicSeriesSearchCriteria)

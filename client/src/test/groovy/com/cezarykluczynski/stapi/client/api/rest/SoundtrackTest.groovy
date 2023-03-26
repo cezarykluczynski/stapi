@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.SoundtrackSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.SoundtrackApi
 import com.cezarykluczynski.stapi.client.rest.model.SoundtrackBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.SoundtrackFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SoundtrackSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractSoundtrackTest
 
 class SoundtrackTest extends AbstractSoundtrackTest {
@@ -33,21 +33,6 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 		soundtrackFullResponse == soundtrackFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		SoundtrackBaseResponse soundtrackBaseResponse = Mock()
-
-		when:
-		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM,
-				RELEASE_DATE_TO, LENGTH_FROM, LENGTH_TO)
-
-		then:
-		1 * soundtrackApiMock.v1SearchSoundtracks(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO,
-				LENGTH_FROM, LENGTH_TO) >> soundtrackBaseResponse
-		0 * _
-		soundtrackBaseResponse == soundtrackBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		SoundtrackBaseResponse soundtrackBaseResponse = Mock()
@@ -59,7 +44,7 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 				releaseDateTo: RELEASE_DATE_TO,
 				lengthFrom: LENGTH_FROM,
 				lengthTo: LENGTH_TO)
-		soundtrackSearchCriteria.sort.addAll(SORT)
+		soundtrackSearchCriteria.sort = SORT
 
 		when:
 		SoundtrackBaseResponse soundtrackBaseResponseOutput = soundtrack.search(soundtrackSearchCriteria)

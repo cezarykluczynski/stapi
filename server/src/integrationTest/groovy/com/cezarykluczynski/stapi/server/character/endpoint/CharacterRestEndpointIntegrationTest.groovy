@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.server.character.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.CharacterSearchCriteria
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
 import com.cezarykluczynski.stapi.client.rest.model.CharacterBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.CharacterFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.CharacterSearchCriteria
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortClause
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortDirection
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -27,7 +28,8 @@ class CharacterRestEndpointIntegrationTest extends AbstractEndpointIntegrationTe
 	void "gets characters sorted by year of birth"() {
 		given:
 		CharacterSearchCriteria characterSearchCriteria = new CharacterSearchCriteria()
-		characterSearchCriteria.getSort().add(new RestSortClause(name: 'yearOfBirth', direction: RestSortDirection.ASC))
+		characterSearchCriteria.setSort(new RequestSort().addClausesItem(new RequestSortClause(
+				name: 'yearOfBirth', direction: RequestSortDirection.ASC, clauseOrder: 0)))
 
 		when:
 		CharacterBaseResponse characterBaseResponse = stapiRestClient.character.search(characterSearchCriteria)

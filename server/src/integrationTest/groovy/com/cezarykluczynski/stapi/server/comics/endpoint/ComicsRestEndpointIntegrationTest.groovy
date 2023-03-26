@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.server.comics.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.ComicsSearchCriteria
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
 import com.cezarykluczynski.stapi.client.rest.model.ComicsBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.ComicsFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicsSearchCriteria
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortClause
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortDirection
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -28,7 +29,8 @@ class ComicsRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest 
 		ComicsSearchCriteria comicsSearchCriteria = new ComicsSearchCriteria(
 				title: 'Ghosts, Issue'
 		)
-		comicsSearchCriteria.getSort().add(new RestSortClause(name: 'title', direction: RestSortDirection.ASC))
+		comicsSearchCriteria.setSort(new RequestSort().addClausesItem(new RequestSortClause(
+				name: 'title', direction: RequestSortDirection.ASC, clauseOrder: 0)))
 
 		when:
 		ComicsBaseResponse comicsBaseResponse = stapiRestClient.comics.search(comicsSearchCriteria)

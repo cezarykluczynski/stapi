@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.StaffV2SearchCriteria
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortClause
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortDirection
 import com.cezarykluczynski.stapi.client.rest.model.StaffV2BaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.StaffV2FullResponse
+import com.cezarykluczynski.stapi.client.rest.model.StaffV2SearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -64,7 +65,8 @@ class StaffRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 	void "gets staff sorted by name"() {
 		given:
 		StaffV2SearchCriteria staffV2SearchCriteria = new StaffV2SearchCriteria()
-		staffV2SearchCriteria.sort.add(new RestSortClause(name: 'name', direction: RestSortDirection.ASC))
+		staffV2SearchCriteria.setSort(new RequestSort().addClausesItem(new RequestSortClause(
+						name: 'name', direction: RequestSortDirection.ASC, clauseOrder: 0)))
 
 		when:
 		StaffV2BaseResponse staffV2BaseResponse = stapiRestClient.staff.searchV2(staffV2SearchCriteria)

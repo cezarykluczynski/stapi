@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.comic_strip.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.ComicStripSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.model.ComicStripBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.ComicStripFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.ComicStripSearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest

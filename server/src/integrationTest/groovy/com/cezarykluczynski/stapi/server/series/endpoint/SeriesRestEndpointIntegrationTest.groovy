@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.SeriesSearchCriteria
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
+import com.cezarykluczynski.stapi.client.rest.model.RequestSort
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortClause
+import com.cezarykluczynski.stapi.client.rest.model.RequestSortDirection
 import com.cezarykluczynski.stapi.client.rest.model.SeriesBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.SeriesFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.SeriesSearchCriteria
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
@@ -62,7 +63,8 @@ class SeriesRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest 
 	void "gets series sorted by production end year descending"() {
 		given:
 		SeriesSearchCriteria seriesSearchCriteria = new SeriesSearchCriteria()
-		seriesSearchCriteria.sort.add(new RestSortClause(name: 'originalRunStartDate', direction: RestSortDirection.DESC))
+		seriesSearchCriteria.setSort(new RequestSort().addClausesItem(new RequestSortClause(
+				name: 'originalRunStartDate', direction: RequestSortDirection.DESC, clauseOrder: 0)))
 
 		when:
 		SeriesBaseResponse seriesBaseResponse = stapiRestClient.series.search(seriesSearchCriteria)

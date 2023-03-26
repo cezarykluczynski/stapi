@@ -1,15 +1,14 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.LocationV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.LocationApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.rest.model.LocationBaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.LocationFullResponse;
 import com.cezarykluczynski.stapi.client.rest.model.LocationV2BaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.LocationV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.LocationV2SearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Location {
 
 	private final LocationApi locationApi;
@@ -18,38 +17,8 @@ public class Location {
 		this.locationApi = locationApi;
 	}
 
-	@Deprecated
-	public LocationFullResponse get(String uid) throws ApiException {
-		return locationApi.v1GetLocation(uid);
-	}
-
 	public LocationV2FullResponse getV2(String uid) throws ApiException {
 		return locationApi.v2GetLocation(uid);
-	}
-
-	@Deprecated
-	public LocationBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthlyLocation,
-			Boolean fictionalLocation, Boolean religiousLocation, Boolean geographicalLocation, Boolean bodyOfWater, Boolean country,
-			Boolean subnationalEntity, Boolean settlement, Boolean usSettlement, Boolean bajoranSettlement, Boolean colony, Boolean landform,
-			Boolean landmark, Boolean road, Boolean structure, Boolean shipyard, Boolean buildingInterior, Boolean establishment,
-			Boolean medicalEstablishment, Boolean ds9Establishment, Boolean school, Boolean mirror, Boolean alternateReality) throws ApiException {
-		return locationApi.v1SearchLocations(pageNumber, pageSize, sort, name, earthlyLocation, fictionalLocation, religiousLocation,
-				geographicalLocation, bodyOfWater, country, subnationalEntity, settlement, usSettlement, bajoranSettlement, colony, landform,
-				landmark, road, structure, shipyard, buildingInterior, establishment, medicalEstablishment, ds9Establishment, school, mirror,
-				alternateReality);
-	}
-
-	@Deprecated
-	public LocationV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthlyLocation,
-			Boolean qonosLocation, Boolean fictionalLocation, Boolean mythologicalLocation, Boolean religiousLocation, Boolean geographicalLocation,
-			Boolean bodyOfWater, Boolean country, Boolean subnationalEntity, Boolean settlement, Boolean usSettlement, Boolean bajoranSettlement,
-			Boolean colony, Boolean landform, Boolean road, Boolean structure, Boolean shipyard, Boolean buildingInterior, Boolean establishment,
-			Boolean medicalEstablishment, Boolean ds9Establishment, Boolean school, Boolean restaurant, Boolean residence, Boolean mirror,
-			Boolean alternateReality) throws ApiException {
-		return locationApi.v2SearchLocations(pageNumber, pageSize, sort, name, earthlyLocation, qonosLocation, fictionalLocation,
-				mythologicalLocation, religiousLocation, geographicalLocation, bodyOfWater, country, subnationalEntity, settlement, usSettlement,
-				bajoranSettlement, colony, landform, road, structure, shipyard, buildingInterior, establishment, medicalEstablishment,
-				ds9Establishment, school, restaurant, residence, mirror, alternateReality);
 	}
 
 	public LocationV2BaseResponse searchV2(LocationV2SearchCriteria locationV2SearchCriteria) throws ApiException {

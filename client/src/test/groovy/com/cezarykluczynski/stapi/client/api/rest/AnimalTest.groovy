@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.AnimalSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.AnimalApi
 import com.cezarykluczynski.stapi.client.rest.model.AnimalBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.AnimalFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.AnimalSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractAnimalTest
 
 class AnimalTest extends AbstractAnimalTest {
@@ -33,21 +33,6 @@ class AnimalTest extends AbstractAnimalTest {
 		animalFullResponse == animalFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		AnimalBaseResponse animalBaseResponse = Mock()
-
-		when:
-		AnimalBaseResponse animalBaseResponseOutput = animal.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTH_ANIMAL, EARTH_INSECT, AVIAN,
-				CANINE, FELINE)
-
-		then:
-		1 * animalApiMock.v1SearchAnimals(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, NAME, EARTH_ANIMAL, EARTH_INSECT, AVIAN, CANINE,
-				FELINE) >> animalBaseResponse
-		0 * _
-		animalBaseResponse == animalBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		AnimalBaseResponse animalBaseResponse = Mock()
@@ -60,7 +45,7 @@ class AnimalTest extends AbstractAnimalTest {
 				avian: AVIAN,
 				canine: CANINE,
 				feline: FELINE)
-		animalSearchCriteria.sort.addAll(SORT)
+		animalSearchCriteria.sort = SORT
 
 		when:
 		AnimalBaseResponse animalBaseResponseOutput = animal.search(animalSearchCriteria)

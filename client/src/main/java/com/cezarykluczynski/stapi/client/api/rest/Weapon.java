@@ -1,15 +1,12 @@
 package com.cezarykluczynski.stapi.client.api.rest;
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer;
-import com.cezarykluczynski.stapi.client.api.dto.WeaponV2SearchCriteria;
 import com.cezarykluczynski.stapi.client.rest.api.WeaponApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiException;
-import com.cezarykluczynski.stapi.client.rest.model.WeaponBaseResponse;
-import com.cezarykluczynski.stapi.client.rest.model.WeaponFullResponse;
 import com.cezarykluczynski.stapi.client.rest.model.WeaponV2BaseResponse;
 import com.cezarykluczynski.stapi.client.rest.model.WeaponV2FullResponse;
+import com.cezarykluczynski.stapi.client.rest.model.WeaponV2SearchCriteria;
 
-@SuppressWarnings("ParameterNumber")
 public class Weapon {
 
 	private final WeaponApi weaponApi;
@@ -18,31 +15,8 @@ public class Weapon {
 		this.weaponApi = weaponApi;
 	}
 
-	@Deprecated
-	public WeaponFullResponse get(String uid) throws ApiException {
-		return weaponApi.v1GetWeapon(uid);
-	}
-
 	public WeaponV2FullResponse getV2(String uid) throws ApiException {
 		return weaponApi.v2GetWeapon(uid);
-	}
-
-	@Deprecated
-	public WeaponBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean handHeldWeapon, Boolean laserTechnology,
-			Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean mirror, Boolean alternateReality)
-			throws ApiException {
-		return weaponApi.v1SearchWeapons(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
-				photonicTechnology, phaserTechnology, mirror, alternateReality);
-	}
-
-	@Deprecated
-	public WeaponV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, Boolean handHeldWeapon,
-			Boolean laserTechnology, Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean directedEnergyWeapon,
-			Boolean explosiveWeapon, Boolean projectileWeapon, Boolean fictionalWeapon, Boolean mirror, Boolean alternateReality)
-			throws ApiException {
-		return weaponApi.v2SearchWeapons(pageNumber, pageSize, sort, name, handHeldWeapon, laserTechnology, plasmaTechnology,
-				photonicTechnology, phaserTechnology, directedEnergyWeapon, explosiveWeapon, projectileWeapon, fictionalWeapon, mirror,
-				alternateReality);
 	}
 
 	public WeaponV2BaseResponse searchV2(WeaponV2SearchCriteria weaponV2SearchCriteria) throws ApiException {

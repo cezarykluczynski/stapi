@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.client.api.rest
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT
 import static com.cezarykluczynski.stapi.client.api.rest.AbstractRestClientTest.SORT_SERIALIZED
 
-import com.cezarykluczynski.stapi.client.api.dto.MovieSearchCriteria
 import com.cezarykluczynski.stapi.client.rest.api.MovieApi
 import com.cezarykluczynski.stapi.client.rest.model.MovieBaseResponse
 import com.cezarykluczynski.stapi.client.rest.model.MovieFullResponse
+import com.cezarykluczynski.stapi.client.rest.model.MovieSearchCriteria
 import com.cezarykluczynski.stapi.util.AbstractMovieTest
 
 class MovieTest extends AbstractMovieTest {
@@ -33,21 +33,6 @@ class MovieTest extends AbstractMovieTest {
 		movieFullResponse == movieFullResponseOutput
 	}
 
-	void "searches entities"() {
-		given:
-		MovieBaseResponse movieBaseResponse = Mock()
-
-		when:
-		MovieBaseResponse movieBaseResponseOutput = movie.search(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, STARDATE_FROM, STARDATE_TO,
-				YEAR_FROM, YEAR_TO, US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO)
-
-		then:
-		1 * movieApiMock.v1SearchMovies(PAGE_NUMBER, PAGE_SIZE, SORT_SERIALIZED, TITLE, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO,
-				US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO) >> movieBaseResponse
-		0 * _
-		movieBaseResponse == movieBaseResponseOutput
-	}
-
 	void "searches entities with criteria"() {
 		given:
 		MovieBaseResponse movieBaseResponse = Mock()
@@ -61,7 +46,7 @@ class MovieTest extends AbstractMovieTest {
 				yearTo: YEAR_TO,
 				usReleaseDateFrom: US_RELEASE_DATE_FROM,
 				usReleaseDateTo: US_RELEASE_DATE_TO)
-		movieSearchCriteria.sort.addAll(SORT)
+		movieSearchCriteria.sort = SORT
 
 		when:
 		MovieBaseResponse movieBaseResponseOutput = movie.search(movieSearchCriteria)
