@@ -11,15 +11,15 @@ buildscript {
 	dependencies {
 		classpath group: 'org.zeroturnaround', name: 'zt-zip', version: ztZipVersion
 		classpath group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
-		classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.13"
+		classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.14"
 		classpath group: 'org.apache.groovy', name: 'groovy', version: groovyVersion
 	}
 }
 
 plugins {
 	id 'java'
-	id 'io.freefair.lombok' version '6.6.3' apply false
-	id "io.github.gradle-nexus.publish-plugin" version "1.2.0"
+	id 'io.freefair.lombok' version '8.0.1' apply false
+	id "io.github.gradle-nexus.publish-plugin" version "1.3.0"
 	id "com.github.ben-manes.versions" version "0.46.0"
 	id "io.spring.dependency-management" version "1.1.0"
 }
@@ -74,7 +74,7 @@ allprojects {
 		implementation group: 'jakarta.platform', name: 'jakarta.jakartaee-web-api', version: '10.0.0'
 
 		// Utils
-		implementation group: 'org.json', name: 'json', version: '20220924'
+		implementation group: 'org.json', name: 'json', version: '20230227'
 		implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 		implementation group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 		implementation group: 'commons-validator', name: 'commons-validator', version: '1.7'
@@ -89,7 +89,7 @@ allprojects {
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
 		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
 		testImplementation group: 'cglib', name: 'cglib-nodep', version: '3.3.0'
-		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.25.0'
+		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.25.1'
 		testImplementation group: 'org.objenesis', name: 'objenesis', version: '3.3'
 	}
 
@@ -100,12 +100,12 @@ allprojects {
 	}
 
 	checkstyle {
-		toolVersion = '9.3'
+		toolVersion = '10.9.3'
 	}
 
 	codenarc {
 		configFile = "$rootDir/codenarc.groovy" as File
-		toolVersion = '3.1.0'
+		toolVersion = '3.2.0'
 	}
 
 	checkstyleMain {
@@ -136,11 +136,11 @@ allprojects {
 }
 
 def isNonStable = { String version ->
-	def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { stableKeyword -> version.toUpperCase().contains(stableKeyword) }
+	def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { stableKeyword -> version.containsIgnoreCase(stableKeyword) }
 	if (stableKeyword) {
 		return false
 	}
-	def unstableKeyword = ['-RC', '.CR', '-M', 'BETA'].any { unstableKeyword -> version.toUpperCase().contains(unstableKeyword) }
+	def unstableKeyword = ['-RC', '.CR', '-M', 'BETA', 'ALPHA'].any { unstableKeyword -> version.containsIgnoreCase(unstableKeyword) }
 	return unstableKeyword
 }
 

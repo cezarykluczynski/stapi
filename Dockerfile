@@ -1,4 +1,4 @@
-FROM postgres:15.1-alpine3.17
+FROM postgres:15.2-alpine3.17
 RUN apk update && apk upgrade && apk add openjdk17-jre
 ARG STAPI_DATA_VERSION=$STAPI_DATA_VERSION
 ENV POSTGRES_PASSWORD=postgres86
