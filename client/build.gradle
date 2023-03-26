@@ -61,6 +61,10 @@ delombok {
 	dependsOn('openApiGenerate')
 }
 
+codenarcTest {
+	dependsOn('openApiGenerate')
+}
+
 task javadocJar(type: Jar) {
 	archiveClassifier = 'javadoc'
 	from javadoc
