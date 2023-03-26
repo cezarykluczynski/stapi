@@ -53,14 +53,23 @@ compileJava {
 	dependsOn('openApiGenerate')
 }
 
+processResources {
+	dependsOn('openApiGenerate')
+}
+
+delombok {
+	dependsOn('openApiGenerate')
+}
+
 task javadocJar(type: Jar) {
-	classifier = 'javadoc'
+	archiveClassifier = 'javadoc'
 	from javadoc
 }
 
 task sourcesJar(type: Jar) {
-	classifier = 'sources'
+	archiveClassifier = 'sources'
 	from sourceSets.main.allSource
+	dependsOn('openApiGenerate')
 }
 
 artifacts {

@@ -6,11 +6,12 @@ task codeCoverageReport(type: JacocoReport) {
 	}
 
 	reports {
-		xml.enabled true
-		html.enabled true
+		xml.required = true
+		html.required = true
+		csv.required = false
 		html.destination file("${buildDir}/reports/jacoco")
-		csv.enabled false
 	}
+	dependsOn('test')
 }
 
 codeCoverageReport.dependsOn {
@@ -38,6 +39,5 @@ subprojects {
 
 	jacoco {
 		toolVersion = "0.8.8"
-		reportsDir = file("$buildDir/reports/jacoco")
 	}
 }
