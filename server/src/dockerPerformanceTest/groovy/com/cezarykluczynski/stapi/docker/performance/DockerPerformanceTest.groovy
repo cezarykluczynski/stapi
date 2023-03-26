@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.docker.performance
 import static org.codehaus.groovy.runtime.StringGroovyMethods.padLeft
 import static org.codehaus.groovy.runtime.StringGroovyMethods.padRight
 
-import com.cezarykluczynski.stapi.client.api.StapiRestClient
+import com.cezarykluczynski.stapi.client.rest.StapiRestClient
 import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
 import com.google.common.base.Stopwatch
 import com.google.common.collect.Lists

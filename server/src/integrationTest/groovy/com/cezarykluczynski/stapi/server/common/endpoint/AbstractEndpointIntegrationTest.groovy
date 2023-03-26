@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.endpoint
 
-import com.cezarykluczynski.stapi.client.api.StapiRestClient
+import com.cezarykluczynski.stapi.client.rest.StapiRestClient
 import com.cezarykluczynski.stapi.server.Application
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort

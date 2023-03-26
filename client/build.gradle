@@ -43,7 +43,10 @@ openApiGenerate {
 }
 
 clean.doFirst {
-	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/rest/"
+	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/rest/api/"
+	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/rest/invoker/"
+	delete "${rootDir}/client/src/main/java/com/cezarykluczynski/stapi/client/rest/model/"
+	delete "${rootDir}/client/.openapi-generator/"
 }
 
 compileJava {

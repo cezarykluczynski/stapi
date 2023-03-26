@@ -1,2 +1,4 @@
 LICENSE
-src/main/java/com/cezarykluczynski/stapi/client/rest/
+src/main/java/com/cezarykluczynski/stapi/client/rest/api/
+src/main/java/com/cezarykluczynski/stapi/client/rest/invoker/
+src/main/java/com/cezarykluczynski/stapi/client/rest/model/
