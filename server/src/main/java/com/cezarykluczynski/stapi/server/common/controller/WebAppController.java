@@ -28,7 +28,7 @@ public class WebAppController {
 	public HttpEntity<String> robotsTxt() {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.TEXT_PLAIN);
-		return new HttpEntity<>("User-agent: *\nAllow: /\n", httpHeaders);
+		return new HttpEntity<>("User-agent: *\nAllow: /\nDisallow: /terms-of-service\nDisallow: /privacy-policy", httpHeaders);
 	}
 
 }

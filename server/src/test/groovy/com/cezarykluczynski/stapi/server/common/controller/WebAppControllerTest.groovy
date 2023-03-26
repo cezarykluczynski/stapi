@@ -43,6 +43,8 @@ class WebAppControllerTest extends Specification {
 		httpEntity.headers.get('Content-Type').get(0) == 'text/plain'
 		httpEntity.body.contains('User-agent: *')
 		httpEntity.body.contains('Allow: /')
+		httpEntity.body.contains('Disallow: /terms-of-service')
+		httpEntity.body.contains('Disallow: /privacy-policy')
 	}
 
 }
