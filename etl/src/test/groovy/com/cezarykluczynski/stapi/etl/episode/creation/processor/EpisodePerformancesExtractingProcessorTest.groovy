@@ -112,7 +112,7 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.process(page)
 
 		then:
-		episodePerformances.size() == 36
+		episodePerformances.size() == 39
 		episodePerformances[0] == createEpisodePerformanceDTO('Patrick Stewart', 'Jean-Luc Picard', PerformanceType.PERFORMANCE)
 		episodePerformances[1] == createEpisodePerformanceDTO('Jonathan Frakes', 'William T. Riker', PerformanceType.PERFORMANCE)
 		episodePerformances[2] == createEpisodePerformanceDTO('LeVar Burton', 'Geordi La Forge', PerformanceType.PERFORMANCE)
@@ -135,20 +135,26 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 		episodePerformances[19] == createEpisodePerformanceDTO('Aspen', 'Cat', PerformanceType.PERFORMANCE)
 		episodePerformances[20] == createEpisodePerformanceDTO('Cameron', 'Kellogg', PerformanceType.PERFORMANCE)
 		episodePerformances[21] == createEpisodePerformanceDTO('Tracee Lee Cocco', 'Jae', PerformanceType.PERFORMANCE)
-		episodePerformances[22] == createEpisodePerformanceDTO('Crystal (cat)', 'Cat', PerformanceType.PERFORMANCE)
-		episodePerformances[23] == createEpisodePerformanceDTO('Brian Demonbreun', 'Andrew Powell', PerformanceType.PERFORMANCE)
-		episodePerformances[24] == createEpisodePerformanceDTO('Fido', 'Cat', PerformanceType.PERFORMANCE)
-		episodePerformances[25] == createEpisodePerformanceDTO('Stephen James Carver', 'Ibudan', PerformanceType.PERFORMANCE)
-		episodePerformances[26] == createEpisodePerformanceDTO('Stephen James Carver', 'Ibudan (first clone)', PerformanceType.PERFORMANCE)
-		episodePerformances[27] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Alison Brooks', PerformanceType.STUNT)
-		episodePerformances[28] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Gates McFadden', PerformanceType.STAND_IN)
-		episodePerformances[29] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Roxann Dawson', PerformanceType.STUNT)
-		episodePerformances[30] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Marina Sirtis', PerformanceType.STAND_IN)
-		episodePerformances[31] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Michael Dorn', PerformanceType.STUNT)
-		episodePerformances[32] == createEpisodePerformanceDTOPerformingFor('David Keith Anderson', 'LeVar Burton', PerformanceType.STAND_IN)
-		episodePerformances[33] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'Jonathan Frakes', PerformanceType.STAND_IN)
-		episodePerformances[34] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'John de Lancie', PerformanceType.STAND_IN)
-		episodePerformances[35] == createEpisodePerformanceDTOPerformingFor('Guy Vardaman', 'Brent Spiner', PerformanceType.STAND_IN)
+		episodePerformances[22] == createEpisodePerformanceDTO('Marijane Cole', 'Unnamed USS Enterprise (NCC-1701-D) operations division personnel#' +
+				'Female operations division officer (2364)', PerformanceType.PERFORMANCE)
+		episodePerformances[23] == createEpisodePerformanceDTO('Nyra Crenshaw', 'Unnamed USS Enterprise (NCC-1701-D) operations division personnel#' +
+				'Female ops ensign', PerformanceType.PERFORMANCE)
+		episodePerformances[24] == createEpisodePerformanceDTO('Crystal (cat)', 'Cat', PerformanceType.PERFORMANCE)
+		episodePerformances[25] == createEpisodePerformanceDTO('Brian Demonbreun', 'Andrew Powell', PerformanceType.PERFORMANCE)
+		episodePerformances[26] == createEpisodePerformanceDTO('Fido', 'Cat', PerformanceType.PERFORMANCE)
+		episodePerformances[27] == createEpisodePerformanceDTO('Holiday Freeman', 'Unnamed USS Enterprise (NCC-1701-D) command division personnel' +
+				'#Female command division officer', PerformanceType.PERFORMANCE)
+		episodePerformances[28] == createEpisodePerformanceDTO('Stephen James Carver', 'Ibudan', PerformanceType.PERFORMANCE)
+		episodePerformances[29] == createEpisodePerformanceDTO('Stephen James Carver', 'Ibudan (first clone)', PerformanceType.PERFORMANCE)
+		episodePerformances[30] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Alison Brooks', PerformanceType.STUNT)
+		episodePerformances[31] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Gates McFadden', PerformanceType.STAND_IN)
+		episodePerformances[32] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Roxann Dawson', PerformanceType.STUNT)
+		episodePerformances[33] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Marina Sirtis', PerformanceType.STAND_IN)
+		episodePerformances[34] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Michael Dorn', PerformanceType.STUNT)
+		episodePerformances[35] == createEpisodePerformanceDTOPerformingFor('David Keith Anderson', 'LeVar Burton', PerformanceType.STAND_IN)
+		episodePerformances[36] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'Jonathan Frakes', PerformanceType.STAND_IN)
+		episodePerformances[37] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'John de Lancie', PerformanceType.STAND_IN)
+		episodePerformances[38] == createEpisodePerformanceDTOPerformingFor('Guy Vardaman', 'Brent Spiner', PerformanceType.STAND_IN)
 	}
 
 	private static EpisodePerformanceDTO createEpisodePerformanceDTO(String performerName, String characterName, PerformanceType performanceType) {

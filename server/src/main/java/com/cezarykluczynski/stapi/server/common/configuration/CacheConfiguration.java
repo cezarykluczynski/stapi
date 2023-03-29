@@ -15,11 +15,12 @@ import java.util.Arrays;
 public class CacheConfiguration {
 
 	@Bean
-	public CacheManager pagesCache() {
+	public CacheManager cacheManager() {
 		SimpleCacheManager cacheManager = new SimpleCacheManager();
 		Cache pagesCache = new ConcurrentMapCache("pagesCache");
 		Cache entitiesCache = new ConcurrentMapCache("entitiesCache");
-		cacheManager.setCaches(Arrays.asList(pagesCache, entitiesCache));
+		Cache entityLookupByNameCache = new ConcurrentMapCache("entityLookupByNameCache");
+		cacheManager.setCaches(Arrays.asList(pagesCache, entitiesCache, entityLookupByNameCache));
 		cacheManager.afterPropertiesSet();
 		return cacheManager;
 	}

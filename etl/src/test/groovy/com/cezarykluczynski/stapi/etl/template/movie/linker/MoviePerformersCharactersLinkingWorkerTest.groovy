@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.movie.linker
 
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
-import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter
+import com.cezarykluczynski.stapi.etl.common.service.EntityRefreshingLookupByNameService
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
@@ -17,17 +16,13 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 	private static final String PERFORMER_NAME = 'PERFORMER_NAME'
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
-	private EntityLookupByNameService entityLookupByNameServiceMock
-
-	private NonQualifiedCharacterFilter nonQualifiedCharacterFilterMock
+	private EntityRefreshingLookupByNameService entityRefreshingLookupByNameServiceMock
 
 	private MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker
 
 	void setup() {
-		nonQualifiedCharacterFilterMock = Mock()
-		entityLookupByNameServiceMock = Mock()
-		moviePerformersCharactersLinkingWorker = new MoviePerformersCharactersLinkingWorker(entityLookupByNameServiceMock,
-				nonQualifiedCharacterFilterMock)
+		entityRefreshingLookupByNameServiceMock = Mock()
+		moviePerformersCharactersLinkingWorker = new MoviePerformersCharactersLinkingWorker(entityRefreshingLookupByNameServiceMock)
 	}
 
 	void "ignores empty link title list"() {
@@ -71,9 +66,8 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
 		0 * _
 		baseEntity.performers.size() == 1
 		baseEntity.performers.contains performer
@@ -90,35 +84,12 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
-		0 * _
-		baseEntity.performers.empty
-		baseEntity.characters.empty
-	}
-
-	void "parses link title list with two items, character should be filtered out"() {
-		given:
-		Set<List<String>> source = Sets.newHashSet()
-		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
-		Movie baseEntity = new Movie()
-		when:
-		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
-
-		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> true
-
-		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.empty
 		baseEntity.characters.empty
@@ -135,14 +106,12 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.size() == 1
 		baseEntity.performers.contains performer
@@ -160,14 +129,12 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.empty
 		baseEntity.characters.size() == 1
@@ -187,29 +154,23 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
 
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(SECOND_CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.of(character2)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.of(character2)
 
-		1 * entityLookupByNameServiceMock.findPerformerByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 
-		1 * entityLookupByNameServiceMock.findPerformerByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
 
-		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(SECOND_CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.of(character2)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.of(character2)
 
-		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 
 		0 * _
 		baseEntity.performers.size() == 1

@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service
 
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
-import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter
+import com.cezarykluczynski.stapi.etl.common.service.EntityRefreshingLookupByNameService
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType
@@ -26,17 +25,15 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 	private static final String PERFORMANCE_4_PERFORMER_NAME = 'PERFORMANCE_4_PERFORMER_NAME'
 	private static final String PERFORMANCE_4_CHARACTER_NAME = 'PERFORMANCE_4_CHARACTER_NAME'
 	private static final String PERFORMANCE_4_PERFORMANCE_TYPE = PerformanceType.PERFORMANCE
+	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
-	private EntityLookupByNameService entityLookupByNameServiceMock
-
-	NonQualifiedCharacterFilter nonQualifiedCharacterFilterMock
+	private EntityRefreshingLookupByNameService entityRefreshingLookupByNameServiceMock
 
 	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock()
-		nonQualifiedCharacterFilterMock = Mock()
-		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityLookupByNameServiceMock, nonQualifiedCharacterFilterMock)
+		entityRefreshingLookupByNameServiceMock = Mock()
+		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityRefreshingLookupByNameServiceMock)
 	}
 
 	void "creates EpisodePerformancesEntitiesDTO and enriches Episode entity"() {
@@ -74,14 +71,12 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 				.mapToEntities(episodePerformances, episode)
 
 		then:
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMANCE_1_CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_1_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
-		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMANCE_1_CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(character)
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_2_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >>
-				Optional.of(stuntPerformer)
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_3_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >>
-				Optional.of(standInPerformer)
-		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMANCE_4_CHARACTER_NAME) >> true
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMANCE_1_PERFORMER_NAME, SOURCE) >> Optional.of(performer)
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMANCE_1_CHARACTER_NAME, SOURCE) >> Optional.of(character)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMANCE_2_PERFORMER_NAME, SOURCE) >> Optional.of(stuntPerformer)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMANCE_3_PERFORMER_NAME, SOURCE) >> Optional.of(standInPerformer)
+		1 * entityRefreshingLookupByNameServiceMock.findCharacterByName(PERFORMANCE_4_CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMANCE_4_PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		performer.characters.contains character
 		character.performers.contains performer

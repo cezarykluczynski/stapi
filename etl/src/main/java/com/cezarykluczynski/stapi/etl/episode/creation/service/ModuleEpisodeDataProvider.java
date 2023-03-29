@@ -123,7 +123,7 @@ public class ModuleEpisodeDataProvider {
 				moduleEpisodeData.setReleaseMonth(monthValue.getValue());
 			}
 		}
-		if (moduleEpisodeData.getReleaseMonth() == null) {
+		if (moduleEpisodeData.getReleaseMonth() == null && month != null) {
 			log.info("No month value for episode {}, tried parsing {}.", title, month);
 		}
 		moduleEpisodeData.setReleaseYear(getSafeInteger(PageTitle.MODULE_EPISODE_DATA_Y, title));

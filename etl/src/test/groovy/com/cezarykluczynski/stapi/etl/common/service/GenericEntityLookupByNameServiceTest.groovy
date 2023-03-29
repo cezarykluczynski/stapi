@@ -112,6 +112,24 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 		!characterOptional.present
 	}
 
+	void "does not get character when name is null"() {
+		when:
+		Optional<Character> characterOptional = genericEntityLookupByNameService.findEntityByName(null, SOURCES_MEDIA_WIKI_SOURCE, Character)
+
+		then:
+		0 * _
+		!characterOptional.present
+	}
+
+	void "does not get character when source is null"() {
+		when:
+		Optional<Character> characterOptional = genericEntityLookupByNameService.findEntityByName(CHARACTER_NAME, null, Character)
+
+		then:
+		0 * _
+		!characterOptional.present
+	}
+
 	void "does not get character when page api returns page, but character repository returns empty optional"() {
 		given:
 		PageHeader pageHeader = Mock()

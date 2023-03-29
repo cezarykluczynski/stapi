@@ -56,7 +56,6 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 			log.info("Page with title \"{}\" marked as not an episode (excluding category present).", item.getTitle());
 			return null;
 		}
-		log.info("Processing episode {}.", item.getTitle());
 
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate();
 		episodeTemplate.setEpisodeStub(new Episode());

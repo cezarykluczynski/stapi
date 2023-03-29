@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service;
 
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
-import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter;
+import com.cezarykluczynski.stapi.etl.common.service.EntityRefreshingLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
@@ -24,14 +23,10 @@ public class EpisodePerformancesToEntityMapper {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
-	private final EntityLookupByNameService entityLookupByNameService;
+	private final EntityRefreshingLookupByNameService entityRefreshingLookupByNameService;
 
-	private final NonQualifiedCharacterFilter nonQualifiedCharacterFilter;
-
-	public EpisodePerformancesToEntityMapper(EntityLookupByNameService entityLookupByNameService,
-			NonQualifiedCharacterFilter nonQualifiedCharacterFilter) {
-		this.entityLookupByNameService = entityLookupByNameService;
-		this.nonQualifiedCharacterFilter = nonQualifiedCharacterFilter;
+	public EpisodePerformancesToEntityMapper(EntityRefreshingLookupByNameService entityRefreshingLookupByNameService) {
+		this.entityRefreshingLookupByNameService = entityRefreshingLookupByNameService;
 	}
 
 	public EpisodePerformancesEntitiesDTO mapToEntities(List<EpisodePerformanceDTO> episodePerformanceDTOList, Episode episode) {
@@ -71,10 +66,9 @@ public class EpisodePerformancesToEntityMapper {
 	private EpisodePerformanceEntitiesPair processPerformer(EpisodePerformanceDTO episodePerformanceDTO) {
 		EpisodePerformanceEntitiesPair pair = new EpisodePerformanceEntitiesPair();
 		String characterName = episodePerformanceDTO.getCharacterName();
-		if (!nonQualifiedCharacterFilter.shouldBeFilteredOut(characterName)) {
-			pair.setCharacter(getCharacter(characterName).orElse(null));
-			pair.setPerformer(getPerformer(episodePerformanceDTO.getPerformerName()).orElse(null));
-		}
+		String performerName = episodePerformanceDTO.getPerformerName();
+		pair.setCharacter(getCharacter(characterName).orElse(null));
+		pair.setPerformer(getPerformer(performerName).orElse(null));
 		return pair;
 	}
 
@@ -92,7 +86,6 @@ public class EpisodePerformancesToEntityMapper {
 			if (character != null && performer != null) {
 				character.getPerformers().add(performer);
 				performer.getCharacters().add(character);
-				episode.getPerformers().add(performer);
 			}
 
 			if (character != null) {
@@ -102,6 +95,7 @@ public class EpisodePerformancesToEntityMapper {
 
 			if (performer != null) {
 				imageEpisodePerformancesEntitiesDTO.getPerformerSet().add(performer);
+				episode.getPerformers().add(performer);
 			}
 		});
 	}
@@ -122,11 +116,11 @@ public class EpisodePerformancesToEntityMapper {
 	}
 
 	private Optional<Performer> getPerformer(String performerName) {
-		return entityLookupByNameService.findPerformerByName(performerName, SOURCE);
+		return entityRefreshingLookupByNameService.findPerformerByName(performerName, SOURCE);
 	}
 
 	private Optional<Character> getCharacter(String characterName) {
-		return entityLookupByNameService.findCharacterByName(characterName, SOURCE);
+		return entityRefreshingLookupByNameService.findCharacterByName(characterName, SOURCE);
 	}
 
 	@Data

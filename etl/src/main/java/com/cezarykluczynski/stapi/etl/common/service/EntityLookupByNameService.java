@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,10 +28,16 @@ public class EntityLookupByNameService {
 		this.genericEntityLookupByNameService = genericEntityLookupByNameService;
 	}
 
+	// This is being used only by steps after CREATE_PERFORMERS, so it's OK to cache. But if usages extend into CREATE_PERFORMERS step,
+	// some additional conditions should be implemented to not cache prematurely.
+	@Cacheable(cacheNames = "entityLookupByNameCache", key = "@entityLookupByNameCacheService.resolveKey('performer', #p0, #p1)")
 	public Optional<Performer> findPerformerByName(String performerName, MediaWikiSource mediaWikiSource) {
 		return genericEntityLookupByNameService.findEntityByName(performerName, mediaWikiSource, Performer.class);
 	}
 
+	// This is being used only by steps after CREATE_CHARACTERS, so it's OK to cache. But if usages extend into CREATE_CHARACTERS step,
+	// some additional conditions should be implemented to not cache prematurely.
+	@Cacheable(cacheNames = "entityLookupByNameCache", key = "@entityLookupByNameCacheService.resolveKey('character', #p0, #p1)")
 	public Optional<Character> findCharacterByName(String characterName, MediaWikiSource mediaWikiSource) {
 		return genericEntityLookupByNameService.findEntityByName(characterName, mediaWikiSource, Character.class);
 	}

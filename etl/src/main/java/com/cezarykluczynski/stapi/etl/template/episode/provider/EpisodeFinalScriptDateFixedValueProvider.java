@@ -29,6 +29,8 @@ public class EpisodeFinalScriptDateFixedValueProvider implements FixedValueProvi
 		FIXED_DATES.put("True Q", LocalDate.of(1992, 8, 26));
 		FIXED_DATES.put("In the Cards", LocalDate.of(1997, 3, 21));
 		FIXED_DATES.put("Lifesigns", LocalDate.of(1995, 12, 4));
+		FIXED_DATES.put("Cease Fire", LocalDate.of(2003, 2, 4));
+		FIXED_DATES.put("Unimatrix Zero", LocalDate.of(2000, 3, 16));
 	}
 
 	@Override

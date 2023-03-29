@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.movie.linker
 
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
+import com.cezarykluczynski.stapi.etl.common.service.EntityRefreshingLookupByNameService
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Lists
@@ -14,14 +14,14 @@ class FirstPerformerFindingMovieRealPeopleLinkingWorkerHelperTest extends Specif
 	private static final String PERFORMER_NOT_FOUND = 'PERFORMER_NOT_FOUND'
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
-	private EntityLookupByNameService entityLookupByNameServiceMock
+	private EntityRefreshingLookupByNameService entityRefreshingLookupByNameServiceMock
 
 	private FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper firstPerformerFindingMovieRealPeopleLinkingWorkerHelper
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock()
+		entityRefreshingLookupByNameServiceMock = Mock()
 		firstPerformerFindingMovieRealPeopleLinkingWorkerHelper = new FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper(
-				entityLookupByNameServiceMock)
+				entityRefreshingLookupByNameServiceMock)
 	}
 
 	void "adds entities found by name"() {
@@ -36,8 +36,8 @@ class FirstPerformerFindingMovieRealPeopleLinkingWorkerHelperTest extends Specif
 		Set<Performer> performerSet = firstPerformerFindingMovieRealPeopleLinkingWorkerHelper.linkListsToPerformers(source, SOURCE)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NOT_FOUND, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
+		1 * entityRefreshingLookupByNameServiceMock.findPerformerByName(PERFORMER_NOT_FOUND, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		0 * _
 		performerSet.size() == 1
 		performerSet.contains performer

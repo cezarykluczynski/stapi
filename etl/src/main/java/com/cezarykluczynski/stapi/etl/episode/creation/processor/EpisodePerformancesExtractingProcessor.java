@@ -31,7 +31,6 @@ import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeP
 import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.HYPEN_END_LINE;
 import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.LINKS_AND_REFERENCES;
 import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.NDASH_END_LINE;
-import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.OPEN_WIKITEXT_LINK;
 import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.PERFORMANCES_SECTION;
 import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.SECTIONS_TO_PERFORMANCE_TYPE_MAP;
 import static com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections.SKIPPABLE_PAGES;
@@ -54,7 +53,7 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 		Optional<PageSection> pageSectionOptional = findSubsectionsOfSectionWithTitle(pageSectionList, LINKS_AND_REFERENCES);
 
 		if (!pageSectionOptional.isPresent()) {
-			log.warn("Section {} not found in episode {}", LINKS_AND_REFERENCES, page.getTitle());
+			log.warn("Section {} not found in episode \"{}\".", LINKS_AND_REFERENCES, page.getTitle());
 			return episodePerformances;
 		}
 
@@ -106,7 +105,7 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 
 	@SuppressWarnings({"CyclomaticComplexity", "NPathComplexity", "MethodLength", "ModifiedControlVariable", "BooleanExpressionComplexity"})
 	private List<EpisodePerformanceDTO> getPerformancesFromWikitext(Page page, String wikitext, PerformanceType performanceType,
-																	List<EpisodePerformanceDTO> foundSoFar) {
+			List<EpisodePerformanceDTO> foundSoFar) {
 		List<EpisodePerformanceDTO> episodePerformances = Lists.newArrayList();
 		List<String> lines = getLines(wikitext, performanceType);
 
@@ -128,17 +127,6 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 			boolean hasForSeparator = line.contains(FOR_SEPARATOR) || line.endsWith(FOR_END_LINE);
 
 			boolean hasAsSeparatorAndIsPerformanceType = hasAsSeparator && PerformanceType.PERFORMANCE.equals(performanceType);
-			if (!hasAsSeparator && !hasForSeparator) {
-				// common pattern for performer with no role, don't log those
-				if (!((line.startsWith("* [[") || line.startsWith("*[["))
-						&& (line.endsWith("]]") || line.endsWith("]] {{small|(photograph only)}}")
-							|| line.endsWith("]] {{small|(skeletal remains)}}") || line.endsWith("]] {{small|(photo)}}")
-							|| line.endsWith("]] {{small|(photograph)}}"))
-						&& StringUtils.lastIndexOf(line, OPEN_WIKITEXT_LINK) == StringUtils.indexOf(line, OPEN_WIKITEXT_LINK))) {
-					log.info("Line \"{}\" from page {} has no known separator, skipping.", line, page.getTitle());
-				}
-				continue;
-			}
 			List<String> parts = Lists.newArrayList();
 			if (hasAsSeparatorAndIsPerformanceType) {
 				parts = Arrays.stream(StringUtils.splitByWholeSeparatorPreserveAllTokens(line, AS_SEPARATOR)).collect(Collectors.toList());
@@ -147,8 +135,9 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 				parts = Arrays.stream(StringUtils.splitByWholeSeparatorPreserveAllTokens(line, FOR_SEPARATOR)).collect(Collectors.toList());
 			}
 
-			if (parts.size() < 2) {
-				log.info("Line \"{}\" from page {} could not be separated into two distinct parts, skipping.", line, page.getTitle());
+			boolean noSeparators = !hasAsSeparator && !hasForSeparator;
+			if (noSeparators) {
+				parts = Lists.newArrayList(line);
 			}
 
 			EpisodePerformanceDTO episodePerformanceDTO = null;
@@ -187,20 +176,6 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 						.stream()
 						.filter(pageLink -> !SKIPPABLE_PAGES.contains(pageLink.getTitle().toLowerCase()))
 						.collect(Collectors.toList());
-
-				List<String> pageTitlesLowercase = pageLinkList.stream()
-						.map(PageLink::getTitle)
-						.map(String::toLowerCase)
-						.collect(Collectors.toList());
-
-				if (pageTitlesLowercase.stream().anyMatch(pageTitleToLowercase -> pageTitleToLowercase.startsWith("unnamed ")
-						|| pageTitleToLowercase.startsWith("unknown "))) {
-					if (isPerformer) {
-						break;
-					} else {
-						continue;
-					}
-				}
 
 				if (pageLinkList.size() == 0) {
 					AtomicBoolean performerNameMatchesForSeparator = new AtomicBoolean();
@@ -254,6 +229,13 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 							if (PerformanceType.PERFORMANCE.equals(performanceType)) {
 								if (j == 0) {
 									episodePerformanceDTO.setCharacterName(pageLinkList.get(j).getTitle());
+									if (pageLinkList.size() == 1 && noSeparators) {
+										EpisodePerformanceDTO episodePerformanceDTONext = new EpisodePerformanceDTO();
+										episodePerformanceDTONext.setPerformanceType(performanceType);
+										episodePerformanceDTONext.setPerformerName(pageLinkList.get(j).getTitle());
+										performances.add(episodePerformanceDTONext);
+										log.info("Only one link for line \"{}\", creating performer duplicate.", linePart);
+									}
 								} else {
 									EpisodePerformanceDTO episodePerformanceDTONext = episodePerformanceDTO.copyOf();
 									episodePerformanceDTONext.setCharacterName(pageLinkList.get(j).getTitle());
@@ -264,6 +246,13 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 									episodePerformanceDTO.setPerformingFor(pageLinkList.get(j).getTitle());
 									if (performanceTypeFromText.isPresent()) {
 										episodePerformanceDTO.setPerformanceType(performanceTypeFromText.get());
+									}
+									if (pageLinkList.size() == 1 && noSeparators) {
+										EpisodePerformanceDTO episodePerformanceDTONext = new EpisodePerformanceDTO();
+										episodePerformanceDTONext.setPerformanceType(performanceType);
+										episodePerformanceDTONext.setPerformerName(pageLinkList.get(j).getTitle());
+										performances.add(episodePerformanceDTONext);
+										log.info("Only one link for line \"{}\", creating stand-in/stunt duplicate.", linePart);
 									}
 								} else {
 									EpisodePerformanceDTO episodePerformanceDTONext = episodePerformanceDTO.copyOf();
@@ -277,13 +266,42 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 				}
 			}
 			for (EpisodePerformanceDTO performance : performances) {
-				if (performance.getPerformerName() != null
-						&& (performance.getCharacterName() != null || performance.getPerformingFor() != null)) {
+				if (!performanceShouldBeFilteredOut(performance, performances, episodePerformances)) {
 					episodePerformances.add(performance);
 				}
 			}
 		}
 		return episodePerformances;
+	}
+
+	private boolean performanceShouldBeFilteredOut(EpisodePerformanceDTO performance, List<EpisodePerformanceDTO> performances,
+			List<EpisodePerformanceDTO> episodePerformances) {
+		final PerformanceType performanceTypeLocal = performance.getPerformanceType();
+		final String performerName = performance.getPerformerName();
+		final String characterName = performance.getCharacterName();
+		final String performingFor = performance.getPerformingFor();
+		if (performerName != null || characterName != null || performingFor != null) {
+			if (PerformanceType.STAND_IN.equals(performanceTypeLocal) || PerformanceType.STUNT.equals(performanceTypeLocal)) {
+				if (characterName == null && performingFor == null) {
+					final List<EpisodePerformanceDTO> allOtherPerformances = performances.stream()
+							.filter(other -> other != performance) // that's on purpose, we're excluding `performance` here
+							.filter(other -> other.getPerformerName().equals(performerName))
+							.collect(Collectors.toList());
+					if (!allOtherPerformances.isEmpty()) {
+						final List<EpisodePerformanceDTO> performancesWithFor = allOtherPerformances.stream()
+								.filter(other -> other.getPerformingFor() != null)
+								.collect(Collectors.toList());
+						if (!performancesWithFor.isEmpty()) {
+							return true;
+						}
+						if (episodePerformances.stream().anyMatch(other -> other.equals(performance))) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	private List<String> getLines(String wikitext, PerformanceType performanceType) {

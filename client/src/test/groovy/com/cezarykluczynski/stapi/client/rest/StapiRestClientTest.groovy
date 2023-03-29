@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.client.rest
 
-class StapiRestClientTest {
+import spock.lang.Specification
+
+class StapiRestClientTest extends Specification {
 
 	static final String CUSTOM_URL = 'http://localhost/stapi/'
 

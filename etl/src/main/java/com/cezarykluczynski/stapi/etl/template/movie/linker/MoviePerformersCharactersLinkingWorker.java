@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.movie.linker;
 
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
-import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter;
+import com.cezarykluczynski.stapi.etl.common.service.EntityRefreshingLookupByNameService;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesMediaSections;
 import com.cezarykluczynski.stapi.etl.util.CharacterUtil;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
@@ -29,14 +28,10 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 	private static final String[] IGNORABLE_PAGE_PREFIXES = {"USS ", "Unnamed ", "Human ", "Klingon ", "Mercy Hospital",
 			"HMS Bounty personnel", "Computer voice", "Vulcan ", "Humanoid ", "Romulan ", "US military personnel"};
 
-	private final EntityLookupByNameService entityLookupByNameService;
+	private final EntityRefreshingLookupByNameService entityRefreshingLookupByNameService;
 
-	private final NonQualifiedCharacterFilter nonQualifiedCharacterFilter;
-
-	public MoviePerformersCharactersLinkingWorker(EntityLookupByNameService entityLookupByNameService,
-			NonQualifiedCharacterFilter nonQualifiedCharacterFilter) {
-		this.entityLookupByNameService = entityLookupByNameService;
-		this.nonQualifiedCharacterFilter = nonQualifiedCharacterFilter;
+	public MoviePerformersCharactersLinkingWorker(EntityRefreshingLookupByNameService entityRefreshingLookupByNameService) {
+		this.entityRefreshingLookupByNameService = entityRefreshingLookupByNameService;
 	}
 
 	@Override
@@ -120,14 +115,11 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 	}
 
 	private Pair<Optional<Performer>, Optional<Character>> getPerformerAndCharacter(String characterName, String performerName) {
-		Optional<Performer> performerOptional = entityLookupByNameService
+		Optional<Performer> performerOptional = entityRefreshingLookupByNameService
 				.findPerformerByName(performerName, MovieRealPeopleLinkingWorker.SOURCE);
 
-		Optional<Character> characterOptional = Optional.empty();
-		if (!nonQualifiedCharacterFilter.shouldBeFilteredOut(characterName)) {
-			characterOptional = entityLookupByNameService
-					.findCharacterByName(characterName, MovieRealPeopleLinkingWorker.SOURCE);
-		}
+		Optional<Character> characterOptional = entityRefreshingLookupByNameService
+				.findCharacterByName(characterName, MovieRealPeopleLinkingWorker.SOURCE);
 
 		return Pair.of(performerOptional, characterOptional);
 	}
