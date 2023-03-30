@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
+import com.cezarykluczynski.stapi.util.tool.ReflectionUtil;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -305,9 +306,7 @@ public class QueryBuilder<T> {
 		if (baseRoot instanceof SqmRoot) {
 			final SqmRoot<T> baseRootCopy = ((SqmRoot<T>) baseRoot).copy(sqmCopyContext);
 			try {
-				final Field field = baseRootCopy.getClass().getSuperclass().getDeclaredField("joins");
-				field.setAccessible(true);
-				final List value = (List) field.get(baseRootCopy);
+				final List value = ReflectionUtil.getFieldValue(baseRootCopy.getClass().getSuperclass(), baseRootCopy, "joins", List.class);
 				if (value == null || value.isEmpty()) {
 					// no more fetches, a legitimate search that should not be split
 					return this;
@@ -405,10 +404,9 @@ public class QueryBuilder<T> {
 			} else if (baseEntityList.size() == 1 && singleEntitySearch) {
 				T nextEntity = localBaseEntityList.get(0);
 				T entity = baseEntityList.get(0);
-				final Field[] declaredFields = entity.getClass().getDeclaredFields();
+				final Field[] declaredFields = ReflectionUtil.getDeclaredAccessibleFields(entity.getClass());
 				for (Field field : declaredFields) {
 					if (Set.class.isAssignableFrom(field.getType())) {
-						field.setAccessible(true);
 						Set entitySet = (Set) field.get(entity);
 						Set nextEntitySet = (Set) field.get(nextEntity);
 						boolean entityError = false;

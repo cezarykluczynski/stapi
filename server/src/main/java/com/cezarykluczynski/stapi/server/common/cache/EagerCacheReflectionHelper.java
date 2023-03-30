@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.common.cache;
 
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.common.repository.CriteriaMatcher;
+import com.cezarykluczynski.stapi.util.tool.ReflectionUtil;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -18,17 +19,10 @@ public class EagerCacheReflectionHelper {
 	public Object createCriteria(Class criteriaClass, Object entity) {
 		try {
 			final Object criteria = criteriaClass.getConstructors()[0].newInstance();
-			Field entityUid;
-			try {
-				// Most classes have UIDs via PageAwareEntity, but this check is performed first, because `entity` is dynamic.
-				entityUid = entity.getClass().getDeclaredField(UID);
-			} catch (NoSuchFieldException e) {
-				entityUid = PageAwareEntity.class.getDeclaredField(UID);
-			}
-			final Field criteriaUid = criteria.getClass().getDeclaredField(UID);
-			entityUid.setAccessible(true);
-			criteriaUid.setAccessible(true);
-			criteriaUid.set(criteria, entityUid.get(entity));
+			// Most classes have UIDs via PageAwareEntity, but `entity` check is performed first, because `entity` is dynamic.
+			final Field entityUid = ReflectionUtil.getAccessibleField(UID, entity.getClass(), PageAwareEntity.class);
+			final Field criteriaUid = ReflectionUtil.getAccessibleField(UID, criteria.getClass());
+			criteriaUid.set(criteria, ReflectionUtil.getFieldValue(entityUid, entity, String.class));
 			return criteria;
 		} catch (Exception e) {
 			throw new RuntimeException(e);

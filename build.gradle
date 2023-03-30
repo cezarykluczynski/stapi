@@ -95,7 +95,6 @@ allprojects {
 
 	test {
 		useJUnitPlatform()
-		exclude '**/*IntegrationTest*'
 		maxParallelForks = 1
 	}
 

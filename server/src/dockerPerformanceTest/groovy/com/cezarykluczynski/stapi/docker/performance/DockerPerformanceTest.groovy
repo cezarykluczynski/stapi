@@ -5,6 +5,7 @@ import static org.codehaus.groovy.runtime.StringGroovyMethods.padRight
 
 import com.cezarykluczynski.stapi.client.rest.StapiRestClient
 import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.util.tool.ReflectionUtil
 import com.google.common.base.Stopwatch
 import com.google.common.collect.Lists
 import org.springframework.retry.backoff.NoBackOffPolicy
@@ -52,10 +53,9 @@ class DockerPerformanceTest extends Specification {
 	void "checks all endpoints"() {
 		given:
 		Stopwatch stopwatch = Stopwatch.createStarted()
-		def fields = stapiRestClient.getClass().getDeclaredFields()
+		def fields = ReflectionUtil.getDeclaredAccessibleFields(stapiRestClient.getClass())
 		def apis = []
 		for (def field : fields) {
-			field.setAccessible(true)
 			Object api = field.get(stapiRestClient)
 			def methods = api.getClass().getDeclaredMethods()
 			if (methods.any { it.name.startsWith('search') } && methods.any { it.name.startsWith('get') }) {
@@ -87,8 +87,8 @@ class DockerPerformanceTest extends Specification {
 
 			def criteria = Class.forName(searchMethod.parameterTypes[0].name).getConstructors()[0].newInstance()
 			String name = api.getClass().getSimpleName()
-			setFieldValue(criteria, "pageNumber", 0)
-			setFieldValue(criteria, "pageSize", 100)
+			ReflectionUtil.setFieldValue(criteria, "pageNumber", 0)
+			ReflectionUtil.setFieldValue(criteria, "pageSize", 100)
 			TestContext testContext = new TestContext()
 			testContext.name = name
 			testContext.api = api
@@ -113,10 +113,9 @@ class DockerPerformanceTest extends Specification {
 				} catch (Exception e) {
 					throw new RuntimeException(e)
 				}
-				def baseResponseFields = baseResponse.getClass().getDeclaredFields()
+				def baseResponseFields = ReflectionUtil.getDeclaredAccessibleFields(baseResponse.getClass())
 				ResponsePage responsePage
 				for (def field : baseResponseFields) {
-					field.setAccessible(true)
 					Object candidate = field.get(baseResponse)
 					if (field.name == 'page') {
 						responsePage = (ResponsePage) candidate
@@ -127,7 +126,7 @@ class DockerPerformanceTest extends Specification {
 					}
 				}
 				pageNumber++
-				setFieldValue(criteria, "pageNumber", pageNumber)
+				ReflectionUtil.setFieldValue(criteria, "pageNumber", pageNumber)
 			}
 			testContext.results = results
 			stopwatchGets.stop()
@@ -143,9 +142,7 @@ class DockerPerformanceTest extends Specification {
 			List<String> failures = Collections.synchronizedList(Lists.newArrayList())
 			Stopwatch stopwatchEntity = Stopwatch.createStarted()
 			for (Object result : testContext.results) {
-				def field = result.getClass().getDeclaredField('uid')
-				field.setAccessible(true)
-				final String uid = field.get(result)
+				final String uid = ReflectionUtil.getFieldValue(result.getClass(), result, 'uid', String.class)
 				executorService.submit {
 					Stopwatch stopwatchSingleGet = Stopwatch.createStarted()
 					try {
@@ -243,12 +240,6 @@ class DockerPerformanceTest extends Specification {
 		}
 		List<String> trimmedList = items.size() > max ? items.subList(0, max) : items
 		return trimmedList.stream().collect(Collectors.joining(", "))
-	}
-
-	static void setFieldValue(Object subject, String fieldName, Object value) {
-		def field = subject.class.getDeclaredField(fieldName)
-		field.setAccessible(true)
-		field.set(subject, value)
 	}
 
 	static class TestContext {

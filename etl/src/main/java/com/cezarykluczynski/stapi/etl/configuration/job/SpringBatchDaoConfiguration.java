@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
+import com.cezarykluczynski.stapi.util.tool.ReflectionUtil;
 import jakarta.inject.Inject;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
@@ -14,8 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import java.lang.reflect.Field;
-
 @Configuration
 @DependsOn("batchDataSourceInitializer")
 public class SpringBatchDaoConfiguration {
@@ -25,31 +24,28 @@ public class SpringBatchDaoConfiguration {
 
 	@Bean
 	public JobInstanceDao jobInstanceDao() {
-		return getFieldFromJobRepository("jobInstanceDao");
+		return getFieldFromJobRepository("jobInstanceDao", JobInstanceDao.class);
 	}
 
 	@Bean
 	public JobExecutionDao jobExecutionDao() {
-		return getFieldFromJobRepository("jobExecutionDao");
+		return getFieldFromJobRepository("jobExecutionDao", JobExecutionDao.class);
 	}
 
 	@Bean
 	public StepExecutionDao stepExecutionDao() {
-		return getFieldFromJobRepository("stepExecutionDao");
+		return getFieldFromJobRepository("stepExecutionDao", StepExecutionDao.class);
 	}
 
 	@Bean
 	public ExecutionContextDao executionContextDao() {
-		return getFieldFromJobRepository("ecDao");
+		return getFieldFromJobRepository("ecDao", ExecutionContextDao.class);
 	}
 
-	@SuppressWarnings({"unchecked"})
-	private <T> T getFieldFromJobRepository(String name) {
+	private <T> T getFieldFromJobRepository(String name, Class<T> type) {
 		SimpleJobRepository simpleJobRepository = getSimpleJobRepository();
 		try {
-			Field field = simpleJobRepository.getClass().getDeclaredField(name);
-			field.setAccessible(true);
-			return (T) field.get(simpleJobRepository);
+			return ReflectionUtil.getFieldValue(simpleJobRepository.getClass(), simpleJobRepository, name, type);
 		} catch (NoSuchFieldException | IllegalAccessException e) {
 			throw new BeanInitializationException(String.format("Cannot extract field %s from JobRepository", name), e);
 		}

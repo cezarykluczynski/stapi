@@ -45,6 +45,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.etl.video_game.creation.processor.VideoGameReader;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseReader;
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponReader;
+import com.cezarykluczynski.stapi.util.tool.ReflectionUtil;
 import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -126,19 +126,15 @@ public class StepToReadProcessorCountProvider {
 			// list in which items are stored only contains all of them at the very beginning,
 			// so we're good as long as this method is called only in stepStarted handler
 			try {
-				Field field = ListItemReader.class.getDeclaredField("list");
-				field.setAccessible(true);
-				List list = (List) field.get(listItemReader);
-				return list.size();
+				return ReflectionUtil.getFieldValue(ListItemReader.class, listItemReader, "list", List.class).size();
 			} catch (NoSuchFieldException | IllegalAccessException e) {
 				log.error("List field could not be obtained for step {} and reader {}.", stepName, listItemReader, e);
 			}
 		} else if (RepositoryItemReader.class.isAssignableFrom(itemReaderClass)) {
 			RepositoryItemReader repositoryItemReader = (RepositoryItemReader) applicationContext.getBean(itemReaderClass);
 			try {
-				Field field = RepositoryItemReader.class.getDeclaredField("repository");
-				field.setAccessible(true);
-				PagingAndSortingRepository pagingAndSortingRepository = (PagingAndSortingRepository) field.get(repositoryItemReader);
+				PagingAndSortingRepository pagingAndSortingRepository = ReflectionUtil
+						.getFieldValue(RepositoryItemReader.class, repositoryItemReader, "repository", PagingAndSortingRepository.class);
 				if (pagingAndSortingRepository instanceof JpaRepository) {
 					return (int) ((JpaRepository<?, ?>) pagingAndSortingRepository).count();
 				}
