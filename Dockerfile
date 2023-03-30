@@ -8,5 +8,5 @@ COPY server/build/libs/stapi.war app.war
 COPY data/postgres.sql /docker-entrypoint-initdb.d/
 COPY contract/ /contract/
 COPY server/src/main/resources/form.docx /
-COPY docker/startup.sh /startup.sh
-ENTRYPOINT ["./startup.sh"]
+RUN mv /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-pg.sh
+COPY docker/docker-entrypoint.sh /usr/local/bin/
