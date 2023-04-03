@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,14 @@ public class StatusProcessor implements ItemProcessor<String, String> {
 
 	private static final String PRESUM = "Presum";
 	private static final String UNKNOWN = "Unknown";
+	private static final String MUSEUM_SHIP = "Museum ship";
+	private static final String DECOMMISSIONED = "Decommissioned";
 	private static final String ED = "ed";
 
 	private final WikitextApi wikitextApi;
 
 	@Override
+	@SuppressWarnings("ReturnCount")
 	public String process(String item) throws Exception {
 		if (StringUtils.isEmpty(item) || StringUtils.containsIgnoreCase(item, PRESUM) || StringUtils.startsWithIgnoreCase(item, UNKNOWN)) {
 			return null;
@@ -31,6 +35,11 @@ public class StatusProcessor implements ItemProcessor<String, String> {
 		final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(item);
 
 		String itemToProcess = Lists.newArrayList(wikitextWithoutLinks.split(PatternDictionary.BR)).get(0);
+
+		if (itemToProcess.startsWith(MUSEUM_SHIP)) {
+			return DECOMMISSIONED;
+		}
+
 		List<String> words = Lists.newArrayList(StringUtils.splitByWholeSeparator(itemToProcess, StringUtils.SPACE));
 
 		if (words.size() == 1) {
@@ -49,7 +58,7 @@ public class StatusProcessor implements ItemProcessor<String, String> {
 			return capitalizeAndCleanFirst(wordsWithoutTags);
 		}
 
-		log.info("Could not map statship status candidate \"{}\" to starship status", item);
+		log.info("Could not map starship status candidate \"{}\" to starship status.", item);
 		return null;
 	}
 
@@ -74,7 +83,7 @@ public class StatusProcessor implements ItemProcessor<String, String> {
 	}
 
 	private String capitalizeAndCleanFirst(List<String> candidates) {
-		return StringUtils.removeAll(StringUtils.capitalize(candidates.get(0)), "'");
+		return RegExUtils.removeAll(StringUtils.capitalize(candidates.get(0)), "'");
 	}
 
 	private boolean mightBeAdjective(String adjectiveCandidate) {

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.google.common.collect.Sets;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +18,13 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<String, CharacterTemplate>> {
 
 	private final WikitextApi wikitextApi;
 
 	private final PerformerRepository performerRepository;
-
-	public CharacterTemplateActorLinkingEnrichingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {
-		this.wikitextApi = wikitextApi;
-		this.performerRepository = performerRepository;
-	}
 
 	@Override
 	public void enrich(EnrichablePair<String, CharacterTemplate> enrichablePair) throws Exception {
@@ -52,13 +49,12 @@ public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemEnri
 			try {
 				performerOptional = performerRepository.findByPageTitleWithPageMediaWikiSource(title, MediaWikiSource.MEMORY_ALPHA_EN);
 				performerOptional.ifPresent(performerSet::add);
-
-				if (!performerOptional.isPresent()) {
-					log.info("Could not find performer \"{}\" playing \"{}\" in local database",
-							pageLink.getTitle(), characterTemplate.getName());
+				if (performerOptional.isEmpty()) {
+					log.info("Could not find performer \"{}\" playing \"{}\" in local database.", pageLink.getTitle(), characterTemplate.getName());
 				}
 			} catch (Throwable e) {
 				log.error("Ooops", e);
+				throw e;
 			}
 		}
 

@@ -182,6 +182,30 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		characterSpeciesSet.contains characterSpecies
 	}
 
+	void "threats human clone as human"() {
+		given:
+		PageLink humanPageLink = new PageLink(title: CharacterSpeciesWikitextProcessor.HUMAN)
+		PageLink clonePageLink = new PageLink(title: CharacterSpeciesWikitextProcessor.CLONE)
+		CharacterSpecies characterSpecies = Mock()
+
+		when:
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT, new CharacterTemplate(name: INDIVIDUAL_NAME)))
+
+		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.notFound()
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(humanPageLink, clonePageLink)
+		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+				assert enrichablePair.input.left == CharacterSpeciesWikitextProcessor.HUMAN
+				assert enrichablePair.input.right.numerator == 1
+				assert enrichablePair.input.right.denominator == 1
+				enrichablePair.output.add characterSpecies
+		}
+		0 * _
+		characterSpeciesSet.contains characterSpecies
+	}
+
 	void "when 'hybrid' string is found in wikitext, and but not in any of two links, both links are used to construct hybrid"() {
 		given:
 		PageLink humanPageLink = new PageLink(title: TITLE_1)

@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class FrequentHitCachingHelper {
 
-	public static final int CACHE_THRESHOLD = 5;
+	public static final int CACHE_THRESHOLD = 2;
 
 	private Map<MediaWikiSource, Map<String, Integer>> cacheMap;
 

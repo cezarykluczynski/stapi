@@ -65,14 +65,10 @@ public class AstronomicalObjectBestPickEnrichingProcessor
 			String astronomicalObjectTypeFromProcessorName = astronomicalObjectTypeFromProcessor.name();
 			String currentAstronomicalObjectTypeName = currentAstronomicalObjectType.name();
 			if (currentAstronomicalObjectTypeName.endsWith(astronomicalObjectTypeFromProcessorName)) {
-				log.info("For object \"{}\", given \"{}\" and \"{}\" to choose from, \"{}\" was chosen as more detailed.",
-						planetTemplate.getName(), currentAstronomicalObjectType, astronomicalObjectTypeFromProcessor, currentAstronomicalObjectType);
 				return currentAstronomicalObjectType;
 			}
 		}
 
-		log.info("For object \"{}\", given \"{}\" and \"{}\", going with \"{}\".", planetTemplate.getName(),
-				astronomicalObjectTypeFromProcessor, currentAstronomicalObjectType, astronomicalObjectTypeFromProcessor);
 		return astronomicalObjectTypeFromProcessor;
 	}
 

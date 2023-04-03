@@ -88,8 +88,8 @@ allprojects {
 		testImplementation group: 'org.apache.groovy', name: 'groovy', version: groovyVersion
 		testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
 		testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: byteBuddyVersion
+		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.25.2'
 		testImplementation group: 'cglib', name: 'cglib-nodep', version: '3.3.0'
-		testImplementation group: 'com.github.javaparser', name: 'javaparser-core', version: '3.25.1'
 		testImplementation group: 'org.objenesis', name: 'objenesis', version: '3.3'
 	}
 

@@ -34,6 +34,8 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Aubrey Bradford", Gender.M); // source: http://marvel.fandom.com/wiki/Aubrey_Bradford
 		NAME_TO_GENDER_MAP.put("Auman", null); // two people
 		NAME_TO_GENDER_MAP.put("B. Burton", Gender.F); // Memory Alpha calls her a woman
+		NAME_TO_GENDER_MAP.put("B. Reynolds", null); // too little data
+		NAME_TO_GENDER_MAP.put("B. Tracy", null); // too little data
 		NAME_TO_GENDER_MAP.put("B.C. Cameron", Gender.F); // first female pronoun too far into the page
 		NAME_TO_GENDER_MAP.put("Barbara Williams", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Bari Biern", Gender.F); // source: https://www.imdb.com/name/nm0081600/
@@ -51,9 +53,11 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Buffee Friedlich", Gender.F); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Bumper Robinson", Gender.M); // equal number of pronouns, photo used to determine
 		NAME_TO_GENDER_MAP.put("Cari Lamb", Gender.M); // source: https://www.imdb.com/name/nm1658994/
+		NAME_TO_GENDER_MAP.put("C. Blanc", null); // too little data
 		NAME_TO_GENDER_MAP.put("C. Taylor", null); // too little data
 		NAME_TO_GENDER_MAP.put("C.B.", Gender.M); // source: https://www.imdb.com/name/nm1093840/
 		NAME_TO_GENDER_MAP.put("C.H.", null); // too little data
+		NAME_TO_GENDER_MAP.put("Campbell (costumer)", null); // too little data
 		NAME_TO_GENDER_MAP.put("Casey Childs", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Charlie Curtis", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Chelsea Harris", Gender.F); // photo used to determine
@@ -72,6 +76,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("D. Harrington", null); // no way of telling from the description
 		NAME_TO_GENDER_MAP.put("D. Marghane", null); // too little data
 		NAME_TO_GENDER_MAP.put("D. Wayman", null); // too little data
+		NAME_TO_GENDER_MAP.put("D.M. Phoenix", null); // too little data
 		NAME_TO_GENDER_MAP.put("Dan Young", Gender.F); // source: https://www.imdb.com/name/nm1649472/
 		NAME_TO_GENDER_MAP.put("Dana Kramer-Rolls", Gender.F); // source: https://www.isfdb.org/cgi-bin/ea.cgi?5456
 		NAME_TO_GENDER_MAP.put("Dana Levenson", Gender.F); // photo used to determine
@@ -102,8 +107,10 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Folkert Schmidt", Gender.M); // equal number of pronouns, photo used to determine
 		NAME_TO_GENDER_MAP.put("Fulghan", null); // no way of telling from the description
 		NAME_TO_GENDER_MAP.put("G. Usher", null); // too little data
+		NAME_TO_GENDER_MAP.put("G. Young", null); // too little data
 		NAME_TO_GENDER_MAP.put("Garverick", null); // too little data
 		NAME_TO_GENDER_MAP.put("George Ball", Gender.M); // source: https://www.imdb.com/name/nm0050372/
+		NAME_TO_GENDER_MAP.put("Gold (camera operator)", null); // too little data
 		NAME_TO_GENDER_MAP.put("Gonzalez", null); // too little data
 		NAME_TO_GENDER_MAP.put("Greg Eagles", Gender.M); // source: https://www.imdb.com/name/nm0126023/
 		NAME_TO_GENDER_MAP.put("Haeffmeier", null); // too little data
@@ -114,6 +121,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Heide Pendergast", Gender.F); // Memory Alpha calls her a woman
 		NAME_TO_GENDER_MAP.put("Hilary J. Bader", Gender.F); // genderize.io is not sure, IMDB used to determine
 		NAME_TO_GENDER_MAP.put("Hilary Shepard-Turner", Gender.F); // genderize.io is not sure, photo used to determine
+		NAME_TO_GENDER_MAP.put("Huey Duval", null); // too little data
 		NAME_TO_GENDER_MAP.put("Houy", null); // too little data
 		NAME_TO_GENDER_MAP.put("Ilbra Yacoob", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("J. Weir", null); // too little data
@@ -122,11 +130,11 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("James M. Ward", Gender.M); // source: https://www.imdb.com/name/nm0911589/
 		NAME_TO_GENDER_MAP.put("Jamie Berger", Gender.M); // source: https://www.imdb.com/name/nm1503613/
 		NAME_TO_GENDER_MAP.put("Jan Jones", Gender.F); // photo used to determine
-		NAME_TO_GENDER_MAP.put("Jordu Schell", Gender.M); // source: http://memory-alpha.fandom.com/wiki/Jordu_Schell
 		NAME_TO_GENDER_MAP.put("Jay Baker", Gender.M); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Jean Pierre Durand", Gender.M); // obvious
 		NAME_TO_GENDER_MAP.put("Jeff Baker", Gender.M); // source: https://www.imdb.com/name/nm1198561/
 		NAME_TO_GENDER_MAP.put("Jeffrey Byron", Gender.M); // photo used to determine
+		NAME_TO_GENDER_MAP.put("Jen Kelly", null); // too little data
 		NAME_TO_GENDER_MAP.put("Jen Patton", Gender.F); // source: https://twitter.com/jenpattonla
 		NAME_TO_GENDER_MAP.put("Jennifer W. Evans", Gender.F); // Memory Alpha calls her a woman
 		NAME_TO_GENDER_MAP.put("Jennifer Williams", Gender.F); // photo used to determine
@@ -137,14 +145,17 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Jodi Haynes", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("John Fifer", Gender.M); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Jordan Hoffman", Gender.M); // source: https://jordanhoffman.com/about-me/
+		NAME_TO_GENDER_MAP.put("Jordu Schell", Gender.M); // source: http://memory-alpha.fandom.com/wiki/Jordu_Schell
 		NAME_TO_GENDER_MAP.put("Joseph Pilato", Gender.M); // source: https://www.imdb.com/name/nm0683334/
 		NAME_TO_GENDER_MAP.put("Joseph White", Gender.M); // source: https://www.imdb.com/name/nm0924892/
 		NAME_TO_GENDER_MAP.put("Joshua Henson", Gender.M); // Memory Alpha calls him a man
 		NAME_TO_GENDER_MAP.put("Joy Dever", Gender.F); // Memory Alpha calls her a woman
 		NAME_TO_GENDER_MAP.put("K. Willey", null); // too little data
+		NAME_TO_GENDER_MAP.put("Kacey Arnold-Ince", null); // too little data
 		NAME_TO_GENDER_MAP.put("Kamala Lopez-Dawson", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Katelin Petersen", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Kathleen J. Grant", Gender.F); // photo used to determine
+		NAME_TO_GENDER_MAP.put("Kay Wright", null); // too little data
 		NAME_TO_GENDER_MAP.put("Kelli Kirkland", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Kelly Cooper", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Kem Antilles", null); // pseudonym for two people
@@ -163,6 +174,8 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Leslie Shatner", Gender.F); // processors gave ambiguous results, photo used to determine
 		NAME_TO_GENDER_MAP.put("Linda Nile", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Lisa Michelle Cornelius", Gender.F); // photo used to determine
+		NAME_TO_GENDER_MAP.put("LJ Scott", null); // too little data
+		NAME_TO_GENDER_MAP.put("Little C", null); // too little data
 		NAME_TO_GENDER_MAP.put("Loretta Shenosky", Gender.F); // Memory Alpha calls her a woman
 		NAME_TO_GENDER_MAP.put("Lou", null); // too little data
 		NAME_TO_GENDER_MAP.put("Louise Schulze", Gender.F); // Memory Alpha calls her a woman
@@ -196,6 +209,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Natalie Moon", Gender.F); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Neil S. Bulk", Gender.M); // photo used to determine
 		NAME_TO_GENDER_MAP.put("Nicole Sarah Fellows", Gender.F); // photo used to determine
+		NAME_TO_GENDER_MAP.put("Pat Keppler", null); // too little data
 		NAME_TO_GENDER_MAP.put("Paul Lynch", Gender.M); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Perri Sorel", Gender.F); // source: https://www.instagram.com/perrithegirl/
 		NAME_TO_GENDER_MAP.put("Perry Brown", Gender.M); // source: https://www.imdb.com/name/nm2170670/
@@ -210,6 +224,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Sambo", null); // too little data
 		NAME_TO_GENDER_MAP.put("Sandy Schofield", null); // pen name for two people
 		NAME_TO_GENDER_MAP.put("Sara Nabor", Gender.F); // photo used to determine
+		NAME_TO_GENDER_MAP.put("Schiavone", null); // too little data
 		NAME_TO_GENDER_MAP.put("Schultz", null); // no way of telling from the description
 		NAME_TO_GENDER_MAP.put("Serc Soc", null); // no way of telling from the description
 		NAME_TO_GENDER_MAP.put("Sharman DiVono", Gender.F); // source: https://www.imdb.com/name/nm1406396/
@@ -234,6 +249,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Thomas E. Benkert", Gender.M); // source: https://www.imdb.com/name/nm0071402/
 		NAME_TO_GENDER_MAP.put("Thomas F. Wilson", Gender.M); // source: https://www.imdb.com/name/nm0001855/
 		NAME_TO_GENDER_MAP.put("Two Steps From Hell", null); // group of two composers
+		NAME_TO_GENDER_MAP.put("Velma Wayland", Gender.F); // Memory Alpha calls her a woman
 		NAME_TO_GENDER_MAP.put("W. Reed Moran", Gender.M); // source: https://web.csulb.edu/depts/film/faculty_moran_w.html
 		NAME_TO_GENDER_MAP.put("Watts (child actor)", null); // too little data
 		NAME_TO_GENDER_MAP.put("Wendy Schaal", Gender.F); // photo used to determine

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.lang.Nullable;
@@ -44,11 +45,15 @@ public class DayMonthYearCandidateToLocalDateProcessor implements ItemProcessor<
 				return LocalDate.of(year, month, day);
 			} else {
 				if (year == null) {
-					log.info("\"{}\" candidate year could not be parsed to integer.", yearValue);
+					if (StringUtils.isNotBlank(yearValue)) {
+						log.info("\"{}\" candidate year could not be parsed to integer.", yearValue);
+					}
 				}
 
 				if (day == null) {
-					log.info("\"{}\" candidate day could not be parsed to integer.", dayValue);
+					if (StringUtils.isNotBlank(dayValue)) {
+						log.info("\"{}\" candidate day could not be parsed to integer.", dayValue);
+					}
 				}
 			}
 		}

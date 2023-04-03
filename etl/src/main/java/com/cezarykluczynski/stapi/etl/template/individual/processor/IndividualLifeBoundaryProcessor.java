@@ -40,10 +40,6 @@ public class IndividualLifeBoundaryProcessor implements ItemProcessor<String, In
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO();
 		List<PageLink> pageLinks = wikitextApi.getPageLinksFromWikitext(item);
 
-		if (pageLinks.size() > 1) {
-			log.info("Parsing page links: {}", pageLinks);
-		}
-
 		for (PageLink pageLink : pageLinks) {
 			Integer yearFromProcessor = pageLinkToYearProcessor.process(pageLink);
 			Integer currentYear = individualLifeBoundaryDTO.getYear();

@@ -22,7 +22,8 @@ ${MediaWikiSource.MEMORY_ALPHA_EN.name()}:
   6 :: ${TITLE_3}
 ${MediaWikiSource.MEMORY_BETA_EN.name()}:
  14 :: ${TITLE_5}
-  8 :: ${TITLE_6}"""
+  8 :: ${TITLE_6}
+  3 :: ${TITLE_4}"""
 	private static final String FORMATTED_MAP_ONE_ITEM = """
 ${MediaWikiSource.MEMORY_ALPHA_EN.name()}:
  12 :: ${TITLE_2}

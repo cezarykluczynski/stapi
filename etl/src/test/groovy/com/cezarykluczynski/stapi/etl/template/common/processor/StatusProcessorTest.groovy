@@ -39,6 +39,7 @@ class StatusProcessorTest extends Specification {
 		'Both ships disabled'                                                                                   | 'Disabled'
 		'Destroyed'                                                                                             | 'Destroyed'
 		'Decommissioned'                                                                                        | 'Decommissioned'
+		'[[Museum ship]] at [[Athan Prime]]'                                                                    | 'Decommissioned'
 		'Scuttled'                                                                                              | 'Scuttled'
 		'Heavily damaged'                                                                                       | 'Damaged'
 		'Salvaged'                                                                                              | 'Salvaged'

@@ -29,6 +29,7 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 	private static final String HUMAN = "Human";
 	private static final String AUGMENT = "Augment";
 	private static final String HYBRID = "hybrid";
+	private static final String CLONE = "clone";
 	private static final String ARDANAN = "Ardanan";
 	private static final String FORMER = "former";
 	private static final String[] GENDERS = {"male", "female"};
@@ -86,7 +87,7 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 			if (StringUtil.containsAnyIgnoreCase(item, FRACTION_NAMES)) {
 				characterSpeciesLiteralFractionWikitextEnrichingProcessor
 						.enrich(EnrichablePair.of(Pair.of(item, pageLinkList), characterSpeciesSet));
-			} else if (isHumanAugment(pageLinkList)) {
+			} else if (isHumanAugment(pageLinkList) || isHumanClone(pageLinkList)) {
 				tryAddSingleSpeciesName(HUMAN, characterSpeciesSet);
 			} else if (isHybrid(item, pageLinkList)) {
 				for (PageLink pageLink : pageLinkList) {
@@ -112,6 +113,11 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 
 	private boolean isHumanAugment(List<PageLink> pageLinkList) {
 		return pageLinkList.size() == 2 && HUMAN.equals(pageLinkList.get(0).getTitle()) && AUGMENT.equals(pageLinkList.get(1).getTitle());
+	}
+
+
+	private boolean isHumanClone(List<PageLink> pageLinkList) {
+		return pageLinkList.size() == 2 && HUMAN.equals(pageLinkList.get(0).getTitle()) && CLONE.equals(pageLinkList.get(1).getTitle());
 	}
 
 	private boolean isHybrid(String item, List<PageLink> pageLinkList) {

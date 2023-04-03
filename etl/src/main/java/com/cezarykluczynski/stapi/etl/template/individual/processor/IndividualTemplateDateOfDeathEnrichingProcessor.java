@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<CharacterTemplate> {
 
@@ -34,7 +36,10 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 			"existence erased",
 			"disassembled",
 			"ceased to exist",
-			"missing"
+			"missing",
+			"dissolved into oblivion",
+			"mia",
+			"disassociated"
 	);
 	private static final List<String> NOT_DEAD_SYNONYMS = Lists.newArrayList(
 			"arrest",
@@ -65,18 +70,14 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 			"assumed the identity",
 			"captured",
 			"merged",
-			"separated from the collective"
+			"separated from the collective",
+			"uncertain",
+			"in stasis"
 	);
 
 	private final WikitextApi wikitextApi;
 
 	private final IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor;
-
-	public IndividualTemplateDateOfDeathEnrichingProcessor(WikitextApi wikitextApi,
-			IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor) {
-		this.wikitextApi = wikitextApi;
-		this.individualDateStatusValueToYearProcessor = individualDateStatusValueToYearProcessor;
-	}
 
 	@Override
 	public void enrich(EnrichablePair<Template, CharacterTemplate> enrichablePair) throws Exception {

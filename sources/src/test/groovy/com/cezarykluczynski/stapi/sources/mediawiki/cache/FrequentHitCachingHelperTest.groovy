@@ -16,66 +16,54 @@ class FrequentHitCachingHelperTest extends Specification {
 		frequentHitCachingHelper = new FrequentHitCachingHelper()
 	}
 
-	void "marks title a cacheable when it was requested more than 5 times"() {
-		when: 'title 1 with source 1 is asked for 4 times'
-		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
-		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
-		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
-		boolean cacheableTitle1Source1After4Hits = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
+	void "marks title a cacheable when it was requested more than 2 times"() {
+		when: 'title 1 with source 1 is asked for 1 time'
+		boolean cacheableTitle1Source1After1Hit = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
 
 		then: 'title 1 with source 1 it is still not marked as cacheable'
-		!cacheableTitle1Source1After4Hits
+		!cacheableTitle1Source1After1Hit
 
-		when: 'title 1 with source 1 is asked for fifth time'
-		boolean cacheableTitle1Source1After5Hits = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
+		when: 'title 1 with source 1 is asked for the second time'
+		boolean cacheableTitle1Source1After2Hits = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
 
 		then: 'title 1 with source 1 is marked as cacheable'
-		cacheableTitle1Source1After5Hits
+		cacheableTitle1Source1After2Hits
 
-		when: 'title 1 with source 2 is asked for 4 times'
-		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
-		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
-		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
-		boolean cacheableTitle1Source2After4Hits = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
+		when: 'title 1 with source 2 is asked for 1 time'
+		boolean cacheableTitle1Source2After1Hit = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
 
 		then: 'title 1 with source 2 it is still not marked as cacheable'
-		!cacheableTitle1Source2After4Hits
+		!cacheableTitle1Source2After1Hit
 
-		when: 'title 1 with source 2 is asked for fifth time'
-		boolean cacheableTitle1Source2After5Hits = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
+		when: 'title 1 with source 2 is asked for the second time'
+		boolean cacheableTitle1Source2After2Hits = frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_2)
 
 		then: 'title 1 with source 2 is marked as cacheable'
-		cacheableTitle1Source2After5Hits
+		cacheableTitle1Source2After2Hits
 
-		when: 'title 2 with source 1 is asked for 4 times'
-		frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
-		frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
-		frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
-		boolean cacheableTitle2Source1After4Hits = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
+		when: 'title 2 with source 1 is asked for 1 time'
+		boolean cacheableTitle2Source1After1Hit = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
 
 		then: 'title 2 with source 1 it is still not marked as cacheable'
-		!cacheableTitle2Source1After4Hits
+		!cacheableTitle2Source1After1Hit
 
-		when: 'title 2 with source 1 is asked for fifth time'
-		boolean cacheableTitle2Source1After5Hits = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
+		when: 'title 2 with source 1 is asked for the second time'
+		boolean cacheableTitle2Source1After2Hits = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
 
 		then: 'title 2 with source 1 is marked as cacheable'
-		cacheableTitle2Source1After5Hits
+		cacheableTitle2Source1After2Hits
 
-		when: 'title 2 with source 2 is asked for 4 times'
-		frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
-		frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
-		frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
+		when: 'title 2 with source 2 is asked for 1 time'
 		boolean cacheableTitle2Source2After4Hits = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
 
 		then: 'title 2 with source 2 it is still not marked as cacheable'
 		!cacheableTitle2Source2After4Hits
 
-		when: 'title 2 with source 2 is asked for fifth time'
-		boolean cacheableTitle2Source2After5Hits = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
+		when: 'title 2 with source 2 is asked for the second time'
+		boolean cacheableTitle2Source2After2Hits = frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
 
 		then: 'title 2 with source 2 is marked as cacheable'
-		cacheableTitle2Source2After5Hits
+		cacheableTitle2Source2After2Hits
 
 		when: 'dump is produced'
 		Map<MediaWikiSource, Map<String, Integer>> dump = frequentHitCachingHelper.dumpStatisticsAndReset()
