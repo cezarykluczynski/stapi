@@ -58,10 +58,11 @@ class UpgradeInsecureRequestsHeaderFilterTest extends Specification {
 		upgradeInsecureRequestsHeaderFilter.doFilter(request, response, chain)
 
 		then:
-		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.HEADER_NAME) >> '1'
+		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.UPGRADE_INSECURE_REQUESTS_HEADER_NAME) >> '1'
+		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.FORWARDER_PROTO_HEADER_NAME) >> 'http'
 		1 * request.scheme >> 'http'
 		1 * request.requestURL >> new StringBuffer('http://stapi.co/about')
-		1 * response.setHeader('Vary', UpgradeInsecureRequestsHeaderFilter.HEADER_NAME)
+		1 * response.setHeader('Vary', UpgradeInsecureRequestsHeaderFilter.UPGRADE_INSECURE_REQUESTS_HEADER_NAME)
 		1 * response.sendRedirect('https://stapi.co/about')
 		0 * _
 	}
@@ -83,8 +84,32 @@ class UpgradeInsecureRequestsHeaderFilterTest extends Specification {
 		upgradeInsecureRequestsHeaderFilter.doFilter(request, response, chain)
 
 		then:
-		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.HEADER_NAME) >> '1'
+		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.UPGRADE_INSECURE_REQUESTS_HEADER_NAME) >> '1'
+		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.FORWARDER_PROTO_HEADER_NAME) >> 'http'
 		1 * request.scheme >> 'https'
+		1 * chain.doFilter(request, response)
+		0 * _
+	}
+
+	void "does no redirect when request has invalid X-Forwarded-Proto header"() {
+		given:
+		HttpServletRequest request = Mock()
+		HttpServletResponse response = Mock()
+		FilterChain chain = Mock()
+
+		when:
+		upgradeInsecureRequestsHeaderFilter.init(null)
+
+		then:
+		1 * environmentMock.getProperty(EnvironmentVariable.STAPI_UPGRADE_INSECURE_REQUESTS) >> 'true'
+		0 * _
+
+		when:
+		upgradeInsecureRequestsHeaderFilter.doFilter(request, response, chain)
+
+		then:
+		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.UPGRADE_INSECURE_REQUESTS_HEADER_NAME) >> '1'
+		1 * request.getHeader(UpgradeInsecureRequestsHeaderFilter.FORWARDER_PROTO_HEADER_NAME) >> 'https'
 		1 * chain.doFilter(request, response)
 		0 * _
 	}
