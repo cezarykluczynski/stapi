@@ -37,7 +37,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest 
 		then:
 		seriesBaseResponse.page.pageNumber == 0
 		seriesBaseResponse.page.pageSize == 50
-		seriesBaseResponse.series.size() == 11
+		seriesBaseResponse.series.size() == 12
 	}
 
 	void "gets series by title"() {
@@ -70,8 +70,8 @@ class SeriesRestEndpointIntegrationTest extends AbstractEndpointIntegrationTest 
 		SeriesBaseResponse seriesBaseResponse = stapiRestClient.series.search(seriesSearchCriteria)
 
 		then:
-		seriesBaseResponse.series.size() == 11
-		seriesBaseResponse.series.first().abbreviation == 'SNW'
+		seriesBaseResponse.series.size() == 12
+		seriesBaseResponse.series.first().abbreviation == 'SA'
 		seriesBaseResponse.series.last().abbreviation == 'TOS'
 	}
 
