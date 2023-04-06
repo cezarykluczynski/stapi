@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: STAPI
   description: STAPI, a Star Trek API
-  version: 0.1.3-SNAPSHOT
+  version: 0.1.4
 servers:
   - url: https://stapi.co/api
     description: STAPI over secure HTTPS protocol
