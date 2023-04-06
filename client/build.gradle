@@ -3,14 +3,13 @@ plugins {
 	id 'java-library'
 	id 'maven-publish'
 	id 'signing'
-	id("org.openapi.generator") version "6.4.0"
+	id("org.openapi.generator") version "6.5.0"
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-	implementation project(':contract')
 	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 	implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.10.0'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
@@ -31,7 +30,7 @@ openApiGenerate {
 	generateModelDocumentation = false
 	generateApiTests = false
 	generateApiDocumentation = false
-	inputSpec = "$rootDir/contract/src/main/resources/openapi/stapi.yaml".toString()
+	inputSpec = "$rootDir/client/src/main/resources/openapi/stapi.yaml".toString()
 	outputDir = "$rootDir/client/".toString()
 	apiPackage = "com.cezarykluczynski.stapi.client.rest.api"
 	invokerPackage = "com.cezarykluczynski.stapi.client.rest.invoker"

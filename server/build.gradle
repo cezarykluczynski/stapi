@@ -22,7 +22,7 @@ def integrationTest = sourceSets.create('integrationTest')
 def dockerPerformanceTest = sourceSets.create('dockerPerformanceTest')
 
 dependencies {
-	implementation project(':util'), project(':contract'), project(':model'), project(':etl'), project(':client')
+	implementation project(':util'), project(':model'), project(':etl'), project(':client')
 	implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
@@ -63,7 +63,7 @@ dependencies {
 
 	dockerPerformanceTestImplementation project(':server').sourceSets.main.output
 	dockerPerformanceTestImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.3-groovy-4.0'
-	dockerPerformanceTestImplementation "org.testcontainers:spock:1.17.6"
+	dockerPerformanceTestImplementation "org.testcontainers:spock:1.18.0"
 }
 
 apply from: 'codeGen.gradle'
@@ -129,7 +129,7 @@ class CopyDocs extends DefaultTask {
 
 	@TaskAction
 	def copy() {
-		def dir = new File('./contract/src/main/resources/')
+		def dir = new File('./client/src/main/resources/')
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			File destination = new File(project.rootDir, 'server/build/resources/main/' + file.getPath().substring(2))
 			destination.parentFile.mkdirs()

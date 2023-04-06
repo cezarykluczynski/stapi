@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: STAPI
   description: STAPI, a Star Trek API
-  version: 0.1.3
+  version: 0.1.3-SNAPSHOT
 servers:
   - url: https://stapi.co/api
     description: STAPI over secure HTTPS protocol
@@ -13,7 +13,7 @@ paths:
     get:
       tags:
         - Animal
-      description: Retrival of a single animal
+      description: Retrieval of a single animal
       operationId: v1GetAnimal
       parameters:
         - name: uid
@@ -124,7 +124,7 @@ paths:
     get:
       tags:
         - AstronomicalObject
-      description: Retrival of a single astronomical object
+      description: Retrieval of a single astronomical object
       operationId: v1GetAstronomicalObject
       deprecated: true
       parameters:
@@ -230,7 +230,7 @@ paths:
     get:
       tags:
         - AstronomicalObject
-      description: Retrival of a single astronomical object (V2)
+      description: Retrieval of a single astronomical object (V2)
       operationId: v2GetAstronomicalObject
       parameters:
         - name: uid
@@ -333,7 +333,7 @@ paths:
     get:
       tags:
         - Book
-      description: Retrival of a single book
+      description: Retrieval of a single book
       operationId: v1GetBook
       deprecated: true
       parameters:
@@ -507,7 +507,7 @@ paths:
     get:
       tags:
         - Book
-      description: Retrival of a single book (V2)
+      description: Retrieval of a single book (V2)
       operationId: v2GetBook
       parameters:
         - name: uid
@@ -681,7 +681,7 @@ paths:
     get:
       tags:
         - BookCollection
-      description: Retrival of a single book collection
+      description: Retrieval of a single book collection
       operationId: v1GetBookCollection
       parameters:
         - name: uid
@@ -809,7 +809,7 @@ paths:
     get:
       tags:
         - BookSeries
-      description: Retrival of a single book series
+      description: Retrieval of a single book series
       operationId: v1GetBookSeries
       parameters:
         - name: uid
@@ -935,7 +935,7 @@ paths:
     get:
       tags:
         - Character
-      description: Retrival of a single character
+      description: Retrieval of a single character
       operationId: v1GetCharacter
       parameters:
         - name: uid
@@ -1050,7 +1050,7 @@ paths:
     get:
       tags:
         - Comics
-      description: Retrival of a single comics
+      description: Retrieval of a single comics
       operationId: v1GetComics
       parameters:
         - name: uid
@@ -1185,7 +1185,7 @@ paths:
     get:
       tags:
         - ComicCollection
-      description: Retrival of a single comic collection
+      description: Retrieval of a single comic collection
       operationId: v1GetComicCollection
       deprecated: true
       parameters:
@@ -1317,7 +1317,7 @@ paths:
     get:
       tags:
         - ComicCollection
-      description: Retrival of a single comic collection (V2)
+      description: Retrieval of a single comic collection (V2)
       operationId: v2GetComicCollection
       parameters:
         - name: uid
@@ -1343,7 +1343,7 @@ paths:
     get:
       tags:
         - ComicSeries
-      description: Retrival of a single comic series
+      description: Retrieval of a single comic series
       operationId: v1GetComicSeries
       parameters:
         - name: uid
@@ -1477,7 +1477,7 @@ paths:
     get:
       tags:
         - ComicStrip
-      description: Retrival of a single comic strip
+      description: Retrieval of a single comic strip
       operationId: v1GetComicStrip
       parameters:
         - name: uid
@@ -1597,7 +1597,7 @@ paths:
     get:
       tags:
         - Company
-      description: Retrival of a single company
+      description: Retrieval of a single company
       operationId: v1GetCompany
       deprecated: true
       parameters:
@@ -1748,7 +1748,7 @@ paths:
     get:
       tags:
         - Company
-      description: Retrival of a single company (V2)
+      description: Retrieval of a single company (V2)
       operationId: v2GetCompany
       parameters:
         - name: uid
@@ -1908,7 +1908,7 @@ paths:
     get:
       tags:
         - Conflict
-      description: Retrival of a single conflict
+      description: Retrieval of a single conflict
       operationId: v1GetConflict
       deprecated: true
       parameters:
@@ -2030,7 +2030,7 @@ paths:
     get:
       tags:
         - Conflict
-      description: Retrival of a single conflict (V2)
+      description: Retrieval of a single conflict (V2)
       operationId: v2GetConflict
       parameters:
         - name: uid
@@ -2056,7 +2056,7 @@ paths:
     get:
       tags:
         - DataVersion
-      description: Retrival of a data version
+      description: Retrieval of a data version
       operationId: v1GetDataVersion
       responses:
         200:
@@ -2075,7 +2075,7 @@ paths:
     get:
       tags:
         - Element
-      description: Retrival of a single element
+      description: Retrieval of a single element
       operationId: v1GetElement
       deprecated: true
       parameters:
@@ -2198,7 +2198,7 @@ paths:
     get:
       tags:
         - Element
-      description: Retrival of a single element (V2)
+      description: Retrieval of a single element (V2)
       operationId: v2GetElement
       parameters:
         - name: uid
@@ -2318,7 +2318,7 @@ paths:
     get:
       tags:
         - Episode
-      description: Retrival of a single episode
+      description: Retrieval of a single episode
       operationId: v1GetEpisode
       parameters:
         - name: uid
@@ -2470,7 +2470,7 @@ paths:
     get:
       tags:
         - Food
-      description: Retrival of a single food
+      description: Retrieval of a single food
       operationId: v1GetFood
       parameters:
         - name: uid
@@ -2596,7 +2596,7 @@ paths:
     get:
       tags:
         - Literature
-      description: Retrival of a single literature
+      description: Retrieval of a single literature
       operationId: v1GetLiterature
       parameters:
         - name: uid
@@ -2710,7 +2710,7 @@ paths:
     get:
       tags:
         - Location
-      description: Retrival of a single location
+      description: Retrieval of a single location
       operationId: v1GetLocation
       deprecated: true
       parameters:
@@ -2878,7 +2878,7 @@ paths:
     get:
       tags:
         - Location
-      description: Retrival of a single location (V2)
+      description: Retrieval of a single location (V2)
       operationId: v2GetLocation
       parameters:
         - name: uid
@@ -3052,7 +3052,7 @@ paths:
     get:
       tags:
         - Magazine
-      description: Retrival of a single magazine
+      description: Retrieval of a single magazine
       operationId: v1GetMagazine
       parameters:
         - name: uid
@@ -3164,7 +3164,7 @@ paths:
     get:
       tags:
         - MagazineSeries
-      description: Retrival of a single magazine series
+      description: Retrieval of a single magazine series
       operationId: v1GetMagazineSeries
       parameters:
         - name: uid
@@ -3276,7 +3276,7 @@ paths:
     get:
       tags:
         - Material
-      description: Retrival of a single material
+      description: Retrieval of a single material
       operationId: v1GetMaterial
       parameters:
         - name: uid
@@ -3402,7 +3402,7 @@ paths:
     get:
       tags:
         - MedicalCondition
-      description: Retrival of a single medical condition
+      description: Retrieval of a single medical condition
       operationId: v1GetMedicalCondition
       parameters:
         - name: uid
@@ -3501,7 +3501,7 @@ paths:
     get:
       tags:
         - Movie
-      description: Retrival of a single movie
+      description: Retrieval of a single movie
       operationId: v1GetMovie
       parameters:
         - name: uid
@@ -3623,7 +3623,7 @@ paths:
     get:
       tags:
         - Occupation
-      description: Retrival of a single occupation
+      description: Retrieval of a single occupation
       operationId: v1GetOccupation
       deprecated: true
       parameters:
@@ -3731,7 +3731,7 @@ paths:
     get:
       tags:
         - Occupation
-      description: Retrival of a single occupation (V2)
+      description: Retrieval of a single occupation (V2)
       operationId: v2GetOccupation
       parameters:
         - name: uid
@@ -3860,7 +3860,7 @@ paths:
     get:
       tags:
         - Organization
-      description: Retrival of a single organization
+      description: Retrieval of a single organization
       operationId: v1GetOrganization
       parameters:
         - name: uid
@@ -3992,7 +3992,7 @@ paths:
     get:
       tags:
         - Performer
-      description: Retrival of a single performer
+      description: Retrieval of a single performer
       operationId: v1GetPerformer
       deprecated: true
       parameters:
@@ -4166,7 +4166,7 @@ paths:
     get:
       tags:
         - Performer
-      description: Retrival of a single performer (V2)
+      description: Retrieval of a single performer (V2)
       operationId: v2GetPerformer
       parameters:
         - name: uid
@@ -4354,7 +4354,7 @@ paths:
     get:
       tags:
         - Season
-      description: Retrival of a single season
+      description: Retrieval of a single season
       operationId: v1GetSeason
       parameters:
         - name: uid
@@ -4466,7 +4466,7 @@ paths:
     get:
       tags:
         - Series
-      description: Retrival of a single series
+      description: Retrieval of a single series
       operationId: v1GetSeries
       parameters:
         - name: uid
@@ -4597,7 +4597,7 @@ paths:
     get:
       tags:
         - Soundtrack
-      description: Retrival of a single soundtrack
+      description: Retrieval of a single soundtrack
       operationId: v1GetSoundtrack
       parameters:
         - name: uid
@@ -4709,7 +4709,7 @@ paths:
     get:
       tags:
         - Spacecraft
-      description: Retrival of a single spacecraft
+      description: Retrieval of a single spacecraft
       operationId: v1GetSpacecraft
       deprecated: true
       parameters:
@@ -4808,7 +4808,7 @@ paths:
     get:
       tags:
         - Spacecraft
-      description: Retrival of a single spacecraft (V2)
+      description: Retrieval of a single spacecraft (V2)
       operationId: v2GetSpacecraft
       parameters:
         - name: uid
@@ -4910,7 +4910,7 @@ paths:
     get:
       tags:
         - SpacecraftClass
-      description: Retrival of a single spacecraft class
+      description: Retrieval of a single spacecraft class
       operationId: v1GetSpacecraftClass
       deprecated: true
       parameters:
@@ -5016,7 +5016,7 @@ paths:
     get:
       tags:
         - SpacecraftClass
-      description: Retrival of a single spacecraft class (V2)
+      description: Retrieval of a single spacecraft class (V2)
       operationId: v2GetSpacecraftClass
       deprecated: true
       parameters:
@@ -5122,7 +5122,7 @@ paths:
     get:
       tags:
         - SpacecraftClass
-      description: Retrival of a single spacecraft class (V3)
+      description: Retrieval of a single spacecraft class (V3)
       operationId: v3GetSpacecraftClass
       parameters:
         - name: uid
@@ -5148,7 +5148,7 @@ paths:
     get:
       tags:
         - Species
-      description: Retrival of a single species
+      description: Retrieval of a single species
       operationId: v1GetSpecies
       deprecated: true
       parameters:
@@ -5283,7 +5283,7 @@ paths:
     get:
       tags:
         - Species
-      description: Retrival of a single species (V2)
+      description: Retrieval of a single species (V2)
       operationId: v2GetSpecies
       parameters:
         - name: uid
@@ -5418,7 +5418,7 @@ paths:
     get:
       tags:
         - Staff
-      description: Retrival of a single staff member
+      description: Retrieval of a single staff member
       operationId: v1GetStaff
       deprecated: true
       parameters:
@@ -5715,7 +5715,7 @@ paths:
     get:
       tags:
         - Staff
-      description: Retrival of a single staff member (V2)
+      description: Retrieval of a single staff member (V2)
       operationId: v2GetStaff
       parameters:
         - name: uid
@@ -6019,7 +6019,7 @@ paths:
     get:
       tags:
         - Technology
-      description: Retrival of a single technology piece
+      description: Retrieval of a single technology piece
       operationId: v1GetTechnology
       deprecated: true
       parameters:
@@ -6178,7 +6178,7 @@ paths:
     get:
       tags:
         - Technology
-      description: Retrival of a single technology piece (V2)
+      description: Retrieval of a single technology piece (V2)
       operationId: v2GetTechnology
       parameters:
         - name: uid
@@ -6367,7 +6367,7 @@ paths:
     get:
       tags:
         - Title
-      description: Retrival of a single title
+      description: Retrieval of a single title
       operationId: v1GetTitle
       deprecated: true
       parameters:
@@ -6481,7 +6481,7 @@ paths:
     get:
       tags:
         - Title
-      description: Retrival of a single title (V2)
+      description: Retrieval of a single title (V2)
       operationId: v2GetTitle
       parameters:
         - name: uid
@@ -6592,7 +6592,7 @@ paths:
     get:
       tags:
         - TradingCard
-      description: Retrival of a single trading card
+      description: Retrieval of a single trading card
       operationId: v1GetTradingCard
       parameters:
         - name: uid
@@ -6694,7 +6694,7 @@ paths:
     get:
       tags:
         - TradingCardDeck
-      description: Retrival of a single trading card deck
+      description: Retrieval of a single trading card deck
       operationId: v1GetTradingCardDeck
       parameters:
         - name: uid
@@ -6793,7 +6793,7 @@ paths:
     get:
       tags:
         - TradingCardSet
-      description: Retrival of a single trading card set
+      description: Retrieval of a single trading card set
       operationId: v1GetTradingCardSet
       parameters:
         - name: uid
@@ -6948,7 +6948,7 @@ paths:
     get:
       tags:
         - VideoGame
-      description: Retrival of a single video game
+      description: Retrieval of a single video game
       operationId: v1GetVideoGame
       parameters:
         - name: uid
@@ -7052,7 +7052,7 @@ paths:
     get:
       tags:
         - VideoRelease
-      description: Retrival of a single video release
+      description: Retrieval of a single video release
       operationId: v1GetVideoRelease
       deprecated: true
       parameters:
@@ -7167,7 +7167,7 @@ paths:
     get:
       tags:
         - VideoRelease
-      description: Retrival of a single video release (V2)
+      description: Retrieval of a single video release (V2)
       operationId: v2GetVideoRelease
       parameters:
         - name: uid
@@ -7285,7 +7285,7 @@ paths:
     get:
       tags:
         - Weapon
-      description: Retrival of a single weapon
+      description: Retrieval of a single weapon
       operationId: v1GetWeapon
       deprecated: true
       parameters:
@@ -7405,7 +7405,7 @@ paths:
     get:
       tags:
         - Weapon
-      description: Retrival of a single weapon (V2)
+      description: Retrieval of a single weapon (V2)
       operationId: v2GetWeapon
       parameters:
         - name: uid
@@ -7643,6 +7643,8 @@ components:
         animals:
           type: array
           description: List of animals matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/AnimalBase'
       description: Response object for animals search
@@ -7704,6 +7706,8 @@ components:
           type: array
           description: Astronomical objects located in this astronomical object, like
             planets in a star system
+          default:
+            - []
           items:
             $ref: '#/components/schemas/AstronomicalObjectBase'
       description: Full astronomical object, returned when queried using UID
@@ -7716,6 +7720,8 @@ components:
           $ref: '#/components/schemas/ResponseSort'
         astronomicalObjects:
           type: array
+          default:
+            - []
           items:
             $ref: '#/components/schemas/AstronomicalObjectBase'
       description: Response object for astronomical objects search
@@ -7817,6 +7823,8 @@ components:
           type: array
           description: Astronomical objects located in this astronomical object, like
             planets in a star system
+          default:
+            - []
           items:
             $ref: '#/components/schemas/AstronomicalObjectV2Base'
       description: Full astronomical object, returned when queried using UID (V2)
@@ -7830,6 +7838,8 @@ components:
         astronomicalObjects:
           type: array
           description: List of astronomical objects matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/AstronomicalObjectV2Base'
       description: Response object for astronomical objects search (v2)
@@ -8076,56 +8086,78 @@ components:
         bookSeries:
           type: array
           description: Book series this book is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookSeriesBase'
         authors:
           type: array
           description: Authors of the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         artists:
           type: array
           description: Artists involved in the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         editors:
           type: array
           description: Editors involved in the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         audiobookNarrators:
           type: array
           description: Audiobook narrators
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         publishers:
           type: array
           description: Book publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         audiobookPublishers:
           type: array
           description: Audiobook publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         characters:
           type: array
           description: Characters appearing the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         audiobookReferences:
           type: array
           description: Audiobook references
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         bookCollections:
           type: array
           description: Book collections this book is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookCollectionBase'
       description: Full book, returned when queried using UID
@@ -8139,6 +8171,8 @@ components:
         books:
           type: array
           description: List of books matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookBase'
       description: Response object for books search
@@ -8435,56 +8469,78 @@ components:
         bookSeries:
           type: array
           description: Book series this book is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookSeriesBase'
         authors:
           type: array
           description: Authors of the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         artists:
           type: array
           description: Artists involved in the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         editors:
           type: array
           description: Editors involved in the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         audiobookNarrators:
           type: array
           description: Audiobook narrators
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         publishers:
           type: array
           description: Book publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyV2Base'
         audiobookPublishers:
           type: array
           description: Audiobook publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyV2Base'
         characters:
           type: array
           description: Characters appearing the book
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         audiobookReferences:
           type: array
           description: Audiobook references
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         bookCollections:
           type: array
           description: Book collections this book is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookCollectionBase'
       description: Full book, returned when queried using UID (V2)
@@ -8498,6 +8554,8 @@ components:
         books:
           type: array
           description: List of books matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookV2Base'
       description: Response object for books search (V2)
@@ -8640,41 +8698,57 @@ components:
         bookSeries:
           type: array
           description: Book series this book collection is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookSeriesBase'
         authors:
           type: array
           description: Authors of the book collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         artists:
           type: array
           description: Artists involved in the book collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         editors:
           type: array
           description: Editors involved in the book collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         publishers:
           type: array
           description: Book collection publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         characters:
           type: array
           description: Characters appearing in the book collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         books:
           type: array
           description: Books included in this book collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookBase'
       description: Full book collection, returned when queried using UID
@@ -8688,6 +8762,8 @@ components:
         bookCollections:
           type: array
           description: List of book collections matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookCollectionBase'
       description: Response object for book collections search
@@ -8836,21 +8912,29 @@ components:
         parentSeries:
           type: array
           description: Book series this book series is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookSeriesBase'
         childSeries:
           type: array
           description: Child book series included in this book series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookSeriesBase'
         publishers:
           type: array
           description: Companies that published this book series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         books:
           type: array
           description: Books included in this book series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookBase'
       description: Full book series, returned when queried using UID
@@ -8864,6 +8948,8 @@ components:
         bookSeries:
           type: array
           description: List of book series matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/BookSeriesBase'
       description: Response object for book series search
@@ -9077,41 +9163,57 @@ components:
         performers:
           type: array
           description: Performers who played this character
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         episodes:
           type: array
           description: Episodes in which this character appeared
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         movies:
           type: array
           description: Movies in which this character appeared
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         characterSpecies:
           type: array
           description: Species this character belongs to
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterSpecies'
         characterRelations:
           type: array
           description: Relations with other characters
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterRelation'
         titles:
           type: array
           description: Titles this character holds
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TitleBase'
         occupations:
           type: array
           description: Occupations of this character
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OccupationBase'
         organizations:
           type: array
           description: Organizations this character has affiliation with
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
       description: Full character, returned when queried using UID
@@ -9125,6 +9227,8 @@ components:
         characters:
           type: array
           description: List of characters matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Response object for characters search
@@ -9339,46 +9443,64 @@ components:
         comicSeries:
           type: array
           description: Comic series this comics is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         writers:
           type: array
           description: Writers involved in the comics
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         artists:
           type: array
           description: Artists involved in the comics
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         editors:
           type: array
           description: Editors involved in the comics
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         staff:
           type: array
           description: Other staff involved in the comics
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         publishers:
           type: array
           description: Comics publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         characters:
           type: array
           description: Characters appearing in the comics
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         comicCollections:
           type: array
           description: Comic collections this comics is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicCollectionBase'
       description: Full comics, returned when queried using UID
@@ -9392,6 +9514,8 @@ components:
         comics:
           type: array
           description: List of comics matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicsBase'
       description: Response object for comics search
@@ -9570,46 +9694,64 @@ components:
         comicSeries:
           type: array
           description: Comic series this comic collection is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         writers:
           type: array
           description: Writers involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         artists:
           type: array
           description: Artists involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         editors:
           type: array
           description: Editors involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         staff:
           type: array
           description: Other staff involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         publishers:
           type: array
           description: Comic collection publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         characters:
           type: array
           description: Characters appearing in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         comics:
           type: array
           description: Comics included in this comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicsBase'
       description: Full comic collection, returned when queried using UID
@@ -9623,6 +9765,8 @@ components:
         comicCollections:
           type: array
           description: List of comic collections matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicCollectionBase'
       description: Response object for comic collections search
@@ -9685,51 +9829,71 @@ components:
         comicSeries:
           type: array
           description: Comic series this comic collection is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         childComicSeries:
           type: array
           description: Comic series this comic collection includes
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         writers:
           type: array
           description: Writers involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         artists:
           type: array
           description: Artists involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         editors:
           type: array
           description: Editors involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         staff:
           type: array
           description: Other staff involved in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
         publishers:
           type: array
           description: Comic collection publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyV2Base'
         characters:
           type: array
           description: Characters appearing in the comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         comics:
           type: array
           description: Comics included in this comic collection
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicsBase'
       description: Full comic collection, returned when queried using UID (V2)
@@ -9917,21 +10081,29 @@ components:
         parentSeries:
           type: array
           description: Comic series this comic series is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         childSeries:
           type: array
           description: Child comic series included in this comic series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         publishers:
           type: array
           description: Companies that published this comic series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         comics:
           type: array
           description: Comics included in this comic series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicsBase'
       description: Full comic series, returned when queried using UID
@@ -9945,6 +10117,8 @@ components:
         comicSeries:
           type: array
           description: List of comic series matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
       description: Response object for comic series search
@@ -10096,21 +10270,29 @@ components:
         comicSeries:
           type: array
           description: Comic series this comic strip is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicSeriesBase'
         writers:
           type: array
           description: Writers involved in the comic strip
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         artists:
           type: array
           description: Artists involved in the comic strip
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         characters:
           type: array
           description: Characters appearing in the comic strip
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full comic strip, returned when queried using UID
@@ -10124,6 +10306,8 @@ components:
         comicStrips:
           type: array
           description: List of comic strips matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ComicStripBase'
       description: Response object for comic strip search
@@ -10365,6 +10549,8 @@ components:
         companies:
           type: array
           description: List of companies matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
       description: Response object for companies search
@@ -10536,6 +10722,8 @@ components:
         companies:
           type: array
           description: List of companies matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyV2Base'
       description: Response object for companies search (V2)
@@ -10670,26 +10858,36 @@ components:
         locations:
           type: array
           description: Locations this conflict occurred at
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LocationBase'
         firstSideBelligerents:
           type: array
           description: Organization involved in conflict on first side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         firstSideCommanders:
           type: array
           description: Commanders involved in conflict on first side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         secondSideBelligerents:
           type: array
           description: Organization involved in conflict on second side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         secondSideCommanders:
           type: array
           description: Commanders involved in conflict on second side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Base conflict, returned in search results
@@ -10703,6 +10901,8 @@ components:
         conflicts:
           type: array
           description: List of conflicts matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ConflictBase'
       description: Response object for conflicts search
@@ -10748,36 +10948,50 @@ components:
         locations:
           type: array
           description: Locations this conflict occurred at
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LocationBase'
         firstSideBelligerents:
           type: array
           description: Organization involved in conflict on first side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         firstSideLocations:
           type: array
           description: Locations involved in conflict on first side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LocationV2Base'
         firstSideCommanders:
           type: array
           description: Commanders involved in conflict on first side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
         secondSideBelligerents:
           type: array
           description: Organization involved in conflict on second side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         secondSideLocations:
           type: array
           description: Locations involved in conflict on second side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LocationV2Base'
         secondSideCommanders:
           type: array
           description: Commanders involved in conflict on second side
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Base conflict, returned in search results (V2)
@@ -10973,6 +11187,8 @@ components:
         elements:
           type: array
           description: List of elements matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ElementBase'
       description: Response object for elements search
@@ -11119,6 +11335,8 @@ components:
         elements:
           type: array
           description: List of elements matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ElementV2Base'
       description: Response object for elements search (V2)
@@ -11336,41 +11554,57 @@ components:
         writers:
           type: array
           description: Writers involved in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         teleplayAuthors:
           type: array
           description: Teleplay authors involved in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         storyAuthors:
           type: array
           description: Story authors involved in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         directors:
           type: array
           description: Directors authors involved in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         performers:
           type: array
           description: Performers appearing in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         stuntPerformers:
           type: array
           description: Stunt performers appearing in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         standInPerformers:
           type: array
           description: Stand-in performers appearing in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         characters:
           type: array
           description: Characters appearing in the episode
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full episode, returned when queried using UID
@@ -11384,6 +11618,8 @@ components:
         episodes:
           type: array
           description: List of episodes matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
       description: Response object for episodes search
@@ -11559,6 +11795,8 @@ components:
         foods:
           type: array
           description: List of foods matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/FoodBase'
       description: Response object for foods search
@@ -11704,6 +11942,8 @@ components:
         literature:
           type: array
           description: List of literature matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LiteratureBase'
       description: Response object for literature search
@@ -11900,6 +12140,8 @@ components:
         locations:
           type: array
           description: List of locations matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LocationBase'
       description: Response object for locations search
@@ -12196,6 +12438,8 @@ components:
         locations:
           type: array
           description: List of locations matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/LocationV2Base'
       description: Response object for locations search (V2)
@@ -12327,16 +12571,22 @@ components:
         magazineSeries:
           type: array
           description: Magazine series this magazine is included in
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MagazineSeriesBase'
         editors:
           type: array
           description: Editors involved in the magazine
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         publishers:
           type: array
           description: Magazine publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
       description: Full magazine, returned when queried using UID
@@ -12350,6 +12600,8 @@ components:
         magazines:
           type: array
           description: List of magazines matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MagazineBase'
       description: Response object for magazine search
@@ -12463,16 +12715,22 @@ components:
         publishers:
           type: array
           description: Companies that published this magazine series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         editors:
           type: array
           description: Editors involved in the magazine series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         magazines:
           type: array
           description: Magazines included in this magazine series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MagazineBase'
       description: Full magazine series, returned when queried using UID
@@ -12486,6 +12744,8 @@ components:
         magazineSeries:
           type: array
           description: List of magazine series matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MagazineSeriesBase'
       description: Response object for magazine series search
@@ -12663,6 +12923,8 @@ components:
         materials:
           type: array
           description: List of materials matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MaterialBase'
       description: Response object for materials search
@@ -12747,6 +13009,8 @@ components:
         medicalConditions:
           type: array
           description: List of medical conditions matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MedicalConditionBase'
       description: Response object for medical conditions search
@@ -12940,51 +13204,71 @@ components:
         writers:
           type: array
           description: Writers involved in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         screenplayAuthors:
           type: array
           description: Screenplay authors involved in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         storyAuthors:
           type: array
           description: Story authors authors involved in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         directors:
           type: array
           description: Directors authors involved in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         producers:
           type: array
           description: Producers authors involved in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         staff:
           type: array
           description: Other staff involved in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         performers:
           type: array
           description: Performers appearing in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         stuntPerformers:
           type: array
           description: Stunt performers appearing in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         standInPerformers:
           type: array
           description: Stand-in performers appearing in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
         characters:
           type: array
           description: Characters appearing in the movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full movie, returned when queried using UID
@@ -12998,6 +13282,8 @@ components:
         movies:
           type: array
           description: List of movies matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
       description: Response object for movies search
@@ -13066,6 +13352,8 @@ components:
         characters:
           type: array
           description: Characters with this occupation
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full occupation, returned when queried using UID
@@ -13079,6 +13367,8 @@ components:
         occupations:
           type: array
           description: List of occupations matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OccupationBase'
       description: Response object for occupations search
@@ -13232,6 +13522,8 @@ components:
         characters:
           type: array
           description: Characters with this occupation
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full occupation, returned when queried using UID (V2)
@@ -13245,6 +13537,8 @@ components:
         occupations:
           type: array
           description: List of occupations matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OccupationV2Base'
       description: Response object for occupations search (V2)
@@ -13420,6 +13714,8 @@ components:
         characters:
           type: array
           description: Characters belonging to this organization
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full organization, returned when queried using UID
@@ -13433,6 +13729,8 @@ components:
         organizations:
           type: array
           description: List of organizations matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
       description: Response object for organizations search
@@ -13607,36 +13905,50 @@ components:
         episodesPerformances:
           type: array
           description: Episodes in which this person appeared as a performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         episodesStuntPerformances:
           type: array
           description: Episodes in which this person appeared as a stunt performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         episodesStandInPerformances:
           type: array
           description: Episodes in which this person appeared as a stand-in performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         moviesPerformances:
           type: array
           description: Movies in which this person appeared as a performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         moviesStuntPerformances:
           type: array
           description: Movies in which this person appeared as a stunt performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         moviesStandInPerformances:
           type: array
           description: Movies in which this person appeared as a stand-in performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         characters:
           type: array
           description: Characters played by this performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full performer, returned when queried using UID
@@ -13650,6 +13962,8 @@ components:
         performers:
           type: array
           description: List of performers matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerBase'
       description: Response object for performers search
@@ -13974,36 +14288,50 @@ components:
         episodesPerformances:
           type: array
           description: Episodes in which this person appeared as a performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         episodesStuntPerformances:
           type: array
           description: Episodes in which this person appeared as a stunt performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         episodesStandInPerformances:
           type: array
           description: Episodes in which this person appeared as a stand-in performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         moviesPerformances:
           type: array
           description: Movies in which this person appeared as a performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         moviesStuntPerformances:
           type: array
           description: Movies in which this person appeared as a stunt performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         moviesStandInPerformances:
           type: array
           description: Movies in which this person appeared as a stand-in performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         characters:
           type: array
           description: Characters played by this performer
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full performer, returned when queried using UID (V2)
@@ -14017,6 +14345,8 @@ components:
         performers:
           type: array
           description: List of performers matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/PerformerV2Base'
       description: Response object for performers search (V2)
@@ -14098,6 +14428,8 @@ components:
         clauses:
           type: array
           description: List of response sort rules
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ResponseSortClause'
       description: Response sort
@@ -14129,6 +14461,8 @@ components:
         clauses:
           type: array
           description: List of request sort rules
+          default:
+            - []
           items:
             $ref: '#/components/schemas/RequestSortClause'
       description: Request sort
@@ -14244,6 +14578,8 @@ components:
         episodes:
           type: array
           description: Episodes in this season
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
       description: Full location, returned when queried using UID
@@ -14257,6 +14593,8 @@ components:
         seasons:
           type: array
           description: List of seasons matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SeasonBase'
       description: Response object for seasons search
@@ -14420,11 +14758,15 @@ components:
         episodes:
           type: array
           description: Episodes in the series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         seasons:
           type: array
           description: Seasons in the series
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SeasonBase'
       description: Full series, returned when queried using UID
@@ -14438,6 +14780,8 @@ components:
         series:
           type: array
           description: List of series matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SeriesBase'
       description: Response object for series search
@@ -14534,27 +14878,37 @@ components:
           description: Length, in seconds
         labels:
           type: array
-          description: Labels this soundtrack was relesed by
+          description: Labels this soundtrack was released by
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         composers:
           type: array
           description: Composers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         contributors:
           type: array
           description: Other musicians that contributed to this soundtrack
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         orchestrators:
           type: array
           description: Orchestrators
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
       description: Full soundtrack, returned when queried using UID
@@ -14568,6 +14922,8 @@ components:
         soundtracks:
           type: array
           description: List of soundtracks matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SoundtrackBase'
       description: Response object for soundtracks search
@@ -14650,6 +15006,8 @@ components:
         spacecraftTypes:
           type: array
           description: Spacecraft types
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftType'
       description: Full spacecraft, returned when queried using UID
@@ -14663,6 +15021,8 @@ components:
         spacecrafts:
           type: array
           description: List of spacecrafts matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftBase'
       description: Response object for spacecrafts search
@@ -14759,6 +15119,8 @@ components:
         spacecraftTypes:
           type: array
           description: Spacecraft types
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftType'
       description: Full spacecraft, returned when queried using UID (V2)
@@ -14772,6 +15134,8 @@ components:
         spacecrafts:
           type: array
           description: List of spacecrafts matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftV2Base'
       description: Response object for spacecrafts search (V2)
@@ -14868,11 +15232,15 @@ components:
         spacecraftTypes:
           type: array
           description: Spacecraft types
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftType'
         spacecrafts:
           type: array
           description: Spacecrafts
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftBase'
       description: Full spacecraft class, returned when queried using UID
@@ -14886,6 +15254,8 @@ components:
         spacecraftClasses:
           type: array
           description: List of spacecraft classes matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftClassBase'
       description: Response object for spacecraft classes search
@@ -14995,31 +15365,43 @@ components:
         owners:
           type: array
           description: Owners
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         operators:
           type: array
           description: Operators
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         affiliations:
           type: array
           description: Affiliations
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         spacecraftTypes:
           type: array
           description: Spacecraft types
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftType'
         armaments:
           type: array
           description: Armaments
+          default:
+            - []
           items:
             $ref: '#/components/schemas/WeaponV2Base'
         spacecrafts:
           type: array
           description: Spacecrafts
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftV2Base'
       description: Full spacecraft class, returned when queried using UID (V2)
@@ -15033,6 +15415,8 @@ components:
         spacecraftClasses:
           type: array
           description: List of spacecraft classes matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftClassV2Base'
       description: Response object for spacecraft classes search (V2)
@@ -15080,36 +15464,50 @@ components:
         owners:
           type: array
           description: Owners
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         operators:
           type: array
           description: Operators
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         affiliations:
           type: array
           description: Affiliations
+          default:
+            - []
           items:
             $ref: '#/components/schemas/OrganizationBase'
         spacecraftTypes:
           type: array
           description: Spacecraft types
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftType'
         armaments:
           type: array
           description: Armaments
+          default:
+            - []
           items:
             $ref: '#/components/schemas/WeaponV2Base'
         defenses:
           type: array
           description: Defenses
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TechnologyV2Base'
         spacecrafts:
           type: array
           description: Spacecrafts
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpacecraftV2Base'
       description: Full spacecraft class, returned when queried using UID (V3)
@@ -15250,6 +15648,8 @@ components:
         characters:
           type: array
           description: Characters belonging to the species
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full species, returned when queried using UID
@@ -15263,6 +15663,8 @@ components:
         species:
           type: array
           description: List of species matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpeciesBase'
       description: Response object for species search
@@ -15442,6 +15844,8 @@ components:
         characters:
           type: array
           description: Characters belonging to the species
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full species, returned when queried using UID (V2)
@@ -15455,6 +15859,8 @@ components:
         species:
           type: array
           description: List of species matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SpeciesV2Base'
       description: Response object for species search (V2)
@@ -15875,56 +16281,78 @@ components:
         writtenEpisodes:
           type: array
           description: Episodes written by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         teleplayAuthoredEpisodes:
           type: array
           description: Episodes to which this person has written teleplay
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         storyAuthoredEpisodes:
           type: array
           description: Episodes to which this person has written story
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         directedEpisodes:
           type: array
           description: Episodes directed by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         episodes:
           type: array
           description: Episodes on which this person worked
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         writtenMovies:
           type: array
           description: Movies written by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         screenplayAuthoredMovies:
           type: array
           description: Movies to which this person has written screenplay
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         storyAuthoredMovies:
           type: array
           description: Movies to which this person has written story
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         directedMovies:
           type: array
           description: Movies directed by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         producedMovies:
           type: array
           description: Movies produced by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         movies:
           type: array
           description: Movies on which this person worked
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
       description: Full staff, returned when queried using UID
@@ -15938,6 +16366,8 @@ components:
         staff:
           type: array
           description: List of staff matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffBase'
       description: Response object for staff search
@@ -16588,56 +17018,78 @@ components:
         writtenEpisodes:
           type: array
           description: Episodes written by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         teleplayAuthoredEpisodes:
           type: array
           description: Episodes to which this person has written teleplay
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         storyAuthoredEpisodes:
           type: array
           description: Episodes to which this person has written story
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         directedEpisodes:
           type: array
           description: Episodes directed by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         episodes:
           type: array
           description: Episodes on which this person worked
+          default:
+            - []
           items:
             $ref: '#/components/schemas/EpisodeBase'
         writtenMovies:
           type: array
           description: Movies written by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         screenplayAuthoredMovies:
           type: array
           description: Movies to which this person has written screenplay
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         storyAuthoredMovies:
           type: array
           description: Movies to which this person has written story
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         directedMovies:
           type: array
           description: Movies directed by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         producedMovies:
           type: array
           description: Movies produced by this person
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         movies:
           type: array
           description: Movies on which this person worked
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
       description: Full staff, returned when queried using UID (V2)
@@ -16651,6 +17103,8 @@ components:
         staff:
           type: array
           description: List of staff matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/StaffV2Base'
       description: Response object for staff search (V2)
@@ -16829,6 +17283,8 @@ components:
         technology:
           type: array
           description: List of technology matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TechnologyBase'
       description: Response object for technology search
@@ -17170,6 +17626,8 @@ components:
         technology:
           type: array
           description: List of technology matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TechnologyV2Base'
       description: Response object for technology search (V2)
@@ -17250,6 +17708,8 @@ components:
         characters:
           type: array
           description: Characters that holds this title
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full title, returned when queried using UID
@@ -17263,6 +17723,8 @@ components:
         titles:
           type: array
           description: List of titles matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TitleBase'
       description: Response object for titles search
@@ -17362,6 +17824,8 @@ components:
         characters:
           type: array
           description: Characters that holds this title
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CharacterBase'
       description: Full title, returned when queried using UID (V2)
@@ -17375,6 +17839,8 @@ components:
         titles:
           type: array
           description: List of titles matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TitleV2Base'
       description: Response object for titles search (V2)
@@ -17484,6 +17950,8 @@ components:
         tradingCards:
           type: array
           description: List of trading cards matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TradingCardBase'
       description: Response object for trading cards search
@@ -17564,6 +18032,8 @@ components:
         tradingCards:
           type: array
           description: Trading cards in this deck
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TradingCardBase'
       description: Full trading card deck, returned when queried using UID
@@ -17577,6 +18047,8 @@ components:
         tradingCardDecks:
           type: array
           description: List of trading card decks matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TradingCardDeckBase'
       description: Response object for trading card decks search
@@ -17765,21 +18237,29 @@ components:
         manufacturers:
           type: array
           description: Manufacturers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         tradingCardDecks:
           type: array
           description: Trading card decks in this set
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TradingCardDeckBase'
         tradingCards:
           type: array
           description: Trading cards in this set
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TradingCardBase'
         countriesOfOrigin:
           type: array
           description: Countries of origin
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Country'
       description: Full trading card set, returned when queried using UID
@@ -17793,6 +18273,8 @@ components:
         tradingCardSets:
           type: array
           description: List of trading card sets matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/TradingCardSetBase'
       description: Response object for trading card sets search
@@ -17910,31 +18392,43 @@ components:
         publishers:
           type: array
           description: Publishers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         developers:
           type: array
           description: Developers
+          default:
+            - []
           items:
             $ref: '#/components/schemas/CompanyBase'
         platforms:
           type: array
           description: Platforms
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Platform'
         genres:
           type: array
           description: Genres
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Genre'
         ratings:
           type: array
           description: Ratings
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentRating'
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
       description: Full video game, returned when queried using UID
@@ -17948,6 +18442,8 @@ components:
         videoGames:
           type: array
           description: List of video games matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/VideoGameBase'
       description: Response object for video games search
@@ -18180,26 +18676,36 @@ components:
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         ratings:
           type: array
           description: Ratings
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentRating'
         languages:
           type: array
           description: Languages of audio track
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentLanguage'
         languagesSubtitles:
           type: array
           description: Languages of subtitles
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentLanguage'
         languagesDubbed:
           type: array
           description: Languages that are available with dubbing
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentLanguage'
       description: Full video release, returned when queried using UID
@@ -18213,6 +18719,8 @@ components:
         videoReleases:
           type: array
           description: List of video releases matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/VideoReleaseBase'
       description: Response object for video releases search
@@ -18372,20 +18880,23 @@ components:
           description: Video release title
         series:
           type: array
-          description: Series with which this video release is associated, so that
-            it contains part of all of it
+          description: Series with which this video release is associated, so that it contains part of all of it
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SeriesBase'
         seasons:
           type: array
-          description: Seasons with which this video release is associated, so that
-            it contains part of all of it
+          description: Seasons with which this video release is associated, so that it contains part of all of it
+          default:
+            - []
           items:
             $ref: '#/components/schemas/SeasonBase'
         movies:
           type: array
-          description: Movies with which this video release is associated, so that
-            it contains the full movie
+          description: Movies with which this video release is associated, so that it contains the full movie
+          default:
+            - []
           items:
             $ref: '#/components/schemas/MovieBase'
         format:
@@ -18475,26 +18986,36 @@ components:
         references:
           type: array
           description: References
+          default:
+            - []
           items:
             $ref: '#/components/schemas/Reference'
         ratings:
           type: array
           description: Ratings
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentRating'
         languages:
           type: array
           description: Languages of audio track
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentLanguage'
         languagesSubtitles:
           type: array
           description: Languages of subtitles
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentLanguage'
         languagesDubbed:
           type: array
           description: Languages that are available with dubbing
+          default:
+            - []
           items:
             $ref: '#/components/schemas/ContentLanguage'
       description: Full video release, returned when queried using UID
@@ -18508,6 +19029,8 @@ components:
         videoReleases:
           type: array
           description: List of video releases matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/VideoReleaseV2Base'
       description: Response object for video releases search (V2)
@@ -18608,6 +19131,8 @@ components:
         weapons:
           type: array
           description: List of weapons matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/WeaponBase'
       description: Response object for weapons search
@@ -18769,6 +19294,8 @@ components:
         weapons:
           type: array
           description: List of weapons matching given criteria
+          default:
+            - []
           items:
             $ref: '#/components/schemas/WeaponV2Base'
       description: Response object for weapons search (V2)
