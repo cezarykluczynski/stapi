@@ -1,22 +1,21 @@
 <div>
-	<div class='navbar navbar-default navbar-fixed-top navbar-toggleable-md'>
-		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation-wrapper" aria-expanded="false">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<div *ngIf="hasHttpsNotice()" class="alert alert-success https-notice" role="alert">STAPI supports HTTPS. <a href="{{getHttpsVersionUrl()}}">Switch
-			now</a> for safer browsing.
-		</div>
+	<nav class='navbar navbar-default navbar-expand-md navbar-fixed-top'>
 		<div class='container-fluid'>
+			<button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#navigation-wrapper" aria-controls="navigation-wrapper"
+					aria-expanded="false" aria-label="Toggle navigation" id="expand-mobile">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div *ngIf="hasHttpsNotice()" class="alert alert-success https-notice" role="alert">STAPI supports HTTPS. <a href="{{getHttpsVersionUrl()}}">
+				Switch now</a> for safer browsing.
+			</div>
 			<div class='collapse navbar-collapse' id="navigation-wrapper">
-				<ul class='nav navbar-nav'>
-					<li><a routerLinkActive="navigation-element--active" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a></li>
-					<li><a routerLinkActive="navigation-element--active" routerLink="about">About</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Documentation <span class="caret"></span>
+				<ul class="nav navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+<!--				<ul class='nav navbar-nav navbar-nav-scroll me-auto'>-->
+					<li class="nav-item"><a class="nav-link" routerLinkActive="navigation-element--active" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a></li>
+					<li class="nav-item"><a class="nav-link" routerLinkActive="navigation-element--active" routerLink="about">About</a></li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Documentation
 						</a>
 						<ul class="dropdown-menu">
 							<li><a routerLinkActive="navigation-element--active" routerLink="api-overview">API overview</a></li>
@@ -28,17 +27,17 @@
 							<li><a routerLinkActive="navigation-element--active" routerLink="licensing">Licensing</a></li>
 						</ul>
 					</li>
-					<li><a routerLinkActive="navigation-element--active" routerLink="api-browser">API Browser</a></li>
+					<li class="nav-item"><a class="nav-link" routerLinkActive="navigation-element--active" routerLink="api-browser">API Browser</a></li>
 				</ul>
 				<ul class='nav navbar-nav navbar-right'>
-					<li>
+					<li class="nav-item">
 						<a href="https://github.com/cezarykluczynski/stapi/stargazers">
 							<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/cezarykluczynski/stapi?style=social">
 						</a>
 					</li>
-					<li class="dropdown">
+					<li class="nav-item dropdown">
 						<a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							GitHub <span class="caret"></span>
+							GitHub
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href='https://github.com/cezarykluczynski/stapi'>STAPI on GitHub</a></li>
@@ -49,7 +48,7 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+	</nav>
 	<div>
 		<router-outlet></router-outlet>
 	</div>

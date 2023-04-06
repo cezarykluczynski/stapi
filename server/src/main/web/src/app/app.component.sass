@@ -1,4 +1,4 @@
-óbody
+body
 	background-color: #222
 	color: #eee
 
@@ -10,11 +10,26 @@
 	margin-right: 1em
 
 .navbar-default
+	padding: 0
+
 	a.navigation-element--active
 		color: #0ce3ac
 
 	a.navigation-element--active:hover
 		color: #00bc8c
+
+.navbar
+	.container-fluid
+		justify-content: center
+
+.navbar-collapse > ul > li > a
+	padding-left: 10px
+	padding-right: 10px
+
+#expand-mobile
+	margin-top: 10px
+	height: 41px
+	margin-bottom: 10px
 
 .footer
 	clear: both
