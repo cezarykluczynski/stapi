@@ -103,7 +103,7 @@ allprojects {
 	}
 
 	codenarc {
-		configFile = "$rootDir/codenarc.groovy" as File
+		configFile = "$rootDir/config/codenarc/codenarc.groovy" as File
 		toolVersion = '3.2.0'
 	}
 
@@ -115,7 +115,7 @@ allprojects {
 
 	spotbugs {
 		toolVersion = '4.7.3'
-		excludeFilter.set(file("$rootProject.projectDir/spotbugs-filter-exclude.xml"))
+		excludeFilter.set(file("$rootProject.projectDir/config/spotbugs/spotbugs-filter-exclude.xml"))
 	}
 
 	task cleanMetamodel(type: CleanMetamodel) {}

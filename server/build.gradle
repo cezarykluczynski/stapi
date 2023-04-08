@@ -183,7 +183,7 @@ class Dockerize extends DefaultTask {
 		String dataFileUrl = "https://s3.us-east-2.amazonaws.com/static.stapi/db_dumps/${this.version}/postgres.sql"
 		String localDirPath = "data/"
 		new File(localDirPath).mkdir()
-		String localPath = "data/postgres.sql"
+		String localPath = "docker/data/postgres.sql"
 		File localFile = new File(project.rootDir, localPath)
 		if (localFile.exists()) {
 			localFile.delete()

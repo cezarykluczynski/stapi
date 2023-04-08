@@ -1,6 +1,0 @@
-plugins {
-	id 'io.freefair.lombok'
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8

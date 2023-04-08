@@ -2,7 +2,6 @@
 .idea
 data/
 build/
-out/
 logs/
 node_modules
 model/**/*_.java
