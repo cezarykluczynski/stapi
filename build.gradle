@@ -149,6 +149,8 @@ tasks.named("dependencyUpdates").configure {
 	}
 }
 
+dependencyUpdates.gradleReleaseChannel = "current"
+
 nexusPublishing {
 	repositories {
 		sonatype {
