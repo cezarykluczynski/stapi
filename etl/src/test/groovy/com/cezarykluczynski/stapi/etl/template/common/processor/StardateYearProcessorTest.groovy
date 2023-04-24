@@ -25,6 +25,8 @@ class StardateYearProcessorTest extends Specification {
 	private static final Float STARDATE_TO = 234.5F
 	private static final String DATE_FROM_TO = "${STARDATE_FROM}-${STARDATE_TO} ${YEAR_STRING_FROM_TO}"
 	private static final String DATE_TO_FROM = "${STARDATE_TO}-${STARDATE_FROM} ${YEAR_STRING_TO_FROM}"
+	private static final String YEAR_FROM = "[[${YEAR_INTEGER_FROM}]]"
+	private static final String YEAR_FROM_TO = "[[${YEAR_INTEGER_FROM}]]-$YEAR_INTEGER_TO"
 	private static final String INVALID = 'INVALID'
 	private static final String DATE_INVALID_1 = "${STARDATE_FROM} ${INVALID}"
 	private static final String DATE_INVALID_2 = "${INVALID} ${YEAR_STRING_FROM}"
@@ -60,6 +62,30 @@ class StardateYearProcessorTest extends Specification {
 		then:
 		stardateYearDTO.stardateFrom == STARDATE_FROM
 		stardateYearDTO.stardateTo == STARDATE_TO
+		stardateYearDTO.yearFrom == YEAR_INTEGER_FROM
+		stardateYearDTO.yearTo == YEAR_INTEGER_TO
+	}
+
+	void "sets years from and to values, then populates 'to' using 'from'"() {
+		when:
+		StardateYearDTO stardateYearDTO = stardateYearProcessor
+				.process(StardateYearCandidateDTO.of(YEAR_FROM, TITLE, StardateYearSource.EPISODE))
+
+		then:
+		stardateYearDTO.stardateFrom == null
+		stardateYearDTO.stardateTo == null
+		stardateYearDTO.yearFrom == YEAR_INTEGER_FROM
+		stardateYearDTO.yearTo == YEAR_INTEGER_FROM
+	}
+
+	void "sets years from and to values"() {
+		when:
+		StardateYearDTO stardateYearDTO = stardateYearProcessor
+				.process(StardateYearCandidateDTO.of(YEAR_FROM_TO, TITLE, StardateYearSource.EPISODE))
+
+		then:
+		stardateYearDTO.stardateFrom == null
+		stardateYearDTO.stardateTo == null
 		stardateYearDTO.yearFrom == YEAR_INTEGER_FROM
 		stardateYearDTO.yearTo == YEAR_INTEGER_TO
 	}

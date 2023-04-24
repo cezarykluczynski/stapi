@@ -85,7 +85,12 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 				final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(stardateParts.get(0));
 				try {
 					if (StringUtil.isNotNull(wikitextWithoutLinks) && StringUtils.isNotBlank(wikitextWithoutLinks)) {
-						stardateYearDTO.setStardateFrom(Float.valueOf(wikitextWithoutLinks));
+						Integer yearCandidate = parseYear(wikitextWithoutLinks, true, title, imageType);
+						if (yearCandidate != null) {
+							stardateYearDTO.setYearFrom(yearCandidate);
+						} else {
+							stardateYearDTO.setStardateFrom(Float.valueOf(wikitextWithoutLinks));
+						}
 					}
 				} catch (NumberFormatException e) {
 					log.info("Could not cast {} \"{}\" \"from\" stardate \"{}\" to float", imageType, title, stardateParts.get(0));
@@ -96,14 +101,23 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 				final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(stardateParts.get(1));
 				try {
 					if (StringUtil.isNotNull(wikitextWithoutLinks) && StringUtils.isNotBlank(wikitextWithoutLinks)) {
-						stardateYearDTO.setStardateTo(Float.valueOf(wikitextWithoutLinks));
+						Integer yearCandidate = parseYear(wikitextWithoutLinks, false, title, imageType);
+						if (yearCandidate != null) {
+							stardateYearDTO.setYearTo(yearCandidate);
+						} else {
+							stardateYearDTO.setStardateTo(Float.valueOf(wikitextWithoutLinks));
+						}
 					}
 				} catch (NumberFormatException e) {
 					log.info("Could not cast {} \"{}\" \"to\" stardate \"{}\" to float", imageType, title, stardateParts.get(1));
 				}
 			}
-			if (stardateYearDTO.getStardateTo() == null) {
+			if (stardateYearDTO.getStardateFrom() != null && stardateYearDTO.getStardateTo() == null) {
 				stardateYearDTO.setStardateTo(stardateYearDTO.getStardateFrom());
+			}
+			if (stardateYearDTO.getYearFrom() != null && stardateYearDTO.getYearTo() == null) {
+				stardateYearDTO.setYearTo(stardateYearDTO.getYearFrom());
+
 			}
 
 			if (stardateYearDTO.getStardateFrom() != null && stardateYearDTO.getStardateTo() != null
