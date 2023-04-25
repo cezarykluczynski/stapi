@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification

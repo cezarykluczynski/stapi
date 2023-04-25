@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.military_conflict.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryConflictTemplate
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApiImpl
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import spock.lang.Specification
 

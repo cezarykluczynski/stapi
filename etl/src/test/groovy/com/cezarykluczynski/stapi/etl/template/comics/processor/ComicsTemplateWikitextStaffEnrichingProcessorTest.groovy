@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.common.service.WikitextListsExtractor
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.processor.ComicsTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class ComicsProcessorTest extends Specification {

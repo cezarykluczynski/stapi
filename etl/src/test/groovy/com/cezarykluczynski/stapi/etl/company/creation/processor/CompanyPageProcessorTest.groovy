@@ -9,9 +9,9 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as EtlPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page as EtlPage
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.PageTitle
 import com.google.common.collect.Lists

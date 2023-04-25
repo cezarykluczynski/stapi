@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range
 import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.processor.DayMonthYearRangeProcessor
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 

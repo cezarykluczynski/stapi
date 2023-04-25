@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.util.constant.SeriesAbbreviation;
 import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
@@ -17,8 +19,6 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification

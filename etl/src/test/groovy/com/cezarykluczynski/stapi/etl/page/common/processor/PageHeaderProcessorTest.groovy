@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.page.common.processor
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import info.bliki.api.PageInfo

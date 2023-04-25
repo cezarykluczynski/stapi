@@ -5,11 +5,11 @@ import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParame
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification

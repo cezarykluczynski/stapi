@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page as SourcesPage
 import spock.lang.Specification
 
 class SeasonPageProcessorTest extends Specification {

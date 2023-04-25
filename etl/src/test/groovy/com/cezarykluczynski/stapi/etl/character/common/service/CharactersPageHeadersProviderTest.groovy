@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.character.common.service
 
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 
 class CharactersPageHeadersProviderTest extends AbstractCreationConfigurationTest {
 

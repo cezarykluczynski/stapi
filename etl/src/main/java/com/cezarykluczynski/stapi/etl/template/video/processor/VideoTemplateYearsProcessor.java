@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.video.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.PageLinkToYearProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.YearlinkToYearProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

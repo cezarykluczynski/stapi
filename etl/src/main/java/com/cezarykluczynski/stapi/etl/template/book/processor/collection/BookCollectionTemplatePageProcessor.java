@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor.collection;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookCollectionTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.processor.BookTemplatePageProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

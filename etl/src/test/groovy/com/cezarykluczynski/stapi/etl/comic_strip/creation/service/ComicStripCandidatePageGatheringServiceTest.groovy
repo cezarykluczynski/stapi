@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.comic_strip.creation.service
 
-import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.converter.PageHeaderConverter
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class ComicStripCandidatePageGatheringServiceTest extends Specification {

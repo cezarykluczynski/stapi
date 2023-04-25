@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.movie.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.lang.NonNull;

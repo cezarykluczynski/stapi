@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import spock.lang.Specification
 import spock.lang.Unroll
 

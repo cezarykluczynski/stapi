@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor.species;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;

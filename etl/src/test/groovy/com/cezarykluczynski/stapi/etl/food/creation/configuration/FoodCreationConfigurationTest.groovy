@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodReader
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
-import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 
 class FoodCreationConfigurationTest extends AbstractCreationConfigurationTest {
 

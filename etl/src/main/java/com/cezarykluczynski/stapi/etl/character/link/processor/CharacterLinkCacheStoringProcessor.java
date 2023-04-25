@@ -4,9 +4,9 @@ import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCach
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap;
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache;
 import com.cezarykluczynski.stapi.etl.character.link.relation.service.CharacterRelationsTemplateParametersDetector;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

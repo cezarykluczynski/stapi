@@ -7,11 +7,11 @@ import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comic_series.repository.ComicSeriesRepository
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource as ModelMediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page as SourcesPage
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification

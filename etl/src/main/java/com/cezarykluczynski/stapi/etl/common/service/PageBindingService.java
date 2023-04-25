@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -53,7 +53,7 @@ public class PageBindingService {
 		return pageRepository.findByPageId(pageId);
 	}
 
-	public MediaWikiSource map(com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource mediaWikiSource) {
+	public MediaWikiSource map(com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource mediaWikiSource) {
 		return mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource);
 	}
 

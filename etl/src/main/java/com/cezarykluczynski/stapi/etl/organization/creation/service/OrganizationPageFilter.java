@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.organization.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

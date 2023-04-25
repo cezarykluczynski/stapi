@@ -8,9 +8,9 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource as ModelMediaWikiSource
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class VideoTemplateCategoriesEnrichingProcessorTest extends Specification {

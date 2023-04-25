@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.TemplateTitlesExtractingProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryConflictTemplate;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
 @Service

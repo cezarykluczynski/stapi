@@ -17,9 +17,9 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
-import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Lists
 import org.springframework.context.ApplicationContext
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 

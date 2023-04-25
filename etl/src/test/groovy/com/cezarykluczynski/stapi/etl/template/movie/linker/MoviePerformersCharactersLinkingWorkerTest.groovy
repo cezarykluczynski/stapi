@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.service.EntityRefreshingLookupByNam
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification

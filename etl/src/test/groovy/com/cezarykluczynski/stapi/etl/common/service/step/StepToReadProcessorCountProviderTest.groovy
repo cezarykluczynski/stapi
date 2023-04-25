@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.astronomical_object.link.processor.Astrono
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookReader
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.model.astronomical_object.repository.AstronomicalObjectRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 

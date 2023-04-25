@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.character.link.relation.service;
 
 import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterPageLinkWithRelationName;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

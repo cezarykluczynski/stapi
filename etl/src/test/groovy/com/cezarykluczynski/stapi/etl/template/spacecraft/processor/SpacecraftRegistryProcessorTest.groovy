@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.spacecraft.processor
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
 import spock.lang.Specification
 
 class SpacecraftRegistryProcessorTest extends Specification {

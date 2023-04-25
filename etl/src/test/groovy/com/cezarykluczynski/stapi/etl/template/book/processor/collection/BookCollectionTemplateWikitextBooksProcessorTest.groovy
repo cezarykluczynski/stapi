@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.etl.template.book.processor.collection
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor
 import com.cezarykluczynski.stapi.model.book.entity.Book
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

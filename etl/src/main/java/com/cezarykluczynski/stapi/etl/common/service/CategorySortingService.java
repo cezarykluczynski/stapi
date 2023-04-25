@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

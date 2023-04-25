@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.planet.processor
 
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll

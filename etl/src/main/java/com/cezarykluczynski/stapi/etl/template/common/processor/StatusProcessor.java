@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

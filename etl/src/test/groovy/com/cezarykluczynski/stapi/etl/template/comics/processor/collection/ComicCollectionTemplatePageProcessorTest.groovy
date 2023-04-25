@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.comics.processor.ComicsTemplatePa
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Sets
 import spock.lang.Specification
 

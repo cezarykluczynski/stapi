@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.performance.StardateYe
 import com.cezarykluczynski.stapi.etl.template.common.processor.StardateYearProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.episode.processor.EpisodeTemplateStardateYearFixedValueProvider
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 
 class EpisodeTemplateStardateYearEnrichingProcessorTest extends AbstractTemplateProcessorTest {

@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
 import com.cezarykluczynski.stapi.etl.species.creation.service.SpeciesPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page as SourcesPage
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification

@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.characterbox.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate;
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor;
@@ -9,8 +11,6 @@ import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualHe
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualLifeBoundaryProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualWeightProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

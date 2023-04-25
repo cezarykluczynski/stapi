@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.util
 
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
-import com.cezarykluczynski.stapi.sources.wordpress.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.wordpress.dto.Page
 import spock.lang.Specification
 
 class SortingUtilTest extends Specification {

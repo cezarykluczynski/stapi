@@ -9,8 +9,8 @@ import com.cezarykluczynski.stapi.etl.template.hologram.processor.HologramTempla
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateCompositeEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePlacesFixedValueProvider
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import spock.lang.Specification
 

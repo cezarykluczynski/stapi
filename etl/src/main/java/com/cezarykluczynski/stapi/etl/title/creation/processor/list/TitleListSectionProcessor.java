@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.etl.title.creation.processor.list;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

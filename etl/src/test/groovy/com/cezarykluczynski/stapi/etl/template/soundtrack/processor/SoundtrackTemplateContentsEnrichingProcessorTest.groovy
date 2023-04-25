@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.RecordingTimePro
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplateParameter
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

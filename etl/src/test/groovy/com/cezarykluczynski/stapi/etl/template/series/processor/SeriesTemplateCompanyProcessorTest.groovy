@@ -3,11 +3,11 @@ package com.cezarykluczynski.stapi.etl.template.series.processor
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -102,7 +102,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(new PageLink(title: COMPANY_NAME))
 		1 * companyRepositoryMock.findByPageTitleWithPageMediaWikiSource(COMPANY_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(COMPANY_NAME, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * pageApiMock.getPage(COMPANY_NAME, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >>
 				new Page(title: COMPANY_NAME)
 		0 * _
 		companyOutput == null
@@ -118,7 +118,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(new PageLink(title: COMPANY_NAME))
 		1 * companyRepositoryMock.findByPageTitleWithPageMediaWikiSource(COMPANY_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(COMPANY_NAME, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * pageApiMock.getPage(COMPANY_NAME, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >>
 				new Page(title: COMPANY_NAME_REDIRECT)
 		1 * companyRepositoryMock.findByPageTitleWithPageMediaWikiSource(COMPANY_NAME_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
 		0 * _
@@ -158,7 +158,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList()
 		1 * wikitextApiMock.disTemplateToPageTitle(template) >> COMPANY_NAME
 		1 * companyRepositoryMock.findByPageTitleWithPageMediaWikiSource(COMPANY_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(COMPANY_NAME, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * pageApiMock.getPage(COMPANY_NAME, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >>
 				new Page(title: COMPANY_NAME)
 		0 * _
 		companyOutput == null

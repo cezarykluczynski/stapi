@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcess
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.google.common.primitives.Ints;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

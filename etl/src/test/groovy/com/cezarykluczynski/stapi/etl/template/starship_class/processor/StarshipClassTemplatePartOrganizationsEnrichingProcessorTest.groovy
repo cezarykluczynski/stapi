@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassT
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.page.entity.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification

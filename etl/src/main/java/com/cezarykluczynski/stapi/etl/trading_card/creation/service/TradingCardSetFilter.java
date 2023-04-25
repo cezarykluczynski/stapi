@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.service;
 
 import com.cezarykluczynski.stapi.etl.template.common.service.WordPressPageFilter;
-import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
+import com.cezarykluczynski.stapi.etl.wordpress.dto.Page;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 

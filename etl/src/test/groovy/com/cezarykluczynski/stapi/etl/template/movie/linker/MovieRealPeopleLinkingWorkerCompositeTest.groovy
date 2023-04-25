@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.movie.creation.dto.MovieLinkedTitlesDTO
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieClosingCreditsProcessor
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieLinkedTitlesProcessor
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 

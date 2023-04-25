@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.technology.creation.processor
 
 import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.model.technology.entity.Technology
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class TechnologyProcessorTest extends Specification {

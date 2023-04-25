@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.movie.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import spock.lang.Specification
 

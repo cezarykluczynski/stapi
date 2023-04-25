@@ -6,10 +6,10 @@ import com.cezarykluczynski.stapi.etl.organization.creation.processor.Organizati
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
-import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.SpecialApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.SpecialApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 
 class OrganizationCreationConfigurationTest extends AbstractCreationConfigurationTest {

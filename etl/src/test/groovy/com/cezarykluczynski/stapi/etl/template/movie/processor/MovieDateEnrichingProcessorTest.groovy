@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class MovieDateEnrichingProcessorTest extends Specification {

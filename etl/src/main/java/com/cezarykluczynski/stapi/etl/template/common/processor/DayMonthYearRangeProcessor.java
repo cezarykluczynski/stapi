@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.Range;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import lombok.extern.slf4j.Slf4j;

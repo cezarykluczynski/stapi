@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseFormatFixedValueProvider
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

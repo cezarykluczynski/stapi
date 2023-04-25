@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.magazine_series.creation.service;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 

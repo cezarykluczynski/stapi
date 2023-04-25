@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
-import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
+import com.cezarykluczynski.stapi.etl.wordpress.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.support.ListItemReader;
 

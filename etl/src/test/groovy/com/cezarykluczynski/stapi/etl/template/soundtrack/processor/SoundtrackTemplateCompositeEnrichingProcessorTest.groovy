@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.soundtrack.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import spock.lang.Specification
 
 class SoundtrackTemplateCompositeEnrichingProcessorTest extends Specification {

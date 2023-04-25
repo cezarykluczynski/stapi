@@ -2,11 +2,11 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.LifeRangeDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

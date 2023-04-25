@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate
 import com.cezarykluczynski.stapi.etl.video_game.creation.service.VideoGamePageFilter
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import spock.lang.Specification
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage

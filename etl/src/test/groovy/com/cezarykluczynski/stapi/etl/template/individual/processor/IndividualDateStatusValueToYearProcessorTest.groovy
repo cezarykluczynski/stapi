@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.processor.PageLinkToYearProcessor
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification

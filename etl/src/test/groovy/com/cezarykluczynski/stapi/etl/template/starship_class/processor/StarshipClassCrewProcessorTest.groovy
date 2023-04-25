@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApiImpl
 import spock.lang.Specification
 import spock.lang.Unroll
 

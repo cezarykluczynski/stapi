@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
 
 public class ActorTemplatePageProcessor implements ItemProcessor<Page, ActorTemplate> {

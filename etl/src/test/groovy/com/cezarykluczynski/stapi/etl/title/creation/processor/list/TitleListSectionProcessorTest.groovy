@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.model.page.repository.PageRepository
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import spock.lang.Specification
 

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.spacecraft_type.creation.service.Spacecraf
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class SpacecraftTypePageProcessorTest extends Specification {

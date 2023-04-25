@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.common.service.step;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelper;
-import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelperDumpFormatter;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.etl.mediawiki.cache.FrequentHitCachingHelper;
+import com.cezarykluczynski.stapi.etl.mediawiki.cache.FrequentHitCachingHelperDumpFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.core.annotation.Order;

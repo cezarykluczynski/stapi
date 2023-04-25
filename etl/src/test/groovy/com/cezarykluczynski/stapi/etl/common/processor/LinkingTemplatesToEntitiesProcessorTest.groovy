@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.common.processor
 import com.cezarykluczynski.stapi.model.common.service.RepositoryProvider
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.organization.repository.OrganizationRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Maps
 import org.springframework.data.repository.CrudRepository

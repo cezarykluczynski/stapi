@@ -11,9 +11,9 @@ import com.cezarykluczynski.stapi.etl.template.magazine_series.dto.MagazineSerie
 import com.cezarykluczynski.stapi.etl.template.magazine_series.service.MagazineSeriesPageFilter
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
-import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.cache.PageCacheStorage
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import spock.lang.Specification
 

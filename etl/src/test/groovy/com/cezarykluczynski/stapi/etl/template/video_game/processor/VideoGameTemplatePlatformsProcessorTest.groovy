@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.video_game.processor
 import com.cezarykluczynski.stapi.etl.template.common.factory.PlatformFactory
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam
 import com.cezarykluczynski.stapi.model.platform.entity.Platform
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification

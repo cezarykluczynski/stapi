@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCar
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.etl.util.constant.WordPressPageId
-import com.cezarykluczynski.stapi.sources.wordpress.api.WordPressApi
-import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource
+import com.cezarykluczynski.stapi.etl.wordpress.api.WordPressApi
+import com.cezarykluczynski.stapi.etl.wordpress.api.enums.WordPressSource
 
 class TradingCardCreationConfigurationTest extends AbstractCreationConfigurationTest {
 

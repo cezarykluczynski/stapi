@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.AbstractTemplateProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.ImageTemplate
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 
 class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 

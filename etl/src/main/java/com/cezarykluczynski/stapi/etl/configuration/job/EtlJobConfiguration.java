@@ -71,6 +71,7 @@ import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.Magazin
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialProcessor;
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialReader;
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialWriter;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionProcessor;
 import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionReader;
 import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionWriter;
@@ -130,6 +131,7 @@ import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoRele
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponProcessor;
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponReader;
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponWriter;
+import com.cezarykluczynski.stapi.etl.wordpress.dto.Page;
 import com.cezarykluczynski.stapi.model.animal.entity.Animal;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
@@ -169,8 +171,6 @@ import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
-import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import jakarta.inject.Inject;
 import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.Job;

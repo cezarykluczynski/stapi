@@ -8,8 +8,8 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Wikitex
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplateParameter
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.AbstractVideoGameTest
 import com.google.common.collect.Lists
 

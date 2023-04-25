@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTempl
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
 import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 

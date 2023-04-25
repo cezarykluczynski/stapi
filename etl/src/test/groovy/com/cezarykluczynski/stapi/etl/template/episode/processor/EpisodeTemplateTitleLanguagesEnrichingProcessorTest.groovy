@@ -3,9 +3,9 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll

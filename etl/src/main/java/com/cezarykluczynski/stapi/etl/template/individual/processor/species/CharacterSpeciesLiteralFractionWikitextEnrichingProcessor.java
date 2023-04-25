@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor.species;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.math.Fraction;

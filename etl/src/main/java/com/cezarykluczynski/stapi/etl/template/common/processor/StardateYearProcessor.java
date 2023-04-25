@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.enums.StardateYearSource;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.StardateYearCandidateDTO;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;

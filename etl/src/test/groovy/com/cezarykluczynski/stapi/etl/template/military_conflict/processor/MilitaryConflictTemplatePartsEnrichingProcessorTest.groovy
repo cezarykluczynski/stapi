@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryCon
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

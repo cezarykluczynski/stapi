@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class CharacterProcessorTest extends Specification {

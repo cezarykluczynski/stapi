@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll

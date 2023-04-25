@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.book_series.creation.processor
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.book_series.processor.BookSeriesTemplateEBookSeriesProcessor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

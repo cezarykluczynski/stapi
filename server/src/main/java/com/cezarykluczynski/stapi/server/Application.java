@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication(exclude = {CxfAutoConfiguration.class}, scanBasePackages = Package.ROOT)
 @ComponentScan({
 		Package.SERVER,
-		Package.SOURCES,
 		Package.MODEL,
 		Package.UTIL
 })

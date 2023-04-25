@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.magazine.creation.service;
 
 import com.cezarykluczynski.stapi.etl.magazine_series.creation.service.MagazineSeriesDetector;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Sets;

@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.season.repository.SeasonRepository;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import com.google.common.primitives.Ints;
 import lombok.RequiredArgsConstructor;

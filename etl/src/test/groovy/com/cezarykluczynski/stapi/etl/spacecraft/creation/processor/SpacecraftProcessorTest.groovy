@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
 import com.cezarykluczynski.stapi.etl.template.starship.processor.StarshipTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class SpacecraftProcessorTest extends Specification {

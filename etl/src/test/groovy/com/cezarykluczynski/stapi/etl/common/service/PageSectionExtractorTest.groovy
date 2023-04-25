@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.service
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

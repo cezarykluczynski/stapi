@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.element.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.element.dto.ElementTemplateParameter;
 import com.cezarykluczynski.stapi.model.element.entity.Element;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.primitives.Ints;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.spacecraft.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

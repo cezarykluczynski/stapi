@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.character.creation.service.CharacterPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class CharacterTemplatePageProcessorTest extends Specification {

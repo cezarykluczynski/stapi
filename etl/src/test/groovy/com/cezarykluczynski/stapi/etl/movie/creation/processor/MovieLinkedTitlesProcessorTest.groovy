@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.movie.creation.processor
 
 import com.cezarykluczynski.stapi.etl.movie.creation.dto.MovieLinkedTitlesDTO
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification

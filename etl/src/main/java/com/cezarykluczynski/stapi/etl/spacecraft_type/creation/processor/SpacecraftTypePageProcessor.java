@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.spacecraft_type.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.spacecraft_type.creation.service.SpacecraftTypePageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

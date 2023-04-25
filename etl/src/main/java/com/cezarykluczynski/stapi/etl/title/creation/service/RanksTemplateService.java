@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.title.creation.service;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Sets;

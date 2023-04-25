@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.CollectionUtils;

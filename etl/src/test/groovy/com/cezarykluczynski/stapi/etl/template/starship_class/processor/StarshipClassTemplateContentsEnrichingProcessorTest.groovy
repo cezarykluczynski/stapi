@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsPro
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.ActivityPeriodDTO
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification

@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification

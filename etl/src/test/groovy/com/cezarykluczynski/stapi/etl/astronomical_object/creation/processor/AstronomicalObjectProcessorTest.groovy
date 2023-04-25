@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
 import com.cezarykluczynski.stapi.etl.template.planet.processor.PlanetTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class AstronomicalObjectProcessorTest extends Specification {

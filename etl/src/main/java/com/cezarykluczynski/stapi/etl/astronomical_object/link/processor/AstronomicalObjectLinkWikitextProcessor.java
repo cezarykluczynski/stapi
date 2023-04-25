@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.astronomical_object.link.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.astronomical_object.repository.AstronomicalObjectRepository;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.google.common.collect.Lists;
 import jakarta.persistence.NonUniqueResultException;
 import lombok.extern.slf4j.Slf4j;

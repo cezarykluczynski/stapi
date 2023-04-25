@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.service
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import spock.lang.Specification
 import spock.lang.Unroll
 

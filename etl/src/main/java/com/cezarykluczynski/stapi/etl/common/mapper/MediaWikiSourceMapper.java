@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.mapper;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.stereotype.Service;
 

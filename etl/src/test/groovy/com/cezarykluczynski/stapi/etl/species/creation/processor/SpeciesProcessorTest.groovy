@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
 import com.cezarykluczynski.stapi.etl.template.species.processor.SpeciesTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.species.entity.Species
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class SpeciesProcessorTest extends Specification {

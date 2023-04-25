@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.character.repository.CharacterSpeciesRepository
 import com.cezarykluczynski.stapi.model.species.entity.Species
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Sets
 import org.apache.commons.lang3.math.Fraction
 import org.apache.commons.lang3.tuple.Pair

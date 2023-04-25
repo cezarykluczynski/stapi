@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.etl.template.common.processor.PageLinkToYearProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthPageLinkProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;

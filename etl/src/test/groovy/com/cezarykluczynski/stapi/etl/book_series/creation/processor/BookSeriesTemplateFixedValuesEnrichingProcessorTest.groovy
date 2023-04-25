@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.book_series.processor.BookSeriesT
 import com.cezarykluczynski.stapi.etl.template.book_series.processor.BookSeriesTemplateNumberOfBooksFixedValueProvider
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 

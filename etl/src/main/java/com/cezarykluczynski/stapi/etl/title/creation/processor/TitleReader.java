@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.title.creation.processor;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.support.ListItemReader;
 

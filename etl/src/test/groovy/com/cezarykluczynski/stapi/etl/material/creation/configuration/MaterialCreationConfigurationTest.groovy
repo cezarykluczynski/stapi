@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialReader
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
-import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 
 class MaterialCreationConfigurationTest extends AbstractCreationConfigurationTest {
 

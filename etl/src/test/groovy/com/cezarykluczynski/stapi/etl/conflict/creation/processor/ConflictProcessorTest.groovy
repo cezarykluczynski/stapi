@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryConflictTemplate
 import com.cezarykluczynski.stapi.etl.template.military_conflict.processor.MilitaryConflictTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
 class ConflictProcessorTest extends Specification {

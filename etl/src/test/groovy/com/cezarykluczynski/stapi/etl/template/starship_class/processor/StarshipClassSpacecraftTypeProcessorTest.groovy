@@ -4,9 +4,9 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.spacecraft_type.repository.SpacecraftTypeRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import info.bliki.api.PageInfo
 import spock.lang.Specification
@@ -21,8 +21,8 @@ class StarshipClassSpacecraftTypeProcessorTest extends Specification {
 	private static final String PAGE_ID_STRING = '456'
 	private static final Long PAGE_ID_LONG = 456L
 	private static final MediaWikiSource MODEL_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
-	private static final com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE =
-			com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN
+	private static final com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE =
+			com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN
 
 	private WikitextApi wikitextApiMock
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.google.common.collect.Maps
 import spock.lang.Specification
 import spock.lang.Unroll

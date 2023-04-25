@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.lang.NonNull;

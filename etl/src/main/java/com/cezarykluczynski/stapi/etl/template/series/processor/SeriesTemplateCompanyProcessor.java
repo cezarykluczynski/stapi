@@ -1,13 +1,13 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -57,7 +57,7 @@ public class SeriesTemplateCompanyProcessor implements ItemProcessor<Template.Pa
 
 		Optional<Company> companyOptional = companyRepository.findByPageTitleWithPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
 		if (!companyOptional.isPresent()) {
-			final Page page = pageApi.getPage(pageLinkTitle, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
+			final Page page = pageApi.getPage(pageLinkTitle, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
 			if (page != null && !page.getTitle().equals(pageLinkTitle)) {
 				companyOptional = companyRepository.findByPageTitleWithPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 				if (!companyOptional.isPresent()) {

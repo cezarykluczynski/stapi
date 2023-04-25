@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardS
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
-import com.cezarykluczynski.stapi.sources.wordpress.dto.Page
+import com.cezarykluczynski.stapi.etl.wordpress.dto.Page
 import com.google.common.collect.Sets
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element

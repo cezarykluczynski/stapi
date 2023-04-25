@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.character.common.service
 
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCacheKey
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import spock.lang.Specification
 
 class CharactersRelationsCacheTest extends Specification {

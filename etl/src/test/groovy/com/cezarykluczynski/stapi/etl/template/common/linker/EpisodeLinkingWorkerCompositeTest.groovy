@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.linker
 
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class EpisodeLinkingWorkerCompositeTest extends Specification {

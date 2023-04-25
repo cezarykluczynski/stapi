@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO;
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

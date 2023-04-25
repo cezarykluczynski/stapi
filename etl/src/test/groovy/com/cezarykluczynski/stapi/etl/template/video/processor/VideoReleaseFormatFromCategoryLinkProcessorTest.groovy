@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.EtlTestUtils
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll

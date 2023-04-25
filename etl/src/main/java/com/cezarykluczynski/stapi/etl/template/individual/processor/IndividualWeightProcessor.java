@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

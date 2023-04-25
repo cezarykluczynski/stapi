@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

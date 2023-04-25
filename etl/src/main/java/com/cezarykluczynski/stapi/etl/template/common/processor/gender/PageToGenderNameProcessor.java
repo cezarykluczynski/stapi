@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
+import com.cezarykluczynski.stapi.etl.genderize.client.GenderizeClient;
+import com.cezarykluczynski.stapi.etl.genderize.dto.NameGenderDTO;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.etl.template.common.processor.FullNameToFirstNameProcessor;
-import com.cezarykluczynski.stapi.sources.genderize.client.GenderizeClient;
-import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.etl.template.video.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
-import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor
 import com.cezarykluczynski.stapi.etl.template.video.dto.EpisodesCountDTO
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
@@ -11,7 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.apache.commons.lang3.tuple.Pair

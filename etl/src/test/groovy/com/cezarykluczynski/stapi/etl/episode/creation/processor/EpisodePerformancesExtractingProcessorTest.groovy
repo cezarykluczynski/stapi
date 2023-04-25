@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.etl.episode.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApiImpl
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

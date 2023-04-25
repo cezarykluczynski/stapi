@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.starship_class.service.Organizati
 import com.cezarykluczynski.stapi.etl.template.starship_class.service.SpeciesStarshipClassesToSpeciesMappingProvider
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.species.entity.Species
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification

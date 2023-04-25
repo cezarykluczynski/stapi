@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor.collection;
 
 import com.cezarykluczynski.stapi.etl.comic_collection.creation.service.ComicCollectionPageFilter;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicCollectionContents;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicCollectionTemplate;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.comics.processor.ComicsTemplatePageProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

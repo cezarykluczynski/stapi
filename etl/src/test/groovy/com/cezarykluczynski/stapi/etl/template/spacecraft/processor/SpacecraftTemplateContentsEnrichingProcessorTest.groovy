@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProces
 import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

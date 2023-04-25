@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.series.service
 
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class SeriesPageFilterTest extends Specification {

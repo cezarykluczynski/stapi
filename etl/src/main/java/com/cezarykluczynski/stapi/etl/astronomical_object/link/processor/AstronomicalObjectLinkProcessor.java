@@ -4,12 +4,12 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
 import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +53,7 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 		String pageTitle = modelPage.getTitle();
 		MediaWikiSource mediaWikiSource = modelPage.getMediaWikiSource();
 
-		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageApi
+		com.cezarykluczynski.stapi.etl.mediawiki.dto.Page page = pageApi
 				.getPage(pageTitle, mediaWikiSourceMapper.fromEntityToSources(mediaWikiSource));
 
 		if (page == null) {

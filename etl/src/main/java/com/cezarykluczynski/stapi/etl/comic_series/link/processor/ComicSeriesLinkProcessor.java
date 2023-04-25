@@ -1,15 +1,15 @@
 package com.cezarykluczynski.stapi.etl.comic_series.link.processor;
 
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_series.repository.ComicSeriesRepository;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -47,7 +47,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 	}
 
 	private void doProcess(ComicSeries item) throws Exception {
-		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageFromComicSeries(item);
+		com.cezarykluczynski.stapi.etl.mediawiki.dto.Page page = pageFromComicSeries(item);
 
 		if (page == null) {
 			return;
@@ -62,7 +62,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 		tryAddSeriesFromTemplate(item, templateOptional.get());
 	}
 
-	private com.cezarykluczynski.stapi.sources.mediawiki.dto.Page pageFromComicSeries(ComicSeries item) {
+	private com.cezarykluczynski.stapi.etl.mediawiki.dto.Page pageFromComicSeries(ComicSeries item) {
 		Page modelPage = item.getPage();
 		String pageTitle = modelPage.getTitle();
 		MediaWikiSource mediaWikiSource = modelPage.getMediaWikiSource();
@@ -91,7 +91,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 			Optional<ComicSeries> parentComicSeriesOptional = findComicSeriesByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
 
 			if (!parentComicSeriesOptional.isPresent()) {
-				com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = findPageByTitleAndMediaWikiSource(pageTitle, mediaWikiSource);
+				com.cezarykluczynski.stapi.etl.mediawiki.dto.Page page = findPageByTitleAndMediaWikiSource(pageTitle, mediaWikiSource);
 
 				if (page != null) {
 					parentComicSeriesOptional = findComicSeriesByPageTitleAndPageMediaWikiSource(page.getTitle(), mediaWikiSource);
@@ -102,8 +102,8 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 		});
 	}
 
-	private com.cezarykluczynski.stapi.sources.mediawiki.dto.Page findPageByTitleAndMediaWikiSource(String pageTitle,
-			MediaWikiSource mediaWikiSource) {
+	private com.cezarykluczynski.stapi.etl.mediawiki.dto.Page findPageByTitleAndMediaWikiSource(String pageTitle,
+																								MediaWikiSource mediaWikiSource) {
 		return pageApi.getPage(pageTitle, mediaWikiSourceMapper.fromEntityToSources(mediaWikiSource));
 	}
 

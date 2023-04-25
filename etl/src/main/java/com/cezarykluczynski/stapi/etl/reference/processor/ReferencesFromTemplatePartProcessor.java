@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.reference.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
 import com.cezarykluczynski.stapi.model.reference.factory.ReferenceFactory;
 import com.cezarykluczynski.stapi.model.reference.repository.ReferenceRepository;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.movie.linker
 
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Sets
 import spock.lang.Specification
 

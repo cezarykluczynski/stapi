@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor.species
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.apache.commons.lang3.math.Fraction

@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

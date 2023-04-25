@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.hologram.processor;
 
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

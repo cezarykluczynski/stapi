@@ -14,8 +14,7 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 @Configuration
 @Import({EtlJobConfiguration.class, SpringBatchDaoConfiguration.class})
 @ComponentScan({
-		Package.ETL,
-		Package.SOURCES
+		Package.ETL
 })
 public class EtlConfiguration {
 

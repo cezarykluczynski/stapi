@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.spacecraft_class.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

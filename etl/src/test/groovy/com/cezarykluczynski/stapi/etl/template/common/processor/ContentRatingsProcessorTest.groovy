@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.factory.ContentRatingFacto
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
 import com.cezarykluczynski.stapi.model.content_rating.entity.enums.ContentRatingSystem
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification

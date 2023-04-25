@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

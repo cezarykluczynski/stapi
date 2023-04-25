@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.character.link.relation.service
 
 import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterPageLinkWithRelationName
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApiImpl
 import spock.lang.Specification
 
 class CharacterLinkExtendedRelationsExtractorTest extends Specification {

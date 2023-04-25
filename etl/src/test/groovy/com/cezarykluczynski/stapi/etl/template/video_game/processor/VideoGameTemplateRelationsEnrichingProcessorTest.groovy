@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
 import com.cezarykluczynski.stapi.model.genre.entity.Genre
 import com.cezarykluczynski.stapi.model.platform.entity.Platform
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification

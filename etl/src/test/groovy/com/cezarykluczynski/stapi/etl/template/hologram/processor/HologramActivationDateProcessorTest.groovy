@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.hologram.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

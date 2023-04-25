@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.title.creation.processor.list;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

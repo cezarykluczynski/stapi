@@ -2,15 +2,15 @@ package com.cezarykluczynski.stapi.etl.book_series.link.processor;
 
 
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.book_series.dto.BookSeriesTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.book_series.repository.BookSeriesRepository;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSe
 	}
 
 	private void doProcess(BookSeries item) throws Exception {
-		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageFromBookSeries(item);
+		com.cezarykluczynski.stapi.etl.mediawiki.dto.Page page = pageFromBookSeries(item);
 
 		if (page == null) {
 			return;
@@ -63,7 +63,7 @@ public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSe
 		tryAddSeriesFromTemplate(item, templateOptional.get());
 	}
 
-	private com.cezarykluczynski.stapi.sources.mediawiki.dto.Page pageFromBookSeries(BookSeries item) {
+	private com.cezarykluczynski.stapi.etl.mediawiki.dto.Page pageFromBookSeries(BookSeries item) {
 		Page modelPage = item.getPage();
 		String pageTitle = modelPage.getTitle();
 		MediaWikiSource mediaWikiSource = modelPage.getMediaWikiSource();
@@ -92,7 +92,7 @@ public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSe
 			Optional<BookSeries> parentBookSeriesOptional = findBookSeriesByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
 
 			if (!parentBookSeriesOptional.isPresent()) {
-				com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = findPageByTitleAndMediaWikiSource(pageTitle, mediaWikiSource);
+				com.cezarykluczynski.stapi.etl.mediawiki.dto.Page page = findPageByTitleAndMediaWikiSource(pageTitle, mediaWikiSource);
 
 				if (page != null) {
 					parentBookSeriesOptional = findBookSeriesByPageTitleAndPageMediaWikiSource(page.getTitle(), mediaWikiSource);
@@ -103,8 +103,8 @@ public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSe
 		});
 	}
 
-	private com.cezarykluczynski.stapi.sources.mediawiki.dto.Page findPageByTitleAndMediaWikiSource(String pageTitle,
-			MediaWikiSource mediaWikiSource) {
+	private com.cezarykluczynski.stapi.etl.mediawiki.dto.Page findPageByTitleAndMediaWikiSource(String pageTitle,
+																								MediaWikiSource mediaWikiSource) {
 		return pageApi.getPage(pageTitle, mediaWikiSourceMapper.fromEntityToSources(mediaWikiSource));
 	}
 

@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Wikitex
 import com.cezarykluczynski.stapi.etl.template.publishable_series.dto.PublishableSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.publishable_series.dto.PublishableSeriesTemplateParameter
 import com.cezarykluczynski.stapi.model.company.entity.Company
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification

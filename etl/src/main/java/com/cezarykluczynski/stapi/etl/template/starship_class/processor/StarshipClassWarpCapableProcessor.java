@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

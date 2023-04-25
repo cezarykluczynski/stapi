@@ -3,11 +3,11 @@ package com.cezarykluczynski.stapi.etl.template.video_game.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingsProcessor;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplateParameter;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
 @Service

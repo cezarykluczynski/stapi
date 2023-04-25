@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.planet.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class PlanetTemplateWikitextEnrichingProcessorTest extends Specification {

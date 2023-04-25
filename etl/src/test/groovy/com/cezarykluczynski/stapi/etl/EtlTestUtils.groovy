@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl
 
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.CategoryHeader
 import com.google.common.collect.Lists
 
 class EtlTestUtils {

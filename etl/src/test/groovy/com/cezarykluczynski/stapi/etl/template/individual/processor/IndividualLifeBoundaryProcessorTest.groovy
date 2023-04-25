@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.PageLinkToYearPr
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthPageLinkProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.StringUtils

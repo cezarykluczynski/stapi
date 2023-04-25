@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.character.link.relation.dto;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

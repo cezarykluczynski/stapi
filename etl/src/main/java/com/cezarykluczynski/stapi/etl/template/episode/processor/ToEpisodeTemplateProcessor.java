@@ -6,6 +6,8 @@ import com.cezarykluczynski.stapi.etl.common.processor.EpisodeTemplateStardateYe
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -13,8 +15,6 @@ import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;

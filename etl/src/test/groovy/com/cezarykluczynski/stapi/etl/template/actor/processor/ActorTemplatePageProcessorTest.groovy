@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor
 
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class ActorTemplatePageProcessorTest extends Specification {

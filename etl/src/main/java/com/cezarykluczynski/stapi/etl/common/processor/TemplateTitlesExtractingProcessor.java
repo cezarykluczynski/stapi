@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.processor;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 

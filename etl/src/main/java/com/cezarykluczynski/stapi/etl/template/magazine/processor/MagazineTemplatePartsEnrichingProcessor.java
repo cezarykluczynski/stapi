@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListE
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.PublicationDates;
@@ -13,7 +14,6 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsPro
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate;
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.publishable.processor.PublishableTemplatePublishedDatesEnrichingProcessor;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

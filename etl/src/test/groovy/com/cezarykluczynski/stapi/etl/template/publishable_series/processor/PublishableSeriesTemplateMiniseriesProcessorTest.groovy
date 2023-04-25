@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.publishable_series.processor
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

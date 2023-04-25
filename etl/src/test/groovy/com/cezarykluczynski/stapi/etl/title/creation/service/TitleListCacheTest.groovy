@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.title.creation.service
 
 import com.cezarykluczynski.stapi.etl.title.creation.processor.list.TitleListPageProcessor
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import spock.lang.Specification
 
 class TitleListCacheTest extends Specification {

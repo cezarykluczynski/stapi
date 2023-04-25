@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.movie.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 
 import java.util.List;
 import java.util.Set;

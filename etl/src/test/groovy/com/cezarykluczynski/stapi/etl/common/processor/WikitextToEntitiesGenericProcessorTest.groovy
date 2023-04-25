@@ -4,10 +4,10 @@ import com.cezarykluczynski.stapi.model.common.service.RepositoryProvider
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import org.springframework.data.repository.CrudRepository
@@ -72,13 +72,13 @@ class WikitextToEntitiesGenericProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1, PAGE_TITLE_2, PAGE_TITLE_3, PAGE_TITLE_4)
 		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_1, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(title1)
 		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_2, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(PAGE_TITLE_2, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> null
+		1 * pageApiMock.getPage(PAGE_TITLE_2, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> null
 		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_3, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(PAGE_TITLE_3, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page1
+		1 * pageApiMock.getPage(PAGE_TITLE_3, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page1
 		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_3_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(title2)
 		1 * titleRepositoryMock.findByPageTitleWithPageMediaWikiSource(PAGE_TITLE_4, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(PAGE_TITLE_4, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page2
+		1 * pageApiMock.getPage(PAGE_TITLE_4, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page2
 		0 * _
 		titleList.size() == 2
 		titleList.contains title1

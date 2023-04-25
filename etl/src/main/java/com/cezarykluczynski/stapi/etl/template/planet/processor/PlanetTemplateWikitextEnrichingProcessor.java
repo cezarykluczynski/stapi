@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.planet.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

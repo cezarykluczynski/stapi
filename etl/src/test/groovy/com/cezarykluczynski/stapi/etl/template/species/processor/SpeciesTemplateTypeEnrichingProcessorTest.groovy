@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
 import com.cezarykluczynski.stapi.etl.template.species.service.SpeciesTypeDetector
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
 import com.cezarykluczynski.stapi.util.constant.PageTitle
 

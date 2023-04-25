@@ -7,10 +7,10 @@ import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi
+import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -98,7 +98,7 @@ class CharacterRelationFactoryTest extends Specification {
 
 		then:
 		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
+		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
 		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(source)
 		1 * characterRelationsSidebarTemplateMappingsProviderMock.provideFor(characterRelationCacheKey) >> RELATION_NAME
@@ -124,7 +124,7 @@ class CharacterRelationFactoryTest extends Specification {
 
 		then:
 		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
+		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
 		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(source)
 		1 * characterRelationNormalizationServiceMock.normalize(characterRelationCacheKey, RELATION_NAME_RAW) >> RELATION_NAME
@@ -147,7 +147,7 @@ class CharacterRelationFactoryTest extends Specification {
 
 		then:
 		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> null
+		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> null
 		0 * _
 		characterRelation == null
 	}
@@ -166,7 +166,7 @@ class CharacterRelationFactoryTest extends Specification {
 
 		then:
 		1 * characterRepositoryMock.findByPageTitleWithPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
-		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
+		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
 		0 * _
 		characterRelation == null
 	}
