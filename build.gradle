@@ -118,12 +118,6 @@ allprojects {
 		excludeFilter.set(file("$rootProject.projectDir/config/spotbugs/spotbugs-filter-exclude.xml"))
 	}
 
-	task cleanMetamodel(type: CleanMetamodel) {}
-
-	clean {
-		dependsOn cleanMetamodel
-	}
-
 	assemble.doFirst {
 		def customProperties = 'application-stapi-custom.properties'
 		File file = new File('server/src/main/resources/' + customProperties)
@@ -157,19 +151,6 @@ nexusPublishing {
 			stagingProfileId = "6bc753ca200e26"
 			username = project.findProperty("ossrhUsername") as String
 			password = project.findProperty("ossrhPassword") as String
-		}
-	}
-}
-
-class CleanMetamodel extends DefaultTask {
-
-	@TaskAction
-	def cleanMetamodel() {
-		def dir = new File('./model/src/main/generated/')
-		dir.eachFileRecurse (FileType.FILES) { file ->
-			if (file.name.endsWith("_.java")) {
-				file.delete()
-			}
 		}
 	}
 }
