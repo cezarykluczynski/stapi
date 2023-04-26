@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.trading_card_set.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.trading_card_set.dto.TradingCardSetRequestDTO;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet_;
 import com.cezarykluczynski.stapi.model.trading_card_set.query.TradingCardSetQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TradingCardSetRepositoryImpl extends AbstractRepositoryImpl<TradingCardSet> implements TradingCardSetRepositoryCustom {
+public class TradingCardSetRepositoryImpl implements TradingCardSetRepositoryCustom {
 
 	private final TradingCardSetQueryBuilderFactory tradingCardSetQueryBuilderFactory;
 
@@ -44,23 +42,7 @@ public class TradingCardSetRepositoryImpl extends AbstractRepositoryImpl<Trading
 		tradingCardSetQueryBuilder.divideQueries();
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, doFetch);
 
-		Page<TradingCardSet> tradingCardSetPage = tradingCardSetQueryBuilder.findPage();
-		clearProxies(tradingCardSetPage, !doFetch);
-		return tradingCardSetPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<TradingCardSet> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(tradingCardSet -> {
-			tradingCardSet.setManufacturers(Sets.newHashSet());
-			tradingCardSet.setTradingCards(Sets.newHashSet());
-			tradingCardSet.setTradingCardDecks(Sets.newHashSet());
-			tradingCardSet.setCountriesOfOrigin(Sets.newHashSet());
-		});
+		return tradingCardSetQueryBuilder.findPage();
 	}
 
 }

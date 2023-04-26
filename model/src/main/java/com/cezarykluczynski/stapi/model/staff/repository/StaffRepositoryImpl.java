@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.staff.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff_;
 import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implements StaffRepositoryCustom {
+public class StaffRepositoryImpl implements StaffRepositoryCustom {
 
 	private final StaffQueryBuilderFactory staffQueryBuilderFactory;
 
@@ -112,31 +110,7 @@ public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implement
 		staffQueryBuilder.fetch(Staff_.producedMovies, doFetch);
 		staffQueryBuilder.fetch(Staff_.movies, doFetch);
 
-		Page<Staff> staffPage = staffQueryBuilder.findPage();
-		clearProxies(staffPage, !doFetch);
-		return staffPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Staff> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(staff -> {
-			staff.setWrittenEpisodes(Sets.newHashSet());
-			staff.setTeleplayAuthoredEpisodes(Sets.newHashSet());
-			staff.setStoryAuthoredEpisodes(Sets.newHashSet());
-			staff.setDirectedEpisodes(Sets.newHashSet());
-			staff.setEpisodes(Sets.newHashSet());
-			staff.setWrittenMovies(Sets.newHashSet());
-			staff.setScreenplayAuthoredMovies(Sets.newHashSet());
-			staff.setWrittenEpisodes(Sets.newHashSet());
-			staff.setStoryAuthoredMovies(Sets.newHashSet());
-			staff.setDirectedMovies(Sets.newHashSet());
-			staff.setProducedMovies(Sets.newHashSet());
-			staff.setMovies(Sets.newHashSet());
-		});
+		return staffQueryBuilder.findPage();
 	}
 
 }

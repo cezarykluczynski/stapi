@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.Character_;
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> implements CharacterRepositoryCustom {
+public class CharacterRepositoryImpl implements CharacterRepositoryCustom {
 
 	private final CharacterQueryBuilderFactory characterQueryBuilderFactory;
 
@@ -48,27 +46,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.fetch(Character_.occupations, doFetch);
 		characterQueryBuilder.fetch(Character_.organizations, doFetch);
 
-		Page<Character> characterPage = characterQueryBuilder.findPage();
-		clearProxies(characterPage, !doFetch);
-		return characterPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Character> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(character -> {
-			character.setPerformers(Sets.newHashSet());
-			character.setEpisodes(Sets.newHashSet());
-			character.setMovies(Sets.newHashSet());
-			character.setCharacterSpecies(Sets.newHashSet());
-			character.setCharacterRelations(Sets.newHashSet());
-			character.setTitles(Sets.newHashSet());
-			character.setOccupations(Sets.newHashSet());
-			character.setOrganizations(Sets.newHashSet());
-		});
+		return characterQueryBuilder.findPage();
 	}
 
 }

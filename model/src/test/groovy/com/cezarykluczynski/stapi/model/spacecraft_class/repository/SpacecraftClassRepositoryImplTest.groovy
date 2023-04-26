@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass_
 import com.cezarykluczynski.stapi.model.spacecraft_class.query.SpacecraftClassQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.species.entity.Species_
 import com.cezarykluczynski.stapi.util.AbstractSpacecraftClassTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -89,31 +87,6 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = spacecraftClassRepositoryImpl.findMatching(spacecraftClassRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * spacecraftClassQueryBuilderFactoryMock.createQueryBuilder(pageable) >> spacecraftClassQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * spacecraftClassRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * spacecraftClassQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(spacecraftClass)
-		1 * spacecraftClass.setOwners(Sets.newHashSet())
-		1 * spacecraftClass.setOperators(Sets.newHashSet())
-		1 * spacecraftClass.setAffiliations(Sets.newHashSet())
-		1 * spacecraftClass.setSpacecraftTypes(Sets.newHashSet())
-		1 * spacecraftClass.setArmaments(Sets.newHashSet())
-		1 * spacecraftClass.setDefenses(Sets.newHashSet())
-		1 * spacecraftClass.setSpacecrafts(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.performer.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer_;
 import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> implements PerformerRepositoryCustom {
+public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 
 	private final PerformerQueryBuilderFactory performerQueryBuilderFactory;
 
@@ -67,26 +65,7 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 		performerQueryBuilder.divideQueries();
 		performerQueryBuilder.fetch(Performer_.characters, doFetch);
 
-		Page<Performer> performerPage = performerQueryBuilder.findPage();
-		clearProxies(performerPage, !doFetch);
-		return performerPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Performer> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(performer -> {
-			performer.setEpisodesPerformances(Sets.newHashSet());
-			performer.setEpisodesStuntPerformances(Sets.newHashSet());
-			performer.setEpisodesStandInPerformances(Sets.newHashSet());
-			performer.setMoviesPerformances(Sets.newHashSet());
-			performer.setMoviesStuntPerformances(Sets.newHashSet());
-			performer.setMoviesStandInPerformances(Sets.newHashSet());
-			performer.setCharacters(Sets.newHashSet());
-		});
+		return performerQueryBuilder.findPage();
 	}
 
 }

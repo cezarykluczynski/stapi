@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries_;
 import com.cezarykluczynski.stapi.model.book_series.query.BookSeriesQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BookSeriesRepositoryImpl extends AbstractRepositoryImpl<BookSeries> implements BookSeriesRepositoryCustom {
+public class BookSeriesRepositoryImpl implements BookSeriesRepositoryCustom {
 
 	private final BookSeriesQueryBuilderFactory bookSeriesQueryBuilderFactory;
 
@@ -42,23 +40,7 @@ public class BookSeriesRepositoryImpl extends AbstractRepositoryImpl<BookSeries>
 		bookSeriesQueryBuilder.divideQueries();
 		bookSeriesQueryBuilder.fetch(BookSeries_.books, doFetch);
 
-		Page<BookSeries> bookSeriesPage = bookSeriesQueryBuilder.findPage();
-		clearProxies(bookSeriesPage, !doFetch);
-		return bookSeriesPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<BookSeries> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(bookSeries -> {
-			bookSeries.setParentSeries(Sets.newHashSet());
-			bookSeries.setChildSeries(Sets.newHashSet());
-			bookSeries.setPublishers(Sets.newHashSet());
-			bookSeries.setBooks(Sets.newHashSet());
-		});
+		return bookSeriesQueryBuilder.findPage();
 	}
 
 }

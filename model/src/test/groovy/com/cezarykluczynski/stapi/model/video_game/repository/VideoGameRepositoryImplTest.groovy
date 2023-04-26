@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame_
 import com.cezarykluczynski.stapi.model.video_game.query.VideoGameQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractVideoGameTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -83,30 +81,6 @@ class VideoGameRepositoryImplTest extends AbstractVideoGameTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = videoGameRepositoryImpl.findMatching(videoGameRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * videoGameQueryBuilderFactoryMock.createQueryBuilder(pageable) >> videoGameQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * videoGameRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * videoGameQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(videoGame)
-		1 * videoGame.setPublishers(Sets.newHashSet())
-		1 * videoGame.setDevelopers(Sets.newHashSet())
-		1 * videoGame.setPlatforms(Sets.newHashSet())
-		1 * videoGame.setGenres(Sets.newHashSet())
-		1 * videoGame.setRatings(Sets.newHashSet())
-		1 * videoGame.setReferences(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

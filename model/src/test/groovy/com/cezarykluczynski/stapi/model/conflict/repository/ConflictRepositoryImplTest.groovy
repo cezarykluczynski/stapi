@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.conflict.entity.Conflict
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict_
 import com.cezarykluczynski.stapi.model.conflict.query.ConflictQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractConflictTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -96,40 +94,6 @@ class ConflictRepositoryImplTest extends AbstractConflictTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = conflictRepositoryImpl.findMatching(conflictRequestDTO, pageable)
-
-		then:
-		1 * conflictQueryBuilderFactoryMock.createQueryBuilder(pageable) >> conflictQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * conflictRequestDTO.uid >> null
-
-		then: 'fetch is performed with false flag'
-		1 * conflictQueryBuilder.fetch(Conflict_.locations, false)
-		1 * conflictQueryBuilder.fetch(Conflict_.firstSideBelligerents, false)
-		1 * conflictQueryBuilder.fetch(Conflict_.firstSideLocations, false)
-		1 * conflictQueryBuilder.fetch(Conflict_.firstSideCommanders, false)
-		1 * conflictQueryBuilder.fetch(Conflict_.secondSideBelligerents, false)
-		1 * conflictQueryBuilder.fetch(Conflict_.secondSideLocations, false)
-		1 * conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, false)
-
-		then: 'page is searched for and returned'
-		1 * conflictQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(conflict)
-		1 * conflict.setLocations(Sets.newHashSet())
-		1 * conflict.setFirstSideBelligerents(Sets.newHashSet())
-		1 * conflict.setFirstSideLocations(Sets.newHashSet())
-		1 * conflict.setFirstSideCommanders(Sets.newHashSet())
-		1 * conflict.setSecondSideBelligerents(Sets.newHashSet())
-		1 * conflict.setSecondSideLocations(Sets.newHashSet())
-		1 * conflict.setSecondSideCommanders(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

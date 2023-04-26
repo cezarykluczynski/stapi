@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.spacecraft_class.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.spacecraft_class.dto.SpacecraftClassRequestDTO;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass_;
 import com.cezarykluczynski.stapi.model.spacecraft_class.query.SpacecraftClassQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<SpacecraftClass> implements SpacecraftClassRepositoryCustom {
+public class SpacecraftClassRepositoryImpl implements SpacecraftClassRepositoryCustom {
 
 	private final SpacecraftClassQueryBuilderFactory spacecraftClassQueryBuilderFactory;
 
@@ -43,26 +41,7 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.defenses, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
 
-		Page<SpacecraftClass> spacecraftClassPage = spacecraftClassQueryBuilder.findPage();
-		clearProxies(spacecraftClassPage, !doFetch);
-		return spacecraftClassPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<SpacecraftClass> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(spacecraftClass -> {
-			spacecraftClass.setOwners(Sets.newHashSet());
-			spacecraftClass.setOperators(Sets.newHashSet());
-			spacecraftClass.setAffiliations(Sets.newHashSet());
-			spacecraftClass.setSpacecraftTypes(Sets.newHashSet());
-			spacecraftClass.setArmaments(Sets.newHashSet());
-			spacecraftClass.setDefenses(Sets.newHashSet());
-			spacecraftClass.setSpacecrafts(Sets.newHashSet());
-		});
+		return spacecraftClassQueryBuilder.findPage();
 	}
 
 }

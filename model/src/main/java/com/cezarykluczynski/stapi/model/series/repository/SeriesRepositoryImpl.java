@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.series.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.entity.Series_;
 import com.cezarykluczynski.stapi.model.series.query.SeriesQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> implements SeriesRepositoryCustom {
+public class SeriesRepositoryImpl implements SeriesRepositoryCustom {
 
 	private final SeriesQueryBuilderFactory seriesQueryBuilderFactory;
 
@@ -45,21 +43,14 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 		return seriesPage;
 	}
 
-	@Override
-	protected void clearProxies(Page<Series> page, boolean doClearProxies) {
+	private void clearProxies(Page<Series> page, boolean doClearProxies) {
 		if (!doClearProxies) {
 			page.getContent().forEach(series -> {
 				series.getEpisodes().forEach(episode -> {
 					episode.setSeries(series);
 				});
 			});
-
-			return;
 		}
-
-		page.getContent().forEach(series -> {
-			series.setEpisodes(Sets.newHashSet());
-			series.setSeasons(Sets.newHashSet());
-		});
 	}
+
 }

@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.entity.Staff_
 import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -230,36 +228,6 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = staffRepositoryImpl.findMatching(staffRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * staffQueryBuilderFactory.createQueryBuilder(pageable) >> staffQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * staffRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * staffQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(staff)
-		1 * staff.setWrittenEpisodes(Sets.newHashSet())
-		1 * staff.setTeleplayAuthoredEpisodes(Sets.newHashSet())
-		1 * staff.setStoryAuthoredEpisodes(Sets.newHashSet())
-		1 * staff.setDirectedEpisodes(Sets.newHashSet())
-		1 * staff.setEpisodes(Sets.newHashSet())
-		1 * staff.setWrittenMovies(Sets.newHashSet())
-		1 * staff.setScreenplayAuthoredMovies(Sets.newHashSet())
-		1 * staff.setWrittenEpisodes(Sets.newHashSet())
-		1 * staff.setStoryAuthoredMovies(Sets.newHashSet())
-		1 * staff.setDirectedMovies(Sets.newHashSet())
-		1 * staff.setProducedMovies(Sets.newHashSet())
-		1 * staff.setMovies(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

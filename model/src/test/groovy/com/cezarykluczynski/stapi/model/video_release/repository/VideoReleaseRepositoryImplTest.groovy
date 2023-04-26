@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease_
 import com.cezarykluczynski.stapi.model.video_release.query.VideoReleaseQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractVideoReleaseTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -96,32 +94,6 @@ class VideoReleaseRepositoryImplTest extends AbstractVideoReleaseTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = videoReleaseRepositoryImpl.findMatching(videoReleaseRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * videoReleaseQueryBuilderFactoryMock.createQueryBuilder(pageable) >> videoReleaseQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * videoReleaseRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * videoReleaseQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(videoRelease)
-		1 * videoRelease.setSeries(Sets.newHashSet())
-		1 * videoRelease.setSeasons(Sets.newHashSet())
-		1 * videoRelease.setMovies(Sets.newHashSet())
-		1 * videoRelease.setReferences(Sets.newHashSet())
-		1 * videoRelease.setRatings(Sets.newHashSet())
-		1 * videoRelease.setLanguages(Sets.newHashSet())
-		1 * videoRelease.setLanguagesSubtitles(Sets.newHashSet())
-		1 * videoRelease.setLanguagesDubbed(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

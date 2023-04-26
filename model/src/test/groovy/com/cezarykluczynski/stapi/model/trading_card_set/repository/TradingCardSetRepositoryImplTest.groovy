@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet_
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit
 import com.cezarykluczynski.stapi.model.trading_card_set.query.TradingCardSetQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractTradingCardSetTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -112,28 +110,6 @@ class TradingCardSetRepositoryImplTest extends AbstractTradingCardSetTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = tradingCardSetRepositoryImpl.findMatching(tradingCardSetRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * tradingCardSetQueryBuilderFactoryMock.createQueryBuilder(pageable) >> tradingCardSetQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * tradingCardSetRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * tradingCardSetQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(tradingCardSet)
-		1 * tradingCardSet.setManufacturers(Sets.newHashSet())
-		1 * tradingCardSet.setTradingCards(Sets.newHashSet())
-		1 * tradingCardSet.setTradingCardDecks(Sets.newHashSet())
-		1 * tradingCardSet.setCountriesOfOrigin(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

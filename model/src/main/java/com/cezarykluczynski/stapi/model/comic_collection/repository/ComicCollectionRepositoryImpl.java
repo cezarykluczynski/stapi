@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection_;
 import com.cezarykluczynski.stapi.model.comic_collection.query.ComicCollectionQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicCollection> implements ComicCollectionRepositoryCustom {
+public class ComicCollectionRepositoryImpl implements ComicCollectionRepositoryCustom {
 
 	private final ComicCollectionQueryBuilderFactory comicCollectionQueryBuilderFactory;
 
@@ -54,29 +52,7 @@ public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicC
 		comicCollectionQueryBuilder.divideQueries();
 		comicCollectionQueryBuilder.fetch(ComicCollection_.references, doFetch);
 
-		Page<ComicCollection> comicCollectionPage = comicCollectionQueryBuilder.findPage();
-		clearProxies(comicCollectionPage, !doFetch);
-		return comicCollectionPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<ComicCollection> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(comicCollection -> {
-			comicCollection.setComicSeries(Sets.newHashSet());
-			comicCollection.setChildComicSeries(Sets.newHashSet());
-			comicCollection.setWriters(Sets.newHashSet());
-			comicCollection.setArtists(Sets.newHashSet());
-			comicCollection.setEditors(Sets.newHashSet());
-			comicCollection.setStaff(Sets.newHashSet());
-			comicCollection.setPublishers(Sets.newHashSet());
-			comicCollection.setCharacters(Sets.newHashSet());
-			comicCollection.setReferences(Sets.newHashSet());
-			comicCollection.setComics(Sets.newHashSet());
-		});
+		return comicCollectionQueryBuilder.findPage();
 	}
 
 }

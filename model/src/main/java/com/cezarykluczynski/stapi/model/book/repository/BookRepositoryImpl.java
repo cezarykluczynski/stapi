@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book.entity.Book_;
 import com.cezarykluczynski.stapi.model.book.query.BookQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements BookRepositoryCustom {
+public class BookRepositoryImpl implements BookRepositoryCustom {
 
 	private final BookQueryBuilderFactory bookQueryBuilderFactory;
 
@@ -64,30 +62,7 @@ public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements 
 		bookQueryBuilder.fetch(Book_.references, doFetch);
 		bookQueryBuilder.fetch(Book_.audiobookReferences, doFetch);
 
-		Page<Book> bookPage = bookQueryBuilder.findPage();
-		clearProxies(bookPage, !doFetch);
-		return bookPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Book> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(book -> {
-			book.setAuthors(Sets.newHashSet());
-			book.setArtists(Sets.newHashSet());
-			book.setEditors(Sets.newHashSet());
-			book.setAudiobookNarrators(Sets.newHashSet());
-			book.setBookSeries(Sets.newHashSet());
-			book.setPublishers(Sets.newHashSet());
-			book.setAudiobookPublishers(Sets.newHashSet());
-			book.setBookCollections(Sets.newHashSet());
-			book.setCharacters(Sets.newHashSet());
-			book.setReferences(Sets.newHashSet());
-			book.setAudiobookReferences(Sets.newHashSet());
-		});
+		return bookQueryBuilder.findPage();
 	}
 
 }

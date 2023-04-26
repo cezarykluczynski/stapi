@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.episode.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_;
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> implements EpisodeRepositoryCustom {
+public class EpisodeRepositoryImpl implements EpisodeRepositoryCustom {
 
 	private final EpisodeQueryBuilderFactory episodeQueryBuilderFactory;
 
@@ -54,28 +52,7 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 		episodeQueryBuilder.divideQueries();
 		episodeQueryBuilder.fetch(Episode_.characters, doFetch);
 
-		Page<Episode> episodePage = episodeQueryBuilder.findPage();
-		clearProxies(episodePage, !doFetch);
-		return episodePage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Episode> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(episode -> {
-			episode.setWriters(Sets.newHashSet());
-			episode.setTeleplayAuthors(Sets.newHashSet());
-			episode.setStoryAuthors(Sets.newHashSet());
-			episode.setDirectors(Sets.newHashSet());
-			episode.setStaff(Sets.newHashSet());
-			episode.setPerformers(Sets.newHashSet());
-			episode.setStuntPerformers(Sets.newHashSet());
-			episode.setStandInPerformers(Sets.newHashSet());
-			episode.setCharacters(Sets.newHashSet());
-		});
+		return episodeQueryBuilder.findPage();
 	}
 
 }

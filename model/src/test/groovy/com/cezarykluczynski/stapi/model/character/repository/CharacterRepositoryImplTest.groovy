@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
@@ -107,32 +105,6 @@ class CharacterRepositoryImplTest extends Specification {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = characterRepositoryImpl.findMatching(characterRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * characterQueryBuilderFactory.createQueryBuilder(pageable) >> characterQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * characterRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * characterQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(character)
-		1 * character.setPerformers(Sets.newHashSet())
-		1 * character.setEpisodes(Sets.newHashSet())
-		1 * character.setMovies(Sets.newHashSet())
-		1 * character.setCharacterSpecies(Sets.newHashSet())
-		1 * character.setCharacterRelations(Sets.newHashSet())
-		1 * character.setTitles(Sets.newHashSet())
-		1 * character.setOccupations(Sets.newHashSet())
-		1 * character.setOrganizations(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

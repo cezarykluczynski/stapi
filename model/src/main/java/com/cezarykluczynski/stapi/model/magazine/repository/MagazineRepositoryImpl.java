@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.magazine.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.magazine.dto.MagazineRequestDTO;
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine_;
 import com.cezarykluczynski.stapi.model.magazine.query.MagazineQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MagazineRepositoryImpl extends AbstractRepositoryImpl<Magazine> implements MagazineRepositoryCustom {
+public class MagazineRepositoryImpl implements MagazineRepositoryCustom {
 
 	private final MagazineQueryBuilderFactory magazineQueryBuilderFactory;
 
@@ -35,22 +33,7 @@ public class MagazineRepositoryImpl extends AbstractRepositoryImpl<Magazine> imp
 		magazineQueryBuilder.fetch(Magazine_.editors, doFetch);
 		magazineQueryBuilder.fetch(Magazine_.publishers, doFetch);
 
-		Page<Magazine> magazinePage = magazineQueryBuilder.findPage();
-		clearProxies(magazinePage, !doFetch);
-		return magazinePage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Magazine> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(magazine -> {
-			magazine.setMagazineSeries(Sets.newHashSet());
-			magazine.setEditors(Sets.newHashSet());
-			magazine.setPublishers(Sets.newHashSet());
-		});
+		return magazineQueryBuilder.findPage();
 	}
 
 }

@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.soundtrack.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.soundtrack.dto.SoundtrackRequestDTO;
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack;
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack_;
 import com.cezarykluczynski.stapi.model.soundtrack.query.SoundtrackQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SoundtrackRepositoryImpl extends AbstractRepositoryImpl<Soundtrack> implements SoundtrackRepositoryCustom {
+public class SoundtrackRepositoryImpl implements SoundtrackRepositoryCustom {
 
 	private final SoundtrackQueryBuilderFactory soundtrackQueryBuilderFactory;
 
@@ -37,24 +35,7 @@ public class SoundtrackRepositoryImpl extends AbstractRepositoryImpl<Soundtrack>
 		soundtrackQueryBuilder.fetch(Soundtrack_.orchestrators, doFetch);
 		soundtrackQueryBuilder.fetch(Soundtrack_.references, doFetch);
 
-		Page<Soundtrack> soundtrackPage = soundtrackQueryBuilder.findPage();
-		clearProxies(soundtrackPage, !doFetch);
-		return soundtrackPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Soundtrack> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(soundtrack -> {
-			soundtrack.setLabels(Sets.newHashSet());
-			soundtrack.setComposers(Sets.newHashSet());
-			soundtrack.setContributors(Sets.newHashSet());
-			soundtrack.setOrchestrators(Sets.newHashSet());
-			soundtrack.setReferences(Sets.newHashSet());
-		});
+		return soundtrackQueryBuilder.findPage();
 	}
 
 }

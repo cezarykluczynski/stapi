@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.magazine.entity.Magazine
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine_
 import com.cezarykluczynski.stapi.model.magazine.query.MagazineQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractMagazineTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -80,32 +78,6 @@ class MagazineRepositoryImplTest extends AbstractMagazineTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = magazineRepositoryImpl.findMatching(magazineRequestDTO, pageable)
-
-		then:
-		1 * magazineQueryBuilderFactoryMock.createQueryBuilder(pageable) >> magazineQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * magazineRequestDTO.uid >> null
-
-		then: 'fetch is performed with false flag'
-		1 * magazineQueryBuilder.fetch(Magazine_.magazineSeries, false)
-		1 * magazineQueryBuilder.fetch(Magazine_.editors, false)
-		1 * magazineQueryBuilder.fetch(Magazine_.publishers, false)
-
-		then: 'page is searched for and returned'
-		1 * magazineQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(magazine)
-		1 * magazine.setMagazineSeries(Sets.newHashSet())
-		1 * magazine.setEditors(Sets.newHashSet())
-		1 * magazine.setPublishers(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.magazine_series.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.magazine_series.dto.MagazineSeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries_;
 import com.cezarykluczynski.stapi.model.magazine_series.query.MagazineSeriesQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MagazineSeriesRepositoryImpl extends AbstractRepositoryImpl<MagazineSeries> implements MagazineSeriesRepositoryCustom {
+public class MagazineSeriesRepositoryImpl implements MagazineSeriesRepositoryCustom {
 
 	private final MagazineSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory;
 
@@ -36,22 +34,7 @@ public class MagazineSeriesRepositoryImpl extends AbstractRepositoryImpl<Magazin
 		comicSeriesQueryBuilder.fetch(MagazineSeries_.editors, doFetch);
 		comicSeriesQueryBuilder.fetch(MagazineSeries_.magazines, doFetch);
 
-		Page<MagazineSeries> comicSeriesPage = comicSeriesQueryBuilder.findPage();
-		clearProxies(comicSeriesPage, !doFetch);
-		return comicSeriesPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<MagazineSeries> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(magazineSeries -> {
-			magazineSeries.setPublishers(Sets.newHashSet());
-			magazineSeries.setEditors(Sets.newHashSet());
-			magazineSeries.setMagazines(Sets.newHashSet());
-		});
+		return comicSeriesQueryBuilder.findPage();
 	}
 
 }

@@ -9,8 +9,6 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractComicStripTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -114,28 +112,6 @@ class ComicStripRepositoryImplTest extends AbstractComicStripTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = comicStripRepositoryImpl.findMatching(comicStripRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * comicStripQueryBuilderFactory.createQueryBuilder(pageable) >> comicStripQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * comicStripRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * comicStripQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(comicStrip)
-		1 * comicStrip.setComicSeries(Sets.newHashSet())
-		1 * comicStrip.setWriters(Sets.newHashSet())
-		1 * comicStrip.setArtists(Sets.newHashSet())
-		1 * comicStrip.setCharacters(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

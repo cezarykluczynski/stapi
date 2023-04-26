@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.occupation.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.occupation.dto.OccupationRequestDTO;
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation;
 import com.cezarykluczynski.stapi.model.occupation.entity.Occupation_;
 import com.cezarykluczynski.stapi.model.occupation.query.OccupationQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class OccupationRepositoryImpl extends AbstractRepositoryImpl<Occupation> implements OccupationRepositoryCustom {
+public class OccupationRepositoryImpl implements OccupationRepositoryCustom {
 
 	private final OccupationQueryBuilderFactory occupationQueryBuilderFactory;
 
@@ -42,20 +40,7 @@ public class OccupationRepositoryImpl extends AbstractRepositoryImpl<Occupation>
 		occupationQueryBuilder.setSort(criteria.getSort());
 		occupationQueryBuilder.fetch(Occupation_.characters, doFetch);
 
-		Page<Occupation> occupationPage = occupationQueryBuilder.findPage();
-		clearProxies(occupationPage, !doFetch);
-		return occupationPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Occupation> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(title -> {
-			title.setCharacters(Sets.newHashSet());
-		});
+		return occupationQueryBuilder.findPage();
 	}
 
 }

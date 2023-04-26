@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.title.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.title.dto.TitleRequestDTO;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.title.entity.Title_;
 import com.cezarykluczynski.stapi.model.title.query.TitleQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TitleRepositoryImpl extends AbstractRepositoryImpl<Title> implements TitleRepositoryCustom {
+public class TitleRepositoryImpl implements TitleRepositoryCustom {
 
 	private final TitleQueryBuilderFactory titleQueryBuilderFactory;
 
@@ -37,19 +35,7 @@ public class TitleRepositoryImpl extends AbstractRepositoryImpl<Title> implement
 		titleQueryBuilder.setSort(criteria.getSort());
 		titleQueryBuilder.fetch(Title_.characters, doFetch);
 
-		Page<Title> titlePage = titleQueryBuilder.findPage();
-		clearProxies(titlePage, !doFetch);
-		return titlePage;
+		return titleQueryBuilder.findPage();
 	}
 
-	@Override
-	protected void clearProxies(Page<Title> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(title -> {
-			title.setCharacters(Sets.newHashSet());
-		});
-	}
 }

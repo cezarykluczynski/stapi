@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.entity.Performer_
 import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -144,37 +142,6 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = performerRepositoryImpl.findMatching(performerRequestDTO, pageable)
-
-		then:
-		1 * performerQueryBuilderMock.createQueryBuilder(pageable) >> performerQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * performerRequestDTO.uid >> null
-
-		then: 'fetch is performed with false flag'
-		1 * performerQueryBuilder.fetch(Performer_.episodesPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.episodesStandInPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.episodesStuntPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.moviesPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.moviesStandInPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.characters, false)
-
-		then: 'page is searched for and returned'
-		1 * performerQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(performer)
-		1 * performer.setEpisodesPerformances(Sets.newHashSet())
-		1 * performer.setEpisodesStuntPerformances(Sets.newHashSet())
-		1 * performer.setEpisodesStandInPerformances(Sets.newHashSet())
-		1 * performer.setCharacters(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

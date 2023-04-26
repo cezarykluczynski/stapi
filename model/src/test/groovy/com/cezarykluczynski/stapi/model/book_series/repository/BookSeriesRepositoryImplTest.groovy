@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.book_series.query.BookSeriesQueryBuilder
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.AbstractBookSeriesTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -96,28 +94,6 @@ class BookSeriesRepositoryImplTest extends AbstractBookSeriesTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = bookSeriesRepositoryImpl.findMatching(bookSeriesRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * bookSeriesQueryBuilderFactory.createQueryBuilder(pageable) >> bookSeriesQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * bookSeriesRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * bookSeriesQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(bookSeries)
-		1 * bookSeries.setParentSeries(Sets.newHashSet())
-		1 * bookSeries.setChildSeries(Sets.newHashSet())
-		1 * bookSeries.setPublishers(Sets.newHashSet())
-		1 * bookSeries.setBooks(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

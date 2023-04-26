@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection_;
 import com.cezarykluczynski.stapi.model.book_collection.query.BookCollectionQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BookCollectionRepositoryImpl extends AbstractRepositoryImpl<BookCollection> implements BookCollectionRepositoryCustom {
+public class BookCollectionRepositoryImpl implements BookCollectionRepositoryCustom {
 
 	private final BookCollectionQueryBuilderFactory bookCollectionQueryBuilderFactory;
 
@@ -48,27 +46,7 @@ public class BookCollectionRepositoryImpl extends AbstractRepositoryImpl<BookCol
 		bookCollectionQueryBuilder.divideQueries();
 		bookCollectionQueryBuilder.fetch(BookCollection_.references, doFetch);
 
-		Page<BookCollection> bookCollectionPage = bookCollectionQueryBuilder.findPage();
-		clearProxies(bookCollectionPage, !doFetch);
-		return bookCollectionPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<BookCollection> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(bookCollection -> {
-			bookCollection.setBookSeries(Sets.newHashSet());
-			bookCollection.setAuthors(Sets.newHashSet());
-			bookCollection.setArtists(Sets.newHashSet());
-			bookCollection.setEditors(Sets.newHashSet());
-			bookCollection.setPublishers(Sets.newHashSet());
-			bookCollection.setCharacters(Sets.newHashSet());
-			bookCollection.setReferences(Sets.newHashSet());
-			bookCollection.setBooks(Sets.newHashSet());
-		});
+		return bookCollectionQueryBuilder.findPage();
 	}
 
 }

@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.model.title.entity.Title_
 import com.cezarykluczynski.stapi.model.title.query.TitleQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractTitleTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -85,28 +83,6 @@ class TitleRepositoryImplTest extends AbstractTitleTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = titleRepositoryImpl.findMatching(titleRequestDTO, pageable)
-
-		then:
-		1 * titleQueryBuilderFactoryMock.createQueryBuilder(pageable) >> titleQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * titleRequestDTO.uid >> null
-
-		then: 'fetch is performed with false flag'
-		1 * titleQueryBuilder.fetch(Title_.characters, false)
-
-		then: 'page is searched for and returned'
-		1 * titleQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(title)
-		1 * title.setCharacters(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

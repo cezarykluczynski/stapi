@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.book.query.BookQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.AbstractBookTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -133,35 +131,6 @@ class BookRepositoryImplTest extends AbstractBookTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = bookRepositoryImpl.findMatching(bookRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * bookQueryBuilderFactory.createQueryBuilder(pageable) >> bookQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * bookRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * bookQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(book)
-		1 * book.setAuthors(Sets.newHashSet())
-		1 * book.setArtists(Sets.newHashSet())
-		1 * book.setEditors(Sets.newHashSet())
-		1 * book.setAudiobookNarrators(Sets.newHashSet())
-		1 * book.setBookSeries(Sets.newHashSet())
-		1 * book.setPublishers(Sets.newHashSet())
-		1 * book.setAudiobookPublishers(Sets.newHashSet())
-		1 * book.setCharacters(Sets.newHashSet())
-		1 * book.setReferences(Sets.newHashSet())
-		1 * book.setAudiobookReferences(Sets.newHashSet())
-		1 * book.setBookCollections(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

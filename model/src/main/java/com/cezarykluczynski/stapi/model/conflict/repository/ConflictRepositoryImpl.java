@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.conflict.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.conflict.dto.ConflictRequestDTO;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict_;
 import com.cezarykluczynski.stapi.model.conflict.query.ConflictQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ConflictRepositoryImpl extends AbstractRepositoryImpl<Conflict> implements ConflictRepositoryCustom {
+public class ConflictRepositoryImpl implements ConflictRepositoryCustom {
 
 	private final ConflictQueryBuilderFactory conflictQueryBuilderFactory;
 
@@ -45,25 +43,7 @@ public class ConflictRepositoryImpl extends AbstractRepositoryImpl<Conflict> imp
 		conflictQueryBuilder.fetch(Conflict_.secondSideLocations, doFetch);
 		conflictQueryBuilder.fetch(Conflict_.secondSideCommanders, doFetch);
 
-		Page<Conflict> conflictPage = conflictQueryBuilder.findPage();
-		clearProxies(conflictPage, !doFetch);
-		return conflictPage;
+		return conflictQueryBuilder.findPage();
 	}
 
-	@Override
-	protected void clearProxies(Page<Conflict> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(conflict -> {
-			conflict.setLocations(Sets.newHashSet());
-			conflict.setFirstSideBelligerents(Sets.newHashSet());
-			conflict.setFirstSideLocations(Sets.newHashSet());
-			conflict.setFirstSideCommanders(Sets.newHashSet());
-			conflict.setSecondSideBelligerents(Sets.newHashSet());
-			conflict.setSecondSideLocations(Sets.newHashSet());
-			conflict.setSecondSideCommanders(Sets.newHashSet());
-		});
-	}
 }

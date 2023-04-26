@@ -451,6 +451,9 @@ public class QueryBuilder<T> {
 			countTypedQuery = entityManager.createQuery(countCriteriaQuery);
 			count = countTypedQuery.getSingleResult();
 		}
+		if (!singleEntitySearch) {
+			clearProxies(baseEntityList);
+		}
 
 		return new PageImpl<>(baseEntityList, pageable, count);
 	}
@@ -508,6 +511,18 @@ public class QueryBuilder<T> {
 				.findFirst()
 				.orElseThrow(() -> new StapiRuntimeException(String.format("No attribute named %s of type %s for entity %s found",
 						key, type, baseClass.getName())));
+	}
+
+	@SneakyThrows
+	private void clearProxies(List<T> baseEntityList) {
+		for (T entity : baseEntityList) {
+			final Field[] declaredFields = ReflectionUtil.getDeclaredAccessibleFields(entity.getClass());
+			for (Field field : declaredFields) {
+				if (Set.class.isAssignableFrom(field.getType())) {
+					field.set(entity, Sets.newHashSet());
+				}
+			}
+		}
 	}
 
 	private String wildcardLike(String subject) {

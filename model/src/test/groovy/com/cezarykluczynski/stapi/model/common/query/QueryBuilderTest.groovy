@@ -832,4 +832,77 @@ class QueryBuilderTest extends Specification {
 		0 * _
 	}
 
+	@SuppressWarnings('ExplicitCallToAndMethod')
+	void "proxies are cleared for multiple entities search"() {
+		given:
+		Series series1 = new Series()
+		Episode episode1 = Mock()
+		Episode episode2 = Mock()
+		Episode episode3 = Mock()
+		Season season1 = Mock()
+		Season season2 = Mock()
+		series1.episodes.add(episode1)
+		series1.episodes.add(episode2)
+		Series series2 = new Series()
+		series2.episodes.add(episode3)
+		series2.seasons.add(season1)
+		series2.seasons.add(season2)
+		baseEntityList = [series1, series2]
+
+		when: 'query builder is create'
+		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
+
+		then: 'query builder is configured'
+		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
+		1 * entityManager.getCriteriaBuilder() >> countCriteriaBuilder
+		1 * criteriaBuilder.createQuery(Series) >> baseCriteriaQuery
+		1 * baseCriteriaQuery.from(Series) >> baseRoot
+		1 * baseCriteriaQuery.select(baseRoot)
+		1 * countCriteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		1 * countCriteriaQuery.from(baseClass) >> countBaseRoot
+		1 * countCriteriaBuilder.count(countBaseRoot) >> countExpression
+		1 * countCriteriaQuery.select(countExpression)
+		1 * entityManager.getMetamodel() >> metamodel
+		1 * metamodel.entity(baseClass) >> entityType
+		1 * entityType.attributes >> attributeSet
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		when: 'search is performed'
+		List<Series> seriesList = queryBuilder.findAll()
+
+		then: 'queries are built'
+		1 * baseRoot.get('id') >> _
+		1 * criteriaBuilder.asc(_)
+		1 * baseCriteriaQuery.orderBy(_)
+
+		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
+		1 * pageable.pageSize >> PAGE_SIZE
+		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
+		1 * pageable.pageNumber >> PAGE_NUMBER
+		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
+
+		then: 'cacheable hint is set'
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, false)
+
+		then: 'query is executed'
+		1 * baseTypedQuery.resultList >> baseEntityList
+
+		then: 'pageable is not interacted with in PageImpl constructor'
+		1 * pageable.toOptional() >> Optional.empty()
+
+		then: 'all entities are found'
+		seriesList == baseEntityList
+
+		then: 'proxies are cleared'
+		series1.seasons.empty
+		series2.seasons.empty
+		series1.episodes.empty
+		series2.episodes.empty
+
+		then: 'no other interactions are expected'
+		0 * _
+	}
+
 }

@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics_;
 import com.cezarykluczynski.stapi.model.comics.query.ComicsQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> implements ComicsRepositoryCustom {
+public class ComicsRepositoryImpl implements ComicsRepositoryCustom {
 
 	private final ComicsQueryBuilderFactory comicsQueryBuilderFactory;
 
@@ -51,28 +49,7 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 		comicsQueryBuilder.divideQueries();
 		comicsQueryBuilder.fetch(Comics_.references, doFetch);
 
-		Page<Comics> comicsPage = comicsQueryBuilder.findPage();
-		clearProxies(comicsPage, !doFetch);
-		return comicsPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Comics> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(comics -> {
-			comics.setWriters(Sets.newHashSet());
-			comics.setArtists(Sets.newHashSet());
-			comics.setEditors(Sets.newHashSet());
-			comics.setStaff(Sets.newHashSet());
-			comics.setComicSeries(Sets.newHashSet());
-			comics.setPublishers(Sets.newHashSet());
-			comics.setCharacters(Sets.newHashSet());
-			comics.setReferences(Sets.newHashSet());
-			comics.setComicCollections(Sets.newHashSet());
-		});
+		return comicsQueryBuilder.findPage();
 	}
 
 }

@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.comic_collection.query.ComicCollectionQu
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.AbstractComicCollectionTest
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -109,34 +107,6 @@ class ComicCollectionRepositoryImplTest extends AbstractComicCollectionTest {
 
 		then: 'no other interactions are expected'
 		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = comicCollectionRepositoryImpl.findMatching(comicCollectionRequestDTO, pageable)
-
-		then: 'criteria builder is retrieved'
-		1 * comicCollectionQueryBuilderFactory.createQueryBuilder(pageable) >> comicCollectionQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * comicCollectionRequestDTO.uid >> null
-
-		then: 'page is searched for and returned'
-		1 * comicCollectionQueryBuilder.findPage() >> page
-
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(comicCollection)
-		comicCollection.setComicSeries(Sets.newHashSet())
-		comicCollection.setChildComicSeries(Sets.newHashSet())
-		comicCollection.setWriters(Sets.newHashSet())
-		comicCollection.setArtists(Sets.newHashSet())
-		comicCollection.setEditors(Sets.newHashSet())
-		comicCollection.setStaff(Sets.newHashSet())
-		comicCollection.setPublishers(Sets.newHashSet())
-		comicCollection.setCharacters(Sets.newHashSet())
-		comicCollection.setReferences(Sets.newHashSet())
-		comicCollection.setComics(Sets.newHashSet())
-		pageOutput == page
 	}
 
 }

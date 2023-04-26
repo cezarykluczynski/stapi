@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.movie.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.movie.dto.MovieRequestDTO;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
 import com.cezarykluczynski.stapi.model.movie.query.MovieQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implements MovieRepositoryCustom {
+public class MovieRepositoryImpl implements MovieRepositoryCustom {
 
 	private final MovieQueryBuilderFactory movieQueryBuilderFactory;
 
@@ -56,29 +54,7 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 		movieQueryBuilder.divideQueries();
 		movieQueryBuilder.fetch(Movie_.characters, doFetch);
 
-		Page<Movie> moviePage = movieQueryBuilder.findPage();
-		clearProxies(moviePage, !doFetch);
-		return moviePage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Movie> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(movie -> {
-			movie.setWriters(Sets.newHashSet());
-			movie.setScreenplayAuthors(Sets.newHashSet());
-			movie.setStoryAuthors(Sets.newHashSet());
-			movie.setDirectors(Sets.newHashSet());
-			movie.setProducers(Sets.newHashSet());
-			movie.setStaff(Sets.newHashSet());
-			movie.setPerformers(Sets.newHashSet());
-			movie.setStuntPerformers(Sets.newHashSet());
-			movie.setStandInPerformers(Sets.newHashSet());
-			movie.setCharacters(Sets.newHashSet());
-		});
+		return movieQueryBuilder.findPage();
 	}
 
 }

@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.model.organization.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.organization.dto.OrganizationRequestDTO;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization_;
 import com.cezarykluczynski.stapi.model.organization.query.OrganizationQueryBuilderFactory;
-import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class OrganizationRepositoryImpl extends AbstractRepositoryImpl<Organization> implements OrganizationRepositoryCustom {
+public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom {
 
 	private final OrganizationQueryBuilderFactory organizationQueryBuilderFactory;
 
@@ -43,20 +41,7 @@ public class OrganizationRepositoryImpl extends AbstractRepositoryImpl<Organizat
 		organizationQueryBuilder.setSort(criteria.getSort());
 		organizationQueryBuilder.fetch(Organization_.characters, doFetch);
 
-		Page<Organization> organizationPage = organizationQueryBuilder.findPage();
-		clearProxies(organizationPage, !doFetch);
-		return organizationPage;
-	}
-
-	@Override
-	protected void clearProxies(Page<Organization> page, boolean doClearProxies) {
-		if (!doClearProxies) {
-			return;
-		}
-
-		page.getContent().forEach(title -> {
-			title.setCharacters(Sets.newHashSet());
-		});
+		return organizationQueryBuilder.findPage();
 	}
 
 }
