@@ -19,6 +19,14 @@ export class ApiDocumentationComponent {
 		return location.origin + "/api/v1/rest/common/download/stapi.yaml";
 	}
 
+	getOpenApiSpecFullUrlForEditor() {
+		var prefix = location.origin;
+		if (prefix === 'http://stapi.co') {
+			prefix = 'https://stapi.co'; // Swagger Editor won't load URL over HTTP due to mixed content constraints
+		}
+		return prefix + "/api/v1/rest/common/download/stapi.yaml";
+	}
+
 	isNotStapiOverHttps() {
 		return location.origin != 'https://stapi.co';
 	}

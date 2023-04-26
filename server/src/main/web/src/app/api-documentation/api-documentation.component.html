@@ -3,7 +3,7 @@
 		<div class="col-md-offset-2 col-md-8">
 			<p>
 				API documentation is a single OpenAPI specification, accessible <a href="{{ getOpenApiSpecFullUrl() }}">here</a>.
-				You can open it in <a href="https://editor.swagger.io/?url={{ getOpenApiSpecFullUrl() }}">Swagger Editor</a> directly.
+				You can open it in <a href="https://editor.swagger.io/?url={{ getOpenApiSpecFullUrlForEditor() }}">Swagger Editor</a> directly.
 			</p>
 			<p *ngIf="isNotStapiOverHttps()">
 				If that doesn't work, because you're running STAPI locally or HTTPS is not available,
