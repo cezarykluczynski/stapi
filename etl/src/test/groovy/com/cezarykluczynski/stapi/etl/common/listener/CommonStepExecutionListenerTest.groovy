@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.listener
 
+import com.cezarykluczynski.stapi.etl.common.backup.BackupAfterStepExecutor
 import com.cezarykluczynski.stapi.etl.common.service.step.ChunkLogger
 import com.cezarykluczynski.stapi.etl.common.service.step.StepLogger
 import org.springframework.batch.core.StepExecution
@@ -24,6 +25,8 @@ class CommonStepExecutionListenerTest extends Specification {
 
 	private ChunkContext chunkContextMock
 
+	BackupAfterStepExecutor backupAfterStepExecutorMock
+
 	private CommonStepExecutionListener commonStepExecutionListener
 
 	void setup() {
@@ -35,7 +38,8 @@ class CommonStepExecutionListenerTest extends Specification {
 		chunkLoggerList = [chunkLogger1, chunkLogger2]
 		stepExecutionMock = Mock()
 		chunkContextMock = Mock()
-		commonStepExecutionListener = new CommonStepExecutionListener(stepLoggerList, chunkLoggerList)
+		backupAfterStepExecutorMock = Mock()
+		commonStepExecutionListener = new CommonStepExecutionListener(stepLoggerList, chunkLoggerList, backupAfterStepExecutorMock)
 	}
 
 	void "logs before step"() {
@@ -52,7 +56,7 @@ class CommonStepExecutionListenerTest extends Specification {
 		0 * _
 	}
 
-	void "logs after step"() {
+	void "logs and does a backup after step"() {
 		when: 'after step callback is called'
 		commonStepExecutionListener.afterStep(stepExecutionMock)
 
@@ -61,6 +65,9 @@ class CommonStepExecutionListenerTest extends Specification {
 
 		then: 'second logger is interacted with'
 		1 * stepLogger2.stepEnded(stepExecutionMock)
+
+		then: 'backup is performed'
+		1 * backupAfterStepExecutorMock.execute(stepExecutionMock)
 
 		then: 'no other interactions are expected'
 		0 * _

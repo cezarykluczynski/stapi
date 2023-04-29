@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.common.listener;
 
+import com.cezarykluczynski.stapi.etl.common.backup.BackupAfterStepExecutor;
 import com.cezarykluczynski.stapi.etl.common.service.step.ChunkLogger;
 import com.cezarykluczynski.stapi.etl.common.service.step.StepLogger;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
@@ -14,17 +14,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Slf4j
+@RequiredArgsConstructor
 public class CommonStepExecutionListener implements StepExecutionListener, ChunkListener {
 
 	private final List<StepLogger> stepLoggerList;
 	private final List<ChunkLogger> chunkLoggerList;
-
-	@SuppressFBWarnings("EI_EXPOSE_REP2")
-	public CommonStepExecutionListener(List<StepLogger> stepLoggerList, List<ChunkLogger> chunkLoggerList) {
-		this.stepLoggerList = stepLoggerList;
-		this.chunkLoggerList = chunkLoggerList;
-	}
+	private final BackupAfterStepExecutor backupAfterStepExecutor;
 
 	@Override
 	public void beforeStep(StepExecution stepExecution) {
@@ -34,6 +29,7 @@ public class CommonStepExecutionListener implements StepExecutionListener, Chunk
 	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
 		stepLoggerList.forEach(stepLogger -> stepLogger.stepEnded(stepExecution));
+		backupAfterStepExecutor.execute(stepExecution);
 		return null;
 	}
 

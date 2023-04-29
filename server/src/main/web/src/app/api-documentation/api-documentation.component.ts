@@ -20,7 +20,7 @@ export class ApiDocumentationComponent {
 	}
 
 	getOpenApiSpecFullUrlForEditor() {
-		var prefix = location.origin;
+		let prefix = location.origin;
 		if (prefix === 'http://stapi.co') {
 			prefix = 'https://stapi.co'; // Swagger Editor won't load URL over HTTP due to mixed content constraints
 		}
