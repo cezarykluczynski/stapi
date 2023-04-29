@@ -76,6 +76,7 @@ public class StepToReadProcessorCountProvider {
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_PERFORMERS, PerformerReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_STAFF, StaffReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_ASTRONOMICAL_OBJECTS, AstronomicalObjectReader.class);
+		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.LINK_ASTRONOMICAL_OBJECTS, AstronomicalObjectLinkReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_SPECIES, SpeciesReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_ORGANIZATIONS, OrganizationReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_TITLES, TitleReader.class);
@@ -84,7 +85,6 @@ public class StepToReadProcessorCountProvider {
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.LINK_CHARACTERS, CharacterLinkReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_EPISODES, EpisodeReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_MOVIES, MovieReader.class);
-		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.LINK_ASTRONOMICAL_OBJECTS, AstronomicalObjectLinkReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_COMIC_SERIES, ComicSeriesReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.LINK_COMIC_SERIES, ComicSeriesLinkReader.class);
 		STEP_TO_ITEM_READER_TYPE_MAP.put(StepName.CREATE_COMICS, ComicsReader.class);

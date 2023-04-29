@@ -45,6 +45,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createAstronomicalObjectsStep
 
+	private Step linkAstronomicalObjectsStep
+
 	private Step createSpeciesStep
 
 	private Step createOrganizationsStep
@@ -58,8 +60,6 @@ class JobBuilderTest extends Specification {
 	private Step createEpisodesStep
 
 	private Step createMoviesStep
-
-	private Step linkAstronomicalObjectsStep
 
 	private Step createComicSeriesStep
 
@@ -137,6 +137,7 @@ class JobBuilderTest extends Specification {
 		createPerformersStep = Mock()
 		createStaffStep = Mock()
 		createAstronomicalObjectsStep = Mock()
+		linkAstronomicalObjectsStep = Mock()
 		createSpeciesStep = Mock()
 		createOrganizationsStep = Mock()
 		createTitlesStep = Mock()
@@ -144,7 +145,6 @@ class JobBuilderTest extends Specification {
 		linkCharactersStep = Mock()
 		createEpisodesStep = Mock()
 		createMoviesStep = Mock()
-		linkAstronomicalObjectsStep = Mock()
 		createComicSeriesStep = Mock()
 		linkComicSeriesStep = Mock()
 		createComicsStep = Mock()
@@ -230,6 +230,11 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.enabled >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_ASTRONOMICAL_OBJECTS, Step) >> createAstronomicalObjectsStep
 
+		then: 'LINK_ASTRONOMICAL_OBJECTS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.LINK_ASTRONOMICAL_OBJECTS) >> stepProperties
+		1 * stepProperties.enabled >> true
+		1 * applicationContextMock.getBean(StepName.LINK_ASTRONOMICAL_OBJECTS, Step) >> linkAstronomicalObjectsStep
+
 		then: 'CREATE_SPECIES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_SPECIES) >> stepProperties
 		1 * stepProperties.enabled >> true
@@ -269,11 +274,6 @@ class JobBuilderTest extends Specification {
 		1 * stepPropertiesMap.get(StepName.CREATE_MOVIES) >> stepProperties
 		1 * stepProperties.enabled >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_MOVIES, Step) >> createMoviesStep
-
-		then: 'LINK_ASTRONOMICAL_OBJECTS step is retrieved from application context'
-		1 * stepPropertiesMap.get(StepName.LINK_ASTRONOMICAL_OBJECTS) >> stepProperties
-		1 * stepProperties.enabled >> true
-		1 * applicationContextMock.getBean(StepName.LINK_ASTRONOMICAL_OBJECTS, Step) >> linkAstronomicalObjectsStep
 
 		then: 'CREATE_COMIC_SERIES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_COMIC_SERIES) >> stepProperties

@@ -265,6 +265,16 @@ public class EtlJobConfiguration {
 				.writer(applicationContext.getBean(AstronomicalObjectWriter.class)));
 	}
 
+	@Bean(name = StepName.LINK_ASTRONOMICAL_OBJECTS)
+	public Step stepLinkAstronomicalObject() {
+		return addCommonStepProperties(stepBuilderFactory.get(StepName.LINK_ASTRONOMICAL_OBJECTS)
+				.<AstronomicalObject, AstronomicalObject>chunk(stepsProperties.getLinkAstronomicalObjects().getCommitInterval(),
+						platformTransactionManager)
+				.reader(applicationContext.getBean(AstronomicalObjectLinkReader.class))
+				.processor(applicationContext.getBean(AstronomicalObjectLinkProcessor.class))
+				.writer(applicationContext.getBean(AstronomicalObjectWriter.class)));
+	}
+
 	@Bean(name = StepName.CREATE_SPECIES)
 	public Step stepCreateSpecies() {
 		return addCommonStepProperties(stepBuilderFactory.get(StepName.CREATE_SPECIES)
@@ -337,16 +347,6 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MovieReader.class))
 				.processor(applicationContext.getBean(MovieProcessor.class))
 				.writer(applicationContext.getBean(MovieWriter.class)));
-	}
-
-	@Bean(name = StepName.LINK_ASTRONOMICAL_OBJECTS)
-	public Step stepLinkAstronomicalObject() {
-		return addCommonStepProperties(stepBuilderFactory.get(StepName.LINK_ASTRONOMICAL_OBJECTS)
-				.<AstronomicalObject, AstronomicalObject>chunk(stepsProperties.getLinkAstronomicalObjects().getCommitInterval(),
-						platformTransactionManager)
-				.reader(applicationContext.getBean(AstronomicalObjectLinkReader.class))
-				.processor(applicationContext.getBean(AstronomicalObjectLinkProcessor.class))
-				.writer(applicationContext.getBean(AstronomicalObjectWriter.class)));
 	}
 
 	@Bean(name = StepName.CREATE_COMIC_SERIES)

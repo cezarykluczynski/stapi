@@ -96,33 +96,33 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createAstronomicalObjectsStepProperties = Mock()
 		createAstronomicalObjectsStepProperties.order >> 6
 		stepPropertiesMap.put(StepName.CREATE_ASTRONOMICAL_OBJECTS, createAstronomicalObjectsStepProperties)
+		StepProperties linkAstronomicalObjectsStepProperties = Mock()
+		linkAstronomicalObjectsStepProperties.order >> 7
+		stepPropertiesMap.put(StepName.LINK_ASTRONOMICAL_OBJECTS, linkAstronomicalObjectsStepProperties)
 		StepProperties createSpeciesStepProperties = Mock()
-		createSpeciesStepProperties.order >> 7
+		createSpeciesStepProperties.order >> 8
 		stepPropertiesMap.put(StepName.CREATE_SPECIES, createSpeciesStepProperties)
 		StepProperties createOrganizationsStepProperties = Mock()
-		createOrganizationsStepProperties.order >> 8
+		createOrganizationsStepProperties.order >> 9
 		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, createOrganizationsStepProperties)
 		StepProperties createTitlesStepProperties = Mock()
-		createTitlesStepProperties.order >> 9
+		createTitlesStepProperties.order >> 10
 		stepPropertiesMap.put(StepName.CREATE_TITLES, createTitlesStepProperties)
 		StepProperties createOccupationsProperties = Mock()
-		createOccupationsProperties.order >> 10
+		createOccupationsProperties.order >> 11
 		stepPropertiesMap.put(StepName.CREATE_OCCUPATIONS, createOccupationsProperties)
 		StepProperties createCharactersStepProperties = Mock()
-		createCharactersStepProperties.order >> 11
+		createCharactersStepProperties.order >> 12
 		stepPropertiesMap.put(StepName.CREATE_CHARACTERS, createCharactersStepProperties)
 		StepProperties linkCharactersStepProperties = Mock()
-		linkCharactersStepProperties.order >> 12
+		linkCharactersStepProperties.order >> 13
 		stepPropertiesMap.put(StepName.LINK_CHARACTERS, linkCharactersStepProperties)
 		StepProperties createEpisodesStepProperties = Mock()
-		createEpisodesStepProperties.order >> 13
+		createEpisodesStepProperties.order >> 14
 		stepPropertiesMap.put(StepName.CREATE_EPISODES, createEpisodesStepProperties)
 		StepProperties createMoviesStepProperties = Mock()
-		createMoviesStepProperties.order >> 14
+		createMoviesStepProperties.order >> 15
 		stepPropertiesMap.put(StepName.CREATE_MOVIES, createMoviesStepProperties)
-		StepProperties linkAstronomicalObjectsStepProperties = Mock()
-		linkAstronomicalObjectsStepProperties.order >> 15
-		stepPropertiesMap.put(StepName.LINK_ASTRONOMICAL_OBJECTS, linkAstronomicalObjectsStepProperties)
 		StepProperties createComicSeriesStepProperties = Mock()
 		createComicSeriesStepProperties.order >> 16
 		stepPropertiesMap.put(StepName.CREATE_COMIC_SERIES, createComicSeriesStepProperties)
