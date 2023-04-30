@@ -10,8 +10,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
-	implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.10.0'
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion
+	implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: okHttpVersion
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 	implementation group: 'io.gsonfire', name: 'gson-fire', version: '1.8.5'
 	implementation group: 'javax.ws.rs', name: 'jsr311-api', version: '1.1.1'
