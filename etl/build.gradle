@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-	implementation project(':util'), project(':model')
+	implementation project(':util'), project(':model'), project(':client')
 	implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
