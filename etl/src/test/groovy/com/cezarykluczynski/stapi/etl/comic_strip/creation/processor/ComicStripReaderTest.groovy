@@ -63,7 +63,7 @@ class ComicStripReaderTest extends Specification {
 
 	@SuppressWarnings('BracesForMethod')
 	void """when first read is made, and CREATE_COMIC_STRIPS step is not completed, and ComicStripCandidatePageGatheringService is empty,
-			first read is performed CategoryApi"""() {
+			first read is performed using CategoryApi"""() {
 		given:
 		PageHeader pageHeaderFromApi = Mock()
 
@@ -83,6 +83,25 @@ class ComicStripReaderTest extends Specification {
 
 		then:
 		nextPageHeader == null
+	}
+
+	@SuppressWarnings('BracesForMethod')
+	void """when first read is made, and CREATE_COMIC_STRIPS step is not completed, and ComicStripCandidatePageGatheringService is empty,
+			size is provided using CategoryApi"""() {
+		given:
+		PageHeader pageHeaderFromApi = new PageHeader(title: 'TITLE_1')
+		PageHeader pageHeaderFromApi2 = new PageHeader(title: 'TITLE_2')
+
+		when:
+		int size = comicStripReader.size
+
+		then:
+		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_STRIPS) >> false
+		1 * comicStripCandidatePageGatheringServiceMock.empty >> true
+		1 * categoryApiMock.getPages(CategoryTitle.COMICS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
+		1 * categoryApiMock.getPages(CategoryTitle.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi2)
+		0 * _
+		size == 2
 	}
 
 }

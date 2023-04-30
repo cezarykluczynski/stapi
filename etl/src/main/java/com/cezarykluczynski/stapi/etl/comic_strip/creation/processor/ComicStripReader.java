@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.comic_strip.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.comic_strip.creation.service.ComicStripCandidatePageGatheringService;
+import com.cezarykluczynski.stapi.etl.common.processor.SizeAwareItemReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ComicStripReader implements ItemReader<PageHeader> {
+public class ComicStripReader implements ItemReader<PageHeader>, SizeAwareItemReader {
 
 	private final ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService;
 
@@ -41,15 +42,24 @@ public class ComicStripReader implements ItemReader<PageHeader> {
 	}
 
 	@Override
-	public synchronized PageHeader read() throws Exception {
+	public PageHeader read() throws Exception {
+		initialize();
+		return doRead();
+	}
+
+	@Override
+	public int getSize() {
+		initialize();
+		return pageHeaderList.size();
+	}
+
+	private synchronized void initialize() {
 		if (!initialized) {
 			initializeSourceList();
 			log.info("Initial size of comic strips list: {}", pageHeaderList.size());
 			createIterator();
 			initialized = true;
 		}
-
-		return doRead();
 	}
 
 	private PageHeader doRead() {

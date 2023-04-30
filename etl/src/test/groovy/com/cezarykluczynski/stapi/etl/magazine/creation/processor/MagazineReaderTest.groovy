@@ -63,7 +63,7 @@ class MagazineReaderTest extends Specification {
 
 	@SuppressWarnings('BracesForMethod')
 	void """when first read is made, and CREATE_MAGAZINES step is not completed, and MagazineSeriesCandidatePageGatheringService is empty,
-			first read is performed CategoryApi"""() {
+			first read is performed using CategoryApi"""() {
 		given:
 		PageHeader pageHeaderFromApi = Mock()
 
