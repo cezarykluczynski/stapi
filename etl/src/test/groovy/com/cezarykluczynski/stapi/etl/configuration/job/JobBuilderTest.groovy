@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration.job
 
+import com.cezarykluczynski.stapi.etl.common.backup.BackupAfterStepJobExecutionListener
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider
 import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider
@@ -123,6 +124,8 @@ class JobBuilderTest extends Specification {
 
 	private SpringBatchJobBuilder springBatchJobBuilder
 
+	private BackupAfterStepJobExecutionListener backupAfterStepJobExecutionListenerMock
+
 	void setup() {
 		applicationContextMock = Mock()
 		jobBuilderFactoryMock = Mock()
@@ -177,8 +180,9 @@ class JobBuilderTest extends Specification {
 		createOccupationsStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
+		backupAfterStepJobExecutionListenerMock = Mock()
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
-				stepToStepPropertiesProviderMock)
+				stepToStepPropertiesProviderMock, backupAfterStepJobExecutionListenerMock)
 	}
 
 	void "Job is built"() {

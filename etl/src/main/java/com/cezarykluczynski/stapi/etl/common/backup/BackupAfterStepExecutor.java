@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +20,14 @@ public class BackupAfterStepExecutor {
 	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 	private final HikariDataSource hikariDataSource;
 	private final List<AfterStepBackupWorker> afterStepBackupWorkers;
+	private final BackupAfterStepConsistencyGuarantee backupAfterStepConsistencyGuarantee;
 
+	@Async
 	public void execute(StepExecution stepExecution) {
 		if (!backupAfterStepProperties.isEnabled()) {
 			return;
 		}
+		backupAfterStepConsistencyGuarantee.ensureState();
 
 		final String stepName = stepExecution.getStepName();
 		final StepProperties stepProperties = stepToStepPropertiesProvider.provide().get(stepName);

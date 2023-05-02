@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
+import com.cezarykluczynski.stapi.etl.common.backup.BackupAfterStepJobExecutionListener;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepNames;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.FlowBuilder;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Slf4j
+@RequiredArgsConstructor
 public class JobBuilder {
 
 	private final ApplicationContext applicationContext;
@@ -33,16 +33,7 @@ public class JobBuilder {
 
 	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 
-	@SuppressFBWarnings("EI_EXPOSE_REP2")
-	public JobBuilder(ApplicationContext applicationContext, JobBuilderFactory jobBuilderFactory,
-			StepConfigurationValidator stepConfigurationValidator, JobCompletenessDecider jobCompletenessDecider,
-			StepToStepPropertiesProvider stepToStepPropertiesProvider) {
-		this.applicationContext = applicationContext;
-		this.jobBuilderFactory = jobBuilderFactory;
-		this.stepConfigurationValidator = stepConfigurationValidator;
-		this.jobCompletenessDecider = jobCompletenessDecider;
-		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;
-	}
+	private final BackupAfterStepJobExecutionListener backupAfterStepJobExecutionListener;
 
 	public synchronized Job build() {
 		stepConfigurationValidator.validate();
@@ -78,6 +69,7 @@ public class JobBuilder {
 				.split(applicationContext.getBean(SimpleAsyncTaskExecutor.class))
 				.add(flowBuilder.build())
 				.end()
+				.listener(backupAfterStepJobExecutionListener)
 				.build();
 	}
 

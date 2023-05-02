@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.etl.common.listener;
 
-import com.cezarykluczynski.stapi.etl.common.backup.BackupAfterStepExecutor;
 import com.cezarykluczynski.stapi.etl.common.service.step.ChunkLogger;
 import com.cezarykluczynski.stapi.etl.common.service.step.StepLogger;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ public class CommonStepExecutionListener implements StepExecutionListener, Chunk
 
 	private final List<StepLogger> stepLoggerList;
 	private final List<ChunkLogger> chunkLoggerList;
-	private final BackupAfterStepExecutor backupAfterStepExecutor;
 
 	@Override
 	public void beforeStep(StepExecution stepExecution) {
@@ -29,7 +27,6 @@ public class CommonStepExecutionListener implements StepExecutionListener, Chunk
 	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
 		stepLoggerList.forEach(stepLogger -> stepLogger.stepEnded(stepExecution));
-		backupAfterStepExecutor.execute(stepExecution);
 		return null;
 	}
 

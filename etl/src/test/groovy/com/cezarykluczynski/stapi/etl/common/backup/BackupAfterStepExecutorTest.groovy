@@ -16,6 +16,7 @@ class BackupAfterStepExecutorTest extends Specification {
 	HikariDataSource hikariDataSourceMock
 	AfterStepBackupWorker afterStepBackupWorkerToIgnoreMock
 	AfterStepBackupWorker afterStepBackupWorkerToUseMock
+	BackupAfterStepConsistencyGuarantee backupAfterStepConsistencyGuaranteeMock
 	BackupAfterStepExecutor backupAfterStepExecutor
 
 	void setup() {
@@ -24,8 +25,9 @@ class BackupAfterStepExecutorTest extends Specification {
 		hikariDataSourceMock = Mock()
 		afterStepBackupWorkerToIgnoreMock = Mock()
 		afterStepBackupWorkerToUseMock = Mock()
+		backupAfterStepConsistencyGuaranteeMock = Mock()
 		backupAfterStepExecutor = new BackupAfterStepExecutor(backupAfterStepPropertiesMock, stepToStepPropertiesProviderMock,
-				hikariDataSourceMock, [afterStepBackupWorkerToIgnoreMock, afterStepBackupWorkerToUseMock])
+				hikariDataSourceMock, [afterStepBackupWorkerToIgnoreMock, afterStepBackupWorkerToUseMock], backupAfterStepConsistencyGuaranteeMock)
 	}
 
 	void "when backup after step is disabled, nothing happens"() {
@@ -47,6 +49,7 @@ class BackupAfterStepExecutorTest extends Specification {
 
 		then:
 		1 * backupAfterStepPropertiesMock.enabled >> true
+		1 * backupAfterStepConsistencyGuaranteeMock.ensureState()
 		1 * stepToStepPropertiesProviderMock.provide() >> Map.of(STEP_NAME, stepProperties)
 		1 * hikariDataSourceMock.driverClassName >> DRIVER_CLASS_NAME
 
