@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.etl.magazine.creation.service.MagazineCandidat
 import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Service;
@@ -85,6 +85,6 @@ public class MagazineReader implements ItemReader<PageHeader>, SizeAwareItemRead
 
 		magazineList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
 
-		pageHeaderList = Lists.newArrayList(Sets.newHashSet(magazineList));
+		pageHeaderList = SortingUtil.sortedUnique(magazineList);
 	}
 }

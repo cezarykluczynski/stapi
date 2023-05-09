@@ -55,10 +55,10 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(years);
 		if (!pageLinkList.isEmpty()) {
 
-			stardateYearDTO.setYearFrom(parseYear(pageLinkList.get(0).getTitle(), true, title, imageType));
+			stardateYearDTO.setYearFrom(parseYear(pageLinkList.get(0).getTitle(), true, imageType));
 
 			if (pageLinkList.size() > 1) {
-				stardateYearDTO.setYearTo(parseYear(pageLinkList.get(1).getTitle(), false, title, imageType));
+				stardateYearDTO.setYearTo(parseYear(pageLinkList.get(1).getTitle(), false, imageType));
 			}
 
 			if (stardateYearDTO.getYearTo() == null) {
@@ -85,7 +85,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 				final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(stardateParts.get(0));
 				try {
 					if (StringUtil.isNotNull(wikitextWithoutLinks) && StringUtils.isNotBlank(wikitextWithoutLinks)) {
-						Integer yearCandidate = parseYear(wikitextWithoutLinks, true, title, imageType);
+						Integer yearCandidate = parseYear(wikitextWithoutLinks, true, imageType);
 						if (yearCandidate != null) {
 							stardateYearDTO.setYearFrom(yearCandidate);
 						} else {
@@ -101,7 +101,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 				final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(stardateParts.get(1));
 				try {
 					if (StringUtil.isNotNull(wikitextWithoutLinks) && StringUtils.isNotBlank(wikitextWithoutLinks)) {
-						Integer yearCandidate = parseYear(wikitextWithoutLinks, false, title, imageType);
+						Integer yearCandidate = parseYear(wikitextWithoutLinks, false, imageType);
 						if (yearCandidate != null) {
 							stardateYearDTO.setYearTo(yearCandidate);
 						} else {
@@ -129,7 +129,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 		}
 	}
 
-	private Integer parseYear(String linkTitle, boolean from, String templateTitle, String imageType) {
+	private Integer parseYear(String linkTitle, boolean from, String imageType) {
 		try {
 			Integer year = Integer.valueOf(linkTitle);
 			if (year < 1000 || year > 9999) {
@@ -140,7 +140,6 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 
 			return year;
 		} catch (NumberFormatException e) {
-			log.warn("Could not cast {} {} link \"{}\" to year", imageType, templateTitle, linkTitle);
 			return null;
 		}
 	}

@@ -26,6 +26,7 @@ public class OccupationPageFilter extends AbstractMediaWikiPageFilter {
 
 	public OccupationPageFilter(CategorySortingService categorySortingService, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
 				.invalidTitles(INVALID_TITLES)
 				.invalidSuffixes(INVALID_SUFFIXES)
 				.invalidCategories(INVALID_CATEGORIES)

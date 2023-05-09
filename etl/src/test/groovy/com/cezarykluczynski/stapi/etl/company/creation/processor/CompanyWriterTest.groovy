@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.company.creation.processor
 
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
 import org.springframework.batch.item.Chunk
 import spock.lang.Specification
@@ -11,17 +10,14 @@ class CompanyWriterTest extends Specification {
 
 	private CompanyRepository companyRepositoryMock
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessorMock
-
 	private CompanyWriter companyWriterMock
 
 	void setup() {
 		companyRepositoryMock = Mock()
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
-		companyWriterMock = new CompanyWriter(companyRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
+		companyWriterMock = new CompanyWriter(companyRepositoryMock)
 	}
 
-	void "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Company company = new Company()
 		List<Company> companyList = Lists.newArrayList(company)
@@ -30,10 +26,6 @@ class CompanyWriterTest extends Specification {
 		companyWriterMock.write(new Chunk(companyList))
 
 		then:
-		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Company) >> { args ->
-			assert args[0][0] == company
-			companyList
-		}
 		1 * companyRepositoryMock.saveAll(companyList)
 		0 * _
 	}

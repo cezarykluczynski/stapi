@@ -6,9 +6,6 @@ import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class SeasonWriter implements ItemWriter<Season> {
 
@@ -20,19 +17,7 @@ public class SeasonWriter implements ItemWriter<Season> {
 
 	@Override
 	public void write(Chunk<? extends Season> items) throws Exception {
-		seasonRepository.saveAll(process(items));
-	}
-
-	private List<Season> process(Chunk<? extends Season> seasonList) {
-		return fromGenericsListToSeasonList(seasonList);
-	}
-
-	private List<Season> fromGenericsListToSeasonList(Chunk<? extends Season> seasonList) {
-		return seasonList
-				.getItems()
-				.stream()
-				.map(pageAware -> (Season) pageAware)
-				.collect(Collectors.toList());
+		seasonRepository.saveAll(items.getItems());
 	}
 
 }

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.client.rest.model.ResponsePage;
 import com.cezarykluczynski.stapi.util.tool.ReflectionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StepDiffAllNamesProvider {
@@ -32,6 +34,7 @@ public class StepDiffAllNamesProvider {
 	public List<String> get(String stepName, StapiRestClient stapiRestClient) {
 		Field field = stepNameToApiProvider.provide(stepName);
 		if (field == null) {
+			log.info("No search method configured for step {}, so no step diff will be provided.", stepName);
 			throw new StepDiffUnavailableException();
 		}
 		Object api = field.get(stapiRestClient);
@@ -53,7 +56,8 @@ public class StepDiffAllNamesProvider {
 			try {
 				baseResponse = searchMethod.invoke(api, criteria);
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				log.error("Error searching for entities using search method {}. Not returning diff for step {}.", searchMethod.getName(), stepName);
+				throw new StepDiffUnavailableException();
 			}
 			Field[] baseResponseFields = ReflectionUtil.getDeclaredAccessibleFields(baseResponse.getClass());
 			ResponsePage responsePage;
@@ -87,7 +91,8 @@ public class StepDiffAllNamesProvider {
 					try {
 						return nameField.get().get(object).toString();
 					} catch (IllegalAccessException e) {
-						throw new RuntimeException(e);
+						log.error("Error mapping getting field name {} from object. Not returning diff for step {}.", nameField.get(), stepName);
+						throw new StepDiffUnavailableException();
 					}
 				})
 				.collect(Collectors.toList());

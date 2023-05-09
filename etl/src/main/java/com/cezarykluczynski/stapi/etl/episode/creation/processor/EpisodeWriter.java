@@ -2,51 +2,22 @@ package com.cezarykluczynski.stapi.etl.episode.creation.processor;
 
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository;
-import com.cezarykluczynski.stapi.model.page.entity.PageAware;
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EpisodeWriter implements ItemWriter<Episode> {
 
 	private final EpisodeRepository episodeRepository;
 
-	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
-
-	public EpisodeWriter(EpisodeRepository episodeRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
+	public EpisodeWriter(EpisodeRepository episodeRepository) {
 		this.episodeRepository = episodeRepository;
-		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
 	}
 
 	@Override
 	public void write(Chunk<? extends Episode> items) throws Exception {
-		episodeRepository.saveAll(process(items));
-	}
-
-	private List<Episode> process(Chunk<? extends Episode> episodeList) {
-		List<Episode> episodeListWithoutExtends = fromExtendsListToEpisodeList(episodeList);
-		return filterDuplicates(episodeListWithoutExtends);
-	}
-
-	private List<Episode> fromExtendsListToEpisodeList(Chunk<? extends Episode> episodeList) {
-		return episodeList
-				.getItems()
-				.stream()
-				.map(pageAware -> (Episode) pageAware)
-				.collect(Collectors.toList());
-	}
-
-	private List<Episode> filterDuplicates(List<Episode> episodeList) {
-		return duplicateFilteringPreSavePageAwareProcessor.process(episodeList.stream()
-				.map(episode -> (PageAware) episode)
-				.collect(Collectors.toList()), Episode.class).stream()
-				.map(pageAware -> (Episode) pageAware)
-				.collect(Collectors.toList());
+		episodeRepository.saveAll(items.getItems());
 	}
 
 }

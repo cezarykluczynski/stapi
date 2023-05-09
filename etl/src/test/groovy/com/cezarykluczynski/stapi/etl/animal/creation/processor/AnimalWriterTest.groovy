@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.animal.creation.processor
 
 import com.cezarykluczynski.stapi.model.animal.entity.Animal
 import com.cezarykluczynski.stapi.model.animal.repository.AnimalRepository
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
 import org.springframework.batch.item.Chunk
 import spock.lang.Specification
@@ -11,17 +10,14 @@ class AnimalWriterTest extends Specification {
 
 	private AnimalRepository animalRepositoryMock
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessorMock
-
 	private AnimalWriter animalWriterMock
 
 	void setup() {
 		animalRepositoryMock = Mock()
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
-		animalWriterMock = new AnimalWriter(animalRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
+		animalWriterMock = new AnimalWriter(animalRepositoryMock)
 	}
 
-	void "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Animal animal = new Animal()
 		List<Animal> animalList = Lists.newArrayList(animal)
@@ -30,10 +26,6 @@ class AnimalWriterTest extends Specification {
 		animalWriterMock.write(new Chunk(animalList))
 
 		then:
-		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Animal) >> { args ->
-			assert args[0][0] == animal
-			animalList
-		}
 		1 * animalRepositoryMock.saveAll(animalList)
 		0 * _
 	}

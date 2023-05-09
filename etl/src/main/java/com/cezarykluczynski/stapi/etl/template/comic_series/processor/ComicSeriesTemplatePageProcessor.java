@@ -73,7 +73,7 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 		return TITLE_PARTS_REQUIRING_CLEANING.stream().anyMatch(title::contains) ? TitleUtil.getNameFromTitle(title) : title;
 	}
 
-	private boolean shouldBeFilteredOut(Page item) {
+	private boolean shouldBeFilteredOut(Page item) { // TODO: move to ComicSeriesPageFilter
 		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty();
 	}
 

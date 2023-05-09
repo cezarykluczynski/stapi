@@ -39,6 +39,10 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 
 	@Override
 	public ComicStripTemplate process(Page item) throws Exception {
+		if (!item.getRedirectPath().isEmpty()) {
+			return null;
+		}
+
 		Optional<Template> sidebarComicStripTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_STRIP);
 
 		if (!sidebarComicStripTemplateOptional.isPresent()) {

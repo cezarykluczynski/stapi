@@ -10,6 +10,8 @@ STAPI is a first public [Star Trek API](https://stapi.co), accessible via REST.
 
 Started as a research project, it turned into a fully working website in 2017. More about the development history can be found [here](https://stapi.co/about).
 
+STAPI is written in Java. Tests are written in Groovy, and since there are more tests than production code, it shows in GitHub as a Groovy project.
+
 ## Connecting
 
 STAPI can be accessed freely and without the need of API keys.

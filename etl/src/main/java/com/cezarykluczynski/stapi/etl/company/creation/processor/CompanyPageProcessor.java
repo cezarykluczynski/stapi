@@ -78,7 +78,7 @@ public class CompanyPageProcessor implements ItemProcessor<Page, Company> {
 		return company;
 	}
 
-	private boolean shouldBeFilteredOut(Page item) {
+	private boolean shouldBeFilteredOut(Page item) { // TODO: CompanyPageFilter
 		return PageTitle.STAR_TREK_STARSHIP_MINIATURES.equals(item.getTitle());
 	}
 

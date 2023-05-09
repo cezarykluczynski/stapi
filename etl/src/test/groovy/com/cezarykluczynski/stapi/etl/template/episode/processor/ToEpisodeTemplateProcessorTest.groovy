@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.EpisodeTemplateStardateYe
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData
 import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
@@ -92,6 +93,18 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >>
 				Lists.newArrayList(CategoryTitle.TOS_EPISODES, CategoryTitle.PRODUCTION_LISTS)
 		0 * _
+		episodeTemplate == null
+	}
+
+	void "returns null when page is a result of redirect"() {
+		given:
+		PageHeader pageHeader = Mock()
+		Page etlPage = new Page(redirectPath: Lists.newArrayList(pageHeader))
+
+		when:
+		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(etlPage)
+
+		then:
 		episodeTemplate == null
 	}
 

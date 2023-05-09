@@ -17,6 +17,7 @@ public class BookCollectionPageFilter extends AbstractMediaWikiPageFilter {
 
 	public BookCollectionPageFilter() {
 		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
 				.invalidTitles(INVALID_TITLES)
 				.build());
 	}

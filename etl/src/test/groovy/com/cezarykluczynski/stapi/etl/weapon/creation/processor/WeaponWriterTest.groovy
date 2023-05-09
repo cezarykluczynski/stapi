@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.weapon.creation.processor
 
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon
 import com.cezarykluczynski.stapi.model.weapon.repository.WeaponRepository
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
 import org.springframework.batch.item.Chunk
 import spock.lang.Specification
@@ -11,17 +10,14 @@ class WeaponWriterTest extends Specification {
 
 	private WeaponRepository weaponRepositoryMock
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessorMock
-
 	private WeaponWriter weaponWriterMock
 
 	void setup() {
 		weaponRepositoryMock = Mock()
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
-		weaponWriterMock = new WeaponWriter(weaponRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
+		weaponWriterMock = new WeaponWriter(weaponRepositoryMock)
 	}
 
-	void "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Weapon weapon = new Weapon()
 		List<Weapon> weaponList = Lists.newArrayList(weapon)
@@ -30,10 +26,6 @@ class WeaponWriterTest extends Specification {
 		weaponWriterMock.write(new Chunk(weaponList))
 
 		then:
-		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Weapon) >> { args ->
-			assert args[0][0] == weapon
-			weaponList
-		}
 		1 * weaponRepositoryMock.saveAll(weaponList)
 		0 * _
 	}

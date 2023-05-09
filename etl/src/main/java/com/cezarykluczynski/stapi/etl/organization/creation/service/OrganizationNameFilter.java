@@ -13,7 +13,7 @@ public class OrganizationNameFilter {
 			"Grand jury", "Legion", "Regiment","Fleet organization", "Garrison", "Division", "Dynasty", "Armada", "Battalion", "Attack wing",
 			"Brigade", "Militia", "Battery (unit)", "Democrat", "Service branch", "Kingdom", "City council", "News agency",
 			"Secretary of Exploration", "Medical ethics board", "Civic center", "Cruiser wing", "ELDS", "Enolian prison transport", "Fire team",
-			"Military organization", "Picard's blockade fleet", "Bolian restaurant", "Soviet space program", "Sports team");
+			"Military organization", "Picard's blockade fleet", "Bolian restaurant", "Soviet space program", "Sports team", "Space force");
 
 	private static final List<String> ORGANIZATIONS = Lists.newArrayList(
 			"Lazon II labor camp", "Vulcan Institute for Defensive Arts", "Singha refugee camp", "Lincoln", "Datsun",
@@ -69,7 +69,7 @@ public class OrganizationNameFilter {
 			"Federation of State Medical Boards", "Freecloud Institute of Entertainment Robotics", "Immigration and Customs Enforcement",
 			"Kelpien and Ba'ul Alliance", "Kyrian forces", "MARDET", "METI", "Royal Family of Hysperia", "Search for Extra Terrestrial Intelligence",
 			"Supreme Court of the United States", "United Earth and Titan", "United States military", "Vaskan forces", "House of Duras",
-			"House of Duras (mirror)", "Romulan underground movement", "V'draysh", "Mariposas");
+			"House of Duras (mirror)", "Romulan underground movement", "V'draysh", "Mariposas", "Keslovar");
 
 	public Match isAnOrganization(String organizationName) {
 		if (NOT_ORGANIZATIONS.contains(organizationName)) {

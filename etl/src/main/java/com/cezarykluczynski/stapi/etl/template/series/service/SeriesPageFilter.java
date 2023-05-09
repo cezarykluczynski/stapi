@@ -14,6 +14,7 @@ public class SeriesPageFilter extends AbstractMediaWikiPageFilter {
 
 	public SeriesPageFilter() {
 		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
 				.invalidTitles(INVALID_TITLES)
 				.build());
 	}

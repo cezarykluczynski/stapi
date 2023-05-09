@@ -18,6 +18,7 @@ public class ComicCollectionPageFilter extends AbstractMediaWikiPageFilter {
 
 	public ComicCollectionPageFilter() {
 		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
 				.invalidTitles(INVALID_TITLES)
 				.build());
 	}

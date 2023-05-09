@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.etl.soundtrack.creation.processor
 
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack
 import com.cezarykluczynski.stapi.model.soundtrack.repository.SoundtrackRepository
 import com.google.common.collect.Lists
@@ -11,17 +10,14 @@ class SoundtrackWriterTest extends Specification {
 
 	private SoundtrackRepository soundtrackRepositoryMock
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessorMock
-
 	private SoundtrackWriter soundtrackWriter
 
 	void setup() {
 		soundtrackRepositoryMock = Mock()
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
-		soundtrackWriter = new SoundtrackWriter(soundtrackRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
+		soundtrackWriter = new SoundtrackWriter(soundtrackRepositoryMock)
 	}
 
-	void "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Soundtrack soundtrack = new Soundtrack()
 		List<Soundtrack> soundtrackList = Lists.newArrayList(soundtrack)
@@ -30,10 +26,6 @@ class SoundtrackWriterTest extends Specification {
 		soundtrackWriter.write(new Chunk(soundtrackList))
 
 		then:
-		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Soundtrack) >> { args ->
-			assert args[0][0] == soundtrack
-			soundtrackList
-		}
 		1 * soundtrackRepositoryMock.saveAll(soundtrackList)
 		0 * _
 	}

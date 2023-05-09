@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.literature.creation.processor
 
 import com.cezarykluczynski.stapi.model.literature.entity.Literature
 import com.cezarykluczynski.stapi.model.literature.repository.LiteratureRepository
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
 import org.springframework.batch.item.Chunk
 import spock.lang.Specification
@@ -11,17 +10,14 @@ class LiteratureWriterTest extends Specification {
 
 	private LiteratureRepository literatureRepositoryMock
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessorMock
-
 	private LiteratureWriter literatureWriterMock
 
 	void setup() {
 		literatureRepositoryMock = Mock()
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
-		literatureWriterMock = new LiteratureWriter(literatureRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
+		literatureWriterMock = new LiteratureWriter(literatureRepositoryMock)
 	}
 
-	void "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Literature literature = new Literature()
 		List<Literature> literatureList = Lists.newArrayList(literature)
@@ -30,10 +26,6 @@ class LiteratureWriterTest extends Specification {
 		literatureWriterMock.write(new Chunk(literatureList))
 
 		then:
-		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Literature) >> { args ->
-			assert args[0][0] == literature
-			literatureList
-		}
 		1 * literatureRepositoryMock.saveAll(literatureList)
 		0 * _
 	}

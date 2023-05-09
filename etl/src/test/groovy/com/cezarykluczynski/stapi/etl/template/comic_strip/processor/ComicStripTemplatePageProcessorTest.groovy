@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comic_strip.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.character.entity.Character
@@ -47,6 +48,19 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		0 * _
+		comicStripTemplate == null
+	}
+
+	void "returns null when page is a result of redirect"() {
+		given:
+		PageHeader pageHeader = Mock()
+		Page page = new Page(redirectPath: [pageHeader])
+
+		when:
+		ComicStripTemplate comicStripTemplate = comicStripTemplatePageProcessor.process(page)
+
+		then:
 		0 * _
 		comicStripTemplate == null
 	}

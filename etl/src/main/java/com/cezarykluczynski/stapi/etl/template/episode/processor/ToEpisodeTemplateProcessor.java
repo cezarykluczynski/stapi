@@ -49,6 +49,10 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	@Override
 	public EpisodeTemplate process(Page item) throws Exception {
+		if (!item.getRedirectPath().isEmpty()) {
+			return null;
+		}
+
 		List<String> categoryHeaderList = categoryTitlesExtractingProcessor.process(item.getCategories());
 		boolean isEpisodePage = isEpisodePage(categoryHeaderList);
 

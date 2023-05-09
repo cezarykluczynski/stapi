@@ -1,7 +1,5 @@
 package com.cezarykluczynski.stapi.etl.weapon.creation.processor;
 
-import com.cezarykluczynski.stapi.model.page.entity.PageAware;
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.model.weapon.repository.WeaponRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -9,46 +7,19 @@ import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Slf4j
 public class WeaponWriter implements ItemWriter<Weapon> {
 
 	private final WeaponRepository weaponRepository;
 
-	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
-
-	public WeaponWriter(WeaponRepository weaponRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
+	public WeaponWriter(WeaponRepository weaponRepository) {
 		this.weaponRepository = weaponRepository;
-		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
 	}
 
 	@Override
 	public void write(Chunk<? extends Weapon> items) throws Exception {
-		weaponRepository.saveAll(process(items));
-	}
-
-	private List<Weapon> process(Chunk<? extends Weapon> weaponList) {
-		List<Weapon> weaponListWithoutExtends = fromExtendsListToWeaponList(weaponList);
-		return filterDuplicates(weaponListWithoutExtends);
-	}
-
-	private List<Weapon> fromExtendsListToWeaponList(Chunk<? extends Weapon> weaponList) {
-		return weaponList
-				.getItems()
-				.stream()
-				.map(pageAware -> (Weapon) pageAware)
-				.collect(Collectors.toList());
-	}
-
-	private List<Weapon> filterDuplicates(List<Weapon> weaponList) {
-		return duplicateFilteringPreSavePageAwareProcessor.process(weaponList.stream()
-				.map(weapon -> (PageAware) weapon)
-				.collect(Collectors.toList()), Weapon.class).stream()
-				.map(pageAware -> (Weapon) pageAware)
-				.collect(Collectors.toList());
+		weaponRepository.saveAll(items.getItems());
 	}
 
 }

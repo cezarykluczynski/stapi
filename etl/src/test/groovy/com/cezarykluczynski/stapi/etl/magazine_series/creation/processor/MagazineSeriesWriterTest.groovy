@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.magazine_series.creation.processor
 
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries
 import com.cezarykluczynski.stapi.model.magazine_series.repository.MagazineSeriesRepository
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter
 import com.google.common.collect.Lists
 import org.springframework.batch.item.Chunk
 import spock.lang.Specification
@@ -11,17 +10,14 @@ class MagazineSeriesWriterTest extends Specification {
 
 	private MagazineSeriesRepository magazineSeriesRepositoryMock
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessorMock
-
 	private MagazineSeriesWriter magazineSeriesWriter
 
 	void setup() {
 		magazineSeriesRepositoryMock = Mock()
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
-		magazineSeriesWriter = new MagazineSeriesWriter(magazineSeriesRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
+		magazineSeriesWriter = new MagazineSeriesWriter(magazineSeriesRepositoryMock)
 	}
 
-	void "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		MagazineSeries magazine = new MagazineSeries()
 		List<MagazineSeries> magazineSeriesList = Lists.newArrayList(magazine)
@@ -30,10 +26,6 @@ class MagazineSeriesWriterTest extends Specification {
 		magazineSeriesWriter.write(new Chunk(magazineSeriesList))
 
 		then:
-		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, MagazineSeries) >> { args ->
-			assert args[0][0] == magazine
-			magazineSeriesList
-		}
 		1 * magazineSeriesRepositoryMock.saveAll(magazineSeriesList)
 		0 * _
 	}

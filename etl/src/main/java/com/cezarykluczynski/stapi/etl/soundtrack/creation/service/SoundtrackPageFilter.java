@@ -25,6 +25,7 @@ public class SoundtrackPageFilter extends AbstractMediaWikiPageFilter {
 
 	public SoundtrackPageFilter(CategorySortingService categorySortingService, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		super(MediaWikiPageFilterConfiguration.builder()
+				.skipRedirects(true)
 				.invalidSuffixes(INVALID_SUFFIXES)
 				.invalidCategoriesToBeSortedOnTopOf(INVALID_CATEGORIES_TO_BE_SORTED_ON_TOP_OF)
 				.build());
