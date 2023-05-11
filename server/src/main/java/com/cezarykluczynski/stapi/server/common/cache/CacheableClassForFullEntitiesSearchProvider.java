@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalO
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
+import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.google.common.collect.Lists;
@@ -23,7 +24,8 @@ public class CacheableClassForFullEntitiesSearchProvider {
 			Movie.class,
 			AstronomicalObject.class,
 			Character.class,
-			Performer.class
+			Performer.class,
+			Organization.class
 	);
 
 	private final EntityMetadataProvider entityMetadataProvider;

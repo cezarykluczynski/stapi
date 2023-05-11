@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalO
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
+import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.species.entity.Species
@@ -34,7 +35,7 @@ class CacheableClassForFullEntitiesSearchProviderTest extends Specification {
 		List<Class> listOfEntities = cacheableClassForFullEntitiesSearchProvider.listOfEntities
 
 		then:
-		listOfEntities == [Species, Movie, AstronomicalObject, Character, Performer, Series, Staff]
+		listOfEntities == [Species, Movie, AstronomicalObject, Character, Performer, Organization, Series, Staff]
 	}
 
 	void "cacheable entity is found"() {
