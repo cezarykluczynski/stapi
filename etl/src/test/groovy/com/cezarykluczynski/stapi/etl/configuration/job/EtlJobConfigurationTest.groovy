@@ -209,7 +209,7 @@ class EtlJobConfigurationTest extends Specification {
 		FactoryBean<Job> factoryBean = etlJobConfiguration.jobCreate()
 
 		then:
-		1 * jobBuilderMock.build() >> job
+		1 * jobBuilderMock.buildNext() >> job
 		factoryBean.object == job
 		0 * _
 	}

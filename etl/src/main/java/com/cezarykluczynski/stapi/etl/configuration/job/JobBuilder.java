@@ -1,9 +1,10 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
-import com.cezarykluczynski.stapi.etl.common.backup.BackupAfterStepJobExecutionListener;
+import com.cezarykluczynski.stapi.etl.common.backup.AfterLatestStepJobExecutionListener;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepNames;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -33,43 +35,44 @@ public class JobBuilder {
 
 	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 
-	private final BackupAfterStepJobExecutionListener backupAfterStepJobExecutionListener;
+	private final StepCompletenessDecider stepCompletenessDecider;
 
-	public synchronized Job build() {
+	private final AtomicInteger increment = new AtomicInteger(1);
+
+	public synchronized Job buildNext() {
 		stepConfigurationValidator.validate();
 
 		if (jobCompletenessDecider.isJobCompleted(JobName.JOB_CREATE)) {
 			return null;
 		}
 
-		org.springframework.batch.core.job.builder.JobBuilder jobBuilder = jobBuilderFactory.get(JobName.JOB_CREATE);
-		SimpleJobBuilder simpleJobBuilder = new SimpleJobBuilder(jobBuilder);
-
-		FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("create");
+		String jobName = String.format("create%d", increment.get());
+		FlowBuilder<Flow> flowBuilder = new FlowBuilder<>(jobName);
 		Map<String, StepProperties> stepPropertiesMap = stepToStepPropertiesProvider.provide();
 
 		List<String> stepNameList = StepNames.JOB_STEPS.get(JobName.JOB_CREATE);
-		boolean fromCalled = false;
-		boolean allStepsAreDisabled = true;
+		boolean stepToExecuteFound = true;
 
 		for (String stepName : stepNameList) {
-			if (stepPropertiesMap.get(stepName).isEnabled()) {
-				allStepsAreDisabled = false;
+			if (stepPropertiesMap.get(stepName).isEnabled() && !stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, stepName)) {
+				stepToExecuteFound = false;
 				Step step = applicationContext.getBean(stepName, Step.class);
-				if (fromCalled) {
-					flowBuilder.next(step);
-				} else {
-					fromCalled = true;
-					flowBuilder.from(step);
-				}
+				flowBuilder.from(step);
+				break;
 			}
 		}
 
-		return allStepsAreDisabled ? null : simpleJobBuilder
+		if (stepToExecuteFound) {
+			return null;
+		}
+
+		increment.incrementAndGet();
+
+		return new SimpleJobBuilder(jobBuilderFactory.get(JobName.JOB_CREATE))
 				.split(applicationContext.getBean(SimpleAsyncTaskExecutor.class))
 				.add(flowBuilder.build())
 				.end()
-				.listener(backupAfterStepJobExecutionListener)
+				.listener(applicationContext.getBean(AfterLatestStepJobExecutionListener.class))
 				.build();
 	}
 

@@ -18,7 +18,7 @@ class StepDiffProviderTest extends Specification {
 		stepDiffProvider = new StepDiffProvider(new StepDiffProperties(), stepDiffAllNamesProvider, PORT)
 	}
 
-	void "step diff is provided"() {
+	void "step diff is provided once"() {
 		given:
 		StepExecution stepExecution = new StepExecution(STEP_NAME, null)
 		List<String> previousNames = List.of('A', 'B', 'C', 'D')
@@ -30,6 +30,15 @@ class StepDiffProviderTest extends Specification {
 		then:
 		1 * stepDiffAllNamesProvider.get(STEP_NAME, _) >> previousNames
 		1 * stepDiffAllNamesProvider.get(STEP_NAME, _) >> currentNames
+		0 * _
+		stepDiff.stepName == STEP_NAME
+		stepDiff.uniquePreviousNames == ['A', 'B']
+		stepDiff.uniqueCurrentNames == ['E', 'F']
+
+		when:
+		stepDiff = stepDiffProvider.provide(stepExecution)
+
+		then:
 		0 * _
 		stepDiff.stepName == STEP_NAME
 		stepDiff.uniquePreviousNames == ['A', 'B']

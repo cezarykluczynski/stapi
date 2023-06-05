@@ -14,7 +14,7 @@ class StepDiffFormatterTest extends Specification {
 
 	void "formats diff for empty results"() {
 		given:
-		StepDiff stepDiff = new StepDiff(STEP_NAME, List.of(), List.of())
+		StepDiff stepDiff = new StepDiff(STEP_NAME, List.of(), List.of(), 0, 0)
 
 		when:
 		String result = stepDiffFormatter.format(stepDiff)
@@ -45,7 +45,7 @@ class StepDiffFormatterTest extends Specification {
 				'Sam Rutherford',
 				'Sylvo Toussant'
 		)
-		StepDiff stepDiff = new StepDiff(STEP_NAME, uniquePreviousNames, uniqueCurrentNames)
+		StepDiff stepDiff = new StepDiff(STEP_NAME, uniquePreviousNames, uniqueCurrentNames, 0, 0)
 
 		when:
 		String result = stepDiffFormatter.format(stepDiff)

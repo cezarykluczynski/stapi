@@ -33,10 +33,12 @@ public class StepConfigurationValidator {
 	}
 
 	public void validate() {
-		addAllToList();
-		addAllToMap();
-		validateNumberOfSteps();
-		validateOrder();
+		if (stepPropertiesList.isEmpty()) {
+			addAllToList();
+			addAllToMap();
+			validateNumberOfSteps();
+			validateOrder();
+		}
 	}
 
 	private void addAllToList() {

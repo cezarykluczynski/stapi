@@ -15,4 +15,8 @@ public class StepDiff {
 
 	private List<String> uniqueCurrentNames;
 
+	private int previousNamesSize;
+
+	private int currentNamesSize;
+
 }

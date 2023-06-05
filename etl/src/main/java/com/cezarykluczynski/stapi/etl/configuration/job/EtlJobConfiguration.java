@@ -208,7 +208,7 @@ public class EtlJobConfiguration {
 
 	@Bean
 	public FactoryBean<Job> jobCreate() {
-		return new JobFactoryBean(jobBuilder.build());
+		return new JobFactoryBean(jobBuilder.buildNext());
 	}
 
 	@Bean(name = StepName.CREATE_COMPANIES)

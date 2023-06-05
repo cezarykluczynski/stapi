@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.backup;
 
+import com.cezarykluczynski.stapi.etl.configuration.job.AsyncAfterJobExecutor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Entity;
@@ -16,9 +17,9 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class BackupAfterStepJobExecutionListener implements JobExecutionListener {
+public class AfterLatestStepJobExecutionListener implements JobExecutionListener {
 
-	private final BackupAfterStepExecutor backupAfterStepExecutor;
+	private final AsyncAfterJobExecutor asyncAfterJobExecutor;
 
 	public void afterJob(JobExecution jobExecution) {
 		final Collection<StepExecution> stepExecutions = jobExecution.getStepExecutions();
@@ -39,7 +40,7 @@ public class BackupAfterStepJobExecutionListener implements JobExecutionListener
 			log.warn("More than one step executed at once, steps {} will not have backup.", stepNamesWithoutBackup);
 		}
 		StepExecution stepExecutionToBackup = stepExecutionsSorted.get(stepExecutionsSorted.size() - 1);
-		backupAfterStepExecutor.execute(stepExecutionToBackup);
+		asyncAfterJobExecutor.execute(stepExecutionToBackup);
 	}
 
 }

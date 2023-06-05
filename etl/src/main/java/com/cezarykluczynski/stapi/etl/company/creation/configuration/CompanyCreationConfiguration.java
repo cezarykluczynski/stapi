@@ -29,13 +29,13 @@ public class CompanyCreationConfiguration {
 	@Bean
 	@DependsOn("batchDataSourceInitializer")
 	public CompanyReader companyReader() {
-		List<PageHeader> characters = Lists.newArrayList();
+		List<PageHeader> companies = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMPANIES)) {
-			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitles.COMPANIES, MediaWikiSource.MEMORY_ALPHA_EN));
+			companies.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitles.COMPANIES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new CompanyReader(SortingUtil.sortedUnique(characters));
+		return new CompanyReader(SortingUtil.sortedUnique(companies));
 	}
 
 }
