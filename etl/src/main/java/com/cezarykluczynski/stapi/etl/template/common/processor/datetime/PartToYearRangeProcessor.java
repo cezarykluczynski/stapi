@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.primitives.Ints;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -19,10 +20,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, YearRange> {
 
-	private static final Pattern PATTERN = Pattern.compile("^([\\d\\s]){0,5}(&ndash;|\\sto\\s)([\\d\\s]){0,5}$");
+	private static final Pattern PATTERN = Pattern.compile("^(?<start>[\\[\\d\\s\\]]{0,9})(&ndash;|\\sto\\s)(\\[\\[)?(?<end>[\\[\\d\\s\\]]{0,9})?$");
 
 	private final YearlinkToYearProcessor yearlinkToYearProcessor;
 
@@ -31,15 +33,6 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 	private final TemplateFilter templateFilter;
 
 	private final WikitextApi wikitextApi;
-
-	public PartToYearRangeProcessor(YearlinkToYearProcessor yearlinkToYearProcessor,
-			MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToMonthYearCandiateProcessor, TemplateFilter templateFilter,
-			WikitextApi wikitextApi) {
-		this.yearlinkToYearProcessor = yearlinkToYearProcessor;
-		this.monthlinkTemplateToMonthYearCandiateProcessor = monthlinkTemplateToMonthYearCandiateProcessor;
-		this.templateFilter = templateFilter;
-		this.wikitextApi = wikitextApi;
-	}
 
 	@Override
 	public YearRange process(Template.Part item) throws Exception {
@@ -64,10 +57,8 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 	private void enrichWithValue(String value, YearRange yearRange) {
 		Matcher matcher = PATTERN.matcher(value);
 		if (matcher.matches()) {
-			final int start = matcher.start(2);
-			final int end = matcher.end(2);
-			String from = value.substring(0, start);
-			String to = value.substring(end);
+			String from = matcher.group("start");
+			String to = matcher.group("end");
 			yearRange.setYearFrom(tryParseIntoYear(from));
 			yearRange.setYearTo(tryParseIntoYear(to));
 		}

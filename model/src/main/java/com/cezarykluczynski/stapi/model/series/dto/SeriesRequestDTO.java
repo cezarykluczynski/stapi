@@ -30,6 +30,8 @@ public class SeriesRequestDTO {
 
 	private LocalDate originalRunEndDateTo;
 
+	private Boolean companionSeries;
+
 	private RequestSortDTO sort;
 
 }

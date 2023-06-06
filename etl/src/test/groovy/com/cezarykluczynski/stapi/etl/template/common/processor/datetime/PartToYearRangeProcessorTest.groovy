@@ -49,9 +49,27 @@ class PartToYearRangeProcessorTest extends Specification {
 		yearRange.yearTo == 2000
 	}
 
-	void "returns start date and end date, when value contains then, separated by &ndash; and spaces"() {
+	void "returns start date and end date, when value contains them, separated by &ndash; and spaces"() {
 		when:
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('2001 &ndash; 2005', null))
+
+		then:
+		yearRange.yearFrom == 2001
+		yearRange.yearTo == 2005
+	}
+
+	void "returns start date and end date, when value contains them, separated by &ndash; and spaces, first is a link"() {
+		when:
+		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('[[2001]] &ndash; 2005', null))
+
+		then:
+		yearRange.yearFrom == 2001
+		yearRange.yearTo == 2005
+	}
+
+	void "returns start date and end date, when value contains them, separated by &ndash; and spaces, second is a link"() {
+		when:
+		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('2001 &ndash; [[2005]]', null))
 
 		then:
 		yearRange.yearFrom == 2001

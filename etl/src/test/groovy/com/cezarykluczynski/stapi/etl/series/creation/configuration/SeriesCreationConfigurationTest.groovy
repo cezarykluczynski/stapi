@@ -14,6 +14,7 @@ import com.google.common.collect.Lists
 class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE = 'TITLE'
+	private static final String TITLE_2 = 'TITLE_2'
 
 	private CategoryApi categoryApiMock
 
@@ -31,16 +32,19 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 
 	void "SeriesReader is created with all pages when step is not completed"() {
 		given:
-		List<PageHeader> pageHeaderList = Lists.newArrayList(new PageHeader(title: TITLE))
+		List<PageHeader> pageHeaderList1 = Lists.newArrayList(new PageHeader(title: TITLE))
+		List<PageHeader> pageHeaderList2 = Lists.newArrayList(new PageHeader(title: TITLE_2))
 
 		when:
 		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SERIES) >> false
-		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList1
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMPANION_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList2
 		0 * _
 		seriesReader.read().title == TITLE
+		seriesReader.read().title == TITLE_2
 		seriesReader.read() == null
 	}
 

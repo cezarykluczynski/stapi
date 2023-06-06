@@ -17,6 +17,10 @@ public class SeriesAbbreviation {
 	public static final String PIC = "PIC";
 	public static final String PRO = "PRO";
 	public static final String SNW = "SNW";
+	public static final String SA = "SA";
+	public static final String AT = "AT";
+	public static final String TRR = "TRR";
+	public static final String ST = "ST";
 
 	public static final Map<String, String> SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS = Maps.newLinkedHashMap();
 
@@ -33,6 +37,10 @@ public class SeriesAbbreviation {
 		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(PIC, PIC);
 		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(PRO, PRO);
 		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(SNW, SNW);
+		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(SA, SA);
+		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(AT, AT);
+		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(TRR, TRR);
+		SERIES_VARIANTS_TO_CANONICAL_ABBREVIATIONS.put(ST, ST);
 	}
 
 }

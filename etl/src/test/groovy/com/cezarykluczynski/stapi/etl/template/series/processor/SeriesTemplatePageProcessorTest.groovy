@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor
 
+import com.cezarykluczynski.stapi.etl.common.service.CategoryFinder
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
+import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesRunDateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfEpisodesProcessor
@@ -11,6 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.series.service.SeriesPageFilter
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
@@ -46,6 +49,10 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 	private NumberOfEpisodesProcessor numberOfEpisodesProcessorMock
 
+	private SeriesRunDateEnrichingProcessor seriesRunDateEnrichingProcessorMock
+
+	private CategoryFinder categoryFinderMock
+
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	void setup() {
@@ -57,9 +64,11 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		seriesTemplateCompanyProcessorMock = Mock()
 		numberOfPartsProcessorMock = Mock()
 		numberOfEpisodesProcessorMock = Mock()
+		seriesRunDateEnrichingProcessorMock = Mock()
+		categoryFinderMock = Mock()
 		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(seriesPageFilterMock, partToYearRangeProcessorMock,
 				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock,
-				numberOfPartsProcessorMock, numberOfEpisodesProcessorMock)
+				numberOfPartsProcessorMock, numberOfEpisodesProcessorMock, seriesRunDateEnrichingProcessorMock, categoryFinderMock)
 	}
 
 	void "returns null when page should be filtered out"() {
@@ -140,6 +149,12 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		then: 'episodes count is extracted'
 		1 * numberOfEpisodesProcessorMock.process(episodesCountPart) >> EPISODES_COUNT
 
+		then: 'original run date is set by enriching processor'
+		1 * seriesRunDateEnrichingProcessorMock.enrich(_)
+
+		then: 'companion series flag is decided'
+		1 * categoryFinderMock.hasAnyCategory(page, [CategoryTitle.STAR_TREK_COMPANION_SERIES]) >> true
+
 		then: 'all values are parsed'
 		seriesTemplate.title == TITLE
 		seriesTemplate.page == pageEntity
@@ -150,6 +165,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		seriesTemplate.originalBroadcaster == originalBroadcaster
 		seriesTemplate.seasonsCount == SEASONS_COUNT
 		seriesTemplate.episodesCount == EPISODES_COUNT
+		seriesTemplate.companionSeries
 	}
 
 }

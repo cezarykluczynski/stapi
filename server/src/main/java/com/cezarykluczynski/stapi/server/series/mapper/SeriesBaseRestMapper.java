@@ -8,14 +8,23 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CompanyHeaderRestMapper.class, DateMapper.class, RequestSortRestMapper.class})
 public interface SeriesBaseRestMapper {
 
+	@Mapping(target = "companionSeries", ignore = true)
 	SeriesRequestDTO mapBase(SeriesRestBeanParams performerRestBeanParams);
+
+	@AfterMapping
+	default void mapBase(SeriesRestBeanParams seriesRestBeanParams, @MappingTarget SeriesRequestDTO seriesRequestDTO) {
+		seriesRequestDTO.setCompanionSeries(false);
+	}
 
 	SeriesBase mapBase(Series series);
 

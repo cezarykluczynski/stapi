@@ -20,11 +20,14 @@ public class SeriesEpisodeStatisticsFixedValueProvider implements FixedValueProv
 		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.DS9, SeriesEpisodeStatisticsDTO.of(7, 173, 3));
 		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.VOY, SeriesEpisodeStatisticsDTO.of(7, 168, 4));
 		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.ENT, SeriesEpisodeStatisticsDTO.of(4, 97, 1));
-		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.PRO, SeriesEpisodeStatisticsDTO.of(1, 9, 0));
+		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.PRO, SeriesEpisodeStatisticsDTO.of(2, 19, 0));
+		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.AT, SeriesEpisodeStatisticsDTO.of(1, 14, 0));
+		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.TRR, SeriesEpisodeStatisticsDTO.of(4, 86, 0));
 	}
 
 	@Override
 	public FixedValueHolder<SeriesEpisodeStatisticsDTO> getSearchedValue(String key) {
 		return FixedValueHolder.of(ABBREVIATION_TO_STATISTICS_MAP.containsKey(key), ABBREVIATION_TO_STATISTICS_MAP.get(key));
 	}
+
 }

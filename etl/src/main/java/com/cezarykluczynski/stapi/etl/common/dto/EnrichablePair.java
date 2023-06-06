@@ -20,4 +20,8 @@ public final class EnrichablePair<I, O> {
 		return new EnrichablePair<>(input, output);
 	}
 
+	public static <I, O> EnrichablePair<I, O> ofSingle(I inputAndOutput) {
+		return new EnrichablePair<>(inputAndOutput, (O) inputAndOutput);
+	}
+
 }

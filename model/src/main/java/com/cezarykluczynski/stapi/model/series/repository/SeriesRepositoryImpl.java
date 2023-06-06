@@ -31,6 +31,7 @@ public class SeriesRepositoryImpl implements SeriesRepositoryCustom {
 		seriesQueryBuilder.between(Series_.productionEndYear, criteria.getProductionEndYearFrom(), criteria.getProductionEndYearTo());
 		seriesQueryBuilder.between(Series_.originalRunStartDate, criteria.getOriginalRunStartDateFrom(), criteria.getOriginalRunStartDateTo());
 		seriesQueryBuilder.between(Series_.originalRunEndDate, criteria.getOriginalRunEndDateFrom(), criteria.getOriginalRunEndDateTo());
+		seriesQueryBuilder.equal(Series_.companionSeries, criteria.getCompanionSeries());
 		seriesQueryBuilder.setSort(criteria.getSort());
 		seriesQueryBuilder.fetch(Series_.productionCompany);
 		seriesQueryBuilder.fetch(Series_.originalBroadcaster);

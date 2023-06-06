@@ -27,4 +27,6 @@ public class SeriesTemplate {
 
 	private Integer episodesCount;
 
+	private Boolean companionSeries;
+
 }

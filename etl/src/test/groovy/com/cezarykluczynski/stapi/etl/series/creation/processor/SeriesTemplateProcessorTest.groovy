@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import org.apache.commons.lang3.RandomUtils
 import spock.lang.Specification
 
 import java.time.LocalDate
@@ -26,6 +27,7 @@ class SeriesTemplateProcessorTest extends Specification {
 	private static final Integer SEASONS_COUNT = 1
 	private static final Integer EPISODES_COUNT = 2
 	private static final Integer FEATURE_LENGTH_EPISODES_COUNT = 3
+	private static final Boolean COMPANION_SERIES = RandomUtils.nextBoolean()
 
 	private UidGenerator uidGeneratorMock
 
@@ -50,7 +52,8 @@ class SeriesTemplateProcessorTest extends Specification {
 				productionYearRange: new YearRange(yearFrom: START_YEAR, yearTo: END_YEAR),
 				originalRunDateRange: new DateRange(startDate: START_DATE, endDate: END_DATE),
 			productionCompany: productionCompany,
-			originalBroadcaster: originalBroadcaster)
+			originalBroadcaster: originalBroadcaster,
+			companionSeries: COMPANION_SERIES)
 		SeriesEpisodeStatisticsDTO seriesEpisodeStatisticsDTO = SeriesEpisodeStatisticsDTO
 				.of(SEASONS_COUNT, EPISODES_COUNT, FEATURE_LENGTH_EPISODES_COUNT)
 		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder.found(seriesEpisodeStatisticsDTO)
@@ -73,6 +76,7 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.seasonsCount == SEASONS_COUNT
 		series.episodesCount == EPISODES_COUNT
 		series.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+		series.companionSeries == COMPANION_SERIES
 		series.productionCompany == productionCompany
 		series.originalBroadcaster == originalBroadcaster
 	}
@@ -103,6 +107,7 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.seasonsCount == null
 		series.episodesCount == null
 		series.featureLengthEpisodesCount == null
+		series.companionSeries == null
 		series.productionCompany == null
 		series.originalBroadcaster == null
 	}

@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.model.series.query.SeriesQueryBuilderFactory
 import com.google.common.collect.Lists
+import org.apache.commons.lang3.RandomUtils
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
@@ -27,6 +28,7 @@ class SeriesRepositoryImplTest extends Specification {
 	private static final LocalDate ORIGINAL_RUN_START_TO = LocalDate.of(1991, 3, 4)
 	private static final LocalDate ORIGINAL_RUN_END_FROM = LocalDate.of(1998, 5, 6)
 	private static final LocalDate ORIGINAL_RUN_END_TO = LocalDate.of(1999, 7, 8)
+	private static final Boolean COMPANION_SERIES = RandomUtils.nextBoolean()
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private SeriesQueryBuilderFactory seriesQueryBuilderMock
@@ -86,6 +88,10 @@ class SeriesRepositoryImplTest extends Specification {
 		1 * seriesRequestDTO.originalRunEndDateFrom >> ORIGINAL_RUN_END_FROM
 		1 * seriesRequestDTO.originalRunEndDateTo >> ORIGINAL_RUN_END_TO
 		1 * seriesQueryBuilder.between(Series_.originalRunEndDate, ORIGINAL_RUN_END_FROM, ORIGINAL_RUN_END_TO)
+
+		then: 'boolean criteria are set'
+		1 * seriesRequestDTO.companionSeries >> COMPANION_SERIES
+		1 * seriesQueryBuilder.equal(Series_.companionSeries, COMPANION_SERIES)
 
 		then: 'sort is set'
 		1 * seriesRequestDTO.sort >> SORT

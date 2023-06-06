@@ -5,22 +5,19 @@ import com.cezarykluczynski.stapi.etl.series.creation.dto.SeriesEpisodeStatistic
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Series> {
 
 	private final UidGenerator uidGenerator;
 
 	private final SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider;
-
-	public SeriesTemplateProcessor(UidGenerator uidGenerator, SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider) {
-		this.uidGenerator = uidGenerator;
-		this.seriesEpisodeStatisticsFixedValueProvider = seriesEpisodeStatisticsFixedValueProvider;
-	}
 
 	@Override
 	public Series process(SeriesTemplate item) throws Exception {
@@ -60,6 +57,8 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 			}
 			series.setFeatureLengthEpisodesCount(seriesEpisodeStatisticsDTO.getFeatureLengthEpisodesCount());
 		}
+
+		series.setCompanionSeries(item.getCompanionSeries());
 
 		return series;
 	}

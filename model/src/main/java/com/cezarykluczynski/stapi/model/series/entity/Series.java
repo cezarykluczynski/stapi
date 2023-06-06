@@ -59,6 +59,8 @@ public class Series extends PageAwareEntity implements PageAware {
 
 	private Integer featureLengthEpisodesCount;
 
+	private Boolean companionSeries;
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "production_company_id")
 	private Company productionCompany;

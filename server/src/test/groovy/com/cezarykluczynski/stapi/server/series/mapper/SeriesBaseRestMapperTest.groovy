@@ -45,6 +45,7 @@ class SeriesBaseRestMapperTest extends AbstractSeriesMapperTest {
 		seriesRequestDTO.originalRunStartDateTo == ORIGINAL_RUN_START_DATE_TO_DB
 		seriesRequestDTO.originalRunEndDateFrom == ORIGINAL_RUN_END_DATE_FROM_DB
 		seriesRequestDTO.originalRunEndDateTo == ORIGINAL_RUN_END_DATE_TO_DB
+		!seriesRequestDTO.companionSeries
 	}
 
 	void "maps DB entity to base REST entity"() {

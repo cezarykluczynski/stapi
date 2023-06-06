@@ -78,4 +78,5 @@
 	<include file="comic_collection/0075_extend_comic_collection.xml" relativeToChangelogFile="true"/>
 	<include file="video_release/0076_extend_video_release.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft_class/0077_extend_spacecraft_class.xml" relativeToChangelogFile="true"/>
+	<include file="series/0078_extend_series.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

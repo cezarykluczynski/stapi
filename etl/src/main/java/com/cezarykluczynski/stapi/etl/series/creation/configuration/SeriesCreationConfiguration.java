@@ -33,6 +33,7 @@ public class SeriesCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SERIES)) {
 			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN));
+			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_COMPANION_SERIES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new SeriesReader(SortingUtil.sortedUnique(pageHeaderList));
