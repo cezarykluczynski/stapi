@@ -51,6 +51,8 @@ public class Season extends PageAwareEntity implements PageAware {
 
 	private Integer numberOfEpisodes;
 
+	private Boolean companionSeriesSeason;
+
 	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, targetEntity = Episode.class)
 	private Set<Episode> episodes = Sets.newHashSet();
 

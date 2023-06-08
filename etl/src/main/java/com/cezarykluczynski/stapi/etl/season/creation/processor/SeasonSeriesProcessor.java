@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,13 @@ public class SeasonSeriesProcessor implements ItemProcessor<String, Series> {
 		if (seriesOptional.isPresent()) {
 			return seriesOptional.get();
 		} else {
+			final List<Series> series = seriesRepository.findAll();
+			for (Series singleSeries : series) {
+				final String singleSeriesTitle = singleSeries.getTitle();
+				if (item.startsWith(singleSeriesTitle)) {
+					return singleSeries;
+				}
+			}
 			throw new StapiRuntimeException(String.format("Could not get series for page %s using abbreviation %s", item, abbreviation));
 		}
 	}

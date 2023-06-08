@@ -90,4 +90,17 @@ class PageHeaderConverterTest extends Specification {
 		pageHeader.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
+	void "converts PageInfo to PageHeader"() {
+		given:
+		PageInfo pageInfo = new PageInfo(ns: MemoryAlpha.CONTENT_NAMESPACE, title: TITLE_1, pageid: PAGE_ID_1_STRING)
+
+		when:
+		PageHeader pageHeader = pageHeaderConverter.fromPageInfo(pageInfo, MEDIA_WIKI_SOURCE)
+
+		then:
+		pageHeader.pageId == PAGE_ID_1_LONG
+		pageHeader.title == TITLE_1
+		pageHeader.mediaWikiSource == MEDIA_WIKI_SOURCE
+	}
+
 }

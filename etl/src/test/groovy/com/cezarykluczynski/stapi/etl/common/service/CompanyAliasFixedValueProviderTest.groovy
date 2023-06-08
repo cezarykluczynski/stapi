@@ -13,13 +13,13 @@ class CompanyAliasFixedValueProviderTest extends Specification {
 		companyAliasFixedValueProvider = new CompanyAliasFixedValueProvider()
 	}
 
-	void "provides correct range"() {
+	void "provides correct alias"() {
 		expect:
 		companyAliasFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
 		companyAliasFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 'Playmates Toys'
 	}
 
-	void "provides missing range"() {
+	void "provides missing alias"() {
 		expect:
 		!companyAliasFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).found
 		companyAliasFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).value == null

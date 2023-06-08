@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.etl.mediawiki.cache.PageCacheStorage;
 import com.cezarykluczynski.stapi.etl.mediawiki.connector.bliki.BlikiConnector;
+import com.cezarykluczynski.stapi.etl.mediawiki.converter.PageHeaderConverter;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.etl.mediawiki.parser.XMLParseParser;
@@ -11,19 +12,21 @@ import com.cezarykluczynski.stapi.etl.mediawiki.parser.XMLQueryParser;
 import com.cezarykluczynski.stapi.etl.mediawiki.service.complement.ParseComplementingService;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import info.bliki.api.PageInfo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class PageApiImpl implements PageApi {
 
@@ -37,18 +40,11 @@ public class PageApiImpl implements PageApi {
 
 	private final ParseComplementingService parseComplementingService;
 
+	private final PageHeaderConverter pageHeaderConverter;
+
 	private final PageCacheStorage pageCacheStorage;
 
 	private final List<Pair<String, String>> loggedRedirects = Lists.newArrayList();
-
-	@SuppressFBWarnings("EI_EXPOSE_REP2")
-	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService,
-			PageCacheStorage pageCacheStorage) {
-		this.blikiConnector = blikiConnector;
-		this.wikitextApi = wikitextApi;
-		this.parseComplementingService = parseComplementingService;
-		this.pageCacheStorage = pageCacheStorage;
-	}
 
 	@Override
 	public Page getPage(String title, MediaWikiSource mediaWikiSource) {
@@ -71,6 +67,15 @@ public class PageApiImpl implements PageApi {
 		}
 
 		return pageList;
+	}
+
+	@Override
+	public List<PageHeader> getPageHeaders(List<String> titleList, MediaWikiSource mediaWikiSource) {
+		return titleList.stream()
+				.map(title -> getPageInfo(title, mediaWikiSource))
+				.filter(Objects::nonNull)
+				.map(pageInfo -> pageHeaderConverter.fromPageInfo(pageInfo, mediaWikiSource))
+				.collect(Collectors.toList());
 	}
 
 	@Override

@@ -19,12 +19,14 @@ class SeasonNumberProcessorTest extends Specification {
 		thrown(StapiRuntimeException)
 	}
 
-	void "extracts season number"() {
-		when:
-		Integer seasonNumber = seasonNumberProcessor.process('TNG Season 4')
+	void "returns null for specials seasons"() {
+		expect:
+		seasonNumberProcessor.process('The Ready Room Prodigy Specials') == null
+	}
 
-		then:
-		seasonNumber == 4
+	void "extracts season number"() {
+		expect:
+		seasonNumberProcessor.process('TNG Season 4') == 4
 	}
 
 }

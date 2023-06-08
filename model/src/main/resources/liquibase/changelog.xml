@@ -79,4 +79,5 @@
 	<include file="video_release/0076_extend_video_release.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft_class/0077_extend_spacecraft_class.xml" relativeToChangelogFile="true"/>
 	<include file="series/0078_extend_series.xml" relativeToChangelogFile="true"/>
+	<include file="season/0079_extend_season.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

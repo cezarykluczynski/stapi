@@ -5,6 +5,7 @@ public class CategoryTitle {
 	public static final String STAR_TREK_SERIES = "Star_Trek_series";
 	public static final String STAR_TREK_COMPANION_SERIES = "Star_Trek_companion_series";
 	public static final String STAR_TREK_SEASONS = "Star_Trek_seasons";
+	public static final String STAR_TREK_COMPANION_SEASONS = "Star_Trek_companion_seasons";
 
 	public static final String PRODUCTION_LISTS = "Production_lists";
 	public static final String LISTS = "Lists";

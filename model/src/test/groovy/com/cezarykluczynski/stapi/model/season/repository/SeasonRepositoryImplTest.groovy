@@ -61,6 +61,10 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 		1 * seasonRequestDTO.seasonNumberTo >> SEASON_NUMBER_TO
 		1 * seasonQueryBuilder.between(Season_.seasonNumber, SEASON_NUMBER_FROM, SEASON_NUMBER_TO)
 
+		then: 'boolean criteria are set'
+		1 * seasonRequestDTO.companionSeriesSeason >> COMPANION_SERIES_SEASON
+		1 * seasonQueryBuilder.equal(Season_.companionSeriesSeason, COMPANION_SERIES_SEASON)
+
 		then: 'sort is set'
 		1 * seasonRequestDTO.sort >> SORT
 		1 * seasonQueryBuilder.setSort(SORT)

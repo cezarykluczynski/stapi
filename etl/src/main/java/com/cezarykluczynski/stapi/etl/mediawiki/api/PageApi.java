@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.mediawiki.api;
 
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import info.bliki.api.PageInfo;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface PageApi {
 	PageInfo getPageInfo(String title, MediaWikiSource mediaWikiSource);
 
 	List<Page> getPages(List<String> titles, MediaWikiSource mediaWikiSource);
+
+	List<PageHeader> getPageHeaders(List<String> titles, MediaWikiSource mediaWikiSource);
 
 }

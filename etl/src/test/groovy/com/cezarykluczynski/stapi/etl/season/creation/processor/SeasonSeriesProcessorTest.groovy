@@ -7,8 +7,10 @@ import spock.lang.Specification
 
 class SeasonSeriesProcessorTest extends Specification {
 
-	private static final String PAGE_TITLE = 'DS9 Season 4'
-	private static final String ABBREVIATION = 'DS9'
+	private static final String DS9_SEASON_PAGE_TITLE = 'DS9 Season 4'
+	private static final String DS9_ABBREVIATION = 'DS9'
+	private static final String TRR_SEASON_PAGE_TITLE = 'The Ready Room Season 2'
+	private static final String TRR_SERIES_TITLE = 'The Ready Room'
 
 	private SeriesRepository seriesRepositoryMock
 
@@ -19,14 +21,16 @@ class SeasonSeriesProcessorTest extends Specification {
 		seasonSeriesProcessor = new SeasonSeriesProcessor(seriesRepositoryMock)
 	}
 
-	void "throws exception when series cannot be found by abbreviation"() {
+	void "throws exception when series cannot be found by abbreviation and by prefix"() {
 		given:
+		Series differentSeries = new Series(title: TRR_SERIES_TITLE)
 
 		when:
-		seasonSeriesProcessor.process(PAGE_TITLE)
+		seasonSeriesProcessor.process(DS9_SEASON_PAGE_TITLE)
 
 		then:
-		1 * seriesRepositoryMock.findByAbbreviation(ABBREVIATION) >> Optional.empty()
+		1 * seriesRepositoryMock.findByAbbreviation(DS9_ABBREVIATION) >> Optional.empty()
+		1 * seriesRepositoryMock.findAll() >> [differentSeries]
 		0 * _
 		thrown(StapiRuntimeException)
 	}
@@ -36,10 +40,24 @@ class SeasonSeriesProcessorTest extends Specification {
 		Series series = Mock()
 
 		when:
-		Series seriesOutput = seasonSeriesProcessor.process(PAGE_TITLE)
+		Series seriesOutput = seasonSeriesProcessor.process(DS9_SEASON_PAGE_TITLE)
 
 		then:
-		1 * seriesRepositoryMock.findByAbbreviation(ABBREVIATION) >> Optional.of(series)
+		1 * seriesRepositoryMock.findByAbbreviation(DS9_ABBREVIATION) >> Optional.of(series)
+		0 * _
+		seriesOutput == series
+	}
+
+	void "returns series when it can be found by prefix"() {
+		given:
+		Series series = new Series(title: TRR_SERIES_TITLE)
+
+		when:
+		Series seriesOutput = seasonSeriesProcessor.process(TRR_SEASON_PAGE_TITLE)
+
+		then:
+		1 * seriesRepositoryMock.findByAbbreviation('The') >> Optional.empty()
+		1 * seriesRepositoryMock.findAll() >> [series]
 		0 * _
 		seriesOutput == series
 	}

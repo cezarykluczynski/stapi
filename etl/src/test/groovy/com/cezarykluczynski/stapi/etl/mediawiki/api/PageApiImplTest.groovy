@@ -3,7 +3,9 @@ package com.cezarykluczynski.stapi.etl.mediawiki.api
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.etl.mediawiki.cache.PageCacheStorage
 import com.cezarykluczynski.stapi.etl.mediawiki.connector.bliki.BlikiConnector
+import com.cezarykluczynski.stapi.etl.mediawiki.converter.PageHeaderConverter
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.etl.mediawiki.service.complement.ParseComplementingService
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
@@ -55,6 +57,8 @@ class PageApiImplTest extends Specification {
 
 	private ParseComplementingService parseComplementingServiceMock
 
+	private PageHeaderConverter pageHeaderConverterMock
+
 	PageCacheStorage pageCacheStorageMock
 
 	private PageApiImpl pageApiImpl
@@ -63,8 +67,10 @@ class PageApiImplTest extends Specification {
 		blikiConnectorMock = Mock()
 		wikitextApiMock = Mock()
 		parseComplementingServiceMock = Mock()
+		pageHeaderConverterMock = Mock()
 		pageCacheStorageMock = Mock()
-		pageApiImpl = new PageApiImpl(blikiConnectorMock, wikitextApiMock, parseComplementingServiceMock, pageCacheStorageMock)
+		pageApiImpl = new PageApiImpl(blikiConnectorMock, wikitextApiMock, parseComplementingServiceMock, pageHeaderConverterMock,
+				pageCacheStorageMock)
 	}
 
 	void "gets page from title"() {
@@ -238,6 +244,24 @@ class PageApiImplTest extends Specification {
 		pageList[0].mediaWikiSource == MEDIA_WIKI_SOURCE
 		pageList[1].title == TITLE_2
 		pageList[1].mediaWikiSource == MEDIA_WIKI_SOURCE
+	}
+
+	void "gets page headers from found titles"() {
+		given:
+		PageHeader pageHeader1 = Mock()
+
+		when:
+		List<PageHeader> pageHeaderList = pageApiImpl.getPageHeaders(Lists.newArrayList(TITLE_1), MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.getPageInfo(TITLE_1, MEDIA_WIKI_SOURCE) >> XML_QUERY
+
+		then:
+		1 * pageHeaderConverterMock.fromPageInfo(_, MEDIA_WIKI_SOURCE) >> pageHeader1
+		0 * _
+
+		then:
+		pageHeaderList.size() == 1
 	}
 
 	void "gets page info"() {

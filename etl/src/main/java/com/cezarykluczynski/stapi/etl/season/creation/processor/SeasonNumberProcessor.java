@@ -15,6 +15,9 @@ public class SeasonNumberProcessor implements ItemProcessor<String, Integer> {
 		Integer seasonNumber = Ints.tryParse(seasonNumberCandidate);
 
 		if (seasonNumber == null) {
+			if (item.endsWith("Specials")) {
+				return null;
+			}
 			throw new StapiRuntimeException(String.format("Could not get series number from page title %s", item));
 		}
 

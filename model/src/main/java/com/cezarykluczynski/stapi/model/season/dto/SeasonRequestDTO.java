@@ -20,6 +20,8 @@ public class SeasonRequestDTO {
 
 	private Integer numberOfEpisodesTo;
 
+	private Boolean companionSeriesSeason;
+
 	private RequestSortDTO sort;
 
 }

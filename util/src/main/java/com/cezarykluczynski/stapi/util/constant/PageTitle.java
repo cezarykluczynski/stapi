@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.util.constant;
 
+import java.util.List;
+
 public class PageTitle {
 
 	public static final String UNKNOWN_PERFORMERS = "Unknown performers";
@@ -75,4 +77,7 @@ public class PageTitle {
 	public static final String MODULE_EPISODE_DATA_N = "Module:EpisodeData/N";
 	public static final String MODULE_EPISODE_DATA_P = "Module:EpisodeData/P";
 	public static final String MODULE_EPISODE_DATA_Y = "Module:EpisodeData/Y";
+
+	public static final String ST_SEASONS = "ST Seasons";
+	public static final List<String> ST_SEASONS_LIST = List.of("ST Season 1", "ST Season 2");
 }

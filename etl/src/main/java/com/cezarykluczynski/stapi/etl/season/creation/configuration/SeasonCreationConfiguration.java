@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.season.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.mediawiki.api.CategoryApi;
+import com.cezarykluczynski.stapi.etl.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonReader;
@@ -9,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Lists;
 import jakarta.inject.Inject;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,9 @@ public class SeasonCreationConfiguration {
 	private CategoryApi categoryApi;
 
 	@Inject
+	private PageApi pageApi;
+
+	@Inject
 	private StepCompletenessDecider stepCompletenessDecider;
 
 	@Bean
@@ -33,6 +38,8 @@ public class SeasonCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SEASONS)) {
 			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_SEASONS, MediaWikiSource.MEMORY_ALPHA_EN));
+			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_COMPANION_SEASONS, MediaWikiSource.MEMORY_ALPHA_EN));
+			pageHeaderList.addAll(pageApi.getPageHeaders(PageTitle.ST_SEASONS_LIST, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new SeasonReader(SortingUtil.sortedUnique(pageHeaderList));

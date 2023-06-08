@@ -28,6 +28,7 @@ public class SeasonRepositoryImpl implements SeasonRepositoryCustom {
 		seasonQueryBuilder.like(Season_.title, criteria.getTitle());
 		seasonQueryBuilder.between(Season_.numberOfEpisodes, criteria.getNumberOfEpisodesFrom(), criteria.getNumberOfEpisodesTo());
 		seasonQueryBuilder.between(Season_.seasonNumber, criteria.getSeasonNumberFrom(), criteria.getSeasonNumberTo());
+		seasonQueryBuilder.equal(Season_.companionSeriesSeason, criteria.getCompanionSeriesSeason());
 		seasonQueryBuilder.setSort(criteria.getSort());
 		seasonQueryBuilder.fetch(Season_.series);
 		seasonQueryBuilder.divideQueries();

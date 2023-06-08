@@ -33,6 +33,7 @@ class SeasonBaseRestMapperTest extends AbstractSeasonMapperTest {
 		seasonRequestDTO.seasonNumberTo == SEASON_NUMBER_TO
 		seasonRequestDTO.numberOfEpisodesFrom == NUMBER_OF_EPISODES_FROM
 		seasonRequestDTO.numberOfEpisodesTo == NUMBER_OF_EPISODES_TO
+		!seasonRequestDTO.companionSeriesSeason
 	}
 
 	void "maps DB entity to base REST entity"() {

@@ -43,7 +43,7 @@ public class PageHeaderConverter {
 		return pageHeader;
 	}
 
-	private PageHeader fromPageInfo(PageInfo pageInfo, MediaWikiSource mediaWikiSource) {
+	public PageHeader fromPageInfo(PageInfo pageInfo, MediaWikiSource mediaWikiSource) {
 		PageHeader pageHeader = new PageHeader();
 		pageHeader.setTitle(pageInfo.getTitle());
 		pageHeader.setPageId(Long.valueOf(pageInfo.getPageid()));
