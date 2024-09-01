@@ -5,38 +5,40 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: 'checkout'
+  - name: checkout
     dependencies: []
     task:
       jobs:
-        - name: 'checkout'
+        - name: checkout
           commands:
             - checkout
-  - name: 'build-jvm'
-    dependencies: ["checkout"]
+  - name: build-jvm
+    dependencies:
+      - checkout
     task:
       jobs:
-        - name: 'build-jvm'
+        - name: build-jvm
           commands:
             - sem-version java 17
             - checkout --use-cache
             - ./gradlew checkstyleMain spotbugsMain codenarcTest test
             - npm install -g junit-report-merger@3.0.0 && jrm build/junit-xml-jvm-report.xml "./**/build/test-results/test/TEST-*.xml"
-            - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+            - 'bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"'
       epilogue:
         always:
           commands:
             - test-results publish build/junit-xml-jvm-report.xml
-  - name: 'build-frontend'
-    dependencies: ["checkout"]
+  - name: build-frontend
+    dependencies:
+      - checkout
     task:
       jobs:
-        - name: 'build-frontend'
+        - name: build-frontend
           commands:
             - checkout --use-cache
             - cd server/src/main/web && npm ci && cd ../../../..
             - cd server/src/main/web && npm run lint && npm run test-once-cov && npm run build-prod && cd ../../../..
-            - bash <(curl -s https://codecov.io/bash) -f "server/src/main/web/coverage/lcov.info"
+            - 'bash <(curl -s https://codecov.io/bash) -f "server/src/main/web/coverage/lcov.info"'
       epilogue:
         always:
           commands:
@@ -44,6 +46,6 @@ blocks:
 after_pipeline:
   task:
     jobs:
-      - name: 'publish-results'
+      - name: publish-results
         commands:
           - test-results gen-pipeline-report
