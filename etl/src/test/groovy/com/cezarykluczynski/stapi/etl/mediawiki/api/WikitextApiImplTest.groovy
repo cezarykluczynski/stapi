@@ -3,6 +3,9 @@ package com.cezarykluczynski.stapi.etl.mediawiki.api
 import com.cezarykluczynski.stapi.etl.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.etl.template.common.factory.ExternalLinkFactory
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import org.jsoup.Jsoup
@@ -30,11 +33,95 @@ class WikitextApiImplTest extends Specification {
 			'25th Anniversary; Jenna Vaughn, A. Conan Doyle'
 	private static final String DIS_TEMPLATE_PAGE_NAME = 'Page'
 	private static final String DIS_TEMPLATE_PAGE_DETAIL = '(detail)'
+	private static final String TITLE = 'Jonathan Frakes'
+	private static final String TITLE_UNDERSCORE = 'Jonathan_Frakes'
+	private static final String WIKITEXT_EXTERNAL_LINKS_TEMPLATES = '{{facebook|StarTrek}}, {{IBDb-link|id=60702}}, ' +
+			'{{IBDb-link|type=person|id=66778|name=René Auberjonois}}, {{IMDb-ep|tt0708804|The Last Outpost}}, ' +
+			'{{IMDb-title|tt0088170|The Search For Spock}}, {{IMDb|name/nm0000638|James T. Kirk}}, ' +
+			'{{instagram|michael.chabon|Michael Chabon\'s Instagram feed}}, {{instagram|ashley_judd|Ashley Judd|external}}, ' +
+			'{{instagram|mollymaxineb}}, {{ISFDB|author|1339}}, {{mbeta}}, {{mb|Codobach}}, {{mbeta-quote|Exodus (novel)|Exodus}}, ' +
+			'{{mbeta-title|Salt mine}}, {{myspace|andydick|Andy Dick\'s profile}}, * {{myspace|topshelf55||external}}' +
+			'{{myspace|s=profile|index.cfm?fuseaction{{=}}user.viewprofile&friendID{{=}}63046395|Video|external}},' +
+			'{{sf-encyc|sturgeon_theodore|Ted Sturgeon}}, {{sf-encyc|gerrold_david}}, ' +
+			'{{sf-encyc|john|news}}, {{sf-encyc|terry-pratchett-(1948-2015)|Terry Pratchett obituary|news}}, ' +
+			'{{st.com|article/exclusive-interview-frequent-trek-guest-eric-pierpoint}}, ' +
+			'{{st.com|article/official-star-trek-convention-in-san-francisco}}, ' +
+			'{{startrek.com|database_article/chang-general|General Chang|bl=1}},' +
+			'{{Star Trek Minutiae|resources/scripts/202.txt}}, {{stowiki}}, {{stowiki|Species_8472}}, ' +
+			'{{triviatribute|brentspiner.html}}, {{twitter|simonpegg||external}}, {{twitter|carljones|bl=1}}, ' +
+			'{{wikipedia}}, {{wikipedia|Data}}, {{w|Butch and Sundance: The Early Days}}, {{wikipedia-title|Spot}}, ' +
+			'{{wikipedia-quote}}, {{wikipedia-quote|Klingon}}, {{wt|Romulan}}, {{wikiquote}}, {{wikiquote|Patrick Stewart}}, ' +
+			'{{youtube|TrekPro}}, {{YouTube|type=u|GeneraIGrin}}, {{YouTube|type=u|GeneraIGrinLong}}, ' +
+			'{{youtube|type=v|LXGsmTWi6X4}}, {{youtube|type=video|LXGsmTWi6X4Long}}, ' +
+			'{{YouTube|type=c|UCE8vp1lZ2Y4qx-rX48J40JA}}, {{YouTube|type=channel|UCE8vp1lZ2Y4qx-rX48J40JALong}}, ' +
+			'{{youtube|type=p|PLdJ4SzBYWAXmaGvnEN_w59rxvRleTiqvK}}, {{youtube|type=playlist|PLdJ4SzBYWAXmaGvnEN_w59rxvRleTiqvKLong}}'
 
 	WikitextApiImpl wikitextApiImpl
 
 	void setup() {
-		wikitextApiImpl = new WikitextApiImpl()
+		UidGenerator uidGenerator = Mock()
+		wikitextApiImpl = new WikitextApiImpl(new ExternalLinkFactory(uidGenerator))
+	}
+
+	void "gets external links from wikitext"() {
+		given:
+		Page page = new Page(title: TITLE)
+
+		when:
+		List<ExternalLink> externalLinks = wikitextApiImpl.getExternalLinksFromWikitext(WIKITEXT_EXTERNAL_LINKS_TEMPLATES, page)
+
+		then:
+		externalLinks.stream().anyMatch { it.link == "https://memory-alpha.fandom.com/wiki/$TITLE_UNDERSCORE" }
+		externalLinks.stream().anyMatch { it.link == 'https://www.facebook.com/StarTrek' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.ibdb.com/person.php?id=60702' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.ibdb.com/person.php?id=66778' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.imdb.com/title/tt0708804' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.imdb.com/title/tt0088170' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.imdb.com/name/nm0000638' }
+		externalLinks.stream().anyMatch { it.link == 'https://instagram.com/michael.chabon' }
+		externalLinks.stream().anyMatch { it.link == 'https://instagram.com/ashley_judd' }
+		externalLinks.stream().anyMatch { it.link == 'https://instagram.com/mollymaxineb' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.isfdb.org/cgi-bin/ea.cgi?1339' }
+		externalLinks.stream().anyMatch { it.link == "https://memory-beta.fandom.com/wiki/$TITLE_UNDERSCORE" }
+		externalLinks.stream().anyMatch { it.link == 'https://memory-beta.fandom.com/wiki/Exodus_(novel)' }
+		externalLinks.stream().anyMatch { it.link == 'https://memory-beta.fandom.com/wiki/Salt_mine' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.myspace.com/andydick' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.myspace.com/topshelf55' }
+		externalLinks.stream().noneMatch { it.link == 'https://www.myspace.com/s=profile' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.sf-encyclopedia.com/entry/sturgeon_theodore' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.sf-encyclopedia.com/entry/gerrold_david' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.sf-encyclopedia.com/news/john' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.sf-encyclopedia.com/news/terry-pratchett-(1948-2015)' }
+		externalLinks.stream().noneMatch { it.link == 'https://www.sf-encyclopedia.com/news/sturgeon_theodore' }
+		externalLinks.stream().noneMatch { it.link == 'https://www.sf-encyclopedia.com/news/gerrold_david' }
+		externalLinks.stream().noneMatch { it.link == 'https://www.sf-encyclopedia.com/entry/john' }
+		externalLinks.stream().noneMatch { it.link == 'https://www.sf-encyclopedia.com/entry/terry-pratchett-(1948-2015)' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.startrek.com/article/exclusive-interview-frequent-trek-guest-eric-pierpoint' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.startrek.com/article/official-star-trek-convention-in-san-francisco' }
+		externalLinks.stream().noneMatch { it.link.contains('database_article/chang-general') }
+		externalLinks.stream().anyMatch { it.link == 'https://www.st-minutiae.com/resources/scripts/202.txt' }
+		externalLinks.stream().anyMatch { it.link == "https://stowiki.net/wiki/$TITLE_UNDERSCORE" }
+		externalLinks.stream().anyMatch { it.link == 'https://stowiki.net/wiki/Species_8472' }
+		externalLinks.stream().anyMatch { it.link == 'https://triviatribute.com/brentspiner.html' }
+		externalLinks.stream().anyMatch { it.link == 'https://x.com/simonpegg' }
+		externalLinks.stream().noneMatch { it.link == 'https://x.com/carljones' }
+		externalLinks.stream().anyMatch { it.link == "https://en.wikipedia.org/wiki/$TITLE_UNDERSCORE" }
+		externalLinks.stream().anyMatch { it.link == 'https://en.wikipedia.org/wiki/Data' }
+		externalLinks.stream().anyMatch { it.link == 'https://en.wikipedia.org/wiki/Butch_and_Sundance:_The_Early_Days' }
+		externalLinks.stream().anyMatch { it.link == 'https://en.wikipedia.org/wiki/Spot' }
+		externalLinks.stream().anyMatch { it.link == 'https://en.wikipedia.org/wiki/Klingon' }
+		externalLinks.stream().anyMatch { it.link == 'https://en.wikipedia.org/wiki/Romulan' }
+		externalLinks.stream().anyMatch { it.link == "https://en.wikiquote.org/wiki/$TITLE_UNDERSCORE" }
+		externalLinks.stream().anyMatch { it.link == 'https://en.wikiquote.org/wiki/Patrick_Stewart' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/TrekPro' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/user/GeneraIGrin' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/user/GeneraIGrinLong' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/watch?v=LXGsmTWi6X4' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/watch?v=LXGsmTWi6X4Long' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/channel/UCE8vp1lZ2Y4qx-rX48J40JA' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/channel/UCE8vp1lZ2Y4qx-rX48J40JALong' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/playlist?list=PLdJ4SzBYWAXmaGvnEN_w59rxvRleTiqvK' }
+		externalLinks.stream().anyMatch { it.link == 'https://www.youtube.com/playlist?list=PLdJ4SzBYWAXmaGvnEN_w59rxvRleTiqvKLong' }
 	}
 
 	void "gets titles from wikitext"() {

@@ -1,0 +1,24 @@
+package com.cezarykluczynski.stapi.model.external_link.entity.enums;
+
+public enum ExternalLinkType {
+
+	CHAKOTEYA,
+	FACEBOOK,
+	IBDB,
+	IMDB,
+	ISFDB,
+	INSTAGRAM,
+	MEMORY_ALPHA,
+	MEMORY_BETA,
+	MYSPACE,
+	SF_ENCYCLOPEDIA,
+	STAR_TREK_COM,
+	STAR_TREK_MINUTIAE,
+	STAR_TREK_ONLINE_WIKI,
+	TRIVIA_TRIBUTE,
+	TWITTER,
+	WIKIPEDIA,
+	WIKIQUOTE,
+	YOUTUBE
+
+}

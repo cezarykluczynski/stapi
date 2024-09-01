@@ -251,7 +251,7 @@ class UidGeneratorTest extends Specification {
 	}
 
 	@Unroll('when #genreName is passed, #uid is returned for Genre')
-	void "when genre name is passed, it is converted to uid for Genre"() {
+	void "when genre name is passed, it is converted to uid"() {
 		expect:
 		uidGenerator.generateForGenre(genreName) == uid
 
@@ -261,6 +261,19 @@ class UidGeneratorTest extends Specification {
 		''                 | null
 		'Action'           | 'GENR004BF6C9A4'
 		'Action adventure' | 'GENRAAC3395B45'
+	}
+
+	@Unroll('when #externalLink is passed, #uid is returned for ExternalLink')
+	void "when external link is passed, it is converted to uid"() {
+		expect:
+		uidGenerator.generateForExternalLink(externalLink) == uid
+
+		where:
+		externalLink                          | uid
+		null                                  | null
+		''                                    | null
+		'https://www.facebook.com/StarTrek'   | 'EXLIC81AC68972'
+		'https://www.youtube.com/@WilWheaton' | 'EXLIC646EA8961'
 	}
 
 	@Unroll('when #code is passed, #uid is returned for Platform')
