@@ -17,8 +17,10 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="broadcaster" type="boolean"/>
+			<column name="streaming_service" type="boolean"/>
 			<column name="collectible_company" type="boolean"/>
 			<column name="conglomerate" type="boolean"/>
+			<column name="visual_effects_company" type="boolean"/>
 			<column name="digital_visual_effects_company" type="boolean"/>
 			<column name="distributor" type="boolean"/>
 			<column name="game_company" type="boolean"/>
@@ -33,6 +35,8 @@
 			<column name="special_effects_company" type="boolean"/>
 			<column name="tv_and_film_production_company" type="boolean"/>
 			<column name="video_game_company" type="boolean"/>
+			<column name="publisher" type="boolean"/>
+			<column name="publication_art_studio" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="company_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

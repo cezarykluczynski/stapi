@@ -1,0 +1,126 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0040_create_soundtrack" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="soundtrack">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="release_date" type="date"/>
+			<column name="length" type="int"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="soundtrack_sequence" schemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="soundtrack"
+				baseTableSchemaName="stapi"
+				constraintName="soundtrack_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="soundtracks_labels">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_labels"
+				baseTableSchemaName="stapi"
+				constraintName="sl_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="soundtracks_labels"
+				baseTableSchemaName="stapi"
+				constraintName="sl_company_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="soundtracks_composers">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_composers"
+				baseTableSchemaName="stapi"
+				constraintName="sc_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="soundtracks_composers"
+				baseTableSchemaName="stapi"
+				constraintName="sc_composer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="soundtracks_contributors">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_contributors"
+				baseTableSchemaName="stapi"
+				constraintName="sco_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="soundtracks_contributors"
+				baseTableSchemaName="stapi"
+				constraintName="sco_contributor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="soundtracks_orchestrators">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_orchestrators"
+				baseTableSchemaName="stapi"
+				constraintName="sor_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="soundtracks_orchestrators"
+				baseTableSchemaName="stapi"
+				constraintName="sor_contributor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="soundtracks_references">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="reference_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_references"
+				baseTableSchemaName="stapi"
+				constraintName="sr_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="reference_id"
+				baseTableName="soundtracks_references"
+				baseTableSchemaName="stapi"
+				constraintName="sr_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
+	</changeSet>
+</databaseChangeLog>

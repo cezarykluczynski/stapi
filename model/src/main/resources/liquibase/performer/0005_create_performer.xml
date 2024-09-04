@@ -23,11 +23,19 @@
 			<column name="date_of_death" type="date"/>
 			<column name="place_of_death" type="varchar(128)"/>
 			<column name="animal_performer" type="boolean"/>
+			<column name="audiobook_performer" type="boolean"/>
+			<column name="cut_performer" type="boolean"/>
 			<column name="dis_performer" type="boolean"/>
 			<column name="ds9_performer" type="boolean"/>
 			<column name="ent_performer" type="boolean"/>
 			<column name="film_performer" type="boolean"/>
+			<column name="ld_performer" type="boolean"/>
+			<column name="pic_performer" type="boolean"/>
+			<column name="pro_performer" type="boolean"/>
+			<column name="puppeteer" type="boolean"/>
+			<column name="snw_performer" type="boolean"/>
 			<column name="stand_in_performer" type="boolean"/>
+			<column name="st_performer" type="boolean"/>
 			<column name="stunt_performer" type="boolean"/>
 			<column name="tas_performer" type="boolean"/>
 			<column name="tng_performer" type="boolean"/>

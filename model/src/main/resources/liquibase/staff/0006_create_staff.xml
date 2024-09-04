@@ -34,9 +34,11 @@
 			<column name="assistant_or_second_unit" type="boolean"/>
 			<column name="exhibit_and_attraction_staff" type="boolean"/>
 			<column name="film_editor" type="boolean"/>
+			<column name="filmation_production_staff" type="boolean"/>
 			<column name="linguist" type="boolean"/>
 			<column name="location_staff" type="boolean"/>
 			<column name="makeup_staff" type="boolean"/>
+			<column name="merchandise_staff" type="boolean"/>
 			<column name="music_department" type="boolean"/>
 			<column name="composer" type="boolean"/>
 			<column name="personal_assistant" type="boolean"/>
@@ -53,6 +55,7 @@
 			<column name="comic_artist" type="boolean"/>
 			<column name="comic_author" type="boolean"/>
 			<column name="comic_color_artist" type="boolean"/>
+			<column name="comic_cover_artist" type="boolean"/>
 			<column name="comic_interior_artist" type="boolean"/>
 			<column name="comic_ink_artist" type="boolean"/>
 			<column name="comic_pencil_artist" type="boolean"/>

@@ -208,5 +208,24 @@
 				referencedColumnNames="id"
 				referencedTableName="comics"
 				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="comic_collections_child_series">
+			<column name="comic_collection_id" type="bigint"/>
+			<column name="comic_series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
+				baseTableName="comic_collections_child_series"
+				baseTableSchemaName="stapi"
+				constraintName="cccs_comic_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_collection"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="comic_series_id"
+				baseTableName="comic_collections_child_series"
+				baseTableSchemaName="stapi"
+				constraintName="cccs_child_comic_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_series"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

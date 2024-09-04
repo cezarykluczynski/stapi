@@ -2,8 +2,8 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0004_create_season" author="cezarykluczynski">
-		<createTable schemaName="stapi" tableName="season">
+	<changeSet id="0029_create_literature" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="literature">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -13,30 +13,23 @@
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="title" type="varchar(64)">
-				<constraints nullable="false" unique="true"/>
-			</column>
-			<column name="series_id" type="bigint">
+			<column name="title" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="season_number" type="int"/>
-			<column name="number_of_episodes" type="int"/>
-			<column name="companion_series_season" type="boolean"/>
+			<column name="earthly_origin" type="boolean"/>
+			<column name="shakespearean_work" type="boolean"/>
+			<column name="report" type="boolean"/>
+			<column name="scientific_literature" type="boolean"/>
+			<column name="technical_manual" type="boolean"/>
+			<column name="religious_literature" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="season_sequence" schemaName="stapi"/>
+		<createSequence incrementBy="1" sequenceName="literature_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
-				baseTableName="season"
+				baseTableName="literature"
 				baseTableSchemaName="stapi"
-				constraintName="season_page_fkey"
+				constraintName="literature_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"
-				referencedTableSchemaName="stapi"/>
-		<addForeignKeyConstraint baseColumnNames="series_id"
-				baseTableName="season"
-				baseTableSchemaName="stapi"
-				constraintName="season_series_fkey"
-				referencedColumnNames="id"
-				referencedTableName="series"
 				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

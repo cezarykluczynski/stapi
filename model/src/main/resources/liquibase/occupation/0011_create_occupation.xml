@@ -16,9 +16,17 @@
 			<column name="name" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="arts_occupation" type="boolean"/>
+			<column name="communication_occupation" type="boolean"/>
+			<column name="economic_occupation" type="boolean"/>
+			<column name="education_occupation" type="boolean"/>
+			<column name="entertainment_occupation" type="boolean"/>
+			<column name="illegal_occupation" type="boolean"/>
 			<column name="legal_occupation" type="boolean"/>
 			<column name="medical_occupation" type="boolean"/>
 			<column name="scientific_occupation" type="boolean"/>
+			<column name="sports_occupation" type="boolean"/>
+			<column name="victual_occupation" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="occupation_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

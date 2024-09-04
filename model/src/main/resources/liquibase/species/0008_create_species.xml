@@ -21,6 +21,7 @@
 			<column name="extra_galactic_species" type="boolean"/>
 			<column name="humanoid_species" type="boolean"/>
 			<column name="reptilian_species" type="boolean"/>
+			<column name="avian_species" type="boolean"/>
 			<column name="non_corporeal_species" type="boolean"/>
 			<column name="shapeshifting_species" type="boolean"/>
 			<column name="spaceborne_species" type="boolean"/>

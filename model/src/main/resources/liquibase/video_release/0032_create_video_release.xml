@@ -1,0 +1,205 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0032_create_video_release" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="video_release">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="format" type="varchar(16)"/>
+			<column name="number_of_episodes" type="int"/>
+			<column name="number_of_fl_episodes" type="int"/>
+			<column name="number_of_data_carriers" type="int"/>
+			<column name="run_time" type="int"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
+			<column name="region_free_release_date" type="date"/>
+			<column name="region_1a_release_date" type="date"/>
+			<column name="region_1_slimline_release_date" type="date"/>
+			<column name="region_2b_release_date" type="date"/>
+			<column name="region_2_slimline_release_date" type="date"/>
+			<column name="region_4_release_date" type="date"/>
+			<column name="region_4_slimline_release_date" type="date"/>
+			<column name="amazon_digital_release" type="boolean"/>
+			<column name="dailymotion_digital_release" type="boolean"/>
+			<column name="google_play_digital_release" type="boolean"/>
+			<column name="i_tunes_digital_release" type="boolean"/>
+			<column name="ultra_violet_digital_release" type="boolean"/>
+			<column name="vimeo_digital_release" type="boolean"/>
+			<column name="vudu_digital_release" type="boolean"/>
+			<column name="xbox_smart_glass_digital" type="boolean"/>
+			<column name="you_tube_digital_release" type="boolean"/>
+			<column name="netflix_digital_release" type="boolean"/>
+			<column name="documentary" type="boolean"/>
+			<column name="special_features" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="video_release_sequence" schemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="video_release"
+				baseTableSchemaName="stapi"
+				constraintName="video_release_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_references">
+			<column name="video_release_id" type="bigint"/>
+			<column name="reference_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_references"
+				baseTableSchemaName="stapi"
+				constraintName="vrre_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="reference_id"
+				baseTableName="video_releases_references"
+				baseTableSchemaName="stapi"
+				constraintName="vrre_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_ratings">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_rating_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_ratings"
+				baseTableSchemaName="stapi"
+				constraintName="vrra_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="content_rating_id"
+				baseTableName="video_releases_ratings"
+				baseTableSchemaName="stapi"
+				constraintName="vrra_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_rating"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_languages">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_language_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_languages"
+				baseTableSchemaName="stapi"
+				constraintName="vrl_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="content_language_id"
+				baseTableName="video_releases_languages"
+				constraintName="vrl_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_language"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_languages_sub">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_language_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_languages_sub"
+				baseTableSchemaName="stapi"
+				constraintName="vrls_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="content_language_id"
+				baseTableName="video_releases_languages_sub"
+				constraintName="vrls_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_language"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_languages_dub">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_language_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_languages_dub"
+				baseTableSchemaName="stapi"
+				constraintName="vrld_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="content_language_id"
+				baseTableName="video_releases_languages_dub"
+				baseTableSchemaName="stapi"
+				constraintName="vrld_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_language"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_series">
+			<column name="video_release_id" type="bigint"/>
+			<column name="series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_series"
+				baseTableSchemaName="stapi"
+				constraintName="vrser_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="series_id"
+				baseTableName="video_releases_series"
+				baseTableSchemaName="stapi"
+				constraintName="vrser_season_fkey"
+				referencedColumnNames="id"
+				referencedTableName="series"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_seasons">
+			<column name="video_release_id" type="bigint"/>
+			<column name="season_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_seasons"
+				baseTableSchemaName="stapi"
+				constraintName="vrsea_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="season_id"
+				baseTableName="video_releases_seasons"
+				baseTableSchemaName="stapi"
+				constraintName="vrsea_season_fkey"
+				referencedColumnNames="id"
+				referencedTableName="season"
+				referencedTableSchemaName="stapi"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_movies">
+			<column name="video_release_id" type="bigint"/>
+			<column name="movie_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_movies"
+				baseTableSchemaName="stapi"
+				constraintName="vrm_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="video_releases_movies"
+				baseTableSchemaName="stapi"
+				constraintName="vrm_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
+	</changeSet>
+</databaseChangeLog>

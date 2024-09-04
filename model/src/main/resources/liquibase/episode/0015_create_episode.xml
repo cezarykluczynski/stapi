@@ -19,9 +19,7 @@
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="title" type="varchar(128)">
-				<constraints nullable="false" unique="true"/>
-			</column>
+			<column name="title" type="varchar(128)" />
 			<column name="title_german" type="varchar(128)"/>
 			<column name="title_italian" type="varchar(128)"/>
 			<column name="title_japanese" type="varchar(256)"/>
@@ -58,6 +56,11 @@
 				referencedColumnNames="id"
 				referencedTableName="season"
 				referencedTableSchemaName="stapi"/>
+		<addUniqueConstraint
+				columnNames="title, series_id"
+				constraintName="episode_unique_title_series_id"
+				schemaName="stapi"
+				tableName="episode"/>
 
 		<createTable schemaName="stapi" tableName="episodes_writers">
 			<column name="episode_id" type="bigint"/>

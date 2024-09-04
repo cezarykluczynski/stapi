@@ -2,8 +2,8 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0009_create_title" author="cezarykluczynski">
-		<createTable schemaName="stapi" tableName="title">
+	<changeSet id="0041_create_weapon" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="weapon">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -13,21 +13,26 @@
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="name" type="varchar(64)">
+			<column name="name" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="military_rank" type="boolean"/>
-			<column name="fleet_rank" type="boolean"/>
-			<column name="religious_title" type="boolean"/>
-			<column name="education_title" type="boolean"/>
-			<column name="position" type="boolean"/>
+			<column name="hand_held_weapon" type="boolean"/>
+			<column name="laser_technology" type="boolean"/>
+			<column name="plasma_technology" type="boolean"/>
+			<column name="photonic_technology" type="boolean"/>
+			<column name="phaser_technology" type="boolean"/>
+			<column name="directed_energy_weapon" type="boolean"/>
+			<column name="explosive_weapon" type="boolean"/>
+			<column name="projectile_weapon" type="boolean"/>
+			<column name="fictional_weapon" type="boolean"/>
 			<column name="mirror" type="boolean"/>
+			<column name="alternate_reality" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="title_sequence" schemaName="stapi"/>
+		<createSequence incrementBy="1" sequenceName="weapon_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
-				baseTableName="title"
+				baseTableName="weapon"
 				baseTableSchemaName="stapi"
-				constraintName="title_page_fkey"
+				constraintName="weapon_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"
 				referencedTableSchemaName="stapi"/>
