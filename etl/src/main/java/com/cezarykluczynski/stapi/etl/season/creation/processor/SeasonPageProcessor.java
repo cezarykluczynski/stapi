@@ -19,6 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
 
+	private final SeasonPageFilter seasonPageFilter;
+
 	private final UidGenerator uidGenerator;
 
 	private final PageBindingService pageBindingService;
@@ -33,6 +35,9 @@ public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
 
 	@Override
 	public Season process(Page item) throws Exception {
+		if (seasonPageFilter.shouldBeFilteredOut(item)) {
+			return null;
+		}
 		String pageTitle = item.getTitle();
 		Season season = new Season();
 		if (PageTitle.ST_SEASONS.equals(pageTitle)) {

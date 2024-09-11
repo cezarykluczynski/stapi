@@ -18,8 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SeasonNumberOfEpisodesProcessor implements ItemProcessor<Page, Integer> {
 
-	private static final String DIS_TEMPLATE_EPISODE_PART_VALUE = "episode";
-
 	private final PageApi pageApi;
 	private final TemplateFinder templateFinder;
 
@@ -31,15 +29,11 @@ public class SeasonNumberOfEpisodesProcessor implements ItemProcessor<Page, Inte
 			log.info("Could not get template {}, returning null number of episodes.", pageTitle);
 			return null;
 		}
-		final List<Template> episodesTemplates = templateFinder.findTemplates(templatePage, TemplateTitle.DIS, TemplateTitle.E);
+		final List<Template> episodesTemplates = templateFinder.findTemplates(templatePage, TemplateTitle.ROW);
 		int numberOfEpisodes = 0;
 		for (Template episodeTemplate : episodesTemplates) {
-			final boolean hasEpisodePart = episodeTemplate.getParts().stream()
-					.anyMatch(part -> DIS_TEMPLATE_EPISODE_PART_VALUE.equals(part.getValue()));
-			if (TemplateTitle.E.equals(episodeTemplate.getTitle()) || hasEpisodePart) {
+			if (TemplateTitle.ROW.equalsIgnoreCase(episodeTemplate.getTitle())) {
 				numberOfEpisodes++;
-			} else {
-				log.warn("Found dis template that is not a episode disambiguation for page {}: {}.", pageTitle, episodeTemplate);
 			}
 		}
 

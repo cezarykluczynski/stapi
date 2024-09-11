@@ -21,6 +21,8 @@ class SeasonPageProcessorTest extends Specification {
 	private static final Integer NUMBER_OF_EPISODES = 26
 	private static final Boolean COMPANION_SERIES = RandomUtils.nextBoolean()
 
+	private SeasonPageFilter seasonPageFilterMock
+
 	private UidGenerator uidGeneratorMock
 
 	private PageBindingService pageBindingServiceMock
@@ -36,14 +38,29 @@ class SeasonPageProcessorTest extends Specification {
 	private SeasonPageProcessor seasonPageProcessor
 
 	void setup() {
+		seasonPageFilterMock = Mock()
 		uidGeneratorMock = Mock()
 		pageBindingServiceMock = Mock()
 		seasonSeriesProcessorMock = Mock()
 		seasonNumberOfEpisodesFixedValueProviderMock = Mock()
 		seasonNumberProcessorMock = Mock()
 		seasonNumberOfEpisodesProcessorMock = Mock()
-		seasonPageProcessor = new SeasonPageProcessor(uidGeneratorMock, pageBindingServiceMock, seasonSeriesProcessorMock,
-				seasonNumberOfEpisodesFixedValueProviderMock, seasonNumberProcessorMock, seasonNumberOfEpisodesProcessorMock)
+		seasonPageProcessor = new SeasonPageProcessor(seasonPageFilterMock, uidGeneratorMock, pageBindingServiceMock,
+				seasonSeriesProcessorMock, seasonNumberOfEpisodesFixedValueProviderMock, seasonNumberProcessorMock,
+				seasonNumberOfEpisodesProcessorMock)
+	}
+
+	void "should return null when page should be filtered out"() {
+		given:
+		SourcesPage page = Mock()
+
+		when:
+		Season season = seasonPageProcessor.process(page)
+
+		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(page) >> true
+		0 * _
+		season == null
 	}
 
 	void "parses page when it's not a page with multiple seasons"() {
@@ -56,6 +73,7 @@ class SeasonPageProcessorTest extends Specification {
 		Season season = seasonPageProcessor.process(sourcesPage)
 
 		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(sourcesPage) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(sourcesPage) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Season) >> UID
 		1 * seasonSeriesProcessorMock.process(TITLE) >> series
@@ -87,6 +105,7 @@ class SeasonPageProcessorTest extends Specification {
 		Season season = seasonPageProcessor.process(sourcesPage)
 
 		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(sourcesPage) >> false
 		1 * pageBindingServiceMock.fromPageHeaderToPageEntity(stSeasonPageHeader) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Season) >> UID
 		1 * seasonSeriesProcessorMock.process(stSeasonPageTitle) >> series
@@ -111,6 +130,7 @@ class SeasonPageProcessorTest extends Specification {
 		Season season = seasonPageProcessor.process(sourcesPage)
 
 		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(sourcesPage) >> false
 		0 * _
 		season == null
 	}

@@ -45,7 +45,7 @@ class SeasonNumberOfEpisodesProcessorTest extends Specification {
 
 		then:
 		1 * pageApiMock.getTemplate(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> templatePage
-		1 * templateFinderMock.findTemplates(templatePage, TemplateTitle.DIS, TemplateTitle.E) >> []
+		1 * templateFinderMock.findTemplates(templatePage, TemplateTitle.ROW) >> []
 		0 * _
 		numberOfEpisodes == null
 	}
@@ -53,10 +53,8 @@ class SeasonNumberOfEpisodesProcessorTest extends Specification {
 	void "returns number of episodes when episodes related templates are found"() {
 		given:
 		Page page = new Page(title: TITLE)
-		Template disTemplate = new Template(title: TemplateTitle.DIS,
-				parts: [new Template.Part(value: SeasonNumberOfEpisodesProcessor.DIS_TEMPLATE_EPISODE_PART_VALUE)])
-		Template disTemplateToSkip = new Template(title: TemplateTitle.DIS)
-		Template eTemplate = new Template(title: TemplateTitle.E)
+		Template rowTemplate1 = new Template(title: TemplateTitle.ROW)
+		Template rowTemplate2 = new Template(title: TemplateTitle.ROW)
 		Page templatePage = new Page()
 
 		when:
@@ -64,7 +62,7 @@ class SeasonNumberOfEpisodesProcessorTest extends Specification {
 
 		then:
 		1 * pageApiMock.getTemplate(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> templatePage
-		1 * templateFinderMock.findTemplates(templatePage, TemplateTitle.DIS, TemplateTitle.E) >> [disTemplate, eTemplate, disTemplateToSkip]
+		1 * templateFinderMock.findTemplates(templatePage, TemplateTitle.ROW) >> [rowTemplate1, rowTemplate2]
 		0 * _
 		numberOfEpisodes == 2
 	}

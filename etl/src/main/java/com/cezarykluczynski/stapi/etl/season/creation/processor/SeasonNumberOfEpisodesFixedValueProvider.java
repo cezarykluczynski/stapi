@@ -13,6 +13,7 @@ import java.util.Map;
 public class SeasonNumberOfEpisodesFixedValueProvider implements FixedValueProvider<String, Integer> {
 
 	private static final Map<String, Integer> SEASON_NUMBER_OF_EPISODES_MAP = ImmutableMap.<String, Integer>builder()
+			.put("After Trek Season 1", 14)
 			.put("ST Season 1", 4)
 			.put("ST Season 2", 6)
 			.put("The Ready Room Season 1", 13)
@@ -22,6 +23,8 @@ public class SeasonNumberOfEpisodesFixedValueProvider implements FixedValueProvi
 			.put("The Ready Room Prodigy Specials", 2)
 			.put("The Ready Room Season 4", 29)
 			.put("The Ready Room Season 5", 10)
+			.put("The Ready Room Season 6", 9)
+			.put("The Ready Room Strange New Worlds Specials", 1)
 			.build();
 
 	@Override
