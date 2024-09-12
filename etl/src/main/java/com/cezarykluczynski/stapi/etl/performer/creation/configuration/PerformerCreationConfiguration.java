@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
+import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateExternalLinksEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor;
@@ -69,6 +70,7 @@ public class PerformerCreationConfiguration {
 				applicationContext.getBean(PageToLifeRangeProcessor.class),
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
 				applicationContext.getBean(PerformerCategoriesActorTemplateEnrichingProcessor.class),
+				applicationContext.getBean(ActorTemplateExternalLinksEnrichingProcessor.class),
 				applicationContext.getBean(PageBindingService.class),
 				applicationContext.getBean(TemplateFinder.class),
 				applicationContext.getBean(WikitextApi.class));

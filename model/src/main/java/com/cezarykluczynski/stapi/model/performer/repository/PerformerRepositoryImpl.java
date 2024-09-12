@@ -64,6 +64,8 @@ public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 		performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, doFetch);
 		performerQueryBuilder.divideQueries();
 		performerQueryBuilder.fetch(Performer_.characters, doFetch);
+		performerQueryBuilder.divideQueries();
+		performerQueryBuilder.fetch(Performer_.externalLinks, doFetch);
 
 		return performerQueryBuilder.findPage();
 	}

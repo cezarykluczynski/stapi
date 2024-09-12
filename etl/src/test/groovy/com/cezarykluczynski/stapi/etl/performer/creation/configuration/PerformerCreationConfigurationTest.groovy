@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCate
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter
 import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider
+import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateExternalLinksEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor
@@ -80,6 +81,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		PageToLifeRangeProcessor pageToLifeRangeProcessorMock = Mock()
 		ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock = Mock()
 		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock = Mock()
+		ActorTemplateExternalLinksEnrichingProcessor actorTemplateExternalLinksEnrichingProcessorMock = Mock()
 		PageBindingService pageBindingServiceMock = Mock()
 		TemplateFinder templateFinderMock = Mock()
 		WikitextApi wikitextApiMock = Mock()
@@ -94,6 +96,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		1 * applicationContextMock.getBean(ActorTemplateTemplateProcessor) >> actorTemplateTemplateProcessorMock
 		1 * applicationContextMock.getBean(PerformerCategoriesActorTemplateEnrichingProcessor) >>
 				performerCategoriesActorTemplateEnrichingProcessorMock
+		1 * applicationContextMock.getBean(ActorTemplateExternalLinksEnrichingProcessor) >> actorTemplateExternalLinksEnrichingProcessorMock
 		1 * applicationContextMock.getBean(PageBindingService) >> pageBindingServiceMock
 		1 * applicationContextMock.getBean(TemplateFinder) >> templateFinderMock
 		1 * applicationContextMock.getBean(WikitextApi) >> wikitextApiMock
@@ -102,6 +105,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		actorTemplateSinglePageProcessor.pageToLifeRangeProcessor == pageToLifeRangeProcessorMock
 		actorTemplateSinglePageProcessor.actorTemplateTemplateProcessor == actorTemplateTemplateProcessorMock
 		actorTemplateSinglePageProcessor.categoriesActorTemplateEnrichingProcessor == performerCategoriesActorTemplateEnrichingProcessorMock
+		actorTemplateSinglePageProcessor.actorTemplateExternalLinksEnrichingProcessor == actorTemplateExternalLinksEnrichingProcessorMock
 		actorTemplateSinglePageProcessor.pageBindingService == pageBindingServiceMock
 		actorTemplateSinglePageProcessor.templateFinder == templateFinderMock
 		actorTemplateSinglePageProcessor.wikitextApi == wikitextApiMock

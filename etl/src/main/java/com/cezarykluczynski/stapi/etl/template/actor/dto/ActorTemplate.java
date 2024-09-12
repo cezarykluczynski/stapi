@@ -2,8 +2,12 @@ package com.cezarykluczynski.stapi.etl.template.actor.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.google.common.collect.Sets;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class ActorTemplate {
@@ -179,5 +183,7 @@ public class ActorTemplate {
 	private boolean videoGameProductionStaff;
 
 	private boolean writer;
+
+	private Set<ExternalLink> externalLinks = Sets.newHashSet();
 
 }

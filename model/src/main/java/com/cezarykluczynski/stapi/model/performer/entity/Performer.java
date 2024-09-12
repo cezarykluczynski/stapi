@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
@@ -29,9 +30,9 @@ import java.util.Set;
 @Data
 @Entity
 @ToString(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances", "episodesStandInPerformances", "moviesPerformances",
-		"moviesStuntPerformances", "moviesStandInPerformances", "characters"})
+		"moviesStuntPerformances", "moviesStandInPerformances", "characters", "externalLinks"})
 @EqualsAndHashCode(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances", "episodesStandInPerformances",
-		"moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances", "characters"})
+		"moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances", "characters", "externalLinks"})
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = PerformerRepository.class, singularName = "performer",
 		pluralName = "performers", restApiVersion = "v2")
 public class Performer extends RealWorldPerson implements PageAware {
@@ -108,5 +109,11 @@ public class Performer extends RealWorldPerson implements PageAware {
 			joinColumns = @JoinColumn(name = "performer_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	private Set<Character> characters = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "performers_external_links",
+			joinColumns = @JoinColumn(name = "performer_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "external_link_id", nullable = false, updatable = false))
+	private Set<ExternalLink> externalLinks = Sets.newHashSet();
 
 }

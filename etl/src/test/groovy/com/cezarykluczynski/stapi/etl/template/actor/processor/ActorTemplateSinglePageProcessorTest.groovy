@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.etl.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.etl.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
@@ -42,6 +43,8 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessorMock
 
+	private ActorTemplateExternalLinksEnrichingProcessor actorTemplateExternalLinksEnrichingProcessorMock
+
 	private PageBindingService pageBindingServiceMock
 
 	private TemplateFinder templateFinderMock
@@ -59,12 +62,13 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		pageToLifeRangeProcessorMock = Mock()
 		actorTemplateTemplateProcessorMock = Mock()
 		categoriesActorTemplateEnrichingProcessorMock = Mock()
+		actorTemplateExternalLinksEnrichingProcessorMock = Mock()
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		wikitextApiMock = Mock()
 		actorTemplateSinglePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock, pageToLifeRangeProcessorMock,
-				actorTemplateTemplateProcessorMock, categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock, templateFinderMock,
-				wikitextApiMock)
+				actorTemplateTemplateProcessorMock, categoriesActorTemplateEnrichingProcessorMock, actorTemplateExternalLinksEnrichingProcessorMock,
+				pageBindingServiceMock, templateFinderMock, wikitextApiMock)
 
 		template = new Template(title: TemplateTitle.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(
@@ -287,9 +291,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.gender == null
 	}
 
-	void "uses CategoriesActorTemplateEnrichingProcessor to enrich ActorTemplate"() {
+	void "uses enriching processors"() {
 		given:
 		actorTemplateTemplateProcessorMock.process(_) >> new ActorTemplate()
+		ExternalLink externalLink = Mock()
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
@@ -299,7 +304,11 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		1 * categoriesActorTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair ->
 			enrichablePair.output.animalPerformer = true
 		}
+		1 * actorTemplateExternalLinksEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair ->
+			enrichablePair.output.externalLinks.add(externalLink)
+		}
 		actorTemplate.animalPerformer
+		actorTemplate.externalLinks.contains externalLink
 	}
 
 }

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProces
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 
 class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
@@ -23,6 +24,7 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 
 	void "converts ActorTemplate to Performer"() {
 		given:
+		ExternalLink externalLink = Mock()
 		ActorTemplate actorTemplate = new ActorTemplate(
 				page: PAGE,
 				animalPerformer: ANIMAL_PERFORMER,
@@ -45,7 +47,8 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 				tosPerformer: TOS_PERFORMER,
 				videoGamePerformer: VIDEO_GAME_PERFORMER,
 				voicePerformer: VOICE_PERFORMER,
-				voyPerformer: VOY_PERFORMER
+				voyPerformer: VOY_PERFORMER,
+				externalLinks: Set.of(externalLink)
 		)
 
 		when:
@@ -75,6 +78,7 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 		performer.videoGamePerformer == VIDEO_GAME_PERFORMER
 		performer.voicePerformer == VOICE_PERFORMER
 		performer.voyPerformer == VOY_PERFORMER
+		performer.externalLinks.contains externalLink
 	}
 
 	void "ActorTemplate with only nulls and false values is converted to Performer with only nulls and false values"() {
@@ -106,6 +110,7 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 		!performer.videoGamePerformer
 		!performer.voicePerformer
 		!performer.voyPerformer
+		performer.externalLinks.empty
 	}
 
 }

@@ -18,6 +18,7 @@ import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 
@@ -28,36 +29,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Slf4j
+@RequiredArgsConstructor
 public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, ActorTemplate> {
 
 	private static final Pattern BIRTH_NAME = Pattern.compile("'''(.+?)'''");
 
-	private PageToGenderProcessor pageToGenderProcessor;
+	private final PageToGenderProcessor pageToGenderProcessor;
 
-	private PageToLifeRangeProcessor pageToLifeRangeProcessor;
+	private final PageToLifeRangeProcessor pageToLifeRangeProcessor;
 
-	private ActorTemplateTemplateProcessor actorTemplateTemplateProcessor;
+	private final ActorTemplateTemplateProcessor actorTemplateTemplateProcessor;
 
-	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor;
+	private final CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor;
 
-	private PageBindingService pageBindingService;
+	private final ActorTemplateExternalLinksEnrichingProcessor actorTemplateExternalLinksEnrichingProcessor;
 
-	private TemplateFinder templateFinder;
+	private final PageBindingService pageBindingService;
 
-	private WikitextApi wikitextApi;
+	private final TemplateFinder templateFinder;
 
-	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor, PageToLifeRangeProcessor pageToLifeRangeProcessor,
-			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
-			CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor,
-			PageBindingService pageBindingService, TemplateFinder templateFinder, WikitextApi wikitextApi) {
-		this.pageToGenderProcessor = pageToGenderProcessor;
-		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;
-		this.actorTemplateTemplateProcessor = actorTemplateTemplateProcessor;
-		this.categoriesActorTemplateEnrichingProcessor = categoriesActorTemplateEnrichingProcessor;
-		this.pageBindingService = pageBindingService;
-		this.templateFinder = templateFinder;
-		this.wikitextApi = wikitextApi;
-	}
+	private final WikitextApi wikitextApi;
 
 	@Override
 	public ActorTemplate process(Page item) throws Exception {
@@ -82,6 +73,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 
 		removeBirthNameIfItEqualsName(actorTemplate);
 		categoriesActorTemplateEnrichingProcessor.enrich(EnrichablePair.of(item.getCategories(), actorTemplate));
+		actorTemplateExternalLinksEnrichingProcessor.enrich(EnrichablePair.of(item, actorTemplate));
 
 		return actorTemplate;
 	}

@@ -47,6 +47,7 @@ public class PerformerActorTemplateProcessor implements ItemProcessor<ActorTempl
 		performer.setVideoGamePerformer(item.isVideoGamePerformer());
 		performer.setVoicePerformer(item.isVoicePerformer());
 		performer.setVoyPerformer(item.isVoyPerformer());
+		performer.getExternalLinks().addAll(item.getExternalLinks());
 
 		return performer;
 	}

@@ -132,6 +132,8 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, true)
 		1 * performerQueryBuilder.divideQueries()
 		1 * performerQueryBuilder.fetch(Performer_.characters, true)
+		1 * performerQueryBuilder.divideQueries()
+		1 * performerQueryBuilder.fetch(Performer_.externalLinks, true)
 
 		then: 'page is searched for and returned'
 		1 * performerQueryBuilder.findPage() >> page
