@@ -18,6 +18,7 @@
 	<suppress files=".+ContentLanguageDTOProvider\.java" checks="FileLength"/>
 	<suppress files=".+EndpointHitsConsoleOutputFormatter\.java" checks="FileLength"/>
 	<suppress files=".+WikitextApiImpl\.java" checks="FileLength"/>
+	<suppress files=".+RealWorldPersonGenderFixedValueProvider\.java" checks="FileLength"/>
 	<suppress files="_\.java" checks="."/>
 	<suppress files=".+com[\\/]cezarykluczynski[\\/]stapi[\\/]client.+" checks="."/>
 	<suppress files="com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]" checks="ClassFanOutComplexity"/>

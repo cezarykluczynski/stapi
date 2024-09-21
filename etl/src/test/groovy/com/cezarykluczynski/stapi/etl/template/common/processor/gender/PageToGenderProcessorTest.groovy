@@ -14,7 +14,7 @@ class PageToGenderProcessorTest extends Specification {
 
 	private PageToGenderRoleProcessor pageToGenderRoleProcessorMock
 
-	private GenderFixedValueProvider genderFixedValueProvider
+	private RealWorldPersonGenderFixedValueProvider realWorldPersonGenderFixedValueProvider
 
 	private PageToGenderNameProcessor pageToGenderNameProcessorMock
 
@@ -25,10 +25,10 @@ class PageToGenderProcessorTest extends Specification {
 	void setup() {
 		pageToGenderPronounProcessorMock = Mock()
 		pageToGenderRoleProcessorMock = Mock()
-		genderFixedValueProvider = Mock()
+		realWorldPersonGenderFixedValueProvider = Mock()
 		pageToGenderNameProcessorMock = Mock()
-		pageToGenderProcessor = new PageToGenderProcessor(pageToGenderPronounProcessorMock, pageToGenderRoleProcessorMock, genderFixedValueProvider,
-				pageToGenderNameProcessorMock)
+		pageToGenderProcessor = new PageToGenderProcessor(pageToGenderPronounProcessorMock, pageToGenderRoleProcessorMock,
+				realWorldPersonGenderFixedValueProvider, pageToGenderNameProcessorMock)
 		page = Mock()
 		page.title >> TITLE
 	}
@@ -38,7 +38,7 @@ class PageToGenderProcessorTest extends Specification {
 		Gender gender = pageToGenderProcessor.process(page)
 
 		then:
-		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.of(true, GENDER)
+		1 * realWorldPersonGenderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.of(true, GENDER)
 		gender == GENDER
 	}
 
@@ -47,7 +47,7 @@ class PageToGenderProcessorTest extends Specification {
 		pageToGenderProcessor.process(page)
 
 		then:
-		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * realWorldPersonGenderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		0 * pageToGenderPronounProcessorMock._
 		0 * pageToGenderRoleProcessorMock._
 		1 * pageToGenderNameProcessorMock._
@@ -59,7 +59,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * page.wikitext >> ''
-		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * realWorldPersonGenderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * pageToGenderPronounProcessorMock.process(page) >> GENDER
 		gender == GENDER
 	}
@@ -70,7 +70,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * page.wikitext >> ''
-		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * realWorldPersonGenderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * pageToGenderPronounProcessorMock.process(page) >> null
 		1 * pageToGenderRoleProcessorMock.process(page) >> GENDER
 		gender == GENDER
@@ -82,7 +82,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * page.wikitext >> ''
-		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * realWorldPersonGenderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * pageToGenderPronounProcessorMock.process(page) >> null
 		1 * pageToGenderRoleProcessorMock.process(page) >> null
 		1 * pageToGenderNameProcessorMock.process(page) >> GENDER
@@ -95,7 +95,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * page.wikitext >> ''
-		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * realWorldPersonGenderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * pageToGenderPronounProcessorMock.process(page) >> null
 		1 * pageToGenderRoleProcessorMock.process(page) >> null
 		1 * pageToGenderNameProcessorMock.process(page) >> null

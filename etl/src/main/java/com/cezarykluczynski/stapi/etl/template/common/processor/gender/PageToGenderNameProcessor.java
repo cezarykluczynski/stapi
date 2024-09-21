@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.genderize.client.GenderizeClient;
 import com.cezarykluczynski.stapi.etl.genderize.dto.NameGenderDTO;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
@@ -18,17 +19,27 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 
 	private final FullNameToFirstNameProcessor fullNameToFirstNameProcessor;
 
+	private final FirstNameToGenderFixedValueProvider firstNameToGenderFixedValueProvider;
+
 	private final GenderizeClient genderizeClient;
 
 	public PageToGenderNameProcessor(FullNameToFirstNameProcessor fullNameToFirstNameProcessor,
+			FirstNameToGenderFixedValueProvider firstNameToGenderFixedValueProvider,
 			GenderizeClient genderizeClient) {
 		this.fullNameToFirstNameProcessor = fullNameToFirstNameProcessor;
+		this.firstNameToGenderFixedValueProvider = firstNameToGenderFixedValueProvider;
 		this.genderizeClient = genderizeClient;
 	}
 
 	@Override
 	public Gender process(Page item) throws Exception {
 		String name = fullNameToFirstNameProcessor.process(item.getTitle());
+
+		FixedValueHolder<Gender> genderFromFirstName = firstNameToGenderFixedValueProvider.getSearchedValue(name);
+		if (genderFromFirstName.isFound()) {
+			return genderFromFirstName.getValue();
+		}
+
 		NameGenderDTO nameGenderDTO = genderizeClient.getNameGender(name);
 
 		if (nameGenderDTO == null) {
@@ -50,7 +61,7 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 			log.info("Probability {} of gender {} found in external API for name \"{}\" lower than required {}.",
 					probability, gender, name, MINIMAL_PROBABILITY);
 			return null;
-		} else if (probability < 1.0f) {
+		} else {
 			log.info("Gender {} found in external API for \"{}\" with probability {}",
 					gender, item.getTitle(), probability);
 		}

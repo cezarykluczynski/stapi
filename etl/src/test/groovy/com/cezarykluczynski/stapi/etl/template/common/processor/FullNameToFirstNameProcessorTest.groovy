@@ -26,12 +26,4 @@ class FullNameToFirstNameProcessorTest extends Specification {
 		firstName == 'Patrick'
 	}
 
-	void "gets second word if first word is an initial"() {
-		when:
-		String firstName = fullNameToFirstNameProcessor.process('J. John Doe')
-
-		then:
-		firstName == 'John'
-	}
-
 }

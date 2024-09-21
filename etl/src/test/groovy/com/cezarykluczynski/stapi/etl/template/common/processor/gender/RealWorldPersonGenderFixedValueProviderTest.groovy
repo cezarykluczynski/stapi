@@ -4,17 +4,17 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import spock.lang.Specification
 
-class GenderFixedValueProviderTest extends Specification {
+class RealWorldPersonGenderFixedValueProviderTest extends Specification {
 
-	private GenderFixedValueProvider pageToGenderSupplementaryProcessor
+	private RealWorldPersonGenderFixedValueProvider realWorldPersonGenderFixedValueProvider
 
 	void setup() {
-		pageToGenderSupplementaryProcessor = new GenderFixedValueProvider()
+		realWorldPersonGenderFixedValueProvider = new RealWorldPersonGenderFixedValueProvider()
 	}
 
 	void "gets fixed value holder when name is found"() {
 		when:
-		FixedValueHolder<Gender> fixedValueHolder = pageToGenderSupplementaryProcessor.getSearchedValue('Maurishka')
+		FixedValueHolder<Gender> fixedValueHolder = realWorldPersonGenderFixedValueProvider.getSearchedValue('Maurishka')
 
 		then:
 		fixedValueHolder.found
@@ -23,7 +23,7 @@ class GenderFixedValueProviderTest extends Specification {
 
 	void "gets fixed value holder when name is not found"() {
 		when:
-		FixedValueHolder<Gender> fixedValueHolder = pageToGenderSupplementaryProcessor.getSearchedValue('Brent Spiner')
+		FixedValueHolder<Gender> fixedValueHolder = realWorldPersonGenderFixedValueProvider.getSearchedValue('Brent Spiner')
 
 		then:
 		!fixedValueHolder.found
@@ -32,7 +32,7 @@ class GenderFixedValueProviderTest extends Specification {
 
 	void "gets fixed value holder when name is found, but null"() {
 		when:
-		FixedValueHolder<Gender> fixedValueHolder = pageToGenderSupplementaryProcessor
+		FixedValueHolder<Gender> fixedValueHolder = realWorldPersonGenderFixedValueProvider
 				.getSearchedValue('Two Steps From Hell')
 
 		then:

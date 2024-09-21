@@ -3,11 +3,13 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 
@@ -15,22 +17,14 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 
 	private final PageToGenderRoleProcessor pageToGenderRoleProcessor;
 
-	private final GenderFixedValueProvider genderFixedValueProvider;
+	private final RealWorldPersonGenderFixedValueProvider realWorldPersonGenderFixedValueProvider;
 
 	private final PageToGenderNameProcessor pageToGenderNameProcessor;
-
-	public PageToGenderProcessor(PageToGenderPronounProcessor pageToGenderPronounProcessor, PageToGenderRoleProcessor pageToGenderRoleProcessor,
-			GenderFixedValueProvider genderFixedValueProvider, PageToGenderNameProcessor pageToGenderNameProcessor) {
-		this.pageToGenderPronounProcessor = pageToGenderPronounProcessor;
-		this.pageToGenderRoleProcessor = pageToGenderRoleProcessor;
-		this.genderFixedValueProvider = genderFixedValueProvider;
-		this.pageToGenderNameProcessor = pageToGenderNameProcessor;
-	}
 
 	@Override
 	public Gender process(Page item) throws Exception {
 		String pageTitle = item.getTitle();
-		FixedValueHolder<Gender> fixedValueHolder = genderFixedValueProvider.getSearchedValue(pageTitle);
+		FixedValueHolder<Gender> fixedValueHolder = realWorldPersonGenderFixedValueProvider.getSearchedValue(pageTitle);
 
 		if (fixedValueHolder.isFound()) {
 			return fixedValueHolder.getValue();

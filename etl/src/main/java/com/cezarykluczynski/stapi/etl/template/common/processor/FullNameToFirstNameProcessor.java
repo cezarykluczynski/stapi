@@ -18,10 +18,6 @@ public class FullNameToFirstNameProcessor implements ItemProcessor<String, Strin
 			return nameParts.get(0);
 		}
 
-		if (nameParts.get(0).endsWith(".")) {
-			return nameParts.get(1);
-		}
-
 		return nameParts.get(0);
 	}
 
