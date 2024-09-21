@@ -83,6 +83,7 @@ public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate,
 		staff.setTransportationDepartment(item.isTransportationDepartment());
 		staff.setVideoGameProductionStaff(item.isVideoGameProductionStaff());
 		staff.setWriter(item.isWriter());
+		staff.getExternalLinks().addAll(item.getExternalLinks());
 
 		return staff;
 	}

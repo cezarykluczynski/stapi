@@ -4,14 +4,20 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository;
+import com.google.common.collect.Sets;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
@@ -23,9 +29,10 @@ import java.util.Set;
 @Data
 @Entity
 @ToString(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes", "episodes",
-		"writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
+		"writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies", "externalLinks"})
 @EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes",
-		"episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
+		"episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies",
+		"externalLinks"})
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = StaffRepository.class, singularName = "staff", pluralName = "staff members",
 		restApiVersion = "v2")
 public class Staff extends RealWorldPerson implements PageAware {
@@ -187,5 +194,11 @@ public class Staff extends RealWorldPerson implements PageAware {
 
 	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
 	private Set<Movie> movies;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "staff_external_links",
+			joinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "external_link_id", nullable = false, updatable = false))
+	private Set<ExternalLink> externalLinks = Sets.newHashSet();
 
 }

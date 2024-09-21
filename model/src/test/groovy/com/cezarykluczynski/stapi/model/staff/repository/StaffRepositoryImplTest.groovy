@@ -219,6 +219,8 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffQueryBuilder.fetch(Staff_.directedMovies, true)
 		1 * staffQueryBuilder.fetch(Staff_.producedMovies, true)
 		1 * staffQueryBuilder.fetch(Staff_.movies, true)
+		1 * staffQueryBuilder.divideQueries()
+		1 * staffQueryBuilder.fetch(Staff_.externalLinks, true)
 
 		then: 'page is retrieved'
 		1 * staffQueryBuilder.findPage() >> page

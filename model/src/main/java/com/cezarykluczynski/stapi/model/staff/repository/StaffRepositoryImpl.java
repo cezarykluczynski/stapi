@@ -109,6 +109,8 @@ public class StaffRepositoryImpl implements StaffRepositoryCustom {
 		staffQueryBuilder.fetch(Staff_.directedMovies, doFetch);
 		staffQueryBuilder.fetch(Staff_.producedMovies, doFetch);
 		staffQueryBuilder.fetch(Staff_.movies, doFetch);
+		staffQueryBuilder.divideQueries();
+		staffQueryBuilder.fetch(Staff_.externalLinks, doFetch);
 
 		return staffQueryBuilder.findPage();
 	}

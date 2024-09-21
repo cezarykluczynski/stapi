@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProces
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
+import com.cezarykluczynski.stapi.model.external_link.entity.ExternalLink
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 
@@ -24,6 +25,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 	void "converts ActorTemplate to Staff"() {
 		given:
+		ExternalLink externalLink = Mock()
 		ActorTemplate actorTemplate = new ActorTemplate(
 				page: PAGE,
 				artDepartment: ART_DEPARTMENT,
@@ -83,7 +85,8 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 				stuntDepartment: STUNT_DEPARTMENT,
 				transportationDepartment: TRANSPORTATION_DEPARTMENT,
 				videoGameProductionStaff: VIDEO_GAME_PRODUCTION_STAFF,
-				writer: WRITER
+				writer: WRITER,
+				externalLinks: Set.of(externalLink)
 		)
 
 		when:
@@ -150,6 +153,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		staff.transportationDepartment == TRANSPORTATION_DEPARTMENT
 		staff.videoGameProductionStaff == VIDEO_GAME_PRODUCTION_STAFF
 		staff.writer == WRITER
+		staff.externalLinks.contains externalLink
 	}
 
 	void "ActorTemplate with only nulls and false values is converted to Staff with only nulls and false values"() {

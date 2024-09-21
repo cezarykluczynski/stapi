@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
+import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateExternalLinksEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor;
@@ -63,6 +64,7 @@ public class StaffCreationConfiguration {
 				applicationContext.getBean(PageToLifeRangeProcessor.class),
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
 				applicationContext.getBean(StaffCategoriesActorTemplateEnrichingProcessor.class),
+				applicationContext.getBean(ActorTemplateExternalLinksEnrichingProcessor.class),
 				applicationContext.getBean(PageBindingService.class),
 				applicationContext.getBean(TemplateFinder.class),
 				applicationContext.getBean(WikitextApi.class));
