@@ -16,8 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor
 class PostgresCommandProvider {
 
-	private static final String BACKUP_COMMAND = "--file %s --host \"localhost\" --port %s --username \"postgres\" --verbose --role \"postgres\" "
-			+ "--format=t --blobs --section=pre-data --section=data --section=post-data --encoding \"UTF8\" --schema \"stapi\" \"stapi\"";
+	private static final String BACKUP_COMMAND = "\"%s\" --file %s --host \"localhost\" --port %s --username \"postgres\" --verbose --role "
+			+ "\"postgres\" --format=t --blobs --section=pre-data --section=data --section=post-data --encoding \"UTF8\" --schema \"stapi\" "
+			+ "\"stapi\"";
 
 	private final BackupAfterStepProperties backupAfterStepProperties;
 	private final HikariDataSource hikariDataSource;
@@ -31,10 +32,8 @@ class PostgresCommandProvider {
 			return List.of();
 		}
 
-		String params = String.format(BACKUP_COMMAND, backupFile.getAbsolutePath(), port);
-		List<String> command = Lists.newArrayList(Arrays.stream(params.split(" ")).toList());
-		command.add(0, backupAfterStepProperties.getPgDumpPath());
-		return command;
+		String params = String.format(BACKUP_COMMAND, backupAfterStepProperties.getPgDumpPath(), backupFile.getAbsolutePath(), port);
+		return Lists.newArrayList(Arrays.stream(params.split(" ")).toList());
 	}
 
 }

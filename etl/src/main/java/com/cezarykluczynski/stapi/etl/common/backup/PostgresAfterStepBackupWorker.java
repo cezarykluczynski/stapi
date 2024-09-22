@@ -47,7 +47,7 @@ public class PostgresAfterStepBackupWorker implements AfterStepBackupWorker {
 		if (command.isEmpty()) {
 			return;
 		}
-
+		log.info("Postgres backup command is: {}", String.join(" ", command));
 		File postgresOutput = backupFileUtils.createTempFile("stapi_pg_output.txt");
 		File postgresError = backupFileUtils.createTempFile("stapi_pg_error.txt");
 		ProcessBuilder processBuilder = backupFileUtils.createProcessBuilder(command, postgresOutput, postgresError);

@@ -51,7 +51,7 @@ class PostgresCommandProviderTest extends Specification {
 		1 * backupAfterStepPropertiesMock.pgDumpPath >> PG_DUMP_PATH
 		0 * _
 		command.size() == 22
-		command[0] == PG_DUMP_PATH
+		command[0] == '"PG_DUMP_PATH"'
 		command[2] == ABSOLUTE_PATH
 	}
 
