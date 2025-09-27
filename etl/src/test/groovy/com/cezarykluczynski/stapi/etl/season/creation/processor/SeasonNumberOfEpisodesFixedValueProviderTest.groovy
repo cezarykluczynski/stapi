@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class SeasonNumberOfEpisodesFixedValueProviderTest extends Specification {
 
-	private static final String EXISTING_TITLE = 'The Ready Room Season 1'
+	private static final String EXISTING_TITLE = 'TRR Season 1'
 	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
 
 	private SeasonNumberOfEpisodesFixedValueProvider seasonNumberOfEpisodesFixedValueProvider

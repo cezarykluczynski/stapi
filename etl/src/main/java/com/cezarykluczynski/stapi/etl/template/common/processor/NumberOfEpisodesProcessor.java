@@ -26,6 +26,12 @@ public class NumberOfEpisodesProcessor implements ItemProcessor<Template.Part, I
 	public Integer process(Template.Part item) throws Exception {
 		final List<Template> templates = item.getTemplates();
 		if (CollectionUtils.isEmpty(templates)) {
+			if (item.getValue() != null) {
+				Integer maybeNumberOfEpisodes = Ints.tryParse(item.getValue());
+				if (maybeNumberOfEpisodes != null) {
+					return maybeNumberOfEpisodes;
+				}
+			}
 			log.warn("No templates found for item {}, returning null number of episodes.", item);
 			return null;
 		}

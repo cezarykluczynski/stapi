@@ -14,11 +14,14 @@ class SeasonSeriesProcessorTest extends Specification {
 
 	private SeriesRepository seriesRepositoryMock
 
+	private SeasonSeriesAbbreviationFixer seasonSeriesAbbreviationFixerMock
+
 	private SeasonSeriesProcessor seasonSeriesProcessor
 
 	void setup() {
 		seriesRepositoryMock = Mock()
-		seasonSeriesProcessor = new SeasonSeriesProcessor(seriesRepositoryMock)
+		seasonSeriesAbbreviationFixerMock = Mock()
+		seasonSeriesProcessor = new SeasonSeriesProcessor(seriesRepositoryMock, seasonSeriesAbbreviationFixerMock)
 	}
 
 	void "throws exception when series cannot be found by abbreviation and by prefix"() {
@@ -29,6 +32,7 @@ class SeasonSeriesProcessorTest extends Specification {
 		seasonSeriesProcessor.process(DS9_SEASON_PAGE_TITLE)
 
 		then:
+		1 * seasonSeriesAbbreviationFixerMock.fix(DS9_ABBREVIATION) >> DS9_ABBREVIATION
 		1 * seriesRepositoryMock.findByAbbreviation(DS9_ABBREVIATION) >> Optional.empty()
 		1 * seriesRepositoryMock.findAll() >> [differentSeries]
 		0 * _
@@ -43,6 +47,7 @@ class SeasonSeriesProcessorTest extends Specification {
 		Series seriesOutput = seasonSeriesProcessor.process(DS9_SEASON_PAGE_TITLE)
 
 		then:
+		1 * seasonSeriesAbbreviationFixerMock.fix(DS9_ABBREVIATION) >> DS9_ABBREVIATION
 		1 * seriesRepositoryMock.findByAbbreviation(DS9_ABBREVIATION) >> Optional.of(series)
 		0 * _
 		seriesOutput == series
@@ -56,6 +61,7 @@ class SeasonSeriesProcessorTest extends Specification {
 		Series seriesOutput = seasonSeriesProcessor.process(TRR_SEASON_PAGE_TITLE)
 
 		then:
+		1 * seasonSeriesAbbreviationFixerMock.fix('The') >> 'The'
 		1 * seriesRepositoryMock.findByAbbreviation('The') >> Optional.empty()
 		1 * seriesRepositoryMock.findAll() >> [series]
 		0 * _

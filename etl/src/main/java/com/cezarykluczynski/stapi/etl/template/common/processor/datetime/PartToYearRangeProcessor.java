@@ -111,8 +111,8 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 				}
 			}
 		} else if (monthsSize == 2) {
-			final MonthYearCandidate monthYearFrom = monthlinkTemplateToMonthYearCandiateProcessor.process(yearTemplateList.get(0));
-			final MonthYearCandidate monthYearTo = monthlinkTemplateToMonthYearCandiateProcessor.process(yearTemplateList.get(1));
+			final MonthYearCandidate monthYearFrom = monthlinkTemplateToMonthYearCandiateProcessor.process(monthTemplateList.get(0));
+			final MonthYearCandidate monthYearTo = monthlinkTemplateToMonthYearCandiateProcessor.process(monthTemplateList.get(1));
 			if (monthYearFrom != null) {
 				yearRange.setYearFrom(monthYearFrom.getYear());
 			}

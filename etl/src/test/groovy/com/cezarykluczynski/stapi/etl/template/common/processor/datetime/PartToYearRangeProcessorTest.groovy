@@ -142,6 +142,18 @@ class PartToYearRangeProcessorTest extends Specification {
 		yearRange.yearTo == 1994
 	}
 
+	void "returns start date and end date two m templates are present, separated by &ndash;"() {
+		when:
+		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('&ndash;', [
+				new Template(title: 'm', parts: [new Template.Part(key: '1', value: 'September'), new Template.Part(key: '2', value: '1987')]),
+				new Template(title: 'm', parts: [new Template.Part(key: '1', value: 'August'), new Template.Part(key: '2', value: '1994')])
+		]))
+
+		then:
+		yearRange.yearFrom == 1987
+		yearRange.yearTo == 1994
+	}
+
 	void "returns start date and end date, when value contains then, separated by ' to '"() {
 		when:
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1990 to 2000', null))
